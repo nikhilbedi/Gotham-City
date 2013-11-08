@@ -17,7 +17,7 @@
 |  2  | William Hunter McNichols     | wmcnicho@usc.edu         | @[wmcnicho](https://github.com/wmcnicho)       |                |
 |  3  | Meruyert Aitbayeva           | aitbayev@usc.edu         | @[aibtbayev](https://github.com/aitbayev)         |                |
 |  4  | Brice Roland                 | broland@usc.edu          | @[broland](https://github.com/broland)        |                |
-|  5  | Nikhil Bedi                  | nikhilbedi1994@gmail.com | @[mrfixit](https://github.com/mrfixit)        |                |
+|  5  | Nikhil Bedi                  | nikhilbedi1994@gmail.com | @[nikhilbedi](https://github.com/nikhilbedi)        |                |
 
 ####Team Meetings
 |       Meeting       |           Time                  |      Location      |
