@@ -1,4 +1,5 @@
-    public class Coordinate
+package Gui;
+public class Coordinate
    {
       private int x;
       private int y;
