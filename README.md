@@ -11,18 +11,18 @@
   + [Documentation](https://github.com/usc-csci201-fall2013/team31/wiki)
 
 ####Team Members
-| No. | Name (First (Nickname) Last) |       USC Email       |                GitHub Username                |      Role      |
-| :-: | :--------------------------- | :-------------------- | :-------------------------------------------- | :------------- |
-|  1  | Meruyert Aitbayeva           | aitbayev@usc.edu      | @[aitbayev](https://github.com/aitbayev  )    |                |
-|  2  | Tory Foster                  | tfoster@usc.edu       | @[toaster](https://github.com/toaster)        |                |
-|  3  | Ellen Tigh                   | etigh@usc.edu         | @[kobol](https://github.com/[kobol)           |                |
-|  4  | Saul Tigh                    | xo@usc.edu            | @[colonel](https://github.com/colonel)        | Team Leader    |
-|  5  | Galen (Cheif) Tyrol          | resist@usc.edu        | @[mrfixit](https://github.com/mrfixit)        | git specialist |
-|  6  | Kara Thrace                  | starbuck@usc.edu      | @[starbuck](https://github.com/starbuck)      | A* Lead        |
+| No. | Name (First (Nickname) Last) |       USC Email          |                GitHub Username                |      Role      |
+| :-: | :--------------------------- | :--------------------    | :-------------------------------------------- | :------------- |
+|  1  | Evan Coutre                  | evcoutre@usc.edu         | @[aitbayev](https://github.com/evcoutre  )    |                |
+|  2  | William Hunter McNichols     | wmcnicho@usc.edu         | @[toaster](https://github.com/wmcnicho)       |                |
+|  3  | Meruyert Aitbayeva           | aitbayev@usc.edu         | @[kobol](https://github.com/aitbayev)         |                |
+|  4  | Brice Roland                 | broland@usc.edu          | @[colonel](https://github.com/broland)        |                |
+|  5  | Nikhil Bedi                  | nikhilbedi1994@gmail.com | @[mrfixit](https://github.com/mrfixit)        |                |
 
 ####Team Meetings
-|       Meeting       |           Time           |      Location      |
-| :------------------ | :----------------------- | :----------------- |
-| Lab                 | Wed. 10:00am             | SAL 109            |
-| Weekly Meeting 1    | Tues. 05:00pm to 10:00pm  | GFS 112            |
-| Weekly Meeting 2    | Thur. 05:00pm to 10:30pm  | SAL 125            |
+|       Meeting       |           Time                  |      Location      |
+| :------------------ | :-----------------------        | :----------------- |
+| Lab                 | Wed. 10:00am                    | SAL 109            |
+| Weekly Meeting 1    | Tues. 05:00pm to 10:00pm        | GFS 112            |
+| Weekly Meeting 2    | Thur. 05:00pm to 10:30pm        | SAL 125            |
+| General meetings    | Tues./Thur. 05:00pm to 10:30pm  | WPH B34            |
