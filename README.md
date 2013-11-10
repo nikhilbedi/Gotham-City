@@ -13,7 +13,7 @@
 ####Team Members
 | No. | Name (First (Nickname) Last) |       USC Email          |                GitHub Username                |      Role      |
 | :-: | :--------------------------- | :--------------------    | :-------------------------------------------- | :------------- |
-|  1  | Evan Coutre                  | evcoutre@usc.edu         | @[evcoutre](https://github.com/evcoutre  )    |                |
+|  1  | Evan Coutre                  | evcoutre@usc.edu         | @[evcoutre](https://github.com/evcoutre  )    |  Team Leader   |
 |  2  | William Hunter McNichols     | wmcnicho@usc.edu         | @[wmcnicho](https://github.com/wmcnicho)      |                |
 |  3  | Meruyert Aitbayeva           | aitbayev@usc.edu         | @[aibtbayev](https://github.com/aitbayev)     |                |
 |  4  | Brice Roland                 | broland@usc.edu          | @[broland](https://github.com/broland)        |                |
