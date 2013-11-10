@@ -3,10 +3,13 @@ package agent;
 
 import simcity.PersonAgent;
 
-public abstract class Role {
+public class Role {
 	/**
 	 * Base class for simple roles
 	 */
+	public Role(PersonAgent person){
+		myPerson = person;
+	}
 	
 	PersonAgent myPerson;
 	
