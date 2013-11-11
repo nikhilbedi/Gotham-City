@@ -8,7 +8,7 @@
 ####Resources
 
   + [Code Repository](https://github.com/usc-csci201-fall2013/team31)
-  + [Documentation](https://github.com/usc-csci201-fall2013/team31/wiki)
+  + [Documentation](https://github.com/usc-csci201-fall2013/team31/docs)
 
 ####Team Members
 | No. | Name (First (Nickname) Last) |       USC Email          |                GitHub Username                |      Role      |
