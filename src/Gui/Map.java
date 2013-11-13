@@ -13,20 +13,19 @@ package Gui;
       ArrayList<Door> door = new ArrayList<Door>();
       String loc = " ";
       int xCord, yCord;
-       public Map(int x, int y)
+      int temp;
+      
+      public Map()
       {
-         generate(x, y);
-         xCord = x;
-         yCord = y;
+    	 temp = 0;
+         generate();
       }
-       public int getX()
-      { 
-         return xCord; 
+       public Map(int t)
+      {
+    	 temp = t;
+         generate();
       }
-       public int getY()
-      { 
-         return yCord;
-      }
+
        public ArrayList<Obstacle> getObs()
       {
          return obst;
@@ -35,11 +34,34 @@ package Gui;
       {
          return door;
       }
-       public void generate(int x, int y)
+       
+       public void generate()
       {
          obst.clear();
          door.clear();
-            if(y==0)
+         
+         if(temp==1){
+        	 obst.add(new Obstacle(0,0, 400, 20));
+             obst.add(new Obstacle(0,0, 20, 400));
+             obst.add(new Obstacle(180, 180, 10, 50));
+             obst.add(new Obstacle(180, 180, 50, 10));
+         }
+         else if(temp==2){
+        	 
+         }
+         else if(temp==3){
+        	 
+         }
+         else if(temp==4){
+        	 
+         }
+         else if(temp==5){
+        	 
+         }
+         
+         
+         
+           /* if(y==0)
             {
                if(x==0)
                {
@@ -105,7 +127,7 @@ package Gui;
                   obst.add(new Obstacle(375,0,10, 400));
                   obst.add(new Obstacle(0, 390, 400, 10));
                }
-            }
+            }*/
          }
        
        public void paintAgents(Graphics g){

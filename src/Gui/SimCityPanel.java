@@ -1,12 +1,14 @@
 package Gui;
    import java.awt.event.*;
-   import javax.swing.*;
-   import java.awt.*;
-   import java.awt.Color;
-   import java.awt.event.*;
-   import java.awt.image.*;
-   import java.util.*;
-   public class SimCityPanel extends JPanel implements KeyListener
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.awt.image.*;
+import java.util.*;
+   
+   
+   public class SimCityPanel extends JPanel implements MouseListener
    {
       Player player;//this will soon be replaced by AgentGuis
       Map m;
@@ -16,11 +18,12 @@ package Gui;
       ArrayList<Door> door;
    	
       public SimCityPanel(){
-         m = new Map(0, 0);
+         m = new Map(1);
          player = new Player();
          obst = m.getObs();
          door = m.getDoors();
-         addKeyListener(this);
+         //addKeyListener(this);
+         addMouseListener(this);
          setFocusable(true);  
       }
       public void update(){
@@ -29,7 +32,7 @@ package Gui;
          player.move();
       
          
-         if(player.getX() <0)
+        /* if(player.getX() <0)
          {
             m.xCord--;
             m.generate(m.getY(), m.getX());
@@ -57,14 +60,24 @@ package Gui;
          {
             //m.generate(temp.xCord, temp.yCord, temp.zCord);
          
-         }
+         }*/
       }   
       public void paintComponent(Graphics g){//Here is where everything in the animation panel is generated
          m.paintBackground(g);
          m.paintObstacles(g);
       	 //m.paintAgents(g) TODO write this jones
          
-         player.paintSprite(g, player.getSprite());
+
+         if(m.temp == 1){
+        	 
+         }
+         if(m.temp == 2){
+        	 
+         }
+         
+         
+         
+         //player.paintSprite(g, player.getSprite());
          
       	
          
@@ -73,7 +86,7 @@ package Gui;
           * This is all debug messages that probably will be deleted soon
           */
          g.setColor(Color.red);//checking conditions
-         g.drawString("I: " + m.getY() + " A: " + m.getX(), 25, 25);
+        // g.drawString("I: " + m.getY() + " A: " + m.getX(), 25, 25);
          g.setColor(Color.white);
          g.drawString("X: " + player.getX() + "  Y: " + player.getY(), 50, 410);
          g.setColor(Color.white);
@@ -91,6 +104,8 @@ package Gui;
          if(player.getDoor()==false)
             g.drawString(""+door.toString(), 300, 410);
       }
+      
+      
       public void go(){//intializes game always happens
          while(always)
          {
@@ -105,7 +120,7 @@ package Gui;
          
          }
       }
-   
+      
       public void keyPressed(KeyEvent e)//allows movement
       {
          int key = e.getKeyCode();
@@ -118,6 +133,7 @@ package Gui;
          if(key == KeyEvent.VK_DOWN)//&&player.dChange)
             player.down = true;
       }
+      
       public void keyTyped(KeyEvent e)
       {
       }
@@ -134,4 +150,31 @@ package Gui;
          if(key == KeyEvent.VK_DOWN)
             player.down = false;
       }
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		System.out.println("Coords " + e.getX() + ", " + e.getY() );
+		checkMapChange()
+	}
+
+    public void mousePressed(MouseEvent e){
+  	  
+    }
+    
+    
+	@Override
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
    }
