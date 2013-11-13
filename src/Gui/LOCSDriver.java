@@ -15,7 +15,7 @@ package Gui;
          window.add(l);
          window.setVisible(true);
          l.go();
-      }
+      }//comment  
        public static void main(String[] args)
       {
          LOCSDriver locs = new LOCSDriver();
