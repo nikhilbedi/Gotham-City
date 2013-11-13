@@ -7,17 +7,16 @@ package Gui;
    import java.awt.image.*;
    import java.util.*;
     public class Door extends Object
-   {	 int xCord, yCord, wCord, hCord,zCord;
-       public Door(int x, int y, int z)
+   {	 int xCord, yCord, width, height;
+       public Door(int x, int y)
       {
          super(x, y);
-         wCord = 16;
-         hCord = 16;
-         zCord = z;
+         width = 16;
+         height = 16;
       }
        public Rectangle getBounds()
       {
-         Rectangle r1 = new Rectangle(xCord, yCord, wCord, hCord);
+         Rectangle r1 = new Rectangle(xCord, yCord, width, height);
          return r1;
       }
    }

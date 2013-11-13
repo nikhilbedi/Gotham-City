@@ -12,12 +12,10 @@ package Gui;
       ArrayList<Rectangle> cords = new ArrayList<Rectangle>();
       ArrayList<Door> door = new ArrayList<Door>();
       String loc = " ";
-      private int pos[][];
-      int xCord, yCord, zCord;
-       public Map(int y, int x, int z)
+      int xCord, yCord;
+       public Map(int x, int y)
       {
-         generate(y, x, z);
-         zCord = z;
+         generate(x, y);
          xCord = x;
          yCord = y;
       }
@@ -29,14 +27,6 @@ package Gui;
       { 
          return yCord;
       }
-       public int getZ()
-      {
-         return zCord;
-      }
-       public void changeZ(int next)
-      {
-         zCord = next;
-      }
        public ArrayList<Obstacle> getObs()
       {
          return obst;
@@ -45,12 +35,10 @@ package Gui;
       {
          return door;
       }
-       public void generate(int y, int x, int z)
+       public void generate(int x, int y)
       {
          obst.clear();
          door.clear();
-         if( z == 0)
-         {
             if(y==0)
             {
                if(x==0)
@@ -59,7 +47,7 @@ package Gui;
                   obst.add(new Obstacle(0,0, 20, 400));
                   obst.add(new Obstacle(180, 180, 10, 50));
                   obst.add(new Obstacle(180, 180, 50, 10));
-                  door.add(new Door(20,20, 1));
+                  door.add(new Door(20,20));
                }
                if(x==1)
                {
@@ -119,20 +107,12 @@ package Gui;
                }
             }
          }
-         if(z==1)
-         {
-            if(y==0)
-            {
-               if(x==0)
-               {
-                  obst.add(new Obstacle(0,0, 400, 10));
-                  obst.add(new Obstacle(0,0, 10, 400));
-                  obst.add(new Obstacle(380, 0, 20, 400));
-                  obst.add(new Obstacle(0, 380, 400, 20));
-               }
-            }
-         }
-      }
+       
+       public void paintAgents(Graphics g){
+    	   //for Agent a : agents
+    	   //gui.drawSelf()
+       }
+       
        public  void paintBackground(Graphics g)
       {
          g.setColor(Color.black);
