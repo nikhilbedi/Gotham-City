@@ -28,7 +28,7 @@ package Gui;
          player.checkDoor(door); 
          player.move();
       
-         
+            
          if(player.getX() <0)
          {
             m.xCord--;

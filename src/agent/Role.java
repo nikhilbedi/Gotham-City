@@ -11,7 +11,7 @@ public class Role {
 		myPerson = person;
 	}
 	
-	PersonAgent myPerson;
+	protected PersonAgent myPerson;
 	
 	public PersonAgent getPersonAgent() {
 		return myPerson;
@@ -21,7 +21,29 @@ public class Role {
 		myPerson = a;
 	}
 	
-	private void stateChanged() {
+	public void stateChanged() {
 		myPerson.stateChanged();
 	}
+	
+	/**
+     * Print message
+     */
+    protected void print(String msg) {
+        print(msg, null);
+    }
+
+    /**
+     * Print message with exception stack trace
+     */
+    protected void print(String msg, Throwable e) {
+        StringBuffer sb = new StringBuffer();
+       // sb.append(getName());
+        sb.append(": ");
+        sb.append(msg);
+        sb.append("\n");
+        if (e != null) {
+            sb.append(StringUtil.stackTraceString(e));
+        }
+        System.out.print(sb.toString());
+    }
 }
