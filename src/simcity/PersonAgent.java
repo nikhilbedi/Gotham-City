@@ -67,7 +67,7 @@ public class PersonAgent extends Agent {
 	//When to pay rent
 	private enum RentState {Paid, NotPaid, PayingBill};
 	List<RentBill> rentBills;
-	protected class RentBill {
+	public class RentBill {
 		public RentState state = RentState.NotPaid;
 		PersonAgent accountHolder;
 		float amount;
