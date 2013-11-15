@@ -27,7 +27,7 @@ public class ResidentRole extends Role implements Resident{
 	private double wallet;
 	public Random random = new Random();
 	private List<String> groceryList;
-	public Map<String, Food> fridgeFoods;
+	public List<Food> fridgeFoods;
 	
 	
 	//public boolean leaveRestaurant = random.nextBoolean();
@@ -104,18 +104,18 @@ public class ResidentRole extends Role implements Resident{
 		//	ResidentRole is a finite state machine
 
 		
-		if (state == AgentState.DoingNothing && event == AgentEvent.gotHungry ){
-			state = AgentState.WaitingInRestaurant;
+		if (state == HomeState.DoingNothing && event == HomeEvent.gotHungry ){
+			state = HomeState.WaitingInRestaurant;
 			goToRestaurant();
 			return true;
 		}
-		if (state == AgentState.WaitingInRestaurant && event == AgentEvent.followHost ){
-			state = AgentState.Seated;
+		if (state == HomeState.WaitingInRestaurant && event == HomeEvent.followHost ){
+			state = HomeState.Seated;
 			SitDown();
 			return true;
 		}
-		/*if(state == AgentState.BeingSeated && event == AgentEvent.seated){
-			//state = AgentState.AskedToOrder;
+		/*if(state == AgentState.BeingSeated && event == HomeEvent.seated){
+			//state = HomeState.AskedToOrder;
 			
 			try {
 				System.out.println("Customer is looking at the menu");
@@ -127,66 +127,66 @@ public class ResidentRole extends Role implements Resident{
 			}
 			return true;
 		}
-		if (state == AgentState.Seated && event == AgentEvent.AskedToOrder){
-			state = AgentState.Waiting;
+		if (state == HomeState.Seated && event == HomeEvent.AskedToOrder){
+			state = HomeState.Waiting;
 			SayChoice();
 			return true;
 		}
 		
-		if (state == AgentState.Waiting && event == AgentEvent.AskedToOrder){
+		if (state == HomeState.Waiting && event == HomeEvent.AskedToOrder){
 
 			if (order.outOfStock && leaveIfOutOfStock) {
-				state = AgentState.Leaving;
+				state = HomeState.Leaving;
 				leaveTable();
 				return true;
 			}
 			else {
-				state = AgentState.Waiting;
+				state = HomeState.Waiting;
 				SayChoice();
 				return true;
 			}
 		}
 		
-	//	if (state == AgentState.Seated && event == AgentEvent.AskedToOrder){
-	//		state = AgentState.Waiting;
+	//	if (state == HomeState.Seated && event == HomeEvent.AskedToOrder){
+	//		state = HomeState.Waiting;
 		//	ReOrder();
 		//	return true;
 	//	}
-		//if (state == AgentState.WaitingInRestaurant && event == AgentEvent.ordered){
-		//	state = AgentState.Eating;
+		//if (state == HomeState.WaitingInRestaurant && event == HomeEvent.ordered){
+		//	state = HomeState.Eating;
 
 		//	return true;
 		//
 
-		if (state == AgentState.Waiting && event == AgentEvent.foodDelivered){
-			state = AgentState.Eating;
+		if (state == HomeState.Waiting && event == HomeEvent.foodDelivered){
+			state = HomeState.Eating;
 			print("food delivered if");
 			EatFood();
 			return true;
 		}
-		if (state == AgentState.Eating && event == AgentEvent.doneEating){
-			state = AgentState.Waiting;
+		if (state == HomeState.Eating && event == HomeEvent.doneEating){
+			state = HomeState.Waiting;
 			waiter.msgIWantTheCheck(this);
 			//PayCheck();
 			return true;
 		}
-		if (state == AgentState.Waiting && event == AgentEvent.checkDelivered){
-			state = AgentState.Paying;
+		if (state == AgentState.Waiting && event == HomeEvent.checkDelivered){
+			state = HomeState.Paying;
 			PayCheck();
 			return true;
 		}
-		if (state == AgentState.Paying && customerGui.getXPos() == 600 && customerGui.getYPos() == 200 && event != AgentEvent.donePaying){
+		if (state == HomeState.Paying && customerGui.getXPos() == 600 && customerGui.getYPos() == 200 && event != HomeEvent.donePaying){
 			//print("*************inside if");
 			cashier.msgCustomerPayingCheck(order);
 			return true;
 		}
-		if (state == AgentState.Paying && event == AgentEvent.donePaying){
-			state = AgentState.Leaving;
+		if (state == HomeState.Paying && event == HomeEvent.donePaying){
+			state = HomeState.Leaving;
 			leaveTable();
 			return true;
 		}
-		if (state == AgentState.Leaving && event == AgentEvent.doneLeaving){
-			state = AgentState.DoingNothing;
+		if (state == HomeState.Leaving && event == HomeEvent.doneLeaving){
+			state = HomeState.DoingNothing;
 			//no action
 			return true;
 		}
@@ -211,7 +211,7 @@ public class ResidentRole extends Role implements Resident{
 //		Do("Being seated. Going to table");
 		print(this.getName() + " is being seated and going to a table.");
 		customerGui.DoGoToSeat(tableNum);//hack; only one table
-		event = AgentEvent.seated;
+		event = HomeEvent.seated;
 		stateChanged();
 	}
 
@@ -241,7 +241,7 @@ public class ResidentRole extends Role implements Resident{
 		customerGui.waitingForFood=true;
 		waiter.msgHereIsMyChoice(this, choice);
 		
-		event = AgentEvent.ordered;
+		event = HomeEvent.ordered;
 		stateChanged();
 	}
 	
@@ -282,7 +282,7 @@ public class ResidentRole extends Role implements Resident{
 		}
 		
 		print("Done eating");
-		event = AgentEvent.doneEating;
+		event = HomeEvent.doneEating;
 		customerGui.receivedFood=false;
 		//isHungry = false;
 		stateChanged();
@@ -301,7 +301,7 @@ public class ResidentRole extends Role implements Resident{
 		}
 			
 		
-		//event = AgentEvent.donePaying;
+		//event = HomeEvent.donePaying;
 		
 		stateChanged();
 	}
@@ -310,7 +310,7 @@ public class ResidentRole extends Role implements Resident{
 		waiter.msgDoneEatingAndLeavingTable(this);
 		//host.msgLeavingTable(this);
 		customerGui.DoExitRestaurant();
-		event = AgentEvent.doneLeaving;
+		event = HomeEvent.doneLeaving;
 		stateChanged();
 	}
 
@@ -324,7 +324,7 @@ public class ResidentRole extends Role implements Resident{
 		return hungerLevel;
 	}
 	public void setDonePayingState() {
-		event = AgentEvent.donePaying;
+		event = HomeEvent.donePaying;
 		stateChanged();
 	}
 
