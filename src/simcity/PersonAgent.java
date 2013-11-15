@@ -6,7 +6,9 @@ import agent.Role;
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
-public class PersonAgent extends Agent {
+import simcity.interfaces.Person;
+
+public class PersonAgent extends Agent implements Person {
 	//Data
 	String name;
 	int currentTime; //(ranges from 1-24)
@@ -67,7 +69,7 @@ public class PersonAgent extends Agent {
 	//When to pay rent
 	private enum RentState {Paid, NotPaid, PayingBill};
 	List<RentBill> rentBills;
-	protected class RentBill {
+	public class RentBill {
 		public RentState state = RentState.NotPaid;
 		PersonAgent accountHolder;
 		float amount;
