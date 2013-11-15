@@ -1,0 +1,6 @@
+package simcity;
+
+class RoleFactory {
+	
+}
+
