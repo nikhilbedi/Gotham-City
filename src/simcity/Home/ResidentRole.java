@@ -4,45 +4,42 @@ package Home;
 //import restaurant.WaiterAgent.Menu;
 //import Home.gui.ResidentGui;
 //import Home.gui.HomeGui;
-import Home.interfaces.Resident;
 import agent.Agent;
 import agent.Role;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Vector;
 
 import simcity.PersonAgent;
 
 /**
  * Restaurant customer agent.
  */
-public class ResidentRole extends Role implements Resident{
+public class ResidentRole extends Role {
 	private String name;
 	Timer timer = new Timer();
-	private double wallet;
-	public Random random = new Random();
-	private List<String> groceryList;
-	public Map<String, Food> fridgeFoods;
 	
-	
-	//public boolean leaveRestaurant = random.nextBoolean();
 	//private ResidentGui residentGui;
+
+	private double wallet;
+	
+	
+	public Random random = new Random();
+	public boolean leaveRestaurant = random.nextBoolean();
 	
 	//private String choice;
 
 	 //hack for gui
-	public enum HomeState
-	{DoingNothing, CheckingFoodSupply, Plating, Eating, Clearing}; 
-	private HomeState state = HomeState.DoingNothing;//The start state
+	public enum AgentState
+	{DoingNothing, CheckingFoodSupply, Plating, Eating, Clearing}; //Seated
+	private AgentState state = AgentState.DoingNothing;//The start state
 
-	public enum HomeEvent 
+	//other agentstates:Seated, askedToOrder, ordered, DoneEating
+
+	public enum AgentEvent 
 	{none, gotHungry, collectedIngredients, doneCooking, donePlating};
-	HomeEvent event = HomeEvent.none;
+	AgentEvent event = AgentEvent.none;
  
 
 	/**
@@ -53,8 +50,18 @@ public class ResidentRole extends Role implements Resident{
 	 */
 	public ResidentRole(PersonAgent p){
 		super(p);
-		
+		//this.name = name;
+		Random random = new Random();
+		this.wallet = random.nextInt(20); //random generated amount of money in wallet.
+		//this.wallet = 7;
+		//this.wallet = 0;
+		System.out.println(" initially has $" + wallet + " .");
 	}
+
+	
+	/**
+	 * hack to establish connection to Host agent.
+	 */
 	
 
 	public String getCustomerName() {
@@ -73,10 +80,11 @@ public class ResidentRole extends Role implements Resident{
 
 	public void gotHungry() {//from animation
 		System.out.println("I'm hungry");
-		event = HomeEvent.gotHungry;
-		stateChanged();
+		event = AgentEvent.gotHungry;
+		//stateChanged();
 	}
 
+	
 	
 	public void msgAnimationFinishedGoToSeat() {
 		//from animation
@@ -101,9 +109,9 @@ public class ResidentRole extends Role implements Resident{
 	 */
 	@Override
 	public boolean pickAndExecuteAnAction() {
-		//	ResidentRole is a finite state machine
+		//	CustomerAgent is a finite state machine
 
-		
+		/*
 		if (state == AgentState.DoingNothing && event == AgentEvent.gotHungry ){
 			state = AgentState.WaitingInRestaurant;
 			goToRestaurant();
