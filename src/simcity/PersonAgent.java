@@ -1,12 +1,14 @@
 package simcity;
 
-import agent.Agent;
+import agent.Agent; 
 import agent.Role;
+import simcity.interfaces.Person;
+import simcity.RoleFactory;
 
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
-import simcity.interfaces.Person;
+
 
 public class PersonAgent extends Agent implements Person {
 	//Data
