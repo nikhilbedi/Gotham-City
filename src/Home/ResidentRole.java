@@ -2,8 +2,8 @@ package Home;
 
 
 //import restaurant.WaiterAgent.Menu;
-import Home.gui.ResidentGui;
-import Home.gui.HomeGui;
+//import Home.gui.ResidentGui;
+//import Home.gui.HomeGui;
 import agent.Agent;
 import agent.Role;
 
@@ -20,7 +20,7 @@ public class ResidentRole extends Role {
 	private String name;
 	
 	Timer timer = new Timer();
-	private ResidentGui residentGui;
+	//private ResidentGui residentGui;
 	
 	
 	private double wallet;
@@ -82,7 +82,7 @@ public class ResidentRole extends Role {
 	public void gotHungry() {//from animation
 		System.out.println("I'm hungry");
 		event = AgentEvent.gotHungry;
-		stateChanged();
+		//stateChanged();
 	}
 
 	
@@ -91,24 +91,25 @@ public class ResidentRole extends Role {
 		//from animation
 		//print("msgFinishedGoToSeat");
 		//event = AgentEvent.seated;
-		stateChanged();
+		//stateChanged();
 	}
 	public void msgAnimationFinishedGoToCashier() {
 		//event = AgentEvent.donePaying;
-		stateChanged();
+		//stateChanged();
 	}
 
 	public void msgAnimationFinishedLeaveRestaurant() {
 		//from animation
 		System.out.println("Received msgFinishedLeaveRestaurant");
 		//event = AgentEvent.doneLeaving;
-		stateChanged();
+		//stateChanged();
 	}
 
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
+	@Override
+	public boolean pickAndExecuteAnAction() {
 		//	CustomerAgent is a finite state machine
 
 		/*
@@ -198,8 +199,9 @@ public class ResidentRole extends Role {
 			//no action
 			return true;
 		}
-		return false;
 		*/
+		return false;
+		
 	}
 
 	// Actions
@@ -376,10 +378,11 @@ public class ResidentRole extends Role {
 		return choice;
 	}
 */
-	public String toString() {
-		return "customer " + getName();
-	}
+	//public String toString() {
+		//return "customer " + getName();
+	//}
 
+/*
 	public void setGui(ResidentGui g) {
 		residentGui = g;
 	}
@@ -387,6 +390,7 @@ public class ResidentRole extends Role {
 	public ResidentGui getGui() {
 		return residentGui;
 	}
+	*/
 	public double getWalletAmount() {
 		return wallet;
 	}
