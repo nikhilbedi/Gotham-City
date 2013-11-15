@@ -19,12 +19,7 @@ public class Home {
 		this.type = type;
 		groceryList = new ArrayList<String>();
 		rentBills = new ArrayList<RentBill>();
-		fridgeFoods = new ArrayList<Food>();
-		
-	
-		
+		fridgeFoods = new ArrayList<Food>();	
 	}
-	
-		
-	}	
+}	
 
