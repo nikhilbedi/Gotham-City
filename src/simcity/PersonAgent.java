@@ -65,6 +65,14 @@ public class PersonAgent extends Agent implements Person {
 		public Job(Role r) {
 			role = r;
 		}
+		
+		public void setJob(Role r) {
+			role = r;
+		}
+		
+		public void setJob(String type) {
+			role = RoleFactory.makeMeRole(type);
+		}
 	}
 	
 	//Paying Rent
