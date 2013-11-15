@@ -15,18 +15,23 @@ class RoleFactory {
 		}
 		
 		//the different restaurant customers
+		//Nikhil's Restaurant
 		else if(type.equals("restaurant1Customer")) {
 			return new Role(null);
 		}
+		//Brice's Restaurant
 		else if(type.equals("restaurant2Customer")) {
 			return new Role(null);
 		}
+		//Evan's Restaurant
 		else if(type.equals("restaurant3Customer")) {
 			return new Role(null);
 		}
+		//Mika's Restaurant
 		else if(type.equals("restaurant4Customer")) {
 			return new Role(null);
 		}
+		//Hunter's Restaurant
 		else if(type.equals("restaurant5Customer")) {
 			return new Role(null);
 		}
