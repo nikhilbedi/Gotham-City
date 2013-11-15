@@ -20,7 +20,7 @@ public class Home {
 		groceryList = new ArrayList<String>();
 		rentBills = new ArrayList<RentBill>();
 		fridgeFoods = new ArrayList<Food>();
-		this.resident = resident;
+		
 	
 		
 	}
