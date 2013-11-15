@@ -29,4 +29,5 @@ public class Role {
 	public boolean pickAndExecuteAnAction() {
 		return true;
 	}
+
 }
