@@ -15,94 +15,26 @@ import java.util.*;
       boolean start;
       boolean always = true;
       ArrayList<Obstacle> obst = new ArrayList<Obstacle>();
-      ArrayList<Door> door;
    	
       public SimCityPanel(){
          m = new Screen(1);
          player = new Player();
          obst = m.getObs();
-         door = m.getDoors();
-         //addKeyListener(this);
          addMouseListener(this);
          setFocusable(true);  
       }
+      
       public void update(){
          player.check(obst);
-         player.checkDoor(door); 
          player.move();
-      
-         
-        /* if(player.getX() <0)
-         {
-            m.xCord--;
-            m.generate(m.getY(), m.getX());
-            player.x = 400;
-         }
-         else if(player.getX() >400)
-         {
-            m.xCord++;
-            m.generate(m.getY(), m.getX());
-            player.x = 0;
-         }
-         else if(player.getY() <0)
-         {
-            m.yCord--;
-            m.generate(m.getY(), m.getX());
-            player.y = 400;
-         }
-         else if(player.getY() > 400)
-         {
-            m.yCord++;
-            m.generate(m.getY(), m.getX());
-            player.y = 0;
-         }
-         else if(player.getDoor())
-         {
-            //m.generate(temp.xCord, temp.yCord, temp.zCord);
-         
-         }*/
       }   
+      
       public void paintComponent(Graphics g){//Here is where everything in the animation panel is generated
          m.paintBackground(g);
          m.paintObstacles(g);
-      	 //m.paintAgents(g) TODO write this jones
-         
-
-         if(m.temp == 1){
-        	 
-         }
-         if(m.temp == 2){
-        	 
-         }
-         
-         
-         
+      	 m.paintAgents(g);
          //player.paintSprite(g, player.getSprite());
          
-      	
-         
-         
-         /**
-          * This is all debug messages that probably will be deleted soon
-          */
-         g.setColor(Color.red);//checking conditions
-        // g.drawString("I: " + m.getY() + " A: " + m.getX(), 25, 25);
-         g.setColor(Color.white);
-         g.drawString("X: " + player.getX() + "  Y: " + player.getY(), 50, 410);
-         g.setColor(Color.white);
-         g.drawString("X: " + player.getX() + "  Y: " + player.getY(), 50, 410);
-         if(!player.rChange)
-         { g.drawString("right collided!", 200, 410);}
-         if(!player.lChange)
-         { g.drawString("left collided!", 200, 410);}
-         if(!player.uChange)
-         { g.drawString("up collided!", 200, 410);}
-         if(!player.dChange)
-         { g.drawString("down collided!", 200, 410);}
-         if(player.getDoor())
-            g.drawString("door", 300, 410);
-         if(player.getDoor()==false)
-            g.drawString(""+door.toString(), 300, 410);
       }
       
       
@@ -121,35 +53,7 @@ import java.util.*;
          }
       }
       
-      public void keyPressed(KeyEvent e)//allows movement
-      {
-         int key = e.getKeyCode();
-         if (key == KeyEvent.VK_LEFT)//&&player.lChange)
-            player.left = true;
-         if (key == KeyEvent.VK_RIGHT)//&&player.rChange)
-            player.right = true;
-         if(key == KeyEvent.VK_UP)//&&player.uChange)
-            player.up = true;
-         if(key == KeyEvent.VK_DOWN)//&&player.dChange)
-            player.down = true;
-      }
-      
-      public void keyTyped(KeyEvent e)
-      {
-      }
-   
-      public void keyReleased(KeyEvent e)
-      {
-         int key = e.getKeyCode();
-         if (key == KeyEvent.VK_LEFT)
-            player.left = false;
-         if (key == KeyEvent.VK_RIGHT)
-            player.right = false;
-         if(key == KeyEvent.VK_UP)
-            player.up = false;
-         if(key == KeyEvent.VK_DOWN)
-            player.down = false;
-      }
+
       
     public void checkMapChange(int x, int y){
     	
@@ -159,6 +63,18 @@ import java.util.*;
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
+		int x = e.getX();
+		int y = e.getY();
+		if((x>25)&&(x<45)&&(y>25)&&(y<45)){
+			if(m.temp ==1){
+				m.temp = 2;
+				m.generate();
+			}
+			else{
+			m.temp = 1;
+			m.generate();
+			}
+		}
 		System.out.println("Coords " + e.getX() + ", " + e.getY() );
 		checkMapChange(e.getX(), e.getY());
 	}
