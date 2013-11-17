@@ -11,14 +11,14 @@ import java.util.*;
    public class SimCityPanel extends JPanel implements MouseListener
    {
       Player player;//this will soon be replaced by AgentGuis
-      Map m;
+      Screen m;
       boolean start;
       boolean always = true;
       ArrayList<Obstacle> obst = new ArrayList<Obstacle>();
       ArrayList<Door> door;
    	
       public SimCityPanel(){
-         m = new Map(1);
+         m = new Screen(1);
          player = new Player();
          obst = m.getObs();
          door = m.getDoors();
@@ -150,11 +150,17 @@ import java.util.*;
          if(key == KeyEvent.VK_DOWN)
             player.down = false;
       }
+      
+    public void checkMapChange(int x, int y){
+    	
+    }
+      
+      
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		System.out.println("Coords " + e.getX() + ", " + e.getY() );
-		checkMapChange()
+		checkMapChange(e.getX(), e.getY());
 	}
 
     public void mousePressed(MouseEvent e){
@@ -162,7 +168,7 @@ import java.util.*;
     }
     
     
-	@Override
+	@Override	
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
 		
