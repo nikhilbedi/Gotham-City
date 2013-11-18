@@ -25,17 +25,17 @@ public class RestaurantGui extends JFrame implements ActionListener {
     private RestaurantPanel restPanel = new RestaurantPanel(this);
     
     //A Control menu: Currently only has pause and resume
-    private JMenuBar menuBar;
+    /*private JMenuBar menuBar;
     private JMenu controlMenu;
     private JMenuItem pauseItem;
     private JMenuItem resumeItem;
     private JMenuItem checkFood;
     
     /* infoPanel holds information about the clicked customer, if there is one*/
-    private JPanel infoPanel;
+  /*  private JPanel infoPanel;
     private JLabel infoLabel; //part of infoPanel
     private JCheckBox stateCB;//part of infoLabel
-    private JPanel picturePanel; //Lab 1 assn, add a new graphic to the window
+    private JPanel picturePanel; //Lab 1 assn, add a new graphic to the window*/
     private Object currentPerson;/* Holds the agent that the info is about.
     								Seems like a hack */
 
@@ -57,7 +57,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
 	add(animationPanel, BorderLayout.LINE_END);
 
 	//Setting up menu items
-	menuBar = new JMenuBar();
+	/*menuBar = new JMenuBar();
 	controlMenu = new JMenu("Menu -- Pause, Resume, Check Food Count");
 	//Pause menu button
 	pauseItem = new JMenuItem("Pause");
@@ -106,18 +106,18 @@ public class RestaurantGui extends JFrame implements ActionListener {
         restPanel.setMaximumSize(restDim);
 	add(restPanel, BorderLayout.NORTH);
 
-	//Setting up host's picture
-	Dimension pictureDim = new Dimension(WINDOWX, (int) (WINDOWY * .2));
-	picturePanel = new JPanel();
-	picturePanel.setPreferredSize(pictureDim);
-	picturePanel.setMinimumSize(pictureDim);
-	picturePanel.setMaximumSize(pictureDim);
-	picturePanel.setBorder(BorderFactory.createTitledBorder("Your Host!"));
-	//picturePanel.setLayout(new BorderLayout(20, 20));
-	ImageIcon image = new ImageIcon("/home/nikhil/csci201/restaurant_nbedi/src/restaurant/gui/resources/host.jpg");
-	JLabel restaurantImage = new JLabel(image);
-	picturePanel.add(restaurantImage);
-	restPanel.add(picturePanel, BorderLayout.SOUTH);
+		//Setting up host's picture
+		Dimension pictureDim = new Dimension(WINDOWX, (int) (WINDOWY * .2));
+		picturePanel = new JPanel();
+		picturePanel.setPreferredSize(pictureDim);
+		picturePanel.setMinimumSize(pictureDim);
+		picturePanel.setMaximumSize(pictureDim);
+		picturePanel.setBorder(BorderFactory.createTitledBorder("Your Host!"));
+		//picturePanel.setLayout(new BorderLayout(20, 20));
+		ImageIcon image = new ImageIcon("/home/nikhil/csci201/restaurant_nbedi/src/restaurant/gui/resources/host.jpg");
+		JLabel restaurantImage = new JLabel(image);
+		picturePanel.add(restaurantImage);
+		restPanel.add(picturePanel, BorderLayout.SOUTH);*/
     }
 
 
@@ -127,7 +127,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
      *
      * @param person customer (or waiter) object
      */
-    public void updateInfoPanel(Object person) {
+  /*  public void updateInfoPanel(Object person) {
         currentPerson = person;
 		stateCB.setVisible(true);
         if (person instanceof CustomerRole) {
@@ -164,7 +164,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
 		}
 
         infoPanel.validate();
-    }
+    }*/
     
     /**
      * Action listener method that reacts to the checkbox being clicked;
@@ -172,7 +172,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
      * For v3, it will propose a break for the waiter.
      */
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == stateCB) {
+    /*    if (e.getSource() == stateCB) {
             if (currentPerson instanceof CustomerRole) {
                 CustomerRole c = (CustomerRole) currentPerson;
                 c.getGui().setHungry();
@@ -204,24 +204,24 @@ public class RestaurantGui extends JFrame implements ActionListener {
 		if(e.getSource() == checkFood) {
 		    restPanel.printFoodCount();
 		}
-	
+	*/
     }
 
-    public void breakTime(boolean onBreak) {
+/*    public void breakTime(boolean onBreak) {
 		stateCB.setEnabled(true);
 		if(onBreak) {
 		    stateCB.setText("Back to Work");
 		    return;
 		}
     }
-    
+    */
     /**
      * Message sent from a customer gui to enable that customer's
      * "I'm hungry" checkbox.
      *
      * @param c reference to the customer
      */
-    public void setCustomerEnabled(CustomerRole c) {
+  /*  public void setCustomerEnabled(CustomerRole c) {
         if (currentPerson instanceof CustomerRole) {
         	CustomerRole cust = (CustomerRole) currentPerson;
             if (c.equals(cust)) {
@@ -229,7 +229,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
                 stateCB.setSelected(false);
             }
         }
-    }
+    }*/
     /**
      * Main routine to get gui started
      */
