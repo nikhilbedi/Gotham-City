@@ -1,4 +1,4 @@
-package simcity.Home;
+package Home2;
 
 
 //import restaurant.WaiterAgent.Menu;
