@@ -57,7 +57,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
 	add(animationPanel, BorderLayout.LINE_END);
 
 	//Setting up menu items
-	/*menuBar = new JMenuBar();
+	menuBar = new JMenuBar();
 	controlMenu = new JMenu("Menu -- Pause, Resume, Check Food Count");
 	//Pause menu button
 	pauseItem = new JMenuItem("Pause");
@@ -117,7 +117,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
 		ImageIcon image = new ImageIcon("/home/nikhil/csci201/restaurant_nbedi/src/restaurant/gui/resources/host.jpg");
 		JLabel restaurantImage = new JLabel(image);
 		picturePanel.add(restaurantImage);
-		restPanel.add(picturePanel, BorderLayout.SOUTH);*/
+		restPanel.add(picturePanel, BorderLayout.SOUTH);
     }
 
 
@@ -127,7 +127,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
      *
      * @param person customer (or waiter) object
      */
-  /*  public void updateInfoPanel(Object person) {
+    public void updateInfoPanel(Object person) {
         currentPerson = person;
 		stateCB.setVisible(true);
         if (person instanceof CustomerRole) {
@@ -164,7 +164,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
 		}
 
         infoPanel.validate();
-    }*/
+    }
     
     /**
      * Action listener method that reacts to the checkbox being clicked;
@@ -172,7 +172,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
      * For v3, it will propose a break for the waiter.
      */
     public void actionPerformed(ActionEvent e) {
-    /*    if (e.getSource() == stateCB) {
+     if (e.getSource() == stateCB) {
             if (currentPerson instanceof CustomerRole) {
                 CustomerRole c = (CustomerRole) currentPerson;
                 c.getGui().setHungry();
@@ -204,24 +204,24 @@ public class RestaurantGui extends JFrame implements ActionListener {
 		if(e.getSource() == checkFood) {
 		    restPanel.printFoodCount();
 		}
-	*/
+	
     }
 
-/*    public void breakTime(boolean onBreak) {
+    public void breakTime(boolean onBreak) {
 		stateCB.setEnabled(true);
 		if(onBreak) {
 		    stateCB.setText("Back to Work");
 		    return;
 		}
     }
-    */
+    
     /**
      * Message sent from a customer gui to enable that customer's
      * "I'm hungry" checkbox.
      *
      * @param c reference to the customer
      */
-  /*  public void setCustomerEnabled(CustomerRole c) {
+    public void setCustomerEnabled(CustomerRole c) {
         if (currentPerson instanceof CustomerRole) {
         	CustomerRole cust = (CustomerRole) currentPerson;
             if (c.equals(cust)) {
@@ -229,7 +229,7 @@ public class RestaurantGui extends JFrame implements ActionListener {
                 stateCB.setSelected(false);
             }
         }
-    }*/
+    }
     /**
      * Main routine to get gui started
      */

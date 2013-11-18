@@ -54,15 +54,15 @@ public class CustomerRole extends Role implements Customer {
      */
     public CustomerRole(){
 		super();
-		myChoice = name;
+		//myChoice = name;
 		//Set how much cash the customer has
 		Random rnd = new Random();
 		int max = 25;
 		int min = 4;
 		money = rnd.nextInt(max-min) + min;
-		if(name.equals("flake")) {
+	/*	if(name.equals("flake")) {
 		    money = 4.0;
-		}
+		}*/
     }
 
     /**
@@ -188,14 +188,17 @@ public class CustomerRole extends Role implements Customer {
     //Make sure to implement the new states once you take away the host from the Gui
     public boolean pickAndExecuteAnAction() {
 	//	CustomerAgent is a correctly implemented finite state machine
+    	
 	if (state == AgentState.DoingNothing && event == AgentEvent.gotHungry ){
 	    state = AgentState.WaitingInRestaurant;
 	    goToRestaurant();
 	    return true;
 	}
 	
-	if(state == AgentState.WaitingInRestaurant && event == AgentEvent.mustWaitInArea) {
+	//if(state == AgentState.WaitingInRestaurant && event == AgentEvent.mustWaitInArea) {
+	if(event == AgentEvent.mustWaitInArea){
 		state = AgentState.WaitingInArea;
+		print("customer scheduler");
 		goToArea();
 		return true;
 	 }
@@ -275,6 +278,7 @@ public class CustomerRole extends Role implements Customer {
     	print("Going to waiting position");
     	//animation
     	customerGui.DoGoToArea(waitingPosX, waitingPosY);
+    	
     }
 
     private void SitDown() {

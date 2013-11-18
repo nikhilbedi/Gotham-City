@@ -5,10 +5,12 @@ import simcity.restaurants.restaurant1.CustomerRole;
 import simcity.restaurants.restaurant1.HostRole;
 import simcity.restaurants.restaurant1.WaiterRole;
 
+import Gui.RoleGui;
+
 import java.awt.*;
 import java.util.*;
 
-public class WaiterGui implements Gui {
+public class WaiterGui extends RoleGui {
 
     private WaiterRole agent = null;
 

@@ -1,5 +1,6 @@
 package simcity.restaurants.restaurant1.gui;
 
+import Gui.RoleGui;
 
 
 import simcity.restaurants.restaurant1.CustomerRole;
@@ -10,7 +11,7 @@ import java.awt.*;
 import java.util.List;
 import java.util.*;
 
-public class CookGui implements Gui {
+public class CookGui extends RoleGui {
 
     private CookRole agent = null;
 

@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Vector;
+import Gui.Screen;
 
 /**
  * Panel in frame that contains all the restaurant information,
@@ -59,13 +60,13 @@ public class RestaurantPanel extends JPanel {
 		 
 		waiter.setPerson(new PersonAgent("Waiter"));
 		
+		customer.setPerson(new PersonAgent("Customer"));
+		
         gui.animationPanel.addGui(hostGui);
 
-        setLayout(new GridLayout(1, 2, 20, 20));
         
         initRestLabel();
-        add(restLabel);
-        add(group);
+
     }
 
     /**

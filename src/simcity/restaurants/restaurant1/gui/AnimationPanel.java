@@ -2,45 +2,36 @@ package simcity.restaurants.restaurant1.gui;
 
 import javax.swing.*;
 
+import Gui.Screen;
+
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ArrayList;
 
-public class AnimationPanel extends JPanel implements ActionListener {
+public class AnimationPanel extends Screen  {
 
-    private final int WINDOWX = 350;
+    /*private final int WINDOWX = 350;
     private final int WINDOWY = 250;
     private Image bufferImage;
-    private Dimension bufferSize; 
+    private Dimension bufferSize; */
     private int xPos, yPos,width, height;
 
-    private List<Gui> guis = new ArrayList<Gui>();
+    //private List<Gui> guis = new ArrayList<Gui>();
 
-    public AnimationPanel() {
-    	setSize(WINDOWX, WINDOWY);
-        setVisible(true);
-        
-        bufferSize = this.getSize();
- 
-    	Timer timer = new Timer(20, this );
-    	timer.start();
+    public AnimationPanel() { 
+    	//Timer timer = new Timer(20, this );
+    	//timer.start();
     }
 
-	public void actionPerformed(ActionEvent e) {
-		repaint();  //Will have paintComponent called
-	}
-
-    public void paintComponent(Graphics g) {
+    public void paintObstacles(Graphics g) {
         Graphics2D g2 = (Graphics2D)g;
 		//Second and third table created manually
 		Graphics2D g3 = (Graphics2D)g;
 		Graphics2D g4 = (Graphics2D)g;
 
         //Clear the screen by painting a rectangle the size of the frame
-        g2.setColor(getBackground());
-        g2.fillRect(0, 0, getWidth(), getHeight() );
+       /* g2.setColor(getBackground());
+        g2.fillRect(0, 0, getWidth(), getHeight() );*/
 
         //Agent Positions
 	        g2.setColor(Color.MAGENTA);
@@ -81,7 +72,7 @@ public class AnimationPanel extends JPanel implements ActionListener {
 		g2.fillRect(xPos, yPos, width, height);
 
 
-        for(Gui gui : guis) {
+     /*  for(Gui gui : guis) {
             if (gui.isPresent()) {
                 gui.updatePosition();
             }
@@ -91,22 +82,6 @@ public class AnimationPanel extends JPanel implements ActionListener {
             if (gui.isPresent()) {
                 gui.draw(g2);
             }
-        }
-    }
-
-    public void addGui(CustomerGui gui) {
-        guis.add(gui);
-    }
-
-    public void addGui(HostGui gui) {
-        guis.add(gui);
-    }
-    
-    public void addGui(WaiterGui gui) {
-    	guis.add(gui);
-    }
-    
-    public void addGui(CookGui gui) {
-    	guis.add(gui);
+        }*/
     }
 }

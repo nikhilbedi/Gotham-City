@@ -40,9 +40,9 @@ public class CookRole extends Role implements Cook {
  
     private Map<String,Food> foods = new HashMap<String, Food>() {{
 	    //the parameters for each food are (String type, int time [in seconds], int amount, int capacity) 
-    	    put("Pizza", new Food("Pizza", 5, 1, 4));
-		    put("Steak", new Food("Steak", 7, 1, 4));
-		    put("Salad", new Food("Salad", 3, 1, 4));
+    	    put("Pizza", new Food("Pizza", 5, 100, 4));
+		    put("Steak", new Food("Steak", 7, 100, 4));
+		    put("Salad", new Food("Salad", 3, 100, 4));
 	    }};
 
     //creating states outside the Order class
@@ -229,7 +229,8 @@ public class CookRole extends Role implements Cook {
 
     private void orderFoodThatIsLow(String item) {
 		//the parameter below is a way of cycling through different markets
-    	MarketRole m = markets.get(nextMarket % markets.size());
+    	//MarketRole m = markets.get(nextMarket % markets.size());
+    	MarketRole m = new MarketRole("market");
 		Food f = foods.get(item);
 		//	for(Food f : foods.values()) {
 		    if(f.amount <= f.low) {

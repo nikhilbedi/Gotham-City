@@ -19,6 +19,7 @@ public class PersonAgent extends Agent implements Person {
 	private double money;
 	private List<Role> roles = new ArrayList<Role>();
 	private List<String> groceryList = new ArrayList<String>();
+	private List<RentBill> rentBills = new ArrayList<RentBill>();
 	
 	//Locations
 	/*public List<Restaurant> restaurants;
@@ -78,7 +79,6 @@ public class PersonAgent extends Agent implements Person {
 	//Paying Rent
 	//When to pay rent
 	private enum RentState {Paid, NotPaid, PayingBill};
-	List<RentBill> rentBills;
 	public class RentBill {
 		public RentState state = RentState.NotPaid;
 		PersonAgent accountHolder;

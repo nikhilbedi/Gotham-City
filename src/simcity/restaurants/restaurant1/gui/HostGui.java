@@ -2,11 +2,12 @@ package simcity.restaurants.restaurant1.gui;
 
 
 import simcity.restaurants.restaurant1.CustomerRole;
+import Gui.RoleGui;
 import simcity.restaurants.restaurant1.HostRole;
 
 import java.awt.*;
 
-public class HostGui implements Gui {
+public class HostGui extends RoleGui {
 
     private HostRole agent = null;
 
