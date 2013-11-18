@@ -42,13 +42,15 @@ public class ResidentRole extends Role {
 
 	 //hack for gui
 	public enum HomeState
-	{DoingNothing, CheckingFoodSupply,Cooking, Plating, Eating, Clearing, LeavingHome}; //Seated
+	{DoingNothing, CheckingFoodSupply,Cooking, Plating, Eating, Clearing, LeavingHome, 
+		GoingToBed, Sleeping}; 
 	private HomeState state = HomeState.DoingNothing;//The start state
 
 	//other Homestates:Seated, askedToOrder, ordered, DoneEating
 
 	public enum HomeEvent 
-	{none, gotHungry, collectedIngredients,checkedEmptyFridge, doneCooking, donePlating, doneEating, doneClearing};
+	{none, gotHungry, collectedIngredients,checkedEmptyFridge, doneCooking, donePlating, 
+		doneEating, doneClearing, gotSleepy, doneSleeping};
 	HomeEvent event = HomeEvent.none;
  
 
@@ -100,7 +102,11 @@ public class ResidentRole extends Role {
 		stateChanged();
 	}
 
-	
+	public void gotSleepy() {
+		System.out.println("I'm sleepy");
+		event = HomeEvent.gotSleepy;
+		stateChanged();
+	}
 	
 	public void msgAnimationFinishedGoToSeat() {
 		//from animation
@@ -130,6 +136,11 @@ public class ResidentRole extends Role {
 		if (state == HomeState.DoingNothing && event == HomeEvent.gotHungry ){
 			state = HomeState.CheckingFoodSupply;
 			checkFoodSupply();
+			return true;
+		}
+		if (state == HomeState.DoingNothing && event == HomeEvent.gotSleepy ){
+			state = HomeState.Sleeping;
+			goToBed();
 			return true;
 		}
 		if (state == HomeState.CheckingFoodSupply && event == HomeEvent.collectedIngredients){
@@ -174,6 +185,14 @@ public class ResidentRole extends Role {
 	
 
 	// Actions
+
+	private void goToBed() {
+		//residentGui.doGoToBed();
+		DoSleeping();
+		event = HomeEvent.doneSleeping;
+		stateChanged();
+		
+	}
 
 	private void returnToHomePosition() {
 		//residentGui.doGoToCouch();
@@ -271,12 +290,15 @@ public class ResidentRole extends Role {
 		
 	}
 
-	
-
-	
 
 	// Accessors, etc.
-	
+	private void DoSleeping() {
+		try {
+			Thread.currentThread().sleep(10000);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
 	private void DoCooking(Food f) {
 		System.out.println("Do Cooking");
 
