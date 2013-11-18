@@ -15,7 +15,7 @@ import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import Home2.Food;
+import simcity.Home.Food;
 import simcity.PersonAgent;
 
 /**
