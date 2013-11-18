@@ -1,4 +1,4 @@
-package simcity.tests.mock;
+package restaurant.test.mock;
 
 import java.io.*;
 import java.util.*;
@@ -7,11 +7,11 @@ import java.util.concurrent.*;
 /**
  * This is the base class for all mocks.
  *
- * @author Nikhil Bedi
+ * @author Sean Turner
  *
  */
 public class Mock {
-	protected String name;
+	private String name;
 
 	public Mock(String name) {
 		this.name = name;
@@ -24,4 +24,5 @@ public class Mock {
 	public String toString() {
 		return this.getClass().getName() + ": " + name;
 	}
+
 }
