@@ -17,8 +17,8 @@ public class PersonAgent extends Agent implements Person {
 	int accountNumber; //Not currently sure how we're using account numbers, but the person should know it.
 	Semaphore busyWithTask;
 	private double money;
-	private List<Role> roles;
-	private List<String> groceryList;
+	private List<Role> roles = new ArrayList<Role>();
+	private List<String> groceryList = new ArrayList<String>();
 	
 	//Locations
 	/*public List<Restaurant> restaurants;
@@ -100,6 +100,10 @@ public class PersonAgent extends Agent implements Person {
 	
 	
 	//functions so we can function
+	public String getName(){
+		return name;
+	}
+	
 	public void addRole(Role role) {
 		roles.add(role);
 	}
@@ -114,6 +118,10 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void setJob(Role role) {
 		myJob = new Job(role);
+	}
+	
+	public void setJob(String type) {
+		myJob = new Job(RoleFactory.makeMeRole(type));
 	}
 	
 	public void setPreferredTransportation(String type) {
