@@ -21,7 +21,13 @@ public class Role {
 		myPerson = a;
 	}
 	
-	private void stateChanged() {
+	public void stateChanged() {
 		myPerson.stateChanged();
 	}
+	
+	//Everyone needs to provide an @Override to their pickAndExecuteAnAction
+	public boolean pickAndExecuteAnAction() {
+		return true;
+	}
+
 }
