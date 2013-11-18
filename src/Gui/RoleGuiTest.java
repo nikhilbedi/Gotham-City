@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
-public class RoleGuiTest {
+public class RoleGuiTest extends RoleGui{
 
 	///private CustomerAgent agent = null;
 
@@ -54,16 +54,7 @@ public class RoleGuiTest {
 	
 	
 	public void updatePosition(){
-		if (xPos < xDestination)
-            xPos+=2;
-        else if (xPos > xDestination)
-            xPos-=2;
-
-        if (yPos < yDestination)
-            yPos+=2;
-        else if (yPos > yDestination)
-            yPos-=2;
-
+		super.updatePosition();
 		if (xPos == xDestination && yPos == yDestination) {
 			if(command == Command.noCommand){
 			return;
@@ -80,17 +71,10 @@ public class RoleGuiTest {
 				//isHungry = false;
 				//gui.setCustomerEnabled(agent);
 			}
-			
-			
 			//this would usually be called here but is not for testing purposes
 			//agent.doneMoving  This releases the semaphore in the person class
 			//command = Command.noCommand;
 		}
-    }
-    
-	public void draw(Graphics g){
-		g.setColor(myColor);
-		g.fillRect(xPos, yPos, customerSize, customerSize);
     }
 	
 	public void goToA(){

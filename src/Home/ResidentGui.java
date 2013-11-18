@@ -14,7 +14,7 @@ public class ResidentGui implements Gui{
 	public boolean receivedFood=false;
 	public String order;
 	//private HostAgent host;
-	HomeGui gui;
+	//HomeGui gui;
 
 	private int xPos, yPos;
 	private static int Width, Height;
@@ -28,7 +28,7 @@ public class ResidentGui implements Gui{
 	private static int waitingCustomers[] = new int[]{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
 	private int posInWaitArea = -1;
 
-	public ResidentGui(ResidentRole r, HomeGui gui){ //HostAgent m) {
+	public ResidentGui(ResidentRole r){//, HomeGui gui){ //HostAgent m) {
 		//agent = r;
 		for (int i = 0; i < waitingCustomers.length; ++i){
 			if (waitingCustomers[i] == -1) { //empty position
@@ -46,7 +46,7 @@ public class ResidentGui implements Gui{
 		yDestination = +20;
 		tableVariation = 85;
 		//maitreD = m;
-		this.gui = gui;
+		//this.gui = gui;
 		
 	}
 
