@@ -47,14 +47,14 @@ public class CustomerGui implements Gui{
 	if (xPos == xDestination && yPos == yDestination) {
 	    if (command==Command.GoToSeat) agent.msgAnimationFinishedGoToSeat();
 	    else if (command==Command.LeaveRestaurant) {
-		agent.msgAnimationFinishedLeaveRestaurant();
-		isHungry = false;
-		gui.setCustomerEnabled(agent);
+			agent.msgAnimationFinishedLeaveRestaurant();
+			isHungry = false;
+			//gui.setCustomerEnabled(agent);
 	    }
 	    else if (command==Command.GoToCashier) {
-		agent.madeItToCashier();
-		isHungry = false;
-		gui.setCustomerEnabled(agent);
+			agent.madeItToCashier();
+			isHungry = false;
+		//	gui.setCustomerEnabled(agent);
 	    }
 	    command=Command.noCommand;
 	}

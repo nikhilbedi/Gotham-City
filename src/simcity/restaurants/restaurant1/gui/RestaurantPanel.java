@@ -28,8 +28,12 @@ public class RestaurantPanel extends JPanel {
     private Vector<CustomerRole> customers = new Vector<CustomerRole>();
     private Vector<WaiterRole> waiters = new Vector<WaiterRole>();
     
+    //hardcoded waiter
     private WaiterRole waiter = new WaiterRole();
 
+    //Customer
+    private CustomerRole customer = new CustomerRole();
+    
     private JPanel restLabel = new JPanel();
     private ListPanel waiterPanel = new ListPanel(this, "Waiters");
     private ListPanel customerPanel = new ListPanel(this, "Customers");
@@ -94,16 +98,16 @@ public class RestaurantPanel extends JPanel {
         if (type.equals("Customers")) {
             for (int i = 0; i < customers.size(); i++) {
                 CustomerRole temp = customers.get(i);
-                if (temp.getName() == name)
-		    gui.updateInfoPanel(temp);
+         //       if (temp.getName() == name)
+		 //   gui.updateInfoPanel(temp);
             }
         }
 
 	if (type.equals("Waiters")) {
 	    for (int i = 0; i < waiters.size(); i++) {
                 WaiterRole temp = waiters.get(i);
-                if (temp.getName() == name)
-		    gui.updateInfoPanel(temp);
+              //  if (temp.getPersonAgent().getName() == name)
+		 //   gui.updateInfoPanel(temp);
             }	   
 	}
     }
