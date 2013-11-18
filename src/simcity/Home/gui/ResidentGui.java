@@ -1,20 +1,20 @@
-package Home;
+package simcity.Home.gui;
 
-import Home.ResidentRole;
-
+import restaurant.CustomerAgent;
+import restaurant.HostAgent;
 
 import java.awt.*;
 
 public class ResidentGui implements Gui{
 
-	//private CustomerAgent agent = null;
+	private CustomerAgent agent = null;
 	private boolean isPresent = false;
 	private boolean isHungry = false;
 	public boolean waitingForFood=false;
 	public boolean receivedFood=false;
 	public String order;
 	//private HostAgent host;
-	//HomeGui gui;
+	RestaurantGui gui;
 
 	private int xPos, yPos;
 	private static int Width, Height;
@@ -28,8 +28,8 @@ public class ResidentGui implements Gui{
 	private static int waitingCustomers[] = new int[]{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
 	private int posInWaitArea = -1;
 
-	public ResidentGui(ResidentRole r){//, HomeGui gui){ //HostAgent m) {
-		//agent = r;
+	public ResidentGui(CustomerAgent c, RestaurantGui gui){ //HostAgent m) {
+		agent = c;
 		for (int i = 0; i < waitingCustomers.length; ++i){
 			if (waitingCustomers[i] == -1) { //empty position
 				waitingCustomers[i] = 1;
@@ -46,7 +46,7 @@ public class ResidentGui implements Gui{
 		yDestination = +20;
 		tableVariation = 85;
 		//maitreD = m;
-		//this.gui = gui;
+		this.gui = gui;
 		
 	}
 
@@ -61,19 +61,19 @@ public class ResidentGui implements Gui{
 		else if (yPos > yDestination)
 			yPos--;
 
-		//if (xPos == xDestination && yPos == yDestination) {
-			//if (command==Command.GoToSeat) agent.msgAnimationFinishedGoToSeat();
+		if (xPos == xDestination && yPos == yDestination) {
+			if (command==Command.GoToSeat) agent.msgAnimationFinishedGoToSeat();
 			else if (command==Command.LeaveRestaurant) {
-				//agent.msgAnimationFinishedLeaveRestaurant();
+				agent.msgAnimationFinishedLeaveRestaurant();
 				System.out.println("about to call gui.setCustomerEnabled(agent);");
 				isHungry = false;
-				//gui.setCustomerEnabled(agent);
+				gui.setCustomerEnabled(agent);
 				command=Command.noCommand;
 			}
-		//	else if(command==Command.GoToCashier) agent.msgAnimationFinishedGoToCashier();
+			else if(command==Command.GoToCashier) agent.msgAnimationFinishedGoToCashier();
 			else
 			command=Command.noCommand;
-		//}
+		}
 	}
 
 	public void draw(Graphics2D g) {
@@ -87,7 +87,7 @@ public class ResidentGui implements Gui{
 	}
 	public void setHungry() {
 		isHungry = true;
-		//agent.gotHungry();
+		agent.gotHungry();
 		setPresent(true);
 	}
 	public boolean isHungry() {
