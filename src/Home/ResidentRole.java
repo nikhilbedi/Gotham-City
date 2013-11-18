@@ -7,10 +7,15 @@ package Home;
 import agent.Agent;
 import agent.Role;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import Home.Food;
 import simcity.PersonAgent;
 
 /**
@@ -21,9 +26,14 @@ public class ResidentRole extends Role {
 	Timer timer = new Timer();
 	
 	//private ResidentGui residentGui;
-
+	//public Food foodChoice;
+	String type;
 	private double wallet;
+	public List<Food> fridgeFoods;
+	public Map<String, Food> foods = new HashMap<String, Food>();
+	public List<String> groceryList;
 	
+	//public List<FoodChoice> cookingList;
 	
 	public Random random = new Random();
 	public boolean leaveRestaurant = random.nextBoolean();
@@ -32,13 +42,13 @@ public class ResidentRole extends Role {
 
 	 //hack for gui
 	public enum HomeState
-	{DoingNothing, CheckingFoodSupply,Cooking, Plating, Eating, Clearing}; //Seated
+	{DoingNothing, CheckingFoodSupply,Cooking, Plating, Eating, Clearing, LeavingHome}; //Seated
 	private HomeState state = HomeState.DoingNothing;//The start state
 
 	//other Homestates:Seated, askedToOrder, ordered, DoneEating
 
 	public enum HomeEvent 
-	{none, gotHungry, collectedIngredients, doneCooking, donePlating, doneEating, doneClearing};
+	{none, gotHungry, collectedIngredients,checkedEmptyFridge, doneCooking, donePlating, doneEating, doneClearing};
 	HomeEvent event = HomeEvent.none;
  
 
@@ -50,6 +60,18 @@ public class ResidentRole extends Role {
 	 */
 	public ResidentRole(PersonAgent p){
 		super(p);
+		
+		Food f = new Food ("Chicken");
+		foods.put("Chicken", f);
+		
+		f = new Food ("Steak");
+		foods.put("Steak", f);
+		
+		f = new Food ("Pizza");
+		foods.put("Pizza", f);
+		
+		f = new Food ("Salad");
+		foods.put("Salad", f);
 	
 	}
 	
@@ -95,7 +117,7 @@ public class ResidentRole extends Role {
 		//from animation
 		System.out.println("Received msgFinishedLeaveRestaurant");
 		//event = HomeEvent.doneLeaving;
-		//stateChanged();
+		stateChanged();
 	}
 
 	/**
@@ -112,7 +134,8 @@ public class ResidentRole extends Role {
 		}
 		if (state == HomeState.CheckingFoodSupply && event == HomeEvent.collectedIngredients){
 			state = HomeState.Cooking;
-			cookFood();
+			type = checkFoodSupply();
+			cookFood(type);
 			return true;
 		}
 		if(state == HomeState.Cooking && event == HomeEvent.doneCooking){
@@ -135,9 +158,20 @@ public class ResidentRole extends Role {
 			returnToHomePosition();
 			return true;
 		}
+		if (state == HomeState.CheckingFoodSupply && event == HomeEvent.checkedEmptyFridge){
+			state = HomeState.LeavingHome;
+			goToMarket();
+			return true;
+		}
+		if (state == HomeState.LeavingHome && event == HomeEvent.none){
+			state = HomeState.DoingNothing;
+			return true;
+		}
 		
 		return false;
 	}
+
+	
 
 	// Actions
 
@@ -147,34 +181,164 @@ public class ResidentRole extends Role {
 	}
 
 	private void clearFood() {
-		// TODO Auto-generated method stub
+		System.out.println("resident cleaning plates");
+		//residentGui.DoClearFood();
+		try {
+			Thread.currentThread().sleep(5000);
+		}catch(Exception e) {
+			System.out.print(e.getMessage());
+		}
+		System.out.println("resident done cleaning");
+		event = HomeEvent.doneClearing;
+
 		
 	}
 
 	private void eatFood() {
-		// TODO Auto-generated method stub
-		
+		System.out.println("resident eating Food");
+		//residentGui.waitingForFood=false;
+		//residentGui.receivedFood=true;
+		//residentGui.DoGoToTable();
+		try {
+			Thread.currentThread().sleep(5000);
+		}catch(Exception e) {
+			System.out.print(e.getMessage());
+		}
+		System.out.println("resident done eating");
+		event = HomeEvent.doneEating;
+		//customerGui.receivedFood=false;
+		//isHungry = false;
+		stateChanged();
 	}
 
 	private void plateFood() {
-		// TODO Auto-generated method stub
+		System.out.println("resident plating Food");
+		//residentGui.DoGoToPlatingArea();
+		DoPlating();
+		event = HomeEvent.donePlating;
+		stateChanged();
 		
 	}
 
-	private void cookFood() {
-		// TODO Auto-generated method stub
+	private void cookFood(String type) {
+		System.out.println("resident cooking Food");
+		//residentGui.DoGoToStove();
+		Food myChoice = new Food(type);
+		DoCooking(myChoice); //cooking timer
+		event = HomeEvent.doneCooking;
+		stateChanged();
+	}
+
+	private String checkFoodSupply() {
+		//residentGui.DoGoToFridge();
+		String choice = randomizeFoodChoice();
+		
+		Food f = foods.get(choice);
+			
+		if (checkInventory(f)) {
+			//print("cook is cooking the food");
+			int amount = f.getAmount() - 1;
+			f.setAmount (amount);			
+			//DoCooking(o);
+			//print(this.getName() + " is cooking the food");
+			event = HomeEvent.collectedIngredients;
+			stateChanged();
+			//CookGui.order = o.choice.getType();
+			//CookGui.tableNumber = o.tableNumber;
+			//CookGui.cooking = true;
+			//CookGui.plating = false;
+			
+			// check low threshold
+			if (amount <= f.getLowThreshold()) { 
+				addToGroceryList(f);
+			}
+		}
+		else {
+			event = HomeEvent.checkedEmptyFridge;
+			//o.outOfStock = true;
+			System.out.println(this.getName() + " has run out of " + choice);
+			stateChanged();
+		}
+		
+		return choice;
+	}
+	
+	private void goToMarket() {
+		//residentGui.DoExitHome();
+		event = HomeEvent.none;
+		stateChanged();
 		
 	}
 
-	private void checkFoodSupply() {
-		// TODO Auto-generated method stub
-		
-	}
+	
+
+	
 
 	// Accessors, etc.
+	
+	private void DoCooking(Food f) {
+		System.out.println("Do Cooking");
+
+		int cookingTime = f.getCookingTime();
+		try {
+			Thread.currentThread().sleep(cookingTime*250);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	private void DoPlating() {
+		try {
+			//CookGui.cooking = false;
+			//CookGui.plating = true;
+			Thread.currentThread().sleep(2000);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	private boolean checkInventory(Food f) {
+		System.out.println("checking Fridge Inventory");
+		int amount = f.getAmount(); 
+		if (amount > 0) {
+			return true;
+		}
+		return false;
+	}
+	
+	private void addToGroceryList(Food f) {
+		 groceryList.add(f.getType());
+	}
 
 	public String getName() {
 		return name;
+	}
+	
+	private String randomizeFoodChoice() {
+		String choice = null;
+		
+		Random r = new Random();
+		int x;
+		
+		x = r.nextInt(4) + 1;
+		
+		if(x == 1) {
+			choice = "Salad";
+			System.out.println("choice = Salad");
+		}
+		if(x == 2) {
+			choice = "Pizza";
+			System.out.println("choice = pizza");
+		}
+		if(x == 3){
+			choice = "Chicken";
+			System.out.println("choice = Chicken");
+		}
+		if(x == 4){
+			choice = "Steak";
+			System.out.println("choice = Steak");
+		}
+	
+		return choice;
 	}
 /*
 	public int getHungerLevel() {
@@ -185,46 +349,6 @@ public class ResidentRole extends Role {
 		stateChanged();
 	}
 
-	private String randomizeFoodChoice() {
-		String choice = null;
-		
-		Random r = new Random();
-		int x;
-		
-		if (wallet < cheapestFood()) {
-			x = r.nextInt(4) + 1;
-		} 
-		else {
-		
-			int i =0;
-			for ( ; i < 4 && wallet > menu.foods.get(i).getFoodPrice(); ++i);
-			
-			if (i == 1) { //only can afford the cheapest food
-				leaveIfOutOfStock = true;
-			}
-			x = r.nextInt(i) + 1;
-		}
-		
-		if(x == 1) {
-			choice = "Salad";
-			print("choice = Salad");
-		}
-		if(x == 2) {
-			choice = "Pizza";
-			print("choice = pizza");
-		}
-		if(x == 3){
-			choice = "Chicken";
-			print("choice = Chicken");
-		}
-		if(x == 4){
-			choice = "Steak";
-			print("choice = Steak");
-		}
-		
-
-		return choice;
-	}
 /*
 	//public String toString() {
 		//return "customer " + getName();
@@ -243,5 +367,22 @@ public class ResidentRole extends Role {
 	*/
 	public double getWalletAmount() {
 		return wallet;
+	}
+	
+	public class FoodChoice {
+		public Food choice;
+		double totalPrice;
+		boolean outOfStock = false;
+		
+		public FoodChoice(String foodChoice){
+			
+			this.choice = new Food(foodChoice);
+			//this.totalPrice = totalPrice;
+		}
+		
+		 public void setTotalPrice(double t) {
+			totalPrice = t;
+		}
+			
 	}
 }
