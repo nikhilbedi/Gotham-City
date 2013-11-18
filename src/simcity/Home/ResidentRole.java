@@ -2,8 +2,8 @@ package simcity.Home;
 
 
 //import restaurant.WaiterAgent.Menu;
-//import Home.gui.ResidentGui;
-//import Home.gui.HomeGui;
+import simcity.Home.gui.ResidentGui;
+import simcity.Home.interfaces.Resident;
 import agent.Agent;
 import agent.Role;
 
@@ -18,16 +18,19 @@ import java.util.TimerTask;
 import simcity.Home.Food;
 import simcity.PersonAgent;
 
+
 /**
  * Restaurant customer agent.
  */
-public class ResidentRole extends Role {
+public class ResidentRole extends Role implements Resident{
 	private String name;
 	Timer timer = new Timer();
 	
-	//private ResidentGui residentGui;
+	private ResidentGui residentGui;
 	//public Food foodChoice;
 	String type;
+	public PersonAgent person;
+
 	private double wallet;
 	public List<Food> fridgeFoods;
 	public Map<String, Food> foods = new HashMap<String, Food>();
@@ -62,6 +65,8 @@ public class ResidentRole extends Role {
 	 */
 	public ResidentRole(PersonAgent p){
 		super(p);
+		person = p;
+		name = person.name;
 		
 		Food f = new Food ("Chicken");
 		foods.put("Chicken", f);
@@ -379,7 +384,7 @@ public class ResidentRole extends Role {
 
 
 
-	/*
+	*/
 	public void setGui(ResidentGui g) {
 		residentGui = g;
 	}
@@ -387,7 +392,7 @@ public class ResidentRole extends Role {
 	public ResidentGui getGui() {
 		return residentGui;
 	}
-	*/
+	
 	public double getWalletAmount() {
 		return wallet;
 	}

@@ -12,7 +12,7 @@ import java.util.concurrent.Semaphore;
 
 public class PersonAgent extends Agent implements Person {
 	//Data
-	String name;
+	public String name;
 	int currentTime; //(ranges from 1-24)
 	int accountNumber; //Not currently sure how we're using account numbers, but the person should know it.
 	Semaphore busyWithTask;
