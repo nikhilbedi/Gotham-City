@@ -1,18 +1,43 @@
-package agent;
+package simcity.restaurant_evan.src.agent;
 
 import java.io.*;
 import java.util.*;
 import java.util.concurrent.*;
 
-
 /**
  * Base class for simple agents
  */
 public abstract class Agent {
-    Semaphore stateChange = new Semaphore(1, true);//binary semaphore, fair
-    Semaphore pause = new Semaphore(0, true);
-    boolean boolPause = false;
-    private AgentThread agentThread;
+	boolean paused = false;
+	Semaphore stateChange = new Semaphore(1, true);
+	private AgentThread agentThread;
+	Semaphore pauseAgent = new Semaphore(0);
+	
+	//boolean goOn = true;
+	/*
+	public void run() {
+		
+		while (goOn) {
+			if(paused) {
+				//pauseAgent.acquire();
+			}
+		  //stateChanged.acquire();
+			while(pickAndExecuteAnAction());
+		}		
+		
+				public void pause() {
+					pause = true;
+				}
+				 public void restart() {
+					pause = false;
+					pauseAgent.release();
+				}
+				
+	}
+	Semaphore stateChange = new Semaphore(1, true);//binary semaphore, fair
+    //Semaphore pauseAgent = new Semaphore (0);
+    */
+   // private AgentThread agentThread;
 
     protected Agent() {
     }
@@ -21,7 +46,7 @@ public abstract class Agent {
      * This should be called whenever state has changed that might cause
      * the agent to do something.
      */
-    public void stateChanged() {
+    protected synchronized void stateChanged() {
         stateChange.release();
     }
 
@@ -89,20 +114,11 @@ public abstract class Agent {
      */
     //In this implementation, nothing calls stopThread().
     //When we have a user interface to agents, this can be called.
-    public void stopThread() {
+    public synchronized void stopThread() {
         if (agentThread != null) {
             agentThread.stopAgent();
             agentThread = null;
         }
-    }
-
-    public void pause() {
-	boolPause = true;
-    }
-
-    public void resume() {
-	boolPause = false;
-	pause.release();
     }
     
 
@@ -122,14 +138,12 @@ public abstract class Agent {
 
             while (goOn) {
                 try {
+                	if(paused) {
+                		pauseAgent.acquire();
+                	}
                     // The agent sleeps here until someone calls, stateChanged(),
                     // which causes a call to stateChange.give(), which wakes up agent.
                     stateChange.acquire();
-		    
-		    if(boolPause) {
-			pause.acquire();
-		    }
-
                     //The next while clause is the key to the control flow.
                     //When the agent wakes up it will call respondToStateChange()
                     //repeatedly until it returns FALSE.
@@ -147,6 +161,15 @@ public abstract class Agent {
             goOn = false;
             this.interrupt();
         }
+    }
+    public void pause() {
+    	System.out.println("Paused");
+    	paused = true;
+    }
+    public void restart() {
+    	System.out.println("Restarted");
+    	paused = false;
+    	pauseAgent.release();
     }
 }
 
