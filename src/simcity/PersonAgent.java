@@ -14,8 +14,6 @@ public class PersonAgent extends Agent implements Person {
 	//Data
 
 	public String name;
-
-
 	int currentTime; //(ranges from 1-24)
 	int accountNumber; //Not currently sure how we're using account numbers, but the person should know it.
 	Semaphore busyWithTask;
@@ -24,7 +22,6 @@ public class PersonAgent extends Agent implements Person {
 	private List<Role> roles = new ArrayList<Role>();
 	private List<String> groceryList = new ArrayList<String>();
 
-	
 	//Locations
 	/*public List<Restaurant> restaurants;
 	public List<Market> markets;
@@ -217,6 +214,7 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	protected boolean pickAndExecuteAnAction() {
 		// Person Scheduler 
+		System.out.println("Calling person scheduler");
 		
 		//If he's CRRAAAZZY hungry, then eat something first. Then do checks of eating at home versus the restaurant
 		
@@ -261,6 +259,8 @@ public class PersonAgent extends Agent implements Person {
 	
 		//Role Scheduler
 		for(Role r : roles) {
+			System.out.println("Calling role schedulers");
+			
 			r.pickAndExecuteAnAction();
 		}
 		
@@ -295,6 +295,12 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	private void goToBank() {
+		
+	}
+
+
+	public void restart() {
+		// TODO Auto-generated method stub
 		
 	}
 }

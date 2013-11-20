@@ -1,15 +1,17 @@
 package Gui;
    import javax.swing.*;
 
+
 import simcity.Market.MarketGui.MarketPanel;
+
+import simcity.Home.gui.HomePanel;
+
 
     public class SimCityRun
    {
       JFrame window;
 
       SimCityPanel cityPanel;
-    
-    
 
 
        public SimCityRun()
@@ -19,6 +21,7 @@ import simcity.Market.MarketGui.MarketPanel;
          window.setSize(800, 800);
          window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+         
 
       //   window.setLayout(new BoxLayout());
 

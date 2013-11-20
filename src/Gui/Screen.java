@@ -18,13 +18,14 @@ import java.util.*;
       
       public Screen()
       {
-    	 temp = 0;
-    	 generate();
+             temp = 0;
+             generate();
       }
        public Screen(int t)
       {
-    	 temp = t;
-    	 generate();
+             temp = t;
+             generate();
+
       }
 
        public ArrayList<Obstacle> getObs()
@@ -36,24 +37,26 @@ import java.util.*;
          obst.clear();
          
          if(temp==1){//Main city pane
-        	 obst.add(new Obstacle(200, 100, 50, 50));
-        	 obst.add(new Obstacle(400, 100, 50, 50));
-        	 obst.add(new Obstacle(600, 100, 50, 50));
-        	 obst.add(new Obstacle(400, 700, 50, 50));
+
+                 obst.add(new Obstacle(200, 100, 50, 50));
+                 obst.add(new Obstacle(400, 100, 50, 50));
+                 obst.add(new Obstacle(600, 100, 50, 50));
+                 obst.add(new Obstacle(400, 700, 50, 50));
          }
          else if(temp==2){//Restaurant
-        	 obst.add(new Obstacle(25,50,20,20));
-        	 
-        	 
+                 obst.add(new Obstacle(25,50,20,20));
+                 
+                 
          }
          else if(temp==3){//Market
-        	 obst.add(new Obstacle(25,50,20,20));
+                 obst.add(new Obstacle(25,50,20,20));
          }
          else if(temp==4){//Bank
-        	 obst.add(new Obstacle(25,50,20,20));
+                 obst.add(new Obstacle(25,50,20,20));
          }
          else if(temp==5){//Home
-        	 obst.add(new Obstacle(25,50,20,20));
+                 obst.add(new Obstacle(25,50,20,20));
+
          }
 
       }
@@ -62,20 +65,21 @@ import java.util.*;
        
        
        public void addGui(RoleGui g1){
-    	   guis.add(g1);
+
+               guis.add(g1);
        }
       
        public void updateAgents(){
-    	   for (RoleGui gui : guis) {
-    		   gui.updatePosition();
-    	   }
+               for (RoleGui gui : guis) {
+                       gui.updatePosition();
+               }
        }
        
        public void paintAgents(Graphics g){
-		   for (RoleGui gui : guis) {
-			gui.draw(g);
-		}
-    	   
+                   for (RoleGui gui : guis) {
+                        gui.draw(g);
+                }
+       
        }
        
        public  void paintBackground(Graphics g)
@@ -84,20 +88,22 @@ import java.util.*;
          g.fillRect(0,0,800, 800);
          g.setColor(Color.black);
          if(temp==1){//Main city pane
-        	 g.drawString("Main City", 400, 50);
+
+                 g.drawString("Main City", 400, 50);
          }
          else if(temp==2){//Restaurant
-        	 g.drawString("Restaurant", 400, 50);
-        	 
+                 g.drawString("Restaurant", 400, 50);
+                 
          }
          else if(temp==3){//Market
-        	 g.drawString("Market", 400, 50);
+                 g.drawString("Market", 400, 50);
          }
          else if(temp==4){//Bank
-        	 g.drawString("Bank", 400, 50);
+                 g.drawString("Bank", 400, 50);
          }
          else if(temp==5){//Home
-        	 g.drawString("Home", 400, 50); 
+                 g.drawString("Home", 400, 50); 
+
          }
       }
       
@@ -111,31 +117,34 @@ import java.util.*;
       }
        
        
-	public String checkSwap(int x, int y) {
-		if(temp == 1){
-			if((x>200)&&(x<250)&&(y>100)&&(y<150)){
-				return "Restaurant";
-			}
-			if((x>400)&&(x<450)&&(y>100)&&(y<150)){
-				return "Market";
-			}
-			if((x>600)&&(x<650)&&(y>100)&&(y<150)){
-				return "Bank";
-			}
-			if((x>400)&&(x<450)&&(y>700)&&(y<750)){
-				return "Home";
-			}
-		}
-		else{
-			if((x>25)&&(x<45)&&(y>50)&&(y<70)){
-				return "City";
-			}
-		}
-		
-		return "na";
-	}
+
 	public void paintObstacles() {
 		// TODO Auto-generated method stub
 		
 	}
+
+        public String checkSwap(int x, int y) {
+                if(temp == 1){
+                        if((x>200)&&(x<250)&&(y>100)&&(y<150)){
+                                return "Restaurant";
+                        }
+                        if((x>400)&&(x<450)&&(y>100)&&(y<150)){
+                                return "Market";
+                        }
+                        if((x>600)&&(x<650)&&(y>100)&&(y<150)){
+                                return "Bank";
+                        }
+                        if((x>400)&&(x<450)&&(y>700)&&(y<750)){
+                                return "Home";
+                        }
+                }
+                else{
+                        if((x>25)&&(x<45)&&(y>50)&&(y<70)){
+                                return "City";
+                        }
+                }
+                
+                return "na";
+        }
+
    }
