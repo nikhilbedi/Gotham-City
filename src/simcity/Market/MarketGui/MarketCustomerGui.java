@@ -1,12 +1,13 @@
 package simcity.Market.MarketGui;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import simcity.Market.interfaces.MarketCashier;
 import simcity.Market.interfaces.MarketCustomer;
 
-public class MarketCustomerGui implements Gui{
+public class MarketCustomerGui implements RoleGui{
 	private int xPos;
 	private int yPos;
 	private int xDestination;
@@ -24,7 +25,7 @@ public class MarketCustomerGui implements Gui{
 	}
 	
 
-	@Override
+
 	public void updatePosition() {
 		 if (xPos < xDestination)
 	            xPos++;
@@ -47,14 +48,14 @@ public class MarketCustomerGui implements Gui{
 
 	
 	
-	@Override
-	public void draw(Graphics2D g) {
+
+	public void draw(Graphics g) {
 		g.setColor(Color.BLUE);
         g.fillRect(xPos, yPos, 20, 20);
 		
 	}
 
-	@Override
+
 	public boolean isPresent() {
 		return true;
 	}

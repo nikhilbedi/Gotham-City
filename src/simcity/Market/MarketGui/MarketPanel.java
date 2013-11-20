@@ -32,16 +32,16 @@ public class MarketPanel extends JFrame{
 	public MarketPanel(){
 		
 		marketCashier.setGui(cashierGui);
-		animationPanel.addGui(cashierGui);
+	//	animationPanel.addGui(cashierGui);
 		agentCash.addRole(marketCashier);
 		marketWorker.setGui(workerGui);
-		animationPanel.addGui(workerGui);
+		//animationPanel.addGui(workerGui);
 		agentWork.addRole(marketWorker);
 		marketCustomer.setGui(customerGui);
-		animationPanel.addGui(customerGui);
+		//animationPanel.addGui(customerGui);
 		agentCust.addRole(marketCustomer);
 		marketCustomer2.setGui(customerGui2);
-		animationPanel.addGui(customerGui2);
+		//animationPanel.addGui(customerGui2);
 		agentCust2.addRole(marketCustomer2);
 		setSize(450, 350);
 		setTitle("Market");

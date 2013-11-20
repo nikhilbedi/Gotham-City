@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ArrayList;
 
-public class AnimationPanel extends JPanel implements ActionListener {
+public class AnimationPanel extends Screen {
 	static final int HEIGHT = 50;
 	static final int WIDTH = 50;
     private final int WINDOWX = 450;
@@ -20,26 +20,22 @@ public class AnimationPanel extends JPanel implements ActionListener {
     private List<Gui> guis = new ArrayList<Gui>();
 
     public AnimationPanel() {
-    	setSize(WINDOWX, WINDOWY);
+    	/*setSize(WINDOWX, WINDOWY);
         setVisible(true);
         
         bufferSize = this.getSize();
  
     	Timer timer = new Timer(20, this );
-    	timer.start();
+    	timer.start();*/
     }
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		repaint();
-		
-	}
+
 
     public void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D)g;
         //Clear the screen by painting a rectangle the size of the frame
-        g2.setColor(getBackground());
-        g2.fillRect(0, 0, WINDOWX, WINDOWY );
+     /*   g2.setColor(getBackground());
+        g2.fillRect(0, 0, WINDOWX, WINDOWY );*/
 
         //Here is the table
         g2.setColor(Color.ORANGE);
@@ -64,7 +60,7 @@ public class AnimationPanel extends JPanel implements ActionListener {
         }
     }
 
-    public void addGui(MarketCustomerGui customerGui) {
+/*    public void addGui(MarketCustomerGui customerGui) {
         guis.add(customerGui);
     }
 
@@ -75,6 +71,6 @@ public class AnimationPanel extends JPanel implements ActionListener {
 	public void addGui(MarketCashierGui cashierGui) {
 		guis.add(cashierGui);
 		
-	}
+	}*/
 
 }
