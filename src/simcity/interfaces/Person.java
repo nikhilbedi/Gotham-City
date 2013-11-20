@@ -7,6 +7,7 @@ import agent.Role;
 
 
 public interface Person {
+
 	public abstract void addRole(Role role);
 	
 	public abstract void removeRole(Role role);

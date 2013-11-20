@@ -5,13 +5,14 @@ import java.util.*;
 import simcity.Market.MarketGui.MarketAnimationPanel;
 import simcity.restaurants.restaurant1.gui.RestaurantNikhilAnimationPanel;
 import simcity.Home.gui.HomeAnimationPanel;
+import bank.bankAnimationPanel;
 
 public class ScreenFactory {
 	List<Screen> screenList = new ArrayList<Screen>();
 	Screen main = new Screen(1);
 	Screen rest = new RestaurantNikhilAnimationPanel();
 	Screen market = new MarketAnimationPanel();
-	Screen bank = new Screen(4);
+	Screen bank = new bankAnimationPanel();
 	Screen home = new HomeAnimationPanel();
 
 	public ScreenFactory(){

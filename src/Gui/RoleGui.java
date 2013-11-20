@@ -11,7 +11,6 @@ public class RoleGui {
 
 	protected int xPos, yPos;
 	protected int xDestination, yDestination;
-
 	private enum Command {noCommand, commandA, commandB, commandC};
 
 	private Command command = Command.noCommand;
@@ -19,9 +18,6 @@ public class RoleGui {
 	public static final int guiSize = 20;
 	
 	protected Color myColor;
-
-
-
 
 	public RoleGui(){
 		//agent = c;
