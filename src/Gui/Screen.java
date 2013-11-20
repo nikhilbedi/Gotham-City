@@ -8,9 +8,9 @@ import java.util.*;
  
    public class Screen
    {
-      ArrayList<Obstacle> obst = new ArrayList<Obstacle>();
-      ArrayList<Rectangle> cords = new ArrayList<Rectangle>(); 
-      ArrayList<RoleGui> guis = new ArrayList<RoleGui>();
+      public ArrayList<Obstacle> obst = new ArrayList<Obstacle>();
+      public ArrayList<Rectangle> cords = new ArrayList<Rectangle>(); 
+      public ArrayList<RoleGui> guis = new ArrayList<RoleGui>();
       
       String loc = "";
       int xCord, yCord;
