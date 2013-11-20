@@ -16,8 +16,6 @@ public class CustomerGui extends RoleGui {
 	//private HostAgent host;
 	RestaurantGui gui;
 
-	private int xPos, yPos;
-	private int xDestination, yDestination;
 	private enum Command {noCommand, GoToSeat, GoToCashier, LeaveRestaurant};
 	private Command command=Command.noCommand;
 
@@ -27,6 +25,7 @@ public class CustomerGui extends RoleGui {
 	public static final int yTable = 250;
 
 	public CustomerGui(CustomerRole c){ //HostAgent m) {
+		super.setColor(Color.green);
 		agent = c;
 		xPos = 20;
 		yPos = 400;
@@ -35,20 +34,12 @@ public class CustomerGui extends RoleGui {
 	}
 
 	public void updatePosition() {
-	//	System.out.println("position: " + yPos);
-		//System.out.println("destin: " + yDestination);
-		if (xPos < xDestination)
-			xPos++;
-		else if (xPos > xDestination)
-			xPos--;
-
-		if (yPos < yDestination)
-			yPos++;
-		else if (yPos > yDestination)
-			yPos--;
-
+		super.updatePosition();
 		if (xPos == xDestination && yPos == yDestination) {
-			if (command==Command.GoToSeat) agent.msgAnimationFinishedGoToSeat();
+			if (command==Command.GoToSeat){
+				System.out.println("Made it to seat.");
+				agent.msgAnimationFinishedGoToSeat();
+			}
 			else if (command==Command.LeaveRestaurant) {
 				agent.msgAnimationFinishedLeaveRestaurant();
 				isHungry = false;
@@ -64,9 +55,7 @@ public class CustomerGui extends RoleGui {
 	}
 
 	public void draw(Graphics g) {
-		g.setColor(Color.GREEN);
-		g.fillRect(xPos, yPos, 20, 20);
-		System.out.println(yPos);
+		super.draw(g);
 		if(myFood != null){
 			g.drawString(myFood, xPos, yPos);
 		}
@@ -98,7 +87,6 @@ public class CustomerGui extends RoleGui {
 
 	public void DoGoToArea(int x, int y) {
 		//just have the customer appear at the location
-		System.out.println("now im moving");
 		xPos = x;
 		yPos = y;
 		xDestination = x;

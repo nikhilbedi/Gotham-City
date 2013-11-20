@@ -8,9 +8,13 @@ public class Role {
 	/**
 	 * Base class for simple roles
 	 */
-//	public Role(PersonAgent person){
-	//	myPerson = person;
-	//}
+	public Role(PersonAgent person){
+		myPerson = person;
+	}
+	
+	public Role() {
+		
+	}
 	
 	
 	
@@ -46,8 +50,7 @@ public class Role {
      */
     protected void print(String msg, Throwable e) {
         StringBuffer sb = new StringBuffer();
-       // sb.append(myPerson.getName());
-        sb.append("My name");
+        sb.append(myPerson.getName());
         sb.append(": ");
         sb.append(msg);
         sb.append("\n");

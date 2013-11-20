@@ -33,9 +33,24 @@ public class HostRole extends Role implements Host {
 
     public HostGui hostGui = null;
 
-    public HostRole() {
-  
+    public HostRole(PersonAgent p) {
+    	super(p);
 		// make some tables
+		tables = new ArrayList<Table>(NTABLES);
+		for (int ix = 1; ix <= NTABLES; ix++) {
+		    tables.add(new Table(ix));//how you add to a collections
+		}
+		
+		//make some waiting areas
+		for(int i =0; i < 4; i++) {
+			waitingAreas[i] = new WaitingArea(i+1);
+			waitingAreas[i].posX = 20;
+			waitingAreas[i].posY = ((i+1)*40)-20;
+		}	
+    }
+    
+    public HostRole() {
+    	// make some tables
 		tables = new ArrayList<Table>(NTABLES);
 		for (int ix = 1; ix <= NTABLES; ix++) {
 		    tables.add(new Table(ix));//how you add to a collections

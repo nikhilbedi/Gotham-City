@@ -2,7 +2,7 @@ package simcity.restaurants.restaurant1;
 
 import java.util.*;
 
-import simcity.restaurants.Restaurant;
+import simcity.restaurants.*;
 
 /**
  * Nikhil's restaurant

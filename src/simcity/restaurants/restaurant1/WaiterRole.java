@@ -36,8 +36,8 @@ public class WaiterRole extends Role implements Waiter {
     
     private WaiterGui waiterGui = null;
 
-    public WaiterRole() {
-		super();
+    public WaiterRole(PersonAgent p) {
+		super(p);
 		this.name = name;
 		print("I am a waiter. Sup.");
     }
@@ -356,6 +356,7 @@ public class WaiterRole extends Role implements Waiter {
 		    // TODO Auto-generated catch block
 		    e.printStackTrace();
 		}
+		System.out.println("Here is the order");
 		cook.hereIsOrder(this, customer.tableNumber, customer.choice);
 		customer.state = CustomerState.gaveOrderAndWaiting;
 		waiterGui.DoWaitingNearKitchen();
@@ -451,7 +452,7 @@ public class WaiterRole extends Role implements Waiter {
 
     //Informs host that a table is free once the customer has finished eating
     private void tellHostTableFree(MyCustomer mc) {
-		print("Customer " + ((PersonAgent) mc.c).getName() + " is leaving. Notified the host.");
+		print("Customer is leaving. Notified the host.");
 		host.tableFree(this, mc.tableNumber);	
 		myCustomers.remove(mc);
 		state = WaiterState.available;

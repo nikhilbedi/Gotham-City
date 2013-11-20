@@ -15,9 +15,7 @@ public class CookGui extends RoleGui {
 
     private CookRole agent = null;
 
-    private int xPos = 845, yPos = 130;//default waiter position
-    private int xDestination = 845, yDestination = 130;//default start position
-
+  
     //Taking final out of public static final
     public static int xTable = 200;
     public static int yTable = 250;
@@ -29,8 +27,13 @@ public class CookGui extends RoleGui {
     private boolean showFood = false;
 
     public CookGui(CookRole agent) {
-	    this.agent = agent;
-		//Setting coordinates
+	    super.setColor(Color.BLUE);
+    	this.agent = agent;
+	   xPos = 850;
+	   yPos = 130;//default waiter position
+	   xDestination = 850;
+	   yDestination = 130;//default waiter position 
+	    //Setting coordinates
 		/*foodTypes.put("", false);
 		foodTypes.put("", false);
 		foodTypes.put("", false);
@@ -38,18 +41,9 @@ public class CookGui extends RoleGui {
     }
 
     public void updatePosition() {
-        if (xPos < xDestination)
-            xPos++;
-        else if (xPos > xDestination)
-            xPos--;
+    	super.updatePosition();
 
-        if (yPos < yDestination)
-            yPos++;
-        else if (yPos > yDestination)
-            yPos--;
-
-	//Redo this if statement so the agent knows when he is at any table
-        if (xPos == xDestination && yPos == yDestination)  {
+	   if (xPos == xDestination && yPos == yDestination)  {
 		    if(release) {
 				//agent.doneWithTask();
 				release = false;
@@ -57,10 +51,11 @@ public class CookGui extends RoleGui {
         }
     }
 
-    public void draw(Graphics2D g) {
-        g.setColor(Color.RED);
-        g.fillRect(xPos, yPos, 20, 20);
-        int i = 0;
+    public void draw(Graphics g) {
+        //g.setColor(Color.RED);
+        //g.fillRect(xPos, yPos, 20, 20);
+        super.draw(g);
+    	int i = 0;
         synchronized(foodTypes) {
         	for(FoodGui f : foodTypes) {
         		if(f.plated == false)
@@ -83,28 +78,7 @@ public class CookGui extends RoleGui {
         return true;
     }
     
-    public void DoGetCustomer(int x, int y) {
-		release = true;
-		xDestination = x;
-		yDestination = y;
-    }
-
-    public void DoLeaveCustomer() {
-        xDestination = 120;
-        yDestination = 20;
-    }
-
-    public void DoGoToCook() {
-	release = true;
-	xDestination = 425;
-	yDestination = 75;
-    }
-
-    public void DoGoToCashier() {
-	release = true;
-	xDestination = -40;
-	yDestination = 300;
-    }
+   
     
     public void setFood(CustomerRole c, String choice) {
 	showFood = false;

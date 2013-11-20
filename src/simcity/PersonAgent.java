@@ -153,6 +153,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void addRole(Role role) {
 		roles.add(role);
+		//stateChanged();
 	}
 	
 	public void removeRole(Role role) {
@@ -340,35 +341,63 @@ public class PersonAgent extends Agent implements Person {
 		//roles.get(0).DoLeaveBuilding();
 		
 		//animate to desired location
-		//DoGoToDestination(myJob.role.)
-	//	roles.add(myJob.role);
+		//DoGoToDestination(myJob.role.myBuilding);
+		roles.add(myJob.role);
 		
 	}
 	
 	private void leaveWork() {
+		//animate out of building
+		//roles.get(0).DoLeaveBuilding();
 		
+		//animate to desired location
+		//DoGoToHome();
+		roles.remove(myJob.role);
 	}
 	
+	//May not need this function since we already have a goToBank()
 	private void payBills() {
+		//if inside building and not in bank
+		//animate outside building
 		
+		//animate to bank
+		//DoGoToBank();
+		//roles.add(RoleFactory.makeMeRole(bank.bankCustomerRole));
 	}
 
 	private void goEatAtHome() {
+		//if inside building and not in home
+		//animate outside building
 		
+		//animate to home
+		//DoGoToHome();
+		//roles.add(RoleFactory.makeMeRole(home.homeCustomerRole));
 	}
 	
 	private void goEatAtRestaurant() {
+		//if inside building and not in current restaurant preference
+		//animate outside building
 		
+		//animate to restaurant
+		//DoGoToRestaurant(currentRestaurantPreference);
+		//roles.add(RoleFactory.makeMeRole(currentRestaurantPreference.restaurantCustomerRole));
 	}
 	
 	private void goGetGroceries() {
-
+		//if inside building and not in market
+		//animate outside building
+		
+		//animate to market
+		//DoGoToMarket();
+		//roles.add(RoleFactory.makeMeRole(market.marketCustomerRole));
 	}
 
 	private void goToBank() {
-
+		//if inside building and not in bank
+		//animate outside building
+		
+		//animate to bank
+		//DoGoToBank();
+		//roles.add(RoleFactory.makeMeRole(bank.bankCustomerRole));
 	}
-
-
-
 }

@@ -49,9 +49,12 @@ public class CookRole extends Role implements Cook {
     public enum OrderState {pending, cooking, done, plated, pickedUp, finished};
     public enum FoodState {haveEnough, needToOrderMore, waitingForDeliveries};
 
+    public CookRole(PersonAgent p) {
+		super(p);
+    }
+    
     public CookRole() {
-		super();
-		this.name = name;
+    	
     }
 
     public String getName() {

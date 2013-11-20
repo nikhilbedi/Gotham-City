@@ -31,8 +31,8 @@ public class CashierRole extends Role implements Cashier {
     //creating states outside the Order class
     public enum CheckState {pending, generating, done, beingPaid, paid};
 
-    public CashierRole() {
-		super();
+    public CashierRole(PersonAgent p) {
+		super(p);
 		this.name = name;
 		myMenu = new Menu();
     }
