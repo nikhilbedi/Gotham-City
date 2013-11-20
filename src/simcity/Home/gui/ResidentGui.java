@@ -1,142 +1,110 @@
 package simcity.Home.gui;
 
-import restaurant.CustomerAgent;
-import restaurant.HostAgent;
+import java.awt.Color;
+import java.awt.Graphics2D;
 
-import java.awt.*;
+import javax.swing.text.StyledEditorKit.ForegroundAction;
 
-public class ResidentGui implements Gui{
+import Gui.RoleGui;
+import simcity.Home.interfaces.Resident;
 
-	private CustomerAgent agent = null;
-	private boolean isPresent = false;
-	private boolean isHungry = false;
-	public boolean waitingForFood=false;
-	public boolean receivedFood=false;
-	public String order;
-	//private HostAgent host;
-	RestaurantGui gui;
 
-	private int xPos, yPos;
-	private static int Width, Height;
-	private int xDestination, yDestination;
-	private int tableVariation;
-	private enum Command {noCommand, GoToSeat, GoToCashier, LeaveRestaurant};
-	private Command command=Command.noCommand;
+public class ResidentGui extends RoleGui{
+        /*private int xPos;
+        private int yPos;
+        private int xDestination;
+        private int yDestination;*/
+        private Resident resident;
+        private Command command;
+        private enum Command {none, atRefridgerator, gettingItems, left};
+        
+        public ResidentGui(Resident r){
+                myColor = Color.red;
+                //System.err.println("Here we are 2");
+        		resident = r;
+                xPos = 110;
+                yPos = 350;
+                xDestination = 110;
+                yDestination = 300;
+        }
+        
 
-	public static final int xTable = 200;
-	public static final int yTable = 150;
-	private static int waitingCustomers[] = new int[]{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
-	private int posInWaitArea = -1;
+        //@Override
+        public void updatePosition() {
+              super.updatePosition();
+                if (xPos == 110 && yPos == 183 && command == Command.atRefridgerator){
+                        command = Command.none;
+                        //resident.AtCashier();
+                }
+               if (xPos == 290 && yPos == 183 && command == Command.gettingItems){
+                        command = Command.none;
+                        //resident.ArrivedToGetItem();
+               }
+        }
 
-	public ResidentGui(CustomerAgent c, RestaurantGui gui){ //HostAgent m) {
-		agent = c;
-		for (int i = 0; i < waitingCustomers.length; ++i){
-			if (waitingCustomers[i] == -1) { //empty position
-				waitingCustomers[i] = 1;
-				posInWaitArea = i;
-				xPos = 20 * (i+1) + 5*i;
-				yPos = 20;
-				break;
-			}
+        
+        
+        /*public void draw(Graphics g) {
+                g.setColor(Color.BLUE);
+        g.fillRect(xPos, yPos, 20, 20);
+                
+        }*/
+
+        
+        
+        
+        public void DoMoveToCashier(){
+                yDestination = 183;
+                command = Command.atRefridgerator;
+        }
+        
+        public void DoGetItems(){
+                xDestination = 290;
+                command = Command.gettingItems;
+        }
+        
+        public void DoLeave(){
+                yDestination = 400;
+                command = Command.left;
+        }
+
+		public void DoClearFood() {
+			// TODO Auto-generated method stub
+			
 		}
-		
-		Width = 20;
-		Height = 20;
-		xDestination = xPos;
-		yDestination = +20;
-		tableVariation = 85;
-		//maitreD = m;
-		this.gui = gui;
-		
-	}
 
-	public void updatePosition() {
-		if (xPos < xDestination)
-			xPos++;
-		else if (xPos > xDestination)
-			xPos--;
 
-		if (yPos < yDestination)
-			yPos++;
-		else if (yPos > yDestination)
-			yPos--;
-
-		if (xPos == xDestination && yPos == yDestination) {
-			if (command==Command.GoToSeat) agent.msgAnimationFinishedGoToSeat();
-			else if (command==Command.LeaveRestaurant) {
-				agent.msgAnimationFinishedLeaveRestaurant();
-				System.out.println("about to call gui.setCustomerEnabled(agent);");
-				isHungry = false;
-				gui.setCustomerEnabled(agent);
-				command=Command.noCommand;
-			}
-			else if(command==Command.GoToCashier) agent.msgAnimationFinishedGoToCashier();
-			else
-			command=Command.noCommand;
+		public void DoGoToPlatingArea() {
+			// TODO Auto-generated method stub
+			
 		}
-	}
 
-	public void draw(Graphics2D g) {
-		g.setColor(Color.GREEN);
-		g.fillRect(xPos, yPos, Width, Height);
-	}
 
-	public boolean isPresent() {
-		return isPresent;
-
-	}
-	public void setHungry() {
-		isHungry = true;
-		agent.gotHungry();
-		setPresent(true);
-	}
-	public boolean isHungry() {
-		return isHungry;
-	}
-
-	public void setPresent(boolean p) {
-		isPresent = p;
-	}
-
-	public void DoGoToSeat(int seatnumber) {//later you will map seatnumber to table coordinates.
-
-		// clear the waitingCustomer array
-		waitingCustomers[this.posInWaitArea] = -1;
-		
-		if (seatnumber == 1) {
-			xDestination = xTable;
-			yDestination = yTable;
+		public void DoGoToStove() {
+			// TODO Auto-generated method stub
+			xDestination = 800;
+			yDestination = 600;
 		}
-		if (seatnumber == 2) {
-			xDestination = xTable+tableVariation;
-			yDestination = yTable;
-		}
-		if (seatnumber == 3) {
-			xDestination = xTable;
-			yDestination = yTable+tableVariation;
-		}
-		if (seatnumber == 4) {
-			xDestination = xTable+tableVariation;
-			yDestination = yTable+tableVariation;
-		}
-		command = Command.GoToSeat;
-	}
 
-	public void DoExitRestaurant() {
-		xDestination = -40;
-		yDestination = -40;
-		command = Command.LeaveRestaurant;
-	}
-	public void DoGoToCashier() {
-    	xDestination = 600;
-    	yDestination = 200;
-    }
-	
-	 public int getXPos() {
-	        return xPos;
-	 }
 
-	 public int getYPos() {
-	        return yPos;
-	 }
+		public void DoGoToBed() {
+			// TODO Auto-generated method stub
+			xDestination = 700;
+			yDestination = 600;
+			
+		}
+
+
+		public void DoGoToFridge() {
+			// TODO Auto-generated method stub
+			xDestination = 800;
+			yDestination = 800;
+			
+		}
+
+
+		public void DoExitHome() {
+			// TODO Auto-generated method stub
+			
+		}
 }
