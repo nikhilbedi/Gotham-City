@@ -2,12 +2,14 @@ package Gui;
 
 import java.util.*;
 
+import bank.bankAnimationPanel;
+
 public class ScreenFactory {
 	List<Screen> screenList = new ArrayList<Screen>();
 	Screen main = new Screen(1);
 	Screen rest = new Screen(2);
 	Screen market = new Screen(3);
-	Screen bank = new Screen(4);
+	Screen bank = new bankAnimationPanel();
 	Screen home = new Screen(5);
 	
 	public ScreenFactory(){

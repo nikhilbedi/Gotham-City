@@ -1,8 +1,5 @@
 package simcity.Home.gui;
 
-import restaurant.CustomerAgent;
-import restaurant.HostAgent;
-
 import java.awt.*;
 
 public class ResidentGui implements Gui{

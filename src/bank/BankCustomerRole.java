@@ -27,14 +27,23 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		// TODO Auto-generated constructor stub
 	}
 
-	private String name, choice;
-	private int hungerLevel = 5;        // determines length of meal
-	private int seatNumber, waitingNumber;        // determines length of meal
+	public BankTeller getBankTeller() {
+		return teller;
+	}
+
+	public void setBankTeller(BankTeller teller) {
+		this.teller = teller;
+	}
+
+	private String name;
+	private int  waitingNumber, tellerIndex;
 	Timer timer = new Timer();
 	//private CustomerGui customerGui;
 	double cash, transactionAmount;
-	String transactionType;
+	String transactionType = "openingAccount";
 	List<String> transactionList = new ArrayList<String>();
+	
+	public bankCustomerGui bankCustomerGui;
 	
 	// agent correspondents
 	private BankGreeter greeter;
@@ -54,28 +63,42 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	}
 	
 	public void setTeller(BankTeller t) {
-		teller = t;
+		setBankTeller(t);
 	}
 	
 	@Override
 	public String getName() {
 		// TODO Auto-generated method stub
-		return null;
+		return name;
 	}
 	
 	public int getWaitingNumber() {
 		return waitingNumber;
 	}
 	
+	//sets gui and initial positioning (Temp)
+	public void setGui(bankCustomerGui gui, int x, int y) {
+		bankCustomerGui = gui;
+		bankCustomerGui.setX(x);
+		bankCustomerGui.setY(y);
+	}
+	
 	// Messages
 
 	public void msgWaitHere(int i) {
 		//customerGui.goToWaitingPosition(i); //gui call to go to a position
+		System.out.println(name + ": Told to wait in line");
+		System.out.println("This is running twice.");
 		waitingNumber = i;
+		state = CustomerState.inLine;
+		DoGoToLine();
 	}
-	
+
 	public void msgGoToTeller(BankTeller teller) {
-		this.teller = teller;
+		this.setBankTeller(teller);
+		tellerIndex = teller.getIndex();
+		System.out.println(name + ": Told to go to teller");
+		state = CustomerState.inLine;
 		stateChanged();
 	}
 	
@@ -105,6 +128,8 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	public boolean pickAndExecuteAnAction() {
 		//	CustomerAgent is a finite state machine
 		
+		System.out.println("CALLING SCHEDULER");
+		
 		if (state == CustomerState.waiting ){
 			talkToGreeter();
 			return true;
@@ -112,6 +137,7 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		
 		if (state == CustomerState.inLine){
 			//state = AgentState.BeingSeated;
+			System.out.println("Going to Teller");
 			DoGoToTeller();
 			return true;
 		}
@@ -127,31 +153,32 @@ public class BankCustomerRole extends Role implements BankCustomer{
 			DoLeaveBank();
 			return true;
 		}
+		
 		return false;
 	}
 
 	// Actions
 	
 	private void talkToGreeter() {
-		// TODO Auto-generated method stub
 		greeter.msgNeedATeller(this);
 	}
 	
+	private void DoGoToLine() {
+		bankCustomerGui.GetInLine(waitingNumber);
+	}
+	
 	private void DoGoToTeller() {
-		// TODO Auto-generated method stub
-		//Gui.GoToTeller();
-		teller.msgNeedATransaction(transactionType, transactionAmount);
+		bankCustomerGui.GoToTeller(tellerIndex);
+		getBankTeller().msgNeedATransaction(this, transactionType, transactionAmount);
 	}
 
 	private void makeATransaction() {
-		// TODO Auto-generated method stub
-		teller.msgNeedATransaction(transactionType, transactionAmount);
+		getBankTeller().msgNeedATransaction(this, transactionType, transactionAmount);
 	}
 
 	private void DoLeaveBank() {
-		// TODO Auto-generated method stub
-		teller.msgDoneAndLeaving();
-	}
-	
+		getBankTeller().msgDoneAndLeaving(this);
+		bankCustomerGui.LeaveBank();
+	}	
 }
 
