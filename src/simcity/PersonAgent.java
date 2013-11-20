@@ -12,13 +12,17 @@ import java.util.concurrent.Semaphore;
 
 public class PersonAgent extends Agent implements Person {
 	//Data
+
 	public String name;
+
 	int currentTime; //(ranges from 1-24)
 	int accountNumber; //Not currently sure how we're using account numbers, but the person should know it.
 	Semaphore busyWithTask;
 	private double money;
+
 	private List<Role> roles = new ArrayList<Role>();
 	private List<String> groceryList = new ArrayList<String>();
+
 	
 	//Locations
 	/*public List<Restaurant> restaurants;
@@ -78,7 +82,9 @@ public class PersonAgent extends Agent implements Person {
 	//Paying Rent
 	//When to pay rent
 	private enum RentState {Paid, NotPaid, PayingBill};
+
 	List<RentBill> rentBills = new ArrayList<RentBill>();
+
 	public class RentBill {
 		public RentState state = RentState.NotPaid;
 		PersonAgent accountHolder;

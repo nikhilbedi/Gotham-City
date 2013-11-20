@@ -9,14 +9,20 @@ import simcity.Market.MarketGui.MarketPanel;
       SimCityPanel cityPanel;
       MarketPanel market;
     
+
        public SimCityRun()
       {
     	 //This sets up the frame of the animation window
          window = new JFrame("Team 31 Sim City");
          window.setSize(800, 800);
          window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
          market = new MarketPanel();
          
+
+         
+      //   window.setLayout(new BoxLayout());
+
          //This adds the animation of the main area to the frame
          cityPanel = new SimCityPanel();
          window.add(cityPanel);
