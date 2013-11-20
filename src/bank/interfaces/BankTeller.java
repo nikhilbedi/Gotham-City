@@ -1,7 +1,5 @@
 package bank.interfaces;
 
-import simcity.interfaces.Person;
-
 public interface BankTeller {
 
 	public abstract void setAvailable(boolean b);

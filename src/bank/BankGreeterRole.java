@@ -23,19 +23,13 @@ public class BankGreeterRole extends Role implements BankGreeter{
 	= Collections.synchronizedList(new ArrayList<MyCustomer>());
 	public List<BankTeller> tellers
 	= Collections.synchronizedList(new ArrayList<BankTeller>());
-	//private boolean seatingCustomer;
-	//note that tables is typed with Collection semantics.
-	//Later we will see how it is implemented
-
-	private String name;
 	
 	public BankGreeterRole(PersonAgent person) {
 		super(person);
-		// TODO Auto-generated constructor stub
 	}
-
+	
 	public String getName() {
-		return name;
+		return super.getPersonAgent().name;
 	}
 
 	public List getWaitingCustomers() {
@@ -47,6 +41,7 @@ public class BankGreeterRole extends Role implements BankGreeter{
 		teller.setAvailable(true);
 	}
 	
+	//Class to hold BankCustomer and their information
 	class MyCustomer {
 		BankCustomer customer;
 		customerState s;

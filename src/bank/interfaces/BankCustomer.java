@@ -1,5 +1,6 @@
 package bank.interfaces;
 
+import simcity.interfaces.Person;
 import bank.BankReceipt;
 
 public interface BankCustomer {
@@ -18,4 +19,5 @@ public interface BankCustomer {
 
 	String getName();
 
+	Person getPersonAgent();
 }

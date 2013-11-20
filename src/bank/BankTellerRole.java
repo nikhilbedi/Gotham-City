@@ -20,7 +20,6 @@ public class BankTellerRole extends Role implements BankTeller{
 	public List<MyCustomer> myCustomers
 	= Collections.synchronizedList(new ArrayList<MyCustomer>());
 	BankGreeter greeter;
-	//public Collection<Table> tables;
 	private boolean isAvailable = true;
 	//note that tables is typed with Collection semantics.
 	//Later we will see how it is implemented
@@ -37,9 +36,6 @@ public class BankTellerRole extends Role implements BankTeller{
 	
 	public BankTellerRole(PersonAgent person) {
 		super(person);
-		// TODO Auto-generated constructor stub
-		
-		//person.name = name;
 	}
 	
 	public PersonAgent getPersonAgent() { return super.getPersonAgent();}
@@ -51,10 +47,6 @@ public class BankTellerRole extends Role implements BankTeller{
 	public String getName() {
 		return name;
 	}
-
-	/*public Collection getTables() {
-		return tables;
-	}*/
 	
 	public void setGreeter(BankGreeter g) {
 		greeter = g;
@@ -67,10 +59,10 @@ public class BankTellerRole extends Role implements BankTeller{
 		isAvailable = b;
 	}
 	
+	
+	
 	// Messages
 	
-	
-
 	@Override
 	public void msgNeedATransaction(BankCustomer cust, String type, double amount) {
 		MyCustomer c = new MyCustomer(cust, type, amount);
@@ -80,8 +72,7 @@ public class BankTellerRole extends Role implements BankTeller{
 
 	@Override
 	public void msgDoneAndLeaving(BankCustomer bankCustomer) {
-		// TODO Auto-generated method stub
-		myCustomers.get(find(bankCustomer.getName()));
+		myCustomers.get(find(bankCustomer));
 		stateChanged();
 	}
 	
@@ -144,36 +135,39 @@ public class BankTellerRole extends Role implements BankTeller{
 		//and wait.
 	}
 
+	
+	
 	// Actions
 	
 	public void depositFunds(MyCustomer c) {
-		BankAccount acc = bankDatabase.accounts.get(c.c.name);
+		BankAccount acc = bankDatabase.accounts.get(c.c.getName());
 		acc.depositMoney(c.transactionAmount);
 		c.c.HereIsReceipt(new BankReceipt(acc.accountBalance, c.transactionAmount));
 	}
 	
 	public void withdrawFunds(MyCustomer c) {
-		BankAccount acc = bankDatabase.accounts.get(c.c.name);
+		BankAccount acc = bankDatabase.accounts.get(c.c.getName());
 		acc.withdrawMoney(c.transactionAmount);
 		c.c.HereIsReceipt(new BankReceipt(acc.accountBalance, c.transactionAmount));
 	}
 	
 	public void openAccount(MyCustomer c) {
-		BankAccount acc = bankDatabase.addAccount(c.name, c.transactionAmount);
+		BankAccount acc = bankDatabase.addAccount(c.transactionAmount, c.c.getName());
 		c.c.HereIsReceiptAndAccountInfo(new BankReceipt(acc.accountBalance, acc.accountNumber), acc.accountNumber);
 	}
 	
 	public void closeAccount(MyCustomer c) {
-		BankAccount acc = bankDatabase.removeAccount(c.name, c.accountNumber);
+		BankAccount acc = bankDatabase.removeAccount(c.c.getName(), c.accountNumber);
 		c.c.HereIsReceiptAndAccountInfo(new BankReceipt(acc.accountBalance, acc.accountNumber), acc.accountNumber);
 	}
 	
 	public void handleLoanCredentials(MyCustomer c) {
-		  if(c.c.getPersonAgent().stateOfWealth == rich ||  c.c.getPersonAgent().stateOfWealth == adequate) {
+		double totalAccountBalance = bankDatabase.getTotalAccountBalance(c.c.getName());
+		  if(totalAccountBalance > 5000) {
 		        //check for enough money within bank  //database
 		        bankDatabase.safeBalance -= c.transactionAmount;
 		         c.c.HereIsLoan(new BankReceipt(c.transactionAmount, c.transactionAmount), c.transactionAmount);
-		       bankDatabase.loanHolders.add(c, c.transactionAmount);
+		       bankDatabase.loanHolders.put(c.c.getName(), c.transactionAmount);
 		       }
 		   else {
 		         c.c.NotEligibleForLoan();
@@ -189,17 +183,20 @@ public class BankTellerRole extends Role implements BankTeller{
 		greeter.msgReadyForCustomer(this);
 	}
 	
+	
+	
 	//utilities
 
-	public void setGui(BankTellerGui gui) {
-		bankTellerGui = gui;
-	}
+	/*public void setGui(BankTellerGui gui) {
+	bankTellerGui = gui;
+}
 
-	public BankTellerGui getGui() {
-		return bankTellerGui;
-	}
+public BankTellerGui getGui() {
+	return bankTellerGui;
+}*/
 	
 	public class MyCustomer {
+		public int accountNumber;
 		BankCustomer c;
 		String transactionType;
 		double transactionAmount;

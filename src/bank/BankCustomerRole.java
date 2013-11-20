@@ -34,7 +34,6 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	//private CustomerGui customerGui;
 	double cash, transactionAmount;
 	String transactionType;
-	boolean gotCheck = false, payForMeal = true;
 	List<String> transactionList = new ArrayList<String>();
 	
 	// agent correspondents
@@ -45,7 +44,7 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	public enum CustomerState
 	{waiting, inLine, goingToTeller, atTeller, receivedReceipt, done};
 	private CustomerState state = CustomerState.waiting;//The start state
-
+	
 	/**
 	 * hack to establish connection to Greeter Role.
 	 */
@@ -141,36 +140,18 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	private void DoGoToTeller() {
 		// TODO Auto-generated method stub
 		//Gui.GoToTeller();
-		teller.msgNeedATransaction(this, transactionType, transactionAmount);
+		teller.msgNeedATransaction(transactionType, transactionAmount);
 	}
 
 	private void makeATransaction() {
 		// TODO Auto-generated method stub
-		teller.msgNeedATransaction(this, transactionType, transactionAmount);
+		teller.msgNeedATransaction(transactionType, transactionAmount);
 	}
 
 	private void DoLeaveBank() {
 		// TODO Auto-generated method stub
-		teller.msgDoneAndLeaving(this);
+		teller.msgDoneAndLeaving();
 	}
-
-	/*public String toString() {
-		return "customer " + getName();
-	}*/
-
-	/*public void setGui(BankCustomerGui g) {
-	bankCustomerGui = g;
-}
-
-public BankCustomerGui getGui() {
-	return bankCustomerGui;
-}*/
-
-	
-
-	
-	
-
 	
 }
 
