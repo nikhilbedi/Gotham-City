@@ -16,10 +16,11 @@ public class PersonAgent extends Agent implements Person {
 	int currentTime; //(ranges from 1-24)
 	int accountNumber; //Not currently sure how we're using account numbers, but the person should know it.
 	Semaphore busyWithTask;
-	private double money;
+	private double money = 0.0;
 	private List<Role> roles = new ArrayList<Role>();
 	private List<String> groceryList = new ArrayList<String>();
 	private List<RentBill> rentBills = new ArrayList<RentBill>();
+	boolean personScheduler = false;
 	
 	//Locations
 	/*public List<Restaurant> restaurants;
@@ -60,6 +61,7 @@ public class PersonAgent extends Agent implements Person {
 		int onWork = 8; //8am
 		int offWork = 17; //military hours - 17 == 5pm
 		Role role;
+		String type;
 		//How does he know where to work? Building base class?
 		
 		//Job Constructor
@@ -67,13 +69,16 @@ public class PersonAgent extends Agent implements Person {
 			role = r;
 		}
 		
+		public Job(Role r, String type) {
+			role = r;
+			this.type = type;
+		}
+		
 		public void setJob(Role r) {
 			role = r;
 		}
 		
-		public void setJob(String type) {
-			role = RoleFactory.makeMeRole(type);
-		}
+
 	}
 	
 	//Paying Rent
@@ -100,6 +105,48 @@ public class PersonAgent extends Agent implements Person {
 	
 	
 	//functions so we can function
+	public String getJob() {
+		if(myJob != null)
+			return myJob.type;
+		else
+			return null;
+	}
+	public int getCurrentTime() {
+		return currentTime;
+	}
+
+
+	public void setCurrentTime(int currentTime) {
+		this.currentTime = currentTime;
+	}
+
+
+	public int getAccountNumber() {
+		return accountNumber;
+	}
+
+
+	public void setAccountNumber(int accountNumber) {
+		this.accountNumber = accountNumber;
+	}
+
+	public boolean getPersonScheduler() {
+		return personScheduler;
+	}
+	
+	public List<Role> getRoles() {
+		return roles;
+	}
+	
+	public List<RentBill> getRentBills() {
+		return rentBills;
+	}
+	@Override
+	public double checkMoney() {
+		// TODO Auto-generated method stub
+		return money;
+	}
+	
 	public String getName(){
 		return name;
 	}
@@ -121,8 +168,8 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	public void setJob(String type) {
-		myJob = new Job(RoleFactory.makeMeRole(type));
-	}
+		myJob = new Job(RoleFactory.makeMeRole(type), type);
+	}	
 	
 	public void setPreferredTransportation(String type) {
 		if(type.contains("car"))
@@ -216,9 +263,9 @@ public class PersonAgent extends Agent implements Person {
 	
 	//Scheduler
 	@Override
-	protected boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {
 		// Person Scheduler 
-		
+		if(!personScheduler){
 		//If he's CRRAAAZZY hungry, then eat something first. Then do checks of eating at home versus the restaurant
 		
 			//Work comes first--his family probably doesn't like this :/
@@ -226,9 +273,13 @@ public class PersonAgent extends Agent implements Person {
 				if(myJob.state == JobState.GoToWorkSoon){
 					goToWork();
 					//return true; or boolean person = true;?
+					personScheduler = true;
+					return true;
 				}
 				else if(myJob.state == JobState.LeaveWork) {
 					leaveWork();
+					personScheduler = true; 
+					return true;
 				}
 			}
 			
@@ -238,31 +289,41 @@ public class PersonAgent extends Agent implements Person {
 			for(RentBill rb : rentBills) {
 				if(rb.state == RentState.NotPaid){
 					payBills();
+					personScheduler = true; 
+					return true;
 				}
 			}
 			
 			//Gotta eat!
 			if(eatingState == EatingState.EatAtHome) {
 				goEatAtHome();
+				personScheduler = true; 
+				return true;
 			}
 			else if(eatingState == EatingState.EatAtRestaurant) {
 				goEatAtRestaurant();
+				personScheduler = true; 
+				return true;
 			}
 			
 			//Might as well get groceries if I ain't got nothing to do
 			if(marketState == MarketState.GetGroceries) {
 				goGetGroceries();
+				personScheduler = true; 
+				return true;
 			}
 			
 			//Let me even see if I got money..
-			if(accountNumber != 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
+			if(accountNumber == 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
 				goToBank();
+				personScheduler = true; 
+				return true;
 			}
-			
+		}	
 	
 		//Role Scheduler
 		for(Role r : roles) {
-			r.pickAndExecuteAnAction();
+			return r.pickAndExecuteAnAction();
 		}
 		
 		return false;
@@ -270,8 +331,17 @@ public class PersonAgent extends Agent implements Person {
 	
 	
 	//Actions
-	
+
+
+
+
 	private void goToWork() {
+		//animate out of building
+		//roles.get(0).DoLeaveBuilding();
+		
+		//animate to desired location
+		//DoGoToDestination(myJob.role.)
+	//	roles.add(myJob.role);
 		
 	}
 	
@@ -292,10 +362,13 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private void goGetGroceries() {
-	
+
 	}
 
 	private void goToBank() {
-		
+
 	}
+
+
+
 }
