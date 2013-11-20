@@ -11,6 +11,8 @@ public interface Person {
 	
 	public abstract void removeRole(Role role);
 	
+	public abstract double checkMoney();
+	
 	public abstract void addMoney(float amount);
 	
 	public abstract void setJob(Role role);

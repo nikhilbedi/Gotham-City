@@ -12,14 +12,15 @@ public class RoleGui {
 	protected int xPos, yPos;
 	protected int xDestination, yDestination;
 
-
 	private enum Command {noCommand, commandA, commandB, commandC};
 
 	private Command command = Command.noCommand;
 
 	public static final int guiSize = 20;
+	
+	protected Color myColor;
 
-	public Color myColor;
+
 
 
 	public RoleGui(){
@@ -50,5 +51,9 @@ public class RoleGui {
 	public void draw(Graphics g){
 		g.setColor(myColor);
 		g.fillRect(xPos, yPos, guiSize, guiSize);
+
+    }
+	public void setColor(Color c){
+		myColor = c;
 	}
 }
