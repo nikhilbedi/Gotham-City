@@ -9,7 +9,7 @@ package simcity.restaurants.restaurant1.interfaces;
  */
 public interface Customer {
 	
-	public abstract void getName();
+	public abstract String getName();
     /**
      * @param ch The Check object containing the amount, customer, and waiter
      * 

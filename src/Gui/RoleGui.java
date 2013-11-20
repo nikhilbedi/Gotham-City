@@ -8,8 +8,8 @@ public class RoleGui {
 
 	///private CustomerAgent agent = null;
 
-	private int xPos, yPos;
-	private int xDestination, yDestination;
+	protected int xPos, yPos;
+	protected int xDestination, yDestination;
 	
 	
 	private enum Command {noCommand, commandA, commandB, commandC};
@@ -18,7 +18,7 @@ public class RoleGui {
 	
 	public static final int guiSize = 20;
 	
-	Color myColor;
+	protected Color myColor;
 
 	
 	public RoleGui(){
@@ -49,4 +49,7 @@ public class RoleGui {
 		g.setColor(myColor);
 		g.fillRect(xPos, yPos, guiSize, guiSize);
     }
+	public void setColor(Color c){
+		myColor = c;
+	}
 }

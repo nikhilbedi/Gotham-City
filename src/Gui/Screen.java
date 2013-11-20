@@ -36,7 +36,7 @@ public class Screen
 		obst.clear();
 
 		if(temp==1){//Main city pane
-			obst.add(new Obstacle(200, 100, 50, 50));
+		obst.add(new Obstacle(200, 100, 50, 50));
 		obst.add(new Obstacle(400, 100, 50, 50));
 		obst.add(new Obstacle(600, 100, 50, 50));
 		obst.add(new Obstacle(400, 700, 50, 50));
@@ -72,7 +72,6 @@ public class Screen
 	}
 
 	public void paintAgents(Graphics g){
-		System.out.println("before" + guis.size());
 		for (RoleGui gui : guis) {
 			gui.draw(g);
 			//System.out.println("after");
@@ -83,7 +82,7 @@ public class Screen
 	public  void paintBackground(Graphics g)
 	{
 		g.setColor(Color.white);
-		g.fillRect(0,0,800, 800);
+		g.fillRect(0,0,1000, 800);
 		g.setColor(Color.black);
 		if(temp==1){//Main city pane
 			g.drawString("Main City", 400, 50);
