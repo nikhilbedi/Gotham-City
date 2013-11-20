@@ -3,17 +3,18 @@ package simcity.Home.gui;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import Gui.RoleGui;
 import simcity.Home.interfaces.Resident;
 
 
-public class ResidentGui implements Gui{
+public class ResidentGui extends RoleGui implements Gui {
         private int xPos;
         private int yPos;
         private int xDestination;
         private int yDestination;
         private Resident resident;
         private Command command;
-        private enum Command {none, atCashier, gettingItems, left};
+        private enum Command {none, atRefridgerator, gettingItems, left};
         
         public ResidentGui(Resident r){
                 resident = r;
@@ -35,7 +36,7 @@ public class ResidentGui implements Gui{
                     yPos++;
                 else if (yPos > yDestination)
                     yPos--;
-                if (xPos == 110 && yPos == 183 && command == Command.atCashier){
+                if (xPos == 110 && yPos == 183 && command == Command.atRefridgerator){
                         command = Command.none;
                         //resident.AtCashier();
                 }
@@ -62,7 +63,7 @@ public class ResidentGui implements Gui{
         
         public void DoMoveToCashier(){
                 yDestination = 183;
-                command = Command.atCashier;
+                command = Command.atRefridgerator;
         }
         
         public void DoGetItems(){

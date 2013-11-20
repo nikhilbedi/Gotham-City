@@ -11,6 +11,10 @@ public class Role {
                 myPerson = person;
         }
         
+        public Role() {
+        	
+        }
+        
         protected PersonAgent myPerson;
         
         public PersonAgent getPersonAgent() {

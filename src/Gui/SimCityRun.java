@@ -1,10 +1,13 @@
 package Gui;
    import javax.swing.*;
 
+import simcity.Home.gui.HomePanel;
+
     public class SimCityRun
    {
       JFrame window;
       SimCityPanel cityPanel;
+      HomePanel homePanel;
    
        public SimCityRun()
       {
@@ -12,6 +15,7 @@ package Gui;
          window = new JFrame("Team 31 Sim City");
          window.setSize(800, 800);
          window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+         homePanel = new HomePanel();
          
          
          //This adds the animation of the main area to the frame

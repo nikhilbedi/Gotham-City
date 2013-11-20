@@ -290,4 +290,10 @@ public class PersonAgent extends Agent implements Person {
 	private void goToBank() {
 		
 	}
+
+
+	public void restart() {
+		// TODO Auto-generated method stub
+		
+	}
 }
