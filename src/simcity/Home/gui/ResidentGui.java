@@ -3,21 +3,25 @@ package simcity.Home.gui;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
+import javax.swing.text.StyledEditorKit.ForegroundAction;
+
 import Gui.RoleGui;
 import simcity.Home.interfaces.Resident;
 
 
-public class ResidentGui extends RoleGui implements Gui {
-        private int xPos;
+public class ResidentGui extends RoleGui{
+        /*private int xPos;
         private int yPos;
         private int xDestination;
-        private int yDestination;
+        private int yDestination;*/
         private Resident resident;
         private Command command;
         private enum Command {none, atRefridgerator, gettingItems, left};
         
         public ResidentGui(Resident r){
-                resident = r;
+                myColor = Color.red;
+                //System.err.println("Here we are 2");
+        		resident = r;
                 xPos = 110;
                 yPos = 350;
                 xDestination = 110;
@@ -25,40 +29,28 @@ public class ResidentGui extends RoleGui implements Gui {
         }
         
 
-        @Override
+        //@Override
         public void updatePosition() {
-                 if (xPos < xDestination)
-                    xPos++;
-                else if (xPos > xDestination)
-                    xPos--;
-
-                if (yPos < yDestination)
-                    yPos++;
-                else if (yPos > yDestination)
-                    yPos--;
+              super.updatePosition();
                 if (xPos == 110 && yPos == 183 && command == Command.atRefridgerator){
                         command = Command.none;
                         //resident.AtCashier();
                 }
-                if (xPos == 290 && yPos == 183 && command == Command.gettingItems){
+               if (xPos == 290 && yPos == 183 && command == Command.gettingItems){
                         command = Command.none;
                         //resident.ArrivedToGetItem();
-                }
+               }
         }
 
         
         
-        @Override
-        public void draw(Graphics2D g) {
+        /*public void draw(Graphics g) {
                 g.setColor(Color.BLUE);
         g.fillRect(xPos, yPos, 20, 20);
                 
-        }
+        }*/
 
-        @Override
-        public boolean isPresent() {
-                return true;
-        }
+        
         
         
         public void DoMoveToCashier(){
@@ -75,4 +67,44 @@ public class ResidentGui extends RoleGui implements Gui {
                 yDestination = 400;
                 command = Command.left;
         }
+
+		public void DoClearFood() {
+			// TODO Auto-generated method stub
+			
+		}
+
+
+		public void DoGoToPlatingArea() {
+			// TODO Auto-generated method stub
+			
+		}
+
+
+		public void DoGoToStove() {
+			// TODO Auto-generated method stub
+			xDestination = 800;
+			yDestination = 600;
+		}
+
+
+		public void DoGoToBed() {
+			// TODO Auto-generated method stub
+			xDestination = 700;
+			yDestination = 600;
+			
+		}
+
+
+		public void DoGoToFridge() {
+			// TODO Auto-generated method stub
+			xDestination = 800;
+			yDestination = 800;
+			
+		}
+
+
+		public void DoExitHome() {
+			// TODO Auto-generated method stub
+			
+		}
 }

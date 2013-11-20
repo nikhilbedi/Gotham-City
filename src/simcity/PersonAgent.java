@@ -17,7 +17,7 @@ public class PersonAgent extends Agent implements Person {
 	int accountNumber; //Not currently sure how we're using account numbers, but the person should know it.
 	Semaphore busyWithTask;
 	private double money;
-	private List<Role> roles;
+	private List<Role> roles = new ArrayList<Role>();
 	private List<String> groceryList;
 	
 	//Locations
@@ -78,7 +78,7 @@ public class PersonAgent extends Agent implements Person {
 	//Paying Rent
 	//When to pay rent
 	private enum RentState {Paid, NotPaid, PayingBill};
-	List<RentBill> rentBills;
+	List<RentBill> rentBills = new ArrayList<RentBill>();
 	public class RentBill {
 		public RentState state = RentState.NotPaid;
 		PersonAgent accountHolder;
@@ -210,6 +210,7 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	protected boolean pickAndExecuteAnAction() {
 		// Person Scheduler 
+		System.out.println("Calling person scheduler");
 		
 		//If he's CRRAAAZZY hungry, then eat something first. Then do checks of eating at home versus the restaurant
 		
@@ -254,6 +255,8 @@ public class PersonAgent extends Agent implements Person {
 	
 		//Role Scheduler
 		for(Role r : roles) {
+			System.out.println("Calling role schedulers");
+			
 			r.pickAndExecuteAnAction();
 		}
 		

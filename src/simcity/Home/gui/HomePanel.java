@@ -14,7 +14,7 @@ import simcity.Home.gui.ResidentGui;
 
 
 public class HomePanel extends JFrame{
-        AnimationPanel animationPanel = new AnimationPanel();
+       /* AnimationPanel animationPanel = new AnimationPanel();
         PersonAgent agentCust = new PersonAgent("Resident");
         ResidentRole resident = new ResidentRole(agentCust);
         ResidentGui residentGui = new ResidentGui(resident);
@@ -52,9 +52,9 @@ public class HomePanel extends JFrame{
                         marketWorker.getInventory().put("Potato", potato);
                 market.setCashier(marketCashier);
                 market.addWorker(marketWorker);
-                */
+                
                 
         }
         
-        
+        */
 }

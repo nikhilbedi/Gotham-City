@@ -8,8 +8,8 @@ public class RoleGui {
 
         ///private CustomerAgent agent = null;
 
-        private int xPos, yPos;
-        private int xDestination, yDestination;
+        protected int xPos, yPos;
+        protected int xDestination, yDestination;
         
         
         private enum Command {noCommand, commandA, commandB, commandC};
@@ -18,12 +18,13 @@ public class RoleGui {
         
         public static final int guiSize = 20;
         
-        Color myColor;
+        public Color myColor;
 
         
         public RoleGui(){
                 //agent = c;
-                xPos = 10;
+            //System.err.println("Here we are 1");    
+        	xPos = 10;
                 yPos = 10;
                 xDestination = 10;
                 yDestination = 10;

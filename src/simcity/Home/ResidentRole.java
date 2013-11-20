@@ -7,6 +7,7 @@ import simcity.Home.interfaces.Resident;
 import agent.Agent;
 import agent.Role;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -32,9 +33,9 @@ public class ResidentRole extends Role implements Resident{
 	public PersonAgent person;
 
 	private double wallet;
-	public List<Food> fridgeFoods;
+	public List<Food> fridgeFoods= new ArrayList<Food>();
 	public Map<String, Food> foods = new HashMap<String, Food>();
-	public List<String> groceryList;
+	public List<String> groceryList = new ArrayList<String>();
 	
 	//public List<FoodChoice> cookingList;
 	
@@ -65,6 +66,7 @@ public class ResidentRole extends Role implements Resident{
 	 */
 	public ResidentRole(PersonAgent p){
 		super(p);
+		
 		person = p;
 		name = person.name;
 		
@@ -137,8 +139,12 @@ public class ResidentRole extends Role implements Resident{
 	@Override
 	public boolean pickAndExecuteAnAction() {
 		//	CustomerHome is a finite state machine
+		System.out.println("Calling resident scheduler");
+		
 
 		if (state == HomeState.DoingNothing && event == HomeEvent.gotHungry ){
+			System.out.println("CHECking food supply");
+			
 			state = HomeState.CheckingFoodSupply;
 			checkFoodSupply();
 			return true;
@@ -192,7 +198,7 @@ public class ResidentRole extends Role implements Resident{
 	// Actions
 
 	private void goToBed() {
-		//residentGui.doGoToBed();
+		residentGui.DoGoToBed();
 		DoSleeping();
 		event = HomeEvent.doneSleeping;
 		stateChanged();
@@ -200,7 +206,7 @@ public class ResidentRole extends Role implements Resident{
 	}
 
 	private void returnToHomePosition() {
-		//residentGui.doGoToCouch();
+		residentGui.DoGoToBed();
 		event = HomeEvent.none;
 		stateChanged();
 		
@@ -208,7 +214,7 @@ public class ResidentRole extends Role implements Resident{
 
 	private void clearFood() {
 		System.out.println("resident cleaning plates");
-		//residentGui.DoClearFood();
+		residentGui.DoClearFood();
 		try {
 			Thread.currentThread().sleep(5000);
 		}catch(Exception e) {
@@ -223,7 +229,7 @@ public class ResidentRole extends Role implements Resident{
 		System.out.println("resident eating Food");
 		//residentGui.waitingForFood=false;
 		//residentGui.receivedFood=true;
-		//residentGui.DoGoToTable();
+		residentGui.DoGoToBed();
 		try {
 			Thread.currentThread().sleep(5000);
 		}catch(Exception e) {
@@ -238,7 +244,7 @@ public class ResidentRole extends Role implements Resident{
 
 	private void plateFood() {
 		System.out.println("resident plating Food");
-		//residentGui.DoGoToPlatingArea();
+		residentGui.DoGoToPlatingArea();
 		DoPlating();
 		event = HomeEvent.donePlating;
 		stateChanged();
@@ -247,7 +253,7 @@ public class ResidentRole extends Role implements Resident{
 
 	private void cookFood(String type) {
 		System.out.println("resident cooking Food");
-		//residentGui.DoGoToStove();
+		residentGui.DoGoToStove();
 		Food myChoice = new Food(type);
 		DoCooking(myChoice); //cooking timer
 		event = HomeEvent.doneCooking;
@@ -255,7 +261,9 @@ public class ResidentRole extends Role implements Resident{
 	}
 
 	private String checkFoodSupply() {
-		//residentGui.DoGoToFridge();
+		residentGui.DoGoToFridge();
+		System.out.println("checking food supply");
+		
 		String choice = randomizeFoodChoice();
 		
 		Food f = foods.get(choice);
@@ -289,7 +297,7 @@ public class ResidentRole extends Role implements Resident{
 	}
 	
 	private void goToMarket() {
-		//residentGui.DoExitHome();
+		residentGui.DoExitHome();
 		event = HomeEvent.none;
 		stateChanged();
 		
