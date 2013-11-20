@@ -1,6 +1,9 @@
 package bank.interfaces;
 
+<<<<<<< HEAD
 import simcity.interfaces.Person;
+=======
+>>>>>>> 625dd9d9e00dcb14eaa686b434feee1c9294a813
 import bank.BankReceipt;
 
 public interface BankCustomer {
@@ -19,5 +22,8 @@ public interface BankCustomer {
 
 	String getName();
 
+<<<<<<< HEAD
 	Person getPersonAgent();
+=======
+>>>>>>> 625dd9d9e00dcb14eaa686b434feee1c9294a813
 }

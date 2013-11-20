@@ -1,11 +1,20 @@
 package bank;
 
+<<<<<<< HEAD
 import agent.Role;
 import bank.BankCustomerRole.CustomerState;
+=======
+import agent.Agent;
+import agent.Role;
+>>>>>>> 625dd9d9e00dcb14eaa686b434feee1c9294a813
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGreeter;
 import bank.interfaces.BankTeller;
 import simcity.PersonAgent;
+<<<<<<< HEAD
+=======
+import simcity.interfaces.Person;
+>>>>>>> 625dd9d9e00dcb14eaa686b434feee1c9294a813
 
 import java.util.*;
 import java.util.concurrent.Semaphore;
@@ -18,10 +27,16 @@ public class BankTellerRole extends Role implements BankTeller{
 	
 	public List<MyCustomer> myCustomers
 	= Collections.synchronizedList(new ArrayList<MyCustomer>());
+<<<<<<< HEAD
 	//public MyCustomer currentCustomer;
 	BankGreeter greeter;
 	private boolean isAvailable = false;
 	int tellerIndex;
+=======
+	BankGreeter greeter;
+	//public Collection<Table> tables;
+	private boolean isAvailable = true;
+>>>>>>> 625dd9d9e00dcb14eaa686b434feee1c9294a813
 	//note that tables is typed with Collection semantics.
 	//Later we will see how it is implemented
 
@@ -34,10 +49,19 @@ public class BankTellerRole extends Role implements BankTeller{
 	private int currentOrderTableNumber = -1, currentCheckTableNumber = -1;*/
 	
 	BankDatabase bankDatabase;
+<<<<<<< HEAD
 	public BankTellerGui gui;
 	
 	public BankTellerRole(PersonAgent person) {
 		super(person);
+=======
+	
+	public BankTellerRole(PersonAgent person) {
+		super(person);
+		// TODO Auto-generated constructor stub
+		
+		//person.name = name;
+>>>>>>> 625dd9d9e00dcb14eaa686b434feee1c9294a813
 	}
 	
 	public PersonAgent getPersonAgent() { return super.getPersonAgent();}
@@ -49,11 +73,19 @@ public class BankTellerRole extends Role implements BankTeller{
 	public String getName() {
 		return name;
 	}
+<<<<<<< HEAD
+=======
+
+	/*public Collection getTables() {
+		return tables;
+	}*/
+>>>>>>> 625dd9d9e00dcb14eaa686b434feee1c9294a813
 	
 	public void setGreeter(BankGreeter g) {
 		greeter = g;
 	}
 	
+<<<<<<< HEAD
 	public void setGui(BankTellerGui tellerGui) {
 		gui = tellerGui;
 		
@@ -94,10 +126,15 @@ public class BankTellerRole extends Role implements BankTeller{
 	public enum customerState {waiting, askedForTransaction, makingAnotherTransaction,
 		doneAndLeaving;}
 	
+=======
+	public boolean isAvailable() { return isAvailable; }
+	
+>>>>>>> 625dd9d9e00dcb14eaa686b434feee1c9294a813
 	@Override
 	public void setAvailable(boolean b) {
 		isAvailable = b;
 	}
+<<<<<<< HEAD
 	// Messages
 	
 	@Override //Sets up connection
@@ -110,12 +147,28 @@ public class BankTellerRole extends Role implements BankTeller{
 		else
 			myCustomers.get(find(cust)).s = customerState.askedForTransaction;
 		//currentCustomer = new MyCustomer(cust, type, amount);
+=======
+	
+	// Messages
+	
+	
+
+	@Override
+	public void msgNeedATransaction(BankCustomer cust, String type, double amount) {
+		MyCustomer c = new MyCustomer(cust, type, amount);
+		myCustomers.add(c);
+>>>>>>> 625dd9d9e00dcb14eaa686b434feee1c9294a813
 		stateChanged();
 	}
 
 	@Override
 	public void msgDoneAndLeaving(BankCustomer bankCustomer) {
+<<<<<<< HEAD
 		myCustomers.get(find(bankCustomer)).s = customerState.doneAndLeaving;
+=======
+		// TODO Auto-generated method stub
+		myCustomers.get(find(bankCustomer.getName()));
+>>>>>>> 625dd9d9e00dcb14eaa686b434feee1c9294a813
 		stateChanged();
 	}
 	
@@ -123,6 +176,14 @@ public class BankTellerRole extends Role implements BankTeller{
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
 	public boolean pickAndExecuteAnAction() {
+<<<<<<< HEAD
+=======
+		/* Think of this next rule as:
+            Does there exist a table and customer,
+            so that table is unoccupied and customer is waiting.
+            If so seat him at the table
+		 */
+>>>>>>> 625dd9d9e00dcb14eaa686b434feee1c9294a813
 		
 		for(int a = 0; a < myCustomers.size(); a++) {
 			if(myCustomers.get(a).transactionType.equalsIgnoreCase("deposit")) {
@@ -160,6 +221,10 @@ public class BankTellerRole extends Role implements BankTeller{
 			}
 		}
 		
+<<<<<<< HEAD
+=======
+		
+>>>>>>> 625dd9d9e00dcb14eaa686b434feee1c9294a813
 		for(int a = 0; a < myCustomers.size(); a++) {
 			if(myCustomers.get(a).transactionType.equalsIgnoreCase("leaving")) {
 				handleDoneState(myCustomers.get(a));
@@ -167,6 +232,7 @@ public class BankTellerRole extends Role implements BankTeller{
 		}
 
 		return false;
+<<<<<<< HEAD
 	}
 
 	
@@ -202,6 +268,43 @@ public class BankTellerRole extends Role implements BankTeller{
 		        bankDatabase.safeBalance -= c.transactionAmount;
 		         c.c.HereIsLoan(new BankReceipt(c.transactionAmount, c.transactionAmount, c.transactionType), c.transactionAmount);
 		       bankDatabase.loanHolders.put(c.c.getName(), c.transactionAmount);
+=======
+		//we have tried all our rules and found
+		//nothing to do. So return false to main loop of abstract agent
+		//and wait.
+	}
+
+	// Actions
+	
+	public void depositFunds(MyCustomer c) {
+		BankAccount acc = bankDatabase.accounts.get(c.c.name);
+		acc.depositMoney(c.transactionAmount);
+		c.c.HereIsReceipt(new BankReceipt(acc.accountBalance, c.transactionAmount));
+	}
+	
+	public void withdrawFunds(MyCustomer c) {
+		BankAccount acc = bankDatabase.accounts.get(c.c.name);
+		acc.withdrawMoney(c.transactionAmount);
+		c.c.HereIsReceipt(new BankReceipt(acc.accountBalance, c.transactionAmount));
+	}
+	
+	public void openAccount(MyCustomer c) {
+		BankAccount acc = bankDatabase.addAccount(c.name, c.transactionAmount);
+		c.c.HereIsReceiptAndAccountInfo(new BankReceipt(acc.accountBalance, acc.accountNumber), acc.accountNumber);
+	}
+	
+	public void closeAccount(MyCustomer c) {
+		BankAccount acc = bankDatabase.removeAccount(c.name, c.accountNumber);
+		c.c.HereIsReceiptAndAccountInfo(new BankReceipt(acc.accountBalance, acc.accountNumber), acc.accountNumber);
+	}
+	
+	public void handleLoanCredentials(MyCustomer c) {
+		  if(c.c.getPersonAgent().stateOfWealth == rich ||  c.c.getPersonAgent().stateOfWealth == adequate) {
+		        //check for enough money within bank  //database
+		        bankDatabase.safeBalance -= c.transactionAmount;
+		         c.c.HereIsLoan(new BankReceipt(c.transactionAmount, c.transactionAmount), c.transactionAmount);
+		       bankDatabase.loanHolders.add(c, c.transactionAmount);
+>>>>>>> 625dd9d9e00dcb14eaa686b434feee1c9294a813
 		       }
 		   else {
 		         c.c.NotEligibleForLoan();
@@ -216,5 +319,57 @@ public class BankTellerRole extends Role implements BankTeller{
 		myCustomers.remove(c);
 		greeter.msgReadyForCustomer(this);
 	}
+<<<<<<< HEAD
+=======
+	
+	//utilities
+
+	public void setGui(BankTellerGui gui) {
+		bankTellerGui = gui;
+	}
+
+	public BankTellerGui getGui() {
+		return bankTellerGui;
+	}
+	
+	public class MyCustomer {
+		BankCustomer c;
+		String transactionType;
+		double transactionAmount;
+		customerState s;
+		
+		public MyCustomer(BankCustomer c2, String type, double tA) {
+			c = c2;
+			transactionType = type;
+			transactionAmount = tA;
+		}
+	}
+	
+	public int find(BankCustomer c) {
+		for(int a = 0; a < myCustomers.size(); a++) {
+			if(c.getName() == myCustomers.get(a).c.getName())
+				return a;
+		}
+		return -1;
+	}
+	
+	/*public int find(int tableNumber) {
+		for(int a = 0; a < myCustomers.size(); a++) {
+			if(tableNumber == myCustomers.get(a).table)
+				return a;
+		}
+		return -1;
+	}*/
+	
+	public int getNumCustomers() {
+		return myCustomers.size();
+	}
+	
+	public enum customerState {waiting, askedForTransaction, makingAnotherTransaction,
+		doneAndLeaving;}
+
+	
+	
+>>>>>>> 625dd9d9e00dcb14eaa686b434feee1c9294a813
 }
 
