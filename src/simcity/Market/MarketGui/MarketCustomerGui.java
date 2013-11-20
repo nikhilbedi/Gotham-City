@@ -4,10 +4,11 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
+import Gui.RoleGui;
 import simcity.Market.interfaces.MarketCashier;
 import simcity.Market.interfaces.MarketCustomer;
 
-public class MarketCustomerGui implements RoleGui{
+public class MarketCustomerGui extends RoleGui{
 	private int xPos;
 	private int yPos;
 	private int xDestination;

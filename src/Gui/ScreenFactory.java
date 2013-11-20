@@ -2,15 +2,18 @@ package Gui;
 
 import java.util.*;
 
+import simcity.Market.MarketGui.MarketAnimationPanel;
+
 public class ScreenFactory {
 	List<Screen> screenList = new ArrayList<Screen>();
 	Screen main = new Screen(1);
 	Screen rest = new Screen(2);
-	Screen market = new Screen(3);
+	Screen market = new MarketAnimationPanel();
 	Screen bank = new Screen(4);
 	Screen home = new Screen(5);
 	
 	public ScreenFactory(){
+		//market.populate();
 		screenList.add(main);
 		screenList.add(rest);
 		screenList.add(market);

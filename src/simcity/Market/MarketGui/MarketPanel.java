@@ -14,7 +14,7 @@ import simcity.Market.MarketCustomerRole;
 import simcity.Market.MarketWorkerRole;
 
 public class MarketPanel extends JFrame{
-	AnimationPanel animationPanel = new AnimationPanel();
+	MarketAnimationPanel animationPanel = new MarketAnimationPanel();
     PersonAgent agentCash = new PersonAgent("Cashier");
 	MarketCashierRole marketCashier = new MarketCashierRole(agentCash);
 	MarketCashierGui cashierGui = new MarketCashierGui(marketCashier);
@@ -49,7 +49,7 @@ public class MarketPanel extends JFrame{
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setVisible(true);
-		add(animationPanel);
+	//	add(animationPanel);
 		agentCash.startThread();
 		agentWork.startThread();
 		agentCust.startThread();

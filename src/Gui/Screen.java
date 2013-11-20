@@ -134,4 +134,8 @@ import java.util.*;
 		
 		return "na";
 	}
+	public void paintObstacles() {
+		// TODO Auto-generated method stub
+		
+	}
    }

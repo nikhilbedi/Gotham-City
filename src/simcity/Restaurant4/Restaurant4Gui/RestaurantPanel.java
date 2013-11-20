@@ -29,7 +29,7 @@ public class RestaurantPanel extends JPanel {
     
     public RestaurantPanel() {
     	
-    	add(animationPanel);
+    	//add(animationPanel);
    //     this.gui = gui;
        
       /*  setLayout(new GridLayout(rows, columns, Gap, Gap));
@@ -153,4 +153,5 @@ public class RestaurantPanel extends JPanel {
     	}
     }
 */
+    }
 }

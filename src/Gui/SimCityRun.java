@@ -6,9 +6,11 @@ import simcity.Market.MarketGui.MarketPanel;
     public class SimCityRun
    {
       JFrame window;
+
       SimCityPanel cityPanel;
-      MarketPanel market;
     
+    
+
 
        public SimCityRun()
       {
@@ -17,11 +19,9 @@ import simcity.Market.MarketGui.MarketPanel;
          window.setSize(800, 800);
          window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-         market = new MarketPanel();
-         
 
-         
       //   window.setLayout(new BoxLayout());
+
 
          //This adds the animation of the main area to the frame
          cityPanel = new SimCityPanel();

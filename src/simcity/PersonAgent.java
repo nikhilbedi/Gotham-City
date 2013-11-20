@@ -15,6 +15,7 @@ public class PersonAgent extends Agent implements Person {
 
 	public String name;
 
+
 	int currentTime; //(ranges from 1-24)
 	int accountNumber; //Not currently sure how we're using account numbers, but the person should know it.
 	Semaphore busyWithTask;
