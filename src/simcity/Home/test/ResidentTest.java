@@ -1,9 +1,6 @@
 package simcity.Home.test;
 
-import static org.junit.Assert.*;
 import junit.framework.TestCase;
-
-import org.junit.Test;
 
 import simcity.PersonAgent;
 import simcity.Home.ResidentRole;
