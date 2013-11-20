@@ -21,7 +21,7 @@ public class BankTellerRole extends Role implements BankTeller{
 	= Collections.synchronizedList(new ArrayList<MyCustomer>());
 	BankGreeter greeter;
 	//public Collection<Table> tables;
-	private boolean isAvailable = true, OnBreak = false;
+	private boolean isAvailable = true;
 	//note that tables is typed with Collection semantics.
 	//Later we will see how it is implemented
 
@@ -33,10 +33,7 @@ public class BankTellerRole extends Role implements BankTeller{
 	private Semaphore waitingForOrder = new Semaphore(0, true);
 	private int currentOrderTableNumber = -1, currentCheckTableNumber = -1;*/
 	
-	BankDatabase bankDatabase = new BankDatabase();
-	
-	//public HostGui hostGui = null;
-	//public WaiterGui waiterGui;
+	BankDatabase bankDatabase;
 	
 	public BankTellerRole(PersonAgent person) {
 		super(person);
@@ -46,6 +43,10 @@ public class BankTellerRole extends Role implements BankTeller{
 	}
 	
 	public PersonAgent getPersonAgent() { return super.getPersonAgent();}
+	
+	public void setBankDatabase(BankDatabase dB) {
+		bankDatabase = dB;
+	}
 	
 	public String getName() {
 		return name;
@@ -80,7 +81,7 @@ public class BankTellerRole extends Role implements BankTeller{
 	@Override
 	public void msgDoneAndLeaving(BankCustomer bankCustomer) {
 		// TODO Auto-generated method stub
-		myCustomers.get(find(bankCustomer.name));
+		myCustomers.get(find(bankCustomer.getName()));
 		stateChanged();
 	}
 	

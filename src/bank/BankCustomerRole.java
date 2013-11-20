@@ -2,12 +2,17 @@ package bank;
 
 import agent.Agent;
 import agent.Role;
+import bank.BankTellerRole.MyCustomer;
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGreeter;
 import bank.interfaces.BankTeller;
 import bank.BankReceipt;
 import simcity.PersonAgent;
 
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Random;
@@ -30,7 +35,8 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	double cash, transactionAmount;
 	String transactionType;
 	boolean gotCheck = false, payForMeal = true;
-
+	List<String> transactionList = new ArrayList<String>();
+	
 	// agent correspondents
 	private BankGreeter greeter;
 	private BankTeller teller;
@@ -52,13 +58,11 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		teller = t;
 	}
 	
-	public String getCustomerName() {
-		return name;
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
-	/*public int getCash() {
-		return super.getPersonAgent().money;
-	}*/
 	
 	public int getWaitingNumber() {
 		return waitingNumber;
@@ -154,13 +158,15 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		return "customer " + getName();
 	}*/
 
-	public void setGui(BankCustomerGui g) {
-		bankCustomerGui = g;
-	}
+	/*public void setGui(BankCustomerGui g) {
+	bankCustomerGui = g;
+}
 
-	public BankCustomerGui getGui() {
-		return bankCustomerGui;
-	}
+public BankCustomerGui getGui() {
+	return bankCustomerGui;
+}*/
+
+	
 
 	
 	

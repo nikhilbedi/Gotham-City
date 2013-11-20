@@ -16,4 +16,6 @@ public interface BankCustomer {
 
 	void HereIsLoan(BankReceipt bankReceipt, double transactionAmount);
 
+	String getName();
+
 }
