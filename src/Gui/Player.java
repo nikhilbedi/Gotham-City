@@ -121,18 +121,7 @@ package Gui;
          }
          lChange = true;
       }
-       public void checkDoor(ArrayList<Door> d)//new
-      {
-         Rectangle r1 = new Rectangle (this.x, this.y, this.length, this.height);
-         for(int i = 0; i<d.size(); i++)
-         {
-            Rectangle r2 = d.get(i).getBounds();
-            if(r1.intersects(r2))
-            {
-               doorness = true;
-            }
-         }      
-      }
+
        public void check(ArrayList<Obstacle> o)
       {
          checkWest(o);
