@@ -210,7 +210,7 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	protected boolean pickAndExecuteAnAction() {
 		// Person Scheduler 
-		System.out.println("Calling person scheduler");
+		//System.out.println("Calling person scheduler");
 		
 		//If he's CRRAAAZZY hungry, then eat something first. Then do checks of eating at home versus the restaurant
 		
@@ -255,7 +255,7 @@ public class PersonAgent extends Agent implements Person {
 	
 		//Role Scheduler
 		for(Role r : roles) {
-			System.out.println("Calling role schedulers");
+			//System.out.println("Calling role schedulers");
 			
 			r.pickAndExecuteAnAction();
 		}

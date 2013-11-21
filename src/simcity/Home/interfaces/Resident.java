@@ -4,11 +4,19 @@ public interface Resident {
 	
 	public abstract void gotHungry();
 
-	public abstract void msgAnimationFinishedGoToSeat();
+	public abstract void AtTable();
 
-	public abstract void msgAnimationFinishedGoToCashier();
+	public abstract void atSink();
 
-	public abstract void msgAnimationFinishedLeaveRestaurant();
+	public abstract void atPlatingArea();
+
+	public abstract void atStove();
+
+	public abstract void atBed();
+
+	public abstract void atFridge();
+
+	public abstract void exited();
 	
 	
 }

@@ -28,19 +28,41 @@ public class MockResident extends Mock implements Resident {
 		log.add(new LoggedEvent("Received gotHungry from Gui"));
 	}
 	
-	@Override
-	public void msgAnimationFinishedGoToSeat() {
-		log.add(new LoggedEvent("Animation finished go to seat"));
-	}
 	
 	@Override
-	public void msgAnimationFinishedGoToCashier() {
-		log.add(new LoggedEvent("Animation finished go to cashier"));
+	public void AtTable() {
+		log.add(new LoggedEvent("animation at table"));
+		
 	}
-	
 	@Override
-	public void msgAnimationFinishedLeaveRestaurant() {
-		log.add(new LoggedEvent("Animation finished leave restaurant"));
+	public void atSink() {
+		log.add(new LoggedEvent("animation at sink"));
+		
+	}
+	@Override
+	public void atPlatingArea() {
+		log.add(new LoggedEvent("animation at plating area"));
+		
+	}
+	@Override
+	public void atStove() {
+		log.add(new LoggedEvent("animation at stove"));
+		
+	}
+	@Override
+	public void atBed() {
+		log.add(new LoggedEvent("animation at bed"));
+		
+	}
+	@Override
+	public void atFridge() {
+		log.add(new LoggedEvent("animation at fridge"));
+		
+	}
+	@Override
+	public void exited() {
+		log.add(new LoggedEvent("animation exited home"));
+		
 	}
 
 }

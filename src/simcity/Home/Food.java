@@ -28,6 +28,9 @@ public class Food {
 			cookingTime = 4;
 			price = 5.99;
 		}
+		else if (type.equals("Food")) {
+			
+		}
 		
 		this.amount = 3;//amount of each order the cook has
 		this.capacity = 4;// maximum capacity
