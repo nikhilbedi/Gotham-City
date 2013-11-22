@@ -38,7 +38,7 @@ public class ResidentRole extends Role implements Resident{
 	private double wallet;
 	public List<Food> fridgeFoods= new ArrayList<Food>();
 	public Map<String, Food> foods = new HashMap<String, Food>();
-	public List<String> groceryList = new ArrayList<String>();
+	public Map<String, Integer> groceryList = new HashMap<String, Integer>();
 	
 	//public List<FoodChoice> cookingList;
 	
@@ -50,14 +50,14 @@ public class ResidentRole extends Role implements Resident{
 	 //hack for gui
 	public enum HomeState
 	{DoingNothing, CheckingFoodSupply, Cooking, Plating, Eating, Clearing, LeavingHome, 
-		GoingToBed, Sleeping, PayingRent, GoingToFridge}; 
+ GoingToBed, Sleeping, PayingRent, GoingToFridge, checkingMailbox}; 
 	private HomeState state = HomeState.DoingNothing;//The start state
 
 	//other Homestates:Seated, askedToOrder, ordered, DoneEating
 
 	public enum HomeEvent 
 	{none, gotHungry, collectedIngredients,checkedEmptyFridge, doneCooking, donePlating, 
-		doneEating, doneClearing, gotSleepy, doneSleeping, payRent, atFridge};
+		doneEating, doneClearing, gotSleepy, doneSleeping, payRent, atFridge, checkMailbox};
 	HomeEvent event = HomeEvent.none;
  
 
@@ -180,6 +180,10 @@ public class ResidentRole extends Role implements Resident{
 		// TODO Auto-generated method stub
 		
 	}
+	//@Override
+	public void doLeaveBuilding(){
+		
+	}
 
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
@@ -242,9 +246,9 @@ public class ResidentRole extends Role implements Resident{
 			returnToHomePosition();
 			return true;
 		}
-		if (state == HomeState.DoingNothing && event == HomeEvent.payRent){
-			state = HomeState.PayingRent;
-			payRent();
+		if (state == HomeState.DoingNothing && event == HomeEvent.checkMailbox){
+			state = HomeState.checkingMailbox;
+			checkMailbox();
 			return true;
 		}
 		
@@ -252,10 +256,11 @@ public class ResidentRole extends Role implements Resident{
 	}
 
 	
-
-	
 	// Actions
-	private void payRent() {
+	public void checkMailbox(){
+		
+	}
+	public void payRent() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -411,7 +416,7 @@ public class ResidentRole extends Role implements Resident{
 	}
 	
 	private void addToGroceryList(Food f) {
-		 groceryList.add(f.getType());
+		 groceryList.put(f.getType(), f.getAmount());
 	}
 
 	public String getName() {
@@ -490,4 +495,7 @@ public class ResidentRole extends Role implements Resident{
 		}
 			
 	}
+
+	
+	
 }

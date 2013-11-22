@@ -6,7 +6,7 @@ import java.util.List;
 import simcity.PersonAgent.RentBill;
 
 
-public class Home {
+public class Home {//extends Building{
 
 	//Location location;
 	String type;

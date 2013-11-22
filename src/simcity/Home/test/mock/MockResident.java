@@ -64,5 +64,15 @@ public class MockResident extends Mock implements Resident {
 		log.add(new LoggedEvent("animation exited home"));
 		
 	}
+	@Override
+	public void payRent() {
+		log.add(new LoggedEvent("received pay rent"));
+		
+	}
+	@Override
+	public void checkMailbox() {
+		log.add(new LoggedEvent("received check mailbox"));
+		
+	}
 
 }
