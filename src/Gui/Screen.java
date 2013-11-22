@@ -14,7 +14,7 @@ public class Screen
 
 	String loc = "";
 	int xCord, yCord;
-	int temp;
+	public int temp;
 
 	public Screen()
 	{
@@ -34,26 +34,14 @@ public class Screen
 	public void generate()
 	{
 		obst.clear();
-
+		if(temp != 1){
+			obst.add(new Obstacle(25,50,20,20));
+		}
 		if(temp==1){//Main city pane
 		obst.add(new Obstacle(200, 100, 50, 50));
 		obst.add(new Obstacle(400, 100, 50, 50));
 		obst.add(new Obstacle(600, 100, 50, 50));
 		obst.add(new Obstacle(400, 700, 50, 50));
-		}
-		else if(temp==2){//Restaurant
-			obst.add(new Obstacle(25,50,20,20));
-
-
-		}
-		else if(temp==3){//Market
-			obst.add(new Obstacle(25,50,20,20));
-		}
-		else if(temp==4){//Bank
-			obst.add(new Obstacle(25,50,20,20));
-		}
-		else if(temp==5){//Home
-			obst.add(new Obstacle(25,50,20,20));
 		}
 
 	}

@@ -18,7 +18,7 @@ import java.util.*;
       ArrayList<Obstacle> obst = new ArrayList<Obstacle>();
            
       public SimCityPanel(){
-             loader = new ScreenFactory();
+         loader = new ScreenFactory();
          currentScreen = loader.getCity();
          addMouseListener(this);
          setFocusable(true);  
@@ -26,8 +26,9 @@ import java.util.*;
       
 
       public void paintComponent(Graphics g){//Here is where everything in the animation panel is generated
-         loader.updateAllPositions();
-         currentScreen.paintBackground(g);
+         //loader.updateAllPositions();
+         currentScreen.updateAgents();
+    	 currentScreen.paintBackground(g);
          currentScreen.paintObstacles(g);
          currentScreen.paintAgents(g);
 
@@ -43,7 +44,7 @@ import java.util.*;
          {
             try{
                repaint();
-               Thread.sleep(25);
+               Thread.sleep(10);
             }
                catch(Exception e) {
                   e.printStackTrace();

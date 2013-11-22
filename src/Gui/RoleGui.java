@@ -34,14 +34,14 @@ public class RoleGui {
 
 	public void updatePosition(){
 		if (xPos < xDestination)
-			xPos+=2;
+			xPos+=10;
 		else if (xPos > xDestination)
-			xPos-=2;
+			xPos-=10;
 
 		if (yPos < yDestination)
-			yPos+=2;
+			yPos+=10;
 		else if (yPos > yDestination)
-			yPos-=2;
+			yPos-=10;
 	}
 
 	public void draw(Graphics g){

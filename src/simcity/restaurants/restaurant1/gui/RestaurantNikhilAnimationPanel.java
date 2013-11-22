@@ -25,7 +25,9 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 	//private List<Gui> guis = new ArrayList<Gui>();
 
 	public RestaurantNikhilAnimationPanel() { 
+		super();
 		populate();
+		System.err.println(" "+temp);
 		//Timer timer = new Timer(20, this );
 		//timer.start();
 	}
@@ -35,7 +37,7 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 		//Second and third table created manually
 		Graphics2D g3 = (Graphics2D)g;
 		Graphics2D g4 = (Graphics2D)g;
-
+		super.paintObstacles(g);
 		//Clear the screen by painting a rectangle the size of the frame
 		/* g2.setColor(getBackground());
         g2.fillRect(0, 0, getWidth(), getHeight() );*/
