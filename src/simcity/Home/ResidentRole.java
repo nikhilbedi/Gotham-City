@@ -47,7 +47,7 @@ public class ResidentRole extends Role implements Resident{
 	 //hack for gui
 	public enum HomeState
 	{DoingNothing, CheckingFoodSupply, Cooking, Plating, Eating, Clearing, LeavingHome, 
-		GoingToBed, Sleeping}; 
+		GoingToBed, Sleeping, PayingRent}; 
 	private HomeState state = HomeState.DoingNothing;//The start state
 
 	//other Homestates:Seated, askedToOrder, ordered, DoneEating
@@ -231,13 +231,23 @@ public class ResidentRole extends Role implements Resident{
 			returnToHomePosition();
 			return true;
 		}
+		if (state == HomeState.DoingNothing && event == HomeEvent.payRent){
+			state = HomeState.PayingRent;
+			payRent();
+			return true;
+		}
 		
 		return false;
 	}
 
 	
 
+	
 	// Actions
+	private void payRent() {
+		// TODO Auto-generated method stub
+		
+	}
 
 	private void goToBed() {
 		residentGui.DoGoToBed();
