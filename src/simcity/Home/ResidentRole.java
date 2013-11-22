@@ -18,6 +18,9 @@ import java.util.TimerTask;
 
 import simcity.Home.Food;
 import simcity.PersonAgent;
+import simcity.PersonAgent.EatingState;
+import simcity.PersonAgent.HungerState;
+import simcity.PersonAgent.MarketState;
 
 
 /**
@@ -47,14 +50,14 @@ public class ResidentRole extends Role implements Resident{
 	 //hack for gui
 	public enum HomeState
 	{DoingNothing, CheckingFoodSupply, Cooking, Plating, Eating, Clearing, LeavingHome, 
-		GoingToBed, Sleeping, PayingRent}; 
+		GoingToBed, Sleeping, PayingRent, GoingToFridge}; 
 	private HomeState state = HomeState.DoingNothing;//The start state
 
 	//other Homestates:Seated, askedToOrder, ordered, DoneEating
 
 	public enum HomeEvent 
 	{none, gotHungry, collectedIngredients,checkedEmptyFridge, doneCooking, donePlating, 
-		doneEating, doneClearing, gotSleepy, doneSleeping, payRent};
+		doneEating, doneClearing, gotSleepy, doneSleeping, payRent, atFridge};
 	HomeEvent event = HomeEvent.none;
  
 
@@ -145,6 +148,7 @@ public class ResidentRole extends Role implements Resident{
 		event = HomeEvent.doneClearing;
 		stateChanged();
 		
+		
 	}
 
 	public void atPlatingArea() {
@@ -166,10 +170,11 @@ public class ResidentRole extends Role implements Resident{
 	}
 
 	public void atFridge() {
-		event = HomeEvent.collectedIngredients;
+		event = HomeEvent.atFridge;
 		stateChanged();
 		
 	}
+
 
 	public void exited() {
 		// TODO Auto-generated method stub
@@ -187,8 +192,14 @@ public class ResidentRole extends Role implements Resident{
 
 		if (state == HomeState.DoingNothing && event == HomeEvent.gotHungry ){
 			//System.out.println("CHECking food supply");
+			state = HomeState.GoingToFridge;
+			checkFridge();
+			return true;
+		}
+		if (state == HomeState.GoingToFridge && event == HomeEvent.atFridge ){
+			//System.out.println("CHECking food supply");
 			state = HomeState.CheckingFoodSupply;
-			type = checkFridge();
+			type = checkFoodSupply();
 			return true;
 		}
 		if (state == HomeState.DoingNothing && event == HomeEvent.gotSleepy ){
@@ -286,6 +297,10 @@ public class ResidentRole extends Role implements Resident{
 			System.out.print(e.getMessage());
 		}
 		System.out.println("resident done eating");
+		person.eatingState = EatingState.Nowhere;
+		stateChanged();
+		person.hungerState =  HungerState.NotHungry;
+		stateChanged();
 		//customerGui.receivedFood=false;
 				//isHungry = false;
 	}
@@ -305,10 +320,14 @@ public class ResidentRole extends Role implements Resident{
 		
 	}
 
-	private String checkFridge() {
+	private void checkFridge() {
 		residentGui.DoGoToFridge();
 		System.out.println("checking food supply");
 		
+		
+	}
+
+	private String checkFoodSupply() {
 		String choice = randomizeFoodChoice();
 		//String choice = "food";
 		Food f = foods.get(choice);
@@ -319,7 +338,8 @@ public class ResidentRole extends Role implements Resident{
 			f.setAmount (amount);			
 			//DoCooking(o);
 			//print(this.getName() + " is cooking the food");
-			
+			event = HomeEvent.collectedIngredients;
+			stateChanged();
 			//CookGui.order = o.choice.getType();
 			//CookGui.tableNumber = o.tableNumber;
 			//CookGui.cooking = true;
@@ -338,11 +358,14 @@ public class ResidentRole extends Role implements Resident{
 		}
 		
 		return choice;
+		
 	}
 	
 	private void goToMarket() {
 		residentGui.DoExitHome();
 		event = HomeEvent.none;
+		stateChanged();
+		person.marketState = MarketState.HaveGroceries;
 		stateChanged();
 		
 	}
