@@ -218,7 +218,7 @@ package Gui;
       {
          return doorness;
       }
-   	
+           
        public void move()
       {
          if(right&&rChange)
@@ -231,4 +231,3 @@ package Gui;
             y+=1;
       }
    }
-

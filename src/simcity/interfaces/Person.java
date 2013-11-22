@@ -7,9 +7,12 @@ import agent.Role;
 
 
 public interface Person {
+
 	public abstract void addRole(Role role);
 	
 	public abstract void removeRole(Role role);
+	
+	public abstract double checkMoney();
 	
 	public abstract void addMoney(float amount);
 	
