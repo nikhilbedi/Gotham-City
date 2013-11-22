@@ -49,4 +49,7 @@ public class RoleGui {
 		g.setColor(myColor);
 		g.fillRect(xPos, yPos, guiSize, guiSize);
     }
+	public void doLeaveBuilding(){
+		
+	}
 }
