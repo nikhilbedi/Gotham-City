@@ -14,6 +14,7 @@ import java.util.TimerTask;
 
 import restaurant2.interfaces.Cashier;
 import restaurant2.interfaces.Cook;
+import simcity.PersonAgent;
 
 public class Market extends Role{
 List<DeliveryOrder> deliveries = Collections.synchronizedList(new LinkedList<DeliveryOrder>());
@@ -27,10 +28,10 @@ List<DeliveryOrder> deliveries = Collections.synchronizedList(new LinkedList<Del
 	public Cashier cashier = null;
 	Timer deliveryTimer = new Timer();
 	
-	public Market(String name) {
-		super();
+	public Market(PersonAgent person) {
+		super(person);
 		
-		this.name = name;
+		name = person.getName();
 	}
 	
 	public void setCook(Cook cook2) {
@@ -53,20 +54,14 @@ List<DeliveryOrder> deliveries = Collections.synchronizedList(new LinkedList<Del
 	
 	public void msgNeedDelivery(List<Integer> order) {
 		deliveries.add(new DeliveryOrder(order));
-		print("Recieved order for delivery.");
+		System.out.println(getName() + ": Recieved order for delivery.");
 		stateChanged();
 	}
 	
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	protected boolean pickAndExecuteAnAction() {
-		/* Think of this next rule as:
-            Does there exist a table and customer,
-            so that table is unoccupied and customer is waiting.
-            If so seat him at the table.
-		 */
-		
+	public boolean pickAndExecuteAnAction() {
 		synchronized(deliveries) {
 			for (int x = 0; x < deliveries.size(); x++) {
 				if (deliveries.get(x).s == DeliveryState.pending) {
@@ -91,19 +86,9 @@ List<DeliveryOrder> deliveries = Collections.synchronizedList(new LinkedList<Del
 			}
 		}
 		
-		//synchronized(deliveries) {
-			//for (int x = 0; x < deliveries.size(); x++) {
-				//if (deliveries.get(x).s == DeliveryState.delivered) {
-				//	deliveries.remove(x);
-				//}
-		//	}
-		//}
-		
 		return false;
-		//we have tried all our rules and found
-		//nothing to do. So return false to main loop of abstract agent
-		//and wait.
 	}
+	
 	
 	// Actions
 	
@@ -114,16 +99,13 @@ List<DeliveryOrder> deliveries = Collections.synchronizedList(new LinkedList<Del
 		deliveryTimer.schedule(new TimerTask() {
 			Object cookie = 1;
 			public void run() {
-				print("Delivering order!, cookie=" + cookie);
+				System.out.println(getName() + ": Delivering order!, cookie=" + cookie);
 				cook.msgHereIsDelivery(deliveries.get(index).foodsToDeliver);
 				deliveries.get(index).s = DeliveryState.delivered;
-				//deliveries.remove(index);
 				stateChanged();
 			}
 		},
 		5000);
-		
-		//stateChanged();
 	}
 
 	private double calculateCheckBill(int index) {
@@ -138,24 +120,24 @@ List<DeliveryOrder> deliveries = Collections.synchronizedList(new LinkedList<Del
 	}
 
 	private void SendInventoryReport(int deliveryIndex) {
-		print("We cannot fulfill the entire order.");
-		print("Missing the following: ");
+		System.out.println(getName() + ": We cannot fulfill the entire order.");
+		System.out.println(getName() + ": Missing the following: ");
 		if(deliveries.get(deliveryIndex).getInventoryDifference().get(0) < 0) { //Can be shortened******************
-			print("Steak: " + Math.abs(deliveries.get(deliveryIndex).getInventoryDifference().get(0)));
+			System.out.println(getName() + ": Steak: " + Math.abs(deliveries.get(deliveryIndex).getInventoryDifference().get(0)));
 		}
 		
 		if(deliveries.get(deliveryIndex).getInventoryDifference().get(1) < 0) {
-			print("Pizza: " + Math.abs(deliveries.get(deliveryIndex).getInventoryDifference().get(1)));
+			System.out.println(getName() + ": Pizza: " + Math.abs(deliveries.get(deliveryIndex).getInventoryDifference().get(1)));
 			
 		}
 		
 		if(deliveries.get(deliveryIndex).getInventoryDifference().get(2) < 0) {
-			print("Chicken: " + Math.abs(deliveries.get(deliveryIndex).getInventoryDifference().get(2)));
+			System.out.println(getName() + ": Chicken: " + Math.abs(deliveries.get(deliveryIndex).getInventoryDifference().get(2)));
 			
 		}
 		
 		if(deliveries.get(deliveryIndex).getInventoryDifference().get(3) < 0) {
-			print("Salad: " + Math.abs(deliveries.get(deliveryIndex).getInventoryDifference().get(3)));
+			System.out.println(getName() + ": Salad: " + Math.abs(deliveries.get(deliveryIndex).getInventoryDifference().get(3)));
 			
 		}
 		
@@ -192,10 +174,6 @@ List<DeliveryOrder> deliveries = Collections.synchronizedList(new LinkedList<Del
 		
 		public DeliveryOrder(List<Integer> deliveryOrder) {
 			deliveryFoods = deliveryOrder;
-			
-			//waiter = w;
-			//choice = c;
-			//table = t;
 			
 			s = DeliveryState.pending;
 		}

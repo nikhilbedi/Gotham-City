@@ -25,7 +25,6 @@ public class BankTellerRole extends Role implements BankTeller{
 	//note that tables is typed with Collection semantics.
 	//Later we will see how it is implemented
 
-	private String name;
 	/*private Semaphore atTable = new Semaphore(0,true);
 	private Semaphore atCook = new Semaphore(0,true);
 	private Semaphore atCashier = new Semaphore(0,true);
@@ -47,7 +46,7 @@ public class BankTellerRole extends Role implements BankTeller{
 	}
 	
 	public String getName() {
-		return name;
+		return super.getName();
 	}
 	
 	public void setGreeter(BankGreeter g) {
@@ -98,14 +97,17 @@ public class BankTellerRole extends Role implements BankTeller{
 	public void setAvailable(boolean b) {
 		isAvailable = b;
 	}
-	// Messages
 	
+	
+	
+	// Messages
 	@Override //Sets up connection
 	public void msgNeedATransaction(BankCustomer cust, String type, double amount) {
+		System.out.println(getName() + ": Got needATransaction message from customer " + cust.getName());
 		if(find(cust) == -1) {
 			MyCustomer c = new MyCustomer(cust, type, amount);
 			myCustomers.add(c);
-			System.out.println("Added customer to customer list");
+			System.out.println(getName() + ": Added customer to customer list");
 		}
 		else
 			myCustomers.get(find(cust)).s = customerState.askedForTransaction;
@@ -115,6 +117,7 @@ public class BankTellerRole extends Role implements BankTeller{
 
 	@Override
 	public void msgDoneAndLeaving(BankCustomer bankCustomer) {
+		System.out.println(getName() + ": Received message DoneAndLeaving.");
 		myCustomers.get(find(bankCustomer)).s = customerState.doneAndLeaving;
 		stateChanged();
 	}
@@ -123,6 +126,12 @@ public class BankTellerRole extends Role implements BankTeller{
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
 	public boolean pickAndExecuteAnAction() {
+		
+		for(int a = 0; a < myCustomers.size(); a++) {
+			if(myCustomers.get(a).s == customerState.doneAndLeaving) {
+				handleDoneState(myCustomers.get(a));
+			}
+		}
 		
 		for(int a = 0; a < myCustomers.size(); a++) {
 			if(myCustomers.get(a).transactionType.equalsIgnoreCase("deposit")) {
@@ -186,6 +195,7 @@ public class BankTellerRole extends Role implements BankTeller{
 	}
 	
 	public void openAccount(MyCustomer c) {
+		System.out.println(getName() + ": Opening account for customer " + c.c.getName());
 		BankAccount acc = bankDatabase.addAccount(c.transactionAmount, c.c.getName());
 		c.c.HereIsReceiptAndAccountInfo(new BankReceipt(acc.accountBalance, acc.accountNumber, c.transactionType), acc.accountNumber);
 	}
@@ -213,6 +223,7 @@ public class BankTellerRole extends Role implements BankTeller{
 	}
 	
 	public void handleDoneState(MyCustomer c) {
+		System.out.println(getName() + ": Done with customer. Ready for next customer.");
 		myCustomers.remove(c);
 		greeter.msgReadyForCustomer(this);
 	}
