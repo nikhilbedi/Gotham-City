@@ -25,6 +25,7 @@ public class Role {
                 myPerson = a;
         }
         
+        
         public void stateChanged() {
                 myPerson.stateChanged();
         }

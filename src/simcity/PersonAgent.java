@@ -35,24 +35,24 @@ public class PersonAgent extends Agent implements Person {
 	
 	//States - Currently the states are private. If need be, we can change them to public so our roles can see them
 		//Preferred Transportation
-		private enum TransportationState {Walking, Bus, Car};
-		private TransportationState transportationState = TransportationState.Walking;
+		public enum TransportationState {Walking, Bus, Car};
+		public TransportationState transportationState = TransportationState.Walking;
 		
 		//Where to eat
-		private enum EatingState {EatAtHome, HeadedToHome, EatingAtHome, Nowhere, EatAtRestaurant, HeadedtoRestaurant, EatingAtRestaurant};
-		private EatingState eatingState = EatingState.Nowhere;
+		public enum EatingState {EatAtHome, HeadedToHome, EatingAtHome, Nowhere, EatAtRestaurant, HeadedtoRestaurant, EatingAtRestaurant};
+		public EatingState eatingState = EatingState.Nowhere;
 		
 		//When to eat
-		private enum HungerState {NotHungry, Hungry, FeedingHunger};
-		private HungerState hungerState =  HungerState.NotHungry;
+		public enum HungerState {NotHungry, Hungry, FeedingHunger};
+		public HungerState hungerState =  HungerState.NotHungry;
 		
 		//Going to the market states
-		private enum MarketState {GetGroceries, GettingGroceries, HaveGroceries};
-		private MarketState marketState = MarketState.HaveGroceries;
+		public enum MarketState {GetGroceries, GettingGroceries, HaveGroceries};
+		public MarketState marketState = MarketState.HaveGroceries;
 		
 		//Keep track of money
-		private enum MoneyState{Low, High, Neutral};
-		private MoneyState moneyState = MoneyState.Neutral;
+		public enum MoneyState{Low, High, Neutral};
+		public MoneyState moneyState = MoneyState.Neutral;
 		
 	//Job
 	private Job myJob;
@@ -267,6 +267,10 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public boolean pickAndExecuteAnAction() {
 		// Person Scheduler 
+
+		//System.out.println("Calling person scheduler");
+		
+
 		//If he's CRRAAAZZY hungry, then eat something first. Then do checks of eating at home versus the restaurant
 		
 			//Work comes first--his family probably doesn't like this :/
@@ -309,15 +313,18 @@ public class PersonAgent extends Agent implements Person {
 			}
 			
 			//Let me even see if I got money..
-			if(accountNumber == 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
-				goToBank();
-				return true;
-			}
-		
+
+			//if(accountNumber != 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
+			//	goToBank();
+			//}
+			
 	
 		//Role Scheduler
 		for(Role r : roles) {
-			return r.pickAndExecuteAnAction();
+			//System.out.println("Calling role schedulers");
+			
+			r.pickAndExecuteAnAction();
+
 		}
 		
 		return false;
