@@ -39,10 +39,11 @@ public class ResidentGui extends RoleGui {
 	public void updatePosition() {
 		super.updatePosition();
 		if (xPos == 400 && yPos == -40) {
-			resident.checkMailbox();
-			payingRent = true;
-			if (person.hungerState == HungerState.Hungry
-					&& person.eatingState == EatingState.EatAtHome && payingRent != true) {
+			//resident.checkMailbox();
+			//payingRent = true;
+			//if (person.hungerState == HungerState.Hungry
+				//	&& person.eatingState == EatingState.EatAtHome && payingRent != true) {
+			if(payingRent != true){
 				resident.gotHungry();
 				person.eatingState = EatingState.EatAtHome;
 
