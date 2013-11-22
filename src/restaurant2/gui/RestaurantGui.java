@@ -1,6 +1,6 @@
 package restaurant2.gui;
 
-import restaurant2.CustomerAgent;
+import restaurant2.CustomerRole;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -142,8 +142,8 @@ public class RestaurantGui extends JFrame implements ActionListener {
         stateCB.setVisible(true);
         currentPerson = person;
         
-        if (person instanceof CustomerAgent) {
-            CustomerAgent customer = (CustomerAgent) person;
+        if (person instanceof CustomerRole) {
+            CustomerRole customer = (CustomerRole) person;
             stateCB.setText("Hungry?");
           //Should checkmark be there? 
             stateCB.setSelected(customer.getGui().isHungry());
@@ -169,8 +169,8 @@ public class RestaurantGui extends JFrame implements ActionListener {
      */
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == stateCB) {
-            if (currentPerson instanceof CustomerAgent) {
-                CustomerAgent c = (CustomerAgent) currentPerson;
+            if (currentPerson instanceof CustomerRole) {
+                CustomerRole c = (CustomerRole) currentPerson;
                 c.getGui().setHungry();
                 stateCB.setEnabled(false);
             }
@@ -183,9 +183,9 @@ public class RestaurantGui extends JFrame implements ActionListener {
      *
      * @param c reference to the customer
      */
-    public void setCustomerEnabled(CustomerAgent c) {
-        if (currentPerson instanceof CustomerAgent) {
-            CustomerAgent cust = (CustomerAgent) currentPerson;
+    public void setCustomerEnabled(CustomerRole c) {
+        if (currentPerson instanceof CustomerRole) {
+            CustomerRole cust = (CustomerRole) currentPerson;
             if (c.equals(cust)) {
                 stateCB.setEnabled(true);
                 stateCB.setSelected(false);

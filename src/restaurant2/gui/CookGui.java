@@ -1,9 +1,9 @@
 package restaurant2.gui;
 
 
-import restaurant2.CookAgent;
-import restaurant2.CustomerAgent;
-import restaurant2.HostAgent;
+import restaurant2.CookRole;
+import restaurant2.CustomerRole;
+import restaurant2.HostRole;
 
 import java.awt.*;
 import java.util.Collections;
@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CookGui implements Gui {
 
-    private CookAgent agent = null;
+    private CookRole agent = null;
     RestaurantGui gui;
     
     List<String> strs = Collections.synchronizedList(new LinkedList<String>());
@@ -32,7 +32,7 @@ public class CookGui implements Gui {
     public static final int exitXBuffer = -20;
     public static final int exitYBuffer = -20;
 
-    public CookGui(CookAgent agent, RestaurantGui gui) {
+    public CookGui(CookRole agent, RestaurantGui gui) {
         this.agent = agent;
         this.gui = gui;
         

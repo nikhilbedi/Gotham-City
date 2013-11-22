@@ -1,13 +1,13 @@
 package restaurant2.gui;
 
-import restaurant2.CustomerAgent;
-import restaurant2.HostAgent;
+import restaurant2.CustomerRole;
+import restaurant2.HostRole;
 
 import java.awt.*;
 
 public class CustomerGui implements Gui{
 
-	private CustomerAgent agent = null;
+	private CustomerRole agent = null;
 	private boolean isPresent = false;
 	private boolean isHungry = false;
 	private boolean doDrawString = false;
@@ -28,7 +28,7 @@ public class CustomerGui implements Gui{
 	public static final int rectWidth = 20;
 	public static final int rectHeight = 20;
 
-	public CustomerGui(CustomerAgent c, RestaurantGui gui){ //HostAgent m) {
+	public CustomerGui(CustomerRole c, RestaurantGui gui){ //HostAgent m) {
 		agent = c;
 		xPos = exitCoord;
 		yPos = exitCoord;

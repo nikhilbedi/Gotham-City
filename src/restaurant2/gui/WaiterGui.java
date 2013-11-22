@@ -1,15 +1,15 @@
 package restaurant2.gui;
 
 
-import restaurant2.CustomerAgent;
-import restaurant2.WaiterAgent;
+import restaurant2.CustomerRole;
+import restaurant2.WaiterRole;
 import restaurant2.interfaces.Customer;
 
 import java.awt.*;
 
 
 public class WaiterGui implements Gui {
-    private WaiterAgent agent = null;
+    private WaiterRole agent = null;
     
     private static final int speed = 2, tableStarter = 1;
     private int xPos = -20, xBuffer = 5, yPos = 20, prevXPos = xPos, prevYPos = yPos;//default waiter position
@@ -27,7 +27,7 @@ public class WaiterGui implements Gui {
     public static int waiterDefaultX;
     public static final int waiterDefaultY = 20;
 
-    public WaiterGui(WaiterAgent agent) {
+    public WaiterGui(WaiterRole agent) {
         this.agent = agent;
         waiterDefaultX = 100;
         xPos = waiterDefaultX;

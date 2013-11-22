@@ -1,11 +1,11 @@
 package restaurant2.gui;
 
-import restaurant2.CashierAgent;
-import restaurant2.CookAgent;
-import restaurant2.CustomerAgent;
-import restaurant2.HostAgent;
+import restaurant2.CashierRole;
+import restaurant2.CookRole;
+import restaurant2.CustomerRole;
+import restaurant2.HostRole;
 import restaurant2.Market;
-import restaurant2.WaiterAgent;
+import restaurant2.WaiterRole;
 import restaurant2.interfaces.Cashier;
 import restaurant2.interfaces.Cook;
 import restaurant2.interfaces.Host;
@@ -28,14 +28,14 @@ public class RestaurantPanel extends JPanel {
     private final int MAXWAITERS = 3;
 	
     //Host, cook, waiters and customers
-    private HostAgent host = new HostAgent("Sarah");
-    private CookAgent cook = new CookAgent("Ramsey");
+    private HostRole host = new HostRole("Sarah");
+    private CookRole cook = new CookRole("Ramsey");
     private CookGui cookGui;
     private Market market = new Market("Wal-Mart"), market2 = new Market("Costco"), market3 = new Market("Superior");
-    private CashierAgent cashier = new CashierAgent("Cashier Bob");
+    private CashierRole cashier = new CashierRole("Cashier Bob");
     
-    private Vector<CustomerAgent> customers = new Vector<CustomerAgent>();
-    private Vector<WaiterAgent> waiters = new Vector<WaiterAgent>();
+    private Vector<CustomerRole> customers = new Vector<CustomerRole>();
+    private Vector<WaiterRole> waiters = new Vector<WaiterRole>();
     
     private JPanel restLabel = new JPanel();
     private ListPanel customerPanel = new ListPanel(this, "Customers");
@@ -115,7 +115,7 @@ public class RestaurantPanel extends JPanel {
         if (type.equals("Customers")) {
         	
             for (int i = 0; i < customers.size(); i++) {
-                CustomerAgent temp = customers.get(i);
+                CustomerRole temp = customers.get(i);
                 if (temp.getName() == name)
                     gui.updateInfoPanel(temp);
             }
@@ -131,7 +131,7 @@ public class RestaurantPanel extends JPanel {
     public void addPerson(String type, String name) {
 
     	if (type.equals("Customers")) {
-    		CustomerAgent c = new CustomerAgent(name);	
+    		CustomerRole c = new CustomerRole(name);	
     		CustomerGui g = new CustomerGui(c, gui);
     		
     		switch(name) {
@@ -153,7 +153,7 @@ public class RestaurantPanel extends JPanel {
     
     public void addWaiter(String name) {
     	if(waiters.size() < MAXWAITERS) {
-    		WaiterAgent w = new WaiterAgent(name);
+    		WaiterRole w = new WaiterRole(name);
     		WaiterGui g = new WaiterGui(w);
     		
     		w.setGui(g);
@@ -183,10 +183,10 @@ public class RestaurantPanel extends JPanel {
     	market.pause();
     	market2.pause();
     	market3.pause();
-    	for(CustomerAgent c : customers) {
+    	for(CustomerRole c : customers) {
     		c.pause();
     	}
-    	for(WaiterAgent w : waiters) {
+    	for(WaiterRole w : waiters) {
     		w.pause();
     	}
     }

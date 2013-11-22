@@ -1,14 +1,14 @@
 package restaurant2.gui;
 
 
-import restaurant2.CustomerAgent;
-import restaurant2.HostAgent;
+import restaurant2.CustomerRole;
+import restaurant2.HostRole;
 
 import java.awt.*;
 
 public class HostGui implements Gui {
 
-    private HostAgent agent = null;
+    private HostRole agent = null;
     
     private static final int speed = 2, tableStarter = 1;
     private int xPos = -20, yPos = -20;//default waiter position
@@ -22,7 +22,7 @@ public class HostGui implements Gui {
     public static final int exitXBuffer = -20;
     public static final int exitYBuffer = -20;
 
-    public HostGui(HostAgent agent) {
+    public HostGui(HostRole agent) {
         this.agent = agent;
     }
 
@@ -53,7 +53,7 @@ public class HostGui implements Gui {
         return true;
     }
 
-    public void DoBringToTable(CustomerAgent customer, int tableNumber) {
+    public void DoBringToTable(CustomerRole customer, int tableNumber) {
         xDestination = xTable + tableXBuffer + ((tableNumber-tableStarter) * 80);
         yDestination = yTable - tableYBuffer - ((tableNumber-tableStarter) * 80);
     }
