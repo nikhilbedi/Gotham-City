@@ -21,6 +21,19 @@ public class BankTellerRole extends Role implements BankTeller{
 	BankGreeter greeter;
 	private boolean isAvailable = false;
 	int tellerIndex;
+<<<<<<< HEAD
+=======
+	//note that tables is typed with Collection semantics.
+	//Later we will see how it is implemented
+
+	/*private Semaphore atTable = new Semaphore(0,true);
+	private Semaphore atCook = new Semaphore(0,true);
+	private Semaphore atCashier = new Semaphore(0,true);
+	private Timer timer = new Timer();
+	private Semaphore waitingForOrder = new Semaphore(0, true);
+	private int currentOrderTableNumber = -1, currentCheckTableNumber = -1;*/
+	
+>>>>>>> Cleaned up code a bit and added restaurant.
 	BankDatabase bankDatabase;
 	
 	
@@ -97,9 +110,19 @@ public class BankTellerRole extends Role implements BankTeller{
 	public enum customerState {waiting, askedForTransaction, makingAnotherTransaction,
 		doneAndLeaving;}
 	
+<<<<<<< HEAD
 	
 	// Messages
+=======
+	@Override
+	public void setAvailable(boolean b) {
+		isAvailable = b;
+	}
+>>>>>>> Cleaned up code a bit and added restaurant.
 	
+	
+	
+	// Messages
 	@Override //Sets up connection
 	public void msgNeedATransaction(BankCustomer cust, String type, double amount) {
 		System.out.println(getName() + ": Got needATransaction message from customer " + cust.getName());

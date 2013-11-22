@@ -148,7 +148,14 @@ public class HostRole extends Role implements Host{
 		hostGui.DoLeaveCustomer();
 	}
 
+<<<<<<< HEAD
 	private void DoSeatCustomer(CustomerRole customer, Table table) {
+=======
+	// The animation DoXYZ() routines
+	private void DoSeatCustomer(CustomerRole customer, Table table) {
+		//Notice how we print "customer" directly. It's toString method will do it.
+		//Same with "table"
+>>>>>>> Cleaned up code a bit and added restaurant.
 		System.out.println(getName() + ": Seating " + customer + " at " + table);
 		hostGui.DoBringToTable(customer, table.tableNumber); 
 

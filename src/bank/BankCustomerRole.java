@@ -53,8 +53,13 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	//States for finite state machine
 	
 	public enum CustomerState
+<<<<<<< HEAD
 	{nothing, waiting, inLine, goingToTeller, atTeller, receivedReceipt, done};
 	private CustomerState state = CustomerState.nothing;//The start state
+=======
+	{waiting, inLine, goingToTeller, atTeller, receivedReceipt, done};
+	private CustomerState state = CustomerState.waiting;//The start state
+>>>>>>> Cleaned up code a bit and added restaurant.
 	
 	
 	//Functions
@@ -78,11 +83,19 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	
 	public BankTeller getBankTeller() {
 		return teller;
+<<<<<<< HEAD
+	}
+
+	public void setBankTeller(BankTeller teller) {
+		this.teller = teller;
+=======
+>>>>>>> Cleaned up code a bit and added restaurant.
 	}
 
 	public void setBankTeller(BankTeller teller) {
 		this.teller = teller;
 	}
+	
 	
 	public void setTransactions() {
 		transactionList.add("openingAccount");
@@ -114,6 +127,7 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		stateChanged();
 	}	
 	
+<<<<<<< HEAD
 	public void msgOutOfBank() {
 		System.out.println(getName() + ": left the bank.");
 		//getPersonAgent().doLeaveBuilding("Bank");
@@ -125,6 +139,8 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		stateChanged();
 	}
 	
+=======
+>>>>>>> Cleaned up code a bit and added restaurant.
 	@Override
 	public void NotEligibleForLoan() {
 		// Decide if making another transaction or leaving
@@ -181,7 +197,11 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		}
 		return false;
 	}
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> Cleaned up code a bit and added restaurant.
 	
 	// Actions
 	
@@ -199,10 +219,15 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	}
 	
 	private void makeATransaction() {
+<<<<<<< HEAD
 		//System.out.println(getName() + ": Making a transaction. Type: " + transactionType);
 		System.out.println(getName() + ": Making a transaction. Type: " + transactionList.get(0));
 		getBankTeller().msgNeedATransaction(this, transactionList.get(0), transactionAmount);
 		transactionList.remove(0);
+=======
+		System.out.println(getName() + ": Making a transaction. Type: " + transactionType);
+		getBankTeller().msgNeedATransaction(this, transactionType, transactionAmount);
+>>>>>>> Cleaned up code a bit and added restaurant.
 	}
 	
 	private void DoLeaveBank() {
