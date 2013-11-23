@@ -157,10 +157,22 @@ public class PersonAgent extends Agent implements Person {
 
 
 	//functions so we can function
+	public void setHomeOwnerRole() {
+		//When Evan is done with homeowner role, I can add this 
+	}
+	
 	public Location getLocation() {
 		return currentBuilding.getEntranceLocation();
 	}
 
+	public void setJob(Role role, Building building) {
+		myJob = new Job(role, building);
+	}
+
+	public void setJob(String type, Building building) {
+		myJob = new Job(RoleFactory.makeMeRole(type), type, building);
+	}
+	
 	public String getJob() {
 		if(myJob != null)
 			return myJob.type;
@@ -218,14 +230,6 @@ public class PersonAgent extends Agent implements Person {
 
 	public void addMoney(float amount) {
 		money += amount;
-	}
-
-	public void setJob(Role role, Building building) {
-		myJob = new Job(role, building);
-	}
-
-	public void setJob(String type, Building building) {
-		myJob = new Job(RoleFactory.makeMeRole(type), type, building);
 	}	
 
 	public void setPreferredTransportation(String type) {
