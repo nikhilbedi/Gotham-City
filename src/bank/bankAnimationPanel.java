@@ -37,6 +37,9 @@ public class bankAnimationPanel extends Screen{
 		bankTeller.setGreeter(bankGreeter);
 		bankTeller.setBankDatabase(db);
 		
+		bankCustomer.setTransactions();
+		bankCustomer2.setTransactions();
+		
 		bankCustomerGui customerGui = new bankCustomerGui(bankCustomer);
 		BankGreeterGui greeterGui = new BankGreeterGui(bankGreeter);
 		bankCustomerGui customerGui2 = new bankCustomerGui(bankCustomer2);
@@ -63,6 +66,6 @@ public class bankAnimationPanel extends Screen{
 		addGui(customerGui2);
 		addGui(greeterGui);
 		addGui(tellerGui);
-		//bankCustomer.msgGoToTeller(null);
+		//bankCustomer.msgGoToTeller(bankTeller);
 	}
 }

@@ -108,8 +108,11 @@ public class BankTellerRole extends Role implements BankTeller{
 			myCustomers.add(c);
 			System.out.println(getName() + ": Added customer to customer list");
 		}
-		else
+		else {
 			myCustomers.get(find(cust)).s = customerState.askedForTransaction;
+			myCustomers.get(find(cust)).transactionType = type;
+			myCustomers.get(find(cust)).transactionAmount = amount;
+		}
 		//currentCustomer = new MyCustomer(cust, type, amount);
 		stateChanged();
 	}
@@ -181,13 +184,18 @@ public class BankTellerRole extends Role implements BankTeller{
 	// Actions
 	
 	public void depositFunds(MyCustomer c) {
-		BankAccount acc = bankDatabase.accounts.get(c.c.getName());
+		System.out.println(getName() + ": Depositing funds for customer " + c.c.getName());
+		System.out.println(bankDatabase.accountNumbers.get(c.c.getName()));
+		System.out.println(c.c.getName());
+		System.out.println(bankDatabase.accounts.get(bankDatabase.accountNumbers.get(c.c.getName()).get(0)).accountHolderName + ": CUSTOMER NAME");
+		BankAccount acc = bankDatabase.accounts.get(bankDatabase.accountNumbers.get(c.c.getName()).get(0));
 		acc.depositMoney(c.transactionAmount);
 		c.c.HereIsReceipt(new BankReceipt(acc.accountBalance, c.transactionAmount, c.transactionType));
 	}
 	
 	public void withdrawFunds(MyCustomer c) {
-		BankAccount acc = bankDatabase.accounts.get(c.c.getName());
+		System.out.println(getName() + ": Withdrawing funds for customer " + c.c.getName());
+		BankAccount acc = bankDatabase.accounts.get(bankDatabase.accountNumbers.get(c.c.getName()));
 		acc.withdrawMoney(c.transactionAmount);
 		c.c.HereIsReceipt(new BankReceipt(acc.accountBalance, c.transactionAmount, c.transactionType));
 	}
