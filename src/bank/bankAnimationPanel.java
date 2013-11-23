@@ -2,7 +2,6 @@ package bank;
 
 import java.awt.Graphics;
 
-import bank.interfaces.BankTeller;
 import simcity.PersonAgent;
 import Gui.Screen;
 
@@ -14,7 +13,9 @@ public class bankAnimationPanel extends Screen{
 	
 	public void paintObstacles(Graphics g){
 		super.paintObstacles(g);
-		g.drawLine(80, 80, 200, 80);
+		g.drawLine(545, 120, 545, 620);
+		g.drawLine(150, 325, 450, 325);
+		g.drawLine(150, 355, 450, 355);
 	}
 	
 	public void populate() {

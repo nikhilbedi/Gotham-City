@@ -1,14 +1,12 @@
 package bank;
 
 import agent.Role;
-import bank.BankCustomerRole.CustomerState;
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGreeter;
 import bank.interfaces.BankTeller;
 import simcity.PersonAgent;
 
 import java.util.*;
-import java.util.concurrent.Semaphore;
 
 /**
  * Bank Teller Role
@@ -16,28 +14,34 @@ import java.util.concurrent.Semaphore;
  */
 public class BankTellerRole extends Role implements BankTeller{
 	
+	// Lists and state variables
+	
 	public List<MyCustomer> myCustomers
 	= Collections.synchronizedList(new ArrayList<MyCustomer>());
-	//public MyCustomer currentCustomer;
 	BankGreeter greeter;
 	private boolean isAvailable = false;
 	int tellerIndex;
-	//note that tables is typed with Collection semantics.
-	//Later we will see how it is implemented
-
-	/*private Semaphore atTable = new Semaphore(0,true);
-	private Semaphore atCook = new Semaphore(0,true);
-	private Semaphore atCashier = new Semaphore(0,true);
-	private Timer timer = new Timer();
-	private Semaphore waitingForOrder = new Semaphore(0, true);
-	private int currentOrderTableNumber = -1, currentCheckTableNumber = -1;*/
-	
 	BankDatabase bankDatabase;
+	
+	
+	// Gui
+	
 	public BankTellerGui gui;
+	
+	public void setGui(BankTellerGui tellerGui) {
+		gui = tellerGui;
+		
+	}
+	
+	
+	// Constructor
 	
 	public BankTellerRole(PersonAgent person) {
 		super(person);
 	}
+	
+	
+	//Functions
 	
 	public PersonAgent getPersonAgent() { return super.getPersonAgent();}
 	
@@ -53,16 +57,16 @@ public class BankTellerRole extends Role implements BankTeller{
 		greeter = g;
 	}
 	
-	public void setGui(BankTellerGui tellerGui) {
-		gui = tellerGui;
-		
-	}
-	
 	public void setIndex(int tIndex) { tellerIndex = tIndex;}
 	
 	public int getIndex() { return tellerIndex;}
 	
 	public boolean isAvailable() { return isAvailable; }
+	
+	@Override
+	public void setAvailable(boolean b) {
+		isAvailable = b;
+	}
 	
 	public class MyCustomer { //MyCustomer Class to hold elements of transaction related to the customer
 		public int accountNumber;
@@ -93,14 +97,9 @@ public class BankTellerRole extends Role implements BankTeller{
 	public enum customerState {waiting, askedForTransaction, makingAnotherTransaction,
 		doneAndLeaving;}
 	
-	@Override
-	public void setAvailable(boolean b) {
-		isAvailable = b;
-	}
-	
-	
 	
 	// Messages
+	
 	@Override //Sets up connection
 	public void msgNeedATransaction(BankCustomer cust, String type, double amount) {
 		System.out.println(getName() + ": Got needATransaction message from customer " + cust.getName());
@@ -122,9 +121,9 @@ public class BankTellerRole extends Role implements BankTeller{
 		stateChanged();
 	}
 	
-	/**
-	 * Scheduler.  Determine what action is called for, and do it.
-	 */
+
+	// Scheduler
+	
 	public boolean pickAndExecuteAnAction() {
 		
 		for(int a = 0; a < myCustomers.size(); a++) {
@@ -178,7 +177,6 @@ public class BankTellerRole extends Role implements BankTeller{
 		return false;
 	}
 
-	
 	
 	// Actions
 	

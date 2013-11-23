@@ -1,8 +1,6 @@
 package bank;
 
-import agent.Agent;
 import agent.Role;
-import bank.BankTellerRole.MyCustomer;
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGreeter;
 import bank.interfaces.BankTeller;
@@ -11,11 +9,7 @@ import simcity.PersonAgent;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedList;
 import java.util.Timer;
-import java.util.TimerTask;
-import java.util.Random;
 
 /**
  * Bank Customer Role
@@ -59,8 +53,8 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	//States for finite state machine
 	
 	public enum CustomerState
-	{waiting, inLine, goingToTeller, atTeller, receivedReceipt, done};
-	private CustomerState state = CustomerState.waiting;//The start state
+	{nothing, waiting, inLine, goingToTeller, atTeller, receivedReceipt, done};
+	private CustomerState state = CustomerState.nothing;//The start state
 	
 	
 	//Functions
@@ -90,6 +84,11 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		this.teller = teller;
 	}
 	
+	public void setTransactions() {
+		transactionList.add("openingAccount");
+		transactionList.add("depositing");
+	}
+	
 	
 	// Messages
 
@@ -114,6 +113,16 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		state = CustomerState.atTeller;
 		stateChanged();
 	}	
+	
+	public void msgOutOfBank() {
+		System.out.println(getName() + ": left the bank.");
+		//getPersonAgent().doLeaveBuilding("Bank");
+	}
+	
+	public void msgEnteredBank() {
+		state = CustomerState.waiting;
+		stateChanged();
+	}
 	
 	@Override
 	public void NotEligibleForLoan() {
