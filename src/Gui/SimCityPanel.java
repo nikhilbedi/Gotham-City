@@ -15,9 +15,9 @@ import java.util.*;
       Screen currentScreen;
       boolean start;
       boolean always = true;
-      ArrayList<Obstacle> obst = new ArrayList<Obstacle>();
            
       public SimCityPanel(){
+    	  setPreferredSize(new Dimension(800, 800));
          loader = new ScreenFactory();
          currentScreen = loader.getCity();
          addMouseListener(this);
@@ -29,7 +29,7 @@ import java.util.*;
          loader.updateAllPositions();
          //currentScreen.updateAgents();
     	 currentScreen.paintBackground(g);
-         currentScreen.paintObstacles(g);
+         //currentScreen.paintObstacles(g);
          currentScreen.paintAgents(g);
 
                
@@ -63,7 +63,7 @@ import java.util.*;
             Screen swapScreen = loader.getScreen(swap);
             if(!(swapScreen == null)){
                     currentScreen = swapScreen;
-                    currentScreen.generate();
+                    //currentScreen.generate();
             }
     }
       
@@ -77,9 +77,13 @@ import java.util.*;
                 checkMapChange(e.getX(), e.getY());
         }
 
-    public void mousePressed(MouseEvent e){
+        public void mousePressed(MouseEvent e){
             
-    }
+        }
+        
+        public Screen getCityScreen(){
+        	return loader.getCity();
+        }
     
     
         @Override        
@@ -87,11 +91,13 @@ import java.util.*;
                 // TODO Auto-generated method stub
                 
         }
+        
         @Override
         public void mouseExited(MouseEvent e) {
                 // TODO Auto-generated method stub
                 
         }
+        
         @Override
         public void mouseReleased(MouseEvent e) {
                 // TODO Auto-generated method stub

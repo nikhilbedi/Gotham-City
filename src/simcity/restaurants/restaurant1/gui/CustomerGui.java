@@ -14,7 +14,6 @@ public class CustomerGui extends RoleGui {
 	private boolean isHungry = false;
 
 	//private HostAgent host;
-	RestaurantGui gui;
 
 	private enum Command {noCommand, GoToSeat, GoToCashier, LeaveRestaurant};
 	private Command command=Command.noCommand;
