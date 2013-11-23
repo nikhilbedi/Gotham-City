@@ -27,7 +27,7 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 	public RestaurantNikhilAnimationPanel() { 
 		super();
 		populate();
-		System.err.println(" "+temp);
+		//System.err.println(" "+temp);
 		//Timer timer = new Timer(20, this );
 		//timer.start();
 	}

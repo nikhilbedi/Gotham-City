@@ -1,6 +1,6 @@
 package simcity;
 
-import agent.Agent; 
+import agent.Agent;
 import agent.Role;
 import Gui.RoleGui;
 import simcity.interfaces.Person;
@@ -13,24 +13,24 @@ import java.rmi.UnexpectedException;
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
-
-
 public class PersonAgent extends Agent implements Person {
-	//Data
+	// Data
 
 	public String name;
+	
 	int currentTime; //(ranges from 1-24)
 	int accountNumber; //Not currently sure how we're using account numbers, but the person should know it.
 	Semaphore busyWithTask = new Semaphore(0, true);
 	private double money = 0.0;
 	private List<Role> roles = new ArrayList<Role>();
-	private List<String> groceryList = new ArrayList<String>();
+	public Map<String, Integer> groceryList = new HashMap<String, Integer>();
 	private List<RentBill> rentBills = new ArrayList<RentBill>();
 	boolean personScheduler = false;
 	PersonGui gui;
 
 	//Saves time from having to loop all the time to find the active role
 	Role activeRole;
+
 
 	//Locations
 	//These buildings will be set when any person is added 
@@ -48,45 +48,56 @@ public class PersonAgent extends Agent implements Person {
 	//Need to implement going to bank to open account
 
 	//States - Currently the states are private. If need be, we can change them to public so our roles can see them
-	//Preferred Transportation
-	private enum TransportationState {Walking, Bus, Car};
-	private TransportationState transportationState = TransportationState.Walking;
 
-	//Where to eat
-	private enum EatingState {EatAtHome, HeadedToHome, EatingAtHome, Nowhere, EatAtRestaurant, HeadedtoRestaurant, EatingAtRestaurant};
-	private EatingState eatingState = EatingState.Nowhere;
-
-	//When to eat
-	private enum HungerState {NotHungry, Hungry, FeedingHunger};
-	private HungerState hungerState =  HungerState.NotHungry;
-
-	//Going to the market states
-	private enum MarketState {GetGroceries, GettingGroceries, HaveGroceries};
-	private MarketState marketState = MarketState.HaveGroceries;
-
-	//Keep track of money
-	private enum MoneyState{Low, High, Neutral};
-	private MoneyState moneyState = MoneyState.Neutral;
+		//Preferred Transportation
+		public enum TransportationState {Walking, Bus, Car};
+		public TransportationState transportationState = TransportationState.Walking;
+		
+		//Where to eat
+		public enum EatingState {EatAtHome, HeadedToHome, EatingAtHome, Nowhere, EatAtRestaurant, HeadedtoRestaurant, EatingAtRestaurant};
+		public EatingState eatingState = EatingState.Nowhere;
+		
+		//When to eat
+		public enum HungerState {NotHungry, Hungry, FeedingHunger};
+		public HungerState hungerState =  HungerState.NotHungry;
+		
+		//Going to the market states
+		public enum MarketState {GetGroceries, GettingGroceries, HaveGroceries};
+		public MarketState marketState = MarketState.HaveGroceries;
+		
+		//Keep track of money
+		public enum MoneyState{Low, High, Neutral};
+		public MoneyState moneyState = MoneyState.Neutral;
+		
 
 	//Job
+
 	private Job myJob;
-	private enum JobState {OffWork, GoToWorkSoon, HeadedToWork, AtWork, LeaveWork, LeavingWork};
+
+	private enum JobState {
+		OffWork, GoToWorkSoon, HeadedToWork, AtWork, LeaveWork, LeavingWork
+	};
+
 	protected class Job {
 		public JobState state = JobState.OffWork;
-		int onWork = 8; //8am
-		int offWork = 17; //military hours - 17 == 5pm
+		int onWork = 8; // 8am
+		int offWork = 17; // military hours - 17 == 5pm
 		Role role;
 		String type;
+
 		Building workplace;
 		//How does he know where to work? Building base class?
 
 		//Job Constructor
 		public Job(Role r, Building w) {
+
 			role = r;
 			workplace = w;
 		}
 
+
 		public Job(Role r, String type, Building w) {
+
 			role = r;
 			this.type = type;
 			workplace = w;
@@ -95,6 +106,7 @@ public class PersonAgent extends Agent implements Person {
 		public void setJob(Role r) {
 			role = r;
 		}
+
 
 
 	}
@@ -107,11 +119,13 @@ public class PersonAgent extends Agent implements Person {
 		PersonAgent accountHolder;
 		float amount;
 
+
 		public RentBill(PersonAgent p, float a) {
 			accountHolder = p;
 			amount = a;
 		}
 	}
+
 
 	//constructor
 	public PersonAgent(String name) {
@@ -150,26 +164,25 @@ public class PersonAgent extends Agent implements Person {
 		return currentBuilding.getEntranceLocation();
 	}
 
+
 	public String getJob() {
-		if(myJob != null)
+		if (myJob != null)
 			return myJob.type;
 		else
 			return null;
 	}
+
 	public int getCurrentTime() {
 		return currentTime;
 	}
-
 
 	public void setCurrentTime(int currentTime) {
 		this.currentTime = currentTime;
 	}
 
-
 	public int getAccountNumber() {
 		return accountNumber;
 	}
-
 
 	public void setAccountNumber(int accountNumber) {
 		this.accountNumber = accountNumber;
@@ -186,19 +199,22 @@ public class PersonAgent extends Agent implements Person {
 	public List<RentBill> getRentBills() {
 		return rentBills;
 	}
+
 	@Override
 	public double checkMoney() {
 		// TODO Auto-generated method stub
 		return money;
 	}
 
+
 	public String getName(){
+
 		return name;
 	}
 
 	public void addRole(Role role) {
 		roles.add(role);
-		//stateChanged();
+		// stateChanged();
 	}
 
 	public void removeRole(Role role) {
@@ -209,6 +225,7 @@ public class PersonAgent extends Agent implements Person {
 		money += amount;
 	}
 
+
 	public void setJob(Role role, Building building) {
 		myJob = new Job(role, building);
 	}
@@ -218,13 +235,14 @@ public class PersonAgent extends Agent implements Person {
 	}	
 
 	public void setPreferredTransportation(String type) {
-		if(type.contains("car"))
+		if (type.contains("car"))
 			transportationState = TransportationState.Car;
-		else if(type.contains("bus"))
+		else if (type.contains("bus"))
 			transportationState = TransportationState.Bus;
 		else
 			transportationState = TransportationState.Walking;
 	}
+
 
 
 	//Messages from World Clock
@@ -234,23 +252,26 @@ public class PersonAgent extends Agent implements Person {
 		//We should change any states here, not constantly check the scheduler to change states
 		if(myJob != null) {
 			if(currentTime == myJob.onWork) {
+
 				myJob.state = JobState.GoToWorkSoon;
-			}
-			else if(currentTime == myJob.offWork){
+			} else if (currentTime == myJob.offWork) {
 				myJob.state = JobState.LeaveWork;
 			}
 		}
 
+
+		
 		//every "hour", let's check how much money is in our wallet.
+
 		double low = 25.0;
 		double high = 150.0;
-		if(money <= low) {
+		if (money <= low) {
 			moneyState = MoneyState.Low;
-		}
-		else if(money >= high) {
+		} else if (money >= high) {
 			moneyState = MoneyState.High;
 		}
 	}
+
 
 
 	//Messages from User Interface or Animation
@@ -262,35 +283,48 @@ public class PersonAgent extends Agent implements Person {
 		busyWithTask.release();
 	}
 
+
 	/**
-	 * a message from the gui that instructs the person to go to a certain restaurant
-	 * @param r Which restaurant the person should head to
+	 * a message from the gui that instructs the person to go to a certain
+	 * restaurant
+	 * 
+	 * @param r
+	 *            Which restaurant the person should head to
 	 */
+
 	/*public void eatAtRestaurant(Restaurant r) {
 		eatingState = EatingState.EatAtRestaurant;
 		stateChanged();
 	}*/
+
 
 	public void eatAtHome() {
 		eatingState = EatingState.EatAtHome;
 		stateChanged();
 	}
 
-
 	//Messages from Roles
+
 	/**
-	 * a message from HomeResidentRole sends a grocery list of what foods are needed
-	 * @param foods Currently, the list is of type String, but will be converted to a Food class list after Evan creates it
+	 * a message from HomeResidentRole sends a grocery list of what foods are
+	 * needed
+	 * 
+	 * @param foods
+	 *            Currently, the list is of type String, but will be converted
+	 *            to a Food class list after Evan creates it
 	 */
-	public void homeNeedsGroceries(List<String> foods) {
+	public void homeNeedsGroceries(Map<String, Integer> foods) {
 		groceryList = foods;
 		marketState = MarketState.GetGroceries;
 		stateChanged();
 	}
 
 	/**
-	 * a message from the HomeResidentRole sends a bill to be paid for his/her home
-	 * @param rb The bill to be paid, in which the initial state is 'NotPaid'
+	 * a message from the HomeResidentRole sends a bill to be paid for his/her
+	 * home
+	 * 
+	 * @param rb
+	 *            The bill to be paid, in which the initial state is 'NotPaid'
 	 */
 	public void goPayBill(RentBill rb) {
 		rentBills.add(rb);
@@ -298,20 +332,25 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	/**
-	 * to notify the person he/she has eaten is needed.  It is possible that the customer doesnt eat the restaurant, so it eating needs to be explicit
+	 * to notify the person he/she has eaten is needed. It is possible that the
+	 * customer doesnt eat the restaurant, so it eating needs to be explicit
 	 */
 	public void justAte() {
 		hungerState = HungerState.NotHungry;
 	}
 
 	/**
-	 * Notifies the person that the current role is done with all interactions in the restaurant
+	 * Notifies the person that the current role is done with all interactions
+	 * in the restaurant
+	 * 
 	 * @param role
 	 */
 	public void leavingBuilding(Role role) {
-		//if role is of type host or bankgreeter, don't remove. Still need them to be active 
+		// if role is of type host or bankgreeter, don't remove. Still need them
+		// to be active
 		roles.remove(role);
 	}
+
 
 
 
@@ -319,6 +358,7 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public boolean pickAndExecuteAnAction() {
 		// Person Scheduler 
+
 		//If he's CRRAAAZZY hungry, then eat something first. Then do checks of eating at home versus the restaurant
 
 		//Work comes first--his family probably doesn't like this :/
@@ -334,15 +374,18 @@ public class PersonAgent extends Agent implements Person {
 			}
 		}
 
+
 		//if he's REALLY hungry, then eat something before paying bills. Then do checks of eating at home versus the restaurant
 
 		//Gotta pay the bills!
 		for(RentBill rb : rentBills) {
 			if(rb.state == RentState.NotPaid){
+
 				payBills();
 				return true;
 			}
 		}
+
 
 		//Gotta eat!
 		if(eatingState == EatingState.EatAtHome) {
@@ -366,24 +409,26 @@ public class PersonAgent extends Agent implements Person {
 				return true;
 			}
 
+
 		//Role Scheduler
 		//This should be changed to activeRole.pickAndExecuteAnAction();
 		for(Role r : roles) {
-		//	if(r.active) {
-				return r.pickAndExecuteAnAction();
-			//}
+
+			//System.out.println("Calling role schedulers");
+			
+			r.pickAndExecuteAnAction();
+
+
 		}
 
 		return false;
 	}
 
 
-	//Actions
-
-
-
+	// Actions
 
 	private void goToWork() {
+
 		//animate out of building
 		//activeRole.DoLeaveBuilding();
 
@@ -483,4 +528,7 @@ public class PersonAgent extends Agent implements Person {
 		// TODO Auto-generated method stub
 
 	}
+
+
+	
 }

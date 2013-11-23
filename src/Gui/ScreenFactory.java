@@ -1,11 +1,17 @@
 package Gui;
 
+
 import java.util.*;
 
+import simcity.bank.bankAnimationPanel;
+import simcity.Home.gui.HomeAnimationPanel;
 import simcity.Market.MarketGui.MarketAnimationPanel;
 import simcity.restaurants.restaurant1.gui.RestaurantNikhilAnimationPanel;
 import simcity.Home.gui.HomeAnimationPanel;
 import simcity.bank.bankAnimationPanel;
+
+
+import simcity.Home.gui.HomeAnimationPanel;
 
 public class ScreenFactory {
 	List<Screen> screenList = new ArrayList<Screen>();
@@ -27,7 +33,7 @@ public class ScreenFactory {
 	public ScreenFactory(){
 		screenList.add(main);
 		screenList.add(rest);
-		//screenList.add(market);
+		screenList.add(market);
 		screenList.add(bank);
 		screenList.add(home);
 

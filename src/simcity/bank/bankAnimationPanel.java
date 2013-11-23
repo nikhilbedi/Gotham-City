@@ -2,7 +2,6 @@ package simcity.bank;
 
 import java.awt.Graphics;
 
-import simcity.bank.interfaces.BankTeller;
 import simcity.PersonAgent;
 import Gui.Screen;
 
@@ -14,7 +13,9 @@ public class bankAnimationPanel extends Screen{
 	
 	public void paintObstacles(Graphics g){
 		super.paintObstacles(g);
-		g.drawLine(80, 80, 200, 80);
+		g.drawLine(545, 120, 545, 620);
+		g.drawLine(150, 325, 450, 325);
+		g.drawLine(150, 355, 450, 355);
 	}
 	
 	public void populate() {
@@ -35,6 +36,9 @@ public class bankAnimationPanel extends Screen{
 		bankGreeter.addTeller(bankTeller);
 		bankTeller.setGreeter(bankGreeter);
 		bankTeller.setBankDatabase(db);
+		
+		bankCustomer.setTransactions();
+		bankCustomer2.setTransactions();
 		
 		bankCustomerGui customerGui = new bankCustomerGui(bankCustomer);
 		BankGreeterGui greeterGui = new BankGreeterGui(bankGreeter);
@@ -62,6 +66,6 @@ public class bankAnimationPanel extends Screen{
 		addGui(customerGui2);
 		addGui(greeterGui);
 		addGui(tellerGui);
-		//bankCustomer.msgGoToTeller(null);
+		//bankCustomer.msgGoToTeller(bankTeller);
 	}
 }

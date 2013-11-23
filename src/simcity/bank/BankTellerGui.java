@@ -12,8 +12,8 @@ public class BankTellerGui extends RoleGui {
 		this.bankTeller = bankTeller;
 		myColor = Color.blue;
 		xPos = 550;
-		yPos = 350;
+		yPos = 330;
 		xDestination = 550;
-		yDestination = 350;
+		yDestination = 330;
 	}	
 }
