@@ -22,7 +22,7 @@ public class ResidentGui extends RoleGui {
 	boolean payingRent = false;
 
 	private enum Command {
-		none, atRefridgerator, left, atTable, atSink, atPlatingArea, atStove, atBed, atFridge, exited, atHome
+		none, atRefridgerator, left, atTable, atSink, atPlatingArea, atStove, atBed, atFridge, exited, atHome, atMailbox
 	};
 
 	public ResidentGui(Resident r) {
@@ -39,13 +39,14 @@ public class ResidentGui extends RoleGui {
 	public void updatePosition() {
 		super.updatePosition();
 		if (xPos == 400 && yPos == -40) {
-			//resident.checkMailbox();
-			//payingRent = true;
-			//if (person.hungerState == HungerState.Hungry
-				//	&& person.eatingState == EatingState.EatAtHome && payingRent != true) {
-			if(payingRent != true){
+			// resident.checkMailbox();
+			// payingRent = true;
+			// if (person.hungerState == HungerState.Hungry
+			// && person.eatingState == EatingState.EatAtHome && payingRent !=
+			// true) {
+			if (payingRent != true) {
 				resident.gotHungry();
-				person.eatingState = EatingState.EatAtHome;
+				// person.eatingState = EatingState.EatAtHome;
 
 			}
 		}
@@ -76,6 +77,10 @@ public class ResidentGui extends RoleGui {
 		if (xPos == 400 && yPos == -40 && command == Command.exited) {
 			command = Command.none;
 			resident.exited();
+		}
+		if (xPos == 138 && yPos == 32 && command == Command.atMailbox) {
+			command = Command.none;
+			resident.atMailbox();
 		}
 
 	}
@@ -155,6 +160,12 @@ public class ResidentGui extends RoleGui {
 
 	}
 
+	public void DoGoToMailbox() {
+		System.out.println("At mailbox");
+		xDestination = 138;
+		yDestination = 32;
+		command = Command.atMailbox;
+
+	}
+
 }
-
-

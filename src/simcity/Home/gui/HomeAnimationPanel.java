@@ -68,9 +68,8 @@ public class HomeAnimationPanel extends Screen {
          Graphics sink = (Graphics)g;
          Graphics door = (Graphics)g;
          Graphics bed = (Graphics)g;
+         Graphics mailbox = (Graphics)g;
          
-        
-        
          
          refridgerator.setColor(Color.lightGray);
          refridgerator.fill3DRect(380, 700, 130, 80, true);
@@ -102,6 +101,8 @@ public class HomeAnimationPanel extends Screen {
          
          table.setColor(Color.BLUE);
          table.fill3DRect(260, 350, 110, 110, true);
+         text.setColor(Color.white);
+         text.drawString("table", 300, 400);
          
          door.setColor(Color.ORANGE);
          door.fill3DRect(350, 0, 100, 10, true);
@@ -112,8 +113,13 @@ public class HomeAnimationPanel extends Screen {
          bed.fill3DRect(685, 185, 40, 32, true);
          bed.setColor(Color.green);
          bed.fill3DRect(735, 185, 40, 32, true);
+         text.setColor(Color.white);
+         text.drawString("bed", 716, 260);
          
-         
+         mailbox.setColor(Color.MAGENTA);
+         mailbox.fill3DRect(130, 0, 24, 30, false);
+         text.setColor(Color.black);
+         text.drawString("mailbox", 120, 20);
          
          
     }

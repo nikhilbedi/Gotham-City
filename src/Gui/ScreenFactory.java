@@ -3,6 +3,8 @@ package Gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import simcity.Home.gui.HomeAnimationPanel;
+
 public class ScreenFactory {
 	List<Screen> screenList = new ArrayList<Screen>();
 
@@ -13,11 +15,11 @@ public class ScreenFactory {
 	Screen rest = new Screen(2);
 	Screen market = new Screen(3);
 	Screen bank = new Screen(4);
-	Screen home = new Screen(5);
+	//Screen home = new Screen(5);
 	//Screen rest = new RestaurantNikhilAnimationPanel();
 	//Screen market = new MarketAnimationPanel();
 	//Screen bank = new bankAnimationPanel();
-	//Screen home = new HomeAnimationPanel();
+	Screen home = new HomeAnimationPanel();
 
 	public ScreenFactory(){
 		screenList.add(main);

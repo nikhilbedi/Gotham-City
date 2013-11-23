@@ -70,8 +70,13 @@ public class MockResident extends Mock implements Resident {
 		
 	}
 	@Override
-	public void checkMailbox() {
+	public void checkMail() {
 		log.add(new LoggedEvent("received check mailbox"));
+		
+	}
+	@Override
+	public void atMailbox() {
+		log.add(new LoggedEvent("animation at mailbox"));
 		
 	}
 

@@ -20,7 +20,9 @@ public interface Resident {
 
 	public abstract void exited();
 
-	public abstract void checkMailbox();
+	public abstract void checkMail();
+
+	public abstract void atMailbox();
 
 	
 	

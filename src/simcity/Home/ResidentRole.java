@@ -21,6 +21,7 @@ import simcity.PersonAgent;
 import simcity.PersonAgent.EatingState;
 import simcity.PersonAgent.HungerState;
 import simcity.PersonAgent.MarketState;
+import simcity.PersonAgent.RentBill;
 
 
 /**
@@ -34,11 +35,13 @@ public class ResidentRole extends Role implements Resident{
 	//public Food foodChoice;
 	String type;
 	public PersonAgent person;
+	public PersonAgent accountHolder;
 
 	private double wallet;
 	public List<Food> fridgeFoods= new ArrayList<Food>();
 	public Map<String, Food> foods = new HashMap<String, Food>();
 	public Map<String, Integer> groceryList = new HashMap<String, Integer>();
+	private List<RentBill> rentBills = new ArrayList<RentBill>();
 	
 	//public List<FoodChoice> cookingList;
 	
@@ -50,14 +53,14 @@ public class ResidentRole extends Role implements Resident{
 	 //hack for gui
 	public enum HomeState
 	{DoingNothing, CheckingFoodSupply, Cooking, Plating, Eating, Clearing, LeavingHome, 
- GoingToBed, Sleeping, PayingRent, GoingToFridge, checkingMailbox}; 
+ GoingToBed, Sleeping, PayingRent, GoingToFridge, checkingMailbox, GoingToMailbox}; 
 	private HomeState state = HomeState.DoingNothing;//The start state
 
 	//other Homestates:Seated, askedToOrder, ordered, DoneEating
 
 	public enum HomeEvent 
 	{none, gotHungry, collectedIngredients,checkedEmptyFridge, doneCooking, donePlating, 
-		doneEating, doneClearing, gotSleepy, doneSleeping, payRent, atFridge, checkMailbox};
+		doneEating, doneClearing, gotSleepy, doneSleeping, payRent, atFridge, checkMailbox, atMailbox};
 	HomeEvent event = HomeEvent.none;
  
 
@@ -70,8 +73,8 @@ public class ResidentRole extends Role implements Resident{
 	public ResidentRole(PersonAgent p){
 		super(p);
 		
-		person = p;
-		name = person.name;
+		myPerson = p;
+		name = myPerson.name;
 		
 		Food f = new Food ("Chicken");
 		foods.put("Chicken", f);
@@ -132,9 +135,9 @@ public class ResidentRole extends Role implements Resident{
 		stateChanged();
 	}
 	
-	public void payYourRent() {
-		System.out.println("Pay your rent");
-		event = HomeEvent.payRent;
+	public void msgCheckMailbox() {
+		System.out.println("check your mailbox for mail");
+		event = HomeEvent.checkMailbox;
 		stateChanged();
 	}
 
@@ -174,6 +177,12 @@ public class ResidentRole extends Role implements Resident{
 		stateChanged();
 		
 	}
+	
+	public void atMailbox() {
+		event = HomeEvent.atMailbox;
+		stateChanged();
+		
+	}
 
 
 	public void exited() {
@@ -193,7 +202,31 @@ public class ResidentRole extends Role implements Resident{
 		//	CustomerHome is a finite state machine
 		//System.out.println("Calling resident scheduler");
 		
-
+		if (state == HomeState.DoingNothing && event == HomeEvent.none){
+			returnToHomePosition();
+			return true;
+		}
+		if (state == HomeState.DoingNothing && event == HomeEvent.checkMailbox){
+			state = HomeState.GoingToMailbox;
+			gotToMailbox();
+			return true;
+		}
+		if (state == HomeState.GoingToMailbox && event == HomeEvent.atMailbox){
+			state = HomeState.checkingMailbox;
+			checkMail();
+			return true;
+		}
+		if (state == HomeState.GoingToMailbox && event == HomeEvent.none){
+			state = HomeState.DoingNothing;
+			returnToHomePosition();
+			return true;
+		}
+		if (state == HomeState.checkingMailbox && event == HomeEvent.payRent){
+			state = HomeState.PayingRent;
+			payRent(new RentBill(myPerson, 10));
+			//payRent(rb);
+			return true;
+		}
 		if (state == HomeState.DoingNothing && event == HomeEvent.gotHungry ){
 			//System.out.println("CHECking food supply");
 			state = HomeState.GoingToFridge;
@@ -246,22 +279,33 @@ public class ResidentRole extends Role implements Resident{
 			returnToHomePosition();
 			return true;
 		}
-		if (state == HomeState.DoingNothing && event == HomeEvent.checkMailbox){
-			state = HomeState.checkingMailbox;
-			checkMailbox();
-			return true;
-		}
+		
 		
 		return false;
 	}
 
 	
+
 	// Actions
-	public void checkMailbox(){
+
+	private void gotToMailbox() {
+		residentGui.DoGoToMailbox();
 		
 	}
-	public void payRent() {
-		// TODO Auto-generated method stub
+	public void checkMail(){
+		if(rentBills.size() > 0){
+			event = HomeEvent.payRent;
+			stateChanged();
+		}
+			
+		else{
+			event = HomeEvent.none;
+			stateChanged();
+		}
+		
+	}
+	public void payRent(RentBill rb) {
+		myPerson.goPayBill(rb);
 		
 	}
 
@@ -302,9 +346,8 @@ public class ResidentRole extends Role implements Resident{
 			System.out.print(e.getMessage());
 		}
 		System.out.println("resident done eating");
-		person.eatingState = EatingState.Nowhere;
-		stateChanged();
-		person.hungerState =  HungerState.NotHungry;
+		myPerson.justAte();
+		myPerson.hungerState =  HungerState.NotHungry;
 		stateChanged();
 		//customerGui.receivedFood=false;
 				//isHungry = false;
@@ -370,8 +413,7 @@ public class ResidentRole extends Role implements Resident{
 		residentGui.DoExitHome();
 		event = HomeEvent.none;
 		stateChanged();
-		person.marketState = MarketState.HaveGroceries;
-		stateChanged();
+		
 		
 	}
 
@@ -417,6 +459,7 @@ public class ResidentRole extends Role implements Resident{
 	
 	private void addToGroceryList(Food f) {
 		 groceryList.put(f.getType(), f.getAmount());
+		 myPerson.homeNeedsGroceries(groceryList);
 	}
 
 	public String getName() {
@@ -496,6 +539,4 @@ public class ResidentRole extends Role implements Resident{
 			
 	}
 
-	
-	
 }
