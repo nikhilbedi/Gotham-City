@@ -18,6 +18,7 @@ import java.util.*;
       ArrayList<Obstacle> obst = new ArrayList<Obstacle>();
            
       public SimCityPanel(){
+    	  setPreferredSize(new Dimension(800, 800));
          loader = new ScreenFactory();
          currentScreen = loader.getCity();
          addMouseListener(this);
@@ -77,9 +78,13 @@ import java.util.*;
                 checkMapChange(e.getX(), e.getY());
         }
 
-    public void mousePressed(MouseEvent e){
+        public void mousePressed(MouseEvent e){
             
-    }
+        }
+        
+        public Screen getCityScreen(){
+        	return loader.getCity();
+        }
     
     
         @Override        
