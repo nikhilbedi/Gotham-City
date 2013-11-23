@@ -15,13 +15,10 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 public class PersonAgent extends Agent implements Person {
-	// Data
-
 	public String name;
-	
 	int currentTime; //(ranges from 1-24)
-	int accountNumber; //Not currently sure how we're using account numbers, but the person should know it.
-	Semaphore busyWithTask = new Semaphore(0, true);
+	int accountNumber; //Not currently sure how we're using account numbers, but the person should know it if we're removing that role
+	Semaphore busyWithTask = new Semaphore(0, false);
 	private double money = 0.0;
 	private List<Role> roles = new ArrayList<Role>();
 	public Map<String, Integer> groceryList = new HashMap<String, Integer>();
@@ -40,36 +37,38 @@ public class PersonAgent extends Agent implements Person {
 	public List<Market> markets;
 	public Bank bank;
 
-	//These three are essential, but should be instantiated with the "Homeless Shelter"
-	public Home myHome;
-	public Building currentBuilding; //THIS NEEDS TO BE INSTANTIATED SOMEWHERE.
-	public Building currentDestination; //THIS NEEDS TO BE THE SAME AS CURRENT LOCATION WHEN PERSON IS CREATED
+	//These three are essential, but should be instantiated with the "Homeless Shelter" spawnpoint
+	private boolean shelter = false;
+	private Building spawnPoint = new Building("spawnpoint");
+	private Home myHome;
+	public Building currentBuilding = spawnPoint; 
+	public Building currentDestination = spawnPoint; 
 
 
 	//Need to implement going to bank to open account
 
 	//States - Currently the states are private. If need be, we can change them to public so our roles can see them
 
-		//Preferred Transportation
-		public enum TransportationState {Walking, Bus, Car};
-		public TransportationState transportationState = TransportationState.Walking;
-		
-		//Where to eat
-		public enum EatingState {EatAtHome, HeadedToHome, EatingAtHome, Nowhere, EatAtRestaurant, HeadedtoRestaurant, EatingAtRestaurant};
-		public EatingState eatingState = EatingState.Nowhere;
-		
-		//When to eat
-		public enum HungerState {NotHungry, Hungry, FeedingHunger};
-		public HungerState hungerState =  HungerState.NotHungry;
-		
-		//Going to the market states
-		public enum MarketState {GetGroceries, GettingGroceries, HaveGroceries};
-		public MarketState marketState = MarketState.HaveGroceries;
-		
-		//Keep track of money
-		public enum MoneyState{Low, High, Neutral};
-		public MoneyState moneyState = MoneyState.Neutral;
-		
+	//Preferred Transportation
+	public enum TransportationState {Walking, Bus, Car};
+	public TransportationState transportationState = TransportationState.Walking;
+
+	//Where to eat
+	public enum EatingState {EatAtHome, HeadedToHome, EatingAtHome, Nowhere, EatAtRestaurant, HeadedtoRestaurant, EatingAtRestaurant};
+	public EatingState eatingState = EatingState.Nowhere;
+
+	//When to eat
+	public enum HungerState {NotHungry, Hungry, FeedingHunger};
+	public HungerState hungerState =  HungerState.NotHungry;
+
+	//Going to the market states
+	public enum MarketState {GetGroceries, GettingGroceries, HaveGroceries};
+	public MarketState marketState = MarketState.HaveGroceries;
+
+	//Keep track of money
+	public enum MoneyState{Low, High, Neutral};
+	public MoneyState moneyState = MoneyState.Neutral;
+
 
 	//Job
 
@@ -134,7 +133,7 @@ public class PersonAgent extends Agent implements Person {
 		this.name = name;
 	}
 
-	
+
 	//essential setters for GUI (When adding a person to SimCity)
 	public void setGui(PersonGui g) {
 		gui = g;
@@ -152,19 +151,41 @@ public class PersonAgent extends Agent implements Person {
 		bank = b;
 	}
 
+	/**
+	 * 
+	 * @param h The home (or shelter) the person will reside.
+	 */
 	public void setHome(Home h) {
-		myHome = h;
-		currentBuilding = h;
-		currentDestination = h;
+		if(h.getName().contains("shelter")) {
+			shelter = true;
+		}
+		else {
+			myHome = h;
+			currentBuilding = h;
+			currentDestination = h;
+			//Should I make a new one, or just make it equal to this one? There is only one resident for a home...
+			//activeRole = myHome.resident;
+		}
 	}
 
 
 
 	//functions so we can function
+	public void setHomeOwnerRole() {
+		//When Evan is done with homeowner role, I can add this 
+	}
+
 	public Location getLocation() {
 		return currentBuilding.getEntranceLocation();
 	}
 
+	public void setJob(Role role, Building building) {
+		myJob = new Job(role, building);
+	}
+
+	public void setJob(String type, Building building) {
+		myJob = new Job(RoleFactory.makeMeRole(type), type, building);
+	}
 
 	public String getJob() {
 		if (myJob != null)
@@ -226,15 +247,6 @@ public class PersonAgent extends Agent implements Person {
 		money += amount;
 	}
 
-
-	public void setJob(Role role, Building building) {
-		myJob = new Job(role, building);
-	}
-
-	public void setJob(String type, Building building) {
-		myJob = new Job(RoleFactory.makeMeRole(type), type, building);
-	}	
-
 	public void setPreferredTransportation(String type) {
 		if (type.contains("car"))
 			transportationState = TransportationState.Car;
@@ -261,7 +273,7 @@ public class PersonAgent extends Agent implements Person {
 		}
 
 
-		
+
 		//every "hour", let's check how much money is in our wallet.
 
 		double low = 25.0;
@@ -280,8 +292,38 @@ public class PersonAgent extends Agent implements Person {
 	 * 
 	 */
 	public void reachedBuilding() {
-	//	currentBuilding = currentDestination;
+		//	currentBuilding = currentDestination;
 		busyWithTask.release();
+	}
+
+	/**
+	 * Notifies the person that the current role is done with all interactions in the restaurant
+	 * @param role
+	 */
+	/*public void leftBuilding(Role role) {
+		//if role is of type host or bankgreeter, don't remove. Still need them to be active 
+		roles.remove(role);
+		//	checkPersonScheduler = true;
+	}
+	*//**
+	 * Notifies the person that the current role is done with all interactions
+	 * in the restaurant
+	 * 
+	 * @param role
+	 */
+	public void leftBuilding(Role role) {
+		// if role is of type host or bankgreeter, don't remove. Still need them
+		// to be active
+		role.getGui().getHomeScreen().removeGui(role.getGui());
+		gui.getHomeScreen().addGui(gui);
+		
+		
+		roles.remove(role);
+	}
+	
+	public void enteringBuilding(Role role){
+		gui.getHomeScreen().removeGui(gui);
+		role.getGui().getHomeScreen().addGui(role.getGui());
 	}
 
 
@@ -298,10 +340,14 @@ public class PersonAgent extends Agent implements Person {
 		stateChanged();
 	}*/
 
-
+	/**
+	 * a message from the GUI to eat at home.  But if he lives at the shelter, he can't eat at home.
+	 */
 	public void eatAtHome() {
-		eatingState = EatingState.EatAtHome;
-		stateChanged();
+		if(!shelter) {
+			eatingState = EatingState.EatAtHome;
+			stateChanged();
+		}
 	}
 
 	//Messages from Roles
@@ -339,28 +385,6 @@ public class PersonAgent extends Agent implements Person {
 	public void justAte() {
 		hungerState = HungerState.NotHungry;
 	}
-
-	/**
-	 * Notifies the person that the current role is done with all interactions
-	 * in the restaurant
-	 * 
-	 * @param role
-	 */
-	public void leavingBuilding(Role role) {
-		// if role is of type host or bankgreeter, don't remove. Still need them
-		// to be active
-		role.getGui().getHomeScreen().removeGui(role.getGui());
-		gui.getHomeScreen().addGui(gui);
-		
-		
-		roles.remove(role);
-	}
-	
-	public void enteringBuilding(Role role){
-		gui.getHomeScreen().removeGui(gui);
-		role.getGui().getHomeScreen().addGui(role.getGui());
-	}
-
 
 
 
@@ -420,12 +444,13 @@ public class PersonAgent extends Agent implements Person {
 			}
 
 
+
 		//Role Scheduler
 		//This should be changed to activeRole.pickAndExecuteAnAction();
 		for(Role r : roles) {
 
 			//System.out.println("Calling role schedulers");
-			
+
 			r.pickAndExecuteAnAction();
 
 
@@ -521,16 +546,11 @@ public class PersonAgent extends Agent implements Person {
 		catch(InterruptedException e){
 			
 		}
-		//gui.DoGoToLocation(new Location(400, 100));
-		/*try{
-			busyWithTask.acquire();
-		}
-		catch(InterruptedException e){
-			
-		}*/
-		//animate to bank
-		//DoGoToBank();
-		//roles.add(RoleFactory.makeMeRole(bank.bankCustomerRole));
+
+		//	Role bankRoleTemp = RoleFactory.makeMeRole(bank.bankCustomerRole);
+		//	activeRole = bankRoleTemp;
+		//	roles.add(bankRoleTemp);
+
 	}
 
 
@@ -540,5 +560,5 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 
-	
+
 }

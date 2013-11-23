@@ -2,6 +2,9 @@ package simcity;
 
 import agent.Role;
 
+import simcity.bank.*;
+
+
 public class RoleFactory {
 	public static Role makeMeRole(String type) {
 		//home resident
