@@ -11,8 +11,8 @@ public class bankAnimationPanel extends Screen{
 		populate();
 	}
 	
-	public void paintObstacles(Graphics g){
-		super.paintObstacles(g);
+	public void paintBackground(Graphics g){
+		super.paintBackground(g);
 		g.drawLine(545, 120, 545, 620);
 		g.drawLine(150, 325, 450, 325);
 		g.drawLine(150, 355, 450, 355);
