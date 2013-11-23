@@ -227,6 +227,13 @@ public class PersonAgent extends Agent implements Person {
 	
 	//Messages from Roles
 	/**
+	 * 
+	 */
+	public void leftBuilding() {
+		
+	}
+	
+	/**
 	 * a message from HomeResidentRole sends a grocery list of what foods are needed
 	 * @param foods Currently, the list is of type String, but will be converted to a Food class list after Evan creates it
 	 */
@@ -309,14 +316,14 @@ public class PersonAgent extends Agent implements Person {
 			}
 			
 			//Let me even see if I got money..
-			if(accountNumber == 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
+			/*if(accountNumber == 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
 				goToBank();
 				return true;
-			}
-		
-	
+			}*/
+
 		//Role Scheduler
 		for(Role r : roles) {
+			
 			return r.pickAndExecuteAnAction();
 		}
 		
@@ -333,7 +340,13 @@ public class PersonAgent extends Agent implements Person {
 		//animate out of building
 		//roles.get(0).DoLeaveBuilding();
 		
+		//Become a pedestrian
+		roles.add(RoleFactory.makeMeRole("pedestrian"));
+		
+		//access that pedestrian role as a temp variable
+		//animate with pedestrian gui to a desired location
 		//animate to desired location
+		
 		//DoGoToDestination(myJob.role.myBuilding);
 		roles.add(myJob.role);
 		

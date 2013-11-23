@@ -189,8 +189,9 @@ public class CustomerRole extends Role implements Customer {
 	//Make sure to implement the new states once you take away the host from the Gui
 	public boolean pickAndExecuteAnAction() {
 		//	CustomerAgent is a correctly implemented finite state machine
-
+print("got here");
 		if (state == AgentState.DoingNothing && event == AgentEvent.gotHungry ){
+			
 			state = AgentState.WaitingInRestaurant;
 			goToRestaurant();
 			return true;
