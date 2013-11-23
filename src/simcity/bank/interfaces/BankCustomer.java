@@ -1,7 +1,7 @@
 package simcity.bank.interfaces;
 
-import simcity.interfaces.Person;
 import simcity.bank.BankReceipt;
+import simcity.interfaces.Person;
 
 public interface BankCustomer {
 

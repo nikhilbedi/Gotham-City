@@ -22,7 +22,9 @@ public class BankDatabase {
 		nextAccountNumber = 101;
 	}
 	
+	
 	//Adds new account to the database; updates both lists
+	
 	public BankAccount addAccount(double amount, String customerName) {
 		
 		BankAccount newAccount = new BankAccount(amount, nextAccountNumber, customerName);
@@ -36,7 +38,9 @@ public class BankDatabase {
 		return newAccount;
 	}
 	
+	
 	//Removes an account from the database; updates both lists
+	
 	public BankAccount removeAccount(String customerName, int accountNumber) {
 		BankAccount removedAccount = accounts.get(accountNumber);
 		accounts.remove(accountNumber);
@@ -44,7 +48,9 @@ public class BankDatabase {
 		return removedAccount;
 	}
 	
+	
 	//returns total value of person's accounts. Used for determining loan qualifiers
+	
 	public double getTotalAccountBalance(String name) {
 		double total = 0;
 		LinkedList<Integer> custAccountNumbers= accountNumbers.get(name);

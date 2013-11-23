@@ -1,10 +1,10 @@
 package simcity.bank.test;
 
+import simcity.PersonAgent;
 import simcity.bank.BankCustomerRole;
+import simcity.bank.test.mock.MockBankCustomer;
 import simcity.bank.test.mock.MockBankGreeter;
 import simcity.bank.test.mock.MockBankTeller;
-import simcity.bank.test.mock.MockBankCustomer;
-import simcity.PersonAgent;
 import junit.framework.*;
 
 /**

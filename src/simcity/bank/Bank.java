@@ -1,5 +1,6 @@
 package simcity.bank;
 
+//import simcity.Building;
 import simcity.bank.interfaces.BankGreeter;
 
 /**
@@ -7,7 +8,7 @@ import simcity.bank.interfaces.BankGreeter;
  * Programmer: Brice Roland
  */
 
-public class Bank {
+public class Bank /*extends Building*/{
 	BankGreeter greeter;
 	//Location location = new Location(xCoor, yCoor);
 	int openTime, closeTime;
