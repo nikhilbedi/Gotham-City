@@ -27,7 +27,7 @@ public class ScreenFactory {
 	public ScreenFactory(){
 		screenList.add(main);
 		screenList.add(rest);
-		screenList.add(market);
+		//screenList.add(market);
 		screenList.add(bank);
 		screenList.add(home);
 

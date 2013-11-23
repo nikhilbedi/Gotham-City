@@ -14,7 +14,7 @@ public class Building {
 	 */
 	public Building(String type, int entranceX, int entranceY, int guiX, int guiY) {
 		entranceLocation = new Location (entranceX, entranceY);
-		guiLocation = new Location (entranceX, entranceY);
+		guiLocation = new Location(guiX, guiY);
 		name = type;
 	}
 	
@@ -27,7 +27,7 @@ public class Building {
 	 */
 	public Building(String type, int entranceX, int entranceY, int guiX, int guiY, String address) {
 		entranceLocation = new Location (entranceX, entranceY, address);
-		guiLocation = new Location (entranceX, entranceY);
+		guiLocation = new Location(guiX, guiY, address);
 		name = type;
 	}
 	
@@ -43,9 +43,7 @@ public class Building {
 	public Location getGuiLocation() {
 		return guiLocation;
 	}
-	
-	
-	
+
 	public String getName() {
 		return name;
 	}

@@ -5,10 +5,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 
 public class RoleGui {
-
-
-	///private CustomerAgent agent = null;
-
 	protected int xPos, yPos;
 	protected int xDestination, yDestination;
 	private static int speed = 5;
