@@ -54,7 +54,12 @@ public class bankCustomerGui extends RoleGui {
 		// Original message call to start the process
 		if(xPos == 20 && yPos == 20 &&
 			xDestination == 20 && yDestination == 20)
-			bankCustomer.msgEnteredBank();
+			{
+			xDestination = 200;
+			yDestination = 200;
+			//TODO this is hacked for testing purposes
+			//bankCustomer.msgEnteredBank();
+			}
 		
 		if(xPos != xDestination ||
 			yPos != yDestination) {

@@ -1,11 +1,16 @@
 package simcity;
 
+import Gui.RoleGui;
+import Gui.Screen;
+import Gui.ScreenFactory;
 import agent.Role;
 
 import simcity.bank.*;
 
 
 public class RoleFactory {
+	Screen bank;
+	
 	public static Role makeMeRole(String type) {
 		//home resident
 		if(type.equals("homeResident")) {
@@ -14,7 +19,10 @@ public class RoleFactory {
 		
 		//bank
 		else if(type.equals("bankCustomer")) {
-			return new Role();
+		BankCustomerRole r = new BankCustomerRole();
+		r.setGui(new bankCustomerGui(r, ScreenFactory.getMeScreen("bank")));
+		return r;
+		//return new BankCustomerRole();
 		}
 		
 		//the different restaurant customers

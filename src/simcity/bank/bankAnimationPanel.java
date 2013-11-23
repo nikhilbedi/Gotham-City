@@ -8,7 +8,7 @@ import Gui.Screen;
 public class bankAnimationPanel extends Screen{
 	
 	public bankAnimationPanel() {
-		populate();
+		//populate();
 	}
 	
 	public void paintBackground(Graphics g){

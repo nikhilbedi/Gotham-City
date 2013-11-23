@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
+import agent.Role;
+
 public class RoleGui {
 	protected int xPos, yPos;
 	protected int xDestination, yDestination;
@@ -34,6 +36,11 @@ public class RoleGui {
 		command = Command.commandA;
 		myColor = Color.gray;
 		//this.gui = gui;
+	}
+
+
+	public RoleGui(Role r, Screen meScreen) {
+		// TODO Auto-generated constructor stub
 	}
 
 

@@ -86,10 +86,10 @@ public class Screen
                                 return "Restaurant";
                         }
                         if((x>400)&&(x<450)&&(y>100)&&(y<150)){
-                                return "Market";
+                                return "Bank";
                         }
                         if((x>600)&&(x<650)&&(y>100)&&(y<150)){
-                                return "Bank";
+                                return "Market";
                         }
                         if((x>400)&&(x<450)&&(y>700)&&(y<750)){
                                 return "Home";
@@ -101,5 +101,9 @@ public class Screen
                         }
                 }
                 return "na";
+        }
+        
+        public String printGuiList(){
+        	return guis.toString();
         }
 }

@@ -21,7 +21,9 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	public BankCustomerRole(PersonAgent person) {
 		super(person);
 	}
-	
+	public BankCustomerRole(){
+		super();
+	}
 	
 	//State Variables
 	

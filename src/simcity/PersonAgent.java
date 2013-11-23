@@ -3,6 +3,7 @@ package simcity;
 import agent.Agent;
 import agent.Role;
 import Gui.RoleGui;
+import Gui.Screen;
 import simcity.interfaces.Person;
 import simcity.RoleFactory;
 import simcity.restaurants.*;
@@ -131,8 +132,15 @@ public class PersonAgent extends Agent implements Person {
 	public PersonAgent(String name) {
 		super();
 		this.name = name;
+	//	gui.setHomeScreen(s);
 	}
-
+	
+	public PersonAgent(String name, PersonGui g, Screen s) {
+		super();
+		this.name = name;
+		gui = g;
+		gui.setHomeScreen(s);
+	}
 
 	//essential setters for GUI (When adding a person to SimCity)
 	public void setGui(PersonGui g) {
@@ -323,7 +331,11 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void enteringBuilding(Role role){
 		gui.getHomeScreen().removeGui(gui);
+		
 		role.getGui().getHomeScreen().addGui(role.getGui());
+		System.out.println("In enteringBuilding Screen of bankRole is: " + role.getGui().getHomeScreen().printGuiList() );
+		
+		System.err.println("Updating Guis");
 	}
 
 
@@ -547,9 +559,12 @@ public class PersonAgent extends Agent implements Person {
 			
 		}
 
-		//	Role bankRoleTemp = RoleFactory.makeMeRole(bank.bankCustomerRole);
-		//	activeRole = bankRoleTemp;
-		//	roles.add(bankRoleTemp);
+		Role bankRoleTemp = RoleFactory.makeMeRole(bank.bankCustomer);
+		bankRoleTemp.setPerson(this);
+		activeRole = bankRoleTemp;
+		roles.add(bankRoleTemp);
+		System.out.println("In gotToBank Screen of bankRole is: " + bankRoleTemp.getGui().getHomeScreen().printGuiList() );
+		enteringBuilding(bankRoleTemp);
 
 	}
 

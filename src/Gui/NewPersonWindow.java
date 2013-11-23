@@ -79,17 +79,21 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == finalize){
-			PersonAgent newPerson = new PersonAgent(nameField.getText());
-			PersonGui newPersonGui = new PersonGui(newPerson);
+			PersonGui newPersonGui = new PersonGui();
+			PersonAgent newPerson = new PersonAgent(nameField.getText(), newPersonGui, mainScreen);
+			newPersonGui.setAgent(newPerson);
 			//newPersonGui.setColor(Color.green);
 			mainScreen.addGui(newPersonGui);
 			newPersonGui.xDestination = 500;
 			newPersonGui.yDestination = 500;
-
+			
+			//setJob
+			
 			newPerson.setGui(newPersonGui);	
 			newPerson.setRestaurants(mainScreen.getRestaurantList());
 			newPerson.setMarkets(mainScreen.getMarketList());
 			newPerson.setBank(mainScreen.getBank());
+			
 			
 			Home temp = mainScreen.getHomeHack();
 			newPerson.setHome(temp);
