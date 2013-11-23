@@ -8,8 +8,6 @@ import java.util.*;
 
 public class Screen
 {
-	ArrayList<Obstacle> obst = new ArrayList<Obstacle>();
-	ArrayList<Rectangle> cords = new ArrayList<Rectangle>(); 
 	ArrayList<RoleGui> guis = new ArrayList<RoleGui>();
 
 	String loc = "";
@@ -19,38 +17,18 @@ public class Screen
 	public Screen()
 	{
 		temp = 0;
-		generate();
 	}
 	public Screen(int t)
 	{
 		temp = t;
-		generate();
 	}
-
-	public ArrayList<Obstacle> getObs()
-	{
-		return obst;
-	}
-	public void generate()
-	{
-		obst.clear();
-		if(temp != 1){
-			obst.add(new Obstacle(25,50,20,20));
-		}
-		if(temp==1){//Main city pane
-		obst.add(new Obstacle(200, 100, 50, 50));
-		obst.add(new Obstacle(400, 100, 50, 50));
-		obst.add(new Obstacle(600, 100, 50, 50));
-		obst.add(new Obstacle(400, 700, 50, 50));
-		}
-
-	}
-
-
-
 
 	public void addGui(RoleGui g1){
 		guis.add(g1);
+	}
+	
+	public void removeGui(RoleGui g1){
+		guis.remove(g1);
 	}
 
 	public void updateAgents(){
@@ -63,7 +41,10 @@ public class Screen
 		for (RoleGui gui : guis) {
 			gui.draw(g);
 		}
-
+	}
+	
+	public void paintObstacles(Graphics g){
+		System.err.println("You shouldn't use this method anymore. Call Hunter and I'll explain it to you.");
 	}
 
 	public  void paintBackground(Graphics g)
@@ -76,27 +57,26 @@ public class Screen
 		}
 		else if(temp==2){//Restaurant
 			g.drawString("Restaurant", 400, 50);
+			g.drawRect(25,50,20,20);
 
 		}
 		else if(temp==3){//Market
 			g.drawString("Market", 400, 50);
+			g.drawRect(25,50,20,20);
 		}
 		else if(temp==4){//Bank
 			g.drawString("Bank", 400, 50);
+			g.drawRect(25,50,20,20);
 		}
 		else if(temp==5){//Home
 			g.drawString("Home", 400, 50); 
+			g.drawRect(25,50,20,20);
+		}
+		else{
+			g.drawRect(25,50,20,20);
 		}
 	}
 
-	public  void paintObstacles(Graphics g2)
-	{
-		for (int i = 0; i < obst.size(); i++) {
-			g2.setColor(Color.black);
-			Obstacle o = obst.get(i);
-			g2.fillRect(o.getX(),o.getY(),o.getWidth(),o.getHeight());
-		}
-	}
 
 
 	public String checkSwap(int x, int y) {
@@ -119,7 +99,6 @@ public class Screen
 				return "City";
 			}
 		}
-
 		return "na";
 	}
 }
