@@ -34,5 +34,17 @@ public class MockBankTeller extends Mock implements BankTeller{
 		
 	}
 
+	@Override
+	public int getIndex() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public void setIndex(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }

@@ -11,6 +11,8 @@ public class RoleGui {
 
 	protected int xPos, yPos;
 	protected int xDestination, yDestination;
+	private static int speed = 5;
+	
 	private enum Command {noCommand, commandA, commandB, commandC};
 
 	private Command command = Command.noCommand;
@@ -34,14 +36,14 @@ public class RoleGui {
 
 	public void updatePosition(){
 		if (xPos < xDestination)
-			xPos+=10;
+			xPos+=speed;
 		else if (xPos > xDestination)
-			xPos-=10;
+			xPos-=speed;
 
 		if (yPos < yDestination)
-			yPos+=10;
+			yPos+=speed;
 		else if (yPos > yDestination)
-			yPos-=10;
+			yPos-=speed;
 	}
 
 	public void draw(Graphics g){
