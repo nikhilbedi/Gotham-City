@@ -39,7 +39,8 @@ public class MarketAnimationPanel extends Screen {
 
 
     public void paintComponent(Graphics g) {
-        Graphics2D g2 = (Graphics2D)g;
+       
+    	Graphics2D g2 = (Graphics2D)g;
         //Clear the screen by painting a rectangle the size of the frame
      /*   g2.setColor(getBackground());
         g2.fillRect(0, 0, WINDOWX, WINDOWY );*/
@@ -69,6 +70,7 @@ public class MarketAnimationPanel extends Screen {
     
     @Override
     public void paintObstacles(Graphics g){
+    	super.paintObstacles(g);
     	g.setColor(Color.ORANGE);
     	g.fillRect(80, 150, 250, 30);
     	g.setColor(Color.BLACK);
@@ -89,7 +91,7 @@ public class MarketAnimationPanel extends Screen {
     	MarketCustomerRole marketCustomer2 = new MarketCustomerRole(agentCust2);
     	MarketCustomerGui customerGui2 = new MarketCustomerGui(marketCustomer2);
     	List<String> foods = new ArrayList<String>();
-    	Market market = new Market();
+/*    	Market market = new Market();*/
     		marketCashier.setGui(cashierGui);
     	addGui(cashierGui);
     		agentCash.addRole(marketCashier);
@@ -127,8 +129,8 @@ public class MarketAnimationPanel extends Screen {
     			marketWorker.getInventory().put("Chicken", chicken);
     			marketWorker.getInventory().put("Rice", rice);
     			marketWorker.getInventory().put("Potato", potato);
-    		market.setCashier(marketCashier);
-    		market.addWorker(marketWorker);
+  /*  		market.setCashier(marketCashier);
+    		market.addWorker(marketWorker);*/
     }
 
 

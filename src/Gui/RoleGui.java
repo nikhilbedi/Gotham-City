@@ -7,7 +7,8 @@ import java.awt.Graphics;
 public class RoleGui {
 	protected int xPos, yPos;
 	protected int xDestination, yDestination;
-
+	private static int speed = 5;
+	
 	private enum Command {noCommand, commandA, commandB, commandC};
 
 	private Command command = Command.noCommand;
@@ -15,9 +16,6 @@ public class RoleGui {
 	public static final int guiSize = 20;
 	
 	protected Color myColor;
-
-
-
 
 	public RoleGui(){
 		//agent = c;
@@ -34,14 +32,14 @@ public class RoleGui {
 
 	public void updatePosition(){
 		if (xPos < xDestination)
-			xPos+=2;
+			xPos+=speed;
 		else if (xPos > xDestination)
-			xPos-=2;
+			xPos-=speed;
 
 		if (yPos < yDestination)
-			yPos+=2;
+			yPos+=speed;
 		else if (yPos > yDestination)
-			yPos-=2;
+			yPos-=speed;
 	}
 
 	public void draw(Graphics g){
@@ -49,6 +47,8 @@ public class RoleGui {
 		g.fillRect(xPos, yPos, guiSize, guiSize);
 
     }
+	public void doLeaveBuilding(){
+	}
 	public void setColor(Color c){
 		myColor = c;
 	}

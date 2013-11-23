@@ -6,7 +6,6 @@ public class Building {
 	private Location entranceLocation;
 	private Location guiLocation;
 	
-	
 	/**
 	 * A constructor that sets the location and name for a building
 	 * @param type The name for this building
@@ -54,7 +53,7 @@ public class Building {
 	public Location getGuiLocation() {
 		return guiLocation;
 	}
-	
+
 	public String getName() {
 		return name;
 	}

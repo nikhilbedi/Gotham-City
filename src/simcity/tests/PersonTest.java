@@ -56,9 +56,9 @@ public class PersonTest extends TestCase
 		
 		//step 2
 		assertFalse("The person should not have anything to do. But he does", person.pickAndExecuteAnAction());
-		
-		
+
 		//person.setJob("marketCashier", workplace);
+
 		
 		assertEquals("Job should now be of type marketCashier. It is not", person.getJob(), "marketCashier");
 		
