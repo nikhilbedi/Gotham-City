@@ -6,119 +6,80 @@ import java.awt.event.*;
 import java.awt.image.*;
 import java.util.*;
 
+public class Screen
+{
+        ArrayList<RoleGui> guis = new ArrayList<RoleGui>();
 
- 
-   public class Screen
-   {
-      public ArrayList<Obstacle> obst = new ArrayList<Obstacle>();
-      public ArrayList<Rectangle> cords = new ArrayList<Rectangle>(); 
-      public ArrayList<RoleGui> guis = new ArrayList<RoleGui>();
-      
-      String loc = "";
-      int xCord, yCord;
-      int temp;
-      
-      public Screen()
-      {
-             temp = 0;
-             generate();
-      }
-       public Screen(int t)
-      {
-             temp = t;
-             generate();
+        String loc = "";
+        int xCord, yCord;
+        public int temp;
 
-      }
+        public Screen()
+        {
+                temp = 0;
+        }
+        public Screen(int t)
+        {
+                temp = t;
+        }
 
-       public ArrayList<Obstacle> getObs()
-      {
-         return obst;
-      }
-       public void generate()
-      {
-         obst.clear();
-         
-         if(temp==1){//Main city pane
+        public void addGui(RoleGui g1){
+                guis.add(g1);
+        }
+        
+        public void removeGui(RoleGui g1){
+                guis.remove(g1);
+        }
 
-                 obst.add(new Obstacle(200, 100, 50, 50));
-                 obst.add(new Obstacle(400, 100, 50, 50));
-                 obst.add(new Obstacle(600, 100, 50, 50));
-                 obst.add(new Obstacle(400, 700, 50, 50));
-         }
-         else if(temp==2){//Restaurant
-                 obst.add(new Obstacle(25,50,20,20));
-                 
-                 
-         }
-         else if(temp==3){//Market
-                 obst.add(new Obstacle(25,50,20,20));
-         }
-         else if(temp==4){//Bank
-                 obst.add(new Obstacle(25,50,20,20));
-         }
-         else if(temp==5){//Home
-                 obst.add(new Obstacle(25,50,20,20));
+        public void updateAgents(){
+                for (RoleGui gui : guis) {
+                        gui.updatePosition();
+                }
+        }
 
-         }
-
-      }
-       
-       
-       
-       
-       public void addGui(RoleGui g1){
-
-               guis.add(g1);
-       }
-      
-       public void updateAgents(){
-               for (RoleGui gui : guis) {
-                       gui.updatePosition();
-               }
-       }
-       
-       public void paintAgents(Graphics g){
-                   for (RoleGui gui : guis) {
+        public void paintAgents(Graphics g){
+                for (RoleGui gui : guis) {
                         gui.draw(g);
                 }
-       
-       }
-       
-       public  void paintBackground(Graphics g)
-      {
-         g.setColor(Color.white);
-         g.fillRect(0,0,800, 800);
-         g.setColor(Color.black);
-         if(temp==1){//Main city pane
+        }
+        
+        public void paintObstacles(Graphics g){
+                System.err.println("You shouldn't use this method anymore. Call Hunter and I'll explain it to you.");
+        }
 
-                 g.drawString("Main City", 400, 50);
-         }
-         else if(temp==2){//Restaurant
-                 g.drawString("Restaurant", 400, 50);
-                 
-         }
-         else if(temp==3){//Market
-                 g.drawString("Market", 400, 50);
-         }
-         else if(temp==4){//Bank
-                 g.drawString("Bank", 400, 50);
-         }
-         else if(temp==5){//Home
-                 g.drawString("Home", 400, 50); 
+        public  void paintBackground(Graphics g)
+        {
+                g.setColor(Color.white);
+                g.fillRect(0,0,1000, 800);
+                g.setColor(Color.black);
+                if(temp==1){//Main city pane
+                        g.drawString("Main City", 400, 50);
+                        g.drawRect(400, 700, 25, 25);
+                }
+                else if(temp==2){//Restaurant
+                        g.drawString("Restaurant", 400, 50);
+                        g.drawRect(25,50,20,20);
 
-         }
-      }
-      
-       public  void paintObstacles(Graphics g2)
-      {
-         for (int i = 0; i < obst.size(); i++) {
-            g2.setColor(Color.black);
-            Obstacle o = obst.get(i);
-            g2.fillRect(o.getX(),o.getY(),o.getWidth(),o.getHeight());
-         }
-      }
-       
-       
+                }
+                else if(temp==3){//Market
+                        g.drawString("Market", 400, 50);
+                        g.drawRect(25,50,20,20);
+                }
+                else if(temp==4){//Bank
+                        g.drawString("Bank", 400, 50);
+                        g.drawRect(25,50,20,20);
+                }
+                else if(temp==5){//Home
+                        g.drawString("Home", 400, 50); 
+                        g.drawRect(25,50,20,20);
+                }
+                else{
+                        g.fillRect(25,50,20,20);
+                }
+        }
+
+
+
         public String checkSwap(int x, int y) {
                 if(temp == 1){
                         if((x>200)&&(x<250)&&(y>100)&&(y<150)){
@@ -139,9 +100,6 @@ import java.util.*;
                                 return "City";
                         }
                 }
-                
                 return "na";
         }
-
-   }
-
+}
