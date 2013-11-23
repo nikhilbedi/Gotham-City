@@ -27,8 +27,8 @@ import java.util.*;
       
 
       public void paintComponent(Graphics g){//Here is where everything in the animation panel is generated
-         //loader.updateAllPositions();
-         currentScreen.updateAgents();
+         loader.updateAllPositions();
+         //currentScreen.updateAgents();
     	 currentScreen.paintBackground(g);
          currentScreen.paintObstacles(g);
          currentScreen.paintAgents(g);
