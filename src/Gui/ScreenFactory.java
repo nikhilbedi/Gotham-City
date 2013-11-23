@@ -12,6 +12,7 @@ public class ScreenFactory {
 	Screen bank = new bankAnimationPanel();
 	Screen home = new Screen(5);
 	
+
 	public ScreenFactory(){
 		screenList.add(main);
 		screenList.add(rest);

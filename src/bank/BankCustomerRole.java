@@ -86,7 +86,7 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	
 	public void setTransactions() {
 		transactionList.add("openingAccount");
-		transactionList.add("depositing");
+		transactionList.add("deposit");
 	}
 	
 	
@@ -172,12 +172,15 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		if (state == CustomerState.receivedReceipt){
 			//add if statement for making another transaction or not
 			//makeAnotherTransaction();
-			DoLeaveBank();
+			if(transactionList.size() > 0)
+				makeATransaction();
+			else
+				DoLeaveBank();
 			return true;
 		}
 		return false;
 	}
-
+	
 	
 	// Actions
 	
@@ -193,12 +196,14 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		bankCustomerGui.GoToTeller(tellerIndex);
 		//getBankTeller().msgNeedATransaction(this, transactionType, transactionAmount);
 	}
-
+	
 	private void makeATransaction() {
-		System.out.println(getName() + ": Making a transaction. Type: " + transactionType);
-		getBankTeller().msgNeedATransaction(this, transactionType, transactionAmount);
+		//System.out.println(getName() + ": Making a transaction. Type: " + transactionType);
+		System.out.println(getName() + ": Making a transaction. Type: " + transactionList.get(0));
+		getBankTeller().msgNeedATransaction(this, transactionList.get(0), transactionAmount);
+		transactionList.remove(0);
 	}
-
+	
 	private void DoLeaveBank() {
 		getBankTeller().msgDoneAndLeaving(this);
 		bankCustomerGui.LeaveBank();
