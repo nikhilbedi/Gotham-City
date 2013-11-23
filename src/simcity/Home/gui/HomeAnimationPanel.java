@@ -31,7 +31,7 @@ public class HomeAnimationPanel extends Screen {
         addGui(residentGui);
         resident.gotHungry();
         
-        Home home = new Home("House_1");
+        //Home home = new Home("House_1");
     }
 
 }
