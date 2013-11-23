@@ -1,11 +1,11 @@
-package simcity.Bank;
+package simcity.bank;
 
 import agent.Role;
 import simcity.PersonAgent;
-import simcity.Bank.BankReceipt;
-import simcity.Bank.interfaces.BankCustomer;
-import simcity.Bank.interfaces.BankGreeter;
-import simcity.Bank.interfaces.BankTeller;
+import simcity.bank.BankReceipt;
+import simcity.bank.interfaces.BankCustomer;
+import simcity.bank.interfaces.BankGreeter;
+import simcity.bank.interfaces.BankTeller;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -90,12 +90,12 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		transactionList.add("withdrawal");
 		transactionList.add("needALoan");
 		
-		if(myPerson.getMoneyState() == myPerson.moneyState.Low)
+		/*if(myPerson.getMoneyState() == myPerson.moneyState.Low)
 			transactionList.add("withdrawal");
 		if(myPerson.getMoneyState() == myPerson.moneyState.High)
 			transactionList.add("deposit");
 		if(myPerson.getAccountNumber == 0)
-			transactionList.add("openAccount");
+			transactionList.add("openAccount");*/
 		
 	}
 	

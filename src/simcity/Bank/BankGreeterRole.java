@@ -1,10 +1,10 @@
-package simcity.Bank;
+package simcity.bank;
 
 import agent.Role;
 import simcity.PersonAgent;
-import simcity.Bank.interfaces.BankCustomer;
-import simcity.Bank.interfaces.BankGreeter;
-import simcity.Bank.interfaces.BankTeller;
+import simcity.bank.interfaces.BankCustomer;
+import simcity.bank.interfaces.BankGreeter;
+import simcity.bank.interfaces.BankTeller;
 
 import java.util.*;
 

@@ -1,4 +1,4 @@
-package simcity.Bank;
+package simcity.bank;
 
 //Class to hold information about a transaction
 public class BankReceipt {

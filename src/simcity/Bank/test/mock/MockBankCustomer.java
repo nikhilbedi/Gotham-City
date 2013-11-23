@@ -1,8 +1,8 @@
-package simcity.Bank.test.mock;
+package simcity.bank.test.mock;
 
-import simcity.Bank.BankReceipt;
-import simcity.Bank.interfaces.BankCustomer;
-import simcity.Bank.interfaces.BankTeller;
+import simcity.bank.BankReceipt;
+import simcity.bank.interfaces.BankCustomer;
+import simcity.bank.interfaces.BankTeller;
 import simcity.interfaces.Person;
 
 /**

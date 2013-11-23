@@ -2,7 +2,7 @@ package Gui;
 
 import java.util.*;
 
-import simcity.Bank.bankAnimationPanel;
+import simcity.bank.bankAnimationPanel;
 import simcity.Home.gui.HomeAnimationPanel;
 import simcity.Market.MarketGui.MarketAnimationPanel;
 import simcity.restaurants.restaurant1.gui.RestaurantNikhilAnimationPanel;

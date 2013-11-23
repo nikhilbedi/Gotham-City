@@ -1,4 +1,4 @@
-package simcity.Bank.test.mock;
+package simcity.bank.test.mock;
 
 import java.text.DateFormat;
 import java.util.Date;

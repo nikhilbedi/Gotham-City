@@ -1,4 +1,4 @@
-package simcity.Bank.interfaces;
+package simcity.bank.interfaces;
 
 public interface BankTeller {
 

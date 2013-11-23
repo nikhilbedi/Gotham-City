@@ -1,4 +1,4 @@
-package simcity.Bank;
+package simcity.bank;
 
 public class BankAccount {
 	double accountBalance;

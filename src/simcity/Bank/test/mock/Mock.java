@@ -1,4 +1,4 @@
-package simcity.Bank.test.mock;
+package simcity.bank.test.mock;
 
 /**
  * This is the base class for all mocks.

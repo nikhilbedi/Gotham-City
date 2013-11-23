@@ -1,6 +1,6 @@
-package simcity.Bank;
+package simcity.bank;
 
-import simcity.Bank.interfaces.BankGreeter;
+import simcity.bank.interfaces.BankGreeter;
 
 /**
  * Bank Class

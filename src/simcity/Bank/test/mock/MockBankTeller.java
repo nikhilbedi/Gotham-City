@@ -1,7 +1,7 @@
-package simcity.Bank.test.mock;
+package simcity.bank.test.mock;
 
-import simcity.Bank.interfaces.BankCustomer;
-import simcity.Bank.interfaces.BankTeller;
+import simcity.bank.interfaces.BankCustomer;
+import simcity.bank.interfaces.BankTeller;
 
 public class MockBankTeller extends Mock implements BankTeller{
 	public MockBankTeller(String name) {

@@ -1,8 +1,8 @@
-package simcity.Bank.test.mock;
+package simcity.bank.test.mock;
 
-import simcity.Bank.interfaces.BankCustomer;
-import simcity.Bank.interfaces.BankGreeter;
-import simcity.Bank.interfaces.BankTeller;
+import simcity.bank.interfaces.BankCustomer;
+import simcity.bank.interfaces.BankGreeter;
+import simcity.bank.interfaces.BankTeller;
 
 public class MockBankGreeter extends Mock implements BankGreeter{
 	EventLog log = new EventLog();
