@@ -23,7 +23,7 @@ public class PersonAgent extends Agent implements Person {
 	private double money = 0.0;
 	private List<Role> roles = new ArrayList<Role>();
 	public Map<String, Integer> groceryList = new HashMap<String, Integer>();
-	private List<RentBill> rentBills = new ArrayList<RentBill>();
+	public List<RentBill> rentBills = new ArrayList<RentBill>();
 	boolean personScheduler = false;
 	PersonGui gui;
 
@@ -115,8 +115,8 @@ public class PersonAgent extends Agent implements Person {
 	private enum RentState {Paid, NotPaid, PayingBill};
 	public class RentBill {
 		public RentState state = RentState.NotPaid;
-		PersonAgent accountHolder;
-		float amount;
+		public PersonAgent accountHolder;
+		public float amount;
 
 
 		public RentBill(PersonAgent p, float a) {
@@ -377,13 +377,13 @@ public class PersonAgent extends Agent implements Person {
 		//if he's REALLY hungry, then eat something before paying bills. Then do checks of eating at home versus the restaurant
 
 		//Gotta pay the bills!
-		for(RentBill rb : rentBills) {
+		/*for(RentBill rb : rentBills) {
 			if(rb.state == RentState.NotPaid){
 
 				payBills();
 				return true;
 			}
-		}
+		}*/
 
 
 		//Gotta eat!
