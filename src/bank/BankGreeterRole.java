@@ -1,6 +1,5 @@
 package bank;
 
-import agent.Agent;
 import agent.Role;
 import bank.interfaces.BankCustomer;
 import bank.interfaces.BankGreeter;
@@ -8,30 +7,30 @@ import bank.interfaces.BankTeller;
 import simcity.PersonAgent;
 
 import java.util.*;
-import java.util.concurrent.Semaphore;
 
 /**
  * Bank Greeter Role
  * Programmer: Brice Roland
  */
 public class BankGreeterRole extends Role implements BankGreeter{
+	
+	//Lists
+	
 	public List<MyCustomer> waitingCustomers
 	= Collections.synchronizedList(new ArrayList<MyCustomer>());
 	public List<BankTeller> tellers
 	= Collections.synchronizedList(new ArrayList<BankTeller>());
 	public BankGreeterGui gui;
 	
+	
+	// Constructor
+	
 	public BankGreeterRole(PersonAgent person) {
 		super(person);
 	}
 	
-	/*public String getName() {
-		return super.getName();
-	}*/
-
-	public List getWaitingCustomers() {
-		return waitingCustomers;
-	}
+	
+	// Functions
 	
 	public void addTeller(BankTeller teller) {
 		tellers.add(teller);
@@ -39,7 +38,13 @@ public class BankGreeterRole extends Role implements BankGreeter{
 		teller.setAvailable(true);
 	}
 	
+	public void setGui(BankGreeterGui greeterGui) {
+		gui = greeterGui;
+		
+	}	
+	
 	//Class to hold BankCustomer and their information
+	
 	class MyCustomer {
 		BankCustomer customer;
 		customerState s;
@@ -51,6 +56,7 @@ public class BankGreeterRole extends Role implements BankGreeter{
 	}
 	
 	public enum customerState {waiting, inLine}; 
+	
 	
 	// Messages
 
@@ -66,9 +72,9 @@ public class BankGreeterRole extends Role implements BankGreeter{
 		stateChanged();
 	}
 	
-	/**
-	 * Scheduler.  Determine what action is called for, and do it.
-	 */
+	
+	// Scheduler
+	
 	public boolean pickAndExecuteAnAction() {
 		for (BankTeller teller: tellers) { //Determines if a teller is available and if a customer can be sent to them
 			if (teller.isAvailable()) {
@@ -86,6 +92,7 @@ public class BankGreeterRole extends Role implements BankGreeter{
 		return false;
 	}
 
+	
 	// Actions
 
 	private void SendToLinePosition(MyCustomer cust, int x) {
@@ -99,10 +106,5 @@ public class BankGreeterRole extends Role implements BankGreeter{
 		teller.setAvailable(false);
 		waitingCustomers.remove(cust);
 	}
-
-	public void setGui(BankGreeterGui greeterGui) {
-		gui = greeterGui;
-		
-	}	
 }
 
