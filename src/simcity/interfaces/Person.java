@@ -61,5 +61,5 @@ public interface Person {
 	 * Notifies the person that the current role is done with all interactions in the restaurant
 	 * @param role
 	 */
-	public abstract void leavingBuilding(Role role);
+	public abstract void leftBuilding(Role role);
 }

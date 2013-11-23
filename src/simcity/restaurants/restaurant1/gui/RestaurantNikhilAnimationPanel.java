@@ -33,6 +33,7 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 	}
 
 	public void paintBackground(Graphics g) {
+		super.paintBackground(g);
 		Graphics2D g2 = (Graphics2D)g;
 		//Second and third table created manually
 		Graphics2D g3 = (Graphics2D)g;
