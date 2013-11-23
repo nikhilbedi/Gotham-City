@@ -83,18 +83,26 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	public void setBankTeller(BankTeller teller) {
 		this.teller = teller;
 	}
-	
-	
+		
 	public void setTransactions() {
 		transactionList.add("openingAccount");
 		transactionList.add("deposit");
+		transactionList.add("withdrawal");
+		transactionList.add("needALoan");
+		
+		if(myPerson.getMoneyState() == myPerson.moneyState.Low)
+			transactionList.add("withdrawal");
+		if(myPerson.getMoneyState() == myPerson.moneyState.High)
+			transactionList.add("deposit");
+		if(myPerson.getAccountNumber == 0)
+			transactionList.add("openAccount");
+		
 	}
 	
 	
 	// Messages
 
 	public void msgWaitHere(int i) {
-		//customerGui.goToWaitingPosition(i); //gui call to go to a position
 		System.out.println(getName() + ": Told to wait in line");
 		waitingNumber = i;
 		state = CustomerState.inLine;
@@ -117,7 +125,7 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	
 	public void msgOutOfBank() {
 		System.out.println(getName() + ": left the bank.");
-		//getPersonAgent().doLeaveBuilding("Bank");
+		myPerson.leavingBuilding(this);
 	}
 	
 	public void msgEnteredBank() {
@@ -143,6 +151,7 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		System.out.println(getName() + ": Received receipt. Account number is: " + accountNumber);
 		getPersonAgent().addMoney((float)bankReceipt.transactionAmount);
 		//add Account number info to PersonAgent
+		getPersonAgent().setAccountNumber(accountNumber);
 		state = CustomerState.receivedReceipt;
 		stateChanged();
 	}

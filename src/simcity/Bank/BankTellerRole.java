@@ -214,7 +214,7 @@ public class BankTellerRole extends Role implements BankTeller{
 	
 	public void withdrawFunds(MyCustomer c) {
 		System.out.println(getName() + ": Withdrawing funds for customer " + c.c.getName());
-		BankAccount acc = bankDatabase.accounts.get(bankDatabase.accountNumbers.get(c.c.getName()));
+		BankAccount acc = bankDatabase.accounts.get(bankDatabase.accountNumbers.get(c.c.getName()).get(0));
 		acc.withdrawMoney(c.transactionAmount);
 		c.c.HereIsReceipt(new BankReceipt(acc.accountBalance, c.transactionAmount, c.transactionType));
 	}
@@ -227,7 +227,7 @@ public class BankTellerRole extends Role implements BankTeller{
 	
 	public void closeAccount(MyCustomer c) {
 		BankAccount acc = bankDatabase.removeAccount(c.c.getName(), c.accountNumber);
-		c.c.HereIsReceiptAndAccountInfo(new BankReceipt(acc.accountBalance, acc.accountNumber, c.transactionType), acc.accountNumber);
+		c.c.HereIsReceipt(new BankReceipt(acc.accountBalance, acc.accountNumber, c.transactionType));
 	}
 	
 	public void handleLoanCredentials(MyCustomer c) {

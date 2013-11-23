@@ -220,6 +220,7 @@ public class PersonAgent extends Agent implements Person {
 	}*/
 	
 	public void eatAtHome() {
+		System.out.println("HI");
 		eatingState = EatingState.EatAtHome;
 		stateChanged();
 	}
@@ -231,6 +232,7 @@ public class PersonAgent extends Agent implements Person {
 	 * @param foods Currently, the list is of type String, but will be converted to a Food class list after Evan creates it
 	 */
 	public void homeNeedsGroceries(List<String> foods) {
+		System.out.println("HI2");
 		groceryList = foods;
 		marketState = MarketState.GetGroceries;
 		stateChanged();
@@ -241,6 +243,7 @@ public class PersonAgent extends Agent implements Person {
 	 * @param rb The bill to be paid, in which the initial state is 'NotPaid'
 	 */
 	public void goPayBill(RentBill rb) {
+		System.out.println("HI3");
 		rentBills.add(rb);
 		stateChanged();
 	}
@@ -268,6 +271,8 @@ public class PersonAgent extends Agent implements Person {
 	public boolean pickAndExecuteAnAction() {
 		// Person Scheduler 
 		//If he's CRRAAAZZY hungry, then eat something first. Then do checks of eating at home versus the restaurant
+		
+		//System.out.println("Calling Person Scheduler");
 		
 			//Work comes first--his family probably doesn't like this :/
 			if(myJob != null) {
