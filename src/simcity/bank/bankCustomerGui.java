@@ -3,6 +3,7 @@ package simcity.bank;
 import java.awt.Color;
 
 import Gui.RoleGui;
+import Gui.Screen;
 
 public class bankCustomerGui extends RoleGui {
 	
@@ -19,6 +20,17 @@ public class bankCustomerGui extends RoleGui {
 		yPos = 20;
 		xDestination = 20;
 		yDestination = 20;
+	}
+	public bankCustomerGui(BankCustomerRole bankCustomer, Screen s) {
+		this.bankCustomer = bankCustomer;
+		myColor = Color.green;
+		atTeller = false;
+		atExit = false;
+		xPos = 20;
+		yPos = 20;
+		xDestination = 20;
+		yDestination = 20;
+		homeScreen = s;
 	}
 	
 	public void updatePosition() {

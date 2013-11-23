@@ -8,6 +8,7 @@ import simcity.RoleFactory;
 import simcity.restaurants.*;
 import simcity.Market.Market;
 import simcity.Home.Home;
+import simcity.bank.*;
 
 import java.rmi.UnexpectedException;
 import java.util.*;
@@ -37,7 +38,7 @@ public class PersonAgent extends Agent implements Person {
 	public List<Restaurant> restaurants;
 	Restaurant currentPreference;
 	public List<Market> markets;
-	//public Bank bank;
+	public Bank bank;
 
 	//These three are essential, but should be instantiated with the "Homeless Shelter"
 	public Home myHome;
@@ -147,14 +148,14 @@ public class PersonAgent extends Agent implements Person {
 		markets = m;
 	}
 
-	/*	public void setBank(Bank b) {
+	public void setBank(Bank b) {
 		bank = b;
-	}*/
+	}
 
 	public void setHome(Home h) {
 		myHome = h;
-		/*currentBuilding = h;
-		currentDestination = h;*/
+		currentBuilding = h;
+		currentDestination = h;
 	}
 
 
@@ -348,7 +349,16 @@ public class PersonAgent extends Agent implements Person {
 	public void leavingBuilding(Role role) {
 		// if role is of type host or bankgreeter, don't remove. Still need them
 		// to be active
+		role.getGui().getHomeScreen().removeGui(role.getGui());
+		gui.getHomeScreen().addGui(gui);
+		
+		
 		roles.remove(role);
+	}
+	
+	public void enteringBuilding(Role role){
+		gui.getHomeScreen().removeGui(gui);
+		role.getGui().getHomeScreen().addGui(role.getGui());
 	}
 
 
@@ -404,10 +414,10 @@ public class PersonAgent extends Agent implements Person {
 		}
 
 		//Let me even see if I got money..
-		/*if(accountNumber == 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
+		if(accountNumber == 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
 				goToBank();
 				return true;
-			}*/
+			}
 
 
 		//Role Scheduler
@@ -504,20 +514,20 @@ public class PersonAgent extends Agent implements Person {
 	private void goToBank() {
 		//if inside building and not in bank
 		//animate outside building
-		gui.DoGoToLocation(new Location(100, 400));
+		gui.DoGoToLocation(bank.getEntranceLocation());
 		try{
 			busyWithTask.acquire();
 		}
 		catch(InterruptedException e){
 			
 		}
-		gui.DoGoToLocation(new Location(400, 100));
-		try{
+		//gui.DoGoToLocation(new Location(400, 100));
+		/*try{
 			busyWithTask.acquire();
 		}
 		catch(InterruptedException e){
 			
-		}
+		}*/
 		//animate to bank
 		//DoGoToBank();
 		//roles.add(RoleFactory.makeMeRole(bank.bankCustomerRole));

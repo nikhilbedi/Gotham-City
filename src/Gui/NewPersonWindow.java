@@ -89,7 +89,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			newPerson.setGui(newPersonGui);	
 			newPerson.setRestaurants(mainScreen.getRestaurantList());
 			newPerson.setMarkets(mainScreen.getMarketList());
-			//newPerson.setBank(mainScreen.getBank());
+			newPerson.setBank(mainScreen.getBank());
 			
 			Home temp = mainScreen.getHomeHack();
 			newPerson.setHome(temp);

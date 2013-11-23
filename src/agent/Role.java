@@ -1,16 +1,32 @@
 //imports
 package agent;
 
+import Gui.RoleGui;
 import simcity.PersonAgent;
 
 public class Role {
 
 	protected PersonAgent myPerson;
 	public boolean active; 
+	
+	protected RoleGui gui;
+
+	public RoleGui getGui() {
+		return gui;
+	}
+
+	public void setGui(RoleGui gui) {
+		this.gui = gui;
+	}
 
 	/**
 	 * Base class for simple roles
 	 */
+	public Role(PersonAgent person, RoleGui gui){
+		this.gui = gui;
+		myPerson = person;
+	}
+	
 	public Role(PersonAgent person){
 		myPerson = person;
 	}

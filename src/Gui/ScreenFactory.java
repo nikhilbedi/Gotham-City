@@ -19,17 +19,17 @@ public class ScreenFactory {
 
 
 	//Screen main = new Screen(1);
-/*//	Screen rest = new Screen(2);
+	Screen rest = new Screen(2);
 	Screen market = new Screen(3);
 	Screen bank = new Screen(4);
 	Screen home = new Screen(5);
-	*/
+	
 	MainScreen main = new MainScreen();
-	Screen rest = new RestaurantNikhilAnimationPanel();
+/*	Screen rest = new RestaurantNikhilAnimationPanel();
 	Screen market = new MarketAnimationPanel();
 	Screen bank = new bankAnimationPanel();
 	Screen home = new HomeAnimationPanel();
-
+*/
 	public ScreenFactory(){
 		screenList.add(main);
 		screenList.add(rest);

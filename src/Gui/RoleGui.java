@@ -16,6 +16,13 @@ public class RoleGui {
 	public static final int guiSize = 20;
 	
 	protected Color myColor;
+	
+	protected Screen homeScreen = null;
+
+	public Screen getHomeScreen() {
+		return homeScreen;
+	}
+
 
 	public RoleGui(){
 		//agent = c;
@@ -51,5 +58,8 @@ public class RoleGui {
 	}
 	public void setColor(Color c){
 		myColor = c;
+	}
+	public void setHomeScreen(Screen s){
+		homeScreen = s;
 	}
 }
