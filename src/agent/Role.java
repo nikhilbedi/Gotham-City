@@ -4,7 +4,7 @@ package agent;
 import simcity.PersonAgent;
 
 public class Role {
-	protected PersonAgent myPerson;
+	public PersonAgent myPerson;
 	/**
 	 * Base class for simple roles
 	 */

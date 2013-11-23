@@ -18,14 +18,10 @@ import java.util.TimerTask;
 
 import simcity.Home.Food;
 import simcity.PersonAgent;
-import simcity.PersonAgent.EatingState;
-import simcity.PersonAgent.HungerState;
-import simcity.PersonAgent.MarketState;
 import simcity.PersonAgent.RentBill;
 
-
 /**
- * Restaurant customer agent.
+ * Home Resident Role
  */
 public class ResidentRole extends Role implements Resident{
 	private String name;
@@ -144,7 +140,7 @@ public class ResidentRole extends Role implements Resident{
 	public void AtTable() {
 		event = HomeEvent.doneEating;
 		stateChanged();
-	
+		
 	}
 
 	public void atSink() {
@@ -202,10 +198,10 @@ public class ResidentRole extends Role implements Resident{
 		//	CustomerHome is a finite state machine
 		//System.out.println("Calling resident scheduler");
 		
-		if (state == HomeState.DoingNothing && event == HomeEvent.none){
-			returnToHomePosition();
-			return true;
-		}
+		//if (state == HomeState.DoingNothing && event == HomeEvent.none){
+			//returnToHomePosition();
+			//return true;
+		//}
 		if (state == HomeState.DoingNothing && event == HomeEvent.checkMailbox){
 			state = HomeState.GoingToMailbox;
 			gotToMailbox();
@@ -223,7 +219,8 @@ public class ResidentRole extends Role implements Resident{
 		}
 		if (state == HomeState.checkingMailbox && event == HomeEvent.payRent){
 			state = HomeState.PayingRent;
-			payRent(new RentBill(myPerson, 10));
+			payRent(myPerson.new RentBill(myPerson, 10));
+			//payRent(new RentBill(myPerson, 10));
 			//payRent(rb);
 			return true;
 		}
@@ -347,8 +344,8 @@ public class ResidentRole extends Role implements Resident{
 		}
 		System.out.println("resident done eating");
 		myPerson.justAte();
-		myPerson.hungerState =  HungerState.NotHungry;
-		stateChanged();
+		//myPerson.hungerState =  HungerState.NotHungry;
+		//stateChanged();
 		//customerGui.receivedFood=false;
 				//isHungry = false;
 	}

@@ -2,6 +2,7 @@ package simcity.Home.test.mock;
 
 
 
+import simcity.PersonAgent.RentBill;
 import simcity.Home.interfaces.Resident;
 import simcity.tests.mock.Mock;
 /**
@@ -65,7 +66,7 @@ public class MockResident extends Mock implements Resident {
 		
 	}
 	@Override
-	public void payRent() {
+	public void payRent(RentBill rb) {
 		log.add(new LoggedEvent("received pay rent"));
 		
 	}

@@ -107,8 +107,8 @@ public class PersonAgent extends Agent implements Person {
 
 	public class RentBill {
 		public RentState state = RentState.NotPaid;
-		PersonAgent accountHolder;
-		float amount;
+		public PersonAgent accountHolder;
+		public float amount;
 
 		public RentBill(PersonAgent p, float a) {
 			accountHolder = p;
@@ -424,6 +424,7 @@ public class PersonAgent extends Agent implements Person {
 		// TODO Auto-generated method stub
 
 	}
+
 
 	
 }

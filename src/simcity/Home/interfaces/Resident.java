@@ -1,10 +1,12 @@
 package simcity.Home.interfaces;
 
+import simcity.PersonAgent.RentBill;
+
 public interface Resident {
 	
 	public abstract void gotHungry();
 
-	public abstract void payRent();
+	public abstract void payRent(RentBill rb);
 	
 	public abstract void AtTable();
 

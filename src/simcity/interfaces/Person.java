@@ -1,6 +1,7 @@
 package simcity.interfaces;
 
 import java.util.List;
+import java.util.Map;
 
 import simcity.PersonAgent.RentBill;
 import agent.Role;
@@ -42,7 +43,7 @@ public interface Person {
 	 * a message from HomeResidentRole sends a grocery list of what foods are needed
 	 * @param foods Currently, the list is of type String, but will be converted to a Food class list after Evan creates it
 	 */
-	public abstract void homeNeedsGroceries(List<String> foods);
+	public abstract void homeNeedsGroceries(Map<String, Integer> foods);
 	
 	/**
 	 * a message from the HomeResidentRole sends a bill to be paid for his/her home
