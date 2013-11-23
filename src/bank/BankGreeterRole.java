@@ -75,18 +75,21 @@ public class BankGreeterRole extends Role implements BankGreeter{
 	
 	// Scheduler
 	
-	public boolean pickAndExecuteAnAction() {
+	public boolean pickAndExecuteAnAction() {		
 		for (BankTeller teller: tellers) { //Determines if a teller is available and if a customer can be sent to them
 			if (teller.isAvailable()) {
-				if (!waitingCustomers.isEmpty()) 
+				if (!waitingCustomers.isEmpty())  {
 					sendToTeller(waitingCustomers.get(0), teller);
 					return true;
+				}
 			}
 		}
 		
 		for(int x = 0; x < waitingCustomers.size(); x++) { //Sends a customer to a position in line if no teller is available
-			if(waitingCustomers.get(x).s == customerState.waiting)
+			if(waitingCustomers.get(x).s == customerState.waiting) {
 				SendToLinePosition(waitingCustomers.get(x), x);
+				return true;
+			}
 		}
 		
 		return false;

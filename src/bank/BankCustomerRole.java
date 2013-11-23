@@ -53,13 +53,8 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	//States for finite state machine
 	
 	public enum CustomerState
-<<<<<<< HEAD
-	{nothing, waiting, inLine, goingToTeller, atTeller, receivedReceipt, done};
+	{nothing, waiting, goingToLine, inLine, goingToTeller, atTeller, receivedReceipt, done};
 	private CustomerState state = CustomerState.nothing;//The start state
-=======
-	{waiting, inLine, goingToTeller, atTeller, receivedReceipt, done};
-	private CustomerState state = CustomerState.waiting;//The start state
->>>>>>> Cleaned up code a bit and added restaurant.
 	
 	
 	//Functions
@@ -83,13 +78,6 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	
 	public BankTeller getBankTeller() {
 		return teller;
-<<<<<<< HEAD
-	}
-
-	public void setBankTeller(BankTeller teller) {
-		this.teller = teller;
-=======
->>>>>>> Cleaned up code a bit and added restaurant.
 	}
 
 	public void setBankTeller(BankTeller teller) {
@@ -127,7 +115,6 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		stateChanged();
 	}	
 	
-<<<<<<< HEAD
 	public void msgOutOfBank() {
 		System.out.println(getName() + ": left the bank.");
 		//getPersonAgent().doLeaveBuilding("Bank");
@@ -135,20 +122,21 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	
 	public void msgEnteredBank() {
 		System.out.println("Entered Bank");
-		state = CustomerState.waiting;
+		state = CustomerState.nothing;
 		stateChanged();
 	}
 	
-=======
->>>>>>> Cleaned up code a bit and added restaurant.
 	@Override
 	public void NotEligibleForLoan() {
-		// Decide if making another transaction or leaving
+		state = CustomerState.receivedReceipt; //For Scheduler - no actual receipt
+		stateChanged();
 	}
 	
 	@Override
 	public void HereIsReceipt(BankReceipt receipt) {
 		getPersonAgent().addMoney((float)receipt.transactionAmount);
+		state = CustomerState.receivedReceipt;
+		stateChanged();
 	}
 
 	public void HereIsReceiptAndAccountInfo(BankReceipt bankReceipt, int accountNumber) {
@@ -161,6 +149,8 @@ public class BankCustomerRole extends Role implements BankCustomer{
 
 	public void HereIsLoan(BankReceipt bankReceipt, double transactionAmount) {
 		getPersonAgent().addMoney((float)bankReceipt.transactionAmount);
+		state = CustomerState.receivedReceipt;
+		stateChanged();
 	}
 	
 	
@@ -169,13 +159,12 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	public boolean pickAndExecuteAnAction() {
 		System.out.println("CALLING SCHEDULER");
 		
-		if (state == CustomerState.waiting ){
+		if (state == CustomerState.nothing ){
 			talkToGreeter();
 			return true;
 		}
 		
 		if (state == CustomerState.inLine){
-			//state = AgentState.BeingSeated;
 			System.out.println("Going to Teller");
 			DoGoToTeller();
 			return true;
@@ -187,8 +176,6 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		}
 		
 		if (state == CustomerState.receivedReceipt){
-			//add if statement for making another transaction or not
-			//makeAnotherTransaction();
 			if(transactionList.size() > 0)
 				makeATransaction();
 			else
@@ -197,42 +184,36 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		}
 		return false;
 	}
-<<<<<<< HEAD
 	
-=======
-
->>>>>>> Cleaned up code a bit and added restaurant.
 	
 	// Actions
 	
 	private void talkToGreeter() {
 		greeter.msgNeedATeller(this);
+		state = CustomerState.waiting;
 	}
 	
 	private void DoGoToLine() {
+		state = CustomerState.goingToLine;
 		bankCustomerGui.GetInLine(waitingNumber);
 	}
 	
 	private void DoGoToTeller() {
+		state = CustomerState.goingToTeller;
 		bankCustomerGui.GoToTeller(tellerIndex);
-		//getBankTeller().msgNeedATransaction(this, transactionType, transactionAmount);
 	}
 	
 	private void makeATransaction() {
-<<<<<<< HEAD
-		//System.out.println(getName() + ": Making a transaction. Type: " + transactionType);
 		System.out.println(getName() + ": Making a transaction. Type: " + transactionList.get(0));
 		getBankTeller().msgNeedATransaction(this, transactionList.get(0), transactionAmount);
 		transactionList.remove(0);
-=======
-		System.out.println(getName() + ": Making a transaction. Type: " + transactionType);
-		getBankTeller().msgNeedATransaction(this, transactionType, transactionAmount);
->>>>>>> Cleaned up code a bit and added restaurant.
+		state = CustomerState.waiting;
 	}
 	
 	private void DoLeaveBank() {
 		getBankTeller().msgDoneAndLeaving(this);
 		bankCustomerGui.LeaveBank();
+		state = CustomerState.done;
 	}
 }
 
