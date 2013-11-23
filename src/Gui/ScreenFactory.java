@@ -16,11 +16,11 @@ public class ScreenFactory {
 
 	Screen rest = new Screen(2);
 	Screen market = new Screen(3);
-	Screen bank = new Screen(4);
+	//Screen bank = new Screen(4);
 	Screen home = new Screen(5);
 	//Screen rest = new RestaurantNikhilAnimationPanel();
 	//Screen market = new MarketAnimationPanel();
-	//Screen bank = new bankAnimationPanel();
+	Screen bank = new bankAnimationPanel();
 	//Screen home = new HomeAnimationPanel();
 
 	public ScreenFactory(){

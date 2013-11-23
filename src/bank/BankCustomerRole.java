@@ -120,6 +120,7 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	}
 	
 	public void msgEnteredBank() {
+		System.out.println("Entered Bank");
 		state = CustomerState.waiting;
 		stateChanged();
 	}

@@ -96,12 +96,14 @@ public class BankGreeterRole extends Role implements BankGreeter{
 	// Actions
 
 	private void SendToLinePosition(MyCustomer cust, int x) {
+		System.out.println("Sending Customer into line");
 		cust.customer.msgWaitHere(x); //Change to accommodate with gui
 		//linePosition += //GUI IMPLEMENT
 		cust.s = customerState.inLine;
 	}
 
 	private void sendToTeller(MyCustomer cust, BankTeller teller) {
+		System.out.println("Sending Customer to Teller");
 		cust.customer.msgGoToTeller(teller);
 		teller.setAvailable(false);
 		waitingCustomers.remove(cust);
