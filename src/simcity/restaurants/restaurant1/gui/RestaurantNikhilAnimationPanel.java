@@ -27,7 +27,7 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 	public RestaurantNikhilAnimationPanel() { 
 		super();
 		populate();
-		System.err.println(" "+temp);
+		//System.err.println(" "+temp);
 		//Timer timer = new Timer(20, this );
 		//timer.start();
 	}
@@ -117,11 +117,10 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 		cookPerson.addRole(cookRole);
 		cashierPerson.addRole(cashierRole);
 		
-		hostPerson.startThread();
-		custPerson.startThread();
-		cashierPerson.startThread();
-		waiterPerson.startThread();
-		cookPerson.startThread();
+		
+		addGui(custGui);
+		addGui(waiterGui);
+		addGui(cookGui);
 		
 		custRole.setHost(hostRole);
 		custRole.setCashier(cashierRole);
@@ -132,10 +131,12 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 		
 		custRole.gotHungry();
 		
-		addGui(custGui);
-		addGui(waiterGui);
-		addGui(cookGui);
 
+		hostPerson.startThread();
+		custPerson.startThread();
+		cashierPerson.startThread();
+		waiterPerson.startThread();
+		cookPerson.startThread();
 		
 		/*HostRole host = new HostRole();
 		HostGui hostGui = new HostGui(host);

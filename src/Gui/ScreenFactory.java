@@ -1,7 +1,13 @@
 package Gui;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.*;
+
+import simcity.Market.MarketGui.MarketAnimationPanel;
+import simcity.restaurants.restaurant1.gui.RestaurantNikhilAnimationPanel;
+import simcity.Home.gui.HomeAnimationPanel;
+import simcity.bank.bankAnimationPanel;
+
 
 import simcity.Home.gui.HomeAnimationPanel;
 
@@ -10,26 +16,24 @@ public class ScreenFactory {
 
 
 
-	Screen main = new Screen(1);
-
-	Screen rest = new Screen(2);
-	Screen market = new Screen(3);
-	Screen bank = new Screen(4);
+	//Screen main = new Screen(1);
+	//Screen rest = new Screen(2);
+	//Screen market = new Screen(3);
+	//Screen bank = new Screen(4);
 	//Screen home = new Screen(5);
-	//Screen rest = new RestaurantNikhilAnimationPanel();
-	//Screen market = new MarketAnimationPanel();
-	//Screen bank = new bankAnimationPanel();
+	
+	Screen main = new MainScreen();
+	Screen rest = new RestaurantNikhilAnimationPanel();
+	Screen market = new MarketAnimationPanel();
+	Screen bank = new bankAnimationPanel();
 	Screen home = new HomeAnimationPanel();
 
 	public ScreenFactory(){
 		screenList.add(main);
 		screenList.add(rest);
-		screenList.add(market);
+		//screenList.add(market);
 		screenList.add(bank);
 		screenList.add(home);
-
-
-		RoleGui gui1, gui2;
 
 
 		//These are testing hacks

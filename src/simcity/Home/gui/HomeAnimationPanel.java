@@ -56,8 +56,9 @@ public class HomeAnimationPanel extends Screen {
  
                
     @Override
-    public  void paintObstacles(Graphics g)
+    public  void paintBackground(Graphics g)
     {
+    	super.paintBackground(g);
     	 Graphics g2 = (Graphics)g;
     	 Graphics text = (Graphics)g;
          Graphics table = (Graphics)g;
