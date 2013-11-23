@@ -2,48 +2,51 @@ package simcity;
 
 import agent.Role;
 
-class RoleFactory {
+import simcity.bank.*;
+
+
+public class RoleFactory {
 	public static Role makeMeRole(String type) {
 		//home resident
 		if(type.equals("homeResident")) {
-			return new Role(null);
+			return new Role();
 		}
 		
 		//bank
 		else if(type.equals("bankCustomer")) {
-			return new Role(null);
+			return new Role();
 		}
 		
 		//the different restaurant customers
 		//Nikhil's Restaurant
 		else if(type.equals("restaurant1Customer")) {
-			return new Role(null);
+			return new Role();
 		}
 		//Brice's Restaurant
 		else if(type.equals("restaurant2Customer")) {
-			return new Role(null);
+			return new Role();
 		}
 		//Evan's Restaurant
 		else if(type.equals("restaurant3Customer")) {
-			return new Role(null);
+			return new Role();
 		}
 		//Mika's Restaurant
 		else if(type.equals("restaurant4Customer")) {
-			return new Role(null);
+			return new Role();
 		}
 		//Hunter's Restaurant
 		else if(type.equals("restaurant5Customer")) {
-			return new Role(null);
+			return new Role();
 		}
 		
 		//market(s)
 		else if(type.equals("marketCustomer")) {
-			return new Role(null);
+			return new Role();
 		}
 		
 		//Restaurant jobs
 		else if(type.equals("restaurant1Waiter")) {
-			return new Role(null);
+			return new Role();
 		}
 			
 		

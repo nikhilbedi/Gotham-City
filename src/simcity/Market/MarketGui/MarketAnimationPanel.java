@@ -50,9 +50,44 @@ public class MarketAnimationPanel extends Screen {
     	timer.start();*/
     }
 
+<<<<<<< HEAD
+=======
+
+
+    public void paintComponent(Graphics g) {
+       
+    	Graphics2D g2 = (Graphics2D)g;
+        //Clear the screen by painting a rectangle the size of the frame
+     /*   g2.setColor(getBackground());
+        g2.fillRect(0, 0, WINDOWX, WINDOWY );*/
+
+        //Here is the table
+        /*g2.setColor(Color.ORANGE);
+        g2.fillRect(80, 150, 250, 30);//200 and 250 need to be table params
+
+        g2.setColor(Color.GREEN);
+        g2.fillRect(80, 30, 250, 10);*/
+
+       /* g2.setColor(Color.BLACK);
+        g2.fillRect(30, 50, 110, 2);*/
+        
+        for(Gui gui : guis) {
+            if (gui.isPresent()) {
+            //    gui.updatePosition();
+            }
+        }
+
+        for(Gui gui : guis) {
+            if (gui.isPresent()) {
+              //  gui.draw(g2);
+            }
+        }
+    }
+>>>>>>> master
     
     @Override
     public void paintObstacles(Graphics g){
+    	super.paintObstacles(g);
     	g.setColor(Color.ORANGE);
     	g.fillRect(80, 150, 250, 30);
     	g.setColor(Color.BLACK);
@@ -62,6 +97,10 @@ public class MarketAnimationPanel extends Screen {
     public void populate(){
     
     	List<String> foods = new ArrayList<String>();
+<<<<<<< HEAD
+=======
+/*    	Market market = new Market();*/
+>>>>>>> master
     		marketCashier.setGui(cashierGui);
     	addGui(cashierGui);
     		agentCash.addRole(marketCashier);
@@ -107,9 +146,14 @@ public class MarketAnimationPanel extends Screen {
     			marketWorker.getInventory().put("Chicken", chicken);
     			marketWorker.getInventory().put("Rice", rice);
     			marketWorker.getInventory().put("Potato", potato);
+<<<<<<< HEAD
     			marketWorker.getInventory().put("Pizza", pizza);
     			marketWorker.getInventory().put("Salad", salad);
     			marketWorker.getInventory().put("Steak", steak);
+=======
+  /*  		market.setCashier(marketCashier);
+    		market.addWorker(marketWorker);*/
+>>>>>>> master
     }
 
 

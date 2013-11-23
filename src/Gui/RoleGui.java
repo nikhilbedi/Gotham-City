@@ -5,22 +5,17 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 
 public class RoleGui {
-
-
-	///private CustomerAgent agent = null;
-
 	protected int xPos, yPos;
 	protected int xDestination, yDestination;
-
-
+	private static int speed = 5;
+	
 	private enum Command {noCommand, commandA, commandB, commandC};
 
 	private Command command = Command.noCommand;
 
 	public static final int guiSize = 20;
-
-	public Color myColor;
-
+	
+	protected Color myColor;
 
 	public RoleGui(){
 		//agent = c;
@@ -37,18 +32,24 @@ public class RoleGui {
 
 	public void updatePosition(){
 		if (xPos < xDestination)
-			xPos+=2;
+			xPos+=speed;
 		else if (xPos > xDestination)
-			xPos-=2;
+			xPos-=speed;
 
 		if (yPos < yDestination)
-			yPos+=2;
+			yPos+=speed;
 		else if (yPos > yDestination)
-			yPos-=2;
+			yPos-=speed;
 	}
 
 	public void draw(Graphics g){
 		g.setColor(myColor);
 		g.fillRect(xPos, yPos, guiSize, guiSize);
+
+    }
+	public void doLeaveBuilding(){
+	}
+	public void setColor(Color c){
+		myColor = c;
 	}
 }
