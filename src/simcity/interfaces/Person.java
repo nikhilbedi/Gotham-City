@@ -2,6 +2,7 @@ package simcity.interfaces;
 
 import java.util.List;
 
+import simcity.Building;
 import simcity.PersonAgent.RentBill;
 import agent.Role;
 
@@ -16,7 +17,7 @@ public interface Person {
 	
 	public abstract void addMoney(float amount);
 	
-	public abstract void setJob(Role role);
+	public abstract void setJob(Role role, Building building);
 	
 	public abstract void setPreferredTransportation(String type);
 
