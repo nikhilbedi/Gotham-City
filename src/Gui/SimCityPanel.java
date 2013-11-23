@@ -81,7 +81,7 @@ import java.util.*;
             
         }
         
-        public Screen getCityScreen(){
+        public MainScreen getCityScreen(){
         	return loader.getCity();
         }
     

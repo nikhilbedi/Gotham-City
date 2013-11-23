@@ -5,16 +5,25 @@ import java.awt.Graphics;
 
 import Gui.RoleGui;
 
+/* Additions to be made:
+ * removing the rect when a location is reached
+ * adding a rect when an animation is needed
+ */
+
 public class PersonGui extends RoleGui {
 	PersonAgent agent;
+	boolean reachedBuildingLocation;
 	
 	public PersonGui(PersonAgent c){ 
 		super.setColor(Color.yellow);
 		agent = c;
+		
+		
+		/*
 		xPos = agent.getLocation().getX();
 		yPos = agent.getLocation().getY();
 		xDestination = agent.getLocation().getX();
-		yDestination = agent.getLocation().getY(); 
+		yDestination = agent.getLocation().getY(); */
 	}
 
 	public void updatePosition() {

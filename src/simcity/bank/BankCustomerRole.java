@@ -142,7 +142,7 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	
 	public void msgOutOfBank() {
 		System.out.println(getName() + ": left the bank.");
-		myPerson.leavingBuilding(this);
+		myPerson.leftBuilding(this);
 	}
 	
 	public void msgEnteredBank() {

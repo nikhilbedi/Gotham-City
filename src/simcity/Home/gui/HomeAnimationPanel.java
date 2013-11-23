@@ -49,9 +49,8 @@ public class HomeAnimationPanel extends Screen {
         
         addGui(residentGui);
         //resident.gotHungry();
-        
-      
-        Home home = new Home("House_1");
+        /*Home home = new Home("House_1");*/
+
     }
  
                
@@ -121,8 +120,6 @@ public class HomeAnimationPanel extends Screen {
          mailbox.fill3DRect(130, 0, 24, 30, false);
          text.setColor(Color.black);
          text.drawString("mailbox", 120, 20);
-         
-         
     }
 
     public void draw(Graphics g) {
