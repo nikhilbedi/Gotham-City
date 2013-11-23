@@ -1,9 +1,6 @@
 package Gui;
    import javax.swing.*;
 
-
-import simcity.Market.MarketGui.MarketPanel;
-
 import simcity.Home.gui.HomePanel;
 
 
