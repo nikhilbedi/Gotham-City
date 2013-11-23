@@ -114,7 +114,6 @@ public class BankTellerRole extends Role implements BankTeller{
 			myCustomers.get(find(cust)).transactionType = type;
 			myCustomers.get(find(cust)).transactionAmount = amount;
 		}
-		//currentCustomer = new MyCustomer(cust, type, amount);
 		stateChanged();
 	}
 
@@ -236,9 +235,9 @@ public class BankTellerRole extends Role implements BankTeller{
 		  if(totalAccountBalance > 5000) {
 		        //check for enough money within bank  //database
 		        bankDatabase.safeBalance -= c.transactionAmount;
-		         c.c.HereIsLoan(new BankReceipt(c.transactionAmount, c.transactionAmount, c.transactionType), c.transactionAmount);
-		       bankDatabase.loanHolders.put(c.c.getName(), c.transactionAmount);
-		       }
+		        c.c.HereIsLoan(new BankReceipt(c.transactionAmount, c.transactionAmount, c.transactionType), c.transactionAmount);
+		        bankDatabase.loanHolders.put(c.c.getName(), c.transactionAmount);
+		   }
 		   else {
 		         c.c.NotEligibleForLoan();
 		    }

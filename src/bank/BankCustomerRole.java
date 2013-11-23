@@ -157,7 +157,6 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	//Scheduler
 	
 	public boolean pickAndExecuteAnAction() {
-		System.out.println("CALLING SCHEDULER");
 		
 		if (state == CustomerState.nothing ){
 			talkToGreeter();
