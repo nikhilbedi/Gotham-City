@@ -228,6 +228,7 @@ public class BankTellerRole extends Role implements BankTeller{
 	public void openAccount(MyCustomer c) {
 		System.out.println(getName() + ": Opening account for customer " + c.c.getName());
 		BankAccount acc = bankDatabase.addAccount(c.transactionAmount, c.c.getName());
+		acc.depositMoney(c.transactionAmount);
 		c.c.HereIsReceiptAndAccountInfo(new BankReceipt(acc.accountBalance, acc.accountNumber, c.transactionType), acc.accountNumber);
 	}
 	

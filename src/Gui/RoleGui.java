@@ -7,7 +7,7 @@ import java.awt.Graphics;
 public class RoleGui {
 	protected int xPos, yPos;
 	protected int xDestination, yDestination;
-	private static int speed = 5;
+	private static int speed = 1;
 	
 	private enum Command {noCommand, commandA, commandB, commandC};
 

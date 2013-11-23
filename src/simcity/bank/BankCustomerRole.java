@@ -2,6 +2,7 @@ package simcity.bank;
 
 import agent.Role;
 import simcity.PersonAgent;
+import simcity.PersonAgent.MoneyState;
 import simcity.PersonAgent.RentBill;
 import simcity.bank.BankReceipt;
 import simcity.bank.interfaces.BankCustomer;
@@ -94,22 +95,24 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		
 		//myPerson.rentBills.add();
 		
-		transactionList.add(new BankTransaction("openingAccount", 50));
+		/*transactionList.add(new BankTransaction("openingAccount", 50));
 		transactionList.add(new BankTransaction("deposit", 50));
 		transactionList.add(new BankTransaction("withdrawal", 40));
-		transactionList.add(new BankTransaction("needALoan", 200));
+		transactionList.add(new BankTransaction("needALoan", 200));*/
+		
+		if(myPerson.getAccountNumber() == 0)
+			transactionList.add(new BankTransaction("openingAccount", 50));
 		
 		if(myPerson.getRentBills().size() > 0) {
 			for(RentBill b : myPerson.getRentBills())
 					transactionList.add(new BankTransaction("payingRentBill", b.amount, b.accountHolder.getName()));
 		}
 		
-		/*if(myPerson.getMoneyState() == myPerson.moneyState.Low)
-			transactionList.add("withdrawal");
-		if(myPerson.getMoneyState() == myPerson.moneyState.High)
-			transactionList.add("deposit");
-		if(myPerson.getAccountNumber == 0)
-			transactionList.add("openAccount");*/
+		if(myPerson.moneyState == MoneyState.Low)
+			transactionList.add(new BankTransaction("withdrawal", 50));
+		if(myPerson.moneyState == MoneyState.High)
+			transactionList.add(new BankTransaction("deposit", 50));
+		
 		
 	}
 	

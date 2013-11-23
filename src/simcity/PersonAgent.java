@@ -377,7 +377,7 @@ public class PersonAgent extends Agent implements Person {
 		//if he's REALLY hungry, then eat something before paying bills. Then do checks of eating at home versus the restaurant
 
 		//Gotta pay the bills!
-		/*for(RentBill rb : rentBills) {
+		/*for(RentBill rb : rentBills) {  //REMOVE THESE COMMENTS ONCE TRANSITIONING WORKS TODO
 			if(rb.state == RentState.NotPaid){
 
 				payBills();

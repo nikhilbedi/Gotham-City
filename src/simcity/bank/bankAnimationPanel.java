@@ -3,6 +3,7 @@ package simcity.bank;
 import java.awt.Graphics;
 
 import simcity.PersonAgent;
+import simcity.PersonAgent.MoneyState;
 import simcity.PersonAgent.RentBill;
 import Gui.Screen;
 
@@ -26,6 +27,9 @@ public class bankAnimationPanel extends Screen{
 				person4 = new PersonAgent("customer2");
 		
 		person4.rentBills.add(person4.new RentBill(person, 20));
+		person4.moneyState = MoneyState.Low;
+		
+		person.moneyState = MoneyState.High;
 		
 		BankCustomerRole bankCustomer = new BankCustomerRole(person);
 		BankCustomerRole bankCustomer2 = new BankCustomerRole(person4);
