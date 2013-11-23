@@ -26,7 +26,10 @@ public class PersonAgent extends Agent implements Person {
 	private List<String> groceryList = new ArrayList<String>();
 	private List<RentBill> rentBills = new ArrayList<RentBill>();
 	boolean personScheduler = false;
-	RoleGui gui;
+	PersonGui gui;
+
+	//Saves time from having to loop all the time to find the active role
+	Role activeRole;
 
 	//Locations
 	//These buildings will be set when any person is added 
@@ -34,7 +37,7 @@ public class PersonAgent extends Agent implements Person {
 	Restaurant currentPreference;
 	public List<Market> markets;
 	//public Bank bank;
-	
+
 	//These three are essential, but should be instantiated with the "Homeless Shelter"
 	public Home myHome;
 	public Building currentBuilding; //THIS NEEDS TO BE INSTANTIATED SOMEWHERE.
@@ -73,16 +76,19 @@ public class PersonAgent extends Agent implements Person {
 		int offWork = 17; //military hours - 17 == 5pm
 		Role role;
 		String type;
+		Building workplace;
 		//How does he know where to work? Building base class?
 
 		//Job Constructor
-		public Job(Role r) {
+		public Job(Role r, Building w) {
 			role = r;
+			workplace = w;
 		}
 
-		public Job(Role r, String type) {
+		public Job(Role r, String type, Building w) {
 			role = r;
 			this.type = type;
+			workplace = w;
 		}
 
 		public void setJob(Role r) {
@@ -106,44 +112,43 @@ public class PersonAgent extends Agent implements Person {
 		}
 	}
 
-
-
 	//constructor
 	public PersonAgent(String name) {
 		super();
 		this.name = name;
 	}
 
+	
 	//essential setters for GUI (When adding a person to SimCity)
-	public void setGui(RoleGui g) {
+	public void setGui(PersonGui g) {
 		gui = g;
 	}
-	
+
 	public void setRestaurants(List<Restaurant> r) {
 		restaurants = r;
 	}
-	
+
 	public void setMarkets(List<Market> m) {
 		markets = m;
 	}
-	
-/*	public void setBank(Bank b) {
+
+	/*	public void setBank(Bank b) {
 		bank = b;
 	}*/
-	
+
 	public void setHome(Home h) {
 		myHome = h;
 		/*currentBuilding = h;
 		currentDestination = h;*/
 	}
-	
-	
-	
+
+
+
 	//functions so we can function
 	public Location getLocation() {
-		return currentBuilding.getLocation();
+		return currentBuilding.getEntranceLocation();
 	}
-	
+
 	public String getJob() {
 		if(myJob != null)
 			return myJob.type;
@@ -203,12 +208,12 @@ public class PersonAgent extends Agent implements Person {
 		money += amount;
 	}
 
-	public void setJob(Role role) {
-		myJob = new Job(role);
+	public void setJob(Role role, Building building) {
+		myJob = new Job(role, building);
 	}
 
-	public void setJob(String type) {
-		myJob = new Job(RoleFactory.makeMeRole(type), type);
+	public void setJob(String type, Building building) {
+		myJob = new Job(RoleFactory.makeMeRole(type), type, building);
 	}	
 
 	public void setPreferredTransportation(String type) {
@@ -247,7 +252,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 
-	//Messages from GUI
+	//Messages from User Interface or Animation
 	/**
 	 * 
 	 */
@@ -361,6 +366,7 @@ public class PersonAgent extends Agent implements Person {
 			}*/
 
 		//Role Scheduler
+		//This should be changed to activeRole.pickAndExecuteAnAction();
 		for(Role r : roles) {
 			if(r.active) {
 				return r.pickAndExecuteAnAction();
@@ -378,14 +384,28 @@ public class PersonAgent extends Agent implements Person {
 
 	private void goToWork() {
 		//animate out of building
-		//roles.get(0).DoLeaveBuilding();
+		//activeRole.DoLeaveBuilding();
 
-		//animate with pedestrian gui to a desired location
-		
 		//animate to desired location
+		gui.DoGoToLocation(myJob.workplace.getEntranceLocation());
 
-		//DoGoToDestination(myJob.role.myBuilding);
+		try {
+			busyWithTask.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		roles.add(myJob.role);
+
+		//This loop should be changed to using ActiveRole
+		for(Role r : roles) {
+			if(myJob.role.equals(r)) {
+				r.active = true;
+			}
+			else
+				r.active = false;
+		}
 
 	}
 

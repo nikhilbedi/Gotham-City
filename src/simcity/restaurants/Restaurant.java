@@ -9,11 +9,11 @@ import simcity.Building;
  *
  */
 public class Restaurant extends Building {
-
-	public Restaurant(String type, int x, int y) {
-		super(type, x, y);
-		// TODO Auto-generated constructor stub
+	public Restaurant(String type, int entranceX, int entranceY, int guiX, int guiY) {
+		super(type, entranceX, entranceY, guiX, guiY);
 	}
-	//Location
-	//annnddd, that's probably it. We will all have different hosts and everything
+	
+	public Restaurant(String type, int entranceX, int entranceY, int guiX, int guiY, String address) {
+		super(type, entranceX, entranceY, guiX, guiY);
+	}
 }
