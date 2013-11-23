@@ -1,4 +1,4 @@
-package simcity.Market.MarketGui;
+/*package simcity.Market.MarketGui;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import simcity.Market.MarketCustomerRole;
 import simcity.Market.MarketWorkerRole;
 
 public class MarketPanel extends JFrame{
-	MarketAnimationPanel animationPanel = new MarketAnimationPanel();
+	//MarketAnimationPanel animationPanel = new MarketAnimationPanel();
     PersonAgent agentCash = new PersonAgent("Cashier");
 	MarketCashierRole marketCashier = new MarketCashierRole(agentCash);
 	MarketCashierGui cashierGui = new MarketCashierGui(marketCashier);
@@ -61,8 +61,8 @@ public class MarketPanel extends JFrame{
 	//	System.out.println(agentCust.roles.size());
 		foods.add("Chicken");
 		foods.add("Rice");
-		marketCustomer.getGroceries(foods);
-		marketCustomer2.getGroceries(foods);
+		marketCustomer.getGroceries();
+		marketCustomer2.getGroceries();
 			Item beef = new Item("Beef", 10.99, 10);
 			Item chicken = new Item("Chicken", 8.99, 10);
 			Item rice = new Item("Rice", 6.99, 10);
@@ -82,3 +82,4 @@ public class MarketPanel extends JFrame{
 	
 	
 }
+*/

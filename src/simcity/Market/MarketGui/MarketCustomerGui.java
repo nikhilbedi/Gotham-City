@@ -25,9 +25,10 @@ public class MarketCustomerGui extends RoleGui{
 		yDestination = 300;
 	}
 	
-
-
 	public void updatePosition() {
+		/*if (xPos == 130 && yPos == 110){
+			customer.getGroceries();
+		}*/
 		 if (xPos < xDestination)
 	            xPos++;
 	        else if (xPos > xDestination)
@@ -47,21 +48,16 @@ public class MarketCustomerGui extends RoleGui{
 	        }
 	}
 
-	
-	
-
 	public void draw(Graphics g) {
 		g.setColor(Color.BLUE);
         g.fillRect(xPos, yPos, 20, 20);
 		
 	}
 
-
 	public boolean isPresent() {
 		return true;
 	}
-	
-	
+
 	public void DoMoveToCashier(){
 		yDestination = 183;
 		command = Command.atCashier;

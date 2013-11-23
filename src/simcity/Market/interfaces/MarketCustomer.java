@@ -20,5 +20,7 @@ public interface MarketCustomer {
 
 	abstract void ArrivedToGetItem();
 	abstract String getName();
+
+	abstract void getGroceries();
 	
 }

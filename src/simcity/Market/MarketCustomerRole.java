@@ -34,7 +34,8 @@ public class MarketCustomerRole extends Role implements MarketCustomer{
 	public String getName(){
 		return name;
 	}
-	public void getGroceries(List<String> foods){
+	public void getGroceries(){
+		List<String> foods = new ArrayList<String>();//poka tak 
 		System.out.println(person.name+ " " + "Got order to get groceries");
 		for (int i=0; i<foods.size(); i++){
 			orders.add(new Order(this, foods.get(i), 2, false));

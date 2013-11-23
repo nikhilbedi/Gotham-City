@@ -1,5 +1,9 @@
 package simcity.Market.test.mock;
 
+import java.util.Map;
+
+import agent.Role;
+
 /**
  * This is the base class for all mocks.
  *

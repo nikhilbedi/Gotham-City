@@ -24,7 +24,21 @@ public class MarketAnimationPanel extends Screen {
     private Image bufferImage;
     private Dimension bufferSize;
     private List<Gui> guis = new ArrayList<Gui>();
-
+    public PersonAgent agentCash = new PersonAgent("Cashier");
+    public MarketCashierRole marketCashier = new MarketCashierRole(agentCash);
+    public  MarketCashierGui cashierGui = new MarketCashierGui(marketCashier);
+    public PersonAgent agentWork = new PersonAgent("Worker");
+    public MarketWorkerRole marketWorker = new MarketWorkerRole(agentWork);
+    public MarketWorkerGui workerGui = new MarketWorkerGui(marketWorker);
+    public PersonAgent agentCust = new PersonAgent("Customer");
+    public MarketCustomerRole marketCustomer = new MarketCustomerRole(agentCust);
+    public MarketCustomerGui customerGui = new MarketCustomerGui(marketCustomer);
+    public  PersonAgent agentCust2 = new PersonAgent("Customer2");
+    public MarketCustomerRole marketCustomer2 = new MarketCustomerRole(agentCust2);
+    public MarketCustomerGui customerGui2 = new MarketCustomerGui(marketCustomer2);
+    public PersonAgent agentCust3 = new PersonAgent("Customer3");
+    public MarketCustomerRole marketCustomer3 = new MarketCustomerRole(agentCust3);
+    public MarketCustomerGui customerGui3 = new MarketCustomerGui(marketCustomer3);
     public MarketAnimationPanel() {
     	populate();
     	/*setSize(WINDOWX, WINDOWY);
@@ -36,36 +50,6 @@ public class MarketAnimationPanel extends Screen {
     	timer.start();*/
     }
 
-
-
-    public void paintComponent(Graphics g) {
-        Graphics2D g2 = (Graphics2D)g;
-        //Clear the screen by painting a rectangle the size of the frame
-     /*   g2.setColor(getBackground());
-        g2.fillRect(0, 0, WINDOWX, WINDOWY );*/
-
-        //Here is the table
-        /*g2.setColor(Color.ORANGE);
-        g2.fillRect(80, 150, 250, 30);//200 and 250 need to be table params
-
-        g2.setColor(Color.GREEN);
-        g2.fillRect(80, 30, 250, 10);*/
-
-       /* g2.setColor(Color.BLACK);
-        g2.fillRect(30, 50, 110, 2);*/
-        
-        for(Gui gui : guis) {
-            if (gui.isPresent()) {
-            //    gui.updatePosition();
-            }
-        }
-
-        for(Gui gui : guis) {
-            if (gui.isPresent()) {
-              //  gui.draw(g2);
-            }
-        }
-    }
     
     @Override
     public void paintObstacles(Graphics g){
@@ -76,20 +60,8 @@ public class MarketAnimationPanel extends Screen {
     }
 
     public void populate(){
-    	PersonAgent agentCash = new PersonAgent("Cashier");
-    	MarketCashierRole marketCashier = new MarketCashierRole(agentCash);
-    	MarketCashierGui cashierGui = new MarketCashierGui(marketCashier);
-    	PersonAgent agentWork = new PersonAgent("Worker");
-    	MarketWorkerRole marketWorker = new MarketWorkerRole(agentWork);
-    	MarketWorkerGui workerGui = new MarketWorkerGui(marketWorker);
-    	PersonAgent agentCust = new PersonAgent("Customer");
-    	MarketCustomerRole marketCustomer = new MarketCustomerRole(agentCust);
-    	MarketCustomerGui customerGui = new MarketCustomerGui(marketCustomer);
-    	PersonAgent agentCust2 = new PersonAgent("Customer2");
-    	MarketCustomerRole marketCustomer2 = new MarketCustomerRole(agentCust2);
-    	MarketCustomerGui customerGui2 = new MarketCustomerGui(marketCustomer2);
+    
     	List<String> foods = new ArrayList<String>();
-    	Market market = new Market();
     		marketCashier.setGui(cashierGui);
     	addGui(cashierGui);
     		agentCash.addRole(marketCashier);
@@ -100,36 +72,46 @@ public class MarketAnimationPanel extends Screen {
     		addGui(customerGui);
     		agentCust.addRole(marketCustomer);
     		marketCustomer2.setGui(customerGui2);
-    	addGui(customerGui2);
+    	    addGui(customerGui2);
     		agentCust2.addRole(marketCustomer2);
+    		marketCustomer3.setGui(customerGui3);
+    		
     		agentCash.startThread();
     		agentWork.startThread();
     		agentCust.startThread();
     		agentCust2.startThread();
+    		agentCust3.startThread();
     		marketCashier.setWorker(marketWorker);
     		marketCustomer.setCashier(marketCashier);
     		marketCustomer2.setCashier(marketCashier);
+    		marketCustomer3.setCashier(marketCashier);
     		marketWorker.setCashier(marketCashier);
     	//	System.out.println(agentCust.roles.size());
     		foods.add("Chicken");
     		foods.add("Rice");
-    		marketCustomer.getGroceries(foods);
-    		marketCustomer2.getGroceries(foods);
-    			Item beef = new Item("Beef", 10.99, 10);
-    			Item chicken = new Item("Chicken", 8.99, 10);
-    			Item rice = new Item("Rice", 6.99, 10);
-    			Item potato = new Item("Potato", 5.99, 10);
+    			Item beef = new Item("Beef", 10.99, 100);
+    			Item chicken = new Item("Chicken", 8.99, 100);
+    			Item rice = new Item("Rice", 6.99, 100);
+    			Item potato = new Item("Potato", 5.99, 100);
+    			Item pizza = new Item("Pizza", 5.99, 100);
+    			Item salad = new Item("Salad", 3.99, 100);
+    			Item steak = new Item("Steak", 10.99, 100);
     			marketCashier.getInventory().put("Beef", beef);
     			marketCashier.getInventory().put("Chicken", chicken);
     			marketCashier.getInventory().put("Rice", rice);
     			marketCashier.getInventory().put("Potato", potato);
+    			marketCashier.getInventory().put("Pizza", pizza);
+    			marketCashier.getInventory().put("Salad", salad);
+    			marketCashier.getInventory().put("Steak", steak);
     			marketWorker.getInventory().put("Beef", beef);
     			marketWorker.getInventory().put("Chicken", chicken);
     			marketWorker.getInventory().put("Rice", rice);
     			marketWorker.getInventory().put("Potato", potato);
-    		market.setCashier(marketCashier);
-    		market.addWorker(marketWorker);
+    			marketWorker.getInventory().put("Pizza", pizza);
+    			marketWorker.getInventory().put("Salad", salad);
+    			marketWorker.getInventory().put("Steak", steak);
     }
 
 
 }
+
