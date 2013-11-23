@@ -11,10 +11,13 @@ public class PersonGui extends RoleGui {
 	public PersonGui(PersonAgent c){ 
 		super.setColor(Color.yellow);
 		agent = c;
+		
+		
+		/*
 		xPos = agent.getLocation().getX();
 		yPos = agent.getLocation().getY();
 		xDestination = agent.getLocation().getX();
-		yDestination = agent.getLocation().getY(); 
+		yDestination = agent.getLocation().getY(); */
 	}
 
 	public void updatePosition() {

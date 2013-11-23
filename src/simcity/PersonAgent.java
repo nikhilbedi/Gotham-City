@@ -9,6 +9,7 @@ import simcity.restaurants.*;
 import simcity.Market.Market;
 import simcity.Home.Home;
 
+import java.rmi.UnexpectedException;
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
@@ -20,7 +21,7 @@ public class PersonAgent extends Agent implements Person {
 	public String name;
 	int currentTime; //(ranges from 1-24)
 	int accountNumber; //Not currently sure how we're using account numbers, but the person should know it.
-	Semaphore busyWithTask;
+	Semaphore busyWithTask = new Semaphore(0, true);
 	private double money = 0.0;
 	private List<Role> roles = new ArrayList<Role>();
 	private List<String> groceryList = new ArrayList<String>();
@@ -257,7 +258,7 @@ public class PersonAgent extends Agent implements Person {
 	 * 
 	 */
 	public void reachedBuilding() {
-		currentBuilding = currentDestination;
+	//	currentBuilding = currentDestination;
 		busyWithTask.release();
 	}
 
@@ -360,10 +361,10 @@ public class PersonAgent extends Agent implements Person {
 		}
 
 		//Let me even see if I got money..
-		/*if(accountNumber == 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
+		if(accountNumber == 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
 				goToBank();
 				return true;
-			}*/
+			}
 
 		//Role Scheduler
 		//This should be changed to activeRole.pickAndExecuteAnAction();
@@ -458,7 +459,20 @@ public class PersonAgent extends Agent implements Person {
 	private void goToBank() {
 		//if inside building and not in bank
 		//animate outside building
-
+		gui.DoGoToLocation(new Location(100, 400));
+		try{
+			busyWithTask.acquire();
+		}
+		catch(InterruptedException e){
+			
+		}
+		gui.DoGoToLocation(new Location(400, 100));
+		try{
+			busyWithTask.acquire();
+		}
+		catch(InterruptedException e){
+			
+		}
 		//animate to bank
 		//DoGoToBank();
 		//roles.add(RoleFactory.makeMeRole(bank.bankCustomerRole));

@@ -3,10 +3,11 @@ package simcity.Home;
 import java.util.ArrayList;
 import java.util.List;
 
+import simcity.Building;
 import simcity.PersonAgent.RentBill;
 
 
-public class Home {
+public class Home extends Building{
 
 	//Location location;
 	String type;
@@ -15,11 +16,21 @@ public class Home {
 	public List<Food> fridgeFoods;
 	public ResidentRole resident;
 	
-	public Home(String type){
+	public Home(String type, int entranceX, int entranceY, int guiX,
+			int guiY) {
+		super(type, entranceX, entranceY, guiX, guiY);
+
+		this.type = type;
+		groceryList = new ArrayList<String>();
+		rentBills = new ArrayList<RentBill>();
+		fridgeFoods = new ArrayList<Food>();
+	}
+	
+	/*public Home(String type){
 		this.type = type;
 		groceryList = new ArrayList<String>();
 		rentBills = new ArrayList<RentBill>();
 		fridgeFoods = new ArrayList<Food>();	
-	}
+	}*/
 }	
 
