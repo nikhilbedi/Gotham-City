@@ -2,22 +2,15 @@ package Gui;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.*;
 
-<<<<<<< HEAD
 import simcity.Home.gui.HomePanel;
 
 
-    public class SimCityRun
-   {
-      JFrame window;
-
-      SimCityPanel cityPanel;
-=======
-import javax.swing.*;
 
 
 //import simcity.Market.MarketGui.MarketPanel;
->>>>>>> master
+
 
 import simcity.Home.gui.HomePanel;
 

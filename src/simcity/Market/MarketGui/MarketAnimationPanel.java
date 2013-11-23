@@ -50,9 +50,6 @@ public class MarketAnimationPanel extends Screen {
     	timer.start();*/
     }
 
-<<<<<<< HEAD
-=======
-
 
     public void paintComponent(Graphics g) {
        
@@ -83,7 +80,7 @@ public class MarketAnimationPanel extends Screen {
             }
         }
     }
->>>>>>> master
+
     
     @Override
     public void paintObstacles(Graphics g){
@@ -97,10 +94,6 @@ public class MarketAnimationPanel extends Screen {
     public void populate(){
     
     	List<String> foods = new ArrayList<String>();
-<<<<<<< HEAD
-=======
-/*    	Market market = new Market();*/
->>>>>>> master
     		marketCashier.setGui(cashierGui);
     	addGui(cashierGui);
     		agentCash.addRole(marketCashier);
@@ -146,14 +139,11 @@ public class MarketAnimationPanel extends Screen {
     			marketWorker.getInventory().put("Chicken", chicken);
     			marketWorker.getInventory().put("Rice", rice);
     			marketWorker.getInventory().put("Potato", potato);
-<<<<<<< HEAD
     			marketWorker.getInventory().put("Pizza", pizza);
     			marketWorker.getInventory().put("Salad", salad);
     			marketWorker.getInventory().put("Steak", steak);
-=======
-  /*  		market.setCashier(marketCashier);
-    		market.addWorker(marketWorker);*/
->>>>>>> master
+
+
     }
 
 

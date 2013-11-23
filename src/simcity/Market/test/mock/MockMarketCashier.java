@@ -9,7 +9,7 @@ import simcity.Market.MarketCustomerRole;
 import simcity.Market.Order;
 import simcity.Market.interfaces.MarketCashier;
 import simcity.Market.interfaces.MarketCustomer;
-import simcity.Restaurant4.Restaurant4CashierRole;
+//import simcity.Restaurant4.Restaurant4CashierRole;
 
 public class MockMarketCashier extends Mock implements MarketCashier {
 

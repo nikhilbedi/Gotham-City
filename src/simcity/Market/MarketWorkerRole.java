@@ -11,7 +11,7 @@ import simcity.Market.MarketGui.MarketWorkerGui;
 import simcity.Market.interfaces.MarketCashier;
 import simcity.Market.interfaces.MarketCustomer;
 import simcity.Market.interfaces.MarketWorker;
-import simcity.Restaurant4.*;
+//import simcity.Restaurant4.*;
 import agent.Role;
 
 public class MarketWorkerRole extends Role implements MarketWorker{
@@ -66,7 +66,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 		person.Do("sent things to restaurant");
 		for (RestaurantDelivery delivery: restDeliveries){
 			if (delivery.cookRole == role){
-				   ((Restaurant4CookRole) delivery.cookRole).HereIsYourFood(delivery.foods);
+				  // ((Restaurant4CookRole) delivery.cookRole).HereIsYourFood(delivery.foods);
 				restDeliveries.remove(delivery);
 				stateChanged();
 			}

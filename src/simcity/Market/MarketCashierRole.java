@@ -9,7 +9,7 @@ import simcity.Market.MarketGui.MarketCashierGui;
 import simcity.Market.interfaces.MarketCashier;
 import simcity.Market.interfaces.MarketCustomer;
 import simcity.Market.interfaces.MarketWorker;
-import simcity.Restaurant4.Restaurant4CashierRole;
+//import simcity.Restaurant4.Restaurant4CashierRole;
 import simcity.PersonAgent;
 import agent.Role;
 
@@ -160,13 +160,13 @@ public class MarketCashierRole extends Role implements MarketCashier{
 			o.amountDue = o.amountDue + (i.price*quant);
 		}
 		person.Do("Amount due " + o.amountDue);
-		((Restaurant4CashierRole) o.cashierRole).amountDue(o.amountDue, this);
+	//	((Restaurant4CashierRole) o.cashierRole).amountDue(o.amountDue, this);
 		worker.SendFood(temp, o.cookRole);
 	}
 	
 	public void GiveChange(RestaurantOrder order){
 		double i = order.moneyGiven - order.amountDue;
-		((Restaurant4CashierRole) order.cashierRole).HereIsYourChange(i, this);
+	//	((Restaurant4CashierRole) order.cashierRole).HereIsYourChange(i, this);
 		restaurantOrders.remove(order);
 	}
 	

@@ -29,7 +29,7 @@ public class MarketPanel extends JFrame{
 	MarketCustomerGui customerGui2 = new MarketCustomerGui(marketCustomer2);
 	private List<String> foods = new ArrayList<String>();
 	/*Market market = new Market();*/
-	public MarketPanel(){
+/*	public MarketPanel(){
 		
 		marketCashier.setGui(cashierGui);
 	//	animationPanel.addGui(cashierGui);
@@ -74,12 +74,12 @@ public class MarketPanel extends JFrame{
 			marketWorker.getInventory().put("Beef", beef);
 			marketWorker.getInventory().put("Chicken", chicken);
 			marketWorker.getInventory().put("Rice", rice);
-			marketWorker.getInventory().put("Potato", potato);
+			marketWorker.getInventory().put("Potato", potato);*/
 		/*market.setCashier(marketCashier);
 		market.addWorker(marketWorker);*/
 		
-	}
 	
 	
-}
-*/
+	
+
+

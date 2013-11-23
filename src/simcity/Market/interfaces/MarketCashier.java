@@ -7,8 +7,8 @@ import agent.Role;
 import simcity.Market.Item;
 import simcity.Market.MarketCustomerRole;
 import simcity.Market.Order;
-import simcity.Restaurant4.Restaurant4CashierRole;
-import simcity.Restaurant4.interfaces.Restaurant4Cashier;
+//import simcity.Restaurant4.Restaurant4CashierRole;
+//import simcity.Restaurant4.interfaces.Restaurant4Cashier;
 
 public interface MarketCashier {
 

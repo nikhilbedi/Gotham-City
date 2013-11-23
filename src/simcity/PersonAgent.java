@@ -384,15 +384,7 @@ public class PersonAgent extends Agent implements Person {
 				leaveWork();
 				return true;
 			}
-<<<<<<< HEAD
-			
-			//Let me even see if I got money..
-			/*if(accountNumber != 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
-				goToBank();
-			}*/
-			
-	
-=======
+
 		}
 
 
@@ -430,8 +422,6 @@ public class PersonAgent extends Agent implements Person {
 			return true;
 		}
 
-
->>>>>>> master
 		//Role Scheduler
 		//This should be changed to activeRole.pickAndExecuteAnAction();
 		for(Role r : roles) {
