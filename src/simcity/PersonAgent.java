@@ -368,9 +368,9 @@ public class PersonAgent extends Agent implements Person {
 		//Role Scheduler
 		//This should be changed to activeRole.pickAndExecuteAnAction();
 		for(Role r : roles) {
-			if(r.active) {
+		//	if(r.active) {
 				return r.pickAndExecuteAnAction();
-			}
+			//}
 		}
 
 		return false;
