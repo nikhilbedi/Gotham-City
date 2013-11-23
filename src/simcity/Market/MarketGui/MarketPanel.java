@@ -28,7 +28,7 @@ public class MarketPanel extends JFrame{
 	MarketCustomerRole marketCustomer2 = new MarketCustomerRole(agentCust2);
 	MarketCustomerGui customerGui2 = new MarketCustomerGui(marketCustomer2);
 	private List<String> foods = new ArrayList<String>();
-	Market market = new Market();
+	/*Market market = new Market();*/
 	public MarketPanel(){
 		
 		marketCashier.setGui(cashierGui);
@@ -75,8 +75,8 @@ public class MarketPanel extends JFrame{
 			marketWorker.getInventory().put("Chicken", chicken);
 			marketWorker.getInventory().put("Rice", rice);
 			marketWorker.getInventory().put("Potato", potato);
-		market.setCashier(marketCashier);
-		market.addWorker(marketWorker);
+		/*market.setCashier(marketCashier);
+		market.addWorker(marketWorker);*/
 		
 	}
 	

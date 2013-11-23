@@ -19,12 +19,12 @@ public class ScreenFactory {
 
 
 	//Screen main = new Screen(1);
-	//Screen rest = new Screen(2);
-	//Screen market = new Screen(3);
-	//Screen bank = new Screen(4);
-	//Screen home = new Screen(5);
-	
-	Screen main = new MainScreen();
+/*//	Screen rest = new Screen(2);
+	Screen market = new Screen(3);
+	Screen bank = new Screen(4);
+	Screen home = new Screen(5);
+	*/
+	MainScreen main = new MainScreen();
 	Screen rest = new RestaurantNikhilAnimationPanel();
 	Screen market = new MarketAnimationPanel();
 	Screen bank = new bankAnimationPanel();
@@ -45,7 +45,7 @@ public class ScreenFactory {
                 swap.addGui(gui2);*/
 	}
 
-	public Screen getCity(){
+	public MainScreen getCity(){
 		return main;
 	}
 	public Screen getRestaurant(){

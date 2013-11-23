@@ -3,10 +3,11 @@ package simcity.Market;
 import java.util.ArrayList;
 import java.util.List;
 
+import simcity.Building;
 import simcity.Market.interfaces.MarketCashier;
 import simcity.Market.interfaces.MarketWorker;
 
-public class Market {
+public class Market extends Building {
 	
 	private int locX;
 	private int locY;
@@ -19,13 +20,23 @@ public class Market {
 		Item rice = new Item("Rice", 6.99, 10);
 		Item potato = new Item("Potato", 5.99, 10);
 	
-	public Market(){
+	public Market(String type, int entranceX, int entranceY, int guiX,
+				int guiY) {
+			super(type, entranceX, entranceY, guiX, guiY);
+			// TODO Auto-generated constructor stub
+			items.add(beef);
+			items.add(chicken);
+			items.add(rice);
+			items.add(potato);
+		}	
+		
+/*	public Market(){
 		items.add(beef);
 		items.add(chicken);
 		items.add(rice);
 		items.add(potato);
 		//setLocations
-	}
+	}*/
 	
 	public void setCashier(MarketCashier c){
 		cashier = c;

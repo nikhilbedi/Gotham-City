@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 
 import simcity.PersonAgent;
+import simcity.PersonGui;
+import simcity.Home.Home;
 import simcity.interfaces.Person;
 
 public class NewPersonWindow extends JFrame implements ActionListener {
@@ -28,10 +30,10 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 
 	JButton finalize;
 
-	Screen mainScreen;
+	MainScreen mainScreen;
 
 
-	public NewPersonWindow(Screen city){
+	public NewPersonWindow(MainScreen city){
 		setSize(WINDOWX, WINDOWY);
 
 
@@ -77,20 +79,22 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == finalize){
-			Person newPerson = new PersonAgent(nameField.getText());
-			RoleGui newPersonGui = new RoleGui();
-			newPersonGui.setColor(Color.green);
+			PersonAgent newPerson = new PersonAgent(nameField.getText());
+			PersonGui newPersonGui = new PersonGui(newPerson);
+			//newPersonGui.setColor(Color.green);
 			mainScreen.addGui(newPersonGui);
 			newPersonGui.xDestination = 500;
 			newPersonGui.yDestination = 500;
 
-			//setGui(RoleGui g)	
-			//setRestaurants(List<Restaurant> r)
-			//setMarkets(List<Market> m)
-			//setBank(Bank b)
-			//setHome(Home h)
+			newPerson.setGui(newPersonGui);	
+			newPerson.setRestaurants(mainScreen.getRestaurantList());
+			newPerson.setMarkets(mainScreen.getMarketList());
+			//newPerson.setBank(mainScreen.getBank());
+			
+			Home temp = mainScreen.getHomeHack();
+			newPerson.setHome(temp);
 
-
+			newPerson.startThread();
 		}
 
 	}
