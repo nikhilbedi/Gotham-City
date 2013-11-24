@@ -152,7 +152,7 @@ public class HomeAnimationPanel extends Screen {
 		text.drawString("mailbox", 120, 20);
 		/*
 		//if (gui.isPresent()) {
-		Graphics order = (Graphics)g;
+		Graphics order = (Graphics) g;
 		if (gui.cooking == true) {
 			order.drawString("cooking " + gui.choice, gui.getXPos(),
 					gui.getYPos());

@@ -19,6 +19,9 @@ public class PersonAgent extends Agent implements Person {
 	//TODO REMOVE THIS
 	Role bankRoleTemp;
 	RoleGui bankGui;
+	
+	Role homeTemp;
+	RoleGui homeGui;
 
 
 	public String name;
@@ -71,7 +74,7 @@ public class PersonAgent extends Agent implements Person {
 	public HungerState hungerState =  HungerState.NotHungry;
 
 	//Going to the market states
-	public enum MarketState {GetGroceries, GettingGroceries, HaveGroceries};
+	public enum MarketState {GetGroceries, GettingGroceries, HaveGroceries, TakeGroceriesHome, TakingGroceriesHome};
 	public MarketState marketState = MarketState.HaveGroceries;
 
 	//Keep track of money
@@ -438,7 +441,10 @@ public class PersonAgent extends Agent implements Person {
 
 		if(checkPersonScheduler) {
 			//If he's CRRAAAZZY hungry, then eat something first. Then do checks of eating at home versus the restaurant
-
+			//TODO fix this override hack!
+			goEatAtHome();
+			checkPersonScheduler = false;
+			
 			//Work comes first--his family probably doesn't like this :/
 			if(myJob != null) {
 				if(myJob.state == JobState.GoToWorkSoon){
@@ -491,16 +497,17 @@ public class PersonAgent extends Agent implements Person {
 		for (Role r : roles) {
 
 
-		//Role Scheduler
-		//This should be changed to activeRole.pickAndExecuteAnAction();
-		if(activeRole != null) {
-			if(activeRole.pickAndExecuteAnAction()) {
-				//checkPersonScheduler should be made true anytime a role is done at a building, outside this scheduler
-				checkPersonScheduler = false;
-				return true;
+			//Role Scheduler
+			//This should be changed to activeRole.pickAndExecuteAnAction();
+			if(activeRole != null) {
+				if(activeRole.pickAndExecuteAnAction()) {
+					//checkPersonScheduler should be made true anytime a role is done at a building, outside this scheduler
+					checkPersonScheduler = false;
+					return true;
+				}
+
+
 			}
-
-
 		}
 
 		return false;
@@ -555,6 +562,27 @@ public class PersonAgent extends Agent implements Person {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			
+			//TODO update names to home
+			bankRoleTemp = RoleFactory.makeMeRole("bankCustomer");
+			currentBuilding = bank;
+			bankGui = new bankCustomerGui((BankCustomerRole)bankRoleTemp, ScreenFactory.getMeScreen("Bank"));
+			bankRoleTemp.setPerson(this);
+			bankGui.setHomeScreen(ScreenFactory.getMeScreen("Bank"));
+			activeRole = bankRoleTemp;
+
+
+			//Add role
+			roles.add(bankRoleTemp);
+			bankRoleTemp.setGui(bankGui);
+			//Enter building
+			enteringBuilding(bankRoleTemp);
+
+			checkPersonScheduler = false;
+			
+			
+			
 			//enter building (removing rect from city screen if it is there, adding rect to home if not there)
 
 			/*	Role residentRoleTemp = RoleFactory.makeMeRole(bank.residentRole);

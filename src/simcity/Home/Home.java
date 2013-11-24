@@ -11,6 +11,7 @@ public class Home extends Building{
 
 	String type;
 	public List<String> groceryList;
+	public List<String> groceryBag;
 	public List<RentBill> rentBills;
 	public List<Food> fridgeFoods;
 
