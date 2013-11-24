@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
+import simcity.Robot;
 
 public class MarketAnimationPanel extends Screen {
 	static final int HEIGHT = 50;
@@ -29,10 +30,10 @@ public class MarketAnimationPanel extends Screen {
     private Image bufferImage;
     private Dimension bufferSize;
     private List<Gui> guis = new ArrayList<Gui>();
-    public PersonAgent cashier = new PersonAgent("Cashier");
+    public PersonAgent cashier = new Robot("Cashier");
     public MarketCashierRole marketCashier = new MarketCashierRole(cashier);
     public  MarketCashierGui cashierGui = new MarketCashierGui(marketCashier);
-    public PersonAgent agentWork = new PersonAgent("Worker");
+    public PersonAgent agentWork = new Robot("Worker");
     public MarketWorkerRole marketWorker = new MarketWorkerRole(agentWork);
     public MarketWorkerGui workerGui = new MarketWorkerGui(marketWorker);
     public PersonAgent customer = new PersonAgent("Customer");
@@ -124,18 +125,18 @@ public class MarketAnimationPanel extends Screen {
     		addGui(workerGui);
     		agentWork.addRole(marketWorker);
     		marketCustomer.setGui(customerGui);
-    		addGui(customerGui);
+    	//	addGui(customerGui);
     		customer.addRole(marketCustomer);
     		marketCustomer2.setGui(customerGui2);
-    	    addGui(customerGui2);
+    	  //  addGui(customerGui2);
     		agentCust2.addRole(marketCustomer2);
     		agentCust3.addRole(marketCustomer3);
     		marketCustomer3.setGui(customerGui3);
-    		addGui(customerGui3);
+    	//	addGui(customerGui3);
     		
     		cashier.startThread();
     		agentWork.startThread();
-    		customer.startThread();
+    		//customer.startThread();
     		//agentCust2.startThread();
     		//agentCust3.startThread();
     		
