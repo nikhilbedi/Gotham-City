@@ -3,27 +3,36 @@ package simcity;
 import agent.Agent;
 import agent.Role;
 import Gui.RoleGui;
+import Gui.Screen;
+import Gui.ScreenFactory;
 import simcity.interfaces.Person;
 import simcity.RoleFactory;
 import simcity.restaurants.*;
 import simcity.Market.Market;
 import simcity.Home.Home;
+import simcity.bank.*;
 
 import java.rmi.UnexpectedException;
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
 public class PersonAgent extends Agent implements Person {
+	//TODO REMOVE THIS
+	Role bankRoleTemp;
+	RoleGui bankGui;
+	
+	
 	public String name;
 	int currentTime; //(ranges from 1-24)
 	int accountNumber; //Not currently sure how we're using account numbers, but the person should know it if we're removing that role
 	Semaphore busyWithTask = new Semaphore(0, false);
 	private double money = 0.0;
-	private List<Role> roles = new ArrayList<Role>();
+	protected List<Role> roles = new ArrayList<Role>();
 	public Map<String, Integer> groceryList = new HashMap<String, Integer>();
 	public List<RentBill> rentBills = new ArrayList<RentBill>();
 	boolean personScheduler = false;
 	PersonGui gui;
+	
 
 	//Saves time from having to loop all the time to find the active role
 	Role activeRole;
@@ -34,7 +43,7 @@ public class PersonAgent extends Agent implements Person {
 	public List<Restaurant> restaurants;
 	Restaurant currentPreference;
 	public List<Market> markets;
-	//public Bank bank;
+	public Bank bank;
 
 	//These three are essential, but should be instantiated with the "Homeless Shelter" spawnpoint
 	private boolean shelter = false;
@@ -126,12 +135,20 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 
-	//constructor
+	//constructors
+	
 	public PersonAgent(String name) {
 		super();
 		this.name = name;
+	//	gui.setHomeScreen(s);
 	}
-
+	
+	public PersonAgent(String name, PersonGui g, Screen s) {
+		super();
+		this.name = name;
+		gui = g;
+		gui.setHomeScreen(s);
+	}
 
 	//essential setters for GUI (When adding a person to SimCity)
 	public void setGui(PersonGui g) {
@@ -146,9 +163,9 @@ public class PersonAgent extends Agent implements Person {
 		markets = m;
 	}
 
-	/*	public void setBank(Bank b) {
+	public void setBank(Bank b) {
 		bank = b;
-	}*/
+	}
 
 	/**
 	 * 
@@ -299,10 +316,31 @@ public class PersonAgent extends Agent implements Person {
 	 * Notifies the person that the current role is done with all interactions in the restaurant
 	 * @param role
 	 */
-	public void leftBuilding(Role role) {
+	/*public void leftBuilding(Role role) {
 		//if role is of type host or bankgreeter, don't remove. Still need them to be active 
 		roles.remove(role);
 		//	checkPersonScheduler = true;
+	}
+	*//**
+	 * Notifies the person that the current role is done with all interactions
+	 * in the restaurant
+	 * 
+	 * @param role
+	 */
+	public void leftBuilding(Role role) {
+		// if role is of type host or bankgreeter, don't remove. Still need them
+		// to be active
+		role.getGui().getHomeScreen().removeGui(role.getGui());
+		gui.getHomeScreen().addGui(gui);
+		
+		
+		roles.remove(role);
+	}
+	
+	public void enteringBuilding(Role role){
+		gui.getHomeScreen().removeGui(gui);
+		role.getGui().getHomeScreen().addGui(role.getGui());
+		role.startBuildingMessaging();
 	}
 
 
@@ -366,11 +404,12 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 
+
 	//Scheduler
 	@Override
 	public boolean pickAndExecuteAnAction() {
 		// Person Scheduler 
-
+		print("Derp.");
 		//If he's CRRAAAZZY hungry, then eat something first. Then do checks of eating at home versus the restaurant
 
 		//Work comes first--his family probably doesn't like this :/
@@ -390,7 +429,8 @@ public class PersonAgent extends Agent implements Person {
 		//if he's REALLY hungry, then eat something before paying bills. Then do checks of eating at home versus the restaurant
 
 		//Gotta pay the bills!
-		/*for(RentBill rb : rentBills) {  //REMOVE THESE COMMENTS ONCE TRANSITIONING WORKS TODO
+
+	/*	for(RentBill rb : rentBills) {
 			if(rb.state == RentState.NotPaid){
 
 				payBills();
@@ -416,17 +456,22 @@ public class PersonAgent extends Agent implements Person {
 		}
 
 		//Let me even see if I got money..
-		/*if(accountNumber == 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
-			goToBank();
-			return true;
-		}*/
 
+		if(accountNumber == 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
+				if(currentBuilding != bank){
+				System.out.println("here");
+				goToBank();
+				return true;
+				}
+			}
+
+System.out.println("Calling role schedulers");
 
 		//Role Scheduler
 		//This should be changed to activeRole.pickAndExecuteAnAction();
 		for(Role r : roles) {
 
-			//System.out.println("Calling role schedulers");
+			//
 
 			r.pickAndExecuteAnAction();
 
@@ -515,23 +560,29 @@ public class PersonAgent extends Agent implements Person {
 
 	private void goToBank() {
 		//if inside building and not in bank
-		//activeRole.leaveBuilding(); //I commented this out, because I'm assuming all roles are done and off screen by the time this action will ever be called
-
-
-		//animate outside building to the bank
-		//gui.DoGoToLocation(bank);
-
-		//Wait until we get to the building
-		try {
+		//animate outside building
+		gui.DoGoToLocation(bank.getEntranceLocation());
+		try{
 			busyWithTask.acquire();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		}
+		catch(InterruptedException e){
+			
 		}
 
-		//	Role bankRoleTemp = RoleFactory.makeMeRole(bank.bankCustomerRole);
-		//	activeRole = bankRoleTemp;
-		//	roles.add(bankRoleTemp);
+		bankRoleTemp = RoleFactory.makeMeRole("bankCustomer");
+		currentBuilding = bank;
+		
+		
+		bankGui = new bankCustomerGui((BankCustomerRole)bankRoleTemp, ScreenFactory.getMeScreen("Bank"));
+		bankRoleTemp.setPerson(this);
+		bankGui.setHomeScreen(ScreenFactory.getMeScreen("Bank"));
+		activeRole = bankRoleTemp;
+		roles.add(bankRoleTemp);
+		bankRoleTemp.setGui(bankGui);
+		enteringBuilding(bankRoleTemp);
+		
+	
+
 	}
 
 

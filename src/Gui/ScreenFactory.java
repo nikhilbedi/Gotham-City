@@ -18,18 +18,21 @@ public class ScreenFactory {
 
 
 
-	//Screen main = new Screen(1);
-    Screen rest = new Screen(2);
-	Screen market = new Screen(3);
-	//Screen bank = new Screen(4);
-	Screen home = new Screen(5);
-	
-	MainScreen main = new MainScreen();
-	//Screen rest = new RestaurantNikhilAnimationPanel();
-	//Screen market = new MarketAnimationPanel();
-	Screen bank = new bankAnimationPanel();
-	//Screen home = new HomeAnimationPanel();
 
+	//public static Screen main = new Screen(1);
+	public static Screen rest = new Screen(2);
+	public static Screen market = new Screen(3);
+	//public static Screen bank = new Screen(4);
+	public static Screen home = new Screen(5);
+	
+	public static MainScreen main = new MainScreen();
+/*	public static Screen rest = new RestaurantNikhilAnimationPanel();
+	public static Screen market = new MarketAnimationPanel();
+	
+	public static Screen home = new HomeAnimationPanel();
+*/
+	public static Screen bank = new bankAnimationPanel();
+	
 	public ScreenFactory(){
 		screenList.add(main);
 		screenList.add(rest);
@@ -86,6 +89,28 @@ public class ScreenFactory {
 
 		return null;
 	}
+	public static MainScreen getMainScreen(){
+		return main;
+	}
+	
+	public static Screen getMeScreen(String s){
+		if(s.equalsIgnoreCase("City")){
+			return main;
+		}
+		if(s.equalsIgnoreCase("Restaurant")){
+			return rest;
+		}
+		if(s.equalsIgnoreCase("Market")){
+			return market;
+		}
+		if(s.equalsIgnoreCase("Bank")){
+			return bank;
+		}
+		if(s.equalsIgnoreCase("Home")){
+			return home;
+		}
 
+		return null;
+	}
 }
 

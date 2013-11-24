@@ -1,5 +1,6 @@
 package simcity.bank;
 
+import Gui.RoleGui;
 import agent.Role;
 import simcity.PersonAgent;
 import simcity.PersonAgent.MoneyState;
@@ -18,12 +19,20 @@ import java.util.Timer;
  * Programmer: Brice Roland
  */
 public class BankCustomerRole extends Role implements BankCustomer{
-
+	// agent correspondents
+	
+	private BankGreeter greeter;
+	private BankTeller teller;
+	
 	//constructor call to Role constructor
 	public BankCustomerRole(PersonAgent person) {
 		super(person);
+		bankCustomerGui = (bankCustomerGui)super.gui;
 	}
-	
+	public BankCustomerRole(){
+		super();
+		bankCustomerGui = (bankCustomerGui)super.gui;
+	}
 	
 	//State Variables
 	
@@ -40,24 +49,27 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	public bankCustomerGui bankCustomerGui;
 	
 	//sets gui and initial positioning (Temp)
-	public void setGui(bankCustomerGui gui, int x, int y) {
+	
+	public void setGui(RoleGui g){
+		super.setGui(g);
+		bankCustomerGui = (bankCustomerGui)g;
+	}
+	
+	/*public void setGui(bankCustomerGui gui, int x, int y) {
 			bankCustomerGui = gui;
 			bankCustomerGui.setX(x);
 			bankCustomerGui.setY(y);
-		}
+		}*/
 	
 	
-	// agent correspondents
 	
-	private BankGreeter greeter;
-	private BankTeller teller;
 	
 	
 	//States for finite state machine
 	
 	public enum CustomerState
-	{nothing, waiting, goingToLine, inLine, goingToTeller, atTeller, receivedReceipt, done};
-	public CustomerState state = CustomerState.nothing;//The start state
+	{nothing, temp, waiting, goingToLine, inLine, goingToTeller, atTeller, receivedReceipt, done};
+	public CustomerState state = CustomerState.temp;//The start state
 	
 	
 	//Functions
@@ -118,6 +130,10 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	
 	
 	// Messages
+	@Override
+	public void startBuildingMessaging(){
+		msgEnteredBank();
+	}
 
 	public void msgWaitHere(int i) {
 		System.out.println(getName() + ": Told to wait in line");
@@ -147,6 +163,7 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	
 	public void msgEnteredBank() {
 		System.out.println("Entered Bank");
+		greeter = myPerson.bank.getGreeter();
 		state = CustomerState.nothing;
 		stateChanged();
 	}
@@ -185,6 +202,7 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	public boolean pickAndExecuteAnAction() {
 		
 		if (state == CustomerState.nothing ){
+			System.out.println("talk to greeter");
 			talkToGreeter();
 			return true;
 		}
@@ -226,6 +244,7 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	
 	private void DoGoToTeller() {
 		state = CustomerState.goingToTeller;
+		System.out.println("this is a message" + bankCustomerGui);
 		bankCustomerGui.GoToTeller(tellerIndex);
 	}
 	

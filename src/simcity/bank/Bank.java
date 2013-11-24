@@ -2,6 +2,7 @@ package simcity.bank;
 
 import simcity.Building;
 import simcity.bank.interfaces.BankGreeter;
+import simcity.bank.interfaces.BankTeller;
 
 /**
  * Bank Class

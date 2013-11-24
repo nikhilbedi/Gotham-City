@@ -5,9 +5,14 @@ import java.awt.Graphics;
 import simcity.PersonAgent;
 import simcity.PersonAgent.MoneyState;
 import simcity.PersonAgent.RentBill;
+import simcity.Robot;
+import Gui.MainScreen;
 import Gui.Screen;
+import Gui.ScreenFactory;
 
 public class bankAnimationPanel extends Screen{
+	MainScreen mainScreen = ScreenFactory.getMainScreen();
+	Bank b = mainScreen.getBank();
 	
 	public bankAnimationPanel() {
 		populate();
@@ -21,10 +26,10 @@ public class bankAnimationPanel extends Screen{
 	}
 	
 	public void populate() {
-		PersonAgent person = new PersonAgent("customer"), 
-				person2 = new PersonAgent("greeter"), 
-				person3 = new PersonAgent("teller"), 
-				person4 = new PersonAgent("customer2");
+		PersonAgent person = new Robot("customer"), 
+				person2 = new Robot("greeter"), 
+				person3 = new Robot("teller"), 
+				person4 = new Robot("customer2");
 		
 		person4.rentBills.add(person4.new RentBill(person, 20));
 		person4.moneyState = MoneyState.Low;
@@ -52,10 +57,12 @@ public class bankAnimationPanel extends Screen{
 		bankCustomerGui customerGui2 = new bankCustomerGui(bankCustomer2);
 		BankTellerGui tellerGui = new BankTellerGui(bankTeller);
 		
-		bankCustomer.setGui(customerGui, 50, 50);
-		bankCustomer2.setGui(customerGui2, 10, 10);
+		/*bankCustomer.setGui(customerGui, 50, 50);
+		bankCustomer2.setGui(customerGui2, 10, 10);*/
 		bankGreeter.setGui(greeterGui);
 		bankTeller.setGui(tellerGui);
+		
+		b.setGreeter(bankGreeter);
 		
 		person.addRole(bankCustomer);
 		person.startThread();
@@ -69,8 +76,8 @@ public class bankAnimationPanel extends Screen{
 		person4.addRole(bankCustomer2);
 		person4.startThread();
 		
-		addGui(customerGui);
-		addGui(customerGui2);
+		/*addGui(customerGui);
+		addGui(customerGui2);*/
 		addGui(greeterGui);
 		addGui(tellerGui);
 		//bankCustomer.msgGoToTeller(bankTeller);
