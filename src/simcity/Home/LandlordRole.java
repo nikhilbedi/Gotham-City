@@ -28,11 +28,12 @@ public class LandlordRole extends Role implements Landlord {
 	public LandlordRole (PersonAgent p) {
 		super(p);
 		timeToSendBills = 12;
-		
+		rent = 10;
 		//name = myPerson.name;	
 	}
 	public LandlordRole() {
 		timeToSendBills = 12;
+		rent = 10;
 	}
 
 	
@@ -58,7 +59,7 @@ public class LandlordRole extends Role implements Landlord {
 	private void sendRentBills() {
 		for(Home h: homesOwned) {	
 			RentBill rb;
-			rb =  myPerson.new RentBill(myPerson, 10);
+			rb =  myPerson.new RentBill(myPerson, rent);
 			rentBills.add(rb);
 			h.setRentBills(rentBills);
 		}
