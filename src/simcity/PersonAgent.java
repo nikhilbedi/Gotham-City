@@ -419,6 +419,7 @@ public class PersonAgent extends Agent implements Person {
 	public boolean pickAndExecuteAnAction() {
 		// Person Scheduler 
 
+
 		if(checkPersonScheduler) {
 			//If he's CRRAAAZZY hungry, then eat something first. Then do checks of eating at home versus the restaurant
 
@@ -433,8 +434,8 @@ public class PersonAgent extends Agent implements Person {
 					leaveWork();
 					return true;
 				}
+
 			}
-		}
 
 			//if he's REALLY hungry, then eat something before paying bills. Then do checks of eating at home versus the restaurant
 
@@ -463,6 +464,7 @@ public class PersonAgent extends Agent implements Person {
 					return true;
 				}
 			}
+		}
 
 
 
@@ -474,6 +476,7 @@ public class PersonAgent extends Agent implements Person {
 				checkPersonScheduler = false;
 				return true;
 			}
+
 		}
 
 		return false;

@@ -1,5 +1,6 @@
 package simcity.Market.MarketGui;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import simcity.PersonAgent;
@@ -13,6 +14,10 @@ import Gui.Screen;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.awt.image.ImageObserver;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -24,14 +29,14 @@ public class MarketAnimationPanel extends Screen {
     private Image bufferImage;
     private Dimension bufferSize;
     private List<Gui> guis = new ArrayList<Gui>();
-    public PersonAgent agentCash = new PersonAgent("Cashier");
-    public MarketCashierRole marketCashier = new MarketCashierRole(agentCash);
+    public PersonAgent cashier = new PersonAgent("Cashier");
+    public MarketCashierRole marketCashier = new MarketCashierRole(cashier);
     public  MarketCashierGui cashierGui = new MarketCashierGui(marketCashier);
     public PersonAgent agentWork = new PersonAgent("Worker");
     public MarketWorkerRole marketWorker = new MarketWorkerRole(agentWork);
     public MarketWorkerGui workerGui = new MarketWorkerGui(marketWorker);
-    public PersonAgent agentCust = new PersonAgent("Customer");
-    public MarketCustomerRole marketCustomer = new MarketCustomerRole(agentCust);
+    public PersonAgent customer = new PersonAgent("Customer");
+    public MarketCustomerRole marketCustomer = new MarketCustomerRole(customer);
     public MarketCustomerGui customerGui = new MarketCustomerGui(marketCustomer);
     public  PersonAgent agentCust2 = new PersonAgent("Customer2");
     public MarketCustomerRole marketCustomer2 = new MarketCustomerRole(agentCust2);
@@ -39,7 +44,9 @@ public class MarketAnimationPanel extends Screen {
     public PersonAgent agentCust3 = new PersonAgent("Customer3");
     public MarketCustomerRole marketCustomer3 = new MarketCustomerRole(agentCust3);
     public MarketCustomerGui customerGui3 = new MarketCustomerGui(marketCustomer3);
+  //  private BufferedImage image = ImageIO.read("shop.png"); 
     public MarketAnimationPanel() {
+    	super();
     	populate();
     	/*setSize(WINDOWX, WINDOWY);
         setVisible(true);
@@ -68,7 +75,7 @@ public class MarketAnimationPanel extends Screen {
        /* g2.setColor(Color.BLACK);
         g2.fillRect(30, 50, 110, 2);*/
         
-        for(Gui gui : guis) {
+       /* for(Gui gui : guis) {
             if (gui.isPresent()) {
             //    gui.updatePosition();
             }
@@ -78,49 +85,69 @@ public class MarketAnimationPanel extends Screen {
             if (gui.isPresent()) {
               //  gui.draw(g2);
             }
-        }
+        }*/
     }
-
+    
     
     @Override
-    public void paintObstacles(Graphics g){
-    	super.paintObstacles(g);
+    public void paintBackground(Graphics g){
+    	
+    //	g.drawImage(image, 200, 300, null);
+    	super.paintBackground(g);
     	g.setColor(Color.ORANGE);
-    	g.fillRect(80, 150, 250, 30);
+    	g.fillRect(80, 300, 600, 50);
+    	g.setColor(Color.ORANGE);
+    	g.fillRect(80, 250, 50, 50);
+    	g.setColor(Color.ORANGE);
+    	g.fillRect(630, 250, 50, 50);
     	g.setColor(Color.BLACK);
-    	g.fillRect(80, 30, 250, 10);
+    	g.fillRect(80, 30, 600, 10);
+    	
+    	 Graphics2D g2 = (Graphics2D) g;
+         Image img1 = Toolkit.getDefaultToolkit().getImage("C:/Users/Mika/github/team31/src/simcity/Market/MarketGui/shop.png");
+         g2.drawImage(img1, 300, 45, null);
+         g2.finalize();
+         
+         Graphics2D g3 = (Graphics2D) g;
+         Image img3 = Toolkit.getDefaultToolkit().getImage("C:/Users/Mika/github/team31/src/simcity/Market/MarketGui/shop.png");
+         g2.drawImage(img3, 400, 45, null);
+         g2.finalize();
     }
 
     public void populate(){
     
     	List<String> foods = new ArrayList<String>();
     		marketCashier.setGui(cashierGui);
-    	addGui(cashierGui);
-    		agentCash.addRole(marketCashier);
+    		addGui(cashierGui);
+    		cashier.addRole(marketCashier);
     		marketWorker.setGui(workerGui);
     		addGui(workerGui);
     		agentWork.addRole(marketWorker);
     		marketCustomer.setGui(customerGui);
     		addGui(customerGui);
-    		agentCust.addRole(marketCustomer);
+    		customer.addRole(marketCustomer);
     		marketCustomer2.setGui(customerGui2);
     	    addGui(customerGui2);
     		agentCust2.addRole(marketCustomer2);
+    		agentCust3.addRole(marketCustomer3);
     		marketCustomer3.setGui(customerGui3);
+    		addGui(customerGui3);
     		
-    		agentCash.startThread();
+    		cashier.startThread();
     		agentWork.startThread();
-    		agentCust.startThread();
-    		agentCust2.startThread();
-    		agentCust3.startThread();
+    		customer.startThread();
+    		//agentCust2.startThread();
+    		//agentCust3.startThread();
+    		
     		marketCashier.setWorker(marketWorker);
     		marketCustomer.setCashier(marketCashier);
     		marketCustomer2.setCashier(marketCashier);
     		marketCustomer3.setCashier(marketCashier);
     		marketWorker.setCashier(marketCashier);
     	//	System.out.println(agentCust.roles.size());
-    		foods.add("Chicken");
-    		foods.add("Rice");
+    		
+    		
+    		
     			Item beef = new Item("Beef", 10.99, 100);
     			Item chicken = new Item("Chicken", 8.99, 100);
     			Item rice = new Item("Rice", 6.99, 100);

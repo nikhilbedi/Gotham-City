@@ -11,10 +11,10 @@ public class Market extends Building {
 	
 	private int locX;
 	private int locY;
-	private MarketCashier cashier;
+	private MarketCashier marketcashier;
 	private String CustomerRole;
 	private List <Item> items = new ArrayList<Item>();
-	private MarketWorker worker; //later will be a list
+	private MarketWorker marketworker; //later will be a list
 	    Item beef = new Item("Beef", 10.99, 10);
 		Item chicken = new Item("Chicken", 8.99, 10);
 		Item rice = new Item("Rice", 6.99, 10);
@@ -39,22 +39,36 @@ public class Market extends Building {
 	}*/
 	
 	public void setCashier(MarketCashier c){
-		cashier = c;
+		marketcashier = c;
 	}
 	
 	public void addWorker(MarketWorker w){
-		worker = w;
+		marketworker = w;
 	}
 	
 	public void addItems(){
-		cashier.getInventory().put("Beef", beef);
-		cashier.getInventory().put("Chicken", chicken);
-		cashier.getInventory().put("Rice", rice);
-		cashier.getInventory().put("Potato", potato);
-		worker.getInventory().put("Beef", beef);
-		worker.getInventory().put("Chicken", chicken);
-		worker.getInventory().put("Rice", rice);
-		worker.getInventory().put("Potato", potato);
+		Item beef = new Item("Beef", 10.99, 100);
+		Item chicken = new Item("Chicken", 8.99, 100);
+		Item rice = new Item("Rice", 6.99, 100);
+		Item potato = new Item("Potato", 5.99, 100);
+		Item pizza = new Item("Pizza", 5.99, 100);
+		Item salad = new Item("Salad", 3.99, 100);
+		Item steak = new Item("Steak", 10.99, 100);
+		marketcashier.getInventory().put("Beef", beef);
+		marketcashier.getInventory().put("Chicken", chicken);
+		marketcashier.getInventory().put("Rice", rice);
+		marketcashier.getInventory().put("Potato", potato);
+		marketcashier.getInventory().put("Pizza", pizza);
+		marketcashier.getInventory().put("Salad", salad);
+		marketcashier.getInventory().put("Steak", steak);
+		marketworker.getInventory().put("Beef", beef);
+		marketworker.getInventory().put("Chicken", chicken);
+		marketworker.getInventory().put("Rice", rice);
+		marketworker.getInventory().put("Potato", potato);
+		marketworker.getInventory().put("Pizza", pizza);
+		marketworker.getInventory().put("Salad", salad);
+		marketworker.getInventory().put("Steak", steak);
+
 	}
 	
 }
