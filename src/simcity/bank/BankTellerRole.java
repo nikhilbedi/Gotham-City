@@ -71,7 +71,7 @@ public class BankTellerRole extends Role implements BankTeller{
 	public class MyCustomer { //MyCustomer Class to hold elements of transaction related to the customer
 		public int accountNumber;
 		BankCustomer c;
-		String transactionType;
+		String transactionType, landlordName;
 		double transactionAmount;
 		customerState s;
 		
@@ -101,19 +101,25 @@ public class BankTellerRole extends Role implements BankTeller{
 	// Messages
 	
 	@Override //Sets up connection
-	public void msgNeedATransaction(BankCustomer cust, String type, double amount) {
+	public void msgNeedATransaction(BankCustomer cust, BankTransaction transaction) {
 		System.out.println(getName() + ": Got needATransaction message from customer " + cust.getName());
 		handledTransaction = false;
 		if(find(cust) == -1) {
-			MyCustomer c = new MyCustomer(cust, type, amount);
+			MyCustomer c = new MyCustomer(cust, transaction.transactionType, transaction.transactionAmount);
 			myCustomers.add(c);
 			System.out.println(getName() + ": Added customer to customer list");
 		}
 		else {
 			myCustomers.get(find(cust)).s = customerState.askedForTransaction;
-			myCustomers.get(find(cust)).transactionType = type;
-			myCustomers.get(find(cust)).transactionAmount = amount;
+			myCustomers.get(find(cust)).transactionType = transaction.transactionType;
+			myCustomers.get(find(cust)).transactionAmount = transaction.transactionAmount;
 		}
+		
+		if(transaction.transactionType.equals("payingRentBill"))
+			myCustomers.get(find(cust)).landlordName = transaction.landlordName;
+		else
+			myCustomers.get(find(cust)).landlordName = "";
+		
 		stateChanged();
 	}
 
@@ -181,7 +187,7 @@ public class BankTellerRole extends Role implements BankTeller{
 		}
 		
 		for(int a = 0; a < myCustomers.size(); a++) {
-			if(myCustomers.get(a).transactionType.equalsIgnoreCase("payingBill")) {
+			if(myCustomers.get(a).transactionType.equalsIgnoreCase("payingRentBill")) {
 				handledTransaction = true;
 				payBill(myCustomers.get(a));
 				return true;
@@ -222,6 +228,7 @@ public class BankTellerRole extends Role implements BankTeller{
 	public void openAccount(MyCustomer c) {
 		System.out.println(getName() + ": Opening account for customer " + c.c.getName());
 		BankAccount acc = bankDatabase.addAccount(c.transactionAmount, c.c.getName());
+		acc.depositMoney(c.transactionAmount);
 		c.c.HereIsReceiptAndAccountInfo(new BankReceipt(acc.accountBalance, acc.accountNumber, c.transactionType), acc.accountNumber);
 	}
 	
@@ -244,7 +251,14 @@ public class BankTellerRole extends Role implements BankTeller{
 	}
 	
 	public void payBill(MyCustomer c) {
+		System.out.println("Handling Bill for customer");
+		BankAccount acc = bankDatabase.accounts.get(bankDatabase.accountNumbers.get(c.c.getName()).get(0));
+		acc.withdrawMoney(c.transactionAmount);
 		
+		BankAccount landlordAcc = bankDatabase.accounts.get(bankDatabase.accountNumbers.get(c.landlordName).get(0));
+		landlordAcc.depositMoney(c.transactionAmount);
+		
+		c.c.HereIsReceipt(new BankReceipt(acc.accountBalance, acc.accountNumber, c.transactionType));
 	}
 	
 	public void handleDoneState(MyCustomer c) {
