@@ -150,43 +150,74 @@ public class HomeAnimationPanel extends Screen {
 		mailbox.fill3DRect(130, 0, 24, 30, false);
 		text.setColor(Color.black);
 		text.drawString("mailbox", 120, 20);
-
-		// if (gui.isPresent()) {
-		Graphics order = (Graphics) g;
+		/*
+		//if (gui.isPresent()) {
+		Graphics order = (Graphics)g;
 		if (gui.cooking == true) {
 			order.drawString("cooking " + gui.choice, gui.getXPos(),
 					gui.getYPos());
+		} 
+		//}
+		
+		
+		else if (gui.plating) {
+			order.drawString("plating " + gui.choice, gui.getXPos(),
+					gui.getYPos());
+		} 
+		else if (gui.eating) {
+			order.drawString("eating " + gui.choice, gui.getXPos(),
+					gui.getYPos());
+		} 
+		else if (gui.clearing) {
+			order.drawString("cleaning dishes.", gui.getXPos(),
+					gui.getYPos());
+		} 
+		else if (gui.sleeping) {
+			order.drawString("zzzzzzzzzzzz ", gui.getXPos(),
+					gui.getYPos());
+		} 
+		else if (gui.checkingMail) {
+			order.drawString("checking mail ", gui.getXPos(),
+					gui.getYPos());
 		}
-		// }
-		/*
-		 * 
-		 * else if (gui.plating) { order.drawString("plating " + gui.choice,
-		 * gui.getXPos(), gui.getYPos()); } else if (gui.eating) {
-		 * order.drawString("eating " + gui.choice, gui.getXPos(),
-		 * gui.getYPos()); } else if (gui.clearing) {
-		 * order.drawString("cleaning dishes.", gui.getXPos(), gui.getYPos()); }
-		 * else if (gui.sleeping) { order.drawString("zzzzzzzzzzzz ",
-		 * gui.getXPos(), gui.getYPos()); } else if (gui.checkingMail) {
-		 * order.drawString("checking mail ", gui.getXPos(), gui.getYPos()); }
-		 */
+		*/
 	}
 
-	/*
-	 * 
-	 * if (gui instanceof CookGui) { CookGui cookGui = (CookGui) gui; if
-	 * (cookGui.cooking) { if (cookGui.tableNumber == 1) {
-	 * order.drawString("cooking " + cookGui.order, 0, 145); } if
-	 * (cookGui.tableNumber == 2) { order.drawString("cooking " + cookGui.order,
-	 * 0, 160); } if (cookGui.tableNumber == 3) { order.drawString("cooking " +
-	 * cookGui.order, 0, 175); } if (cookGui.tableNumber == 4) {
-	 * order.drawString("cooking " + cookGui.order, 0, 195); } } if
-	 * (cookGui.plating) { if (cookGui.tableNumber == 1) {
-	 * order.drawString("plating " + cookGui.order, 0, 225); } if
-	 * (cookGui.tableNumber == 2) { order.drawString("plating " + cookGui.order,
-	 * 0, 240); } if (cookGui.tableNumber == 3) { order.drawString("plating " +
-	 * cookGui.order, 0, 255); } if (cookGui.tableNumber == 4) {
-	 * order.drawString("plating " + cookGui.order, 0, 270); } } }
-	 */
+		/*
+
+		if (gui instanceof CookGui) {
+			CookGui cookGui = (CookGui) gui;
+			if (cookGui.cooking) {
+				if (cookGui.tableNumber == 1) {
+					order.drawString("cooking " + cookGui.order, 0, 145);
+				}
+				if (cookGui.tableNumber == 2) {
+					order.drawString("cooking " + cookGui.order, 0, 160);
+				}
+				if (cookGui.tableNumber == 3) {
+					order.drawString("cooking " + cookGui.order, 0, 175);
+				}
+				if (cookGui.tableNumber == 4) {
+					order.drawString("cooking " + cookGui.order, 0, 195);
+				}
+			}
+			if (cookGui.plating) {
+				if (cookGui.tableNumber == 1) {
+					order.drawString("plating " + cookGui.order, 0, 225);
+				}
+				if (cookGui.tableNumber == 2) {
+					order.drawString("plating " + cookGui.order, 0, 240);
+				}
+				if (cookGui.tableNumber == 3) {
+					order.drawString("plating " + cookGui.order, 0, 255);
+				}
+				if (cookGui.tableNumber == 4) {
+					order.drawString("plating " + cookGui.order, 0, 270);
+				}
+			}
+		}
+		*/
+	
 
 	public void draw(Graphics g) {
 		g.setColor(Color.BLACK);
