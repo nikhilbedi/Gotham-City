@@ -19,10 +19,12 @@ import java.util.Timer;
  * Programmer: Brice Roland
  */
 public class BankCustomerRole extends Role implements BankCustomer{
+	
 	// agent correspondents
 	
 	private BankGreeter greeter;
 	private BankTeller teller;
+	
 	
 	//constructor call to Role constructor
 	public BankCustomerRole(PersonAgent person) {
@@ -36,9 +38,11 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		//setTransactions();
 	}
 	
+	
 	//State Variables
 	
-	private int  waitingNumber, tellerIndex;
+	public int  waitingNumber;
+	private int tellerIndex;
 	Timer timer = new Timer();
 	double cash, transactionAmount;
 	String transactionType = "openingAccount";  //This must be changed to interact with the Person's intentions at the bank
@@ -62,11 +66,6 @@ public class BankCustomerRole extends Role implements BankCustomer{
 			bankCustomerGui.setX(x);
 			bankCustomerGui.setY(y);
 		}*/
-	
-	
-	
-	
-	
 	//States for finite state machine
 	
 	public enum CustomerState
@@ -134,6 +133,7 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	
 	
 	// Messages
+	
 	@Override
 	public void startBuildingMessaging(){
 		msgEnteredBank();
@@ -188,9 +188,13 @@ public class BankCustomerRole extends Role implements BankCustomer{
 
 	public void HereIsReceiptAndAccountInfo(BankReceipt bankReceipt, int accountNumber) {
 		System.out.println(getName() + ": Received receipt. Account number is: " + accountNumber);
-		getPersonAgent().addMoney((float)bankReceipt.transactionAmount);
-		//add Account number info to PersonAgent
-		getPersonAgent().setAccountNumber(accountNumber);
+		switch(bankReceipt.transactionType) {
+		case "openingAccount":
+			getPersonAgent().removeMoney((float)bankReceipt.transactionAmount); 
+			getPersonAgent().setAccountNumber(accountNumber); break;
+		case "closingAccount":
+			getPersonAgent().addMoney((float)bankReceipt.transactionAmount); break;
+		}
 		state = CustomerState.receivedReceipt;
 		stateChanged();
 	}
@@ -243,7 +247,7 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	// Actions
 	
 	private void talkToGreeter() {
-		System.out.println("HI");
+		System.out.println("Need a teller");
 		greeter.msgNeedATeller(this);
 		state = CustomerState.waiting;
 	}
