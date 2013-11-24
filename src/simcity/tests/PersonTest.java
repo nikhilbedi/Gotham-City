@@ -95,6 +95,7 @@ public class PersonTest extends TestCase
 	 * This test is to check if the person will go to the market based upon certain states, and receive groceries.
 	 */
 	public void testGoingToMarketForGroceries() {
+		MarketMock marketMock = new MarketMock("marketMock");
 		
 	}
 }
