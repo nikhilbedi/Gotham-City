@@ -1,16 +1,28 @@
 package simcity.bank;
 
+import simcity.Building;
 import simcity.bank.interfaces.BankGreeter;
+import simcity.bank.interfaces.BankTeller;
 
 /**
  * Bank Class
  * Programmer: Brice Roland
  */
 
-public class Bank {
+public class Bank extends Building {
+
 	BankGreeter greeter;
+	String bankCustomer = "bankCustomer", bankTeller = "bankTeller", bankGreeter = "bankGreeter";
 	//Location location = new Location(xCoor, yCoor);
 	int openTime, closeTime;
+	
+	
+	public Bank(String type, int entranceX, int entranceY, int guiX,
+			int guiY) {
+		super(type, entranceX, entranceY, guiX, guiY);
+		// TODO Auto-generated constructor stub
+	}
+	
 	
 	public void setGreeter(BankGreeter g) {
 		greeter = g;

@@ -13,7 +13,10 @@ public class Order {
 		choice = ch;
 		quantity = q;
 		delivery = d;
-		
+	}
+	
+	public String getChoice(){
+		return choice;
 	}
 	
 }

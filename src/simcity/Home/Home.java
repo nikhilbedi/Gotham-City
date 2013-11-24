@@ -9,11 +9,11 @@ import simcity.PersonAgent.RentBill;
 
 public class Home extends Building{
 
-	//Location location;
 	String type;
 	public List<String> groceryList;
 	public List<RentBill> rentBills;
 	public List<Food> fridgeFoods;
+
 	public ResidentRole resident; //When the PersonAgent reaches thehome, he needs to be able to look at this class and add this role to his list
 	
 	
@@ -43,5 +43,6 @@ public class Home extends Building{
 
 
 	
+
 }	
 

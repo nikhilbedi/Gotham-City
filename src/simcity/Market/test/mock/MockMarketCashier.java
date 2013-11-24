@@ -3,11 +3,13 @@ package simcity.Market.test.mock;
 import java.util.List;
 import java.util.Map;
 
+import agent.Role;
 import simcity.Market.Item;
 import simcity.Market.MarketCustomerRole;
 import simcity.Market.Order;
 import simcity.Market.interfaces.MarketCashier;
 import simcity.Market.interfaces.MarketCustomer;
+//import simcity.Restaurant4.Restaurant4CashierRole;
 
 public class MockMarketCashier extends Mock implements MarketCashier {
 
@@ -36,6 +38,19 @@ public class MockMarketCashier extends Mock implements MarketCashier {
 
 	@Override
 	public void needFood(MarketCustomerRole marketCustomerRole) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void INeedFood(Map<String, Integer> food, Role role, Role cashierRole) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hereIsMoneyRestaurant(
+			Role r, double money) {
 		// TODO Auto-generated method stub
 		
 	}

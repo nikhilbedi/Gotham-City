@@ -219,8 +219,10 @@ public class HomeAnimationPanel extends Screen {
 		*/
 	
 
+
 	public void draw(Graphics g) {
 		g.setColor(Color.BLACK);
 		// g.fillRect(xPos, yPos, Width, Height);
 	}
+
 }

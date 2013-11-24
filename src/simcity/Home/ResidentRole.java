@@ -445,7 +445,7 @@ public class ResidentRole extends Role implements Resident{
 		
 	}
 
-
+	//TODO Fix this Evan
 	// Accessors, etc.
 	private void DoSleeping() {
 		int bedTime = 6; // 8am

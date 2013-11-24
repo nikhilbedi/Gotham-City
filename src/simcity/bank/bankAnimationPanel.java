@@ -2,26 +2,39 @@ package simcity.bank;
 
 import java.awt.Graphics;
 
-import simcity.bank.interfaces.BankTeller;
 import simcity.PersonAgent;
+import simcity.PersonAgent.MoneyState;
+import simcity.PersonAgent.RentBill;
+import simcity.Robot;
+import Gui.MainScreen;
 import Gui.Screen;
+import Gui.ScreenFactory;
 
 public class bankAnimationPanel extends Screen{
+	MainScreen mainScreen = ScreenFactory.getMainScreen();
+	Bank b = mainScreen.getBank();
 	
 	public bankAnimationPanel() {
 		populate();
 	}
 	
-	public void paintObstacles(Graphics g){
-		super.paintObstacles(g);
-		g.drawLine(80, 80, 200, 80);
+	public void paintBackground(Graphics g){
+		super.paintBackground(g);
+		g.drawLine(545, 120, 545, 620);
+		g.drawLine(150, 325, 450, 325);
+		g.drawLine(150, 355, 450, 355);
 	}
 	
 	public void populate() {
-		PersonAgent person = new PersonAgent("customer"), 
-				person2 = new PersonAgent("greeter"), 
-				person3 = new PersonAgent("teller"), 
-				person4 = new PersonAgent("customer2");
+		PersonAgent person = new Robot("customer"), 
+				person2 = new Robot("greeter"), 
+				person3 = new Robot("teller"), 
+				person4 = new Robot("customer2");
+		
+		person4.rentBills.add(person4.new RentBill(person, 20));
+		person4.moneyState = MoneyState.Low;
+		
+		person.moneyState = MoneyState.High;
 		
 		BankCustomerRole bankCustomer = new BankCustomerRole(person);
 		BankCustomerRole bankCustomer2 = new BankCustomerRole(person4);
@@ -36,15 +49,20 @@ public class bankAnimationPanel extends Screen{
 		bankTeller.setGreeter(bankGreeter);
 		bankTeller.setBankDatabase(db);
 		
+		bankCustomer.setTransactions();
+		bankCustomer2.setTransactions();
+		
 		bankCustomerGui customerGui = new bankCustomerGui(bankCustomer);
 		BankGreeterGui greeterGui = new BankGreeterGui(bankGreeter);
 		bankCustomerGui customerGui2 = new bankCustomerGui(bankCustomer2);
 		BankTellerGui tellerGui = new BankTellerGui(bankTeller);
 		
-		bankCustomer.setGui(customerGui, 50, 50);
-		bankCustomer2.setGui(customerGui2, 10, 10);
+		/*bankCustomer.setGui(customerGui, 50, 50);
+		bankCustomer2.setGui(customerGui2, 10, 10);*/
 		bankGreeter.setGui(greeterGui);
 		bankTeller.setGui(tellerGui);
+		
+		b.setGreeter(bankGreeter);
 		
 		person.addRole(bankCustomer);
 		person.startThread();
@@ -58,10 +76,10 @@ public class bankAnimationPanel extends Screen{
 		person4.addRole(bankCustomer2);
 		person4.startThread();
 		
-		addGui(customerGui);
-		addGui(customerGui2);
+		/*addGui(customerGui);
+		addGui(customerGui2);*/
 		addGui(greeterGui);
 		addGui(tellerGui);
-		//bankCustomer.msgGoToTeller(null);
+		//bankCustomer.msgGoToTeller(bankTeller);
 	}
 }

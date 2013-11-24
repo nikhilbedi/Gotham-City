@@ -1,9 +1,9 @@
 package simcity.bank.test.mock;
 
-import simcity.interfaces.Person;
 import simcity.bank.BankReceipt;
 import simcity.bank.interfaces.BankCustomer;
 import simcity.bank.interfaces.BankTeller;
+import simcity.interfaces.Person;
 
 /**
  * A sample MockBankCustomer built to unit test

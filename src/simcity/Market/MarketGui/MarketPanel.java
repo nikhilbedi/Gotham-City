@@ -1,4 +1,4 @@
-package simcity.Market.MarketGui;
+/*package simcity.Market.MarketGui;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +14,7 @@ import simcity.Market.MarketCustomerRole;
 import simcity.Market.MarketWorkerRole;
 
 public class MarketPanel extends JFrame{
-	MarketAnimationPanel animationPanel = new MarketAnimationPanel();
+	//MarketAnimationPanel animationPanel = new MarketAnimationPanel();
     PersonAgent agentCash = new PersonAgent("Cashier");
 	MarketCashierRole marketCashier = new MarketCashierRole(agentCash);
 	MarketCashierGui cashierGui = new MarketCashierGui(marketCashier);
@@ -28,8 +28,8 @@ public class MarketPanel extends JFrame{
 	MarketCustomerRole marketCustomer2 = new MarketCustomerRole(agentCust2);
 	MarketCustomerGui customerGui2 = new MarketCustomerGui(marketCustomer2);
 	private List<String> foods = new ArrayList<String>();
-	Market market = new Market();
-	public MarketPanel(){
+	/*Market market = new Market();*/
+/*	public MarketPanel(){
 		
 		marketCashier.setGui(cashierGui);
 	//	animationPanel.addGui(cashierGui);
@@ -61,8 +61,8 @@ public class MarketPanel extends JFrame{
 	//	System.out.println(agentCust.roles.size());
 		foods.add("Chicken");
 		foods.add("Rice");
-		marketCustomer.getGroceries(foods);
-		marketCustomer2.getGroceries(foods);
+		marketCustomer.getGroceries();
+		marketCustomer2.getGroceries();
 			Item beef = new Item("Beef", 10.99, 10);
 			Item chicken = new Item("Chicken", 8.99, 10);
 			Item rice = new Item("Rice", 6.99, 10);
@@ -74,11 +74,12 @@ public class MarketPanel extends JFrame{
 			marketWorker.getInventory().put("Beef", beef);
 			marketWorker.getInventory().put("Chicken", chicken);
 			marketWorker.getInventory().put("Rice", rice);
-			marketWorker.getInventory().put("Potato", potato);
-		market.setCashier(marketCashier);
-		market.addWorker(marketWorker);
+			marketWorker.getInventory().put("Potato", potato);*/
+		/*market.setCashier(marketCashier);
+		market.addWorker(marketWorker);*/
 		
-	}
 	
 	
-}
+	
+
+
