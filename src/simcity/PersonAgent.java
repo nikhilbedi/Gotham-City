@@ -12,7 +12,6 @@ import simcity.Market.Market;
 import simcity.Home.Home;
 import simcity.bank.*;
 
-import java.rmi.UnexpectedException;
 import java.util.*;
 import java.util.concurrent.Semaphore;
 
@@ -20,19 +19,20 @@ public class PersonAgent extends Agent implements Person {
 	//TODO REMOVE THIS
 	Role bankRoleTemp;
 	RoleGui bankGui;
-	
-	
+
+
 	public String name;
 	int currentTime; //(ranges from 1-24)
-	int accountNumber; //Not currently sure how we're using account numbers, but the person should know it if we're removing that role
+	public int accountNumber; //Not currently sure how we're using account numbers, but the person should know it if we're removing that role
 	Semaphore busyWithTask = new Semaphore(0, false);
 	private double money = 0.0;
 	protected List<Role> roles = new ArrayList<Role>();
 	public Map<String, Integer> groceryList = new HashMap<String, Integer>();
 	public List<RentBill> rentBills = new ArrayList<RentBill>();
-	boolean personScheduler = false;
+	boolean checkPersonScheduler = true;
+
 	PersonGui gui;
-	
+
 
 	//Saves time from having to loop all the time to find the active role
 	Role activeRole;
@@ -136,13 +136,13 @@ public class PersonAgent extends Agent implements Person {
 
 
 	//constructors
-	
+
 	public PersonAgent(String name) {
 		super();
 		this.name = name;
-	//	gui.setHomeScreen(s);
+		//	gui.setHomeScreen(s);
 	}
-	
+
 	public PersonAgent(String name, PersonGui g, Screen s) {
 		super();
 		this.name = name;
@@ -227,7 +227,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	public boolean getPersonScheduler() {
-		return personScheduler;
+		return checkPersonScheduler;
 	}
 
 	public List<Role> getRoles() {
@@ -278,17 +278,20 @@ public class PersonAgent extends Agent implements Person {
 	public void currentTime(int time) {
 		currentTime = time;
 
+		//NEED TO CHECK IF THIS PERSON IS A HOMEOWNER. IF SO, MAKE THAT ROLE ACTIVE IF NO OTHER ROLE IS ACTIVE
+
 		//We should change any states here, not constantly check the scheduler to change states
 		if(myJob != null) {
 			if(currentTime == myJob.onWork) {
-
-				myJob.state = JobState.GoToWorkSoon;
-			} else if (currentTime == myJob.offWork) {
+				myJob.state = JobState.GoToWorkSoon;	
+			} 
+			//Maybe, also check if our current state is atWork
+			else if (currentTime == myJob.offWork) {
 				myJob.state = JobState.LeaveWork;
+				checkPersonScheduler = true;
+				stateChanged();
 			}
 		}
-
-
 
 		//every "hour", let's check how much money is in our wallet.
 
@@ -312,6 +315,7 @@ public class PersonAgent extends Agent implements Person {
 		busyWithTask.release();
 	}
 
+
 	/**
 	 * Notifies the person that the current role is done with all interactions in the restaurant
 	 * @param role
@@ -321,10 +325,15 @@ public class PersonAgent extends Agent implements Person {
 		roles.remove(role);
 		//	checkPersonScheduler = true;
 	}
-	*//**
+	 *//**
 	 * Notifies the person that the current role is done with all interactions
 	 * in the restaurant
 	 * 
+	 * @param role
+	 */
+
+	/**
+	 * Notifies the person that the current role is done with all interactions in the restaurant
 	 * @param role
 	 */
 	public void leftBuilding(Role role) {
@@ -332,16 +341,19 @@ public class PersonAgent extends Agent implements Person {
 		// to be active
 		role.getGui().getHomeScreen().removeGui(role.getGui());
 		gui.getHomeScreen().addGui(gui);
+<<<<<<< HEAD
 		gui.DoGoToLocation(new Location(200,200));
+=======
+>>>>>>> master
 		roles.remove(role);
+		checkPersonScheduler = true;
 	}
-	
+
 	public void enteringBuilding(Role role){
 		gui.getHomeScreen().removeGui(gui);
 		role.getGui().getHomeScreen().addGui(role.getGui());
 		role.startBuildingMessaging();
 	}
-
 
 	/**
 	 * a message from the gui that instructs the person to go to a certain
@@ -367,6 +379,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	//Messages from Roles
+
 
 	/**
 	 * a message from HomeResidentRole sends a grocery list of what foods are
@@ -408,73 +421,78 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public boolean pickAndExecuteAnAction() {
 		// Person Scheduler 
-		print("Derp.");
-		//If he's CRRAAAZZY hungry, then eat something first. Then do checks of eating at home versus the restaurant
 
-		//Work comes first--his family probably doesn't like this :/
-		if(myJob != null) {
-			if(myJob.state == JobState.GoToWorkSoon){
-				goToWork();
-				//return true; or boolean person = true;?
-				return true;
+		if(checkPersonScheduler) {
+			//If he's CRRAAAZZY hungry, then eat something first. Then do checks of eating at home versus the restaurant
+
+			//Work comes first--his family probably doesn't like this :/
+			if(myJob != null) {
+				if(myJob.state == JobState.GoToWorkSoon){
+					goToWork();
+					//return true; or boolean person = true;?
+					return true;
+				}
+				else if(myJob.state == JobState.LeaveWork) {
+					leaveWork();
+					return true;
+				}
 			}
-			else if(myJob.state == JobState.LeaveWork) {
-				leaveWork();
-				return true;
-			}
-		}
 
+			//if he's REALLY hungry, then eat something before paying bills. Then do checks of eating at home versus the restaurant
 
-		//if he's REALLY hungry, then eat something before paying bills. Then do checks of eating at home versus the restaurant
-
+<<<<<<< HEAD
 		//Gotta pay the bills!
 
 	/*	for(RentBill rb : rentBills) {
 			if(rb.state == RentState.NotPaid){
+=======
+			//Gotta pay the bills!
+			for(RentBill rb : rentBills) {
+				if(rb.state == RentState.NotPaid){
+					goToBank();
+					return true;
+				}
+			}
+>>>>>>> master
 
-				payBills();
+			//Gotta eat!
+			if(eatingState == EatingState.EatAtHome) {
+				goEatAtHome();
 				return true;
 			}
-		}*/
+			else if(eatingState == EatingState.EatAtRestaurant) {
+				goEatAtRestaurant();
+				return true;
+			}
 
-
-		//Gotta eat!
-		if(eatingState == EatingState.EatAtHome) {
-			goEatAtHome();
-			return true;
-		}
-		else if(eatingState == EatingState.EatAtRestaurant) {
-			goEatAtRestaurant();
-			return true;
-		}
-
-		//Might as well get groceries if I ain't got nothing to do
-		if(marketState == MarketState.GetGroceries) {
-			goGetGroceries();
-			return true;
-		}
-
+<<<<<<< HEAD
 		//Let me even see if I got money..
 
 		if(accountNumber == 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
+=======
+			//Let me even see if I got money..
+			if(accountNumber == 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
+>>>>>>> master
 				if(currentBuilding != bank){
-				System.out.println("here");
-				goToBank();
-				return true;
+					goToBank();
+					return true;
 				}
 			}
+<<<<<<< HEAD
+=======
+		}
 
-System.out.println("Calling role schedulers");
+>>>>>>> master
+
 
 		//Role Scheduler
 		//This should be changed to activeRole.pickAndExecuteAnAction();
-		for(Role r : roles) {
-
-			//
-
-			r.pickAndExecuteAnAction();
-
-
+		if(activeRole != null) {
+			if(activeRole.pickAndExecuteAnAction()) {
+				//checkPersonScheduler should be made true anytime a role is done at a building, outside this scheduler
+				checkPersonScheduler = false;
+				return true;
+			}
 		}
 
 		return false;
@@ -494,94 +512,131 @@ System.out.println("Calling role schedulers");
 		try {
 			busyWithTask.acquire();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
+		//enter building (thus deleting rect in city and adding rect to workplace)
 		roles.add(myJob.role);
 
 		//This loop should be changed to using ActiveRole
-		for(Role r : roles) {
-			if(myJob.role.equals(r)) {
-				r.active = true;
-			}
-			else
-				r.active = false;
-		}
+		activeRole = myJob.role;
 
+		checkPersonScheduler = false;
+
+		//add role to building's list of workers
 	}
 
 	private void leaveWork() {
-		//animate out of building
-		//roles.get(0).DoLeaveBuilding();
-
+		//Use Screen to draw rect outside currentBuilding
+		//Use Screen to delete rect inside currentBuilding
 		//animate to desired location
-		//DoGoToHome();
 		roles.remove(myJob.role);
-	}
-
-	//May not need this function since we already have a goToBank()
-	private void payBills() {
-		//if inside building and not in bank
-		//animate outside building
-
-		//animate to bank
-		//DoGoToBank();
-		//roles.add(RoleFactory.makeMeRole(bank.bankCustomerRole));
+		//Going home is not a critical section
+		gui.DoGoToLocation(myHome.getEntranceLocation());
 	}
 
 	private void goEatAtHome() {
-		//if inside building and not in home
-		//animate outside building
+		//if inside building and not in home, animate there
+		if(currentBuilding != myHome) {
+			gui.DoGoToLocation(myHome.getEntranceLocation());
+			try {
+				busyWithTask.acquire();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			//enter building (removing rect from city screen if it is there, adding rect to home if not there)
 
-		//animate to home
-		//DoGoToHome();
-		//roles.add(RoleFactory.makeMeRole(home.homeCustomerRole));
+			/*	Role residentRoleTemp = RoleFactory.makeMeRole(bank.residentRole);
+			activeRole = residentRoleTemp;
+			roles.add(residentRoleTemp);*/
+
+		}
 	}
 
 	private void goEatAtRestaurant() {
 		//if inside building and not in current restaurant preference
 		//animate outside building
+		gui.DoGoToLocation(currentPreference.getEntranceLocation());
+		try {
+			busyWithTask.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		//animate to restaurant
-		//DoGoToRestaurant(currentRestaurantPreference);
-		//roles.add(RoleFactory.makeMeRole(currentRestaurantPreference.restaurantCustomerRole));
+		//enter building (removing rect from city screen if it is there, adding rect to home if not there)
+
+		/*Role customerRoleTemp = roles.add(RoleFactory.makeMeRole(currentPreference.restaurantCustomerRole));
+		activeRole = customerRoleTemp;
+		roles.add(customerRoleTemp);*/
+
+		checkPersonScheduler = false;
+
+		//initial message to host
 	}
 
 	private void goGetGroceries() {
-		//if inside building and not in market
+		//if inside building and not in current restaurant preference
 		//animate outside building
+		for(Market m : markets){
+			gui.DoGoToLocation(m.getEntranceLocation());
+			break;
+		}
+		try {
+			busyWithTask.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
-		//animate to market
-		//DoGoToMarket();
-		//roles.add(RoleFactory.makeMeRole(market.marketCustomerRole));
+		//enter building (removing rect from city screen if it is there, adding rect to home if not there)
+
+		/*Role marketRoleTemp = roles.add(RoleFactory.makeMeRole(currentPreference.marketCustomerRole));
+		activeRole = marketRoleTemp;
+		roles.add(marketRoleTemp);*/
+
+		checkPersonScheduler = false;
+
+		//initial message to marketCashier
 	}
 
 	private void goToBank() {
 		//if inside building and not in bank
-		//animate outside building
+		//animate outside building to the bank
 		gui.DoGoToLocation(bank.getEntranceLocation());
 		try{
 			busyWithTask.acquire();
 		}
 		catch(InterruptedException e){
-			
+
 		}
 
+<<<<<<< HEAD
+=======
+		//Making Role to be added TODO put into funciton?
+>>>>>>> master
 		bankRoleTemp = RoleFactory.makeMeRole("bankCustomer");
 		currentBuilding = bank;
-		
-		
 		bankGui = new bankCustomerGui((BankCustomerRole)bankRoleTemp, ScreenFactory.getMeScreen("Bank"));
 		bankRoleTemp.setPerson(this);
 		bankGui.setHomeScreen(ScreenFactory.getMeScreen("Bank"));
 		activeRole = bankRoleTemp;
+
+
+		//Add role
 		roles.add(bankRoleTemp);
 		bankRoleTemp.setGui(bankGui);
+		//Enter building
 		enteringBuilding(bankRoleTemp);
+<<<<<<< HEAD
 		
 	
 		
+=======
+
+		checkPersonScheduler = false;
+>>>>>>> master
 	}
 
 
@@ -589,7 +644,5 @@ System.out.println("Calling role schedulers");
 		// TODO Auto-generated method stub
 
 	}
-
-
 
 }
