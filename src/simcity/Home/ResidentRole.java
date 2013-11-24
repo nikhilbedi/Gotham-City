@@ -36,7 +36,7 @@ public class ResidentRole extends Role implements Resident{
 	//public PersonAgent accountHolder;
 	private Home home;
 	private double wallet;
-	public List<Food> fridgeFoods= new ArrayList<Food>();
+	public Map<String, Food> fridgeFoods= new HashMap<String, Food>();
 	public Map<String, Food> foods = new HashMap<String, Food>();
 	public Map<String, Integer> groceryList = new HashMap<String, Integer>();
 	public Map<String, Integer> groceryBag = new HashMap<String, Integer>();
@@ -331,9 +331,14 @@ public class ResidentRole extends Role implements Resident{
 
 	private void putGroceriesInFridge(Map<String,Integer> groceryBag) {
 		
-		
-		//public Map<String, Integer> groceryBag = new HashMap<String, Integer>();
-		//public List<Food> fridgeFoods= new ArrayList<Food>();
+		 fridgeFoods.get("Steak").setAmount(fridgeFoods.get("Steak").getAmount() + groceryBag.get("Steak"));
+		 groceryBag.put("Steak", 0); 
+		 fridgeFoods.get("Chicken").setAmount(fridgeFoods.get("Chicken").getAmount() + groceryBag.get("Chicken"));
+		 groceryBag.put("Chicken", 0); 
+		 fridgeFoods.get("Pizza").setAmount(fridgeFoods.get("Pizza").getAmount() + groceryBag.get("Pizza"));
+		 groceryBag.put("Pizza", 0); 
+		 fridgeFoods.get("Salad").setAmount(fridgeFoods.get("Salad").getAmount() + groceryBag.get("Salad"));
+		 groceryBag.put("Salad", 0); 
 		
 	}
 	private void checkGroceryBag() {
@@ -444,7 +449,7 @@ public class ResidentRole extends Role implements Resident{
 	private String checkFoodSupply() {
 		String choice = randomizeFoodChoice();
 		//String choice = "food";
-		Food f = foods.get(choice);
+		Food f = fridgeFoods.get(choice);
 			
 		if (checkInventory(f)) {
 			//print("cook is cooking the food");
