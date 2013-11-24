@@ -19,9 +19,10 @@ public class RoleGui {
 	
 	protected Color myColor;
 	
-	protected Screen homeScreen = null;
+	protected Screen homeScreen;
 
 	public Screen getHomeScreen() {
+		System.out.println("Here is home Screen: " + homeScreen);
 		return homeScreen;
 	}
 

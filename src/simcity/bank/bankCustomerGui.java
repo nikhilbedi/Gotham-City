@@ -55,10 +55,12 @@ public class bankCustomerGui extends RoleGui {
 		if(xPos == 20 && yPos == 20 &&
 			xDestination == 20 && yDestination == 20)
 			{
-			xDestination = 200;
-			yDestination = 200;
+			//xDestination = 200;
+			//yDestination = 200;
 			//TODO this is hacked for testing purposes
+			//System.out.println("here we are");
 			//bankCustomer.msgEnteredBank();
+			//GetInLine
 			}
 		
 		if(xPos != xDestination ||

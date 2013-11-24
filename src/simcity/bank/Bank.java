@@ -2,6 +2,7 @@ package simcity.bank;
 
 import simcity.Building;
 import simcity.bank.interfaces.BankGreeter;
+import simcity.bank.interfaces.BankTeller;
 
 /**
  * Bank Class
@@ -11,6 +12,16 @@ import simcity.bank.interfaces.BankGreeter;
 public class Bank extends Building {
 
 	BankGreeter greeter;
+	BankTeller teller;
+	
+	public BankTeller getTeller() {
+		return teller;
+	}
+
+
+	public void setTeller(BankTeller teller) {
+		this.teller = teller;
+	}
 	public String bankCustomer = "bankCustomer";
 	//Location location = new Location(xCoor, yCoor);
 	int openTime, closeTime;

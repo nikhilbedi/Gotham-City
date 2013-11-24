@@ -4,6 +4,7 @@ import agent.Agent;
 import agent.Role;
 import Gui.RoleGui;
 import Gui.Screen;
+import Gui.ScreenFactory;
 import simcity.interfaces.Person;
 import simcity.RoleFactory;
 import simcity.restaurants.*;
@@ -16,16 +17,22 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 public class PersonAgent extends Agent implements Person {
+	//TODO REMOVE THIS
+	Role bankRoleTemp;
+	RoleGui bankGui;
+	
+	
 	public String name;
 	int currentTime; //(ranges from 1-24)
 	int accountNumber; //Not currently sure how we're using account numbers, but the person should know it if we're removing that role
 	Semaphore busyWithTask = new Semaphore(0, false);
 	private double money = 0.0;
-	private List<Role> roles = new ArrayList<Role>();
+	protected List<Role> roles = new ArrayList<Role>();
 	public Map<String, Integer> groceryList = new HashMap<String, Integer>();
 	private List<RentBill> rentBills = new ArrayList<RentBill>();
 	boolean personScheduler = false;
 	PersonGui gui;
+	
 
 	//Saves time from having to loop all the time to find the active role
 	Role activeRole;
@@ -128,7 +135,8 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 
-	//constructor
+	//constructors
+	
 	public PersonAgent(String name) {
 		super();
 		this.name = name;
@@ -331,11 +339,8 @@ public class PersonAgent extends Agent implements Person {
 	
 	public void enteringBuilding(Role role){
 		gui.getHomeScreen().removeGui(gui);
-		
 		role.getGui().getHomeScreen().addGui(role.getGui());
-		System.out.println("In enteringBuilding Screen of bankRole is: " + role.getGui().getHomeScreen().printGuiList() );
-		
-		System.err.println("Updating Guis");
+		role.startBuildingMessaging();
 	}
 
 
@@ -404,7 +409,7 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public boolean pickAndExecuteAnAction() {
 		// Person Scheduler 
-
+		print("Derp.");
 		//If he's CRRAAAZZY hungry, then eat something first. Then do checks of eating at home versus the restaurant
 
 		//Work comes first--his family probably doesn't like this :/
@@ -424,13 +429,13 @@ public class PersonAgent extends Agent implements Person {
 		//if he's REALLY hungry, then eat something before paying bills. Then do checks of eating at home versus the restaurant
 
 		//Gotta pay the bills!
-		for(RentBill rb : rentBills) {
+	/*	for(RentBill rb : rentBills) {
 			if(rb.state == RentState.NotPaid){
 
 				payBills();
 				return true;
 			}
-		}
+		}*/
 
 
 		//Gotta eat!
@@ -451,17 +456,20 @@ public class PersonAgent extends Agent implements Person {
 
 		//Let me even see if I got money..
 		if(accountNumber == 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
+				if(currentBuilding != bank){
+				System.out.println("here");
 				goToBank();
 				return true;
+				}
 			}
 
-
+System.out.println("Calling role schedulers");
 
 		//Role Scheduler
 		//This should be changed to activeRole.pickAndExecuteAnAction();
 		for(Role r : roles) {
 
-			//System.out.println("Calling role schedulers");
+			//
 
 			r.pickAndExecuteAnAction();
 
@@ -559,12 +567,19 @@ public class PersonAgent extends Agent implements Person {
 			
 		}
 
-		Role bankRoleTemp = RoleFactory.makeMeRole(bank.bankCustomer);
+		bankRoleTemp = RoleFactory.makeMeRole(bank.bankCustomer);
+		currentBuilding = bank;
+		
+		
+		bankGui = new bankCustomerGui((BankCustomerRole)bankRoleTemp, ScreenFactory.getMeScreen("Bank"));
 		bankRoleTemp.setPerson(this);
+		bankGui.setHomeScreen(ScreenFactory.getMeScreen("Bank"));
 		activeRole = bankRoleTemp;
 		roles.add(bankRoleTemp);
-		System.out.println("In gotToBank Screen of bankRole is: " + bankRoleTemp.getGui().getHomeScreen().printGuiList() );
+		bankRoleTemp.setGui(bankGui);
 		enteringBuilding(bankRoleTemp);
+		
+	
 
 	}
 

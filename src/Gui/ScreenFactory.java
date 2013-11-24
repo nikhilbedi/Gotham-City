@@ -87,6 +87,10 @@ public class ScreenFactory {
 
 		return null;
 	}
+	public static MainScreen getMainScreen(){
+		return main;
+	}
+	
 	public static Screen getMeScreen(String s){
 		if(s.equalsIgnoreCase("City")){
 			return main;

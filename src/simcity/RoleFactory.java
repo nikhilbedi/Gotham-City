@@ -20,7 +20,8 @@ public class RoleFactory {
 		//bank
 		else if(type.equals("bankCustomer")) {
 		BankCustomerRole r = new BankCustomerRole();
-		r.setGui(new bankCustomerGui(r, ScreenFactory.getMeScreen("bank")));
+		
+		System.out.println("this is another message" + r.getGui());
 		return r;
 		//return new BankCustomerRole();
 		}

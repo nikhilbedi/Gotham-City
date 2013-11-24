@@ -14,11 +14,10 @@ public class Role {
 	public RoleGui getGui() {
 		return gui;
 	}
-
-	public void setGui(RoleGui gui) {
-		this.gui = gui;
+	public void setGui(RoleGui g){
+		gui = g;
 	}
-
+	
 	/**
 	 * Base class for simple roles
 	 */
@@ -82,6 +81,9 @@ public class Role {
 	//Everyone needs to provide an @Override to their pickAndExecuteAnAction
 	public boolean pickAndExecuteAnAction() {
 		return true;
+	}
+	public void startBuildingMessaging(){
+		System.err.println("Start messaging super call");
 	}
 
 }
