@@ -13,14 +13,12 @@ import simcity.PersonAgent.RentBill;
 import simcity.agent.Role;
 
 public class LandlordRole extends Role implements Landlord {
-	private String name;
-	Timer timer = new Timer();
-	
-	String type;
 	public PersonAgent person;
 	float rent;
 	private List<RentBill> rentBills = new ArrayList<RentBill>();
 	private List<Home> homesOwned = new ArrayList<Home>();
+	int currentTime;
+	int timeToSendBills;
 	Random random = new Random();
 	
 	public enum HomeOwnerState {none, sendBills, sendingBills, billsSent}
@@ -28,15 +26,14 @@ public class LandlordRole extends Role implements Landlord {
 	
 	
 	public LandlordRole (PersonAgent p) {
-		//super(p);
-		myPerson = p;
-		name = myPerson.name;
+		super(p);
+		timeToSendBills = 12;
 		
+		//name = myPerson.name;	
 	}
 	public LandlordRole() {
-		
+		timeToSendBills = 12;
 	}
-
 
 	
 	//messages
@@ -51,6 +48,7 @@ public class LandlordRole extends Role implements Landlord {
 		if(hOwnerState == HomeOwnerState.sendBills){
 			hOwnerState = HomeOwnerState.sendingBills;
 			sendRentBills();
+			return true;
 		}
 		return false;
 	}
@@ -60,7 +58,7 @@ public class LandlordRole extends Role implements Landlord {
 	private void sendRentBills() {
 		for(Home h: homesOwned) {	
 			RentBill rb;
-			rb =  myPerson.new RentBill(myPerson, getRent());
+			rb =  myPerson.new RentBill(myPerson, 10);
 			rentBills.add(rb);
 			h.setRentBills(rentBills);
 		}
@@ -72,10 +70,18 @@ public class LandlordRole extends Role implements Landlord {
 	}
 
 
-
-
-
 	//utilities
+	public void updateCurrentTime(int time){
+		currentTime = time;
+		//stateChanged();
+	}
+	public boolean timeIsUp() {
+		if(currentTime == timeToSendBills){
+			return true;
+		}
+		return false;
+	}
+	
 	public List<RentBill> getRentBills() {
 		return rentBills;
 	}
