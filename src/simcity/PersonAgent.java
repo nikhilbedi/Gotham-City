@@ -263,6 +263,10 @@ public class PersonAgent extends Agent implements Person {
 		money += amount;
 	}
 
+	public void removeMoney(float amount) {
+		money -= amount;
+	}
+	
 	public void setPreferredTransportation(String type) {
 		if (type.contains("car"))
 			transportationState = TransportationState.Car;
@@ -339,11 +343,13 @@ public class PersonAgent extends Agent implements Person {
 	public void leftBuilding(Role role) {
 		// if role is of type host or bankgreeter, don't remove. Still need them
 		// to be active
+		
 		role.getGui().getHomeScreen().removeGui(role.getGui());
 		gui.getHomeScreen().addGui(gui);
 		gui.DoGoToLocation(new Location(200,200));
 		roles.remove(role);
 		checkPersonScheduler = true;
+		stateChanged();
 	}
 
 	public void enteringBuilding(Role role){
@@ -419,7 +425,6 @@ public class PersonAgent extends Agent implements Person {
 	public boolean pickAndExecuteAnAction() {
 		// Person Scheduler 
 
-
 		if(checkPersonScheduler) {
 			//If he's CRRAAAZZY hungry, then eat something first. Then do checks of eating at home versus the restaurant
 
@@ -478,7 +483,7 @@ public class PersonAgent extends Agent implements Person {
 			}
 
 		}
-
+		
 		return false;
 	}
 
@@ -595,7 +600,7 @@ public class PersonAgent extends Agent implements Person {
 		catch(InterruptedException e){
 
 		}
-
+		
 		bankRoleTemp = RoleFactory.makeMeRole("bankCustomer");
 		currentBuilding = bank;
 		bankGui = new bankCustomerGui((BankCustomerRole)bankRoleTemp, ScreenFactory.getMeScreen("Bank"));
@@ -609,7 +614,7 @@ public class PersonAgent extends Agent implements Person {
 		bankRoleTemp.setGui(bankGui);
 		//Enter building
 		enteringBuilding(bankRoleTemp);
-
+		
 		checkPersonScheduler = false;
 	}
 

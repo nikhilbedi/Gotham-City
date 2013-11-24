@@ -161,11 +161,6 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		stateChanged();
 	}	
 	
-	public void msgOutOfBank() {
-		System.out.println(getName() + ": left the bank.");
-		myPerson.leftBuilding(this);
-	}
-	
 	public void msgEnteredBank() {
 		System.out.println("Entered Bank");
 		greeter = myPerson.bank.getGreeter();
@@ -181,7 +176,12 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	
 	@Override
 	public void HereIsReceipt(BankReceipt receipt) {
-		getPersonAgent().addMoney((float)receipt.transactionAmount);
+		switch(receipt.transactionType) {
+		case "withdrawal":
+			getPersonAgent().addMoney((float)receipt.transactionAmount); break;
+		case "deposit":
+			getPersonAgent().removeMoney((float)receipt.transactionAmount); break;
+		}
 		state = CustomerState.receivedReceipt;
 		stateChanged();
 	}
@@ -199,6 +199,12 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		getPersonAgent().addMoney((float)bankReceipt.transactionAmount);
 		state = CustomerState.receivedReceipt;
 		stateChanged();
+	}
+	
+	public void msgOutOfBank() {
+		System.out.println(getName() + ": left the bank.");
+		transactionList.clear();
+		myPerson.leftBuilding(this);
 	}
 	
 	

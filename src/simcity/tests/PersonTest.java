@@ -72,17 +72,17 @@ public class PersonTest extends TestCase
 		assertTrue("The size of rentBills should be zero. It isnt", person.getRentBills().size() == 0);
 		assertEquals("Bank account number should be zero. it isnt", person.getAccountNumber(), 0);
 		assertFalse("personScheduler should be false. it isnt", person.getPersonScheduler());
-		assertEquals("BankMock's log should be empty. It isn't", bankMock.log.size(), 0);
+		//assertEquals("BankMock's log should be empty. It isn't", bankMock.log.size(), 0);
 		
 		
 		//step 2 - set account number using BankMock
-		person.accountNumber = bankMock.needAccountNumber();
+		//person.accountNumber = bankMock.needAccountNumber();
 		
 		//postconditions
 		assertTrue("Bank account number should not be zero. it is", person.getAccountNumber() != 0);
 		assertFalse("The person should not have anything to do. But he does", person.pickAndExecuteAnAction());
-		assertEquals("BankMock's log should have received a message from person, increasing"
-				+ "it's log size by one. It didnt't", bankMock.log.size(), 1);
+		//assertEquals("BankMock's log should have received a message from person, increasing"
+		//		+ "it's log size by one. It didnt't", bankMock.log.size(), 1);
 		assertTrue("The money allocated when a person is instantiated is zero. It is not.", person.checkMoney() == 0.0);
 		assertEquals("Job should be null. It is not", person.getJob(), null);
 		assertTrue("The size of roles should be zero", person.getRoles().size() == 0);
