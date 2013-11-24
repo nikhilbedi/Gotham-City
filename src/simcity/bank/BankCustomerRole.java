@@ -1,7 +1,10 @@
 package simcity.bank;
 
+import Gui.RoleGui;
 import agent.Role;
 import simcity.PersonAgent;
+import simcity.PersonAgent.MoneyState;
+import simcity.PersonAgent.RentBill;
 import simcity.bank.BankReceipt;
 import simcity.bank.interfaces.BankCustomer;
 import simcity.bank.interfaces.BankGreeter;
@@ -16,12 +19,21 @@ import java.util.Timer;
  * Programmer: Brice Roland
  */
 public class BankCustomerRole extends Role implements BankCustomer{
+	// agent correspondents
 	
+	private BankGreeter greeter;
+	private BankTeller teller;
+	
+
 	//constructor call to Role constructor
 	public BankCustomerRole(PersonAgent person) {
 		super(person);
+		bankCustomerGui = (bankCustomerGui)super.gui;
 	}
-	
+	public BankCustomerRole(){
+		super();
+		bankCustomerGui = (bankCustomerGui)super.gui;
+	}
 	
 	//State Variables
 	
@@ -29,7 +41,8 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	Timer timer = new Timer();
 	double cash, transactionAmount;
 	String transactionType = "openingAccount";  //This must be changed to interact with the Person's intentions at the bank
-	List<String> transactionList = new ArrayList<String>();
+	//public List<String> transactionList = new ArrayList<String>();
+	public List<BankTransaction> transactionList = new ArrayList<BankTransaction>();
 	
 	
 	//Gui
@@ -37,24 +50,27 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	public bankCustomerGui bankCustomerGui;
 	
 	//sets gui and initial positioning (Temp)
-	public void setGui(bankCustomerGui gui, int x, int y) {
+	
+	public void setGui(RoleGui g){
+		super.setGui(g);
+		bankCustomerGui = (bankCustomerGui)g;
+	}
+	
+	/*public void setGui(bankCustomerGui gui, int x, int y) {
 			bankCustomerGui = gui;
 			bankCustomerGui.setX(x);
 			bankCustomerGui.setY(y);
-		}
+		}*/
 	
 	
-	// agent correspondents
 	
-	private BankGreeter greeter;
-	private BankTeller teller;
 	
 	
 	//States for finite state machine
 	
 	public enum CustomerState
-	{nothing, waiting, goingToLine, inLine, goingToTeller, atTeller, receivedReceipt, done};
-	private CustomerState state = CustomerState.nothing;//The start state
+	{nothing, temp, waiting, goingToLine, inLine, goingToTeller, atTeller, receivedReceipt, done};
+	public CustomerState state = CustomerState.temp;//The start state
 	
 	
 	//Functions
@@ -63,8 +79,8 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		this.greeter = greeter;
 	}
 	
-	public void setTeller(BankTeller t) {
-		setBankTeller(t);
+	public BankGreeter getBankGreeter() {
+		return greeter;
 	}
 	
 	@Override
@@ -85,22 +101,40 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	}
 		
 	public void setTransactions() {
-		transactionList.add("openingAccount");
+		/*transactionList.add("openingAccount");
 		transactionList.add("deposit");
 		transactionList.add("withdrawal");
-		transactionList.add("needALoan");
+		transactionList.add("needALoan");*/
 		
-		/*if(myPerson.getMoneyState() == myPerson.moneyState.Low)
-			transactionList.add("withdrawal");
-		if(myPerson.getMoneyState() == myPerson.moneyState.High)
-			transactionList.add("deposit");
-		if(myPerson.getAccountNumber == 0)
-			transactionList.add("openAccount");*/
+		//myPerson.rentBills.add();
+		
+		/*transactionList.add(new BankTransaction("openingAccount", 50));
+		transactionList.add(new BankTransaction("deposit", 50));
+		transactionList.add(new BankTransaction("withdrawal", 40));
+		transactionList.add(new BankTransaction("needALoan", 200));*/
+		
+		if(myPerson.getAccountNumber() == 0)
+			transactionList.add(new BankTransaction("openingAccount", 50));
+		
+		if(myPerson.getRentBills().size() > 0) {
+			for(RentBill b : myPerson.getRentBills())
+					transactionList.add(new BankTransaction("payingRentBill", b.amount, b.accountHolder.getName()));
+		}
+		
+		if(myPerson.moneyState == MoneyState.Low)
+			transactionList.add(new BankTransaction("withdrawal", 50));
+		if(myPerson.moneyState == MoneyState.High)
+			transactionList.add(new BankTransaction("deposit", 50));
+		
 		
 	}
 	
 	
 	// Messages
+	@Override
+	public void startBuildingMessaging(){
+		msgEnteredBank();
+	}
 
 	public void msgWaitHere(int i) {
 		System.out.println(getName() + ": Told to wait in line");
@@ -130,6 +164,7 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	
 	public void msgEnteredBank() {
 		System.out.println("Entered Bank");
+		greeter = myPerson.bank.getGreeter();
 		state = CustomerState.nothing;
 		stateChanged();
 	}
@@ -168,6 +203,7 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	public boolean pickAndExecuteAnAction() {
 		
 		if (state == CustomerState.nothing ){
+			System.out.println("talk to greeter");
 			talkToGreeter();
 			return true;
 		}
@@ -197,6 +233,7 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	// Actions
 	
 	private void talkToGreeter() {
+		System.out.println("HI");
 		greeter.msgNeedATeller(this);
 		state = CustomerState.waiting;
 	}
@@ -208,12 +245,13 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	
 	private void DoGoToTeller() {
 		state = CustomerState.goingToTeller;
+		System.out.println("this is a message" + bankCustomerGui);
 		bankCustomerGui.GoToTeller(tellerIndex);
 	}
 	
 	private void makeATransaction() {
-		System.out.println(getName() + ": Making a transaction. Type: " + transactionList.get(0));
-		getBankTeller().msgNeedATransaction(this, transactionList.get(0), transactionAmount);
+		System.out.println(getName() + ": Making a transaction. Type: " + transactionList.get(0).transactionType);
+		getBankTeller().msgNeedATransaction(this, transactionList.get(0));
 		transactionList.remove(0);
 		state = CustomerState.waiting;
 	}

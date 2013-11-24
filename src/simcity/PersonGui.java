@@ -12,12 +12,30 @@ import Gui.RoleGui;
 
 public class PersonGui extends RoleGui {
 	PersonAgent agent;
+	public PersonAgent getAgent() {
+		return agent;
+	}
+
+	public void setAgent(PersonAgent agent) {
+		this.agent = agent;
+	}
+
 	boolean reachedBuildingLocation;
 	
 	public PersonGui(PersonAgent c){ 
 		super.setColor(Color.yellow);
 		agent = c;
 		
+		
+		/*
+		xPos = agent.getLocation().getX();
+		yPos = agent.getLocation().getY();
+		xDestination = agent.getLocation().getX();
+		yDestination = agent.getLocation().getY(); */
+	}
+	
+	public PersonGui(){ 
+		super.setColor(Color.yellow);
 		
 		/*
 		xPos = agent.getLocation().getX();

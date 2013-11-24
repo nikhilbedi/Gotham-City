@@ -1,5 +1,6 @@
 package simcity.bank.test.mock;
 
+import simcity.bank.BankTransaction;
 import simcity.bank.interfaces.BankCustomer;
 import simcity.bank.interfaces.BankTeller;
 
@@ -19,8 +20,7 @@ public class MockBankTeller extends Mock implements BankTeller{
 	}
 
 	@Override
-	public void msgNeedATransaction(BankCustomer bankCustomer, String type,
-			double amount) {
+	public void msgNeedATransaction(BankCustomer bankCustomer, BankTransaction transaction) {
 		
 	}
 
