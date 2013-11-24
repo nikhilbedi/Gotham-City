@@ -10,6 +10,7 @@ import simcity.RoleFactory;
 import simcity.restaurants.*;
 import simcity.Market.Market;
 import simcity.Home.Home;
+import simcity.Home.LandlordRole;
 import simcity.bank.*;
 
 import java.util.*;
@@ -31,8 +32,9 @@ public class PersonAgent extends Agent implements Person {
 	public Map<String, Integer> groceryBag = new HashMap<String, Integer>();
 	public List<RentBill> rentBills = new ArrayList<RentBill>();
 	public boolean checkPersonScheduler = true;
-
 	PersonGui gui;
+	
+	private LandlordRole landlord;
 
 
 	//Saves time from having to loop all the time to find the active role
@@ -67,7 +69,8 @@ public class PersonAgent extends Agent implements Person {
 	public EatingState eatingState = EatingState.Nowhere;
 
 	//When to eat
-	public enum HungerState {NotHungry, Hungry, FeedingHunger};
+	public enum HungerState {NotHungry, Famished, Hungry, Starving, FeedingHunger};
+	private int hungerCount = 0; 
 	public HungerState hungerState =  HungerState.NotHungry;
 
 	//Going to the market states
@@ -278,8 +281,28 @@ public class PersonAgent extends Agent implements Person {
 	//Messages from World Clock
 	public void updateTime(int time) {
 		currentTime = time;
+		//Another hour, another chance to eat ;)
+		hungerCount++;
 		print("Checking my watch and it is " + time + " o' clock");
 		//NEED TO CHECK IF THIS PERSON IS A HOMEOWNER. IF SO, MAKE THAT ROLE ACTIVE IF NO OTHER ROLE IS ACTIVE
+		if(landlord != null) {
+			//landlord.updateCurrentTime(time);
+		/*	if(landord.timeIsUp()) {
+				landlord.setActive(true);
+			}
+			else
+				landlord.setActive(false);*/
+		}
+
+		if(hungerCount > 11) {
+			hungerState = HungerState.Starving;
+		}
+		else if(hungerCount > 7) {
+			hungerState = HungerState.Hungry;
+		}
+		else if(hungerCount > 3) {
+			hungerState = HungerState.Famished;
+		}
 
 		//We should change any states here, not constantly check the scheduler to change states
 		if(myJob != null) {
@@ -290,12 +313,10 @@ public class PersonAgent extends Agent implements Person {
 			else if (currentTime == myJob.offWork) {
 				myJob.state = JobState.LeaveWork;
 				checkPersonScheduler = true;
-				stateChanged();
 			}
 		}
 
-		//every "hour", let's check how much money is in our wallet.
-
+		//every "hour", let's check how much money is in our wallet. (temporary low and highs)
 		double low = 25.0;
 		double high = 150.0;
 		if (money <= low) {
@@ -303,6 +324,8 @@ public class PersonAgent extends Agent implements Person {
 		} else if (money >= high) {
 			moneyState = MoneyState.High;
 		}
+
+		stateChanged();
 	}
 
 
@@ -338,8 +361,7 @@ public class PersonAgent extends Agent implements Person {
 	 * @param role
 	 */
 	public void leftBuilding(Role role) {
-		// if role is of type host or bankgreeter, don't remove. Still need them
-		// to be active
+		role.setActive(false);
 		role.getGui().getHomeScreen().removeGui(role.getGui());
 		gui.getHomeScreen().addGui(gui);
 		roles.remove(role);
@@ -347,6 +369,8 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	public void enteringBuilding(Role role){
+		roles.add(role);
+		role.setActive(true);
 		gui.getHomeScreen().removeGui(gui);
 		role.getGui().getHomeScreen().addGui(role.getGui());
 		role.startBuildingMessaging();
@@ -410,6 +434,8 @@ public class PersonAgent extends Agent implements Person {
 	 */
 	public void justAte() {
 		hungerState = HungerState.NotHungry;
+		hungerCount = 0;
+		stateChanged();
 	}
 
 
@@ -418,15 +444,27 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public boolean pickAndExecuteAnAction() {
 		// Person Scheduler 
-		print("Running Person Scheduler");
+
 		if(checkPersonScheduler) {
 			//if the man has groceries in his hand, let him take them home!
 			if(marketState == MarketState.TakeGroceriesHome) {
 				goToHome();
 				return true;
 			}
-			
+
 			//If he's CRRAAAZZY hungry, then eat something first. Then do checks of eating at home versus the restaurant
+			if(hungerState == HungerState.Starving) {
+				if(moneyState == MoneyState.Low) {
+					hungerState = HungerState.FeedingHunger;
+					goToHome();
+					return true;
+				}
+				else {
+					hungerState = HungerState.FeedingHunger;
+					goEatAtRestaurant();
+					return true;
+				}
+			}
 
 			//Work comes first--his family probably doesn't like this :/
 			if(myJob != null) {
@@ -442,6 +480,18 @@ public class PersonAgent extends Agent implements Person {
 			}
 
 			//if he's REALLY hungry, then eat something before paying bills. Then do checks of eating at home versus the restaurant
+			if(hungerState == HungerState.Hungry) {
+				if(moneyState == MoneyState.Low) {
+					hungerState = HungerState.FeedingHunger;
+					goToHome();
+					return true;
+				}
+				else {
+					hungerState = HungerState.FeedingHunger;
+					goEatAtRestaurant();
+					return true;
+				}
+			}
 
 			//Gotta pay the bills!
 			for(RentBill rb : rentBills) {
@@ -451,7 +501,7 @@ public class PersonAgent extends Agent implements Person {
 				}
 			}
 
-			//Gotta eat!
+			//Gotta eat!- Says the GUI
 			if(eatingState == EatingState.EatAtHome) {
 				goToHome();
 				return true;
@@ -460,12 +510,26 @@ public class PersonAgent extends Agent implements Person {
 				goEatAtRestaurant();
 				return true;
 			}
-			
-			 //Might as well get groceries if I ain't got nothing to do
-            if(marketState == MarketState.GetGroceries) {
-                    goGetGroceries();
-                    return true;
-            }
+
+			//If the person is famished, feed the man if he does not have much to do.
+			if(hungerState == HungerState.Famished) {
+				if(moneyState == MoneyState.Low) {
+					hungerState = HungerState.FeedingHunger;
+					goToHome();
+					return true;
+				}
+				else {
+					hungerState = HungerState.FeedingHunger;
+					goEatAtRestaurant();
+					return true;
+				}
+			}
+
+			//Might as well get groceries if I ain't got nothing to do
+			if(marketState == MarketState.GetGroceries) {
+				goGetGroceries();
+				return true;
+			}
 
 			//Let me even see if I got money..
 			if(accountNumber == 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
@@ -477,12 +541,13 @@ public class PersonAgent extends Agent implements Person {
 		}
 
 		//Role Scheduler
-		//This should be changed to activeRole.pickAndExecuteAnAction();
-		if(activeRole != null) {
-			if(activeRole.pickAndExecuteAnAction()) {
+		for(Role r : roles) {
 				//checkPersonScheduler should be made true anytime a role is done at a building, outside this scheduler
-				checkPersonScheduler = false;
-				return true;
+			if(r.isActive()) {
+				if(r.pickAndExecuteAnAction()) {
+					checkPersonScheduler = false;
+					return true;
+				}
 			}
 		}
 
@@ -510,7 +575,7 @@ public class PersonAgent extends Agent implements Person {
 		roles.add(myJob.role);
 
 		//This loop should be changed to using ActiveRole
-		activeRole = myJob.role;
+		myJob.role.setActive(true);
 
 		checkPersonScheduler = false;
 
@@ -575,7 +640,7 @@ public class PersonAgent extends Agent implements Person {
 			gui.DoGoToLocation(m.getEntranceLocation());
 			break;
 		}
-	/*	try {
+		/*	try {
 			busyWithTask.acquire();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -610,11 +675,9 @@ public class PersonAgent extends Agent implements Person {
 		bankGui = new bankCustomerGui((BankCustomerRole)bankRoleTemp, ScreenFactory.getMeScreen("Bank"));
 		bankRoleTemp.setPerson(this);
 		bankGui.setHomeScreen(ScreenFactory.getMeScreen("Bank"));
-		activeRole = bankRoleTemp;
+		bankRoleTemp.setActive(true);
 
 
-		//Add role
-		roles.add(bankRoleTemp);
 		bankRoleTemp.setGui(bankGui);
 		//Enter building
 		enteringBuilding(bankRoleTemp);

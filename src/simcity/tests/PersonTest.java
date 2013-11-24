@@ -165,4 +165,6 @@ public class PersonTest extends TestCase
 		assertTrue("The person should head home now to put groceries in the fridge."
 				+ " But the scheduler returned false", person.pickAndExecuteAnAction());
 	}
+	
+	//testCityClock
 }
