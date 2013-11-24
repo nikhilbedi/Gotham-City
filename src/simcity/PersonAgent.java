@@ -16,7 +16,7 @@ import java.util.concurrent.Semaphore;
 public class PersonAgent extends Agent implements Person {
 	public String name;
 	int currentTime; //(ranges from 1-24)
-	int accountNumber; //Not currently sure how we're using account numbers, but the person should know it if we're removing that role
+	public int accountNumber; //Not currently sure how we're using account numbers, but the person should know it if we're removing that role
 	Semaphore busyWithTask = new Semaphore(0, false);
 	private double money = 0.0;
 	private List<Role> roles = new ArrayList<Role>();
@@ -146,9 +146,9 @@ public class PersonAgent extends Agent implements Person {
 		markets = m;
 	}
 
-	/*	public void setBank(Bank b) {
+	public void setBank(Bank b) {
 		bank = b;
-	}*/
+	}
 
 	/**
 	 * 
@@ -423,10 +423,12 @@ public class PersonAgent extends Agent implements Person {
 
 		//Role Scheduler
 		//This should be changed to activeRole.pickAndExecuteAnAction();
-		if(activeRole.pickAndExecuteAnAction()) {
-			//checkPersonScheduler should be made true anytime a role is done at a building, outside this scheduler
-			checkPersonScheduler = false;
-			return true;
+		if(activeRole != null) {
+			if(activeRole.pickAndExecuteAnAction()) {
+				//checkPersonScheduler should be made true anytime a role is done at a building, outside this scheduler
+				checkPersonScheduler = false;
+				return true;
+			}
 		}
 
 		return false;
@@ -456,6 +458,9 @@ public class PersonAgent extends Agent implements Person {
 		//This loop should be changed to using ActiveRole
 		activeRole = myJob.role;
 
+		checkPersonScheduler = false;
+		
+		//add role to building's list of workers
 	}
 
 	private void leaveWork() {
@@ -482,6 +487,7 @@ public class PersonAgent extends Agent implements Person {
 			/*	Role residentRoleTemp = RoleFactory.makeMeRole(bank.residentRole);
 			activeRole = residentRoleTemp;
 			roles.add(residentRoleTemp);*/
+			
 		}
 	}
 
@@ -501,6 +507,10 @@ public class PersonAgent extends Agent implements Person {
 		/*Role customerRoleTemp = roles.add(RoleFactory.makeMeRole(currentPreference.restaurantCustomerRole));
 		activeRole = customerRoleTemp;
 		roles.add(customerRoleTemp);*/
+		
+		checkPersonScheduler = false;
+		
+		//initial message to host
 	}
 
 	private void goGetGroceries() {
@@ -522,6 +532,10 @@ public class PersonAgent extends Agent implements Person {
 		/*Role marketRoleTemp = roles.add(RoleFactory.makeMeRole(currentPreference.marketCustomerRole));
 		activeRole = marketRoleTemp;
 		roles.add(marketRoleTemp);*/
+		
+		checkPersonScheduler = false;
+		
+		//initial message to marketCashier
 	}
 
 	private void goToBank() {
@@ -533,18 +547,21 @@ public class PersonAgent extends Agent implements Person {
 		gui.DoGoToLocation(bank.getEntranceLocation());
 
 		//Wait until we get to the building
-		try {
+		/*try {
 			busyWithTask.acquire();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 
 		//Enter building
 		//Add role and 
 		/*	Role bankRoleTemp = RoleFactory.makeMeRole(bank.bankCustomerRole);
 		bankRoleTemp.active = true;
 		roles.add(bankRoleTemp);*/
+		
+		checkPersonScheduler = false;
+		
+		//initial message to bankgreeter
 	}
 
 
