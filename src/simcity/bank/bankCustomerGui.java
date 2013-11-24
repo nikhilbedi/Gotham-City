@@ -3,6 +3,7 @@ package simcity.bank;
 import java.awt.Color;
 
 import Gui.RoleGui;
+import Gui.Screen;
 
 public class bankCustomerGui extends RoleGui {
 	
@@ -19,6 +20,17 @@ public class bankCustomerGui extends RoleGui {
 		yPos = 20;
 		xDestination = 20;
 		yDestination = 20;
+	}
+	public bankCustomerGui(BankCustomerRole bankCustomer, Screen s) {
+		this.bankCustomer = bankCustomer;
+		myColor = Color.green;
+		atTeller = false;
+		atExit = false;
+		xPos = 20;
+		yPos = 20;
+		xDestination = 20;
+		yDestination = 20;
+		homeScreen = s;
 	}
 	
 	public void updatePosition() {
@@ -42,7 +54,14 @@ public class bankCustomerGui extends RoleGui {
 		// Original message call to start the process
 		if(xPos == 20 && yPos == 20 &&
 			xDestination == 20 && yDestination == 20)
-			bankCustomer.msgEnteredBank();
+			{
+			//xDestination = 200;
+			//yDestination = 200;
+			//TODO this is hacked for testing purposes
+			//System.out.println("here we are");
+			//bankCustomer.msgEnteredBank();
+			//GetInLine
+			}
 		
 		if(xPos != xDestination ||
 			yPos != yDestination) {

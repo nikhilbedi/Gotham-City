@@ -4,10 +4,12 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 
+import agent.Role;
+
 public class RoleGui {
 	protected int xPos, yPos;
 	protected int xDestination, yDestination;
-	private static int speed = 5;
+	private static int speed = 1;
 	
 	private enum Command {noCommand, commandA, commandB, commandC};
 
@@ -16,6 +18,14 @@ public class RoleGui {
 	public static final int guiSize = 20;
 	
 	protected Color myColor;
+	
+	protected Screen homeScreen;
+
+	public Screen getHomeScreen() {
+		System.out.println("Here is home Screen: " + homeScreen);
+		return homeScreen;
+	}
+
 
 	public RoleGui(){
 		//agent = c;
@@ -27,6 +37,11 @@ public class RoleGui {
 		command = Command.commandA;
 		myColor = Color.gray;
 		//this.gui = gui;
+	}
+
+
+	public RoleGui(Role r, Screen meScreen) {
+		// TODO Auto-generated constructor stub
 	}
 
 
@@ -51,5 +66,8 @@ public class RoleGui {
 	}
 	public void setColor(Color c){
 		myColor = c;
+	}
+	public void setHomeScreen(Screen s){
+		homeScreen = s;
 	}
 }

@@ -1,14 +1,15 @@
 package Gui;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.*;
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
 import java.util.*;
 
 public class Screen
 {
-        ArrayList<RoleGui> guis = new ArrayList<RoleGui>();
+        List<RoleGui> guis = Collections.synchronizedList( new ArrayList<RoleGui>() );
 
         String loc = "";
         int xCord, yCord;
@@ -24,11 +25,15 @@ public class Screen
         }
 
         public void addGui(RoleGui g1){
-                guis.add(g1);
+        	synchronized(guis){
+        	guis.add(g1);
+        	}
         }
         
         public void removeGui(RoleGui g1){
-                guis.remove(g1);
+        	synchronized(guis){
+            	guis.remove(g1);
+            	}
         }
 
         public void updateAgents(){
@@ -86,10 +91,10 @@ public class Screen
                                 return "Restaurant";
                         }
                         if((x>400)&&(x<450)&&(y>100)&&(y<150)){
-                                return "Market";
+                                return "Bank";
                         }
                         if((x>600)&&(x<650)&&(y>100)&&(y<150)){
-                                return "Bank";
+                                return "Market";
                         }
                         if((x>400)&&(x<450)&&(y>700)&&(y<750)){
                                 return "Home";
@@ -101,5 +106,9 @@ public class Screen
                         }
                 }
                 return "na";
+        }
+        
+        public String printGuiList(){
+        	return guis.toString();
         }
 }
