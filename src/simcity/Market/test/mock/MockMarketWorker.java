@@ -3,6 +3,7 @@ package simcity.Market.test.mock;
 import java.util.List;
 import java.util.Map;
 
+import agent.Role;
 import simcity.Market.Item;
 import simcity.Market.Order;
 import simcity.Market.interfaces.MarketCustomer;
@@ -29,6 +30,19 @@ public class MockMarketWorker extends Mock implements MarketWorker{
 
 	@Override
 	public void Brought(MarketCustomer customer) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void SendFood(Map<String, Integer> temp, Role cookRole) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void Sent(Role role) {
 		// TODO Auto-generated method stub
 		
 	}

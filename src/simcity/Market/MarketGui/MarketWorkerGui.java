@@ -3,8 +3,12 @@ package simcity.Market.MarketGui;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.List;
+import java.util.Map;
 
+import agent.Role;
 import Gui.RoleGui;
+import simcity.Market.Order;
 import simcity.Market.interfaces.MarketCustomer;
 import simcity.Market.interfaces.MarketWorker;
 
@@ -16,9 +20,10 @@ public class MarketWorkerGui extends RoleGui{
 	private MarketWorker worker;
 	private MarketCustomer customer;
 	private Command command;
-	private enum Command {none, getting, delivering};
-	
-	
+	private enum Command {none, getting, delivering, restGetting, truck};
+	private List <Order> orders;
+	private boolean drawString = false;
+	private Role role;
 	public MarketWorkerGui(MarketWorker mw){
 		worker = mw;
 		xPos = 130;
@@ -46,19 +51,51 @@ public class MarketWorkerGui extends RoleGui{
 	        	command = Command.none;
 	        	worker.Brought(customer);
 	        }
+	        if (xPos == 130 && yPos == 40 && command == Command.restGetting){
+	        	command = Command.none;
+	        	LoadToTruck();
+	        }
+	        if (xPos == 0 && yPos == 40 && command == Command.truck){
+	        	command = Command.none;
+	        	worker.Sent(role);
+	        }
 	}
 
 
 	public void draw(Graphics g) {
 		g.setColor(Color.RED);
         g.fillRect(xPos, yPos, 20, 20);
-		
+		if (drawString == true){
+			//drawOrder(g);
+		}
+        
 	}
 
 	public boolean isPresent() {
 		return true;
 	}
+	
+	public void DoSend(Map<String, Integer> m, Role role){
+		this.role = role;
+		xDestination = 130;
+		yDestination = 40;
+		command = Command.restGetting;
+	}
 
+	public void LoadToTruck(){
+		xDestination = 0;
+		yDestination = 40;
+		command = Command.truck;
+	}
+	public void drawOrder(Graphics g){
+		int x = xPos;
+		/*for (Order order : orders){
+			g.drawString(order.getChoice(),x, yPos+20);
+			x+=10;
+		}*/
+		
+	}
+	
 	
 	public void DoBring(MarketCustomer m){
 		customer = m;
@@ -68,6 +105,7 @@ public class MarketWorkerGui extends RoleGui{
 	}
 	
 	public void Deliver(){
+		drawString = true; 
 		xDestination = 290;
 		yDestination = 130;
 		command = Command.delivering;

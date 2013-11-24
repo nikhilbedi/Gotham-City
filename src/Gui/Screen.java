@@ -4,21 +4,13 @@ import java.awt.Graphics;
 import java.awt.event.*;
 
 import javax.swing.*;
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 import java.awt.event.*;
 import java.awt.image.*;
 import java.util.*;
 
 public class Screen
 {
-<<<<<<< HEAD
-        List<RoleGui> guis = Collections.synchronizedList(new ArrayList<RoleGui>());
-=======
         List<RoleGui> guis = Collections.synchronizedList( new ArrayList<RoleGui>() );
->>>>>>> master
 
         String loc = "";
         int xCord, yCord;
@@ -34,26 +26,15 @@ public class Screen
         }
 
         public void addGui(RoleGui g1){
-<<<<<<< HEAD
-        	synchronized(guis) {
-                guis.add(g1);
-=======
         	synchronized(guis){
         	guis.add(g1);
->>>>>>> master
         	}
         }
         
         public void removeGui(RoleGui g1){
-<<<<<<< HEAD
-        	synchronized(guis) {
-                guis.remove(g1);
-        	}
-=======
         	synchronized(guis){
             	guis.remove(g1);
             	}
->>>>>>> master
         }
 
         public void updateAgents(){

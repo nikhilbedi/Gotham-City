@@ -341,10 +341,7 @@ public class PersonAgent extends Agent implements Person {
 		// to be active
 		role.getGui().getHomeScreen().removeGui(role.getGui());
 		gui.getHomeScreen().addGui(gui);
-<<<<<<< HEAD
 		gui.DoGoToLocation(new Location(200,200));
-=======
->>>>>>> master
 		roles.remove(role);
 		checkPersonScheduler = true;
 	}
@@ -437,15 +434,10 @@ public class PersonAgent extends Agent implements Person {
 					return true;
 				}
 			}
+		}
 
 			//if he's REALLY hungry, then eat something before paying bills. Then do checks of eating at home versus the restaurant
 
-<<<<<<< HEAD
-		//Gotta pay the bills!
-
-	/*	for(RentBill rb : rentBills) {
-			if(rb.state == RentState.NotPaid){
-=======
 			//Gotta pay the bills!
 			for(RentBill rb : rentBills) {
 				if(rb.state == RentState.NotPaid){
@@ -453,7 +445,6 @@ public class PersonAgent extends Agent implements Person {
 					return true;
 				}
 			}
->>>>>>> master
 
 			//Gotta eat!
 			if(eatingState == EatingState.EatAtHome) {
@@ -465,24 +456,14 @@ public class PersonAgent extends Agent implements Person {
 				return true;
 			}
 
-<<<<<<< HEAD
-		//Let me even see if I got money..
-
-		if(accountNumber == 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
-=======
 			//Let me even see if I got money..
 			if(accountNumber == 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
->>>>>>> master
 				if(currentBuilding != bank){
 					goToBank();
 					return true;
 				}
 			}
-<<<<<<< HEAD
-=======
-		}
 
->>>>>>> master
 
 
 		//Role Scheduler
@@ -612,10 +593,6 @@ public class PersonAgent extends Agent implements Person {
 
 		}
 
-<<<<<<< HEAD
-=======
-		//Making Role to be added TODO put into funciton?
->>>>>>> master
 		bankRoleTemp = RoleFactory.makeMeRole("bankCustomer");
 		currentBuilding = bank;
 		bankGui = new bankCustomerGui((BankCustomerRole)bankRoleTemp, ScreenFactory.getMeScreen("Bank"));
@@ -629,14 +606,8 @@ public class PersonAgent extends Agent implements Person {
 		bankRoleTemp.setGui(bankGui);
 		//Enter building
 		enteringBuilding(bankRoleTemp);
-<<<<<<< HEAD
-		
-	
-		
-=======
 
 		checkPersonScheduler = false;
->>>>>>> master
 	}
 
 

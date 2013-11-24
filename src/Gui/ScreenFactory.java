@@ -18,10 +18,6 @@ public class ScreenFactory {
 
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 	//public static Screen main = new Screen(1);
 	public static Screen rest = new Screen(2);
 	public static Screen market = new Screen(3);
@@ -35,11 +31,6 @@ public class ScreenFactory {
 	public static Screen home = new HomeAnimationPanel();
 */
 	public static Screen bank = new bankAnimationPanel();
-<<<<<<< HEAD
-	
-=======
-
->>>>>>> master
 	public ScreenFactory(){
 		synchronized(screenList) {
 		screenList.add(main);

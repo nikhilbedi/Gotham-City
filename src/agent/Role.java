@@ -3,6 +3,8 @@ package agent;
 
 import Gui.RoleGui;
 import simcity.PersonAgent;
+import simcity.Market.MarketCashierRole;
+import simcity.Market.interfaces.MarketCashier;
 
 public class Role {
 
