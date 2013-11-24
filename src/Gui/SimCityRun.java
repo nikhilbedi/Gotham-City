@@ -5,9 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-
-//import simcity.Market.MarketGui.MarketPanel;
-
+import simcity.CityClock;
 import simcity.Home.gui.HomePanel;
 
 
@@ -43,8 +41,8 @@ public class SimCityRun extends JFrame implements ActionListener
 	
 	public static void main(String[] args)
 	{
+		CityClock.startTime();
 		SimCityRun runCity = new SimCityRun();
-
 	}
 	
 	@Override

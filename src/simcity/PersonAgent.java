@@ -276,9 +276,9 @@ public class PersonAgent extends Agent implements Person {
 
 
 	//Messages from World Clock
-	public void currentTime(int time) {
+	public void updateTime(int time) {
 		currentTime = time;
-
+		print("Checking my watch and it is " + time + " o' clock");
 		//NEED TO CHECK IF THIS PERSON IS A HOMEOWNER. IF SO, MAKE THAT ROLE ACTIVE IF NO OTHER ROLE IS ACTIVE
 
 		//We should change any states here, not constantly check the scheduler to change states
