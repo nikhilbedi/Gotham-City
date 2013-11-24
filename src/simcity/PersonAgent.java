@@ -332,8 +332,7 @@ public class PersonAgent extends Agent implements Person {
 		// to be active
 		role.getGui().getHomeScreen().removeGui(role.getGui());
 		gui.getHomeScreen().addGui(gui);
-		
-		
+		gui.DoGoToLocation(new Location(200,200));
 		roles.remove(role);
 	}
 	
@@ -582,7 +581,7 @@ System.out.println("Calling role schedulers");
 		enteringBuilding(bankRoleTemp);
 		
 	
-
+		
 	}
 
 

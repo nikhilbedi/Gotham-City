@@ -28,10 +28,12 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	public BankCustomerRole(PersonAgent person) {
 		super(person);
 		bankCustomerGui = (bankCustomerGui)super.gui;
+		//setTransactions();
 	}
 	public BankCustomerRole(){
 		super();
 		bankCustomerGui = (bankCustomerGui)super.gui;
+		//setTransactions();
 	}
 	
 	//State Variables
@@ -112,8 +114,10 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		transactionList.add(new BankTransaction("withdrawal", 40));
 		transactionList.add(new BankTransaction("needALoan", 200));*/
 		
-		if(myPerson.getAccountNumber() == 0)
+		if(myPerson.getAccountNumber() == 0) {
+			System.out.println(getName() + ": NEED TO OPEN ACCOUNT");
 			transactionList.add(new BankTransaction("openingAccount", 50));
+		}
 		
 		if(myPerson.getRentBills().size() > 0) {
 			for(RentBill b : myPerson.getRentBills())
@@ -133,6 +137,7 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	@Override
 	public void startBuildingMessaging(){
 		msgEnteredBank();
+		setTransactions();
 	}
 
 	public void msgWaitHere(int i) {

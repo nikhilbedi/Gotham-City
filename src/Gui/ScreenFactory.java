@@ -14,7 +14,7 @@ import simcity.bank.bankAnimationPanel;
 import simcity.Home.gui.HomeAnimationPanel;
 
 public class ScreenFactory {
-	List<Screen> screenList = new ArrayList<Screen>();
+	List<Screen> screenList = Collections.synchronizedList(new ArrayList<Screen>());
 
 
 
@@ -34,11 +34,13 @@ public class ScreenFactory {
 	public static Screen bank = new bankAnimationPanel();
 	
 	public ScreenFactory(){
+		synchronized(screenList) {
 		screenList.add(main);
 		screenList.add(rest);
 		screenList.add(market);
 		screenList.add(bank);
 		screenList.add(home);
+		}
 
 
 		//These are testing hacks
@@ -66,8 +68,10 @@ public class ScreenFactory {
 
 
 	public void updateAllPositions(){
-		for (Screen s : screenList) {
-			s.updateAgents();
+		synchronized(screenList) {
+			for (Screen s : screenList) {
+				s.updateAgents();
+			}
 		}
 	}
 	public Screen getScreen(String s){

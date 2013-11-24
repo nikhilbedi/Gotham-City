@@ -1,14 +1,17 @@
 package Gui;
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.event.*;
+
 import javax.swing.*;
-import java.awt.*;
+
 import java.awt.event.*;
 import java.awt.image.*;
 import java.util.*;
 
 public class Screen
 {
-        ArrayList<RoleGui> guis = new ArrayList<RoleGui>();
+        List<RoleGui> guis = Collections.synchronizedList(new ArrayList<RoleGui>());
 
         String loc = "";
         int xCord, yCord;
@@ -24,23 +27,31 @@ public class Screen
         }
 
         public void addGui(RoleGui g1){
+        	synchronized(guis) {
                 guis.add(g1);
+        	}
         }
         
         public void removeGui(RoleGui g1){
+        	synchronized(guis) {
                 guis.remove(g1);
+        	}
         }
 
         public void updateAgents(){
+        	synchronized(guis) {
                 for (RoleGui gui : guis) {
                         gui.updatePosition();
                 }
+        	}
         }
 
         public void paintAgents(Graphics g){
+        	synchronized(guis) {
                 for (RoleGui gui : guis) {
                         gui.draw(g);
                 }
+        	}
         }
         
         public void paintObstacles(Graphics g){
