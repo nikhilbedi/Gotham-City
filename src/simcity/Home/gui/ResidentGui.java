@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 import Gui.RoleGui;
+import Gui.Screen;
+import simcity.Home.ResidentRole;
 import simcity.Home.interfaces.Resident;
 import simcity.PersonAgent;
 import simcity.PersonAgent.EatingState;
@@ -37,6 +39,17 @@ public class ResidentGui extends RoleGui {
 		myColor = Color.red;
 		// System.err.println("Here we are 2");
 		resident = r;
+		
+		xPos = 400;
+		yPos = -40;
+		xDestination = 400;
+		yDestination = -40;
+	}
+	public ResidentGui(ResidentRole role, Screen s) {
+		myColor = Color.red;
+		// System.err.println("Here we are 2");
+		resident = role;
+		homeScreen = s;
 		xPos = 400;
 		yPos = -40;
 		xDestination = 400;
@@ -167,7 +180,7 @@ public class ResidentGui extends RoleGui {
 	public void DoReturnToHomePosition() {
 		System.out.println("At Home Position");
 		xDestination = 84;
-		yDestination = 226;
+		yDestination = 224;
 		command = Command.atHome;
 
 	}
@@ -179,6 +192,7 @@ public class ResidentGui extends RoleGui {
 		command = Command.atMailbox;
 
 	}
+
 
 	public int getXPos() {
 		return xPos;

@@ -42,11 +42,13 @@ public class HomeAnimationPanel extends Screen {
 		ResidentGui residentGui = new ResidentGui(resident);
 		resident.setGui(residentGui);
 		agentCust.addRole(resident);
-		agentCust.startThread();
-
-		addGui(residentGui);
+		
+		//agentCust.startThread();
+		//addGui(residentGui);
+		
+		
+		
 		// resident.gotHungry();
-
 		// Home home = new Home("House_1", 10, 10, 10, 10);
 	}
 

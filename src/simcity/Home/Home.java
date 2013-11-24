@@ -11,7 +11,7 @@ public class Home extends Building{
 
 	String type;
 	public List<String> groceryList;
-	public List<String> groceryBag;
+	//public List<String> groceryBag;
 	public List<RentBill> rentBills;
 	public List<Food> fridgeFoods;
 
@@ -25,7 +25,7 @@ public class Home extends Building{
 		groceryList = new ArrayList<String>();
 		rentBills = new ArrayList<RentBill>();
 		fridgeFoods = new ArrayList<Food>();	
-		//resident = new ResidentRole();  
+		resident = new ResidentRole();  
 		//You'll notice for this particular role, resident needs a Person as a parameter. 
 		//But, we don't necessarily immediately know who this Person is.
 		//Please add ANOTHER constructor that doesnt need a Person parameter

@@ -10,6 +10,8 @@ import simcity.RoleFactory;
 import simcity.restaurants.*;
 import simcity.Market.Market;
 import simcity.Home.Home;
+import simcity.Home.ResidentRole;
+import simcity.Home.gui.ResidentGui;
 import simcity.bank.*;
 
 import java.util.*;
@@ -189,7 +191,7 @@ public class PersonAgent extends Agent implements Person {
 		}
 		else {
 			myHome = h;
-			currentBuilding = h;
+			//currentBuilding = h;
 			currentDestination = h;
 			//Should I make a new one, or just make it equal to this one? There is only one resident for a home...
 			//activeRole = myHome.resident;
@@ -442,8 +444,12 @@ public class PersonAgent extends Agent implements Person {
 		if(checkPersonScheduler) {
 			//If he's CRRAAAZZY hungry, then eat something first. Then do checks of eating at home versus the restaurant
 			//TODO fix this override hack!
-			goEatAtHome();
-			checkPersonScheduler = false;
+			if(true){
+				//System.out.println("go Eat at home called");
+				goEatAtHome();
+				return true;
+			}
+			
 			
 			//Work comes first--his family probably doesn't like this :/
 			if(myJob != null) {
@@ -554,7 +560,9 @@ public class PersonAgent extends Agent implements Person {
 
 	private void goEatAtHome() {
 		//if inside building and not in home, animate there
+		System.out.println("inside currentbuilding*********");
 		if(currentBuilding != myHome) {
+		
 			gui.DoGoToLocation(myHome.getEntranceLocation());
 			try {
 				busyWithTask.acquire();
@@ -565,15 +573,31 @@ public class PersonAgent extends Agent implements Person {
 			
 			
 			//TODO update names to home
+			//homeTemp = RoleFactory.makeMeRole("residentRole");
+			homeTemp = myHome.resident;
+			currentBuilding = myHome;
+			homeGui = new ResidentGui((ResidentRole)homeTemp, ScreenFactory.getMeScreen("Home"));
+			
+			homeGui.setHomeScreen(ScreenFactory.getMeScreen("Home"));
+			activeRole = homeTemp;
+			/*
 			bankRoleTemp = RoleFactory.makeMeRole("bankCustomer");
 			currentBuilding = bank;
 			bankGui = new bankCustomerGui((BankCustomerRole)bankRoleTemp, ScreenFactory.getMeScreen("Bank"));
 			bankRoleTemp.setPerson(this);
 			bankGui.setHomeScreen(ScreenFactory.getMeScreen("Bank"));
 			activeRole = bankRoleTemp;
-
+*/
 
 			//Add role
+			roles.add(homeTemp);
+			homeTemp.setGui(homeGui);
+			//Enter building
+			homeTemp.setPerson(this);
+			enteringBuilding(homeTemp);
+			checkPersonScheduler = false;
+			
+			/*
 			roles.add(bankRoleTemp);
 			bankRoleTemp.setGui(bankGui);
 			//Enter building
@@ -581,7 +605,7 @@ public class PersonAgent extends Agent implements Person {
 
 			checkPersonScheduler = false;
 			
-			
+			*/
 			
 			//enter building (removing rect from city screen if it is there, adding rect to home if not there)
 
