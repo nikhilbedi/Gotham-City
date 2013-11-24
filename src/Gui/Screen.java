@@ -92,6 +92,7 @@ import java.util.*;
          if(temp==1){//Main city pane
 
                  g.drawString("Main City", 400, 50);
+                 g.fillRect(400, 700, 50, 50);
          }
          else if(temp==2){//Restaurant
                  g.drawString("Restaurant", 400, 50);

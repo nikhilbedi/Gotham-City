@@ -1,12 +1,14 @@
 package simcity.Home.interfaces;
 
+import java.util.List;
+
 import simcity.PersonAgent.RentBill;
 
 public interface Resident {
 	
 	public abstract void gotHungry();
 
-	public abstract void payRent(RentBill rb);
+	public abstract void payRent(List<RentBill> rentBills);
 	
 	public abstract void AtTable();
 
@@ -25,6 +27,10 @@ public interface Resident {
 	public abstract void checkMail();
 
 	public abstract void atMailbox();
+
+	public abstract void atHome();
+
+	
 
 	
 	

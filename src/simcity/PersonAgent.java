@@ -112,7 +112,7 @@ public class PersonAgent extends Agent implements Person {
 
 	//Paying Rent
 	//When to pay rent
-	private enum RentState {Paid, NotPaid, PayingBill};
+	public enum RentState {Paid, NotPaid, PayingBill};
 	public class RentBill {
 		public RentState state = RentState.NotPaid;
 		PersonAgent accountHolder;

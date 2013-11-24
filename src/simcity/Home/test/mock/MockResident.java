@@ -2,6 +2,8 @@ package simcity.Home.test.mock;
 
 
 
+import java.util.List;
+
 import simcity.PersonAgent.RentBill;
 import simcity.Home.interfaces.Resident;
 import simcity.tests.mock.Mock;
@@ -66,7 +68,7 @@ public class MockResident extends Mock implements Resident {
 		
 	}
 	@Override
-	public void payRent(RentBill rb) {
+	public void payRent(List<RentBill> rentBills) {
 		log.add(new LoggedEvent("received pay rent"));
 		
 	}
@@ -78,6 +80,11 @@ public class MockResident extends Mock implements Resident {
 	@Override
 	public void atMailbox() {
 		log.add(new LoggedEvent("animation at mailbox"));
+		
+	}
+	@Override
+	public void atHome() {
+		log.add(new LoggedEvent("animation on couch"));
 		
 	}
 
