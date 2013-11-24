@@ -28,8 +28,9 @@ public class PersonAgent extends Agent implements Person {
 	private double money = 0.0;
 	protected List<Role> roles = new ArrayList<Role>();
 	public Map<String, Integer> groceryList = new HashMap<String, Integer>();
-	private List<RentBill> rentBills = new ArrayList<RentBill>();
+	public List<RentBill> rentBills = new ArrayList<RentBill>();
 	boolean checkPersonScheduler = true;
+
 	PersonGui gui;
 
 
@@ -123,8 +124,8 @@ public class PersonAgent extends Agent implements Person {
 	private enum RentState {Paid, NotPaid, PayingBill};
 	public class RentBill {
 		public RentState state = RentState.NotPaid;
-		PersonAgent accountHolder;
-		float amount;
+		public PersonAgent accountHolder;
+		public float amount;
 
 
 		public RentBill(PersonAgent p, float a) {
@@ -452,7 +453,7 @@ public class PersonAgent extends Agent implements Person {
 				goEatAtRestaurant();
 				return true;
 			}
-			
+
 			//Let me even see if I got money..
 			if(accountNumber == 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
 				if(currentBuilding != bank){
@@ -460,15 +461,9 @@ public class PersonAgent extends Agent implements Person {
 					return true;
 				}
 			}
-
-			//Might as well get groceries if I ain't got nothing to do
-			if(marketState == MarketState.GetGroceries) {
-				goGetGroceries();
-				return true;
-			}
-
-
 		}
+
+
 
 		//Role Scheduler
 		//This should be changed to activeRole.pickAndExecuteAnAction();
@@ -598,14 +593,14 @@ public class PersonAgent extends Agent implements Person {
 		}
 
 		//Making Role to be added TODO put into funciton?
-		bankRoleTemp = RoleFactory.makeMeRole(bank.bankCustomer);
+		bankRoleTemp = RoleFactory.makeMeRole("bankCustomer");
 		currentBuilding = bank;
 		bankGui = new bankCustomerGui((BankCustomerRole)bankRoleTemp, ScreenFactory.getMeScreen("Bank"));
 		bankRoleTemp.setPerson(this);
 		bankGui.setHomeScreen(ScreenFactory.getMeScreen("Bank"));
 		activeRole = bankRoleTemp;
-		
-		
+
+
 		//Add role
 		roles.add(bankRoleTemp);
 		bankRoleTemp.setGui(bankGui);

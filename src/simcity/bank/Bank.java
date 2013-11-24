@@ -12,11 +12,8 @@ import simcity.bank.interfaces.BankTeller;
 public class Bank extends Building {
 
 	BankGreeter greeter;
-	BankTeller teller;
-	
-	
-	public String bankCustomer = "bankCustomer";
 
+	String bankCustomer = "bankCustomer", bankTeller = "bankTeller", bankGreeter = "bankGreeter";
 	//Location location = new Location(xCoor, yCoor);
 	int openTime, closeTime;
 	
@@ -34,15 +31,6 @@ public class Bank extends Building {
 	
 	public BankGreeter getGreeter() {
 		return greeter;
-	}
-	
-	public BankTeller getTeller() {
-		return teller;
-	}
-
-
-	public void setTeller(BankTeller teller) {
-		this.teller = teller;
 	}
 	
 	/*public void setLocation(Location l) {

@@ -17,7 +17,6 @@ public class ScreenFactory {
 	List<Screen> screenList = new ArrayList<Screen>();
 
 
-
 	//public static Screen main = new Screen(1);
 	public static Screen rest = new Screen(2);
 	public static Screen market = new Screen(3);
@@ -31,6 +30,7 @@ public class ScreenFactory {
 	public static Screen home = new HomeAnimationPanel();
 */
 	public static Screen bank = new bankAnimationPanel();
+
 	public ScreenFactory(){
 		screenList.add(main);
 		screenList.add(rest);
