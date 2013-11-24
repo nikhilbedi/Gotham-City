@@ -14,15 +14,9 @@ public class Bank extends Building {
 	BankGreeter greeter;
 	BankTeller teller;
 	
-	public BankTeller getTeller() {
-		return teller;
-	}
-
-
-	public void setTeller(BankTeller teller) {
-		this.teller = teller;
-	}
+	
 	public String bankCustomer = "bankCustomer";
+
 	//Location location = new Location(xCoor, yCoor);
 	int openTime, closeTime;
 	
@@ -40,6 +34,15 @@ public class Bank extends Building {
 	
 	public BankGreeter getGreeter() {
 		return greeter;
+	}
+	
+	public BankTeller getTeller() {
+		return teller;
+	}
+
+
+	public void setTeller(BankTeller teller) {
+		this.teller = teller;
 	}
 	
 	/*public void setLocation(Location l) {
