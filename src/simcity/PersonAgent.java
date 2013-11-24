@@ -372,7 +372,7 @@ public class PersonAgent extends Agent implements Person {
 		// Person Scheduler 
 
 		//If he's CRRAAAZZY hungry, then eat something first. Then do checks of eating at home versus the restaurant
-
+		//System.out.println("Calling role schedulers");
 		//Work comes first--his family probably doesn't like this :/
 		if(myJob != null) {
 			if(myJob.state == JobState.GoToWorkSoon){
@@ -417,16 +417,16 @@ public class PersonAgent extends Agent implements Person {
 		}
 
 		//Let me even see if I got money..
-		if(accountNumber == 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
+		/*if(accountNumber == 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
 			goToBank();
 			return true;
 		}
-
+*/
 		//Role Scheduler
 		//This should be changed to activeRole.pickAndExecuteAnAction();
 		for(Role r : roles) {
 
-			//System.out.println("Calling role schedulers");
+			System.out.println("Calling role schedulers");
 
 			r.pickAndExecuteAnAction();
 

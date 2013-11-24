@@ -2,6 +2,7 @@ package simcity.Market;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import simcity.PersonAgent;
 import simcity.Market.MarketGui.MarketCustomerGui;
@@ -27,6 +28,10 @@ public class MarketCustomerRole extends Role implements MarketCustomer{
 		name = person.name;
 	}
 	
+	/*public void MarketCustomerRole(){
+		
+	}*/
+	
 	public void setCashier(MarketCashier m){
 		cashier = m;
 	}
@@ -35,16 +40,18 @@ public class MarketCustomerRole extends Role implements MarketCustomer{
 		return name;
 	}
 	public void getGroceries(){
-		List<String> foods = new ArrayList<String>();//poka tak 
+		 person.groceryList.put("Chicken", 3);
+		 person.groceryList.put("Rice", 2);
 		System.out.println(person.name+ " " + "Got order to get groceries");
-		for (int i=0; i<foods.size(); i++){
-			orders.add(new Order(this, foods.get(i), 2, false));
+		for (Map.Entry<String, Integer> entry: person.groceryList.entrySet() ){
+			orders.add(new Order(this, entry.getKey(), entry.getValue(), false));
 		}
 		state = CustomerState.needFood;
 		stateChanged();
 	}
 	
 	public void AtCashier(){//from gui
+		System.out.println("At cashier");
 		state = CustomerState.atCashier;
 		stateChanged();
 	} 
@@ -76,6 +83,7 @@ public class MarketCustomerRole extends Role implements MarketCustomer{
 	public void HereIsYourStuff(List<Order> o){
 		System.out.println(person.name+ " " +"Got my stuff");
 		orders = o;
+		//
 		state = CustomerState.gotItems;
 		stateChanged();
 	}
@@ -89,7 +97,9 @@ public class MarketCustomerRole extends Role implements MarketCustomer{
 	//scheduler
 	@Override 
 	public boolean pickAndExecuteAnAction(){
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		if (state == CustomerState.needFood){
+			System.out.println("going to rest");
 			state =CustomerState.inALine;
 			tellCashier();
 			return true;

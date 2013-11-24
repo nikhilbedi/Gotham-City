@@ -24,12 +24,14 @@ public class MarketWorkerGui extends RoleGui{
 	private List <Order> orders;
 	private boolean drawString = false;
 	private Role role;
+	
+	
 	public MarketWorkerGui(MarketWorker mw){
 		worker = mw;
-		xPos = 130;
-		yPos = 110;
-		xDestination = 130;
-		yDestination = 110;
+		xPos = 220;
+		yPos = 260;
+		xDestination = 220;
+		yDestination = 260;
 	}
 	
 
@@ -43,11 +45,11 @@ public class MarketWorkerGui extends RoleGui{
 	            yPos++;
 	        else if (yPos > yDestination)
 	            yPos--;
-	        if (yPos == 40 && xPos == 130 && command == Command.getting){
+	        if (yPos == 40 && xPos == 450 && command == Command.getting){
 	        	command = Command.none;
 	        	Deliver();
 	        }
-	        if (xPos == 290 && yPos == 130 && command == Command.delivering){
+	        if (xPos == 450 && yPos == 280 && command == Command.delivering){
 	        	command = Command.none;
 	        	worker.Brought(customer);
 	        }
@@ -99,20 +101,20 @@ public class MarketWorkerGui extends RoleGui{
 	
 	public void DoBring(MarketCustomer m){
 		customer = m;
-		xDestination = 130;
+		xDestination = 450;
 		yDestination = 40;
 		command = Command.getting;
 	}
 	
 	public void Deliver(){
 		drawString = true; 
-		xDestination = 290;
-		yDestination = 130;
+		xDestination = 450;
+		yDestination = 280;
 		command = Command.delivering;
 	}
 	
 	public void DefaultPos(){
-		xDestination = 130;
-		yDestination = 110;
+		xDestination = 220;
+		yDestination = 260;
 	}
 }

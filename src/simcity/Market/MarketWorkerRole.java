@@ -29,6 +29,10 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 		name = person.name;
 	}
 	
+	public MarketWorkerRole(){
+		
+	}
+	
 	public void setCashier(MarketCashier c){
 		cashier = c;
 	}

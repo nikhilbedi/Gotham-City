@@ -16,10 +16,10 @@ public class MarketCashierGui extends RoleGui{
 	
 	public MarketCashierGui(MarketCashier mc){
 		cashier = mc;
-		xPos = 110;
-		yPos = 130;
-		xDestination = 110;
-		yDestination = 130;
+		xPos = 200;
+		yPos = 280;
+		xDestination = 200;
+		yDestination = 280;
 	}
 	
 

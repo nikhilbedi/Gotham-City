@@ -30,9 +30,9 @@ public class MarketCashierRole extends Role implements MarketCashier{
 		name = person.name;
 	}
 	
-/*	public MarketCashierRole(){
-		super();
-	}*/
+	public MarketCashierRole(){
+		//super();
+	}
 	
 	public void setGui(MarketCashierGui gui){
 		cashierGui = gui;
@@ -100,6 +100,7 @@ public class MarketCashierRole extends Role implements MarketCashier{
 			
 			if (check.state == Check.CheckState.pending && check.c == currentCustomer){
 				check.state = Check.CheckState.checkingAmount;
+				checkQuantity(check);
 				return true;
 			}
 		}
