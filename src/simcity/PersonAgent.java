@@ -28,8 +28,9 @@ public class PersonAgent extends Agent implements Person {
 	private double money = 0.0;
 	protected List<Role> roles = new ArrayList<Role>();
 	public Map<String, Integer> groceryList = new HashMap<String, Integer>();
+	public Map<String, Integer> groceryBag = new HashMap<String, Integer>();
 	public List<RentBill> rentBills = new ArrayList<RentBill>();
-	boolean checkPersonScheduler = true;
+	public boolean checkPersonScheduler = true;
 
 	PersonGui gui;
 
@@ -70,7 +71,7 @@ public class PersonAgent extends Agent implements Person {
 	public HungerState hungerState =  HungerState.NotHungry;
 
 	//Going to the market states
-	public enum MarketState {GetGroceries, GettingGroceries, HaveGroceries};
+	public enum MarketState {GetGroceries, GettingGroceries, TakeGroceriesHome, TakingGroceriesHome, HaveGroceries};
 	public MarketState marketState = MarketState.HaveGroceries;
 
 	//Keep track of money
@@ -417,8 +418,14 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public boolean pickAndExecuteAnAction() {
 		// Person Scheduler 
-
+		print("Running Person Scheduler");
 		if(checkPersonScheduler) {
+			//if the man has groceries in his hand, let him take them home!
+			if(marketState == MarketState.TakeGroceriesHome) {
+				goToHome();
+				return true;
+			}
+			
 			//If he's CRRAAAZZY hungry, then eat something first. Then do checks of eating at home versus the restaurant
 
 			//Work comes first--his family probably doesn't like this :/
@@ -446,13 +453,19 @@ public class PersonAgent extends Agent implements Person {
 
 			//Gotta eat!
 			if(eatingState == EatingState.EatAtHome) {
-				goEatAtHome();
+				goToHome();
 				return true;
 			}
 			else if(eatingState == EatingState.EatAtRestaurant) {
 				goEatAtRestaurant();
 				return true;
 			}
+			
+			 //Might as well get groceries if I ain't got nothing to do
+            if(marketState == MarketState.GetGroceries) {
+                    goGetGroceries();
+                    return true;
+            }
 
 			//Let me even see if I got money..
 			if(accountNumber == 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
@@ -462,8 +475,6 @@ public class PersonAgent extends Agent implements Person {
 				}
 			}
 		}
-
-
 
 		//Role Scheduler
 		//This should be changed to activeRole.pickAndExecuteAnAction();
@@ -515,7 +526,7 @@ public class PersonAgent extends Agent implements Person {
 		gui.DoGoToLocation(myHome.getEntranceLocation());
 	}
 
-	private void goEatAtHome() {
+	private void goToHome() {
 		//if inside building and not in home, animate there
 		if(currentBuilding != myHome) {
 			gui.DoGoToLocation(myHome.getEntranceLocation());
@@ -557,18 +568,19 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	private void goGetGroceries() {
+		marketState = MarketState.GettingGroceries;
 		//if inside building and not in current restaurant preference
 		//animate outside building
 		for(Market m : markets){
 			gui.DoGoToLocation(m.getEntranceLocation());
 			break;
 		}
-		try {
+	/*	try {
 			busyWithTask.acquire();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 
 		//enter building (removing rect from city screen if it is there, adding rect to home if not there)
 
