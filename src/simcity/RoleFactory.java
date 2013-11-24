@@ -14,7 +14,7 @@ public class RoleFactory {
 		
 		//bank
 		else if(type.equals("bankCustomer")) {
-			return new Role();
+			return new BankCustomerRole();
 		}
 		
 		//the different restaurant customers

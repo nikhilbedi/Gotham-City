@@ -37,17 +37,17 @@ public class PersonTest extends TestCase
 		//preconditions
 		assertTrue("The money allocated when a person is instantiated is zero. It is not.", person.checkMoney() == 0.0);
 		assertEquals("Job should be null. It is not", person.getJob(), null);
-		/*assertTrue("The size of roles should be zero", person.getRoles().size() == 0);
+		assertTrue("The size of roles should be zero", person.getRoles().size() == 0);
 		assertTrue("The size of rentBills should be zero. It isnt", person.getRentBills().size() == 0);
 		assertEquals("Bank account number should be zero. it isnt", person.getAccountNumber(), 0);
 		assertFalse("personScheduler should be false. it isnt", person.getPersonScheduler());
 		
 		
 		//step 1
-		assertTrue("The person should be initiated knowing he must create a bank account", person.pickAndExecuteAnAction());
+	//	assertTrue("The person should be initiated knowing he must create a bank account", person.pickAndExecuteAnAction());
 		//assertTrue("The personScheduler should now be true. It isnt", person.getPersonScheduler());
 		
-		assertTrue("The money allocated when a person is instantiated is zero. It is not.", person.checkMoney() == 0.0);
+		/*assertTrue("The money allocated when a person is instantiated is zero. It is not.", person.checkMoney() == 0.0);
 		assertEquals("Job should be null. It is not", person.getJob(), null);
 		assertTrue("The size of roles should be zero", person.getRoles().size() == 0);
 		assertTrue("The size of rentBills should be zero. It isnt", person.getRentBills().size() == 0);
