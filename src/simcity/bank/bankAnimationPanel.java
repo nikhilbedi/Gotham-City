@@ -3,10 +3,10 @@ package simcity.bank;
 import java.awt.Graphics;
 
 import simcity.PersonAgent;
-import simcity.Robot;
-import Gui.MainScreen;
 import simcity.PersonAgent.MoneyState;
 import simcity.PersonAgent.RentBill;
+import simcity.Robot;
+import Gui.MainScreen;
 import Gui.Screen;
 import Gui.ScreenFactory;
 

@@ -12,7 +12,6 @@ import simcity.bank.interfaces.BankTeller;
 public class Bank extends Building {
 
 	BankGreeter greeter;
-
 	String bankCustomer = "bankCustomer", bankTeller = "bankTeller", bankGreeter = "bankGreeter";
 	//Location location = new Location(xCoor, yCoor);
 	int openTime, closeTime;

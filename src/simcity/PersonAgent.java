@@ -341,6 +341,7 @@ public class PersonAgent extends Agent implements Person {
 		// to be active
 		role.getGui().getHomeScreen().removeGui(role.getGui());
 		gui.getHomeScreen().addGui(gui);
+		gui.DoGoToLocation(new Location(200,200));
 		roles.remove(role);
 		checkPersonScheduler = true;
 	}
@@ -464,6 +465,7 @@ public class PersonAgent extends Agent implements Person {
 				}
 			}
 		}
+
 
 
 		//Role Scheduler
@@ -594,7 +596,6 @@ public class PersonAgent extends Agent implements Person {
 
 		}
 
-		//Making Role to be added TODO put into funciton?
 		bankRoleTemp = RoleFactory.makeMeRole("bankCustomer");
 		currentBuilding = bank;
 		bankGui = new bankCustomerGui((BankCustomerRole)bankRoleTemp, ScreenFactory.getMeScreen("Bank"));

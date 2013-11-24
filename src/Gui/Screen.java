@@ -2,6 +2,7 @@ package Gui;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.event.*;
+
 import javax.swing.*;
 import java.awt.event.*;
 import java.awt.image.*;
@@ -37,15 +38,19 @@ public class Screen
         }
 
         public void updateAgents(){
+        	synchronized(guis) {
                 for (RoleGui gui : guis) {
                         gui.updatePosition();
                 }
+        	}
         }
 
         public void paintAgents(Graphics g){
+        	synchronized(guis) {
                 for (RoleGui gui : guis) {
                         gui.draw(g);
                 }
+        	}
         }
         
         public void paintObstacles(Graphics g){
