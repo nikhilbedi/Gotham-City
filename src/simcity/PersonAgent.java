@@ -416,10 +416,10 @@ public class PersonAgent extends Agent implements Person {
 		}
 
 		//Let me even see if I got money..
-		if(accountNumber == 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
+		/*if(accountNumber == 0 || moneyState == MoneyState.Low || moneyState == MoneyState.High) {
 			goToBank();
 			return true;
-		}
+		}*/
 
 
 		//Role Scheduler
