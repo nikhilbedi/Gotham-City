@@ -6,12 +6,14 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Vector;
 
 import javax.swing.*;
 
 import simcity.CityClock;
 import simcity.PersonAgent;
 import simcity.PersonGui;
+import simcity.TheCity;
 import simcity.Home.Home;
 import simcity.interfaces.Person;
 
@@ -22,6 +24,12 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 	JTextField nameField;
 
 	JSlider money;
+	
+	Vector<String> homeList;
+	Vector<String> jobLocationList;
+	Vector<String> jobPositionList;
+	Vector<String> transportationList;
+	Vector<String> homeOwnerList;
 
 	JComboBox home;
 	JComboBox jobLocation;
@@ -32,6 +40,8 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 	JButton finalize;
 
 	MainScreen mainScreen;
+	
+	SimCityRun reference;
 
 
 	public NewPersonWindow(MainScreen city){
@@ -41,30 +51,68 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 		mainScreen = city;
 
 		setBounds(1000, 200, WINDOWX, WINDOWY);
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		BoxLayout layout = new BoxLayout((Container) this.getContentPane(), BoxLayout.PAGE_AXIS);
 		setLayout(layout);
 
 
 		nameField = new JTextField("Name Field");
 		nameField.setMaximumSize(new Dimension(WINDOWX, 10));
-		String[] petStrings = { "Bird", "Cat", "Dog", "Rabbit", "Pig" };
+		
+		homeList = new Vector<String>(TheCity.getHomes());
+		jobLocationList = new Vector<String>(TheCity.getJobLocs());
+		jobPositionList = new Vector<String>(TheCity.getPos());
+		transportationList = new Vector<String>(TheCity.getTransportation());
+		homeOwnerList = new Vector<String>(TheCity.getProperty());
+		
+		
 
-		home = new JComboBox(petStrings);
-		jobLocation = new JComboBox(petStrings);
-		jobPosition = new JComboBox(petStrings);
-		homeOwned = new JComboBox(petStrings);
-		transportation = new JComboBox(petStrings);
+		home = new JComboBox(homeList);
+		jobLocation = new JComboBox(jobLocationList);
+		jobLocation.addActionListener(this);
+		jobPosition = new JComboBox(jobPositionList);
+		transportation = new JComboBox(transportationList);
+		homeOwned = new JComboBox(homeOwnerList);
 
 
-		money = new JSlider(JSlider.HORIZONTAL, 0, 1000, 100);
+		money = new JSlider(JSlider.HORIZONTAL, 0, 1000, 1000);
 		money.setMajorTickSpacing(100);
 		money.setMinorTickSpacing(100);
 		money.setPaintTicks(true);
 		money.setPaintLabels(true);
+		
 
 		finalize = new JButton("done");
 		finalize.addActionListener(this);
 
+		jobPosition.setVisible(false);
 		add(nameField);
 		add(money);
 		add(home);
@@ -85,25 +133,50 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			newPersonGui.setAgent(newPerson);
 			//newPersonGui.setColor(Color.green);
 			mainScreen.addGui(newPersonGui);
-			newPersonGui.xDestination = 500;
-			newPersonGui.yDestination = 500;
-			
-			//setJob
+			/*newPersonGui.xDestination = 500;
+			newPersonGui.yDestination = 500;*/
 			
 			newPerson.setGui(newPersonGui);	
 			newPerson.setRestaurants(mainScreen.getRestaurantList());
 			newPerson.setMarkets(mainScreen.getMarketList());
 			newPerson.setBank(mainScreen.getBank());
 			
+			//Give him money
+			newPerson.addMoney(money.getValue());
 			
-			Home temp = mainScreen.getHomeHack();
-			newPerson.setHome(temp);
+			
+			//setJob
+			newPerson.setJob(jobPosition.getSelectedItem().toString(), TheCity.getBuildingFromString(jobPosition.getSelectedItem().toString()));//will this work?
+			
+			//setting Transportation
+			newPerson.setPreferredTransportation(transportation.getSelectedItem().toString());
+			
+			
+			//set home
+			newPerson.setHome((Home)TheCity.getBuildingFromString("home"));
 
 			newPerson.startThread();
 			
 			//Add person to CityClock, so they can receive messages about time
 			CityClock.addPersonAgent(newPerson);
+			
+			//re-enable button
+			reference.newPersonButton.setEnabled(true);
+			
+			
+			//close the window
+			dispose();
 		}
+		if(e.getSource() == jobLocation){
+		
+		if(jobLocation.getSelectedIndex()>0){
+			jobPosition.setVisible(true);
+		}
+		}
+	}
 
+	public void giveWindow(SimCityRun simCityRun) {
+		// TODO Auto-generated method stub
+		reference = simCityRun;
 	}
 }
