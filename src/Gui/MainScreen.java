@@ -36,13 +36,13 @@ public class MainScreen extends Screen{
 	{
 		temp = 1;
 		house = new Home("House", 390, 590, 400, 600);
-		house.setImagePath("/resources/Buildings/House.png");
+		house.setImagePath("/resources/Buildings/HouseDark.png");
 		market = new Market("Market", 210, 110, 200, 100);
-		market.setImagePath("/resources/Buildings/Market.png");
+		market.setImagePath("/resources/Buildings/MarketDark.png");
 		bank = new Bank("Bank", 410, 110, 400, 100);
-		bank.setImagePath("/resources/Buildings/Bank.png");
+		bank.setImagePath("/resources/Buildings/BankDark.png");
 		rest1 = new Restaurant1("Restauarant 1", 610, 110, 600, 100);
-		rest1.setImagePath("/resources/Buildings/Restaurant.png");
+		rest1.setImagePath("/resources/Buildings/RestaurantDark.png");
 
 		buildings.add(house);
 		buildings.add(market);
@@ -52,8 +52,11 @@ public class MainScreen extends Screen{
 
 	public  void paintBackground(Graphics g)
 	{
-		 g.setColor(Color.black);
-         g.fillRect(0,0,1000, 800);
+		 g.setColor(Color.white);
+         //g.fillRect(0,0,1000, 800);
+		 java.net.URL image1 = this.getClass().getResource("/resources/Backgrounds/SimCityBackground.png");
+ 		ImageIcon current1 = new ImageIcon(image1);
+ 		g.drawImage(current1.getImage(), 0, 0, null);
          
 		for(Building b : buildings){
 			java.net.URL image = this.getClass().getResource(b.getImagePath());

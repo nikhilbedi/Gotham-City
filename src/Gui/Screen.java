@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.event.*;
 
 import javax.swing.*;
+
 import java.awt.event.*;
 import java.awt.image.*;
 import java.util.*;
@@ -61,6 +62,7 @@ public class Screen
         {
                 g.setColor(Color.white);
                 g.fillRect(0,0,1000, 800);
+				
                 g.setColor(Color.black);
                 if(temp==1){//Main city pane
                         g.drawString("Main City", 400, 50);
