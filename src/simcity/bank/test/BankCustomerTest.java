@@ -31,7 +31,7 @@ public class BankCustomerTest extends TestCase
 	
 	public void setUp() throws Exception{
 		super.setUp();
-		bankCustomer = new BankCustomerRole(new PersonAgent("testCustomer"));
+		bankCustomer = new BankCustomerRole(new PersonAgent("testTeller"));
 		Bank b = new Bank("Bank", 0, 0, 0, 0);
 		bankCustomer.getPersonAgent().setBank(b);
 		bankCustomer.setGui(new bankCustomerGui((BankCustomerRole)bankCustomer, ScreenFactory.getMeScreen("Bank")));

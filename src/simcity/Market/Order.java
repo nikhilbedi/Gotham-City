@@ -19,4 +19,8 @@ public class Order {
 		return choice;
 	}
 	
+	public int getQuantity(){
+		return quantity;
+	}
+	
 }

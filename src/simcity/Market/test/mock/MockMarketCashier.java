@@ -5,6 +5,7 @@ import java.util.Map;
 
 import agent.Role;
 import simcity.Market.Item;
+import simcity.Market.MarketCashierRole.Check;
 import simcity.Market.MarketCustomerRole;
 import simcity.Market.Order;
 import simcity.Market.interfaces.MarketCashier;
@@ -37,7 +38,7 @@ public class MockMarketCashier extends Mock implements MarketCashier {
 	}
 
 	@Override
-	public void needFood(MarketCustomerRole marketCustomerRole) {
+	public void needFood(MarketCustomer marketCustomerRole) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -53,6 +54,17 @@ public class MockMarketCashier extends Mock implements MarketCashier {
 			Role r, double money) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	public List<MarketCustomer> getCustomers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Check> getChecks() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

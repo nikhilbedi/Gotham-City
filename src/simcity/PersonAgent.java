@@ -9,6 +9,9 @@ import simcity.interfaces.Person;
 import simcity.RoleFactory;
 import simcity.restaurants.*;
 import simcity.Market.Market;
+import simcity.Market.MarketCustomerRole;
+import simcity.Market.MarketGui.MarketCustomerGui;
+import simcity.Market.interfaces.MarketCustomer;
 import simcity.Home.Home;
 import simcity.Home.LandlordRole;
 import simcity.Home.ResidentRole;
@@ -22,6 +25,8 @@ public class PersonAgent extends Agent implements Person {
 	//TODO REMOVE THIS
 	Role bankRoleTemp;
 	RoleGui bankGui;
+	public Role marketRoleTemp;
+	RoleGui marketGui;
 	Role homeTemp;
 	RoleGui homeGui;
 
@@ -48,7 +53,7 @@ public class PersonAgent extends Agent implements Person {
 	// These buildings will be set when any person is added
 	public List<Restaurant> restaurants;
 	Restaurant currentPreference;
-	public List<Market> markets;
+	public List<Market> markets; 
 
 	public Bank bank;
 
@@ -482,6 +487,7 @@ public class PersonAgent extends Agent implements Person {
 	public boolean pickAndExecuteAnAction() {
 
 		// Person Scheduler 
+		
 
 		if(checkPersonScheduler) {
 			//if the man has groceries in his hand, let him take them home!
@@ -493,7 +499,7 @@ public class PersonAgent extends Agent implements Person {
 
 			//If he's CRRAAAZZY hungry, then eat something first. Then do checks of eating at home versus the restaurant
 
-			if(hungerState == HungerState.Starving) {
+			if(hungerState == HungerState.Starving && marketState != MarketState.GetGroceries) {
 				if(moneyState == MoneyState.Low) {
 					hungerState = HungerState.FeedingHunger;
 					goToHome();
@@ -589,6 +595,7 @@ public class PersonAgent extends Agent implements Person {
 		}
 
 		//Role Scheduler
+
 		for(Role r : roles) {
 			//checkPersonScheduler should be made true anytime a role is done at a building, outside this scheduler
 			if(r.isActive()) {
@@ -596,6 +603,7 @@ public class PersonAgent extends Agent implements Person {
 					checkPersonScheduler = false;
 					return true;
 				}
+
 			}
 
 			//Role Scheduler
@@ -718,20 +726,28 @@ public class PersonAgent extends Agent implements Person {
 			gui.DoGoToLocation(m.getEntranceLocation());
 			break;
 		}
-		/*	try {
+			try {
 			busyWithTask.acquire();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 
-		//enter building (removing rect from city screen if it is there, adding rect to home if not there)
-
-		/*Role marketRoleTemp = roles.add(RoleFactory.makeMeRole(currentPreference.marketCustomerRole));
+		marketRoleTemp = RoleFactory.makeMeRole("marketCustomer");
+		currentBuilding = markets.get(0);
+		MarketCustomerRole tempMarketCustomerRole = (MarketCustomerRole)marketRoleTemp;
+		marketGui = new MarketCustomerGui((MarketCustomerRole)marketRoleTemp, ScreenFactory.getMeScreen("Market"));
+		marketRoleTemp.setPerson(this);
+		marketGui.setHomeScreen(ScreenFactory.getMeScreen("Market"));
 		activeRole = marketRoleTemp;
-		roles.add(marketRoleTemp);*/
 
 		checkPersonScheduler = false;
+		//Add role
+		roles.add(marketRoleTemp);
+		marketRoleTemp.setGui(marketGui);
+		//Enter building
+		enteringBuilding(marketRoleTemp);
+		
 
 		//initial message to marketCashier
 	}

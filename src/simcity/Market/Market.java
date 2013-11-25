@@ -46,6 +46,13 @@ public class Market extends Building {
 		marketworker = w;
 	}
 	
+	public MarketCashier getCashier(){
+		return marketcashier ;
+	}
+	
+	public MarketWorker getWorker(){
+		return marketworker;
+	}
 	public void addItems(){
 		Item beef = new Item("Beef", 10.99, 100);
 		Item chicken = new Item("Chicken", 8.99, 100);

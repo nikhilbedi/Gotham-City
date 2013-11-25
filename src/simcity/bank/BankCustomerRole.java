@@ -178,7 +178,10 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	public void HereIsReceipt(BankReceipt receipt) {
 		switch(receipt.transactionType) {
 		case "withdrawal":
-			getPersonAgent().addMoney((float)receipt.transactionAmount); 
+			if(receipt.transactionAmount < receipt.originalBalance)
+				getPersonAgent().addMoney((float)receipt.transactionAmount); 
+			else
+				getPersonAgent().addMoney((float)receipt.originalBalance);
 			getPersonAgent().moneyState = MoneyState.Neutral; break;
 		case "deposit":
 			getPersonAgent().removeMoney((float)receipt.transactionAmount); 

@@ -64,7 +64,7 @@ public class Screen
                 g.setColor(Color.black);
                 if(temp==1){//Main city pane
                         g.drawString("Main City", 400, 50);
-                        g.drawRect(400, 700, 25, 25);
+                        g.drawRect(400, 600, 25, 25);
                 }
                 else if(temp==2){//Restaurant
                         g.drawString("Restaurant", 400, 50);
@@ -95,15 +95,15 @@ public class Screen
         public String checkSwap(int x, int y) {
                 if(temp == 1){
                         if((x>200)&&(x<250)&&(y>100)&&(y<150)){
-                                return "Restaurant";
+                                return "Market";
                         }
                         if((x>400)&&(x<450)&&(y>100)&&(y<150)){
                                 return "Bank";
                         }
                         if((x>600)&&(x<650)&&(y>100)&&(y<150)){
-                                return "Market";
+                                return "Restaurant";
                         }
-                        if((x>400)&&(x<450)&&(y>700)&&(y<750)){
+                        if((x>400)&&(x<450)&&(y>600)&&(y<650)){
                                 return "Home";
                         }
                 }
