@@ -608,7 +608,6 @@ public class PersonAgent extends Agent implements Person {
 
 	private void goToHome() {
 		//if inside building and not in home, animate there
-		System.out.println("IN HOME GO TO METHOD THINGY LOOK AT ME");
 		if(currentBuilding != myHome) {
 			gui.DoGoToLocation(myHome.getEntranceLocation());
 			try {
