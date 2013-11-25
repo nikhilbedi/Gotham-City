@@ -65,11 +65,12 @@ public class ResidentGui extends RoleGui {
 			// if (person.hungerState == HungerState.Hungry
 			// && person.eatingState == EatingState.EatAtHome && payingRent !=
 			// true) {
-			if (payingRent != true) {
-				resident.gotHungry();
+			//if (payingRent != true) {
+				//resident.gotHungry();
+				
 				// person.eatingState = EatingState.EatAtHome;
 
-			}
+			//}
 		}
 		if (xPos == 300 && yPos == 460 && command == Command.atTable) {
 			command = Command.none;

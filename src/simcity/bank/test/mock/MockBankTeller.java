@@ -5,18 +5,20 @@ import simcity.bank.interfaces.BankCustomer;
 import simcity.bank.interfaces.BankTeller;
 
 public class MockBankTeller extends Mock implements BankTeller{
+	boolean available;
+	
 	public MockBankTeller(String name) {
 		super(name);
 	}
 
 	@Override
 	public void setAvailable(boolean b) {
-		
+		available = b;
 	}
 
 	@Override
 	public boolean isAvailable() {
-		return false;
+		return available;
 	}
 
 	@Override

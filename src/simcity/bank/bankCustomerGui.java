@@ -13,7 +13,7 @@ public class bankCustomerGui extends RoleGui {
 	
 	public bankCustomerGui(BankCustomerRole bankCustomer) {
 		this.bankCustomer = bankCustomer;
-		myColor = Color.green;
+		myColor = Color.yellow;
 		atTeller = false;
 		atExit = false;
 		xPos = 20;
@@ -23,7 +23,7 @@ public class bankCustomerGui extends RoleGui {
 	}
 	public bankCustomerGui(BankCustomerRole bankCustomer, Screen s) {
 		this.bankCustomer = bankCustomer;
-		myColor = Color.green;
+		myColor = Color.yellow;
 		atTeller = false;
 		atExit = false;
 		xPos = 20;

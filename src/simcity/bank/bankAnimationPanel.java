@@ -33,7 +33,6 @@ public class bankAnimationPanel extends Screen{
 		
 		person4.rentBills.add(person4.new RentBill(person, 20));
 		person4.moneyState = MoneyState.Low;
-		
 		person.moneyState = MoneyState.High;
 		
 		BankCustomerRole bankCustomer = new BankCustomerRole(person);

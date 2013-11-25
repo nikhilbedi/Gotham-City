@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
+import simcity.CityClock;
 import simcity.PersonAgent;
 import simcity.PersonGui;
 import simcity.Home.Home;
@@ -99,6 +100,9 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			newPerson.setHome(temp);
 
 			newPerson.startThread();
+			
+			//Add person to CityClock, so they can receive messages about time
+			CityClock.addPersonAgent(newPerson);
 		}
 
 	}

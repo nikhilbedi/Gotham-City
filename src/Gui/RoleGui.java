@@ -7,11 +7,13 @@ import java.awt.Graphics;
 import agent.Role;
 
 public class RoleGui {
-        protected int xPos, yPos;
-        protected int xDestination, yDestination;
-        private static int speed = 1;
-        
-        private enum Command {noCommand, commandA, commandB, commandC};
+
+	protected int xPos, yPos;
+	protected int xDestination, yDestination;
+	private static int speed = 2;
+	
+	private enum Command {noCommand, commandA, commandB, commandC};
+
 
         private Command command = Command.noCommand;
 

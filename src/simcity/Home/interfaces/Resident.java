@@ -35,7 +35,6 @@ public interface Resident {
 
 	public abstract void atFridge();
 
-
 	public abstract void atMailbox();
 
 	public abstract void atHome();
