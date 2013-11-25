@@ -3,9 +3,8 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.*;
 
-//import simcity.Market.MarketGui.MarketPanel;
+import javax.swing.*;
 
 import simcity.CityClock;
 import simcity.Home.gui.HomePanel;
@@ -48,6 +47,7 @@ public class SimCityRun extends JFrame implements ActionListener
 	{
 		CityClock.startTime();
 		SimCityRun runCity = new SimCityRun();
+		runCity.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 	
 	@Override
