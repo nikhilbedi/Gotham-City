@@ -266,31 +266,31 @@ public class ResidentRole extends Role implements Resident {
 		}
 		
 		if (myPerson.groceryBag.size() >0){
-			System.out.println("GroceryBag msg in sch *HI***");
+			//System.out.println("GroceryBag msg in sch *HI***");
 			msgCheckGroceryBag();
 			return true;
 		}
 		
 		if (state == HomeState.DoingNothing && event == HomeEvent.checkGroceryBag) {
-			System.out.println("CheckGroceryBag msg in sch *HI***");
+			//System.out.println("CheckGroceryBag msg in sch *HI***");
 			state = HomeState.checkingGroceryBag;
 			checkGroceryBag();
 			return true;
 		}
 		if (state == HomeState.checkingGroceryBag && event == HomeEvent.none) {
-			System.out.println("CheckingGroceryBag msg in sch *HI***");
+			//System.out.println("CheckingGroceryBag msg in sch *HI***");
 			state = HomeState.DoingNothing;
 			returnToHomePosition();
 			return true;
 		}
 		if (state == HomeState.checkingGroceryBag && event == HomeEvent.putGroceriesInFridge) {
-			System.out.println("Groceries Fridge msg in sch *HI***");
+			//System.out.println("Groceries Fridge msg in sch *HI***");
 			state = HomeState.PuttingGroceriesInFridge;
 			 putGroceriesInFridge(myPerson.getGroceryBag());
 			return true;
 		}
 		if (state == HomeState.PuttingGroceriesInFridge && event == HomeEvent.atFridge) {
-			System.out.println("Groceries Fridge DONE msg in sch *HI***");
+			//System.out.println("Groceries Fridge DONE msg in sch *HI***");
 			state = HomeState.DoingNothing;
 			returnToHomePosition();
 			return true;
@@ -305,49 +305,49 @@ public class ResidentRole extends Role implements Resident {
 		}
 		if (state == HomeState.GoingToFridge && event == HomeEvent.atFridge) {
 			//System.out.println("CHECking food supply ********");
-			System.out.println("Check Food Supply msg in sch *HI***");
+			//System.out.println("Check Food Supply msg in sch *HI***");
 			state = HomeState.CheckingFoodSupply;
 			type = checkFoodSupply();
 			return true;
 		}
 		if (state == HomeState.DoingNothing && event == HomeEvent.gotSleepy) {
-			System.out.println("SLEEPING ***");
+			//System.out.println("SLEEPING ***");
 			state = HomeState.Sleeping;
 			goToBed();
 			return true;
 		}
 		if (state == HomeState.CheckingFoodSupply && event == HomeEvent.collectedIngredients) {
-			System.out.println("Check cook food msg in sch *HI***");
+			//System.out.println("Check cook food msg in sch *HI***");
 			state = HomeState.Cooking;
 			cookFood(type);
 			return true;
 		}
 		if (state == HomeState.Cooking && event == HomeEvent.doneCooking) {
-			System.out.println("Cookingmsg in sch *HI***");
+			//System.out.println("Cookingmsg in sch *HI***");
 			state = HomeState.Plating;
 			plateFood();
 			return true;
 		}
 		if (state == HomeState.Plating && event == HomeEvent.donePlating) {
-			System.out.println("Plating msg in sch *HI***");
+			//System.out.println("Plating msg in sch *HI***");
 			state = HomeState.Eating;
 			tryEatFood();
 			return true;
 		}
 		if (state == HomeState.Eating && event == HomeEvent.doneEating) {
-			System.out.println("Clearing msg in sch *HI***");
+			//System.out.println("Clearing msg in sch *HI***");
 			state = HomeState.Clearing;
 			tryClearFood();
 			return true;
 		}
 		if (state == HomeState.Clearing && event == HomeEvent.doneClearing) {
-			System.out.println("NOTHING msg in sch *HI***");
+			//System.out.println("NOTHING msg in sch *HI***");
 			state = HomeState.DoingNothing;
 			returnToHomePosition();
 			return true;
 		}
 		if (state == HomeState.CheckingFoodSupply && event == HomeEvent.checkedEmptyFridge) {
-			System.out.println("NOTHING 2 msg in sch *HI***");
+			//System.out.println("NOTHING 2 msg in sch *HI***");
 			state = HomeState.DoingNothing; // LeavingRestaurant
 			exitHome();
 			return true;
@@ -358,7 +358,7 @@ public class ResidentRole extends Role implements Resident {
 		 LeavingRestaurant exitHome(); return true; }
 		 */
 		if (state == HomeState.LeavingHome && event == HomeEvent.none) {
-			System.out.println("NOTHING 3 msg in sch *HI***");
+			//System.out.println("NOTHING 3 msg in sch *HI***");
 			state = HomeState.DoingNothing;
 			returnToHomePosition();
 			return true;
@@ -415,7 +415,7 @@ public class ResidentRole extends Role implements Resident {
 			stateChanged();
 		}
 		event = HomeEvent.none;
-		//state = HomeState.DoingNothing;
+		state = HomeState.DoingNothing;
 	}
 
 	public void payRent(List<RentBill> rentBills) {
@@ -471,11 +471,11 @@ public class ResidentRole extends Role implements Resident {
 				// residentGui.eating = true;
 				System.out.println("resident done eating");
 				eatFood();
-				residentGui.eating = false;
+				//residentGui.eating = false;
 				event = HomeEvent.doneEating;
 				myPerson.justAte();
 			}
-		}, 3000);
+		}, 2500);
 		
 		// myPerson.hungerState = HungerState.NotHungry;
 		// stateChanged();
