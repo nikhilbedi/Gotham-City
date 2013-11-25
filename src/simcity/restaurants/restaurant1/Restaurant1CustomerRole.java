@@ -124,6 +124,12 @@ public class Restaurant1CustomerRole extends Role implements Customer {
 		event = AgentEvent.doneLeaving;
 		stateChanged();
 	}
+	
+	public void msgAnimationFinishedWaitingArea() {
+		//from animation - Just manually send host message.
+		print("derp");
+		host.inWaitingPosition();
+	}
 
 	public void waitInArea(int posX, int posY){
 		print("got a message to wait at coordinates " + posX + " " + posY);
@@ -203,9 +209,7 @@ public class Restaurant1CustomerRole extends Role implements Customer {
 	//Make sure to implement the new states once you take away the host from the Gui
 	public boolean pickAndExecuteAnAction() {
 		//	CustomerAgent is a correctly implemented finite state machine
-print("got here");
 		if (state == AgentState.DoingNothing && event == AgentEvent.gotHungry ){
-			
 			state = AgentState.WaitingInRestaurant;
 			goToRestaurant();
 			return true;
@@ -213,7 +217,6 @@ print("got here");
 
 		if(state == AgentState.WaitingInRestaurant && event == AgentEvent.mustWaitInArea) {
 			state = AgentState.WaitingInArea;
-			print("customer scheduler");
 			goToArea();
 			return true;
 		}
@@ -316,7 +319,7 @@ print("got here");
 				boolean stillChoosing = true;
 				boolean haveEnoughMoney = false;
 				//The customer's name might not be flake and might not have enough money for anything. Need to keep check first if he can order anything
-				if(!name.equals("flake")) {
+			/*	if(!name.equals("flake")) {
 					synchronized(myMenu.choices){
 						for(String c : myMenu.choices.keySet()) {
 							if(money >= myMenu.choices.get(c)) {
@@ -331,7 +334,7 @@ print("got here");
 						print("Can't order anything! I'll just leave.");
 						leaveTableAndRestaurant();
 					}
-				}
+				}*/
 				while(stillChoosing) {
 					// for(String c : myMenu.choices.keySet()) {
 					//     print(c);
@@ -347,14 +350,15 @@ print("got here");
 							++counter;
 							if(randomChoice == counter) {
 								//Check if the customer can afford it
-								if(money >= myMenu.choices.get(c) && !name.equals("flake")) {
+								//if(money >= myMenu.choices.get(c) && !name.equals("flake")) {
+								if(money >= myMenu.choices.get(c)) {
 									myChoice = c;
 									stillChoosing = false;
 									event = AgentEvent.thoughtOfOrder;
 									stateChanged();
 
 								}
-								else if(name.equals("flake")) {
+								else if(getName().equals("flake")) {
 									myChoice = c;
 									stillChoosing = false;
 									event = AgentEvent.thoughtOfOrder;

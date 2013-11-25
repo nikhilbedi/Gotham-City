@@ -14,7 +14,7 @@ public class Restaurant1CustomerGui extends RoleGui {
 
 	//private HostAgent host;
 
-	private enum Command {noCommand, GoToSeat, GoToCashier, LeaveRestaurant};
+	private enum Command {noCommand, GoToWaitingArea, GoToSeat, GoToCashier, LeaveRestaurant};
 	private Command command=Command.noCommand;
 
 	private String myFood;
@@ -23,7 +23,7 @@ public class Restaurant1CustomerGui extends RoleGui {
 	public static final int yTable = 250;
 
 	public Restaurant1CustomerGui(Restaurant1CustomerRole c){ //HostAgent m) {
-		super.setColor(Color.green);
+		super.setColor(myColor.yellow);
 		agent = c;
 		xPos = 20;
 		yPos = 400;
@@ -34,6 +34,7 @@ public class Restaurant1CustomerGui extends RoleGui {
 	public Restaurant1CustomerGui(Restaurant1CustomerRole c,
 			Screen s) {
 		super(c, s);
+		super.setColor(myColor.yellow);
 		agent = c;
 		xPos = 20;
 		yPos = 400;
@@ -57,6 +58,10 @@ public class Restaurant1CustomerGui extends RoleGui {
 				agent.madeItToCashier();
 				isHungry = false;
 				//	gui.setCustomerEnabled(agent);
+			}
+			else if(command == Command.GoToWaitingArea) {
+				agent.msgAnimationFinishedWaitingArea();
+				isHungry = false;
 			}
 			command=Command.noCommand;
 		}
@@ -100,6 +105,7 @@ public class Restaurant1CustomerGui extends RoleGui {
 		xDestination = x;
 		yDestination = y;
 		//you can choose to do a command later if you want to do an animation
+		command = Command.GoToWaitingArea;
 	}
 
 	public void DoGoToSeat(int x, int y) {//later you will map seatnumber to table coordinates.

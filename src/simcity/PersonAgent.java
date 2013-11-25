@@ -311,7 +311,7 @@ public class PersonAgent extends Agent implements Person {
 
 	//Messages from World Clock
 	public void updateTime(int time) {
-		print("AVAILABLE PERMITS: " + busyWithTask.availablePermits());
+		//print("AVAILABLE PERMITS: " + busyWithTask.availablePermits());
 		currentTime = time;
 		//Another hour, another chance to eat ;)
 		hungerCount++;
@@ -378,7 +378,6 @@ public class PersonAgent extends Agent implements Person {
 	 */
 	public void reachedBuilding() {
 		currentBuilding = currentDestination;
-		System.out.println("REACHED BUILDING");
 		busyWithTask.release();
 	}
 
@@ -669,7 +668,7 @@ public class PersonAgent extends Agent implements Person {
 		if(currentBuilding != myHome) {
 			gui.DoGoToLocation(myHome.getEntranceLocation());
 			try {
-				print("Available permits: " + busyWithTask.availablePermits());
+				//print("Available permits: " + busyWithTask.availablePermits());
 				busyWithTask.acquire();
 				//	busyWithTask.acquire();
 			} catch (InterruptedException e) {
@@ -758,7 +757,7 @@ public class PersonAgent extends Agent implements Person {
 
 		System.out.println("X: " + bank.getEntranceLocation().getX());
 		System.out.println("Y: " + bank.getEntranceLocation().getY());
-		print("Current permits when going to bank are: " + busyWithTask.availablePermits());
+		//print("Current permits when going to bank are: " + busyWithTask.availablePermits());
 		currentDestination = bank;
 		gui.DoGoToLocation(bank.getEntranceLocation());
 		try{
