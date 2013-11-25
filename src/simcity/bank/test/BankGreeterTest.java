@@ -97,7 +97,7 @@ public class BankGreeterTest extends TestCase
 		assertTrue("Customer state should be atTeller. It is not.", bankCustomer.state == CustomerState.atTeller);
 		assertTrue("Should ask teller for a transaction through scheduler. Something was missed.", bankCustomer.pickAndExecuteAnAction());
 		assertTrue("Transaction List should be empty once the teller is messaged for a transaction. It does not occur", bankCustomer.transactionList.size() == 0);
-		
+	
 		
 		//step 5
 		

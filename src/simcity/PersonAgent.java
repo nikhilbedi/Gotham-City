@@ -668,7 +668,7 @@ public class PersonAgent extends Agent implements Person {
 	private void goToBank() {
 		//if inside building and not in bank
 		//animate outside building to the bank
-		currentBuilding = bank;
+		
 		System.out.println("X: " + bank.getEntranceLocation().getX());
 		System.out.println("Y: " + bank.getEntranceLocation().getY());
 		gui.DoGoToLocation(bank.getEntranceLocation());
@@ -678,6 +678,7 @@ public class PersonAgent extends Agent implements Person {
 		catch(InterruptedException e){
 
 		}
+		currentBuilding = bank;
 		
 		bankRoleTemp = RoleFactory.makeMeRole("bankCustomer");
 		//currentBuilding = bank;
