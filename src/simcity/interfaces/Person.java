@@ -24,7 +24,7 @@ public interface Person {
 
 	
 	//Messages from World Clock
-	public abstract void currentTime(int time);
+	public abstract void updateTime(int time);
 	
 	//Messages from GUI
 	/**
