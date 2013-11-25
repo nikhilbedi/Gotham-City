@@ -52,7 +52,9 @@ public class MainScreen extends Screen{
 
 	public  void paintBackground(Graphics g)
 	{
-		super.paintBackground(g);
+		 g.setColor(Color.black);
+         g.fillRect(0,0,1000, 800);
+         
 		for(Building b : buildings){
 			java.net.URL image = this.getClass().getResource(b.getImagePath());
 			ImageIcon current = new ImageIcon(image);
