@@ -18,10 +18,11 @@ public class BankTellerRole extends Role implements BankTeller{
 	
 	public List<MyCustomer> myCustomers
 	= Collections.synchronizedList(new ArrayList<MyCustomer>());
-	BankGreeter greeter;
-	private boolean isAvailable = false, handledTransaction = false;
+	public BankGreeter greeter;
+	private boolean isAvailable = false;
+	public boolean handledTransaction = false;
 	int tellerIndex;
-	BankDatabase bankDatabase;
+	public BankDatabase bankDatabase;
 	
 	
 	// Gui
@@ -71,9 +72,10 @@ public class BankTellerRole extends Role implements BankTeller{
 	public class MyCustomer { //MyCustomer Class to hold elements of transaction related to the customer
 		public int accountNumber;
 		BankCustomer c;
-		String transactionType, landlordName;
+		public String transactionType;
+		String landlordName;
 		double transactionAmount;
-		customerState s;
+		public customerState s;
 		
 		public MyCustomer(BankCustomer c2, String type, double tA) {
 			c = c2;
@@ -110,11 +112,10 @@ public class BankTellerRole extends Role implements BankTeller{
 			System.out.println(getName() + ": Added customer to customer list");
 		}
 		else {
-			myCustomers.get(find(cust)).s = customerState.askedForTransaction;
 			myCustomers.get(find(cust)).transactionType = transaction.transactionType;
 			myCustomers.get(find(cust)).transactionAmount = transaction.transactionAmount;
 		}
-		
+		myCustomers.get(find(cust)).s = customerState.askedForTransaction;
 		if(transaction.transactionType.equals("payingRentBill"))
 			myCustomers.get(find(cust)).landlordName = transaction.landlordName;
 		else
@@ -228,13 +229,13 @@ public class BankTellerRole extends Role implements BankTeller{
 	public void openAccount(MyCustomer c) {
 		System.out.println(getName() + ": Opening account for customer " + c.c.getName());
 		BankAccount acc = bankDatabase.addAccount(c.transactionAmount, c.c.getName());
-		acc.depositMoney(c.transactionAmount);
 		c.c.HereIsReceiptAndAccountInfo(new BankReceipt(acc.accountBalance, acc.accountNumber, c.transactionType), acc.accountNumber);
 	}
 	
 	public void closeAccount(MyCustomer c) {
-		BankAccount acc = bankDatabase.removeAccount(c.c.getName(), c.accountNumber);
+		BankAccount acc = bankDatabase.accounts.get(bankDatabase.accountNumbers.get(c.c.getName()).get(0));
 		c.c.HereIsReceipt(new BankReceipt(acc.accountBalance, acc.accountNumber, c.transactionType));
+		bankDatabase.removeAccount(c.c.getName(), bankDatabase.accountNumbers.get(c.c.getName()).get(0));
 	}
 	
 	public void handleLoanCredentials(MyCustomer c) {

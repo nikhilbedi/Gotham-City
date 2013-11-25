@@ -15,6 +15,8 @@ import simcity.PersonAgent;
 import simcity.PersonGui;
 import simcity.TheCity;
 import simcity.Home.Home;
+import simcity.Market.MarketCustomerRole;
+import simcity.Market.MarketGui.MarketAnimationPanel;
 import simcity.interfaces.Person;
 
 public class NewPersonWindow extends JFrame implements ActionListener {
@@ -170,12 +172,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			//close the window
 			dispose();
 		}
-		if(e.getSource() == jobLocation){
 		
-		if(jobLocation.getSelectedIndex()>0){
-			jobPosition.setVisible(true);
-		}
-		}
 	}
 
 	public void giveWindow(SimCityRun simCityRun) {

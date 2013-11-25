@@ -15,20 +15,21 @@ import simcity.Home.gui.HomeAnimationPanel;
 
 public class ScreenFactory {
 
-	List<Screen> screenList = Collections.synchronizedList(new ArrayList<Screen>());
+        List<Screen> screenList = Collections.synchronizedList(new ArrayList<Screen>());
 
 
 
 	//public static Screen main = new Screen(1);
 	public static Screen rest = new Screen(2);
-	public static Screen market = new Screen(3);
+	//public static Screen market = new Screen(3);
 	//public static Screen bank = new Screen(4);
 	//public static Screen home = new Screen(5);
 	
 	public static MainScreen main = new MainScreen();
 	//public static Screen rest = new RestaurantNikhilAnimationPanel();
+
 	//public static Screen market = new MarketAnimationPanel();
-	
+	public static Screen market = new MarketAnimationPanel();
 	public static Screen home = new HomeAnimationPanel();
 
 	public static Screen bank = new bankAnimationPanel();
@@ -45,6 +46,7 @@ public class ScreenFactory {
 		//These are testing hacks
 		/*gui1 = new RoleGuiTest("red");
 
+>>>>>>> master
                 gui2 = new RoleGuiTest("notred");
                 main.addGui(gui1);
                 swap.addGui(gui2);*/

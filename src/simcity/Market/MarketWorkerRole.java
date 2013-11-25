@@ -113,7 +113,11 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	
 	public void HandIn(CustomerDelivery d){
 		System.out.println(person.name+ " " +"Giving stuff to " + d.customer.getName());
-		d.customer.HereIsYourStuff(d.orders);
+		Map<String, Integer> f= new HashMap<String, Integer>();
+		for (int i=0; i<d.orders.size(); i++){
+			f.put(d.orders.get(i).getChoice(), d.orders.get(i).getQuantity());
+		}
+		d.customer.HereIsYourStuff(f);
 		deliveries.remove(d);
 		stateChanged();
 	}
