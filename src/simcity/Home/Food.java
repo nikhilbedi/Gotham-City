@@ -14,23 +14,27 @@ public class Food {
 		this.type = type;
 		if (type.equals("Steak")){
 			cookingTime = 10;
-			amount = 5;
+			//amount = 5;
+			amount = 0;
 		}
 		else if (type.equals("Chicken")){
 			cookingTime = 8;
-			amount = 4;
+			//amount = 4;
+			amount = 0;
 		}
 		else if (type.equals("Pizza")) {
 			cookingTime = 6;
-			amount = 3;
+			//amount = 3;
+			amount = 0;
 		}
 		else if (type.equals("Salad")) {
 			cookingTime = 4;
-			amount = 5;
+			//amount = 5;
+			amount = 0;
 		}
-		else if (type.equals("Food")) {
+		//else if (type.equals("Food")) {
 			
-		}
+		//}
 		
 		//this.amount = 3;//amount of each order the cook has
 		this.capacity = 6;// maximum capacity

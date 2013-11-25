@@ -35,7 +35,7 @@ public class MainScreen extends Screen{
 	public MainScreen()
 	{
 		temp = 1;
-		house = new Home("House", 390, 590, 400, 600);
+		house = new Home("House", 390, 590, 400, 500);
 		house.setImagePath("/resources/Buildings/House.png");
 		market = new Market("Market", 210, 110, 200, 100);
 		market.setImagePath("/resources/Buildings/Market.png");

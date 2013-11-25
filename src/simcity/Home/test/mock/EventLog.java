@@ -9,7 +9,7 @@ import java.util.List;
  * The class exposes some helper methods to allow you to easily parse and search
  * these log files.
  *
- * @author Sean Turner
+ * @author Evan Coutre
  *
  */
 public class EventLog {
