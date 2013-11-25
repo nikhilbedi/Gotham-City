@@ -69,7 +69,7 @@ public class PersonAgent extends Agent implements Person {
 
 	//When to eat
 	public enum HungerState {NotHungry, Famished, Hungry, Starving, FeedingHunger};
-	private int hungerCount = 0; 
+	public int hungerCount = 0; 
 	public HungerState hungerState =  HungerState.NotHungry;
 
 	//Going to the market states
@@ -85,41 +85,36 @@ public class PersonAgent extends Agent implements Person {
 
 	private Job myJob;
 
-	private enum JobState {
+	public enum JobState {
 		OffWork, GoToWorkSoon, HeadedToWork, AtWork, LeaveWork, LeavingWork
 	};
 
-	protected class Job {
+	public class Job {
 		public JobState state = JobState.OffWork;
 		int onWork = 8; // 8am
 		int offWork = 17; // military hours - 17 == 5pm
 		Role role;
 		String type;
-
 		Building workplace;
 		//How does he know where to work? Building base class?
 
 		//Job Constructor
 		public Job(Role r, Building w) {
-
 			role = r;
 			workplace = w;
 		}
 
 
 		public Job(Role r, String type, Building w) {
-
 			role = r;
 			this.type = type;
 			workplace = w;
 		}
 
-		public void setJob(Role r) {
+		public void setJob(Role r, Building w) {
 			role = r;
+			workplace = w;
 		}
-
-
-
 	}
 
 	//Paying Rent
@@ -193,7 +188,21 @@ public class PersonAgent extends Agent implements Person {
 	public void setHomeOwnerRole() {
 		//When Evan is done with homeowner role, I can add this 
 	}
+	
 
+	public double getMoney() {
+		return money;
+	}
+	
+	public void addMoney(double amount) {
+		if(amount >= 0)
+			money += amount;
+	}
+
+	public void removeMoney(float amount) {
+		money -= amount;
+	}
+	
 	public Location getLocation() {
 		return currentBuilding.getEntranceLocation();
 	}
@@ -243,7 +252,6 @@ public class PersonAgent extends Agent implements Person {
 
 	@Override
 	public double checkMoney() {
-		// TODO Auto-generated method stub
 		return money;
 	}
 
@@ -261,24 +269,15 @@ public class PersonAgent extends Agent implements Person {
 	public void removeRole(Role role) {
 		roles.remove(role);
 	}
-
-	public void addMoney(float amount) {
-		money += amount;
-	}
-
-	public void removeMoney(float amount) {
-		money -= amount;
-	}
 	
 	public void setPreferredTransportation(String type) {
-		if (type.contains("car"))
+		if (type.equalsIgnoreCase("car"))
 			transportationState = TransportationState.Car;
-		else if (type.contains("bus"))
+		else if (type.equalsIgnoreCase("bus"))
 			transportationState = TransportationState.Bus;
 		else
 			transportationState = TransportationState.Walking;
 	}
-
 
 
 	//Messages from World Clock
@@ -287,7 +286,7 @@ public class PersonAgent extends Agent implements Person {
 		currentTime = time;
 		//Another hour, another chance to eat ;)
 		hungerCount++;
-		print("Checking my watch and it is " + time + " o' clock");
+		//print("Checking my watch and it is " + time + " o' clock");
 		//NEED TO CHECK IF THIS PERSON IS A HOMEOWNER. IF SO, MAKE THAT ROLE ACTIVE IF NO OTHER ROLE IS ACTIVE
 		if(landlord != null) {
 			//landlord.updateCurrentTime(time);
@@ -336,6 +335,8 @@ public class PersonAgent extends Agent implements Person {
 			moneyState = MoneyState.High;
 			stateChanged();
 		}
+		else
+			moneyState = MoneyState.Neutral;
 	}
 
 
@@ -457,10 +458,10 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public boolean pickAndExecuteAnAction() {
 		// Person Scheduler 
-
 		if(checkPersonScheduler) {
 			//if the man has groceries in his hand, let him take them home!
 			if(marketState == MarketState.TakeGroceriesHome) {
+				marketState = MarketState.TakingGroceriesHome;
 				goToHome();
 				return true;
 			}
@@ -486,7 +487,7 @@ public class PersonAgent extends Agent implements Person {
 					//return true; or boolean person = true;?
 					return true;
 				}
-				else if(myJob.state == JobState.LeaveWork) {
+				else if(myJob.state == JobState.LeaveWork && myJob.state == JobState.AtWork) {
 					leaveWork();
 					return true;
 				}
@@ -546,8 +547,9 @@ public class PersonAgent extends Agent implements Person {
 			}
 
 			//Let me even see if I got money..
-			if(/*accountNumber == 0 ||*/ moneyState == MoneyState.Low || moneyState == MoneyState.High) {
+			if(moneyState == MoneyState.Low || moneyState == MoneyState.High) {
 				if(currentBuilding != bank){
+					print("Going to bank for money");
 					goToBank();
 					return true;
 				}
@@ -571,7 +573,6 @@ public class PersonAgent extends Agent implements Person {
 
 
 	// Actions
-
 	private void goToWork() {
 
 		//animate out of building
@@ -598,6 +599,8 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	private void leaveWork() {
+		//Upon leaving work, person gains set amount of money in his wallet
+		money += 100;
 		//Use Screen to draw rect outside currentBuilding
 		//Use Screen to delete rect inside currentBuilding
 		//animate to desired location
