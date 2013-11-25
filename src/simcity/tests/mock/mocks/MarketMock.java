@@ -21,6 +21,8 @@ public class MarketMock extends Mock {
     	Map<String, Integer> map = new HashMap<String, Integer>();
     	map.put("Pizza", 10);
     	map.put("Steak", 5);
+    	person.groceryBag = map;
+    	person.groceryList.clear();
     	return map;
     }
 }

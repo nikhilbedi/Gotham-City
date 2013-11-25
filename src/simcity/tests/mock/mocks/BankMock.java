@@ -13,4 +13,8 @@ public class BankMock extends Mock {
     	log.add(new LoggedEvent("Person needs account. Will make account for person."));
     	return 1;
     }
+
+	public double withdrawMoney() {
+		return 1500.0;
+	}
 }
