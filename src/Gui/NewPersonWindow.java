@@ -158,27 +158,9 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			newPerson.setHome((Home)TheCity.getBuildingFromString("home"));
 
 			newPerson.startThread();
-<<<<<<< HEAD
-			//newPerson.((MarketCustomerRole)marketRoleTemp).setCashier(MarketAnimationPanel.marketCashier);
-=======
-			
-			//Add person to CityClock, so they can receive messages about time
-			CityClock.addPersonAgent(newPerson);
-			
-			//re-enable button
-			reference.newPersonButton.setEnabled(true);
-			
-			
-			//close the window
-			dispose();
+
 		}
-		if(e.getSource() == jobLocation){
 		
-		if(jobLocation.getSelectedIndex()>0){
-			jobPosition.setVisible(true);
->>>>>>> master
-		}
-		}
 	}
 
 	public void giveWindow(SimCityRun simCityRun) {

@@ -16,12 +16,12 @@ public class MarketCustomerRole extends Role implements MarketCustomer{
 
 	private MarketCashier cashier;
 	private List<Order> orders = new ArrayList<Order>();
-	private CustomerState state;
+	public CustomerState state;
 	private double amountDue;
 	private String name;
 	private double money;
 	//public PersonAgent person;
-	private enum CustomerState {needFood, choseGroceries, movingToCashier, atCashier, ordering, inALine, paying, amountDue, gotChange, leaving, moving, gettingItems, gotItems };
+	public enum CustomerState {needFood, choseGroceries, movingToCashier, atCashier, ordering, inALine, paying, amountDue, gotChange, leaving, moving, gettingItems, gotItems };
 	private MarketCustomerGui customerGui;
 
 	public MarketCustomerRole(PersonAgent p){

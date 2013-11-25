@@ -459,10 +459,6 @@ public class PersonAgent extends Agent implements Person {
 	public boolean pickAndExecuteAnAction() {
 		// Person Scheduler 
 
-<<<<<<< HEAD
-		System.out.println("In scheduler");
-=======
->>>>>>> master
 		if(checkPersonScheduler) {
 			//if the man has groceries in his hand, let him take them home!
 			if(marketState == MarketState.TakeGroceriesHome) {
@@ -471,14 +467,7 @@ public class PersonAgent extends Agent implements Person {
 			}
 
 			//If he's CRRAAAZZY hungry, then eat something first. Then do checks of eating at home versus the restaurant
-<<<<<<< HEAD
-			//checkPersonScheduler = false;
-			System.out.println("HI");
-			if(true){
-				goGetGroceries();
-				return true;
-			}
-=======
+
 			if(hungerState == HungerState.Starving) {
 				if(moneyState == MoneyState.Low) {
 					hungerState = HungerState.FeedingHunger;
@@ -492,7 +481,6 @@ public class PersonAgent extends Agent implements Person {
 				}
 			}
 
->>>>>>> master
 			//Work comes first--his family probably doesn't like this :/
 			if(myJob != null) {
 				if(myJob.state == JobState.GoToWorkSoon){
@@ -569,14 +557,7 @@ public class PersonAgent extends Agent implements Person {
 		}
 
 		//Role Scheduler
-<<<<<<< HEAD
-		//This should be changed to activeRole.pickAndExecuteAnAction();
 
-		if(activeRole != null) {
-			if(activeRole.pickAndExecuteAnAction()) {
-				//checkPersonScheduler should be made true anytime a role is done at a building, outside this scheduler
-				return true;
-=======
 		for(Role r : roles) {
 				//checkPersonScheduler should be made true anytime a role is done at a building, outside this scheduler
 			if(r.isActive()) {
@@ -584,7 +565,7 @@ public class PersonAgent extends Agent implements Person {
 					checkPersonScheduler = false;
 					return true;
 				}
->>>>>>> master
+
 			}
 
 		}
