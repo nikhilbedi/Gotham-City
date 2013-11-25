@@ -42,7 +42,7 @@ public class PersonTest extends TestCase
 		person = new PersonAgent("person");
 		bank = new Bank("BankName", 0, 0, 0, 0);
 		bankMock = new BankMock("bank");
-		Market market = new Market("MarketName", 0, 0, 0, 0);
+		//Market market = new Market("MarketName", 0, 0, 0, 0);
 		List<Market> markets = new ArrayList<Market>();
 		Home home = new Home("HomeName", 0, 0, 0, 0);
 		PersonGui pGui = new PersonGui(person);
@@ -112,8 +112,6 @@ public class PersonTest extends TestCase
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("Pizza", 10);
 		map.put("Steak", 5);
-		Map<String, Integer> maplist = person.groceryList;
-		Map<String, Integer> mapbag = person.groceryBag;
 
 		HomeMock homeMock = new HomeMock("homeMock");
 
@@ -288,6 +286,29 @@ public class PersonTest extends TestCase
 	 * This test checks how appropriately the person will go eat when he is hungry (manually updating time)
 	 */
 	public void testGettingHungry() {
+		//preconditions
+		assertEquals("Hunger count should be 0. But it isnt", 0, person.hungerCount);
+		assertTrue("The money allocated when a person is instantiated is zero. It is not.", person.checkMoney() == 0.0);
+		assertEquals("Job should be null. It is not", person.getJob(), null);
+		assertTrue("The size of roles should be zero", person.getRoles().size() == 0);
+		assertTrue("The size of rentBills should be zero. It isnt", person.getRentBills().size() == 0);
+		assertEquals("Bank account number should be zero. it isnt", person.getAccountNumber(), 0);
+		assertTrue("personScheduler should be true. it isnt", person.getPersonScheduler());
+		assertTrue("The person's state should be set so that he thinks he is not hungry, but it is not", person.hungerState == HungerState.NotHungry);
+
+		//Step 1 - Update the time
+		time++;
+		person.updateTime(time);
 		
+		//post/preconditions
+		assertEquals("Hunger count should be 1. But it isnt", 1, person.hungerCount);
+		assertTrue("The money allocated when a person is instantiated is zero. It is not.", person.checkMoney() == 0.0);
+		assertEquals("Job should be null. It is not", person.getJob(), null);
+		assertTrue("The size of rentBills should be zero. It isnt", person.getRentBills().size() == 0);
+		assertEquals("Bank account number should be zero. it isnt", person.getAccountNumber(), 0);
+		assertTrue("personScheduler should be true. it isnt", person.getPersonScheduler());
+		assertTrue("The person's state should be set so that he thinks he is not hungry, but it is not", person.hungerState == HungerState.NotHungry);
+
+		//Step 2 - Update
 	}
 }
