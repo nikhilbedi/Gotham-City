@@ -1,6 +1,7 @@
 package simcity.Market.test.mock;
 
 import java.util.List;
+import java.util.Map;
 
 import simcity.Market.Order;
 import simcity.Market.interfaces.MarketCustomer;
@@ -24,11 +25,6 @@ public class MockMarketCustomer extends Mock implements MarketCustomer{
 		
 	}
 
-	@Override
-	public void HereIsYourStuff(List<Order> orders) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void outOf(Order order) {
@@ -62,6 +58,14 @@ public class MockMarketCustomer extends Mock implements MarketCustomer{
 
 	@Override
 	public void getGroceries() {
+		
+		
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void HereIsYourStuff(Map<String, Integer> m) {
 		// TODO Auto-generated method stub
 		
 	}

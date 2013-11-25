@@ -35,7 +35,7 @@ public class MainScreen extends Screen{
 	public MainScreen()
 	{
 		temp = 1;
-		house = new Home("House", 390, 590, 400, 600);
+		house = new Home("Home", 390, 590, 400, 600);
 		house.setImagePath("/resources/Buildings/HouseDark.png");
 		market = new Market("Market", 210, 110, 200, 100);
 		market.setImagePath("/resources/Buildings/MarketDark.png");
@@ -60,8 +60,8 @@ public class MainScreen extends Screen{
          
 		for(Building b : buildings){
 			java.net.URL image = this.getClass().getResource(b.getImagePath());
-			ImageIcon current = new ImageIcon(image);
-			g.drawImage(current.getImage(), b.getGuiLocation().getX(), b.getGuiLocation().getY(), null);
+			b.icon = new ImageIcon(image);
+			g.drawImage(b.icon.getImage(), b.getGuiLocation().getX(), b.getGuiLocation().getY(), null);
 		}
 
 	}
@@ -87,6 +87,18 @@ public class MainScreen extends Screen{
 	public Home getHomeHack(){
 		//this is labeled as a Hack because technically there should be multiple homes
 		return (Home)house;
+	}
+	
+	@Override
+	public String checkSwap(int x, int y){
+		for(Building b: buildings){
+			int tempX = b.getGuiLocation().getX();
+			int tempY = b.getGuiLocation().getY();
+			if( (x>tempX) && (x<tempX + b.icon.getIconWidth()) && (y>tempY) && (y<tempY+b.icon.getIconHeight())){
+				return b.getName();
+			}
+		}
+		return null;
 	}
 }
 

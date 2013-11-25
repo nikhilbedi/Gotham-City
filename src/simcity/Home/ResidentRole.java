@@ -57,7 +57,8 @@ public class ResidentRole extends Role implements Resident {
 	public HomeState state = HomeState.DoingNothing;// The start state
 
 	public enum HomeEvent {
-		none, gotHungry, collectedIngredients, checkedEmptyFridge, doneCooking, donePlating, doneEating, doneClearing, gotSleepy, doneSleeping, payRent, atFridge, checkMailbox, atMailbox, checkGroceryBag, putGroceriesInFridge
+		none, gotHungry, collectedIngredients, checkedEmptyFridge, doneCooking, donePlating, doneEating,
+		doneClearing, gotSleepy, doneSleeping, payRent, atFridge, checkMailbox, atMailbox, checkGroceryBag, putGroceriesInFridge, leaveHome
 	};
 
 	public HomeEvent event = HomeEvent.none;
@@ -192,7 +193,7 @@ public class ResidentRole extends Role implements Resident {
 	public void atFridge() {
 		System.out.println("atfridge********************");
 		event = HomeEvent.atFridge;
-		stateChanged();
+		//stateChanged();
 
 	}
 
@@ -415,7 +416,7 @@ public class ResidentRole extends Role implements Resident {
 			stateChanged();
 		}
 		event = HomeEvent.none;
-		//state = HomeState.DoingNothing;
+		state = HomeState.DoingNothing;
 	}
 
 	public void payRent(List<RentBill> rentBills) {
@@ -502,7 +503,6 @@ public class ResidentRole extends Role implements Resident {
 	public void checkFridge() {
 		System.out.println("checking food supply");
 		residentGui.DoGoToFridge();
-		
 	}
 
 	public String checkFoodSupply() {
@@ -522,7 +522,7 @@ public class ResidentRole extends Role implements Resident {
 			}
 			System.out.println("Collected Food");
 			event = HomeEvent.collectedIngredients;
-			stateChanged();
+			//stateChanged();
 			
 			//person.hungerState = HungerState.FeedingHunger;
 			//stateChanged();
@@ -538,9 +538,9 @@ public class ResidentRole extends Role implements Resident {
 			// o.outOfStock = true;
 			System.out.println( "no more " + choice + "in fridge.");
 			addToGroceryList(f);
-	
+			print("about to chamge state to check empty fridge");
 			event = HomeEvent.checkedEmptyFridge;
-			stateChanged();
+			//stateChanged();
 		}
 
 		return choice;
@@ -548,10 +548,10 @@ public class ResidentRole extends Role implements Resident {
 	}
 
 	public void exitHome() {
+		//myPerson.homeNeedsGroceries(groceryList);
 		residentGui.DoExitHome();
-		event = HomeEvent.none;
-		stateChanged();
-
+		state = HomeState.DoingNothing;
+		event = HomeEvent.leaveHome;
 	}
 
 	// TODO Fix this Evan

@@ -5,19 +5,18 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import Gui.RoleGui;
+import Gui.Screen;
+import simcity.Market.MarketCustomerRole;
 import simcity.Market.interfaces.MarketCashier;
 import simcity.Market.interfaces.MarketCustomer;
 
 public class MarketCustomerGui extends RoleGui{
-	private int xPos;
-	private int yPos;
-	private int xDestination;
-	private int yDestination;
-	private MarketCustomer customer;
+
+	private MarketCustomerRole customer;
 	private Command command;
 	private enum Command {buy, none, atCashier, gettingItems, left};
 	
-	public MarketCustomerGui(MarketCustomer mc){
+	public MarketCustomerGui(MarketCustomerRole mc){
 		customer = mc;
 		xPos = 200;
 		yPos = 800;
@@ -26,20 +25,23 @@ public class MarketCustomerGui extends RoleGui{
 		command = Command.buy;
 	}
 	
-	public void updatePosition() {
-		
-		 if (xPos < xDestination)
-	            xPos++;
-	        else if (xPos > xDestination)
-	            xPos--;
+	public MarketCustomerGui(MarketCustomerRole role, Screen s) {
+		// TODO Auto-generated constructor stub
+		//super(role, s);
+		customer = role;
+		command  = Command.buy;
+		homeScreen = s;
+		xPos = 200;
+		yPos = 800;
+		xDestination = 200;
+		yDestination = 800;
+	}
 
-	        if (yPos < yDestination)
-	            yPos++;
-	        else if (yPos > yDestination)
-	            yPos--;
+	public void updatePosition() {
+		super.updatePosition();
 	        
 	        if (xPos == 200 && yPos == 800 && command == Command.buy){
-			customer.getGroceries();
+			//customer.getGroceries();
 	        }
 	        if (xPos == 200 && yPos == 350 && command == Command.atCashier){
 	        	command = Command.none;
@@ -49,6 +51,10 @@ public class MarketCustomerGui extends RoleGui{
 	        	System.out.println("arrived");
 	        	command = Command.none;
 	        	customer.ArrivedToGetItem();
+	        }
+	        if (yPos == 800  && xDestination == 450 && command == Command.left){
+	        	command = Command.none;
+	        	customer.msgOutOfMarket();
 	        }
 	}
 
