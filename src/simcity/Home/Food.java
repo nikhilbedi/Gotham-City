@@ -15,22 +15,22 @@ public class Food {
 		if (type.equals("Steak")){
 			cookingTime = 10;
 			//amount = 5;
-			amount = 0;
+			amount = 1;
 		}
 		else if (type.equals("Chicken")){
 			cookingTime = 8;
 			//amount = 4;
-			amount = 0;
+			amount = 1;
 		}
 		else if (type.equals("Pizza")) {
 			cookingTime = 6;
 			//amount = 3;
-			amount = 0;
+			amount = 1;
 		}
 		else if (type.equals("Salad")) {
 			cookingTime = 4;
 			//amount = 5;
-			amount = 0;
+			amount = 1;
 		}
 		//else if (type.equals("Food")) {
 			
