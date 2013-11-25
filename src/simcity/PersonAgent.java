@@ -11,6 +11,8 @@ import simcity.restaurants.*;
 import simcity.Market.Market;
 import simcity.Home.Home;
 import simcity.Home.LandlordRole;
+import simcity.Home.ResidentRole;
+import simcity.Home.gui.ResidentGui;
 import simcity.bank.*;
 
 import java.util.*;
@@ -20,6 +22,8 @@ public class PersonAgent extends Agent implements Person {
 	//TODO REMOVE THIS
 	Role bankRoleTemp;
 	RoleGui bankGui;
+	Role homeTemp;
+	RoleGui homeGui;
 
 
 	public String name;
@@ -33,7 +37,7 @@ public class PersonAgent extends Agent implements Person {
 	public List<RentBill> rentBills = new ArrayList<RentBill>();
 	public boolean checkPersonScheduler = true;
 	PersonGui gui;
-	
+
 	private LandlordRole landlord;
 
 	//Saves time from having to loop all the time to find the active role
@@ -188,12 +192,12 @@ public class PersonAgent extends Agent implements Person {
 	public void setHomeOwnerRole() {
 		//When Evan is done with homeowner role, I can add this 
 	}
-	
+
 
 	public double getMoney() {
 		return money;
 	}
-	
+
 	public void addMoney(double amount) {
 		if(amount >= 0)
 			money += amount;
@@ -202,7 +206,7 @@ public class PersonAgent extends Agent implements Person {
 	public void removeMoney(float amount) {
 		money -= amount;
 	}
-	
+
 	public Location getLocation() {
 		return currentBuilding.getEntranceLocation();
 	}
@@ -269,7 +273,7 @@ public class PersonAgent extends Agent implements Person {
 	public void removeRole(Role role) {
 		roles.remove(role);
 	}
-	
+
 	public void setPreferredTransportation(String type) {
 		if (type.equalsIgnoreCase("car"))
 			transportationState = TransportationState.Car;
@@ -290,7 +294,7 @@ public class PersonAgent extends Agent implements Person {
 		//NEED TO CHECK IF THIS PERSON IS A HOMEOWNER. IF SO, MAKE THAT ROLE ACTIVE IF NO OTHER ROLE IS ACTIVE
 		if(landlord != null) {
 			//landlord.updateCurrentTime(time);
-		/*	if(landord.timeIsUp()) {
+			/*	if(landord.timeIsUp()) {
 				landlord.setActive(true);
 			}
 			else
@@ -554,11 +558,16 @@ public class PersonAgent extends Agent implements Person {
 					return true;
 				}
 			}
+
+			if(currentBuilding != myHome) {
+				goToHome();
+				return true;
+			}
 		}
 
 		//Role Scheduler
 		for(Role r : roles) {
-				//checkPersonScheduler should be made true anytime a role is done at a building, outside this scheduler
+			//checkPersonScheduler should be made true anytime a role is done at a building, outside this scheduler
 			if(r.isActive()) {
 				if(r.pickAndExecuteAnAction()) {
 					checkPersonScheduler = false;
@@ -567,7 +576,7 @@ public class PersonAgent extends Agent implements Person {
 			}
 
 		}
-		
+
 		return false;
 	}
 
@@ -619,13 +628,21 @@ public class PersonAgent extends Agent implements Person {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			//enter building (removing rect from city screen if it is there, adding rect to home if not there)
-
-			/*	Role residentRoleTemp = RoleFactory.makeMeRole(bank.residentRole);
-			activeRole = residentRoleTemp;
-			roles.add(residentRoleTemp);*/
-
 		}
+		//homeTemp = RoleFactory.makeMeRole("residentRole");
+		homeTemp = myHome.resident;
+		homeTemp.setActive(true);
+		currentBuilding = myHome;
+		homeGui = new ResidentGui((ResidentRole)homeTemp, ScreenFactory.getMeScreen("Home"));
+		homeGui.setHomeScreen(ScreenFactory.getMeScreen("Home"));
+
+		//Add role
+		homeTemp.setGui(homeGui);
+		//Enter building
+		homeTemp.setPerson(this);
+		enteringBuilding(homeTemp);
+		checkPersonScheduler = false;
+
 	}
 
 	private void goEatAtRestaurant() {
@@ -679,7 +696,7 @@ public class PersonAgent extends Agent implements Person {
 	private void goToBank() {
 		//if inside building and not in bank
 		//animate outside building to the bank
-		
+
 		System.out.println("X: " + bank.getEntranceLocation().getX());
 		System.out.println("Y: " + bank.getEntranceLocation().getY());
 		print("Current permits when going to bank are: " + busyWithTask.availablePermits());
@@ -692,7 +709,7 @@ public class PersonAgent extends Agent implements Person {
 
 		}
 		currentBuilding = bank;
-		
+
 		bankRoleTemp = RoleFactory.makeMeRole("bankCustomer");
 		//currentBuilding = bank;
 		bankGui = new bankCustomerGui((BankCustomerRole)bankRoleTemp, ScreenFactory.getMeScreen("Bank"));
@@ -704,7 +721,7 @@ public class PersonAgent extends Agent implements Person {
 		bankRoleTemp.setGui(bankGui);
 		//Enter building
 		enteringBuilding(bankRoleTemp);
-		
+
 		checkPersonScheduler = false;
 	}
 

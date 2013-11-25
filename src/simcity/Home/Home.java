@@ -21,6 +21,7 @@ public class Home extends Building{
 		groceryList = new ArrayList<String>();
 		rentBills = new ArrayList<RentBill>();
 		fridgeFoods = new ArrayList<Food>();
+		resident = new ResidentRole();
 	}
 }	
 

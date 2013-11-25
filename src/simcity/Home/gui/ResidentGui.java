@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 import Gui.RoleGui;
+import Gui.Screen;
+import simcity.Home.ResidentRole;
 import simcity.Home.interfaces.Resident;
 import simcity.PersonAgent;
 import simcity.PersonAgent.EatingState;
@@ -33,6 +35,11 @@ public class ResidentGui extends RoleGui {
 		yPos = -40;
 		xDestination = 400;
 		yDestination = -40;
+	}
+
+	public ResidentGui(ResidentRole homeTemp, Screen meScreen) {
+		// TODO Auto-generated constructor stub
+		super(homeTemp, meScreen);
 	}
 
 	// @Override

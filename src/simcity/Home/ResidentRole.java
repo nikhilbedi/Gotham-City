@@ -85,7 +85,7 @@ public class ResidentRole extends Role implements Resident{
 		foods.put("Salad", f);
 	
 	}
-	/*public ResidentRole(){
+	public ResidentRole(){
 		Food f = new Food ("Chicken");
 		foods.put("Chicken", f);
 		
@@ -98,7 +98,7 @@ public class ResidentRole extends Role implements Resident{
 		f = new Food ("Salad");
 		foods.put("Salad", f);
 	
-	}*/
+	}
 	
 	/**
 	 * hack to establish connection to Host agent.
