@@ -42,7 +42,8 @@ public class Restaurant1CustomerRole extends Role implements Customer {
 	private AgentState state = AgentState.DoingNothing;//The start state
 
 	public enum AgentEvent 
-	{none, gotHungry, mustWaitInArea, followWaiter, seated, thoughtOfOrder, askedForOrder, gaveOrder, receivedFood, doneEating, receivedBill, reachedCashier, doneLeaving, left};
+	{none, gotHungry, mustWaitInArea, followWaiter, seated, thoughtOfOrder, askedForOrder, gaveOrder, receivedFood, doneEating, receivedBill, reachedCashier, 
+		doneLeaving, leavingRestaurant, left};
 	AgentEvent event = AgentEvent.none;
 
 	/**
@@ -127,7 +128,6 @@ public class Restaurant1CustomerRole extends Role implements Customer {
 	
 	public void msgAnimationFinishedWaitingArea() {
 		//from animation - Just manually send host message.
-		print("derp");
 		host.inWaitingPosition();
 	}
 
@@ -199,6 +199,8 @@ public class Restaurant1CustomerRole extends Role implements Customer {
 			money = 30;
 			print("Since I was in debt and God likes to speak to me, I was given 30 dollars to clear my payments.");
 		}
+		event = AgentEvent.leavingRestaurant;
+		stateChanged();
 		//We can perhaps have a boolean for a flake and set the boolean true under the above condition
 		//we will need to call an action to up this guys cash flow too, remember
 	}
@@ -256,6 +258,11 @@ public class Restaurant1CustomerRole extends Role implements Customer {
 		if(state == AgentState.Leaving && event == AgentEvent.reachedCashier) {
 			state = AgentState.Paying;
 			payCashier();
+			return true;
+		}
+		if(state == AgentState.Paying && event == AgentEvent.leavingRestaurant) {
+			state = AgentState.Leaving;
+			leaveRestaurant();
 			return true;
 		}
 		/*	if (state == AgentState.Leaving && event == AgentEvent.left) {
@@ -408,11 +415,14 @@ public class Restaurant1CustomerRole extends Role implements Customer {
 		//Since Java does not all us to pass functions, only objects.
 		//So, we use Java syntactic mechanism to create an
 		//anonymous inner class that has the public method run() in it.
+		final Restaurant1CustomerRole roleTemp = this;
 		timer.schedule(new TimerTask() {
 			Object cookie = 1;
 			public void run() {
 				print("Done eating "  + myChoice);
-				event = AgentEvent.doneEating;
+				myPerson.justAte();
+				myWaiter.readyForCheck(roleTemp);
+				//event = AgentEvent.doneEating;
 				customerGui.doneWithFood();
 				//  isHungry = false;
 				stateChanged();
@@ -437,16 +447,14 @@ public class Restaurant1CustomerRole extends Role implements Customer {
 	private void payCashier() {
 		print("Paying Cashier");
 		cashier.hereIsPayment(myCheck, money);
-		state = AgentState.DoingNothing;
 		customerGui.DoExitRestaurant();
 		myCheck = null;
 	}
 
-	private void leaveTableAndRestaurant() {
-		print("Leaving.");
-		myWaiter.doneAndLeaving(this);
+	private void leaveRestaurant() {
+		print("derp");
 		event = AgentEvent.left;
-		customerGui.DoExitRestaurant();
+		myPerson.leftBuilding(this);
 	}
 
 

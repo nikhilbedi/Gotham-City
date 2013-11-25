@@ -76,8 +76,7 @@ public class Role {
 	 */
 	protected void print(String msg, Throwable e) {
 		StringBuffer sb = new StringBuffer();
-		if(myPerson != null)
-			sb.append(myPerson.getName());
+		sb.append(myPerson.getName());
 		sb.append(": ");
 		sb.append(msg);
 		sb.append("\n");
