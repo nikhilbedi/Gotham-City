@@ -28,9 +28,9 @@ public class Food {
 			cookingTime = 4;
 			amount = 5;
 		}
-		else if (type.equals("Food")) {
+		//else if (type.equals("Food")) {
 			
-		}
+		//}
 		
 		//this.amount = 3;//amount of each order the cook has
 		this.capacity = 6;// maximum capacity
