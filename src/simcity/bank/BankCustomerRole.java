@@ -69,8 +69,8 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	//States for finite state machine
 	
 	public enum CustomerState
-	{nothing, temp, waiting, goingToLine, inLine, goingToTeller, atTeller, receivedReceipt, done};
-	public CustomerState state = CustomerState.temp;//The start state
+	{nothing, entered, waiting, goingToLine, inLine, goingToTeller, atTeller, receivedReceipt, done};
+	public CustomerState state = CustomerState.nothing;//The start state
 	
 	
 	//Functions
@@ -164,7 +164,7 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	public void msgEnteredBank() {
 		System.out.println("Entered Bank");
 		greeter = myPerson.bank.getGreeter();
-		state = CustomerState.nothing;
+		state = CustomerState.entered;
 		stateChanged();
 	}
 	
@@ -216,7 +216,7 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	
 	public boolean pickAndExecuteAnAction() {
 		
-		if (state == CustomerState.nothing ){
+		if (state == CustomerState.entered ){
 			System.out.println("talk to greeter");
 			talkToGreeter();
 			return true;

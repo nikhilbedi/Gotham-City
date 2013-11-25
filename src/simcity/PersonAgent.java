@@ -25,14 +25,13 @@ public class PersonAgent extends Agent implements Person {
 	int currentTime; //(ranges from 1-24)
 	public int accountNumber; //Not currently sure how we're using account numbers, but the person should know it if we're removing that role
 	Semaphore busyWithTask = new Semaphore(0, false);
-	private double money = 0.0;
+	double money = 0.0;
 	protected List<Role> roles = new ArrayList<Role>();
 	public Map<String, Integer> groceryList = new HashMap<String, Integer>();
 	public List<RentBill> rentBills = new ArrayList<RentBill>();
 	boolean checkPersonScheduler = true;
 
 	PersonGui gui;
-
 
 	//Saves time from having to loop all the time to find the active role
 	Role activeRole;
