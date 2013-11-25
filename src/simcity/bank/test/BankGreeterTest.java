@@ -40,6 +40,7 @@ public class BankGreeterTest extends TestCase
 		bankGreeter.setGui(new BankGreeterGui(bankGreeter));
 		mockCustomer = new MockBankCustomer("mockCustomer");		
 		mockTeller = new MockBankTeller("mockTeller");
+		
 		//bankCustomer.setGreeter(mockGreeter);
 		//bankCustomer.setBankTeller(mockTeller);
 		//b.setGreeter(mockGreeter);
@@ -57,13 +58,6 @@ public class BankGreeterTest extends TestCase
 				bankGreeter.getName().equals("testGreeter"));
 		
 		
-		//set up
-		
-		//bankGreeter.addTeller(mockTeller);
-		//assertTrue("Teller list should be increased after adding a teller. It is not. Instead the size is: " + 
-			//	bankGreeter.tellers.size(), bankGreeter.tellers.size() > 0);
-		
-		
 		//step 1
 		
 		assertFalse("No messages were given but the greeter should be waiting and pickAndExecute should be "
@@ -74,11 +68,15 @@ public class BankGreeterTest extends TestCase
 		assertTrue("The customer in index 0 should be sent into the line once the scheduler is called. His state was not chagned.", bankGreeter.waitingCustomers.get(0).s == customerState.inLine);
 		
 		
-		//step 2
-		
-		assertFalse("No messages were given but the greeter should be waiting and pickAndExecute should be "
-				+ "false. It is not.", bankGreeter.pickAndExecuteAnAction());
+		// step 2
+		bankGreeter.addTeller(mockTeller);
+		assertTrue("Teller list should be increased after adding a teller. It is not. Instead the size is: " + 
+						bankGreeter.tellers.size(), bankGreeter.tellers.size() > 0);
 		bankGreeter.msgReadyForCustomer(mockTeller);
+		assertTrue("The teller should be available before the scheduler runs. It is not.", mockTeller.isAvailable());
+		assertTrue("The scheduler should seee the mockTeller as available and return true. It did not.", bankGreeter.pickAndExecuteAnAction());
+		assertFalse("The teller should no longer be available after the scheduler runs. It is.", mockTeller.isAvailable());
+		assertEquals("The waitingCustomer list should be empty after the customer is sent to the teller. It still has a customer in it.", bankGreeter.waitingCustomers.size(), 0);
 		/*assertTrue("The customer's waiting number should be 0. It is something else", bankCustomer.waitingNumber == 0);
 		assertTrue("Customer state should be updated to goingToLine after scheduler was run. It was not updated.", bankCustomer.state == CustomerState.goingToLine);
 		
@@ -97,7 +95,7 @@ public class BankGreeterTest extends TestCase
 		assertTrue("Customer state should be atTeller. It is not.", bankCustomer.state == CustomerState.atTeller);
 		assertTrue("Should ask teller for a transaction through scheduler. Something was missed.", bankCustomer.pickAndExecuteAnAction());
 		assertTrue("Transaction List should be empty once the teller is messaged for a transaction. It does not occur", bankCustomer.transactionList.size() == 0);
-		
+	
 		
 		//step 5
 		

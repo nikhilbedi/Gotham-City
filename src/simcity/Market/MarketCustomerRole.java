@@ -98,8 +98,8 @@ public class MarketCustomerRole extends Role implements MarketCustomer{
 	
 	public void HereIsYourStuff(Map<String, Integer> map){
 		System.out.println(myPerson.name+ " " +"Got my stuff");
-	//	myPerson.groceryBag = map;
-		//
+		myPerson.groceryBag = map;
+		myPerson.groceryList.clear();
 		state = CustomerState.gotItems;
 		stateChanged();
 	}

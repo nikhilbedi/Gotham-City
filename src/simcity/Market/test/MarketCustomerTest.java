@@ -1,4 +1,7 @@
 package simcity.Market.test;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.junit.* ;
 
 import simcity.PersonAgent;
@@ -30,6 +33,7 @@ public class MarketCustomerTest {
 	
 	@Test
 	public void oneTest() throws InterruptedException{
+	
 		customer.setGui(gui);
 		customer.setCashier(cashier);
 		assertTrue("Scheduler should return false", !customer.pickAndExecuteAnAction());
@@ -42,7 +46,26 @@ public class MarketCustomerTest {
 		assertTrue("Scheduler should return true", customer.pickAndExecuteAnAction());
 		assertTrue("Customer state should be moving to cashier", customer.state == CustomerState.movingToCashier);
 		customer.AtCashier();
-		
+		assertTrue("Customer state should be moving to cashier", customer.state == CustomerState.atCashier);
+		assertTrue("Scheduler should return true", customer.pickAndExecuteAnAction());
+		assertTrue("Customer state should be moving to cashier", customer.state == CustomerState.ordering);
+		customer.amountDue(17.98);
+		assertTrue("Customer state should be moving to cashier", customer.state == CustomerState.amountDue);
+		assertTrue("Scheduler should return true", customer.pickAndExecuteAnAction());
+		assertTrue("Customer state should be moving to cashier", customer.state == CustomerState.paying);
+		customer.HereIsChange(0.02);
+		assertTrue("Customer state should be moving to cashier", customer.state == CustomerState.gotChange);
+		assertTrue("Scheduler should return true", customer.pickAndExecuteAnAction());
+		assertTrue("Customer state should be moving to cashier", customer.state == CustomerState.moving);
+		customer.ArrivedToGetItem();
+		assertTrue("Customer state should be moving to cashier", customer.state == CustomerState.gettingItems);
+		Map<String, Integer> m = new HashMap<String, Integer>();
+		m.put("Chicken", 2);
+		customer.HereIsYourStuff(m);
+		assertTrue("Customer state should be moving to cashier", customer.state == CustomerState.gotItems);
+		assertTrue("Scheduler should return true", customer.pickAndExecuteAnAction());
+		assertTrue("Customer state should be moving to cashier", customer.state == CustomerState.leaving);
+		assertTrue("Scheduler should return true", !customer.pickAndExecuteAnAction());
 	}
 	
 	

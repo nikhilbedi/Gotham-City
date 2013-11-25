@@ -292,6 +292,7 @@ public class PersonAgent extends Agent implements Person {
 
 	//Messages from World Clock
 	public void updateTime(int time) {
+		print("AVAILABLE PERMITS: " + busyWithTask.availablePermits());
 		currentTime = time;
 		//Another hour, another chance to eat ;)
 		hungerCount++;
@@ -308,36 +309,42 @@ public class PersonAgent extends Agent implements Person {
 
 		if(hungerCount > 11) {
 			hungerState = HungerState.Starving;
+			stateChanged();
 		}
 		else if(hungerCount > 7) {
 			hungerState = HungerState.Hungry;
+			stateChanged();
 		}
 		else if(hungerCount > 3) {
 			hungerState = HungerState.Famished;
+			stateChanged();
 		}
 
 		//We should change any states here, not constantly check the scheduler to change states
 		if(myJob != null) {
 			if(currentTime == myJob.onWork) {
-				myJob.state = JobState.GoToWorkSoon;	
+				myJob.state = JobState.GoToWorkSoon;
+				stateChanged();
 			} 
 			//Maybe, also check if our current state is atWork
 			else if (currentTime == myJob.offWork) {
 				myJob.state = JobState.LeaveWork;
+				//Need to now check the person scheduler so we leave work
 				checkPersonScheduler = true;
+				stateChanged();
 			}
 		}
 
 		//every "hour", let's check how much money is in our wallet. (temporary low and highs)
 		double low = 25.0;
 		double high = 150.0;
-		if (money <= low) {
+		if (money <= low && moneyState != MoneyState.Low) {
 			moneyState = MoneyState.Low;
-		} else if (money >= high) {
+			stateChanged();
+		} else if (money >= high && moneyState != MoneyState.High) {
 			moneyState = MoneyState.High;
+			stateChanged();
 		}
-
-		stateChanged();
 	}
 
 
@@ -347,7 +354,8 @@ public class PersonAgent extends Agent implements Person {
 	 * 
 	 */
 	public void reachedBuilding() {
-		//	currentBuilding = currentDestination;
+		currentBuilding = currentDestination;
+		System.out.println("REACHED BUILDING");
 		busyWithTask.release();
 	}
 
@@ -458,8 +466,13 @@ public class PersonAgent extends Agent implements Person {
 	@Override
 	public boolean pickAndExecuteAnAction() {
 		// Person Scheduler 
+		
 
 		if(checkPersonScheduler) {
+			if (true){
+				goGetGroceries();
+				return true;
+			}
 			//if the man has groceries in his hand, let him take them home!
 			if(marketState == MarketState.TakeGroceriesHome) {
 				goToHome();
@@ -659,16 +672,16 @@ public class PersonAgent extends Agent implements Person {
 			gui.DoGoToLocation(m.getEntranceLocation());
 			break;
 		}
-		/*	try {
+			try {
 			busyWithTask.acquire();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 
 		marketRoleTemp = RoleFactory.makeMeRole("marketCustomer");
 		currentBuilding = markets.get(0);
-		//MarketCustomerRole tempMarketCustomerRole = (MarketCustomerRole)marketRoleTemp;
+		MarketCustomerRole tempMarketCustomerRole = (MarketCustomerRole)marketRoleTemp;
 		marketGui = new MarketCustomerGui((MarketCustomerRole)marketRoleTemp, ScreenFactory.getMeScreen("Market"));
 		marketRoleTemp.setPerson(this);
 		marketGui.setHomeScreen(ScreenFactory.getMeScreen("Market"));
@@ -688,9 +701,11 @@ public class PersonAgent extends Agent implements Person {
 	private void goToBank() {
 		//if inside building and not in bank
 		//animate outside building to the bank
-		currentBuilding = bank;
+		
 		System.out.println("X: " + bank.getEntranceLocation().getX());
 		System.out.println("Y: " + bank.getEntranceLocation().getY());
+		print("Current permits when going to bank are: " + busyWithTask.availablePermits());
+		currentDestination = bank;
 		gui.DoGoToLocation(bank.getEntranceLocation());
 		try{
 			busyWithTask.acquire();
@@ -698,6 +713,7 @@ public class PersonAgent extends Agent implements Person {
 		catch(InterruptedException e){
 
 		}
+		currentBuilding = bank;
 		
 		bankRoleTemp = RoleFactory.makeMeRole("bankCustomer");
 		//currentBuilding = bank;

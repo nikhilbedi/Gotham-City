@@ -138,6 +138,8 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			/*newPersonGui.xDestination = 500;
 			newPersonGui.yDestination = 500;*/
 			
+			//setJob
+			
 			newPerson.setGui(newPersonGui);	
 			newPerson.setRestaurants(mainScreen.getRestaurantList());
 			newPerson.setMarkets(mainScreen.getMarketList());
@@ -158,7 +160,17 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			newPerson.setHome((Home)TheCity.getBuildingFromString("home"));
 
 			newPerson.startThread();
-
+			
+			
+			//Add person to CityClock, so they can receive messages about time
+			CityClock.addPersonAgent(newPerson);
+			
+			//re-enable button
+			reference.newPersonButton.setEnabled(true);
+			
+			
+			//close the window
+			dispose();
 		}
 		
 	}

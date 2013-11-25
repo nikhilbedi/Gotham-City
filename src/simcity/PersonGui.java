@@ -12,6 +12,9 @@ import Gui.RoleGui;
 
 public class PersonGui extends RoleGui {
 	PersonAgent agent;
+	boolean tempStill = true;
+	int count = 0;
+	String command = "";
 	public PersonAgent getAgent() {
 		return agent;
 	}
@@ -46,8 +49,9 @@ public class PersonGui extends RoleGui {
 
 	public void updatePosition() {
 		super.updatePosition();
-		if(xPos == xDestination && yPos == yDestination) {
+		if(xPos == xDestination && yPos == yDestination && tempStill && command.equalsIgnoreCase("GoingToLocation")) {
 			agent.reachedBuilding();
+			tempStill = false;
 		}
 	}
 	
@@ -57,7 +61,9 @@ public class PersonGui extends RoleGui {
 	}
 	
 	public void DoGoToLocation(Location destination) {
+		tempStill = true;
 		xDestination = destination.getX();
 		yDestination = destination.getY();
+		command = "GoingToLocation";
 	}
 }

@@ -23,6 +23,8 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	private List<MarketCustomer> waitingCustomers = new ArrayList<MarketCustomer>();
 	private List<RestaurantOrder> restaurantOrders = new ArrayList<RestaurantOrder>();
 	public MarketCustomer currentCustomer;
+	public List<MarketCustomer> customersInMarket = new ArrayList<MarketCustomer>();
+	
 	//private PersonAgent person;
 	public MarketCashierRole(PersonAgent p){
 		super(p);
@@ -74,6 +76,7 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	public void INeed(List<Order> o){ //here customer passes what he needs
 		System.out.println(myPerson.name+ ": "+ "Got new order from "+ o.get(0).customer.getName());
 		checks.add(new Check(o));
+		customersInMarket.add(o.get(0).customer);
 		stateChanged();
 	}
 	
