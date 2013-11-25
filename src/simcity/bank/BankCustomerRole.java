@@ -19,10 +19,12 @@ import java.util.Timer;
  * Programmer: Brice Roland
  */
 public class BankCustomerRole extends Role implements BankCustomer{
+	
 	// agent correspondents
 	
 	private BankGreeter greeter;
 	private BankTeller teller;
+	
 	
 	//constructor call to Role constructor
 	public BankCustomerRole(PersonAgent person) {
@@ -36,9 +38,11 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		//setTransactions();
 	}
 	
+	
 	//State Variables
 	
-	private int  waitingNumber, tellerIndex;
+	public int  waitingNumber;
+	private int tellerIndex;
 	Timer timer = new Timer();
 	double cash, transactionAmount;
 	String transactionType = "openingAccount";  //This must be changed to interact with the Person's intentions at the bank
@@ -62,16 +66,11 @@ public class BankCustomerRole extends Role implements BankCustomer{
 			bankCustomerGui.setX(x);
 			bankCustomerGui.setY(y);
 		}*/
-	
-	
-	
-	
-	
 	//States for finite state machine
 	
 	public enum CustomerState
-	{nothing, temp, waiting, goingToLine, inLine, goingToTeller, atTeller, receivedReceipt, done};
-	public CustomerState state = CustomerState.temp;//The start state
+	{nothing, entered, waiting, goingToLine, inLine, goingToTeller, atTeller, receivedReceipt, done};
+	public CustomerState state = CustomerState.nothing;//The start state
 	
 	
 	//Functions
@@ -134,6 +133,7 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	
 	
 	// Messages
+	
 	@Override
 	public void startBuildingMessaging(){
 		msgEnteredBank();
@@ -161,15 +161,10 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		stateChanged();
 	}	
 	
-	public void msgOutOfBank() {
-		System.out.println(getName() + ": left the bank.");
-		myPerson.leftBuilding(this);
-	}
-	
 	public void msgEnteredBank() {
 		System.out.println("Entered Bank");
 		greeter = myPerson.bank.getGreeter();
-		state = CustomerState.nothing;
+		state = CustomerState.entered;
 		stateChanged();
 	}
 	
@@ -181,16 +176,25 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	
 	@Override
 	public void HereIsReceipt(BankReceipt receipt) {
-		getPersonAgent().addMoney((float)receipt.transactionAmount);
+		switch(receipt.transactionType) {
+		case "withdrawal":
+			getPersonAgent().addMoney((float)receipt.transactionAmount); break;
+		case "deposit":
+			getPersonAgent().removeMoney((float)receipt.transactionAmount); break;
+		}
 		state = CustomerState.receivedReceipt;
 		stateChanged();
 	}
 
 	public void HereIsReceiptAndAccountInfo(BankReceipt bankReceipt, int accountNumber) {
 		System.out.println(getName() + ": Received receipt. Account number is: " + accountNumber);
-		getPersonAgent().addMoney((float)bankReceipt.transactionAmount);
-		//add Account number info to PersonAgent
-		getPersonAgent().setAccountNumber(accountNumber);
+		switch(bankReceipt.transactionType) {
+		case "openingAccount":
+			getPersonAgent().removeMoney((float)bankReceipt.transactionAmount); 
+			getPersonAgent().setAccountNumber(accountNumber); break;
+		case "closingAccount":
+			getPersonAgent().addMoney((float)bankReceipt.transactionAmount); break;
+		}
 		state = CustomerState.receivedReceipt;
 		stateChanged();
 	}
@@ -201,12 +205,18 @@ public class BankCustomerRole extends Role implements BankCustomer{
 		stateChanged();
 	}
 	
+	public void msgOutOfBank() {
+		System.out.println(getName() + ": left the bank.");
+		transactionList.clear();
+		myPerson.leftBuilding(this);
+	}
+	
 	
 	//Scheduler
 	
 	public boolean pickAndExecuteAnAction() {
 		
-		if (state == CustomerState.nothing ){
+		if (state == CustomerState.entered ){
 			System.out.println("talk to greeter");
 			talkToGreeter();
 			return true;
@@ -237,7 +247,7 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	// Actions
 	
 	private void talkToGreeter() {
-		System.out.println("HI");
+		System.out.println("Need a teller");
 		greeter.msgNeedATeller(this);
 		state = CustomerState.waiting;
 	}

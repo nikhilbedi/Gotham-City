@@ -45,9 +45,9 @@ public class BankGreeterRole extends Role implements BankGreeter{
 	
 	//Class to hold BankCustomer and their information
 	
-	class MyCustomer {
+	public class MyCustomer {
 		BankCustomer customer;
-		customerState s;
+		public customerState s;
 		
 		public MyCustomer(BankCustomer c) {
 			customer = c;

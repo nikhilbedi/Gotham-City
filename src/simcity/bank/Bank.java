@@ -16,7 +16,6 @@ public class Bank extends Building {
 	//Location location = new Location(xCoor, yCoor);
 	int openTime, closeTime;
 	
-	
 	public Bank(String type, int entranceX, int entranceY, int guiX,
 			int guiY) {
 		super(type, entranceX, entranceY, guiX, guiY);

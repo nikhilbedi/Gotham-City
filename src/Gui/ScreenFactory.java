@@ -26,7 +26,11 @@ public class ScreenFactory {
 	
 	public static MainScreen main = new MainScreen();
 	//public static Screen rest = new RestaurantNikhilAnimationPanel();
+<<<<<<< HEAD
 	public static Screen market = new MarketAnimationPanel();
+=======
+	/*public static Screen market = new MarketAnimationPanel();
+>>>>>>> master
 	
 	//public static Screen home = new HomeAnimationPanel();
 
