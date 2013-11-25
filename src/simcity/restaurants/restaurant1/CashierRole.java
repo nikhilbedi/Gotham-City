@@ -83,6 +83,19 @@ public class CashierRole extends Role implements Cashier {
     	billsToPay.add(new DeliveryBill(market, amount));
     }
     
+    //TODO
+    public void amountDue(double a, MarketCashier m) {
+     	print("Received bill to pay market: " + a);
+    	log.add(new LoggedEvent("Received bill to pay market: " + a));
+    	billsToPay.add(new DeliveryBill(m, a));
+    	//stateChanged();
+    }
+    
+    //TODO
+    public void HereIsYourChange(double d, marketCashier m) {
+    	registerAmt += d;
+    	//
+    }
 
 
     /**
@@ -155,8 +168,11 @@ public class CashierRole extends Role implements Cashier {
     		for(DeliveryBill d : billsToPay) {
     			if(registerAmt >= d.amount) {
     				registerAmt -= d.amount;
+    				marketCashier.hereIsMoneyRestaurant(this, d.amount);
+    				//TODO
+    				/*
     				d.market.hereIsPayment(registerAmt);
-    				billsToPay.remove(d);
+    				billsToPay.remove(d);*/
     			}
     			else {
     				print("The register doesn't have enough money to pay the market bill of " + d + ". Will pay rest with rest of register amount: " + registerAmt);
@@ -169,6 +185,8 @@ public class CashierRole extends Role implements Cashier {
     		payBill();
     	}
     }
+    
+ 
 
     
     public class Check {

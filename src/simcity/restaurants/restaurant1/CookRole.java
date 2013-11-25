@@ -129,6 +129,10 @@ public class CookRole extends Role implements Cook {
 		//message waiter to add food to menu
     }
 
+    public void HereIsYourFood(Map<String,Integer> m) {
+    	//Add items to my inventory TODO
+    }
+    
     /**
      * Scheduler.  Determine what action is called for, and do it.
      */
@@ -235,17 +239,20 @@ public class CookRole extends Role implements Cook {
     	//MarketRole m = markets.get(nextMarket % markets.size());
     	MarketRole m = new MarketRole("market");
 		Food f = foods.get(item);
-		//	for(Food f : foods.values()) {
-		    if(f.amount <= f.low) {
-				//Send message to market
+		Map<String, Integer> mapToSend = new HashMap<String, Integer>();
+		for(Food f1: foods.values()) {
+			if(f1.amount< f1.low){
 				int temp = f.capacity - f.pendingAmt;
 				if(temp > 0) {
-				    m.needFoodItems(f.type, temp);
+					mapToSend.put(f1.type, temp);
 				    f.state = FoodState.waitingForDeliveries;
 				}
-		    } 
-		    //	}
-		nextMarket++;
+			}
+		}
+		if(!mapToSend.isEmpty()) {
+			//marketCashier.INeedFood(mapToSend, this, cashier);
+		}
+		//nextMarket++;
     }
     
     public String toString() {
