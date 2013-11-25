@@ -4,7 +4,7 @@ import simcity.PersonAgent;
 import simcity.tests.mock.*;
 import agent.Agent;
 import simcity.restaurants.restaurant1.WaiterRole;
-import simcity.restaurants.restaurant1.CustomerRole;
+import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
 import simcity.restaurants.restaurant1.Menu;
 import simcity.restaurants.restaurant1.gui.HostGui;
 import simcity.restaurants.restaurant1.interfaces.*;
@@ -277,7 +277,7 @@ public class HostRole extends Role implements Host {
 
     private void tellCustomerWait(Customer customer, WaitingArea w){
     	w.setOccupant(customer);
-    	((CustomerRole) customer).waitInArea(w.posX, w.posY);
+    	((Restaurant1CustomerRole) customer).waitInArea(w.posX, w.posY);
     }
     
     private void seatCustomer(Customer customer, Table t, Waiter w) {

@@ -5,7 +5,7 @@ import simcity.PersonAgent;
 import simcity.tests.mock.*;
 import agent.Agent;
 import simcity.restaurants.restaurant1.WaiterRole;
-import simcity.restaurants.restaurant1.CustomerRole;
+import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
 import simcity.restaurants.restaurant1.Menu;
 import simcity.restaurants.restaurant1.gui.CookGui;
 import simcity.restaurants.restaurant1.gui.CookGui.FoodGui;

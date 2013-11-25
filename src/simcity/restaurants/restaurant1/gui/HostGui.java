@@ -1,7 +1,7 @@
 package simcity.restaurants.restaurant1.gui;
 
 
-import simcity.restaurants.restaurant1.CustomerRole;
+import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
 import Gui.RoleGui;
 import simcity.restaurants.restaurant1.HostRole;
 
@@ -35,7 +35,7 @@ public class HostGui extends RoleGui {
         return true;
     }
 
-    public void DoBringToTable(CustomerRole customer, int tableX, int tableY ) {
+    public void DoBringToTable(Restaurant1CustomerRole customer, int tableX, int tableY ) {
 	xTable = tableX;
 	yTable = tableY;
         xDestination = xTable + 20;

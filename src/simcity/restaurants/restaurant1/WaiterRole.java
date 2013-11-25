@@ -4,7 +4,7 @@ import simcity.PersonAgent;
 import simcity.tests.mock.*;
 import agent.Agent;
 import simcity.restaurants.restaurant1.WaiterRole;
-import simcity.restaurants.restaurant1.CustomerRole;
+import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
 import simcity.restaurants.restaurant1.Menu;
 import simcity.restaurants.restaurant1.gui.WaiterGui;
 import simcity.restaurants.restaurant1.interfaces.*;
@@ -310,8 +310,8 @@ public class WaiterRole extends Role implements Waiter {
 		    e.printStackTrace();
 		}
 		host.waitingAreaAvailable(customer.c);
-		waiterGui.DoSeatCustomer((CustomerRole) customer.c, customer.tableNumber);
-		((CustomerRole) customer.c).followMe(this, myMenu);
+		waiterGui.DoSeatCustomer((Restaurant1CustomerRole) customer.c, customer.tableNumber);
+		((Restaurant1CustomerRole) customer.c).followMe(this, myMenu);
 		try{
 		    busyWithTask.acquire();
 		}
@@ -341,7 +341,7 @@ public class WaiterRole extends Role implements Waiter {
 		    e.printStackTrace();
 		}
 		//Tells customer to give order
-		((CustomerRole) customer.c).whatDoYouWant();
+		((Restaurant1CustomerRole) customer.c).whatDoYouWant();
 		customer.state = CustomerState.askedToOrder;
     }
 
@@ -372,7 +372,7 @@ public class WaiterRole extends Role implements Waiter {
 		    // TODO Auto-generated catch block
 		    e.printStackTrace();
 		}
-		((CustomerRole) customer.c).orderNotAvailable(myMenu);
+		((Restaurant1CustomerRole) customer.c).orderNotAvailable(myMenu);
 		customer.state = CustomerState.seated;
     }
 
@@ -400,8 +400,8 @@ public class WaiterRole extends Role implements Waiter {
 			for(MyCustomer mc : myCustomers) {
 			    if(mc.tableNumber == table) {
 					mc.state = CustomerState.eating;
-					((CustomerRole) mc.c).hereIsYourFood(choice);
-					waiterGui.setFood((CustomerRole) mc.c, choice);
+					((Restaurant1CustomerRole) mc.c).hereIsYourFood(choice);
+					waiterGui.setFood((Restaurant1CustomerRole) mc.c, choice);
 					break;
 			    }
 			}
@@ -440,7 +440,7 @@ public class WaiterRole extends Role implements Waiter {
 		synchronized(myCustomers) {
 			for(MyCustomer mc : myCustomers) {
 			    if(mc.c == currentCheck.customer) {
-					((CustomerRole) mc.c).hereIsBill(currentCheck);
+					((Restaurant1CustomerRole) mc.c).hereIsBill(currentCheck);
 					break;
 			    }
 			}

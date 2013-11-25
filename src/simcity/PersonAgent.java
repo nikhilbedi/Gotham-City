@@ -8,6 +8,8 @@ import Gui.ScreenFactory;
 import simcity.interfaces.Person;
 import simcity.RoleFactory;
 import simcity.restaurants.*;
+import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
+import simcity.restaurants.restaurant1.gui.Restaurant1CustomerGui;
 import simcity.Market.Market;
 import simcity.Market.MarketCustomerRole;
 import simcity.Market.MarketGui.MarketCustomerGui;
@@ -29,6 +31,8 @@ public class PersonAgent extends Agent implements Person {
 	RoleGui marketGui;
 	Role homeTemp;
 	RoleGui homeGui;
+	Role rest1Temp;
+	RoleGui rest1Gui;
 
 
 	public String name;
@@ -52,7 +56,7 @@ public class PersonAgent extends Agent implements Person {
 	// Locations
 	// These buildings will be set when any person is added
 	public List<Restaurant> restaurants;
-	Restaurant currentPreference;
+	public Restaurant currentPreference;
 	public List<Market> markets; 
 
 	public Bank bank;
@@ -175,6 +179,7 @@ public class PersonAgent extends Agent implements Person {
 
 	public void setRestaurants(List<Restaurant> r) {
 		restaurants = r;
+		currentPreference = restaurants.get(0);
 	}
 
 	public void setMarkets(List<Market> m) {
@@ -487,7 +492,7 @@ public class PersonAgent extends Agent implements Person {
 	public boolean pickAndExecuteAnAction() {
 
 		// Person Scheduler 
-		
+
 
 		if(checkPersonScheduler) {
 			//if the man has groceries in his hand, let him take them home!
@@ -657,7 +662,6 @@ public class PersonAgent extends Agent implements Person {
 
 	private void goToHome() {
 		//if inside building and not in home, animate there
-		System.out.println("inside currentbuilding*********");
 		if(currentBuilding != myHome) {
 			gui.DoGoToLocation(myHome.getEntranceLocation());
 			try {
@@ -683,23 +687,13 @@ public class PersonAgent extends Agent implements Person {
 		homeTemp.setPerson(this);
 		enteringBuilding(homeTemp);
 		checkPersonScheduler = false;
-
-
-
-		//enter building (removing rect from city screen if it is there, adding rect to home if not there)
-
-		/*	Role residentRoleTemp = RoleFactory.makeMeRole(bank.residentRole);
-			activeRole = residentRoleTemp;
-			roles.add(residentRoleTemp);*/
-
-		//}
-
 	}
 
 	private void goEatAtRestaurant() {
 		//if inside building and not in current restaurant preference
 		//animate outside building
 		gui.DoGoToLocation(currentPreference.getEntranceLocation());
+		eatingState = EatingState.HeadedtoRestaurant;
 		try {
 			busyWithTask.acquire();
 		} catch (InterruptedException e) {
@@ -707,15 +701,17 @@ public class PersonAgent extends Agent implements Person {
 			e.printStackTrace();
 		}
 
-		//enter building (removing rect from city screen if it is there, adding rect to home if not there)
-
-		/*Role customerRoleTemp = roles.add(RoleFactory.makeMeRole(currentPreference.restaurantCustomerRole));
-		activeRole = customerRoleTemp;
-		roles.add(customerRoleTemp);*/
+		rest1Temp = RoleFactory.makeMeRole("Restaurant1Customer");
+		currentBuilding = currentPreference;
+		rest1Gui = new Restaurant1CustomerGui((Restaurant1CustomerRole)rest1Temp, ScreenFactory.getMeScreen("Restaurant"));
+		rest1Temp.setPerson(this);
+		rest1Gui.setHomeScreen(ScreenFactory.getMeScreen("Restaurant1Customer"));
 
 		checkPersonScheduler = false;
+		rest1Temp.setGui(rest1Gui);
+		//Enter building
+		enteringBuilding(rest1Temp);
 
-		//initial message to host
 	}
 
 	private void goGetGroceries() {
@@ -726,7 +722,7 @@ public class PersonAgent extends Agent implements Person {
 			gui.DoGoToLocation(m.getEntranceLocation());
 			break;
 		}
-			try {
+		try {
 			busyWithTask.acquire();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -747,7 +743,7 @@ public class PersonAgent extends Agent implements Person {
 		marketRoleTemp.setGui(marketGui);
 		//Enter building
 		enteringBuilding(marketRoleTemp);
-		
+
 
 		//initial message to marketCashier
 	}
@@ -774,8 +770,6 @@ public class PersonAgent extends Agent implements Person {
 		bankGui = new bankCustomerGui((BankCustomerRole)bankRoleTemp, ScreenFactory.getMeScreen("Bank"));
 		bankRoleTemp.setPerson(this);
 		bankGui.setHomeScreen(ScreenFactory.getMeScreen("Bank"));
-		bankRoleTemp.setActive(true);
-
 
 		bankRoleTemp.setGui(bankGui);
 		//Enter building

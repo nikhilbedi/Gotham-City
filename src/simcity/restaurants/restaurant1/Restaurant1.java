@@ -19,4 +19,12 @@ public class Restaurant1 extends Restaurant {
 	List<WaiterRole> waiters = new ArrayList<WaiterRole>();
 	CookRole cook = new CookRole();
 	//open and closing hours? hmmm..
+	
+	public void setHost(HostRole host) {
+		this.host = host;
+	}
+	
+	public HostRole getHost(){
+		return host;
+	}
 }

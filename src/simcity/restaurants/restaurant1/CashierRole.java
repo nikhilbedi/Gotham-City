@@ -4,7 +4,7 @@ import simcity.PersonAgent;
 import simcity.tests.mock.*;
 import agent.Agent;
 import simcity.restaurants.restaurant1.WaiterRole;
-import simcity.restaurants.restaurant1.CustomerRole;
+import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
 import simcity.restaurants.restaurant1.Menu;
 import simcity.restaurants.restaurant1.interfaces.*;
 import agent.Role;
@@ -204,7 +204,7 @@ public class CashierRole extends Role implements Cashier {
 		    customer = c;
 		    waiter = w;
 		}
-		public Check(WaiterRole w, CustomerRole c, String t) {
+		public Check(WaiterRole w, Restaurant1CustomerRole c, String t) {
 		    type = t;
 		    customer = c;
 		    waiter = w;

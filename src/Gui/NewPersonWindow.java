@@ -168,7 +168,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			newPerson.setBank(mainScreen.getBank());
 
 			//Give him money
-			//newPerson.addMoney(money.getValue()); //Evan: leaving money at 0 to test going to home ******
+			newPerson.addMoney(money.getValue()); //Evan: leaving money at 0 to test going to home ******
 
 
 			//setJob
