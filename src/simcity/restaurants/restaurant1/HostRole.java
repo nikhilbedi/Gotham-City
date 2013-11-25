@@ -100,7 +100,7 @@ public class HostRole extends Role implements Host {
        Handles new Customer and puts it onto waiting list
      */
     public void msgIWantFood(Customer cust) {
-		print("received message that " + cust + " is hungry.");
+		print("received message that customer is hungry.");
 		waitingCustomers.add(cust);
 		//Waiter
 		stateChanged();

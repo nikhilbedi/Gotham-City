@@ -10,8 +10,8 @@ import simcity.Building;
  *
  */
 public class Restaurant extends Building {
-	Role host;
-	Role cashier;
+	protected Role host;
+	protected Role cashier;
 	
 	public Restaurant(String type, int entranceX, int entranceY, int guiX, int guiY) {
 		super(type, entranceX, entranceY, guiX, guiY);

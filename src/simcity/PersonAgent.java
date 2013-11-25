@@ -496,6 +496,10 @@ public class PersonAgent extends Agent implements Person {
 
 		if(checkPersonScheduler) {
 			//if the man has groceries in his hand, let him take them home!
+			if(true) {
+				goEatAtRestaurant();
+				return true;
+			}
 			if(marketState == MarketState.TakeGroceriesHome) {
 				marketState = MarketState.TakingGroceriesHome;
 				goToHome();
@@ -705,7 +709,7 @@ public class PersonAgent extends Agent implements Person {
 		currentBuilding = currentPreference;
 		rest1Gui = new Restaurant1CustomerGui((Restaurant1CustomerRole)rest1Temp, ScreenFactory.getMeScreen("Restaurant"));
 		rest1Temp.setPerson(this);
-		rest1Gui.setHomeScreen(ScreenFactory.getMeScreen("Restaurant1Customer"));
+		rest1Gui.setHomeScreen(ScreenFactory.getMeScreen("Restaurant"));
 
 		checkPersonScheduler = false;
 		rest1Temp.setGui(rest1Gui);

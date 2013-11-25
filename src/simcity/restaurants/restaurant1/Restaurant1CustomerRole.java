@@ -7,6 +7,7 @@ import simcity.restaurants.restaurant1.HostRole;
 import simcity.restaurants.restaurant1.Menu;
 import simcity.restaurants.restaurant1.gui.Restaurant1CustomerGui;
 import simcity.restaurants.restaurant1.interfaces.*;
+import Gui.RoleGui;
 import agent.Role;
 
 import java.util.Timer;
@@ -69,7 +70,6 @@ public class Restaurant1CustomerRole extends Role implements Customer {
 		int max = 25;
 		int min = 4;
 		money = rnd.nextInt(max-min) + min;
-		name = getPersonAgent().getName();
 	}
 
 	/**
@@ -467,8 +467,9 @@ print("got here");
 		return "customer " + getName();
 	}
 
-	public void setGui(Restaurant1CustomerGui g) {
-		customerGui = g;
+	public void setGui(RoleGui g) {
+		super.setGui(g);
+		customerGui = (Restaurant1CustomerGui)g;
 	}
 
 	public Restaurant1CustomerGui getGui() {

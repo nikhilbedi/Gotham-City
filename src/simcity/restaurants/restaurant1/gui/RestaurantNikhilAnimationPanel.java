@@ -7,6 +7,7 @@ import simcity.restaurants.restaurant1.CookRole;
 import simcity.restaurants.restaurant1.HostRole;
 import simcity.restaurants.restaurant1.Restaurant1;
 import simcity.restaurants.restaurant1.WaiterRole;
+import simcity.PersonAgent;
 import simcity.Robot;
 import Gui.MainScreen;
 import Gui.Screen;
@@ -88,10 +89,10 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 
 
 	public void populate(){
-		Robot waiterPerson = new Robot("waiter");
-		Robot hostPerson = new Robot("host");
-		Robot cookPerson = new Robot("cook");
-		Robot cashierPerson = new Robot("cashier");
+		PersonAgent waiterPerson = new Robot("waiter");
+		PersonAgent hostPerson = new Robot("host");
+		PersonAgent cookPerson = new Robot("cook");
+		PersonAgent cashierPerson = new Robot("cashier");
 		//PersonAgent custPerson = new PersonAgent("customer");
 		
 		WaiterRole waiterRole = new WaiterRole(waiterPerson);
@@ -117,14 +118,16 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 		waiterRole.setCook(cookRole);
 		waiterRole.setCashier(cashierRole);
 		hostRole.addWaiter(waiterRole);
-
+		
+		r1.setCashier(cashierRole);
+		r1.setHost(hostRole);
+		
 		hostPerson.startThread();
 		cashierPerson.startThread();
 		waiterPerson.startThread();
 		cookPerson.startThread();
 		
-		r1.setCashier(cashierRole);
-		r1.setHost(hostRole);
+		
 
 	}
 }

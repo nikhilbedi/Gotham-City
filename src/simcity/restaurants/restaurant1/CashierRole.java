@@ -38,7 +38,12 @@ public class CashierRole extends Role implements Cashier {
     }
    
 
-    public String getName() {
+    public CashierRole() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public String getName() {
 	return name;
     }
 
