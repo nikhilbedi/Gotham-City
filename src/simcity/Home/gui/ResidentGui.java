@@ -6,6 +6,8 @@ import java.awt.Graphics2D;
 import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 import Gui.RoleGui;
+import Gui.Screen;
+import simcity.Home.ResidentRole;
 import simcity.Home.interfaces.Resident;
 import simcity.PersonAgent;
 import simcity.PersonAgent.EatingState;
@@ -17,9 +19,17 @@ public class ResidentGui extends RoleGui {
 	 * yDestination;
 	 */
 	PersonAgent person;
+	public String choice;
 	private Resident resident;
 	private Command command;
 	boolean payingRent = false;
+
+	public boolean cooking = false;
+	public boolean plating = false;
+	public boolean eating = false;
+	public boolean clearing = false;
+	public boolean sleeping = false;
+	public boolean checkingMail = false;
 
 	private enum Command {
 		none, atRefridgerator, left, atTable, atSink, atPlatingArea, atStove, atBed, atFridge, exited, atHome, atMailbox
@@ -29,6 +39,17 @@ public class ResidentGui extends RoleGui {
 		myColor = Color.red;
 		// System.err.println("Here we are 2");
 		resident = r;
+		
+		xPos = 400;
+		yPos = -40;
+		xDestination = 400;
+		yDestination = -40;
+	}
+	public ResidentGui(ResidentRole role, Screen s) {
+		myColor = Color.red;
+		// System.err.println("Here we are 2");
+		resident = role;
+		homeScreen = s;
 		xPos = 400;
 		yPos = -40;
 		xDestination = 400;
@@ -44,11 +65,12 @@ public class ResidentGui extends RoleGui {
 			// if (person.hungerState == HungerState.Hungry
 			// && person.eatingState == EatingState.EatAtHome && payingRent !=
 			// true) {
-			if (payingRent != true) {
-				resident.gotHungry();
+			//if (payingRent != true) {
+				//resident.gotHungry();
+				
 				// person.eatingState = EatingState.EatAtHome;
 
-			}
+			//}
 		}
 		if (xPos == 300 && yPos == 460 && command == Command.atTable) {
 			command = Command.none;
@@ -81,6 +103,10 @@ public class ResidentGui extends RoleGui {
 		if (xPos == 138 && yPos == 32 && command == Command.atMailbox) {
 			command = Command.none;
 			resident.atMailbox();
+		}
+		if (xPos == 84 && yPos == 226 && command == Command.atHome) {
+			command = Command.none;
+			resident.atHome();
 		}
 
 	}
@@ -154,8 +180,8 @@ public class ResidentGui extends RoleGui {
 
 	public void DoReturnToHomePosition() {
 		System.out.println("At Home Position");
-		xDestination = 500;
-		yDestination = 500;
+		xDestination = 84;
+		yDestination = 224;
 		command = Command.atHome;
 
 	}
@@ -168,4 +194,12 @@ public class ResidentGui extends RoleGui {
 
 	}
 
+
+	public int getXPos() {
+		return xPos;
+	}
+
+	public int getYPos() {
+		return yPos;
+	}
 }

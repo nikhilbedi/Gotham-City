@@ -11,6 +11,8 @@ import simcity.restaurants.*;
 import simcity.Market.Market;
 import simcity.Home.Home;
 import simcity.Home.LandlordRole;
+import simcity.Home.ResidentRole;
+import simcity.Home.gui.ResidentGui;
 import simcity.bank.*;
 
 import java.util.*;
@@ -20,6 +22,9 @@ public class PersonAgent extends Agent implements Person {
 	//TODO REMOVE THIS
 	Role bankRoleTemp;
 	RoleGui bankGui;
+	
+	Role homeTemp;
+	RoleGui homeGui;
 
 
 	public String name;
@@ -37,14 +42,15 @@ public class PersonAgent extends Agent implements Person {
 	private LandlordRole landlord;
 
 	//Saves time from having to loop all the time to find the active role
+
 	Role activeRole;
 
-
-	//Locations
-	//These buildings will be set when any person is added 
+	// Locations
+	// These buildings will be set when any person is added
 	public List<Restaurant> restaurants;
 	Restaurant currentPreference;
 	public List<Market> markets;
+
 	public Bank bank;
 
 	//These three are essential, but should be instantiated with the "Homeless Shelter" spawnpoint
@@ -69,11 +75,13 @@ public class PersonAgent extends Agent implements Person {
 
 	//When to eat
 	public enum HungerState {NotHungry, Famished, Hungry, Starving, FeedingHunger};
-	private int hungerCount = 0; 
+	public int hungerCount = 0; 
 	public HungerState hungerState =  HungerState.NotHungry;
 
 	//Going to the market states
-	public enum MarketState {GetGroceries, GettingGroceries, TakeGroceriesHome, TakingGroceriesHome, HaveGroceries};
+
+	public enum MarketState {GetGroceries, GettingGroceries, HaveGroceries, TakeGroceriesHome, TakingGroceriesHome};
+
 	public MarketState marketState = MarketState.HaveGroceries;
 
 	//Keep track of money
@@ -83,53 +91,52 @@ public class PersonAgent extends Agent implements Person {
 
 	//Job
 
+
 	private Job myJob;
 
-	private enum JobState {
+	public enum JobState {
 		OffWork, GoToWorkSoon, HeadedToWork, AtWork, LeaveWork, LeavingWork
 	};
 
-	protected class Job {
+	public class Job {
 		public JobState state = JobState.OffWork;
 		int onWork = 8; // 8am
 		int offWork = 17; // military hours - 17 == 5pm
 		Role role;
 		String type;
-
 		Building workplace;
-		//How does he know where to work? Building base class?
 
-		//Job Constructor
+		// How does he know where to work? Building base class?
+
+		// Job Constructor
 		public Job(Role r, Building w) {
-
 			role = r;
 			workplace = w;
 		}
 
-
 		public Job(Role r, String type, Building w) {
-
 			role = r;
 			this.type = type;
 			workplace = w;
 		}
 
-		public void setJob(Role r) {
+		public void setJob(Role r, Building w) {
 			role = r;
+			workplace = w;
 		}
-
-
 
 	}
 
-	//Paying Rent
-	//When to pay rent
-	private enum RentState {Paid, NotPaid, PayingBill};
+	// Paying Rent
+	// When to pay rent
+	public enum RentState {
+		Paid, NotPaid, PayingBill
+	};
+
 	public class RentBill {
 		public RentState state = RentState.NotPaid;
 		public PersonAgent accountHolder;
 		public float amount;
-
 
 		public RentBill(PersonAgent p, float a) {
 			accountHolder = p;
@@ -138,7 +145,9 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 
+
 	//constructors
+
 
 	public PersonAgent(String name) {
 		super();
@@ -153,7 +162,9 @@ public class PersonAgent extends Agent implements Person {
 		gui.setHomeScreen(s);
 	}
 
+
 	//essential setters for GUI (When adding a person to SimCity)
+
 	public void setGui(PersonGui g) {
 		gui = g;
 	}
@@ -166,21 +177,24 @@ public class PersonAgent extends Agent implements Person {
 		markets = m;
 	}
 
+
 	public void setBank(Bank b) {
 		bank = b;
 	}
+
 
 	/**
 	 * 
 	 * @param h The home (or shelter) the person will reside.
 	 */
 	public void setHome(Home h) {
+
 		if(h.getName().contains("shelter")) {
 			shelter = true;
 		}
 		else {
 			myHome = h;
-			currentBuilding = h;
+			//currentBuilding = h;
 			currentDestination = h;
 			//Should I make a new one, or just make it equal to this one? There is only one resident for a home...
 			//activeRole = myHome.resident;
@@ -193,10 +207,25 @@ public class PersonAgent extends Agent implements Person {
 	public void setHomeOwnerRole() {
 		//When Evan is done with homeowner role, I can add this 
 	}
+	
 
+	public double getMoney() {
+		return money;
+	}
+	
+	public void addMoney(double amount) {
+		if(amount >= 0)
+			money += amount;
+	}
+
+	public void removeMoney(float amount) {
+		money -= amount;
+	}
+	
 	public Location getLocation() {
 		return currentBuilding.getEntranceLocation();
 	}
+
 
 	public void setJob(Role role, Building building) {
 		myJob = new Job(role, building);
@@ -205,6 +234,7 @@ public class PersonAgent extends Agent implements Person {
 	public void setJob(String type, Building building) {
 		myJob = new Job(RoleFactory.makeMeRole(type), type, building);
 	}
+
 
 	public String getJob() {
 		if (myJob != null)
@@ -243,12 +273,10 @@ public class PersonAgent extends Agent implements Person {
 
 	@Override
 	public double checkMoney() {
-		// TODO Auto-generated method stub
 		return money;
 	}
 
-
-	public String getName(){
+	public String getName() {
 
 		return name;
 	}
@@ -261,24 +289,15 @@ public class PersonAgent extends Agent implements Person {
 	public void removeRole(Role role) {
 		roles.remove(role);
 	}
-
-	public void addMoney(float amount) {
-		money += amount;
-	}
-
-	public void removeMoney(float amount) {
-		money -= amount;
-	}
 	
 	public void setPreferredTransportation(String type) {
-		if (type.contains("car"))
+		if (type.equalsIgnoreCase("car"))
 			transportationState = TransportationState.Car;
-		else if (type.contains("bus"))
+		else if (type.equalsIgnoreCase("bus"))
 			transportationState = TransportationState.Bus;
 		else
 			transportationState = TransportationState.Walking;
 	}
-
 
 
 	//Messages from World Clock
@@ -287,7 +306,7 @@ public class PersonAgent extends Agent implements Person {
 		currentTime = time;
 		//Another hour, another chance to eat ;)
 		hungerCount++;
-		print("Checking my watch and it is " + time + " o' clock");
+		//print("Checking my watch and it is " + time + " o' clock");
 		//NEED TO CHECK IF THIS PERSON IS A HOMEOWNER. IF SO, MAKE THAT ROLE ACTIVE IF NO OTHER ROLE IS ACTIVE
 		if(landlord != null) {
 			//landlord.updateCurrentTime(time);
@@ -298,15 +317,15 @@ public class PersonAgent extends Agent implements Person {
 				landlord.setActive(false);*/
 		}
 
-		if(hungerCount > 11) {
+		if(hungerCount > 11 && hungerState != HungerState.Starving) {
 			hungerState = HungerState.Starving;
 			stateChanged();
 		}
-		else if(hungerCount > 7) {
+		else if(hungerCount > 7 && hungerState != HungerState.Hungry) {
 			hungerState = HungerState.Hungry;
 			stateChanged();
 		}
-		else if(hungerCount > 3) {
+		else if(hungerCount > 3 && hungerState != HungerState.Famished) {
 			hungerState = HungerState.Famished;
 			stateChanged();
 		}
@@ -319,6 +338,7 @@ public class PersonAgent extends Agent implements Person {
 			} 
 			//Maybe, also check if our current state is atWork
 			else if (currentTime == myJob.offWork) {
+
 				myJob.state = JobState.LeaveWork;
 				//Need to now check the person scheduler so we leave work
 				checkPersonScheduler = true;
@@ -327,20 +347,23 @@ public class PersonAgent extends Agent implements Person {
 		}
 
 		//every "hour", let's check how much money is in our wallet. (temporary low and highs)
+
 		double low = 25.0;
 		double high = 150.0;
 		if (money <= low && moneyState != MoneyState.Low) {
+		
 			moneyState = MoneyState.Low;
 			stateChanged();
 		} else if (money >= high && moneyState != MoneyState.High) {
 			moneyState = MoneyState.High;
 			stateChanged();
 		}
+		else{
+			moneyState = MoneyState.Neutral;
+		}
 	}
 
-
-
-	//Messages from User Interface or Animation
+	// Messages from User Interface or Animation
 	/**
 	 * 
 	 */
@@ -349,7 +372,6 @@ public class PersonAgent extends Agent implements Person {
 		System.out.println("REACHED BUILDING");
 		busyWithTask.release();
 	}
-
 
 	/**
 	 * Notifies the person that the current role is done with all interactions in the restaurant
@@ -375,7 +397,6 @@ public class PersonAgent extends Agent implements Person {
 		role.setActive(false);
 		role.getGui().getHomeScreen().removeGui(role.getGui());
 		gui.getHomeScreen().addGui(gui);
-		gui.DoGoToLocation(new Location(200,200));
 		roles.remove(role);
 		checkPersonScheduler = true;
 		stateChanged();
@@ -397,6 +418,7 @@ public class PersonAgent extends Agent implements Person {
 	 *            Which restaurant the person should head to
 	 */
 
+
 	/*public void eatAtRestaurant(Restaurant r) {
 		eatingState = EatingState.EatAtRestaurant;
 		stateChanged();
@@ -405,6 +427,7 @@ public class PersonAgent extends Agent implements Person {
 	/**
 	 * a message from the GUI to eat at home.  But if he lives at the shelter, he can't eat at home.
 	 */
+
 	public void eatAtHome() {
 		if(!shelter) {
 			eatingState = EatingState.EatAtHome;
@@ -412,7 +435,7 @@ public class PersonAgent extends Agent implements Person {
 		}
 	}
 
-	//Messages from Roles
+	// Messages from Roles
 
 
 	/**
@@ -453,19 +476,24 @@ public class PersonAgent extends Agent implements Person {
 
 
 
+
 	//Scheduler
+
 	@Override
 	public boolean pickAndExecuteAnAction() {
+
 		// Person Scheduler 
 
 		if(checkPersonScheduler) {
 			//if the man has groceries in his hand, let him take them home!
 			if(marketState == MarketState.TakeGroceriesHome) {
+				marketState = MarketState.TakingGroceriesHome;
 				goToHome();
 				return true;
 			}
 
 			//If he's CRRAAAZZY hungry, then eat something first. Then do checks of eating at home versus the restaurant
+
 			if(hungerState == HungerState.Starving) {
 				if(moneyState == MoneyState.Low) {
 					hungerState = HungerState.FeedingHunger;
@@ -486,7 +514,7 @@ public class PersonAgent extends Agent implements Person {
 					//return true; or boolean person = true;?
 					return true;
 				}
-				else if(myJob.state == JobState.LeaveWork) {
+				else if(myJob.state == JobState.LeaveWork && myJob.state == JobState.AtWork) {
 					leaveWork();
 					return true;
 				}
@@ -515,7 +543,9 @@ public class PersonAgent extends Agent implements Person {
 				}
 			}
 
+
 			//Gotta eat!- Says the GUI
+
 			if(eatingState == EatingState.EatAtHome) {
 				goToHome();
 				return true;
@@ -546,11 +576,17 @@ public class PersonAgent extends Agent implements Person {
 			}
 
 			//Let me even see if I got money..
-			if(/*accountNumber == 0 ||*/ moneyState == MoneyState.Low || moneyState == MoneyState.High) {
+			if(moneyState == MoneyState.Low || moneyState == MoneyState.High) {
 				if(currentBuilding != bank){
+					print("Going to bank for money");
 					goToBank();
 					return true;
 				}
+			}
+			
+			if(currentBuilding != myHome) {
+				goToHome();
+				return true;
 			}
 		}
 
@@ -564,20 +600,21 @@ public class PersonAgent extends Agent implements Person {
 				}
 			}
 
+			//Role Scheduler
+			//This should be changed to activeRole.pickAndExecuteAnAction();
+			
 		}
 		
 		return false;
 	}
 
-
 	// Actions
-
 	private void goToWork() {
 
-		//animate out of building
-		//activeRole.DoLeaveBuilding();
+		// animate out of building
+		// activeRole.DoLeaveBuilding();
 
-		//animate to desired location
+		// animate to desired location
 		gui.DoGoToLocation(myJob.workplace.getEntranceLocation());
 
 		try {
@@ -589,15 +626,21 @@ public class PersonAgent extends Agent implements Person {
 		//enter building (thus deleting rect in city and adding rect to workplace)
 		roles.add(myJob.role);
 
+
 		//This loop should be changed to using ActiveRole
 		myJob.role.setActive(true);
 
 		checkPersonScheduler = false;
 
+
 		//add role to building's list of workers
 	}
 
 	private void leaveWork() {
+
+		//Upon leaving work, person gains set amount of money in his wallet
+		money += 100;
+
 		//Use Screen to draw rect outside currentBuilding
 		//Use Screen to delete rect inside currentBuilding
 		//animate to desired location
@@ -608,21 +651,44 @@ public class PersonAgent extends Agent implements Person {
 
 	private void goToHome() {
 		//if inside building and not in home, animate there
+		System.out.println("inside currentbuilding*********");
 		if(currentBuilding != myHome) {
 			gui.DoGoToLocation(myHome.getEntranceLocation());
 			try {
+				print("Available permits: " + busyWithTask.availablePermits());
 				busyWithTask.acquire();
+			//	busyWithTask.acquire();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
+			
+			
+			
+			//homeTemp = RoleFactory.makeMeRole("residentRole");
+			homeTemp = myHome.resident;
+			homeTemp.setActive(true);
+			currentBuilding = myHome;
+			homeGui = new ResidentGui((ResidentRole)homeTemp, ScreenFactory.getMeScreen("Home"));
+			homeGui.setHomeScreen(ScreenFactory.getMeScreen("Home"));
+		
+			//Add role
+			
+			homeTemp.setGui(homeGui);
+			//Enter building
+			homeTemp.setPerson(this);
+			enteringBuilding(homeTemp);
+			checkPersonScheduler = false;
+			
+			
+			
 			//enter building (removing rect from city screen if it is there, adding rect to home if not there)
 
 			/*	Role residentRoleTemp = RoleFactory.makeMeRole(bank.residentRole);
 			activeRole = residentRoleTemp;
 			roles.add(residentRoleTemp);*/
 
-		}
+		//}
 	}
 
 	private void goEatAtRestaurant() {
@@ -703,12 +769,17 @@ public class PersonAgent extends Agent implements Person {
 		enteringBuilding(bankRoleTemp);
 		
 		checkPersonScheduler = false;
-	}
 
+	}
 
 	public void restart() {
 		// TODO Auto-generated method stub
 
+	}
+
+	public Map<String, Integer> getGroceryBag() {
+		
+		return groceryBag;
 	}
 
 }

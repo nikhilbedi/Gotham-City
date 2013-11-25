@@ -1,90 +1,109 @@
 package simcity.Home.test;
 
+import Gui.ScreenFactory;
 import junit.framework.TestCase;
-
 import simcity.PersonAgent;
+import simcity.Home.Home;
 import simcity.Home.ResidentRole;
+import simcity.Home.ResidentRole.HomeState;
+import simcity.Home.gui.ResidentGui;
+import simcity.Home.test.mock.MockResident;
 
 public class ResidentTest extends TestCase {
-
-	public class CashierTest extends TestCase
-	{
+	
 		//these are instantiated for each test separately via the setUp() method.
 		ResidentRole resident;
 		PersonAgent person;
+		MockResident mockResident;
 	
 		/**
 		 * This method is run before each test. You can use it to instantiate the class variables
 		 * for your agent and mocks, etc.
 		 */
+		
 		public void setUp() throws Exception{
 			super.setUp();		
-			resident = new ResidentRole(person);		
-		}
-	}
-		/**
-		 * This tests the cashier under very simple terms: one customer is ready to pay the exact bill.
-		 */
-		public void testOne(){
-			try { 
-				setUp();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+			resident = new ResidentRole(new PersonAgent ("testResident"));	
+			Home h = new Home("Home", 0, 0, 0, 0);
+			resident.getPersonAgent().setHome(h);
+			resident.setGui(new ResidentGui((ResidentRole)resident, ScreenFactory.getMeScreen("Home")));
+			mockResident = new MockResident("mockResident");
 		}
 }
-			
-		
-			/*
-			customer.cashier = cashier;//You can do almost anything in a unit test.
-			
-			assertEquals("Cashier should have 0 orders in it. It doesn't.", cashier.orders.size(), 0);
-			
-			Order o = new Order(waiter, "Pizza", 1, OrderState.requestCheck, customer);
-			cashier.msgRequestCheck(customer, o);
-			
-			assertEquals("MockWaiter should have an empty event log before the cashier's scheduler is called. Instead, the MockWaiter's event log reads:"
-					+ waiter.log.toString(), 0, waiter.log.size());
-			
-			assertEquals("Cashier should have one order in it. It doesn't.", cashier.orders.size(), 1);
-			
-			assertTrue("Orders should contain an order with state == requestCheck. It doesn't", 
-					cashier.orders.get(0).os == OrderState.requestCheck);
-			
-			assertTrue("Orders should contain an order of price = $8.99. It contains something else instead: $"
-					+ cashier.orders.get(0).choice.getFoodPrice(), cashier.orders.get(0).choice.getFoodPrice() == 8.99);
-			
-			assertTrue("Orders should contain a check with the right customer in it. It doesn't.",
-					cashier.orders.get(0).customer == customer);
-			
-			assertTrue("Cashier's scheduler should have returned true (needs to react to Waiter's RequestCheck), but it didn't",
-					cashier.pickAndExecuteAnAction());
-			
-			assertEquals("MockWaiter should not have an empty event log after the Cashier's scheduler is called for the first time. "
-					+ "Instead, the MockWaiter's event log reads: "
-					+ waiter.log.toString(), 1, waiter.log.size());
-			
-			assertEquals("MockCustomer should have an empty event log after the Cashier's scheduler is called for the first time."
-					+ " Instead, the MockCustomer's event log reads: "
-					+ customer.log.toString(), 0, customer.log.size());
-			
-			customer.msgHereIsYourCheck(o);
-			
-			assertTrue("MockCustomer should have logged an event for receiving HereIsYourCheck with the correct balance, "
-					+ "but his last event logged reads instead: " 
-					+ customer.log.getLastLoggedEvent().toString(), customer.log.containsString("Received msgHereIsYourCheck from waiter. Total = 8.99"));
-			
-			cashier.msgCustomerPayingCheck(o);
-			
-			assertTrue("Cashier's scheduler should have returned true, but didn't.", 
-					cashier.pickAndExecuteAnAction());
-			
-			//assertTrue("Cashier's orders should contain a check with state == paying. It doesn't", 
-				//	cashier.orders.get(0).os == OrderState.idle);
-			
-			assertFalse("Cashier's scheduler should have returned false (no actions left to do), but it didn't.",
-					cashier.pickAndExecuteAnAction());
-					*/
-		//}
-		
-	//}
+	
+    /*
+    public void testOneNormalResidentComesToHomeWithNoIntention()
+    {
+            //Check initial conditions
+            assertTrue("The transactionList should be empty at the customer's creation. It is not.", 
+                            bankCustomer.transactionList.size() == 0);
+            
+            assertTrue("Resident state to begin with should be DoingNothing. It's currently not.", 
+                             resident.state == HomeState.DoingNothing);
+            
+            
+            
+            
+            assertTrue("Name should be testCustomer. It is instead " + bankCustomer.getName(), 
+                            bankCustomer.getName().equals("testCustomer"));
+            
+            
+            //set up
+            
+            bankCustomer.setTransactions();
+            assertTrue("Transaction list should be increased after setTransactions. It is not. Instead the size is: " + 
+                            bankCustomer.transactionList.size(), bankCustomer.transactionList.size() > 0);
+            bankCustomer.setGreeter(mockGreeter);
+            assertTrue("Greeter should be set to mockGreeter and not null.", bankCustomer.getBankGreeter().equals(mockGreeter));
+            bankCustomer.setBankTeller(mockTeller);
+            assertTrue("Teller should be set to mockTeller and not null.", bankCustomer.getBankTeller().equals(mockTeller));
+            assertTrue("", bankCustomer.getBankTeller() == mockTeller);
+            
+            
+            //step 1
+            
+            assertFalse("No messages were given but the customer should be waiting and pickAndExecute should be "
+                            + "false. It is not.", bankCustomer.pickAndExecuteAnAction());
+            bankCustomer.msgEnteredBank();
+            assertTrue("Bank Customer state should be updated, and the customer should msg the greeter concerning getting"
+                            + "a teller. The state was not changed.", bankCustomer.pickAndExecuteAnAction());
+            assertTrue("The state should be waiting after speaking to the greeter. It is instead something else.", bankCustomer.state == CustomerState.waiting);
+            
+            
+            //step 2
+            
+            bankCustomer.msgWaitHere(0);
+            assertTrue("The customer's waiting number should be 0. It is something else", bankCustomer.waitingNumber == 0);
+            assertTrue("Customer state should be updated to goingToLine after scheduler was run. It was not updated.", bankCustomer.state == CustomerState.goingToLine);
+            
+            
+            //step 3
+            
+            bankCustomer.msgGoToTeller(mockTeller);
+            assertTrue("The customer's state should be changed to inLine before the scheduler runs. This didn't occur.", bankCustomer.state == CustomerState.inLine);
+            assertTrue("Scheduler should run DoGoToTeller() and return true. This didn't occur", bankCustomer.pickAndExecuteAnAction());
+            assertTrue("The customer's state should be changed to atTeller after the scheduler runs. This didn't occur.", bankCustomer.state == CustomerState.goingToTeller);
+            
+            
+            //step 4
+            
+            bankCustomer.msgAtTeller();
+            assertTrue("Customer state should be atTeller. It is not.", bankCustomer.state == CustomerState.atTeller);
+            assertTrue("Should ask teller for a transaction through scheduler. Something was missed.", bankCustomer.pickAndExecuteAnAction());
+            assertTrue("Transaction List should be empty once the teller is messaged for a transaction. It does not occur", bankCustomer.transactionList.size() == 0);
+            
+            
+            //step 5
+            
+            BankReceipt receipt = new BankReceipt(50, 50, "openingAccount");
+            bankCustomer.HereIsReceiptAndAccountInfo(receipt, 101);
+            assertEquals("The person's money amount should have been decremented by 50. It didn't.",bankCustomer.getPersonAgent().checkMoney(),-50.0);
+            assertTrue("The customer's state should be receivedReceipt. It is not.", bankCustomer.state == CustomerState.receivedReceipt);
+            assertTrue("The person's account number should be set to 101. It is not.", bankCustomer.getPersonAgent().getAccountNumber() == 101);
+            assertTrue("Should begin to leave bank after finished through scheduler. Something was missed.", bankCustomer.pickAndExecuteAnAction());
+            assertTrue("Customer state should be done after transaction is finished. It is not.", bankCustomer.state == CustomerState.done);
+            
+    }//end one normal customer opening Account scenario
+    
+	}
+	*/

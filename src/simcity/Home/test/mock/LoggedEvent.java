@@ -7,7 +7,7 @@ import java.util.Date;
  * Represents a single LoggedEvent. A LoggedEvent is a textual message, and the
  * time at which the event occured.
  *
- * @author Sean Turner
+ * @author Evan Coutre
  *
  */
 public class LoggedEvent {
