@@ -85,8 +85,8 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			newPersonGui.setAgent(newPerson);
 			//newPersonGui.setColor(Color.green);
 			mainScreen.addGui(newPersonGui);
-			newPersonGui.xDestination = 500;
-			newPersonGui.yDestination = 500;
+			/*newPersonGui.xDestination = 500;
+			newPersonGui.yDestination = 500;*/
 			
 			//setJob
 			
@@ -100,6 +100,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			newPerson.setHome(temp);
 
 			newPerson.startThread();
+			
 			
 			//Add person to CityClock, so they can receive messages about time
 			CityClock.addPersonAgent(newPerson);
