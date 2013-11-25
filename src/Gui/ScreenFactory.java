@@ -14,23 +14,33 @@ import simcity.bank.bankAnimationPanel;
 import simcity.Home.gui.HomeAnimationPanel;
 
 public class ScreenFactory {
-	List<Screen> screenList = Collections.synchronizedList(new ArrayList<Screen>());
+	static List<Screen> screenList = Collections.synchronizedList(new ArrayList<Screen>());
 
 
 
 	//public static Screen main = new Screen(1);
 	public static Screen rest = new Screen(2);
-	public static Screen market = new Screen(3);
+	//public static Screen market = new Screen(3);
 	//public static Screen bank = new Screen(4);
-	public static Screen home = new Screen(5);
+	//public static Screen home = new Screen(5);
 	
 	public static MainScreen main = new MainScreen();
-/*	public static Screen rest = new RestaurantNikhilAnimationPanel();
+	//public static Screen rest = new RestaurantNikhilAnimationPanel();
 	public static Screen market = new MarketAnimationPanel();
 	
 	public static Screen home = new HomeAnimationPanel();
-*/
+
 	public static Screen bank = new bankAnimationPanel();
+	
+	
+	static{
+		screenList.add(main);
+		screenList.add(rest);
+		screenList.add(market);
+		screenList.add(bank);
+		screenList.add(home);
+	}
+	
 	public ScreenFactory(){
 		synchronized(screenList) {
 		screenList.add(main);
@@ -40,12 +50,6 @@ public class ScreenFactory {
 		screenList.add(home);
 		}
 
-
-		//These are testing hacks
-		/*gui1 = new RoleGuiTest("red");
-                gui2 = new RoleGuiTest("notred");
-                main.addGui(gui1);
-                swap.addGui(gui2);*/
 	}
 
 	public MainScreen getCity(){
@@ -64,7 +68,6 @@ public class ScreenFactory {
 		return home;
 	}
 
-
 	public void updateAllPositions(){
 		synchronized(screenList) {
 			for (Screen s : screenList) {
@@ -72,7 +75,14 @@ public class ScreenFactory {
 			}
 		}
 	}
-	public Screen getScreen(String s){
+	public static void updateScreens(){
+		synchronized(screenList) {
+			for (Screen s : screenList) {
+				s.updateAgents();
+			}
+		}
+	}
+	public Screen getScreen(String s){//requires instance of screenFactory to use
 		if(s.equalsIgnoreCase("City")){
 			return main;
 		}
@@ -91,6 +101,7 @@ public class ScreenFactory {
 
 		return null;
 	}
+	
 	public static MainScreen getMainScreen(){
 		return main;
 	}
