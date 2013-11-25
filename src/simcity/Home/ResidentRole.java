@@ -79,31 +79,31 @@ public class ResidentRole extends Role implements Resident {
 		residentGui = (ResidentGui)super.gui;
 
 		Food f = new Food("Chicken");
-		foods.put("Chicken", f);
+		fridgeFoods.put("Chicken", f);
 
 		f = new Food("Steak");
-		foods.put("Steak", f);
+		fridgeFoods.put("Steak", f);
 
 		f = new Food("Pizza");
-		foods.put("Pizza", f);
+		fridgeFoods.put("Pizza", f);
 
 		f = new Food("Salad");
-		foods.put("Salad", f);
+		fridgeFoods.put("Salad", f);
 
 	}
 
 	public ResidentRole() {
 		Food f = new Food("Chicken");
-		foods.put("Chicken", f);
+		fridgeFoods.put("Chicken", f);
 
 		f = new Food("Steak");
-		foods.put("Steak", f);
+		fridgeFoods.put("Steak", f);
 
 		f = new Food("Pizza");
-		foods.put("Pizza", f);
+		fridgeFoods.put("Pizza", f);
 
 		f = new Food("Salad");
-		foods.put("Salad", f);
+		fridgeFoods.put("Salad", f);
 		
 		residentGui = (ResidentGui)super.gui;
 
@@ -111,24 +111,16 @@ public class ResidentRole extends Role implements Resident {
 	@Override
 	public void startBuildingMessaging(){
 		msgCheckMailbox(); //message to start Home gui
-		
+		//gotHungry();
+		//gotSleepy();
+		//wakeUp();
+		//msgCheckGroceryBag();
 	}
 
 	/**
 	 * hack to establish connection to Host agent.
 	 */
 
-	public String getCustomerName() {
-		return name;
-	}
-
-	public double getWallet() {
-		return wallet;
-	}
-
-	public void setWallet(double newWallet) {
-		this.wallet = newWallet;
-	}
 
 	// Messages
 
@@ -183,6 +175,7 @@ public class ResidentRole extends Role implements Resident {
 	}
 
 	public void atStove() {
+		
 		residentGui.cooking = true;
 		Food myChoice = new Food(type);
 		DoCooking(myChoice); // cooking timer
@@ -210,19 +203,17 @@ public class ResidentRole extends Role implements Resident {
 	}
 
 	public void atHome() {
+		exitHome();
 		event = HomeEvent.none;
 		stateChanged();
+		
 	}
 
 	public void exited() {
-		// person.leftBuilding();
-
+		myPerson.leftBuilding(this);
 	}
 
-	// @Override
-	public void doLeaveBuilding() {
 
-	}
 
 	/**
 	 * Scheduler. Determine what action is called for, and do it.
@@ -361,7 +352,7 @@ public class ResidentRole extends Role implements Resident {
 
 	// Actions
 
-	private void putGroceriesInFridge(Map<String, Integer> groceryBag) {
+	public void putGroceriesInFridge(Map<String, Integer> groceryBag) {
 		residentGui.DoGoToFridge();
 		fridgeFoods.get("Steak").setAmount(
 				fridgeFoods.get("Steak").getAmount() + groceryBag.get("Steak"));
@@ -379,7 +370,7 @@ public class ResidentRole extends Role implements Resident {
 
 	}
 
-	private void checkGroceryBag() {
+	public void checkGroceryBag() {
 		if (groceryBag.size() > 0) {
 			event = HomeEvent.putGroceriesInFridge;
 			stateChanged();
@@ -389,7 +380,7 @@ public class ResidentRole extends Role implements Resident {
 
 	}
 
-	private void goToMailbox() {
+	public void goToMailbox() {
 		residentGui.DoGoToMailbox();
 
 	}
@@ -416,18 +407,19 @@ public class ResidentRole extends Role implements Resident {
 		stateChanged();
 	}
 
-	private void goToBed() {
+	public void goToBed() {
 		residentGui.DoGoToBed();
 		DoSleeping();
 	}
 
-	private void returnToHomePosition() {
+	public void returnToHomePosition() {
 		residentGui.DoReturnToHomePosition();
 		event = HomeEvent.none;
 		stateChanged();
+		
 	}
 
-	private void tryClearFood() {
+	public void tryClearFood() {
 		System.out.println("resident cleaning plates");
 		residentGui.DoClearFood();
 		timer.schedule(new TimerTask() {
@@ -439,14 +431,14 @@ public class ResidentRole extends Role implements Resident {
 		residentGui.clearing = false;
 	}
 
-	private void clearFood() {
+	public void clearFood() {
 		System.out.println("resident cleaning plates");
 		state = HomeState.Clearing;
 		stateChanged();
 
 	}
 
-	private void tryEatFood() {
+	public void tryEatFood() {
 		System.out.println("resident eating Food");
 		// residentGui.waitingForFood=false;
 		// residentGui.receivedFood=true;
@@ -466,28 +458,28 @@ public class ResidentRole extends Role implements Resident {
 		// isHungry = false;
 	}
 
-	private void eatFood() {
+	public void eatFood() {
 		state = HomeState.Eating;
 		stateChanged();
 	}
 
-	private void plateFood() {
+	public void plateFood() {
 		System.out.println("resident plating Food");
 		residentGui.DoGoToPlatingArea();
 		// DoPlating();
 	}
 
-	private void cookFood(String type) {
+	public void cookFood(String type) {
 		System.out.println("resident cooking Food");
 		residentGui.DoGoToStove();
 	}
 
-	private void checkFridge() {
+	public void checkFridge() {
 		residentGui.DoGoToFridge();
 		System.out.println("checking food supply");
 	}
 
-	private String checkFoodSupply() {
+	public String checkFoodSupply() {
 		String choice = randomizeFoodChoice();
 		// String choice = "food";
 		Food f = fridgeFoods.get(choice);
@@ -498,24 +490,26 @@ public class ResidentRole extends Role implements Resident {
 			f.setAmount(amount);
 			// DoCooking(o);
 			// print(this.getName() + " is cooking the food");
+			if (amount <= f.getLowThreshold()) {
+				addToGroceryList(f);
+			}
 			event = HomeEvent.collectedIngredients;
 			stateChanged();
-			person.hungerState = HungerState.FeedingHunger;
-			stateChanged();
+			//person.hungerState = HungerState.FeedingHunger;
+			//stateChanged();
 			// CookGui.order = o.choice.getType();
 			// CookGui.tableNumber = o.tableNumber;
 			// CookGui.cooking = true;
 			// CookGui.plating = false;
 
 			// check low threshold
-			if (amount <= f.getLowThreshold()) {
-				addToGroceryList(f);
-			}
+			
 		} else {
-			event = HomeEvent.checkedEmptyFridge;
+			
 			// o.outOfStock = true;
 			System.out.println(this.getName() + " has run out of " + choice);
 			addToGroceryList(f);
+			event = HomeEvent.checkedEmptyFridge;
 			stateChanged();
 		}
 
@@ -523,7 +517,7 @@ public class ResidentRole extends Role implements Resident {
 
 	}
 
-	private void exitHome() {
+	public void exitHome() {
 		residentGui.DoExitHome();
 		event = HomeEvent.none;
 		stateChanged();
@@ -614,12 +608,6 @@ public class ResidentRole extends Role implements Resident {
 		return choice;
 	}
 
-	/*
-	 * public int getHungerLevel() { return hungerLevel; } public void
-	 * setDonePayingState() { event = HomeEvent.donePaying; stateChanged(); }
-	 * 
-	 * /* //public String toString() { //return "customer " + getName(); //}
-	 */
 	public void setGui(RoleGui g) {
 		super.setGui(g);
 		residentGui = (ResidentGui)g;
@@ -629,9 +617,6 @@ public class ResidentRole extends Role implements Resident {
 		return residentGui;
 	}
 
-	public double getWalletAmount() {
-		return wallet;
-	}
 
 	public class FoodChoice {
 		public Food choice;

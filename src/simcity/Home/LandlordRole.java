@@ -56,7 +56,7 @@ public class LandlordRole extends Role implements Landlord {
 	
 	//actions
 	
-	private void sendRentBills() {
+	public void sendRentBills() {
 		for(Home h: homesOwned) {	
 			RentBill rb;
 			rb =  myPerson.new RentBill(myPerson, rent);
