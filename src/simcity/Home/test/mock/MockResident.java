@@ -11,7 +11,7 @@ import simcity.tests.mock.Mock;
 /**
  * A sample MockCustomer built to unit test a CashierAgent.
  *
- * @author Monroe Ekilah
+ * @author Evan Coutre
  *
  */
 public class MockResident extends Mock implements Resident {
@@ -41,17 +41,17 @@ public class MockResident extends Mock implements Resident {
 	}
 	@Override
 	public void wakeUp() {
-		// TODO Auto-generated method stub
+		log.add(new LoggedEvent("wake up"));
 		
 	}
 	@Override
 	public void msgCheckMailbox() {
-		// TODO Auto-generated method stub
+		log.add(new LoggedEvent("received check mailbox"));
 		
 	}
 	@Override
 	public void msgCheckGroceryBag() {
-		// TODO Auto-generated method stub
+		log.add(new LoggedEvent("received check grocery bag"));
 		
 	}
 	@Override

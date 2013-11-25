@@ -5,6 +5,7 @@ import java.util.List;
 
 import simcity.Building;
 import simcity.PersonAgent.RentBill;
+import simcity.Home.test.mock.MockResident;
 
 
 public class Home extends Building{
@@ -32,7 +33,6 @@ public class Home extends Building{
 		//(You can still keep the other constructor, resulting in two constructors)
 	}
 
-
 	public List<RentBill> getRentBills() {
 		return rentBills;
 	}
@@ -40,10 +40,6 @@ public class Home extends Building{
 	public void setRentBills(List<RentBill> rentBills) {
 		this.rentBills = rentBills;
 	}
-
-
-
-	
 
 }	
 

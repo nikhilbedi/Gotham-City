@@ -54,13 +54,13 @@ public class ResidentRole extends Role implements Resident {
 		DoingNothing, CheckingFoodSupply, Cooking, Plating, Eating, Clearing, LeavingHome, GoingToBed, Sleeping, PayingRent, GoingToFridge, checkingMailbox, GoingToMailbox, checkingGroceryBag, PuttingGroceriesInFridge
 	};
 
-	private HomeState state = HomeState.DoingNothing;// The start state
+	public HomeState state = HomeState.DoingNothing;// The start state
 
 	public enum HomeEvent {
 		none, gotHungry, collectedIngredients, checkedEmptyFridge, doneCooking, donePlating, doneEating, doneClearing, gotSleepy, doneSleeping, payRent, atFridge, checkMailbox, atMailbox, checkGroceryBag, putGroceriesInFridge
 	};
 
-	HomeEvent event = HomeEvent.none;
+	public HomeEvent event = HomeEvent.none;
 
 	/**
 	 * Constructor for CustomerHome class

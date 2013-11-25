@@ -643,12 +643,11 @@ public class PersonAgent extends Agent implements Person {
 			try {
 				busyWithTask.acquire();
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 			
-			//TODO update names to home
+			
 			//homeTemp = RoleFactory.makeMeRole("residentRole");
 			homeTemp = myHome.resident;
 			currentBuilding = myHome;
@@ -656,14 +655,7 @@ public class PersonAgent extends Agent implements Person {
 			
 			homeGui.setHomeScreen(ScreenFactory.getMeScreen("Home"));
 			activeRole = homeTemp;
-			/*
-			bankRoleTemp = RoleFactory.makeMeRole("bankCustomer");
-			currentBuilding = bank;
-			bankGui = new bankCustomerGui((BankCustomerRole)bankRoleTemp, ScreenFactory.getMeScreen("Bank"));
-			bankRoleTemp.setPerson(this);
-			bankGui.setHomeScreen(ScreenFactory.getMeScreen("Bank"));
-			activeRole = bankRoleTemp;
-*/
+		
 
 			//Add role
 			roles.add(homeTemp);
@@ -673,15 +665,7 @@ public class PersonAgent extends Agent implements Person {
 			enteringBuilding(homeTemp);
 			checkPersonScheduler = false;
 			
-			/*
-			roles.add(bankRoleTemp);
-			bankRoleTemp.setGui(bankGui);
-			//Enter building
-			enteringBuilding(bankRoleTemp);
-
-			checkPersonScheduler = false;
 			
-			*/
 			
 			//enter building (removing rect from city screen if it is there, adding rect to home if not there)
 
