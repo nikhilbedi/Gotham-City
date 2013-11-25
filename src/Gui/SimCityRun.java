@@ -1,4 +1,5 @@
 package Gui;
+import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +15,7 @@ public class SimCityRun extends JFrame implements ActionListener
 {
 	SimCityPanel cityPanel;
 	NewPersonWindow npWindow;
-	JButton newPersonButton;
+	public JButton newPersonButton;
 	
 	public SimCityRun()
 	{
@@ -22,16 +23,19 @@ public class SimCityRun extends JFrame implements ActionListener
 		//This sets up the frame of the animation window
 		setSize(1000, 800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLayout(new FlowLayout());
+		setLayout(new BoxLayout((Container) this.getContentPane(), BoxLayout.Y_AXIS));
 
 
 
 		//   window.setLayout(new BoxLayout());
-
-
+		
+		JPanel buttonPanel = new JPanel();
+		//buttonPanel.set
 		//This adds the animation of the main area to the frame
 		newPersonButton = new JButton("add person");
 		newPersonButton.addActionListener(this);
+		newPersonButton.setAlignmentX(CENTER_ALIGNMENT);
+		
 		cityPanel = new SimCityPanel();
 		add(cityPanel);
 		add(newPersonButton);
@@ -51,7 +55,10 @@ public class SimCityRun extends JFrame implements ActionListener
 		if(e.getSource() == newPersonButton ){
 			System.out.println("howdy partner");
 			npWindow = new NewPersonWindow(cityPanel.getCityScreen());
+			npWindow.giveWindow(this);
 			npWindow.setVisible(true);
+			newPersonButton.setEnabled(false);
 		}
 	}
+	
 }
