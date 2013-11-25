@@ -20,16 +20,16 @@ public class ScreenFactory {
 
 	//public static Screen main = new Screen(1);
 	public static Screen rest = new Screen(2);
-	public static Screen market = new Screen(3);
+	//public static Screen market = new Screen(3);
 	//public static Screen bank = new Screen(4);
 	public static Screen home = new Screen(5);
 	
 	public static MainScreen main = new MainScreen();
-/*	public static Screen rest = new RestaurantNikhilAnimationPanel();
+	//public static Screen rest = new RestaurantNikhilAnimationPanel();
 	public static Screen market = new MarketAnimationPanel();
 	
-	public static Screen home = new HomeAnimationPanel();
-*/
+	//public static Screen home = new HomeAnimationPanel();
+
 	public static Screen bank = new bankAnimationPanel();
 	public ScreenFactory(){
 		synchronized(screenList) {

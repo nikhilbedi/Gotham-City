@@ -22,13 +22,26 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	private MarketCashierGui cashierGui;
 	private List<MarketCustomer> waitingCustomers = new ArrayList<MarketCustomer>();
 	private List<RestaurantOrder> restaurantOrders = new ArrayList<RestaurantOrder>();
-	private MarketCustomer currentCustomer;
-	private PersonAgent person;
+	public MarketCustomer currentCustomer;
+	//private PersonAgent person;
 	public MarketCashierRole(PersonAgent p){
 		super(p);
-		person = p;
-		name = person.name;
+		//person = p;
+		name = p.name;
 	}
+	
+	public List<MarketCustomer> getCustomers(){
+		return waitingCustomers;
+	}
+	
+	public MarketCustomer getCurrentCustomer(){
+		return currentCustomer;
+	}
+	
+	public List<Check> getChecks(){
+		return checks;
+	}
+	
 	
 	public MarketCashierRole(){
 		//super();
@@ -38,8 +51,8 @@ public class MarketCashierRole extends Role implements MarketCashier{
 		cashierGui = gui;
 	}
 
-	public void needFood(MarketCustomerRole mcr){ //when customer just arrives to the market and in a wating line 
-		System.out.println(person.name+ ": "+ "New customer arrived " + mcr.person.name);
+	public void needFood(MarketCustomer mcr){ //when customer just arrives to the market and in a wating line 
+		System.out.println(myPerson.name+ ": "+ "New customer arrived " );
 		waitingCustomers.add(mcr);
 		if (waitingCustomers.size()==1 ){
 			currentCustomer = mcr;
@@ -59,13 +72,13 @@ public class MarketCashierRole extends Role implements MarketCashier{
     }
 	 
 	public void INeed(List<Order> o){ //here customer passes what he needs
-		System.out.println(person.name+ ": "+ "Got new order from "+ o.get(0).customer.getName());
+		System.out.println(myPerson.name+ ": "+ "Got new order from "+ o.get(0).customer.getName());
 		checks.add(new Check(o));
 		stateChanged();
 	}
 	
 	public void INeedFood(Map<String, Integer> food, Role role, Role cashier){ //order from restaurant
-		System.out.println(person.name + ": " + "Got new order from restaurant cook" + role);
+		System.out.println(myPerson.name + ": " + "Got new order from restaurant cook" + role);
 		restaurantOrders.add(new RestaurantOrder(food, role, cashier));
 		stateChanged();
 	}
@@ -79,7 +92,7 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	}
 	
 	public void hereIsMoney(MarketCustomer c, double money){ //customer paying
-		System.out.println(person.name+ ": "+"Received money from customer "+ c.getName() + money);
+		System.out.println("Received money from customer "+ money);
 		for (Check check: checks){
 			if (check.c == c){
 				check.moneyGiven = money;
@@ -94,7 +107,7 @@ public class MarketCashierRole extends Role implements MarketCashier{
 		for (Check check: checks){
 			if (check.state == Check.CheckState.gotMoney && check.c == currentCustomer){
 				check.state = Check.CheckState.paid;
-				ProcessCustomerOrder(check);
+				GiveChangeCustomer(check);
 				return true;
 			}
 			
@@ -105,7 +118,7 @@ public class MarketCashierRole extends Role implements MarketCashier{
 			}
 		}
 		if (currentCustomer != null){
-			System.out.println(person.name+ ": "+"there is a customer" + currentCustomer.getName());
+			System.out.println("there is a customer" + currentCustomer.getName());
 			Ask(currentCustomer);
 			return true;
 		}
@@ -117,7 +130,7 @@ public class MarketCashierRole extends Role implements MarketCashier{
 			}
 			if (restaurantOrder.state == RestaurantOrder.State.paying){
 				restaurantOrder.state = RestaurantOrder.State.paid;
-				GiveChange(restaurantOrder);
+				GiveChangeRestaurant(restaurantOrder);
 				return true;
 			}
 			
@@ -128,12 +141,12 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	}
 	
 	public void Ask(MarketCustomer c){
-		System.out.println(person.name+ ": "+"What Do You Want " + currentCustomer.getName());
+		System.out.println("What Do You Want " + currentCustomer.getName());
 		c.NextCustomerPlease();
 	}
 	
 	public void checkQuantity(Check check){
-		System.out.println(person.name+ ": "+"Checking quantity"+ check.c.getName());
+		//System.out.println("Checking quantity"+ check.c.getName());
 		for (Order order: check.orders){
 			Item i = (inventory.get(order.choice));
 			if (i.quantity == 0){
@@ -160,24 +173,24 @@ public class MarketCashierRole extends Role implements MarketCashier{
 			i.quantity = i.quantity - quant;
 			o.amountDue = o.amountDue + (i.price*quant);
 		}
-		person.Do("Amount due " + o.amountDue);
+		myPerson.Do("Amount due " + o.amountDue);
 	//	((Restaurant4CashierRole) o.cashierRole).amountDue(o.amountDue, this);
 		worker.SendFood(temp, o.cookRole);
 	}
 	
-	public void GiveChange(RestaurantOrder order){
+	public void GiveChangeRestaurant(RestaurantOrder order){
 		double i = order.moneyGiven - order.amountDue;
 	//	((Restaurant4CashierRole) order.cashierRole).HereIsYourChange(i, this);
 		restaurantOrders.remove(order);
 	}
 	
-	public void ProcessCustomerOrder(Check check){
-		System.out.println(person.name+ ": "+"Giving change " + check.c.getName());
+	public void GiveChangeCustomer(Check check){
+		System.out.println(myPerson.name+ ": "+"Giving change " + check.c.getName());
 		check.c.HereIsChange(check.moneyGiven - check.amountDue);
 		waitingCustomers.remove(currentCustomer);
 		if (waitingCustomers.size()!=0){
-		currentCustomer = waitingCustomers.get(0);
-		stateChanged();
+			currentCustomer = waitingCustomers.get(0);
+			stateChanged();
 		}
 		else{
 			currentCustomer = null;
@@ -187,13 +200,13 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	}
 	
 	
-	static class Check{
+	public static class Check{
 		private List<Order> orders = new ArrayList<Order>();
 		private MarketCustomer c;
-		private double amountDue;
-		private double moneyGiven;
-		private CheckState state;
-		private enum CheckState {pending,checkingAmount, computing, gotMoney, paid};
+		public double amountDue;
+		public double moneyGiven;
+		public CheckState state;
+		public  enum CheckState {pending,checkingAmount, computing, gotMoney, paid};
 		
 		
 		public Check(List<Order> o){
@@ -204,7 +217,7 @@ public class MarketCashierRole extends Role implements MarketCashier{
 		
 	}
 	
-	static class RestaurantOrder{
+	public static class RestaurantOrder{
 		private Role cookRole;
 		private double moneyGiven;
 		private Role cashierRole;
@@ -221,5 +234,6 @@ public class MarketCashierRole extends Role implements MarketCashier{
 		}
 	}
 
+	
 }
 

@@ -12,6 +12,8 @@ import javax.swing.*;
 import simcity.PersonAgent;
 import simcity.PersonGui;
 import simcity.Home.Home;
+import simcity.Market.MarketCustomerRole;
+import simcity.Market.MarketGui.MarketAnimationPanel;
 import simcity.interfaces.Person;
 
 public class NewPersonWindow extends JFrame implements ActionListener {
@@ -99,6 +101,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			newPerson.setHome(temp);
 
 			newPerson.startThread();
+			//newPerson.((MarketCustomerRole)marketRoleTemp).setCashier(MarketAnimationPanel.marketCashier);
 		}
 
 	}

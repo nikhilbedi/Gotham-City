@@ -9,6 +9,9 @@ import simcity.interfaces.Person;
 import simcity.RoleFactory;
 import simcity.restaurants.*;
 import simcity.Market.Market;
+import simcity.Market.MarketCustomerRole;
+import simcity.Market.MarketGui.MarketCustomerGui;
+import simcity.Market.interfaces.MarketCustomer;
 import simcity.Home.Home;
 import simcity.bank.*;
 
@@ -19,6 +22,12 @@ public class PersonAgent extends Agent implements Person {
 	//TODO REMOVE THIS
 	Role bankRoleTemp;
 	RoleGui bankGui;
+	
+	public Role marketRoleTemp;
+	RoleGui marketGui;
+	
+	Role homeRoleTemp;
+	RoleGui homeGui;
 
 
 	public String name;
@@ -42,7 +51,7 @@ public class PersonAgent extends Agent implements Person {
 	//These buildings will be set when any person is added 
 	public List<Restaurant> restaurants;
 	Restaurant currentPreference;
-	public List<Market> markets;
+	public List<Market> markets; 
 	public Bank bank;
 
 	//These three are essential, but should be instantiated with the "Homeless Shelter" spawnpoint
@@ -419,10 +428,15 @@ public class PersonAgent extends Agent implements Person {
 	public boolean pickAndExecuteAnAction() {
 		// Person Scheduler 
 
-
+		System.out.println("In scheduler");
 		if(checkPersonScheduler) {
 			//If he's CRRAAAZZY hungry, then eat something first. Then do checks of eating at home versus the restaurant
-
+			//checkPersonScheduler = false;
+			System.out.println("HI");
+			if(true){
+				goGetGroceries();
+				return true;
+			}
 			//Work comes first--his family probably doesn't like this :/
 			if(myJob != null) {
 				if(myJob.state == JobState.GoToWorkSoon){
@@ -470,10 +484,10 @@ public class PersonAgent extends Agent implements Person {
 
 		//Role Scheduler
 		//This should be changed to activeRole.pickAndExecuteAnAction();
+
 		if(activeRole != null) {
 			if(activeRole.pickAndExecuteAnAction()) {
 				//checkPersonScheduler should be made true anytime a role is done at a building, outside this scheduler
-				checkPersonScheduler = false;
 				return true;
 			}
 
@@ -574,13 +588,21 @@ public class PersonAgent extends Agent implements Person {
 			e.printStackTrace();
 		}
 
-		//enter building (removing rect from city screen if it is there, adding rect to home if not there)
-
-		/*Role marketRoleTemp = roles.add(RoleFactory.makeMeRole(currentPreference.marketCustomerRole));
+		marketRoleTemp = RoleFactory.makeMeRole("marketCustomer");
+		currentBuilding = markets.get(0);
+		//MarketCustomerRole tempMarketCustomerRole = (MarketCustomerRole)marketRoleTemp;
+		marketGui = new MarketCustomerGui((MarketCustomerRole)marketRoleTemp, ScreenFactory.getMeScreen("Market"));
+		marketRoleTemp.setPerson(this);
+		marketGui.setHomeScreen(ScreenFactory.getMeScreen("Market"));
 		activeRole = marketRoleTemp;
-		roles.add(marketRoleTemp);*/
 
 		checkPersonScheduler = false;
+		//Add role
+		roles.add(marketRoleTemp);
+		marketRoleTemp.setGui(marketGui);
+		//Enter building
+		enteringBuilding(marketRoleTemp);
+		
 
 		//initial message to marketCashier
 	}

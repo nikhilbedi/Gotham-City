@@ -4,7 +4,7 @@ import Gui.RoleGui;
 import Gui.Screen;
 import Gui.ScreenFactory;
 import agent.Role;
-
+import simcity.Market.MarketCustomerRole;
 import simcity.bank.*;
 
 
@@ -49,11 +49,13 @@ public class RoleFactory {
 		
 		//market(s)
 		else if(type.equals("marketCustomer")) {
-			return new Role();
+			MarketCustomerRole r = new MarketCustomerRole();
+			return r;
 		}
 		
 		//Restaurant jobs
 		else if(type.equals("restaurant1Waiter")) {
+			
 			return new Role();
 		}
 			
