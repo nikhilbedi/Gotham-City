@@ -11,7 +11,7 @@ import simcity.Market.MarketGui.MarketWorkerGui;
 import simcity.Market.interfaces.MarketCashier;
 import simcity.Market.interfaces.MarketCustomer;
 import simcity.Market.interfaces.MarketWorker;
-//import simcity.Restaurant4.*;
+import simcity.restaurants.restaurant4.*;
 import agent.Role;
 
 public class MarketWorkerRole extends Role implements MarketWorker{
@@ -20,17 +20,17 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	public Map<String, Item> inventory = new HashMap<String, Item>();
 	private MarketCashier cashier;
 	private MarketWorkerGui workerGui;
-	private PersonAgent person;
+//	private PersonAgent person;
 	public String name;
 	private Semaphore delivering = new Semaphore(0,true);
 	public MarketWorkerRole(PersonAgent p){
 		super(p);
-		person = p;
-		name = person.name;
+		
+		name = p.name;
 	}
 	
 	public MarketWorkerRole(){
-		
+		super();
 	}
 	
 	public void setCashier(MarketCashier c){
@@ -38,7 +38,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	}
 	
 	public void Bring(List<Order> o){ //for customers
-		System.out.println(person.name+ " " +"Got new order from " + o.get(0).customer.getName());
+		System.out.println(myPerson.name+ " " +"Got new order from " + o.get(0).customer.getName());
 		deliveries.add(new CustomerDelivery(o));
 		stateChanged();
 	}
@@ -48,7 +48,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	}
 	
 	public void SendFood(Map<String, Integer> things, Role role){
-		person.Do("Got new order from restaurant");
+		myPerson.Do("Got new order from restaurant");
 		restDeliveries.add(new RestaurantDelivery(things, role));
 		stateChanged();
 	}
@@ -67,10 +67,10 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	
 	public void Sent(Role role){
 		delivering.release();
-		person.Do("sent things to restaurant");
+		myPerson.Do("sent things to restaurant");
 		for (RestaurantDelivery delivery: restDeliveries){
 			if (delivery.cookRole == role){
-				  // ((Restaurant4CookRole) delivery.cookRole).HereIsYourFood(delivery.foods);
+				   ((Restaurant4CookRole) delivery.cookRole).HereIsYourFood(delivery.foods);
 				restDeliveries.remove(delivery);
 				stateChanged();
 			}
@@ -81,7 +81,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 			for (CustomerDelivery delivery: deliveries){	
 			 if (delivery.state == CustomerDelivery.DeliveryState.pending){
 				delivery.state = CustomerDelivery.DeliveryState.getting;
-				System.out.println(person.name + ": " +"pending state " + delivery.customer.getName());
+				System.out.println(myPerson.name + ": " +"pending state " + delivery.customer.getName());
 				if (delivery.d ==false){
 					Bring(delivery);
 				}
@@ -102,7 +102,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	//customer
 	public void Bring(CustomerDelivery d){
 		workerGui.DoBring(d.customer);
-		System.out.println(person.name+ ": " +"Bringing things for " + d.customer.getName());
+		System.out.println(myPerson.name+ ": " +"Bringing things for " + d.customer.getName());
 		try {
 			delivering.acquire();
 		} catch (InterruptedException e) {
@@ -112,7 +112,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	}
 	
 	public void HandIn(CustomerDelivery d){
-		System.out.println(person.name+ " " +"Giving stuff to " + d.customer.getName());
+		System.out.println(myPerson.name+ " " +"Giving stuff to " + d.customer.getName());
 		Map<String, Integer> f= new HashMap<String, Integer>();
 		for (int i=0; i<d.orders.size(); i++){
 			f.put(d.orders.get(i).getChoice(), d.orders.get(i).getQuantity());
@@ -123,7 +123,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	}
 	//restaurant
 	public void Send(RestaurantDelivery d){
-		person.Do("Sending food to restaurant");
+		myPerson.Do("Sending food to restaurant");
 		workerGui.DoSend(d.foods, d.cookRole);
 		try {
 			delivering.acquire();

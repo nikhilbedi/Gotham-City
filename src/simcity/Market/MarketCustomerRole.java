@@ -47,10 +47,10 @@ public class MarketCustomerRole extends Role implements MarketCustomer{
 	public void getGroceries(){
 		 //person.groceryList.put("Chicken", 3);
 		 //person.groceryList.put("Rice", 2);
-		Map<String, Integer> map = new HashMap<String, Integer>();
-		map.put("Chicken", 2);
+	//	Map<String, Integer> map = new HashMap<String, Integer>();
+		//map.put("Chicken", 2);
 		System.out.println("Got order to get groceries");
-		for (Map.Entry<String, Integer> entry: map.entrySet() ){
+		for (Map.Entry<String, Integer> entry: myPerson.groceryList.entrySet() ){
 			orders.add(new Order(this, entry.getKey(), entry.getValue(), false));
 		}
 		state = CustomerState.needFood;
@@ -176,7 +176,7 @@ public class MarketCustomerRole extends Role implements MarketCustomer{
 	public void DoPay(){
 		System.out.println(myPerson.name+ " " +"Paying");
 		double payment = round(amountDue);
-		money = money - payment;
+		myPerson.removeMoney((float) (myPerson.getMoney() - payment)) ;
 		cashier.hereIsMoney(this, payment);
 	}
 	

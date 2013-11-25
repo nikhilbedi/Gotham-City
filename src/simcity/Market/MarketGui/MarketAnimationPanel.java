@@ -110,12 +110,15 @@ public class MarketAnimationPanel extends Screen {
     	/*g.setColor(Color.BLACK);
     	g.fillRect(80, 30, 600, 10);*/
     	
-    	/* Graphics2D g1 = (Graphics2D) g;
-         Image img2 = Toolkit.getDefaultToolkit().getImage("C:/Users/Mika/github/team31/src/simcity/Market/MarketGui/counter.png");
-         g1.drawImage(img2, 170, 260, null);
+    	 Graphics2D g1 = (Graphics2D) g;
+         Image img2 = Toolkit.getDefaultToolkit().getImage("C:/Users/Mika/github/team31/src/simcity/Market/MarketGui/rsz_market.jpg");
+         g1.drawImage(img2, 50, 0, null);
          g1.finalize();
-    	*/
-    	 Graphics2D g2 = (Graphics2D) g;
+    	
+    	
+    	
+    	
+    	 /*Graphics2D g2 = (Graphics2D) g;
          Image img1 = Toolkit.getDefaultToolkit().getImage("C:/Users/Mika/github/team31/src/simcity/Market/MarketGui/shop.png");
          g2.drawImage(img1, 300, 45, null);
          g2.finalize();
@@ -123,7 +126,7 @@ public class MarketAnimationPanel extends Screen {
          Graphics2D g3 = (Graphics2D) g;
          Image img3 = Toolkit.getDefaultToolkit().getImage("C:/Users/Mika/github/team31/src/simcity/Market/MarketGui/shop.png");
          g3.drawImage(img3, 400, 45, null);
-         g3.finalize();
+         g3.finalize();*/
     }
 
     public void populate(){
@@ -159,7 +162,7 @@ public class MarketAnimationPanel extends Screen {
     	//	System.out.println(agentCust.roles.size());
     		
     		market.setCashier(marketCashier);
-    		market.addWorker(marketWorker);
+    		market.setWorker(marketWorker);
     		
     			Item beef = new Item("Beef", 10.99, 100);
     			Item chicken = new Item("Chicken", 8.99, 100);

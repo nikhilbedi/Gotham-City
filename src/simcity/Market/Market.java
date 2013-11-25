@@ -42,7 +42,7 @@ public class Market extends Building {
 		marketcashier = c;
 	}
 	
-	public void addWorker(MarketWorker w){
+	public void setWorker(MarketWorker w){
 		marketworker = w;
 	}
 	
