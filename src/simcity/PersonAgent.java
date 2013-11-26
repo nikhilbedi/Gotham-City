@@ -499,6 +499,9 @@ public class PersonAgent extends Agent implements Person {
 
 		if(checkPersonScheduler) {
 			//if the man has groceries in his hand, let him take them home!
+			
+			
+			
 			if(marketState == MarketState.TakeGroceriesHome) {
 				marketState = MarketState.TakingGroceriesHome;
 				goToHome();
