@@ -503,8 +503,6 @@ public class PersonAgent extends Agent implements Person {
 	public boolean pickAndExecuteAnAction() {
 
 		// Person Scheduler 
-
-
 		if(checkPersonScheduler) {
 			//if the man has groceries in his hand, let him take them home!
 			/*if(true) {
@@ -619,17 +617,13 @@ public class PersonAgent extends Agent implements Person {
 
 		for(Role r : roles) {
 			//checkPersonScheduler should be made true anytime a role is done at a building, outside this scheduler
+			print("Role scheduler is running");
 			if(r.isActive()) {
 				if(r.pickAndExecuteAnAction()) {
-					checkPersonScheduler = false;
+					//checkPersonScheduler = false;
 					return true;
 				}
-
 			}
-
-			//Role Scheduler
-			//This should be changed to activeRole.pickAndExecuteAnAction();
-
 		}
 
 		return false;

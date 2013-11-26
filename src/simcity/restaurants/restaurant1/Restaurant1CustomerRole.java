@@ -452,7 +452,6 @@ public class Restaurant1CustomerRole extends Role implements Customer {
 	}
 
 	private void leaveRestaurant() {
-		print("derp");
 		event = AgentEvent.left;
 		myPerson.leftBuilding(this);
 	}
