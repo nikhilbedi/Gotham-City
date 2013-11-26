@@ -57,80 +57,26 @@ public class MarketAnimationPanel extends Screen {
     public MarketAnimationPanel() {
     	super();
     	populate();
-    	/*setSize(WINDOWX, WINDOWY);
-        setVisible(true);
-        
-        bufferSize = this.getSize();
- 
-    	Timer timer = new Timer(20, this );
-    	timer.start();*/
     }
 
-/*
-    public void paintComponent(Graphics g) {
-       
-    	Graphics2D g2 = (Graphics2D)g;
-        //Clear the screen by painting a rectangle the size of the frame
-        g2.setColor(getBackground());
-        g2.fillRect(0, 0, WINDOWX, WINDOWY );
 
-        //Here is the table
-        g2.setColor(Color.ORANGE);
-        g2.fillRect(80, 150, 250, 30);//200 and 250 need to be table params
-
-        g2.setColor(Color.GREEN);
-        g2.fillRect(80, 30, 250, 10);
-
-        g2.setColor(Color.BLACK);
-        g2.fillRect(30, 50, 110, 2);
-        
-        for(Gui gui : guis) {
-            if (gui.isPresent()) {
-            //    gui.updatePosition();
-            }
-        }
-
-        for(Gui gui : guis) {
-            if (gui.isPresent()) {
-              //  gui.draw(g2);
-            }
-        }
-    }*/
     public Market  getMarket (){
     	return market;
     }
     
+
     @Override
     public void paintBackground(Graphics g){
     	
     //	g.drawImage(image, 200, 300, null);
     	super.paintBackground(g);
-    	g.setColor(Color.ORANGE);
-    	g.fillRect(80, 300, 600, 50);
-    	g.setColor(Color.ORANGE);
-    	g.fillRect(80, 250, 50, 50);
-    	g.setColor(Color.ORANGE);
-    	g.fillRect(630, 250, 50, 50);
-    	/*g.setColor(Color.BLACK);
-    	g.fillRect(80, 30, 600, 10);*/
     	
-    	 Graphics2D g1 = (Graphics2D) g;
-         Image img2 = Toolkit.getDefaultToolkit().getImage("C:/Users/Mika/github/team31/src/simcity/Market/MarketGui/rsz_market.jpg");
-         g1.drawImage(img2, 50, 0, null);
-         g1.finalize();
+    	 
+    	 java.net.URL imgtemp = this.getClass().getResource("/resources/mika/rsz_market.jpg");
+    	 ImageIcon  current= new ImageIcon(imgtemp);
+         g.drawImage(current.getImage(), 50, 0, null);
+        g.finalize();
     	
-    	
-    	
-    	
-    	 /*Graphics2D g2 = (Graphics2D) g;
-         Image img1 = Toolkit.getDefaultToolkit().getImage("C:/Users/Mika/github/team31/src/simcity/Market/MarketGui/shop.png");
-         g2.drawImage(img1, 300, 45, null);
-         g2.finalize();
-         
-         Graphics2D g3 = (Graphics2D) g;
-         Image img3 = Toolkit.getDefaultToolkit().getImage("C:/Users/Mika/github/team31/src/simcity/Market/MarketGui/shop.png");
-         g3.drawImage(img3, 400, 45, null);
-         g3.finalize();*/
     }
 
     public void populate(){

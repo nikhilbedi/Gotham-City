@@ -179,7 +179,7 @@ public class MarketCustomerRole extends Role implements MarketCustomer{
 	public void DoPay(){
 		System.out.println(myPerson.name+ " " +"Paying");
 		double payment = round(amountDue);
-		myPerson.removeMoney((float) (myPerson.getMoney() - payment)) ;
+		myPerson.setMoney((float) (myPerson.getMoney() - payment)) ;
 		cashier.hereIsMoney(this, payment);
 	}
 	

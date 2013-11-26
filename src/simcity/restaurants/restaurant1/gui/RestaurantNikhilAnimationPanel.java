@@ -34,7 +34,7 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 
 	public RestaurantNikhilAnimationPanel() { 
 		super();
-		for(Restaurant r : restaurants) {
+	 	for(Restaurant r : restaurants) {
 			if(r.getName().equals("Restaurant 1")){
 				r1 = r;
 			}

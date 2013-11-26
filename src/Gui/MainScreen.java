@@ -16,7 +16,9 @@ import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant1.Restaurant1;
 
 import simcity.restaurants.restaurant5.Restaurant5;
+import simcity.restaurants.restaurant3.Restaurant3;
 import simcity.restaurants.restaurant4.Restaurant4;
+
 
 public class MainScreen extends Screen{
 
@@ -71,7 +73,7 @@ public class MainScreen extends Screen{
 		rest1.setImagePath("/resources/Buildings/RestaurantDark2.png");
 		rest2 = new Restaurant1("Restaurant 2", 50, 200, 50, 200);
 		rest2.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest3 = new Restaurant1("Restaurant 3", 650, 200, 650, 200);
+		rest3 = new Restaurant3("Restaurant 3", 650, 200, 650, 200);
 		rest3.setImagePath("/resources/Buildings/RestaurantDark2.png");
 		rest4 = new Restaurant4("Restaurant 4", 50, 400, 50, 400);
 		rest4.setImagePath("/resources/Buildings/RestaurantDark2.png");
@@ -115,6 +117,7 @@ public class MainScreen extends Screen{
 
 	public List<Restaurant> getRestaurantList(){
 		List<Restaurant> tempcast = new ArrayList<Restaurant>();
+
 		tempcast.add((Restaurant)rest1);
 		tempcast.add((Restaurant)rest2);
 		tempcast.add((Restaurant)rest3);
@@ -149,7 +152,9 @@ public class MainScreen extends Screen{
 				return b.getName();
 			}
 		}
+
 		return "This is not a building";
+
 	}
 }
 

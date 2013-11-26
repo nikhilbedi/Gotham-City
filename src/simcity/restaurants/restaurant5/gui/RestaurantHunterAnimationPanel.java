@@ -24,8 +24,9 @@ import java.util.Vector;
 
 public class RestaurantHunterAnimationPanel extends Screen{
 	
-	Restaurant r5 = ScreenFactory.getMainScreen().getRestaurantList().get(4);
-	
+	// = ScreenFactory.getMainScreen().getRestaurantList().get(4);
+	List<Restaurant> restaurants = ScreenFactory.getMainScreen().getRestaurantList();
+	Restaurant r5;
     private final int WINDOWX = 800;
     private final int WINDOWY = 360;
 
@@ -42,6 +43,11 @@ public class RestaurantHunterAnimationPanel extends Screen{
 
     public RestaurantHunterAnimationPanel() {
     	super();
+    	for(Restaurant r : restaurants) {
+			if(r.getName().equals("Restaurant 5")){
+				r5 = r;
+			}
+		}
     	populate();
     }
     
