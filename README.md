@@ -39,7 +39,19 @@ the Batman soundtrack, which will immediately immerse yourself into the darkness
 #####For V1
 As you can see in our GUI we have 4 different types of buildings: Market (top right), Bank (top middle), Restaurant (top left and sides),
 Homes (bottom row).
+When you click on a building, the screen zooms in and gets replaced with the GUI and animation of that building. There is a small black box 
+on the top left of each zoomed in building view that can be clicked to return to the city view.
 
+######Home:
+######Bank:
+######Market:
+######Restaurants:
+######PersonAgent:
+######GUI:
+
+WorldClock timer
+ScreenFactory
+RoleFactory
 
 #####For V2
 
