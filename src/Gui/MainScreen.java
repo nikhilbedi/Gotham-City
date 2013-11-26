@@ -68,7 +68,7 @@ public class MainScreen extends Screen{
 
 	public List<Restaurant> getRestaurantList(){
 		List<Restaurant> tempcast = new ArrayList<Restaurant>();
-		tempcast.add((Restaurant)rest1);
+		tempcast.add((Restaurant1)rest1);
 
 		return tempcast;
 	}

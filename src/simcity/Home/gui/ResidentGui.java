@@ -76,35 +76,35 @@ public class ResidentGui extends RoleGui {
 			command = Command.none;
 			resident.AtTable();
 		}
-		if (xPos == 80 && yPos == 520 && command == Command.atSink) {
+		else if (xPos == 80 && yPos == 520 && command == Command.atSink) {
 			command = Command.none;
 			resident.atSink();
 		}
-		if (xPos == 120 && yPos == 680 && command == Command.atPlatingArea) {
+		else if (xPos == 120 && yPos == 680 && command == Command.atPlatingArea) {
 			command = Command.none;
 			resident.atPlatingArea();
 		}
-		if (xPos == 230 && yPos == 680 && command == Command.atStove) {
+		else if (xPos == 230 && yPos == 680 && command == Command.atStove) {
 			command = Command.none;
 			resident.atStove();
 		}
-		if (xPos == 700 && yPos == 214 && command == Command.atBed) {
+		else if (xPos == 700 && yPos == 214 && command == Command.atBed) {
 			command = Command.none;
 			resident.atBed();
 		}
-		if (xPos == 420 && yPos == 670 && command == Command.atFridge) {
+		else if (xPos == 420 && yPos == 670 && command == Command.atFridge) {
 			command = Command.none;
 			resident.atFridge();
 		}
-		if (xPos == 400 && yPos == -40 && command == Command.exited) {
+		else if (xPos == 400 && yPos == -40 && command == Command.exited) {
 			command = Command.none;
 			resident.exited();
 		}
-		if (xPos == 138 && yPos == 32 && command == Command.atMailbox) {
+		else if (xPos == 138 && yPos == 32 && command == Command.atMailbox) {
 			command = Command.none;
 			resident.atMailbox();
 		}
-		if (xPos == 84 && yPos == 226 && command == Command.atHome) {
+		else if (xPos == 84 && yPos == 226 && command == Command.atHome) {
 			command = Command.none;
 			resident.atHome();
 		}

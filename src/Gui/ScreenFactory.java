@@ -14,18 +14,17 @@ import simcity.bank.bankAnimationPanel;
 import simcity.Home.gui.HomeAnimationPanel;
 
 public class ScreenFactory {
-
 	static List<Screen> screenList = Collections.synchronizedList(new ArrayList<Screen>());
 
-
-
 	//public static Screen main = new Screen(1);
-	public static Screen rest = new Screen(2);
+	//public static Screen rest = new Screen(2);
 	//public static Screen market = new Screen(3);
 	//public static Screen bank = new Screen(4);
 	//public static Screen home = new Screen(5);
 
 	public static MainScreen main = new MainScreen();
+
+	public static Screen rest = new RestaurantNikhilAnimationPanel();
 
 	//public static Screen rest = new RestaurantNikhilAnimationPanel();
 	//public static Screen market = new MarketAnimationPanel();
@@ -50,6 +49,7 @@ public class ScreenFactory {
 			screenList.add(market);
 			screenList.add(bank);
 			screenList.add(home);
+
 		}
 	}
 
@@ -125,7 +125,6 @@ public class ScreenFactory {
 		if(s.equalsIgnoreCase("Home")){
 			return home;
 		}
-
 		return null;
 	}
 }

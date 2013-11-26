@@ -44,7 +44,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 
 	MainScreen mainScreen;
 
-	SimCityRun reference;
+	JButton reference;
 
 	JPanel interactionPanel;
 	JPanel labelsPanel;
@@ -52,11 +52,12 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 	public MyLabeledUnit labeledPosition;
 
 
-	public NewPersonWindow(MainScreen city){
+	public NewPersonWindow(MainScreen city, JButton b){
 		setSize(WINDOWX, WINDOWY);
 
 
 		mainScreen = city;
+		reference = b;
 
 		setBounds(1000, 200, WINDOWX, WINDOWY);
 
@@ -168,7 +169,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			newPerson.setBank(mainScreen.getBank());
 
 			//Give him money
-			//newPerson.addMoney(money.getValue()); //Evan: leaving money at 0 to test going to home ******
+			newPerson.addMoney(money.getValue()); //Evan: leaving money at 0 to test going to home ******
 
 
 			//setJob
@@ -188,7 +189,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			CityClock.addPersonAgent(newPerson);
 
 			//re-enable button
-			reference.newPersonButton.setEnabled(true);
+			reference.setEnabled(true);
 
 
 			//close the window
@@ -205,9 +206,6 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			}
 		}
 	}
+	
 
-	public void giveWindow(SimCityRun simCityRun) {
-		// TODO Auto-generated method stub
-		reference = simCityRun;
-	}
 }

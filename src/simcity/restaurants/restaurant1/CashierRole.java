@@ -3,8 +3,9 @@ package simcity.restaurants.restaurant1;
 import simcity.PersonAgent;
 import simcity.tests.mock.*;
 import agent.Agent;
+import simcity.Market.MarketCashierRole;
 import simcity.restaurants.restaurant1.WaiterRole;
-import simcity.restaurants.restaurant1.CustomerRole;
+import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
 import simcity.restaurants.restaurant1.Menu;
 import simcity.restaurants.restaurant1.interfaces.*;
 import agent.Role;
@@ -38,7 +39,12 @@ public class CashierRole extends Role implements Cashier {
     }
    
 
-    public String getName() {
+    public CashierRole() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public String getName() {
 	return name;
     }
 
@@ -83,6 +89,19 @@ public class CashierRole extends Role implements Cashier {
     	billsToPay.add(new DeliveryBill(market, amount));
     }
     
+    //TODO
+    public void amountDue(double a, MarketCashierRole m) {
+     	print("Received bill to pay market: " + a);
+    	log.add(new LoggedEvent("Received bill to pay market: " + a));
+    	billsToPay.add(new DeliveryBill(m, a));
+    	//stateChanged();
+    }
+    
+    //TODO
+    public void HereIsYourChange(double d, marketCashierRole m) {
+    	registerAmt += d;
+    	//
+    }
 
 
     /**
@@ -155,8 +174,11 @@ public class CashierRole extends Role implements Cashier {
     		for(DeliveryBill d : billsToPay) {
     			if(registerAmt >= d.amount) {
     				registerAmt -= d.amount;
+    				marketCashier.hereIsMoneyRestaurant(this, d.amount);
+    				//TODO
+    				/*
     				d.market.hereIsPayment(registerAmt);
-    				billsToPay.remove(d);
+    				billsToPay.remove(d);*/
     			}
     			else {
     				print("The register doesn't have enough money to pay the market bill of " + d + ". Will pay rest with rest of register amount: " + registerAmt);
@@ -169,6 +191,8 @@ public class CashierRole extends Role implements Cashier {
     		payBill();
     	}
     }
+    
+ 
 
     
     public class Check {
@@ -186,7 +210,7 @@ public class CashierRole extends Role implements Cashier {
 		    customer = c;
 		    waiter = w;
 		}
-		public Check(WaiterRole w, CustomerRole c, String t) {
+		public Check(WaiterRole w, Restaurant1CustomerRole c, String t) {
 		    type = t;
 		    customer = c;
 		    waiter = w;

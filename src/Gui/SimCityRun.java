@@ -14,6 +14,7 @@ public class SimCityRun extends JFrame implements ActionListener
 {
 	SimCityPanel cityPanel;
 	NewPersonWindow npWindow;
+	PersonSelectionPane peopleList;
 	public JButton newPersonButton;
 	
 	public SimCityRun()
@@ -22,7 +23,7 @@ public class SimCityRun extends JFrame implements ActionListener
 		//This sets up the frame of the animation window
 		setSize(1000, 800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLayout(new BoxLayout((Container) this.getContentPane(), BoxLayout.Y_AXIS));
+		setLayout(new BoxLayout((Container) this.getContentPane(), BoxLayout.X_AXIS));
 
 
 
@@ -31,13 +32,12 @@ public class SimCityRun extends JFrame implements ActionListener
 		JPanel buttonPanel = new JPanel();
 		//buttonPanel.set
 		//This adds the animation of the main area to the frame
-		newPersonButton = new JButton("add person");
-		newPersonButton.addActionListener(this);
-		newPersonButton.setAlignmentX(CENTER_ALIGNMENT);
 		
 		cityPanel = new SimCityPanel();
 		add(cityPanel);
-		add(newPersonButton);
+		peopleList = new PersonSelectionPane();
+		
+		add(peopleList);
 
 		setVisible(true);
 		cityPanel.go();//starts the animation in the panel
@@ -52,13 +52,7 @@ public class SimCityRun extends JFrame implements ActionListener
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getSource() == newPersonButton ){
-			System.out.println("howdy partner");
-			npWindow = new NewPersonWindow(cityPanel.getCityScreen());
-			npWindow.giveWindow(this);
-			npWindow.setVisible(true);
-			newPersonButton.setEnabled(false);
-		}
+		
 	}
 	
 }

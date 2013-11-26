@@ -2,6 +2,7 @@ package Gui;
    import java.awt.event.*;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
@@ -54,11 +55,12 @@ import java.util.*;
             //Have map check coords
             String swap = currentScreen.checkSwap(x,y);
             //System.out.println("swap is " + swap);
+    		//swap = "Restaurant";
             Screen swapScreen = ScreenFactory.getMeScreen(swap);
             if(!(swapScreen == null)){
                     currentScreen = swapScreen;
                     //currentScreen.generate();
-            }
+            } 
     }
       
       
