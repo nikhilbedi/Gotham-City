@@ -1,31 +1,24 @@
-package simcity.restaurants.restaurant1;
+package simcity.restaurants.restaurant5;
 
 import java.util.*;
 
 import agent.Role;
-import simcity.restaurants.*;
+import simcity.restaurants.Restaurant;
+import simcity.restaurants.restaurant5.*;
 
-/**
- * Nikhil's restaurant
- * @author nikhil
- *
- */
-public class Restaurant1 extends Restaurant {
+
+public class Restaurant5 extends Restaurant {
 	
-	public Restaurant1(String type, int entranceX, int entranceY, int guiX,
+	public Restaurant5(String type, int entranceX, int entranceY, int guiX,
 			int guiY) {
 		super(type, entranceX, entranceY, guiX, guiY);
 		// TODO Auto-generated constructor stub
 	}
-	HostRole host = new HostRole();
-	CashierRole cashier = new CashierRole();
+	HostRole host = new HostRole("What is this?");
+	CashierRole cashier = new CashierRole("What is this?");
 	List<WaiterRole> waiters = new ArrayList<WaiterRole>();
-	CookRole cook = new CookRole();
+	CookRole cook = new CookRole("What is this?");
 	//open and closing hours? hmmm..
-	
-	public String getCustomerName(){
-		return "restaurant5customergui";
-	}
 	
 	@Override
 	public void setHost(Role host) {

@@ -14,6 +14,7 @@ import simcity.Market.Market;
 import simcity.bank.Bank;
 import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant1.Restaurant1;
+import simcity.restaurants.restaurant5.Restaurant5;
 
 public class MainScreen extends Screen{
 
@@ -71,7 +72,7 @@ public class MainScreen extends Screen{
 		rest3.setImagePath("/resources/Buildings/RestaurantDark2.png");
 		rest4 = new Restaurant1("Restaurant 4", 50, 400, 50, 400);
 		rest4.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest5 = new Restaurant1("Restaurant 5", 650, 400, 650, 400);
+		rest5 = new Restaurant5("Restaurant 5", 650, 400, 650, 400);
 		rest5.setImagePath("/resources/Buildings/RestaurantDark2.png");
 		
 
@@ -116,7 +117,7 @@ public class MainScreen extends Screen{
 		tempcast.add((Restaurant1)rest2);
 		tempcast.add((Restaurant1)rest3);
 		tempcast.add((Restaurant1)rest4);
-		tempcast.add((Restaurant1)rest5);
+		tempcast.add((Restaurant5)rest5);
 		
 		return tempcast;
 	}

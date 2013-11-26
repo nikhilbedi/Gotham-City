@@ -150,7 +150,7 @@ public class RoleGui {
 
 	public void draw(Graphics g){
 		g.setColor(myColor);
-		//g.fillRect(xPos, yPos, guiSize, guiSize);
+		g.fillRect(xPos, yPos, guiSize, guiSize);
 		g.drawImage(current.getImage(), xPos, yPos, null);
 	}
 
