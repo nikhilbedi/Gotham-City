@@ -36,13 +36,13 @@ public class MainScreen extends Screen{
 	{
 		temp = 1;
 		house = new Home("Home", 390, 590, 400, 600);
-		house.setImagePath("/resources/Buildings/HouseDark.png");
+		house.setImagePath("/resources/Buildings/HouseDark2.png");
 		market = new Market("Market", 210, 110, 200, 100);
-		market.setImagePath("/resources/Buildings/MarketDark.png");
+		market.setImagePath("/resources/Buildings/MarketDark2.png");
 		bank = new Bank("Bank", 410, 110, 400, 100);
-		bank.setImagePath("/resources/Buildings/BankDark.png");
-		rest1 = new Restaurant1("Restaurant", 610, 110, 600, 100);
-		rest1.setImagePath("/resources/Buildings/RestaurantDark.png");
+		bank.setImagePath("/resources/Buildings/BankDark2.png");
+		rest1 = new Restaurant1("Restaurant 1", 610, 110, 600, 100);
+		rest1.setImagePath("/resources/Buildings/RestaurantDark2.png");
 
 		buildings.add(house);
 		buildings.add(market);
