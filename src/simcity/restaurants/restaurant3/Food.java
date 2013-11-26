@@ -32,8 +32,8 @@ public class Food {
 			price = 5.99;
 		}
 		
-		this.amount = 3;//amount of each order the cook has
-		this.capacity = 4;// maximum capacity
+		this.amount = 20;//amount of each order the cook has
+		this.capacity = 21;// maximum capacity
 		this.lowThreshold = 1;//threshold where cook orders from market
 	}
 	
