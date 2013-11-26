@@ -50,8 +50,7 @@ money a person can start with is $250 and the maximum is $1000.
 ######HomeResident Role:
 ######Landlord Role:
 
-There is only one Home in our city and only one new person can live there.  If more than one person in our city is created, 
-the others are spawned in a temporary location
+There is only one Home in our city and only one new person can live there.  If more than one person in our city is created, the others are spawned in a temporary location
 #####Bank:
 If the person's money is low, or high, or he needs to pay a bill he will go the the bank.  In the bank there is a greeter and a teller.
 ######BankGreeterRole: 
@@ -67,19 +66,18 @@ The TellerRole gets messaged if a customer needs a transaction.  The teller hand
 ######CashierRole:
 ######MarketWorkerRole:
 #####Restaurants:
-Every one of our team member's restaurants are implemented into the city. Although e made this one of our biggest goals They do not include the producer-consumer revolving stand. This is something we decided early
-on was not vital to our V1 and could be easily implemented in V2.
+Every one of our team member's restaurants are implemented into the city. We made this one of our biggest goals to complete by V1. Although including all team member's restaurants into the city was a difficult task, we thought if done successfully it would set us apart from other teams. None of our restaurants include the producer-consumer revolving stand. We knew that this would not be important to the main functionality of the city and we wanted to focus on getting our city running before focusing on smaller details like this. This is something we decided early on was not vital to our V1 and could be easily implemented in V2.
+
 Mika's restaurant: location=left bottom
 Nikhil's restaurant: location=top left
 Evan's restaurant: location=right top
-William's restaurant:
-Brice's restaurant:
+William's restaurant: location=right bottom
+Brice's restaurant: location=left top
 
+Mika's restaurant is the only restaurant that can successfully order from the market when the cook runs out of inventory. The other restaurants have enough inventoy so it is not necessary.
 
-Including all team member's restaurants into the city was a difficult task that we thought if done successfully would set us apart 
-from a lot of other teams.
-only one of the restaurants can successfully order from the market.  The others have enough inventoy so it is not necessary.
 #####PersonAgent:
+
 #####GUI:
 ScreenFactory:
 
