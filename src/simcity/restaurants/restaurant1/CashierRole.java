@@ -3,6 +3,7 @@ package simcity.restaurants.restaurant1;
 import simcity.PersonAgent;
 import simcity.tests.mock.*;
 import agent.Agent;
+import simcity.Market.MarketCashierRole;
 import simcity.restaurants.restaurant1.WaiterRole;
 import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
 import simcity.restaurants.restaurant1.Menu;
@@ -89,7 +90,7 @@ public class CashierRole extends Role implements Cashier {
     }
     
     //TODO
-    public void amountDue(double a, MarketCashier m) {
+    public void amountDue(double a, MarketCashierRole m) {
      	print("Received bill to pay market: " + a);
     	log.add(new LoggedEvent("Received bill to pay market: " + a));
     	billsToPay.add(new DeliveryBill(m, a));
@@ -97,7 +98,7 @@ public class CashierRole extends Role implements Cashier {
     }
     
     //TODO
-    public void HereIsYourChange(double d, marketCashier m) {
+    public void HereIsYourChange(double d, marketCashierRole m) {
     	registerAmt += d;
     	//
     }
