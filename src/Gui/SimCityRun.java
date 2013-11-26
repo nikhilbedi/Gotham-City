@@ -39,7 +39,7 @@ public class SimCityRun extends JFrame implements ActionListener
 		
 		//set information for infoPanel
 		InfoPanel info = new InfoPanel();
-		
+		peopleList.setInfoPanel(info);
 		
 		add(animationPanel);
 		add(info);

@@ -4,7 +4,6 @@ package Gui;
 import javax.swing.*;
 
 import agent.Role;
-
 import simcity.CityClock;
 import simcity.PersonAgent;
 
@@ -35,6 +34,8 @@ public class PersonSelectionPane extends JPanel implements ActionListener {
 	NewPersonWindow npWindow; //Window created when you click the button
 
 	SimCityPanel city;
+
+	InfoPanel info;
 
 	public PersonSelectionPane(SimCityPanel p) {
 		//format the button a bit
@@ -71,8 +72,16 @@ public class PersonSelectionPane extends JPanel implements ActionListener {
 		}
 		else {
 			for (JButton temp:list){
-				if (e.getSource() == temp){}
-				//restPanel.showInfo(type, temp.getText());
+				if (e.getSource() == temp){
+					Vector<PersonAgent> peopleList = CityClock.getPeople();
+					for(PersonAgent person: peopleList){
+						//System.err.println("Person name:" + person.getName() + "person text " + temp.getText());
+						if(person.getName() == (temp.getText())){//TODO this is soooo easy to break I hate it.
+							info.updateInfoPanel(person);
+							
+						}
+					}
+				}
 				//tell the info/interactino pane to show information for that specific person
 			}
 		}
@@ -111,6 +120,11 @@ public class PersonSelectionPane extends JPanel implements ActionListener {
 		for(PersonAgent person: peopleList){
 			addPerson(person.getName());
 		}
+	}
+
+	public void setInfoPanel(InfoPanel info) {
+		this.info = info;
+
 	}
 
 	/*public void refresh(){
