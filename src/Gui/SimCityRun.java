@@ -16,6 +16,7 @@ public class SimCityRun extends JFrame implements ActionListener
 	NewPersonWindow npWindow;
 	PersonSelectionPane peopleList;
 	public JButton newPersonButton;
+	JPanel animationPanel;
 	
 	public SimCityRun()
 	{
@@ -23,23 +24,25 @@ public class SimCityRun extends JFrame implements ActionListener
 		//This sets up the frame of the animation window
 		setSize(1000, 800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setLayout(new BoxLayout((Container) this.getContentPane(), BoxLayout.X_AXIS));
 
-
-
-		//   window.setLayout(new BoxLayout());
+		setLayout(new BoxLayout((Container)this.getContentPane(), BoxLayout.Y_AXIS));
 		
-		JPanel buttonPanel = new JPanel();
-		//buttonPanel.set
-		//This adds the animation of the main area to the frame
+		animationPanel = new JPanel();
+		animationPanel.setLayout(new BoxLayout(animationPanel, BoxLayout.X_AXIS));
 		
+		//Set information for animationpanel and personSelectionPane
 		cityPanel = new SimCityPanel();
-		add(cityPanel);
+		animationPanel.add(cityPanel);
 		peopleList = new PersonSelectionPane(cityPanel);
 		cityPanel.setSelPane(peopleList);
+		animationPanel.add(peopleList);
 		
-		add(peopleList);
-
+		//set information for infoPanel
+		InfoPanel info = new InfoPanel();
+		
+		
+		add(animationPanel);
+		add(info);
 		setVisible(true);
 		cityPanel.go();//starts the animation in the panel
 	}
