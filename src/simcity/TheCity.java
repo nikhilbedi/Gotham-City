@@ -9,6 +9,9 @@ import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant1.Restaurant1;
 
 public class TheCity {
+	
+	//private static Vector<PersonAgent> people = new Vector<PersonAgent>();
+	
 	static List<String> homeList = new ArrayList<String>();
 	static List<String> jobLocationList = new ArrayList<String>();
 	static List<String> jobPositionList = new ArrayList<String>();

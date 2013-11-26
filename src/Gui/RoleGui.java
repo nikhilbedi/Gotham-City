@@ -50,7 +50,6 @@ public class RoleGui {
 		//this.gui = gui;
 	}
 
-
 	public RoleGui(Role r, Screen meScreen) {
 		// TODO Auto-generated constructor stub
 	}

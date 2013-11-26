@@ -179,7 +179,11 @@ public class PersonAgent extends Agent implements Person {
 
 	public void setRestaurants(List<Restaurant> r) {
 		restaurants = r;
-		currentPreference = restaurants.get(0);
+		for(Restaurant rest : restaurants) {
+			if(rest.getName().equals("Restaurant 1")) {
+				currentPreference = rest;
+			}
+		}
 	}
 
 	public void setMarkets(List<Market> m) {
@@ -503,8 +507,6 @@ public class PersonAgent extends Agent implements Person {
 	public boolean pickAndExecuteAnAction() {
 
 		// Person Scheduler 
-
-
 		if(checkPersonScheduler) {
 			//if the man has groceries in his hand, let him take them home!
 			/*if(true) {
@@ -619,17 +621,13 @@ public class PersonAgent extends Agent implements Person {
 
 		for(Role r : roles) {
 			//checkPersonScheduler should be made true anytime a role is done at a building, outside this scheduler
+			print("Role scheduler is running");
 			if(r.isActive()) {
 				if(r.pickAndExecuteAnAction()) {
-					checkPersonScheduler = false;
+					//checkPersonScheduler = false;
 					return true;
 				}
-
 			}
-
-			//Role Scheduler
-			//This should be changed to activeRole.pickAndExecuteAnAction();
-
 		}
 
 		return false;
@@ -719,9 +717,9 @@ public class PersonAgent extends Agent implements Person {
 
 		rest1Temp = RoleFactory.makeMeRole("Restaurant1Customer");
 		currentBuilding = currentPreference;
-		rest1Gui = new Restaurant1CustomerGui((Restaurant1CustomerRole)rest1Temp, ScreenFactory.getMeScreen("Restaurant"));
+		rest1Gui = new Restaurant1CustomerGui((Restaurant1CustomerRole)rest1Temp, ScreenFactory.getMeScreen(currentPreference.getName()));
 		rest1Temp.setPerson(this);
-		rest1Gui.setHomeScreen(ScreenFactory.getMeScreen("Restaurant"));
+		rest1Gui.setHomeScreen(ScreenFactory.getMeScreen(currentPreference.getName()));
 
 		checkPersonScheduler = false;
 		rest1Temp.setGui(rest1Gui);

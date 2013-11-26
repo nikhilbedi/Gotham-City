@@ -98,6 +98,10 @@ public class Screen
 		return "na";
 	}
 
+	
+	public List<RoleGui> getGuis(){
+		return guis;
+	}
 	public String printGuiList(){
 		return guis.toString();
 	}

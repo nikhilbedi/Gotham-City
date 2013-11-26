@@ -17,26 +17,38 @@ public class ScreenFactory {
 	static List<Screen> screenList = Collections.synchronizedList(new ArrayList<Screen>());
 
 	//public static Screen main = new Screen(1);
-	//public static Screen rest = new Screen(2);
+	//public static Screen rest1 = new Screen(2);
+	//public static Screen rest2 = new Screen(2);
+	//public static Screen rest3 = new Screen(2);
+	//public static Screen rest4 = new Screen(2);
+	//public static Screen rest5 = new Screen(2);
+	
 	//public static Screen market = new Screen(3);
 	//public static Screen bank = new Screen(4);
 	//public static Screen home = new Screen(5);
 
 	public static MainScreen main = new MainScreen();
 
-	public static Screen rest = new RestaurantNikhilAnimationPanel();
+	public static Screen rest1 = new RestaurantNikhilAnimationPanel();
+	public static Screen rest2 = new RestaurantNikhilAnimationPanel();
+	public static Screen rest3 = new RestaurantNikhilAnimationPanel();
+	public static Screen rest4 = new RestaurantNikhilAnimationPanel();
+	public static Screen rest5 = new RestaurantNikhilAnimationPanel();
+	
 
-	//public static Screen rest = new RestaurantNikhilAnimationPanel();
-	//public static Screen market = new MarketAnimationPanel();
 	public static Screen market = new MarketAnimationPanel();
+	public static Screen bank = new bankAnimationPanel();
 	public static Screen home = new HomeAnimationPanel();
 
-	public static Screen bank = new bankAnimationPanel();
-
+	
 
 	static{
 		screenList.add(main);
-		screenList.add(rest);
+		screenList.add(rest1);
+		screenList.add(rest2);
+		screenList.add(rest3);
+		screenList.add(rest4);
+		screenList.add(rest5);
 		screenList.add(market);
 		screenList.add(bank);
 		screenList.add(home);
@@ -45,7 +57,11 @@ public class ScreenFactory {
 	public ScreenFactory(){
 		synchronized(screenList) {
 			screenList.add(main);
-			screenList.add(rest);
+			screenList.add(rest1);
+			screenList.add(rest2);
+			screenList.add(rest3);
+			screenList.add(rest4);
+			screenList.add(rest5);
 			screenList.add(market);
 			screenList.add(bank);
 			screenList.add(home);
@@ -58,8 +74,8 @@ public class ScreenFactory {
 	public MainScreen getCity(){
 		return main;
 	}
-	public Screen getRestaurant(){
-		return rest;
+	public Screen getRestaurant(int i){
+		return screenList.get(i);
 	}
 	public Screen getMarket(){
 		return market;
@@ -89,8 +105,20 @@ public class ScreenFactory {
 		if(s.equalsIgnoreCase("City")){
 			return main;
 		}
-		if(s.equalsIgnoreCase("Restaurant")){
-			return rest;
+		if(s.equalsIgnoreCase("Restaurant 1")){
+			return rest1;
+		}
+		if(s.equalsIgnoreCase("Restaurant 2")){
+			return rest2;
+		}
+		if(s.equalsIgnoreCase("Restaurant 3")){
+			return rest3;
+		}
+		if(s.equalsIgnoreCase("Restaurant 4")){
+			return rest4;
+		}
+		if(s.equalsIgnoreCase("Restaurant 5")){
+			return rest5;
 		}
 		if(s.equalsIgnoreCase("Market")){
 			return market;
@@ -113,9 +141,20 @@ public class ScreenFactory {
 		if(s.equalsIgnoreCase("City")){
 			return main;
 		}
-		if(s.equalsIgnoreCase("Restaurant")){
-			System.out.println("Here");
-			return rest;
+		if(s.equalsIgnoreCase("Restaurant 1")){
+			return rest1;
+		}
+		if(s.equalsIgnoreCase("Restaurant 2")){
+			return rest2;
+		}
+		if(s.equalsIgnoreCase("Restaurant 3")){
+			return rest3;
+		}
+		if(s.equalsIgnoreCase("Restaurant 4")){
+			return rest4;
+		}
+		if(s.equalsIgnoreCase("Restaurant 5")){
+			return rest5;
 		}
 		if(s.equalsIgnoreCase("Market")){
 			return market;
