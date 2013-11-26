@@ -26,7 +26,7 @@ public class Restaurant1CustomerRole extends Role implements Customer {
 	private Restaurant1CustomerGui customerGui;
 	private String myChoice;
 	private Menu myMenu;
-	private double money;
+	//private double money;
 	private Check myCheck;
 	private int waitingPosX = 100;
 	private int waitingPosY = 100;
@@ -59,7 +59,7 @@ public class Restaurant1CustomerRole extends Role implements Customer {
 		Random rnd = new Random();
 		int max = 25;
 		int min = 4;
-		money = rnd.nextInt(max-min) + min;
+	//	money = rnd.nextInt(max-min) + min;
 		name = getPersonAgent().getName();
 		/*	if(name.equals("flake")) {
 		    money = 4.0;
@@ -70,7 +70,7 @@ public class Restaurant1CustomerRole extends Role implements Customer {
 		Random rnd = new Random();
 		int max = 25;
 		int min = 4;
-		money = rnd.nextInt(max-min) + min;
+		//money = rnd.nextInt(max-min) + min;
 	}
 
 	/**
@@ -192,11 +192,11 @@ public class Restaurant1CustomerRole extends Role implements Customer {
 
 	public void hereIsChange(double amount) {
 		//If the amount is greater than zero, then the customer receives how much money he has left
-		money = amount;
-		print("Cashier gave me change. I have " + money + " money left.");
+		myPerson.setMoney(amount);
+		print("Cashier gave me change. I have " + myPerson.getMoney() + " money left.");
 		//If he is in debt, then cash him up so he can pay next time
-		if(money < 0 ) {
-			money = 30;
+		if(myPerson.getMoney() < 0 ) {
+			myPerson.addMoney(30);
 			print("Since I was in debt and God likes to speak to me, I was given 30 dollars to clear my payments.");
 		}
 		event = AgentEvent.leavingRestaurant;
@@ -358,7 +358,7 @@ public class Restaurant1CustomerRole extends Role implements Customer {
 							if(randomChoice == counter) {
 								//Check if the customer can afford it
 								//if(money >= myMenu.choices.get(c) && !name.equals("flake")) {
-								if(money >= myMenu.choices.get(c)) {
+								if(myPerson.getMoney() >= myMenu.choices.get(c)) {
 									myChoice = c;
 									stillChoosing = false;
 									event = AgentEvent.thoughtOfOrder;
@@ -396,7 +396,7 @@ public class Restaurant1CustomerRole extends Role implements Customer {
        messages the waiter with an order choice
 	 */
 	private void giveOrder() {
-		print("I have this much money: " + money + " so I'll get " + myChoice);
+		print("I have this much money: " + myPerson.getMoney() + " so I'll get " + myChoice);
 		myWaiter.hereIsMyChoice(myChoice, this);
 		event = AgentEvent.gaveOrder;
 	}
@@ -446,7 +446,7 @@ public class Restaurant1CustomerRole extends Role implements Customer {
 
 	private void payCashier() {
 		print("Paying Cashier");
-		cashier.hereIsPayment(myCheck, money);
+		cashier.hereIsPayment(myCheck, myPerson.getMoney());
 		customerGui.DoExitRestaurant();
 		myCheck = null;
 	}

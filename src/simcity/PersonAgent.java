@@ -227,8 +227,12 @@ public class PersonAgent extends Agent implements Person {
 			money += amount;
 	}
 
-	public void removeMoney(float amount) {
+	public void removeMoney(double amount) {
 		money -= amount;
+	}
+	
+	public void setMoney(double amount) {
+		money = amount;
 	}
 
 	public Location getLocation() {
