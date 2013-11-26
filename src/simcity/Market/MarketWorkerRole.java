@@ -25,7 +25,6 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	public Semaphore delivering = new Semaphore(0,true);
 	public MarketWorkerRole(PersonAgent p){
 		super(p);
-		
 		name = p.name;
 	}
 	
