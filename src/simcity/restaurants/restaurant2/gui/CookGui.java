@@ -14,7 +14,7 @@ import java.util.List;
 public class CookGui extends RoleGui {
 
     private CookRole agent = null;
-    RestaurantGui gui;
+
     
     List<String> strs = Collections.synchronizedList(new LinkedList<String>());
     
@@ -33,7 +33,6 @@ public class CookGui extends RoleGui {
 
     public CookGui(CookRole agent) {
         this.agent = agent;
-        this.gui = gui;
         
         strs.add("");
         strs.add("");
@@ -44,12 +43,13 @@ public class CookGui extends RoleGui {
         xPos = 490;
         yPos = 40;
         
-        //Graphics.drawString(strs.get(0), strPos1X, strPos1Y);
+        //Graphics.drawString(strs.get(0), , strPos1Y);
     }
 
-    public void draw(Graphics2D g) {
-        g.setColor(Color.RED);
-        g.fillRect(xPos, yPos, 20, 20);
+    public void draw(Graphics g) {
+    	super.draw(g);
+        //g.setColor(Color.RED);
+       // g.fillRect(xPos, yPos, 20, 20);
         
         g.setColor(Color.WHITE);
         g.drawString(strs.get(0), strPos1X, strPos1Y);

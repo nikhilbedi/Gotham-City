@@ -21,6 +21,8 @@ public class Restaurant extends Building {
 		super(type, entranceX, entranceY, guiX, guiY);
 	}
 	
+	//Everything below should be overridden by restaurants
+	
 	public void setHost(Role role) {
 		this.host = host;
 	}
@@ -37,5 +39,9 @@ public class Restaurant extends Building {
 		return cashier;
 	}
 	
+	//This must be overidden
+	public String getCustomerName(){
+		return "This should not be called";
+	}
 	
 }

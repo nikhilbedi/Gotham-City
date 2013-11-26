@@ -13,9 +13,8 @@ import Gui.RoleGui;
 public class WaiterGui extends RoleGui {
     private WaiterRole agent = null;
     
-    private static final int speed = 2, tableStarter = 1;
-    private int xPos = -20, xBuffer = 5, yPos = 20, prevXPos = xPos, prevYPos = yPos;//default waiter position
-    private int xDestination = 20, yDestination = 20;//default start position
+    private static final int tableStarter = 1;
+    private int xBuffer = 5, prevXPos = xPos, prevYPos = yPos, speed = 1;//default waiter position
     private boolean isAtEntrance = false, doDrawString = false;
     private String displayString = "";
     
@@ -26,7 +25,7 @@ public class WaiterGui extends RoleGui {
     public static final int tableYBuffer = 20;
     public static final int exitXBuffer = -20;
     public static final int exitYBuffer = -20;
-    public static int waiterDefaultX;
+    public static int waiterDefaultX = 100;
     public static final int waiterDefaultY = 20;
 
     public WaiterGui(WaiterRole agent) {
@@ -41,15 +40,7 @@ public class WaiterGui extends RoleGui {
     	prevXPos = xPos;
     	prevYPos = yPos;
     	
-        if (xPos < xDestination)
-            xPos+= speed;
-        else if (xPos > xDestination)
-            xPos-= speed;
-
-        if (yPos < yDestination)
-            yPos+= speed;
-        else if (yPos > yDestination)
-            yPos-= speed;
+    	super.updatePosition();
 
         if (xPos == xDestination && yPos == yDestination && (prevXPos != xPos || prevYPos != yPos)
         		& (xDestination == xTable + 20 || xDestination == xTable + 20 + 80 || xDestination == xTable + 20 + 160) 
@@ -59,6 +50,9 @@ public class WaiterGui extends RoleGui {
         
         if(xPos == 440 && yPos == 20 && xDestination == 440 && yDestination == 20 && (prevXPos != xPos || prevYPos != yPos))
         	agent.msgAtCook();
+        
+        if(xPos == 20 && xDestination == 20 && (prevXPos != xPos || prevYPos != yPos))
+        	agent.msgAtCustomer();
         
         if(xPos == -20 && yPos == 300 && xDestination == -20 && yDestination == 300 && (prevXPos != xPos || prevYPos != yPos))
         	agent.msgAtCashier();
@@ -73,9 +67,10 @@ public class WaiterGui extends RoleGui {
         	isAtEntrance = false;
     }
 
-    public void draw(Graphics2D g) {
-        g.setColor(Color.CYAN);
-        g.fillRect(xPos, yPos, 20, 20);
+    public void draw(Graphics g) {
+    	super.draw(g);
+        //g.setColor(Color.CYAN);
+       // g.fillRect(xPos, yPos, 20, 20);
         
         g.setColor(Color.BLACK);
         if(doDrawString) {
@@ -145,7 +140,6 @@ public class WaiterGui extends RoleGui {
 	public void doPickUpCustomer(int waitingNumber) {
 		xDestination = 40;
 		yDestination = waitingNumber * 20 + 20;
-		
 	}
 
 	public boolean isAtCustomer() {

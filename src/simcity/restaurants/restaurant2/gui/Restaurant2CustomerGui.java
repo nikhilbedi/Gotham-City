@@ -6,6 +6,7 @@ import simcity.restaurants.restaurant2.HostRole;
 import java.awt.*;
 
 import Gui.RoleGui;
+import Gui.Screen;
 
 public class Restaurant2CustomerGui extends RoleGui{
 
@@ -15,12 +16,8 @@ public class Restaurant2CustomerGui extends RoleGui{
 	private boolean doDrawString = false;
     private String displayString = "";
 
-	//private HostAgent host;
-	RestaurantGui gui;
-
-	private int xPos, yPos, speed = 2, tableStarter = 1, xBuffer = 5,xMult = 5, yBuffer = 15;
+	private int speed = 2, tableStarter = 1, xBuffer = 5,xMult = 5, yBuffer = 15;
 	private int cashierXCoord = 10, cashierYCoord = 300;
-	private int xDestination, yDestination;
 	private enum Command {noCommand, GoToSeat, LeaveRestaurant, PayForFood};
 	private Command command=Command.noCommand;
 
@@ -30,26 +27,27 @@ public class Restaurant2CustomerGui extends RoleGui{
 	public static final int rectWidth = 20;
 	public static final int rectHeight = 20;
 
-	public Restaurant2CustomerGui(Restaurant2CustomerRole c, RestaurantGui gui){ //HostAgent m) {
+	public Restaurant2CustomerGui(Restaurant2CustomerRole c){ //HostAgent m) {
 		agent = c;
 		xPos = exitCoord;
 		yPos = exitCoord;
 		xDestination = exitCoord;
 		yDestination = exitCoord;
 		//maitreD = m;
-		this.gui = gui;
+	}
+
+	public Restaurant2CustomerGui(Restaurant2CustomerRole restTemp, Screen meScreen) {
+		super(restTemp, meScreen);
+		//super.setColor(myColor.yellow);
+		agent = restTemp;
+		xPos = exitCoord;
+		yPos = exitCoord;
+		xDestination = exitCoord;
+		yDestination = exitCoord;
 	}
 
 	public void updatePosition() {
-		if (xPos < xDestination)
-			xPos+= speed;
-		else if (xPos > xDestination)
-			xPos-= speed;
-
-		if (yPos < yDestination)
-			yPos+= speed;
-		else if (yPos > yDestination)
-			yPos-= speed;
+		super.updatePosition();
 
 		if (xPos == xDestination && yPos == yDestination) {
 			if (command==Command.GoToSeat) agent.msgAnimationFinishedGoToSeat();
@@ -57,7 +55,6 @@ public class Restaurant2CustomerGui extends RoleGui{
 				agent.msgAnimationFinishedLeaveRestaurant();
 				System.out.println("about to call gui.setCustomerEnabled(agent);");
 				isHungry = false;
-				gui.setCustomerEnabled(agent);
 			}
 			else if (command == Command.PayForFood) {
 				agent.msgAnimationFinishedGoToCashier();
@@ -66,9 +63,10 @@ public class Restaurant2CustomerGui extends RoleGui{
 		}
 	}
 
-	public void draw(Graphics2D g) {
-		g.setColor(Color.GREEN);
-		g.fillRect(xPos, yPos, rectWidth, rectHeight);
+	public void draw(Graphics g) {
+		super.draw(g);
+		//g.setColor(Color.YELLOW);
+		//g.fillRect(xPos, yPos, rectWidth, rectHeight);
 		
 		if(doDrawString) {
 			if(displayString.length() > 2) {

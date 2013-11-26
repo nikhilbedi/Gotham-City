@@ -1,17 +1,15 @@
 package simcity.restaurants.restaurant2;
 
-import simcity.restaurants.restaurant1.gui.Restaurant1CustomerGui;
+import simcity.restaurants.restaurant1.CashierRole;
+import simcity.restaurants.restaurant1.HostRole;
 import simcity.restaurants.restaurant2.Menu;
 import simcity.restaurants.restaurant2.gui.Restaurant2CustomerGui;
-import simcity.restaurants.restaurant2.gui.RestaurantGui;
 import simcity.restaurants.restaurant2.interfaces.Cashier;
 import simcity.restaurants.restaurant2.interfaces.Customer;
 import simcity.restaurants.restaurant2.interfaces.Host;
 import simcity.restaurants.restaurant2.interfaces.Waiter;
 import simcity.PersonAgent;
 import Gui.RoleGui;
-//import restaurant.WaiterAgent;
-import agent.Agent;
 import agent.Role;
 
 import java.util.Timer;
@@ -57,6 +55,11 @@ public class Restaurant2CustomerRole extends Role implements Customer{
 		debt = 0;
 		name = person.getName();
 	}
+	
+	public Restaurant2CustomerRole(){
+		cash = 20;
+		debt = 0;
+	}
 
 	/**
 	 * hack to establish connection to Host agent.
@@ -90,7 +93,15 @@ public class Restaurant2CustomerRole extends Role implements Customer{
 	}
 	
 	// Messages
-
+	
+	@Override
+	public void startBuildingMessaging(){
+		//Set host and cashier
+		host = (Host) myPerson.currentPreference.getHost();
+		cashier =  (Cashier) myPerson.currentPreference.getCashier();
+		gotHungry();
+	}
+	
 	public void gotHungry() {//from animation
 		System.out.println(getName() + ": I'm hungry");
 		event = AgentEvent.gotHungry;
@@ -152,6 +163,7 @@ public class Restaurant2CustomerRole extends Role implements Customer{
 	public void msgAnimationFinishedLeaveRestaurant() {
 		//from animation
 		event = AgentEvent.doneLeaving;
+		myPerson.leftBuilding(this);
 		stateChanged();
 	}
 	
@@ -265,12 +277,12 @@ public class Restaurant2CustomerRole extends Role implements Customer{
 	private void chooseFood() {
 		System.out.println(getName() + ": Choosing Food");
 		if(menu.getNumFoods() == 4)
-			switch(name) {
+		/*	switch(name) {
 				case "Steak": choice = "Steak"; break;
 				case "Chicken": choice = "Chicken"; break;
 				case "Pizza": choice = "Pizza"; break;
 				case "Salad": choice = "Salad"; break;
-				default:
+				default:*/
 					while(true) {
 						Random rand = new Random(System.currentTimeMillis());
 						int  n = rand.nextInt(menu.getNumFoods());
@@ -291,7 +303,7 @@ public class Restaurant2CustomerRole extends Role implements Customer{
 							break;
 						}
 					}
-		}
+		//}
 		else {
 			Random rand = new Random(System.currentTimeMillis());
 			int  n = rand.nextInt(menu.getNumFoods());
@@ -393,7 +405,8 @@ public class Restaurant2CustomerRole extends Role implements Customer{
 	// Accessors, etc.
 
 	public String getName() {
-		return name;
+		return "Restaurant 2";
+		//return name;
 	}
 	
 	public int getHungerLevel() {

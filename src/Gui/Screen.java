@@ -41,8 +41,8 @@ public class Screen
 
 	public void updateAgents(){
 		synchronized(guis) {
-			for (RoleGui gui : guis) {
-				gui.updatePosition();
+			for (int a = 0; a < guis.size(); a++) {//RoleGui gui : guis) {
+				guis.get(a).updatePosition();
 			}
 		}
 	}

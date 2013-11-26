@@ -5,12 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import simcity.Market.MarketGui.MarketAnimationPanel;
 import simcity.Market.MarketGui.MarketCashierGui;
 import simcity.Market.interfaces.MarketCashier;
 import simcity.Market.interfaces.MarketCustomer;
 import simcity.Market.interfaces.MarketWorker;
-//import simcity.Restaurant4.Restaurant4CashierRole;
+import simcity.restaurants.restaurant1.CashierRole;
+import simcity.restaurants.restaurant4.Restaurant4;
+import simcity.restaurants.restaurant4.Restaurant4CashierRole;
+import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4AnimationPanel;
+import simcity.restaurants.restaurant4.interfaces.Restaurant4Cashier;
 import simcity.PersonAgent;
+import simcity.TheCity;
+import Gui.ScreenFactory;
 import agent.Role;
 
 public class MarketCashierRole extends Role implements MarketCashier{
@@ -24,12 +31,30 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	private List<RestaurantOrder> restaurantOrders = new ArrayList<RestaurantOrder>();
 	public MarketCustomer currentCustomer;
 	public List<MarketCustomer> customersInMarket = new ArrayList<MarketCustomer>();
+	public Restaurant4CashierRole cashier4;
+//	public CashierRole cashier1;
 	
 	//private PersonAgent person;
 	public MarketCashierRole(PersonAgent p){
 		super(p);
 		//person = p;
 		name = p.name;
+	}
+	
+	public void setRest4Cashier(Restaurant4CashierRole r){
+		cashier4 = r;
+	}
+	/*
+	public Role findCashier(Role r){
+		if (cashier4 == r){
+			return cashier4;
+		}
+		
+		return r;
+	}*/
+	
+	public MarketCashierRole(){
+		super();
 	}
 	
 	public List<MarketCustomer> getCustomers(){
@@ -44,10 +69,7 @@ public class MarketCashierRole extends Role implements MarketCashier{
 		return checks;
 	}
 	
-	
-	public MarketCashierRole(){
-		//super();
-	}
+
 	
 	public void setGui(MarketCashierGui gui){
 		cashierGui = gui;
@@ -167,6 +189,12 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	}
 	
 	public void ProcessRestaurantOrder(RestaurantOrder o){
+		
+        Restaurant4 r4 = (Restaurant4)TheCity.getBuildingFromString("Restaurant 4");
+    	cashier4 = (Restaurant4CashierRole) r4.getCashier();
+    	
+    	//Restaurant1 r1 = ((Restaurant)
+		
 		Map<String, Integer> temp = o.foodNeeded;
 		for (Map.Entry<String, Integer> entry: temp.entrySet()){ //for now market has always enough
 			int quant = entry.getValue();
@@ -177,13 +205,19 @@ public class MarketCashierRole extends Role implements MarketCashier{
 			o.amountDue = o.amountDue + (i.price*quant);
 		}
 		myPerson.Do("Amount due " + o.amountDue);
-	//	((Restaurant4CashierRole) o.cashierRole).amountDue(o.amountDue, this);
+		
+		if (o.cashierRole == cashier4){
+			((Restaurant4CashierRole) o.cashierRole).amountDue(o.amountDue, this);
+		}
+		/*else if (o.cashierRole == cashier1){
+			
+		}*/
 		worker.SendFood(temp, o.cookRole);
 	}
 	
 	public void GiveChangeRestaurant(RestaurantOrder order){
 		double i = order.moneyGiven - order.amountDue;
-	//	((Restaurant4CashierRole) order.cashierRole).HereIsYourChange(i, this);
+		((Restaurant4CashierRole) order.cashierRole).HereIsYourChange(i, this);
 		restaurantOrders.remove(order);
 	}
 	

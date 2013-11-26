@@ -64,6 +64,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 
 		setBounds(1000, 200, WINDOWX, WINDOWY);
 
+
 		BoxLayout windowLayout = new BoxLayout((Container) this.getContentPane(), BoxLayout.Y_AXIS);
 		setLayout(windowLayout);
 

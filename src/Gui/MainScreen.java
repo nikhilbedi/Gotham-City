@@ -15,6 +15,7 @@ import simcity.bank.Bank;
 import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant1.Restaurant1;
 import simcity.restaurants.restaurant2.Restaurant2;
+import simcity.restaurants.restaurant4.Restaurant4;
 
 public class MainScreen extends Screen{
 
@@ -41,6 +42,7 @@ public class MainScreen extends Screen{
 	public MainScreen()
 	{
 		temp = 1;
+
 		
 		
 		house = new Home("Home", 390, 590, 400, 600);
@@ -66,15 +68,14 @@ public class MainScreen extends Screen{
 		
 		rest1 = new Restaurant1("Restaurant 1", 200, 100, 200, 100);
 		rest1.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest2 = new Restaurant1("Restaurant 2", 50, 210, 50, 210);
+		rest2 = new Restaurant2("Restaurant 2", 50, 210, 50, 210);
 		rest2.setImagePath("/resources/Buildings/RestaurantDark2.png");
 		rest3 = new Restaurant1("Restaurant 3", 730, 210, 730, 210);
 		rest3.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest4 = new Restaurant1("Restaurant 4", 50, 410, 50, 410);
+		rest4 = new Restaurant4("Restaurant 4", 50, 410, 50, 410);
 		rest4.setImagePath("/resources/Buildings/RestaurantDark2.png");
 		rest5 = new Restaurant1("Restaurant 5", 730, 410, 730, 410);
 		rest5.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		
 
 		buildings.add(house);
 		buildings.add(market);
@@ -113,11 +114,11 @@ public class MainScreen extends Screen{
 
 	public List<Restaurant> getRestaurantList(){
 		List<Restaurant> tempcast = new ArrayList<Restaurant>();
-		tempcast.add((Restaurant1)rest1);
-		tempcast.add((Restaurant1)rest2);
-		tempcast.add((Restaurant1)rest3);
-		tempcast.add((Restaurant1)rest4);
-		tempcast.add((Restaurant1)rest5);
+		tempcast.add((Restaurant)rest1);
+		tempcast.add((Restaurant)rest2);
+		tempcast.add((Restaurant)rest3);
+		tempcast.add((Restaurant)rest4);
+		tempcast.add((Restaurant)rest5);
 		
 		return tempcast;
 	}
@@ -147,7 +148,7 @@ public class MainScreen extends Screen{
 				return b.getName();
 			}
 		}
-		return null;
+		return "This is not a building";
 	}
 }
 

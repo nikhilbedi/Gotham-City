@@ -6,6 +6,8 @@ import java.util.Map;
 import agent.Role;
 import simcity.Market.Item;
 import simcity.Market.Order;
+import simcity.Market.MarketWorkerRole.CustomerDelivery;
+import simcity.Market.MarketWorkerRole.RestaurantDelivery;
 
 public interface MarketWorker {
 
@@ -19,4 +21,7 @@ public interface MarketWorker {
 
 	abstract void Sent(Role role);
 
+	abstract List<CustomerDelivery> getCustomerDeliveries();
+	
+	abstract List<RestaurantDelivery> getRestaurantDeliveries();
 }

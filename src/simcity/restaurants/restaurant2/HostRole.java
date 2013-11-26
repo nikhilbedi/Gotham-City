@@ -3,7 +3,6 @@ package simcity.restaurants.restaurant2;
 import Gui.RoleGui;
 import agent.Agent;
 import agent.Role;
-import simcity.restaurants.restaurant1.gui.Restaurant1CustomerGui;
 import simcity.restaurants.restaurant2.gui.HostGui;
 import simcity.restaurants.restaurant2.interfaces.Customer;
 import simcity.restaurants.restaurant2.interfaces.Host;
@@ -143,7 +142,7 @@ public class HostRole extends Role implements Host{
 	
 	// Actions
 
-	private void seatCustomer(Restaurant2CustomerRole customer, Table table) {
+	private void seatCustomer(Customer customer, Table table) {
 		customer.msgSitAtTable(table.tableNumber);
 		DoSeatCustomer(customer, table);
 		try {
@@ -158,7 +157,7 @@ public class HostRole extends Role implements Host{
 	}
 
 	// The animation DoXYZ() routines
-	private void DoSeatCustomer(Restaurant2CustomerRole customer, Table table) {
+	private void DoSeatCustomer(Customer customer, Table table) {
 		//Notice how we print "customer" directly. It's toString method will do it.
 		//Same with "table"
 		System.out.println(getName() + ": Seating " + customer + " at " + table);

@@ -78,6 +78,12 @@ public class WaiterRole extends Role implements Waiter{
 		stateChanged();
 	}
 	
+	public void msgAtCustomer() {
+		for (int b = 0; b < myCustomers.size(); b++) 
+			if (myCustomers.get(b).s == customerState.waiting) 
+					seatCustomer(myCustomers.get(b).c, myCustomers.get(b).table);
+	}
+	
 	public void msgAtTable() {//from animation
 		System.out.println(getName() + ": msgAtTable() called");
 		atTable.release();// = true;
@@ -167,12 +173,13 @@ public class WaiterRole extends Role implements Waiter{
 		try {
 			for (int b = 0; b < myCustomers.size(); b++) { 
 				if (myCustomers.get(b).s == customerState.waiting /*&& waiterGui.isAtEntrance()*/) {
-					if(waiterGui.isAtCustomer())
-					{
+					//if(waiterGui.isAtCustomer())
+					//{
 						seatCustomer(myCustomers.get(b).c, myCustomers.get(b).table);
-					}
-					else
+					//}
+					//else{
 						waiterGui.doPickUpCustomer(myCustomers.get(b).c.getWaitingNumber());
+					//}
 					return true;
 				}
 			}
@@ -244,9 +251,10 @@ public class WaiterRole extends Role implements Waiter{
 		}
 		
 		catch(ConcurrentModificationException e) {
+			System.err.println("CME !!");
 			return false;
 		}
-			
+		
 			waiterGui.DoGoToDefault();	
 			
 			if(!isAvailable && myCustomers.size() == 0 && !OnBreak)
@@ -483,6 +491,8 @@ public class WaiterRole extends Role implements Waiter{
 		seated, readyToOrder, askedToOrder, orderTaken, orderBeingDroppedOff,
 		waitingForFood, foodReady, foodInTransit, eating, checkReady, checkInTransit,
 		receivedCheck, leaving;}
+
+	
 	
 }
 

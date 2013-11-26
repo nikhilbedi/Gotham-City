@@ -279,23 +279,23 @@ public class CookRole extends Role implements Cook{
 			switch(t) {
 				case "Steak": 
 					cookingTime = 11000;
-					amount = 4;
-					capacity = 10;
+					amount = 500;
+					capacity = 500;
 					low = 3; break;
 				case "Chicken": 
 					cookingTime = 9000;
-					amount = 0;
-					capacity = 12;
+					amount = 500;
+					capacity = 500;
 					low = 3; break;
 				case "Pizza": 
 					cookingTime = 6000;
-					amount = 0;
-					capacity = 8;
+					amount = 500;
+					capacity = 500;
 					low = 3; break;
 				case "Salad": 
 					cookingTime = 4000;
-					amount = 5;
-					capacity = 15;
+					amount = 500;
+					capacity = 500;
 					low = 4; break;
 			}
 			

@@ -3,7 +3,7 @@ package simcity.restaurants.restaurant2;
 import java.util.*;
 
 import agent.Role;
-import simcity.restaurants.*;
+import simcity.restaurants.Restaurant;
 
 /**
  * Brice's restaurant
@@ -41,5 +41,10 @@ public class Restaurant2 extends Restaurant {
 	@Override
 	public Role getCashier() {
 		return (CashierRole)cashier;
+	}
+	
+	@Override
+	public String getCustomerName(){
+		return "restaurant2Customer";
 	}
 }

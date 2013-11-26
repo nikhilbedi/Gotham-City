@@ -5,6 +5,7 @@ import javax.swing.*;
 import simcity.PersonAgent;
 import simcity.Robot;
 import simcity.restaurants.Restaurant;
+import simcity.restaurants.restaurant2.Restaurant2;
 import simcity.restaurants.restaurant2.CashierRole;
 import simcity.restaurants.restaurant2.CookRole;
 import simcity.restaurants.restaurant2.HostRole;
@@ -68,8 +69,8 @@ public class Restaurant2AnimationPanel extends Screen {
 		Graphics2D g2 = (Graphics2D)g;
 
 		//Clear the screen by painting a rectangle the size of the frame
-		//g2.setColor(getBackground());
-		g2.fillRect(WINDOWX1, WINDOWY1, WINDOWX, WINDOWY );
+		//g2.setColor(Color.white);
+		//g2.fillRect(WINDOWX1, WINDOWY1, WINDOWX, WINDOWY );
 
 		//Here is the table
 		g2.setColor(Color.ORANGE);
@@ -116,16 +117,15 @@ public class Restaurant2AnimationPanel extends Screen {
 		waiterRole.setCashier(cashierRole);
 		hostRole.addWaiter(waiterRole);
 
-		r2.setCashier(cashierRole);
-		r2.setHost(hostRole);
-
 		hostPerson.startThread();
 		cashierPerson.startThread();
 		waiterPerson.startThread();
 		cookPerson.startThread();
-
-
-
+		
+		r2.setCashier(cashierRole);
+		r2.setHost(hostRole);
+		
+		
 	}
 
 }
