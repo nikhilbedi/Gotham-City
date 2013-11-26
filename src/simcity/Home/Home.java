@@ -17,7 +17,7 @@ public class Home extends Building{
 	public List<Food> fridgeFoods;
 
 	public ResidentRole resident; //When the PersonAgent reaches thehome, he needs to be able to look at this class and add this role to his list
-	
+	//public String resident = "resident";
 	
 	public Home(String type, int entranceX, int entranceY, int guiX,
 			int guiY){

@@ -4,6 +4,7 @@ import Gui.RoleGui;
 import Gui.Screen;
 import Gui.ScreenFactory;
 import agent.Role;
+import simcity.Home.ResidentRole;
 import simcity.Market.MarketCustomerRole;
 import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
 import simcity.bank.*;
@@ -14,8 +15,8 @@ public class RoleFactory {
 
 	public static Role makeMeRole(String type) {
 		//home resident
-		if(type.equalsIgnoreCase("homeResident")) {
-			return new Role();
+		if(type.equals("residentRole")) {
+			return new ResidentRole();
 		}
 
 		//bank

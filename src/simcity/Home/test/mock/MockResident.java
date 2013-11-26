@@ -44,26 +44,14 @@ public class MockResident extends Mock implements Resident {
 		log.add(new LoggedEvent("wake up"));
 		
 	}
-	@Override
-	public void msgCheckMailbox() {
-		log.add(new LoggedEvent("received check mailbox"));
-		
-	}
-	@Override
-	public void msgCheckGroceryBag() {
-		log.add(new LoggedEvent("received check grocery bag"));
-		
-	}
+	
+	
 	@Override
 	public void atMailbox() {
 		log.add(new LoggedEvent("animation at mailbox"));
 		
 	}
-	@Override
-	public void atHome() {
-		log.add(new LoggedEvent("animation on couch"));
-		
-	}
+	
 	@Override
 	public void AtTable() {
 		log.add(new LoggedEvent("animation at table"));
@@ -117,11 +105,7 @@ public class MockResident extends Mock implements Resident {
 		log.add(new LoggedEvent("check mailbox"));
 		
 	}
-	@Override
-	public void checkGroceryBag() {
-		log.add(new LoggedEvent("check grocery bag"));
-		
-	}
+	
 	@Override
 	public void goToMailbox() {
 		log.add(new LoggedEvent("go to mailbox"));
@@ -137,50 +121,21 @@ public class MockResident extends Mock implements Resident {
 		log.add(new LoggedEvent("return to home position"));
 		
 	}
-	@Override
-	public void tryClearFood() {
-		log.add(new LoggedEvent("try to clear food"));
-		
-	}
+	
 	@Override
 	public void clearFood() {
 		log.add(new LoggedEvent("clear food"));
 		
 	}
-	@Override
-	public void tryEatFood() {
-		log.add(new LoggedEvent("try to eat food"));
-		
-	}
-	@Override
-	public void eatFood() {
-		log.add(new LoggedEvent("eat food"));
-		
-	}
-	@Override
-	public void plateFood() {
-		log.add(new LoggedEvent("plate food"));
-		
-	}
-	@Override
-	public void cookFood(String type) {
-		log.add(new LoggedEvent("cook food"));
-		
-	}
-	@Override
-	public void checkFridge() {
-		log.add(new LoggedEvent("check fridge"));
-		
-	}
-	@Override
-	public String checkFoodSupply() {
-		log.add(new LoggedEvent("check food supply"));
-		return null;
-	}
+	
 	@Override
 	public void exitHome() {
 		log.add(new LoggedEvent("exit home"));
 		
 	}	
+	@Override
+	public void atHome() {
+		log.add(new LoggedEvent("at home"));
+	}
 
 }

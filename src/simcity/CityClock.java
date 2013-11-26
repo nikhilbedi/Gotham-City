@@ -9,7 +9,7 @@ public final class CityClock {
 	private static Vector<PersonAgent> people = new Vector<PersonAgent>();
 	private static Timer timer = new Timer();
 	private static int currentTime = 1;
-	private static long hourLength = 3000;
+	private static long hourLength = 10000;
 
 	public static void startTime() {
 		final long hourTemp = hourLength;

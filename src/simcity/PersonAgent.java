@@ -330,16 +330,25 @@ public class PersonAgent extends Agent implements Person {
 				landlord.setActive(false);*/
 		}
 
-		if(hungerCount > 11 && hungerState != HungerState.Starving) {
+		if(hungerCount > 11 && hungerState != HungerState.Starving && 
+				hungerState != HungerState.FeedingHunger) {
 			hungerState = HungerState.Starving;
+			print("starving statechange");
 			stateChanged();
 		}
-		else if(hungerCount > 7 && hungerState != HungerState.Hungry) {
+		else if(hungerCount > 7 && hungerState != HungerState.Hungry && 
+				hungerState != HungerState.FeedingHunger &&
+				hungerState != HungerState.Starving) {
 			hungerState = HungerState.Hungry;
+			print("hungry statechange");
 			stateChanged();
 		}
-		else if(hungerCount > 3 && hungerState != HungerState.Famished) {
+		else if(hungerCount > 3 && hungerState != HungerState.Famished && 
+				hungerState != HungerState.FeedingHunger &&
+				hungerState != HungerState.Starving &&
+				hungerState != HungerState.Hungry) {
 			hungerState = HungerState.Famished;
+			print("famished statechange");
 			stateChanged();
 		}
 
@@ -364,7 +373,6 @@ public class PersonAgent extends Agent implements Person {
 		double low = 25.0;
 		double high = 150.0;
 		if (money <= low && moneyState != MoneyState.Low) {
-
 			moneyState = MoneyState.Low;
 			stateChanged();
 		} else if (money >= high && moneyState != MoneyState.High) {
@@ -511,7 +519,8 @@ public class PersonAgent extends Agent implements Person {
 
 			//If he's CRRAAAZZY hungry, then eat something first. Then do checks of eating at home versus the restaurant
 
-			if(hungerState == HungerState.Starving && marketState != MarketState.GetGroceries) {
+			if(hungerState == HungerState.Starving && marketState != MarketState.GetGroceries && 
+					marketState != MarketState.GettingGroceries) {
 				if(moneyState == MoneyState.Low) {
 					hungerState = HungerState.FeedingHunger;
 					goToHome();

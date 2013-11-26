@@ -1,11 +1,22 @@
 package simcity;
 
+import javax.swing.ImageIcon;
+
 public class Building {
 	private String name;
 	private String imagePath = "";
 	private Location entranceLocation;
 	private Location guiLocation;
+	public ImageIcon icon;
 	
+	public ImageIcon getIcon() {
+		return icon;
+	}
+
+	public void setIcon(ImageIcon icon) {
+		this.icon = icon;
+	}
+
 	/**
 	 * A constructor that sets the location and name for a building
 	 * @param type The name for this building

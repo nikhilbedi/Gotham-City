@@ -35,14 +35,14 @@ public class MainScreen extends Screen{
 	public MainScreen()
 	{
 		temp = 1;
-		house = new Home("House", 390, 590, 400, 500);
-		house.setImagePath("/resources/Buildings/House.png");
+		house = new Home("Home", 390, 590, 400, 600);
+		house.setImagePath("/resources/Buildings/HouseDark.png");
 		market = new Market("Market", 210, 110, 200, 100);
-		market.setImagePath("/resources/Buildings/Market.png");
+		market.setImagePath("/resources/Buildings/MarketDark.png");
 		bank = new Bank("Bank", 410, 110, 400, 100);
-		bank.setImagePath("/resources/Buildings/Bank.png");
-		rest1 = new Restaurant1("Restauarant 1", 610, 110, 600, 100);
-		rest1.setImagePath("/resources/Buildings/Restaurant.png");
+		bank.setImagePath("/resources/Buildings/BankDark.png");
+		rest1 = new Restaurant1("Restaurant", 610, 110, 600, 100);
+		rest1.setImagePath("/resources/Buildings/RestaurantDark.png");
 
 		buildings.add(house);
 		buildings.add(market);
@@ -52,18 +52,23 @@ public class MainScreen extends Screen{
 
 	public  void paintBackground(Graphics g)
 	{
-		super.paintBackground(g);
+		 g.setColor(Color.white);
+         //g.fillRect(0,0,1000, 800);
+		 java.net.URL image1 = this.getClass().getResource("/resources/Backgrounds/SimCityBackground.png");
+ 		ImageIcon current1 = new ImageIcon(image1);
+ 		g.drawImage(current1.getImage(), 0, 0, null);
+         
 		for(Building b : buildings){
 			java.net.URL image = this.getClass().getResource(b.getImagePath());
-			ImageIcon current = new ImageIcon(image);
-			g.drawImage(current.getImage(), b.getGuiLocation().getX(), b.getGuiLocation().getY(), null);
+			b.icon = new ImageIcon(image);
+			g.drawImage(b.icon.getImage(), b.getGuiLocation().getX(), b.getGuiLocation().getY(), null);
 		}
 
 	}
 
 	public List<Restaurant> getRestaurantList(){
 		List<Restaurant> tempcast = new ArrayList<Restaurant>();
-		tempcast.add((Restaurant)rest1);
+		tempcast.add((Restaurant1)rest1);
 
 		return tempcast;
 	}
@@ -82,6 +87,18 @@ public class MainScreen extends Screen{
 	public Home getHomeHack(){
 		//this is labeled as a Hack because technically there should be multiple homes
 		return (Home)house;
+	}
+	
+	@Override
+	public String checkSwap(int x, int y){
+		for(Building b: buildings){
+			int tempX = b.getGuiLocation().getX();
+			int tempY = b.getGuiLocation().getY();
+			if( (x>tempX) && (x<tempX + b.icon.getIconWidth()) && (y>tempY) && (y<tempY+b.icon.getIconHeight())){
+				return b.getName();
+			}
+		}
+		return null;
 	}
 }
 
