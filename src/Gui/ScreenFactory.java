@@ -35,6 +35,11 @@ public class ScreenFactory {
 
 
 	public static Screen rest1 = new RestaurantNikhilAnimationPanel();
+	/*public static Screen rest2 = new RestaurantNikhilAnimationPanel();
+	public static Screen rest3 = new RestaurantNikhilAnimationPanel();
+	public static Screen rest4 = new RestaurantNikhilAnimationPanel();
+	public static Screen rest5 = new RestaurantNikhilAnimationPanel();*/
+	//public static Screen rest1 = new Restaurant2AnimationPanel();
 	public static Screen rest2 = new Restaurant2AnimationPanel();
 	public static Screen rest3 = new RestaurantEvanAnimationPanel();
 	public static Screen rest4 = new Restaurant4AnimationPanel();
@@ -50,7 +55,7 @@ public class ScreenFactory {
 
 	static{
 		screenList.add(main);
-
+		
 		screenList.add(rest1);
 		screenList.add(rest2);
 		screenList.add(rest3);
@@ -65,9 +70,9 @@ public class ScreenFactory {
 	public ScreenFactory(){
 		synchronized(screenList) {
 			screenList.add(main);
-
+	screenList.add(rest2);
 			screenList.add(rest1);
-			screenList.add(rest2);
+		
 			screenList.add(rest3);
 			screenList.add(rest4);
 			screenList.add(rest5);

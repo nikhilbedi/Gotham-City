@@ -73,7 +73,7 @@ public class PersonAgent extends Agent implements Person {
 	// These buildings will be set when any person is added
 	public List<Restaurant> restaurants;
 	public Restaurant currentPreference;
-	private int restaurantCounter=1;
+	private int restaurantCounter=0;
 	public List<Market> markets; 
 
 
@@ -210,10 +210,6 @@ public class PersonAgent extends Agent implements Person {
         }
 
 
-	/*<<<<<<< HEAD
-	public void setRestaurants(List<Restaurant> list) {
-		restaurants = list;
-=======*/
 	public void setRestaurants(List<Restaurant> r) {
 		restaurants = r;
 
@@ -356,7 +352,7 @@ public class PersonAgent extends Agent implements Person {
 		currentTime = time;
 		//Another hour, another chance to eat ;)
 		hungerCount++;
-		//print("Checking my watch and it is " + time + " o' clock");
+		print("Checking my watch and it is " + time + " o' clock");
 		//NEED TO CHECK IF THIS PERSON IS A HOMEOWNER. IF SO, MAKE THAT ROLE ACTIVE IF NO OTHER ROLE IS ACTIVE
 		if(landlord != null) {
 			//landlord.updateCurrentTime(time);
@@ -419,6 +415,7 @@ public class PersonAgent extends Agent implements Person {
 		else{
 			moneyState = MoneyState.Neutral;
 		}
+		//stateChanged();
 	}
 
 	// Messages from User Interface or Animation
@@ -451,11 +448,11 @@ public class PersonAgent extends Agent implements Person {
 	 * @param role
 	 */
 	public void leftBuilding(Role role) {
+		checkPersonScheduler = true;
 		role.setActive(false);
 		role.getGui().getHomeScreen().removeGui(role.getGui());
 		gui.getHomeScreen().addGui(gui);
 		roles.remove(role);
-		checkPersonScheduler = true;
 		stateChanged();
 	}
 
@@ -465,6 +462,7 @@ public class PersonAgent extends Agent implements Person {
 		gui.getHomeScreen().removeGui(gui);
 		role.getGui().getHomeScreen().addGui(role.getGui());
 		role.startBuildingMessaging();
+		stateChanged();
 	}
 
 	/**
@@ -540,14 +538,11 @@ public class PersonAgent extends Agent implements Person {
 	public boolean pickAndExecuteAnAction() {
 
 		// Person Scheduler 
+		
+		
 		if(checkPersonScheduler) {
 			//if the man has groceries in his hand, let him take them home!
-
-			/*if(true) {
-				goEatAtRestaurant();
-				return true;
-			}*/
-
+		//	print("person sched");
 			if(marketState == MarketState.TakeGroceriesHome) {
 				marketState = MarketState.TakingGroceriesHome;
 				goToHome();
@@ -709,9 +704,38 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	private void goToHome() {
-		//if inside building and not in home, animate there
-		if(currentBuilding != myHome) {
-			gui.DoGoToLocation(myHome.getEntranceLocation());
+		
+		//Since there are not enough homes, some people will be left with a "null" home. Send them to a default location in the corner 
+		if(myHome != null) {
+			//if inside building and not in home, animate there
+			if(currentBuilding != myHome) {
+				gui.DoGoToLocation(myHome.getEntranceLocation());
+				try {
+					//print("Available permits: " + busyWithTask.availablePermits());
+					busyWithTask.acquire();
+					//	busyWithTask.acquire();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			}
+	
+			//homeTemp = RoleFactory.makeMeRole("residentRole");
+			homeTemp = myHome.resident;
+			homeTemp.setActive(true);
+			currentBuilding = myHome;
+			homeGui = new ResidentGui((ResidentRole)homeTemp, ScreenFactory.getMeScreen("Home"));
+			homeGui.setHomeScreen(ScreenFactory.getMeScreen("Home"));
+	
+			//Add role
+	
+			homeTemp.setGui(homeGui);
+			//Enter building
+			homeTemp.setPerson(this);
+			enteringBuilding(homeTemp);
+			checkPersonScheduler = false;
+		}
+		else {
+			gui.DoGoToLocation(new Location(26, 580, "Default"));
 			try {
 				//print("Available permits: " + busyWithTask.availablePermits());
 				busyWithTask.acquire();
@@ -720,21 +744,6 @@ public class PersonAgent extends Agent implements Person {
 				e.printStackTrace();
 			}
 		}
-
-		//homeTemp = RoleFactory.makeMeRole("residentRole");
-		homeTemp = myHome.resident;
-		homeTemp.setActive(true);
-		currentBuilding = myHome;
-		homeGui = new ResidentGui((ResidentRole)homeTemp, ScreenFactory.getMeScreen("Home"));
-		homeGui.setHomeScreen(ScreenFactory.getMeScreen("Home"));
-
-		//Add role
-
-		homeTemp.setGui(homeGui);
-		//Enter building
-		homeTemp.setPerson(this);
-		enteringBuilding(homeTemp);
-		checkPersonScheduler = false;
 	}
 
 	private void goEatAtRestaurant() {

@@ -18,7 +18,7 @@ import java.util.Vector;
  * This holds the scroll panes for the customers and, later, for waiters
  */
 public class PersonSelectionPane extends JPanel implements ActionListener {
-
+	private boolean firstTime = true;
 	public JScrollPane pane =
 			new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,
 					JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
@@ -65,10 +65,13 @@ public class PersonSelectionPane extends JPanel implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == newPersonButton ){
-			System.out.println("howdy partner");
-			npWindow = new NewPersonWindow(ScreenFactory.getMainScreen(), newPersonButton, this);
-			npWindow.setVisible(true);
-			newPersonButton.setEnabled(false);
+			if(firstTime) {
+				System.out.println("howdy partner");
+				npWindow = new NewPersonWindow(ScreenFactory.getMainScreen(), newPersonButton, this);
+				npWindow.setVisible(true);
+				newPersonButton.setEnabled(false);
+				
+			}
 		}
 		else {
 			for (JButton temp:list){
@@ -78,7 +81,7 @@ public class PersonSelectionPane extends JPanel implements ActionListener {
 						//System.err.println("Person name:" + person.getName() + "person text " + temp.getText());
 						if(person.getName() == (temp.getText())){//TODO this is soooo easy to break I hate it.
 							info.updateInfoPanel(person);
-							
+
 						}
 					}
 				}

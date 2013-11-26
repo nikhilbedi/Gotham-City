@@ -103,6 +103,7 @@ public class HostRole extends Role implements Host {
 		print("received message that customer is hungry.");
 		waitingCustomers.add(customer);
 		//Waiter
+		print("persons name is " + myPerson.getName());
 		stateChanged();
 	}
 

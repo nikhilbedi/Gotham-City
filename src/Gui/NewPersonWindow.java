@@ -71,7 +71,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 		nameField = new JTextField("Enter a name");
 		nameField.setMaximumSize(new Dimension(WINDOWX, 10));
 
-		homeList = new Vector<String>(TheCity.getHomes());
+		homeList = new Vector<String>(TheCity.getHomes()); //will pop the home from the list if someone is living in it. 
 		jobLocationList = new Vector<String>(TheCity.getJobLocs());
 		jobPositionList = new Vector<String>(TheCity.getPos());
 		transportationList = new Vector<String>(TheCity.getTransportation());
@@ -85,7 +85,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 		homeOwned = new JComboBox(homeOwnerList);
 
 
-		money = new JSlider(JSlider.HORIZONTAL, 0, 1000, 1000);
+		money = new JSlider(JSlider.HORIZONTAL, 250, 1000, 1000);
 		money.setMajorTickSpacing(100);
 		money.setMinorTickSpacing(100);
 		money.setPaintTicks(true);
@@ -173,18 +173,28 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			newPerson.setBank(mainScreen.getBank());
 
 			//Give him money
-			newPerson.addMoney(money.getValue()); //Evan: leaving money at 0 to test going to home ******
+			newPerson.addMoney(money.getValue()); 
 
+			//Just realized this is entire class is created at every call, meaning we cant set things disable when needed. - Nikhil
+		/*	if(home.getSelectedItem().toString().equalsIgnoreCase("Home 1")) {
+				//set home
+				newPerson.setHome((Home)TheCity.getBuildingFromString("home"));
+				home.setEnabled(false);
+			}*/
 
 			//setJob
-			//newPerson.setJob(jobPosition.getSelectedItem().toString(), TheCity.getBuildingFromString(jobPosition.getSelectedItem().toString()));//will this work?
-
+			if(!jobLocation.getSelectedItem().toString().equalsIgnoreCase("no job")){ //Not sure how your code works, but this might do the trick - Nikhil
+				newPerson.setJob(jobLocation.getSelectedItem().toString(), TheCity.getBuildingFromString(jobLocation.getSelectedItem().toString()));//will this work?
+				//I had to change instance names and add this if statement, but yes, it will work
+			}
+				
 			//setting Transportation
 			newPerson.setPreferredTransportation(transportation.getSelectedItem().toString());
 
 
 			//set home
-			newPerson.setHome((Home)TheCity.getBuildingFromString("home"));
+			if(CityClock.getPeople().size() < 1)
+				newPerson.setHome((Home)TheCity.getBuildingFromString("home"));
 
 			newPerson.startThread();
 
