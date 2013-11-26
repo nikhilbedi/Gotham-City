@@ -2,6 +2,9 @@ package simcity.Home.test.mock;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import simcity.Home.Home;
 import simcity.Home.interfaces.Landlord;
 import simcity.Home.interfaces.Resident;
@@ -16,7 +19,9 @@ public class MockLandlord extends Mock implements Landlord {
 	public Resident resident;
 	public EventLog log = new EventLog();
 	//public double wallet;
-
+	public float rent;
+	public List<RentBill> rentBills = new ArrayList<RentBill>();
+	public List<Home> homesOwned = new ArrayList<Home>();
 	public MockLandlord(String name) {
 		super(name);
 

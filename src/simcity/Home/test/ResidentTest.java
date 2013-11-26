@@ -3,46 +3,51 @@ package simcity.Home.test;
 import Gui.ScreenFactory;
 import junit.framework.TestCase;
 import simcity.PersonAgent;
+import simcity.PersonAgent.RentBill;
 import simcity.Home.Home;
 import simcity.Home.ResidentRole;
 import simcity.Home.ResidentRole.HomeState;
 import simcity.Home.gui.ResidentGui;
+import simcity.Home.test.mock.MockLandlord;
 import simcity.Home.test.mock.MockResident;
 
-public class ResidentTest extends TestCase {
-	
-		//these are instantiated for each test separately via the setUp() method.
-		ResidentRole resident;
-		PersonAgent person;
-		MockResident mockResident;
-	
-		/**
-		 * This method is run before each test. You can use it to instantiate the class variables
-		 * for your agent and mocks, etc.
-		 */
+import org.junit.* ;
+
+import static org.junit.Assert.* ;
+
+public class ResidentTest  {
+		PersonAgent myPerson;
+		public ResidentRole resident = new ResidentRole(new PersonAgent("testResident"));
+		public MockLandlord landlord = new MockLandlord("landord");
+		Home h = new Home("Home", 0, 0, 0, 0);
+        //resident.getPersonAgent().setBank(b);
 		
-		public void setUp() throws Exception{
-			super.setUp();		
-			resident = new ResidentRole(new PersonAgent ("testResident"));	
-			Home h = new Home("Home", 0, 0, 0, 0);
-			resident.getPersonAgent().setHome(h);
-			resident.setGui(new ResidentGui((ResidentRole)resident, ScreenFactory.getMeScreen("Home")));
-			mockResident = new MockResident("mockResident");
-		}
-}
 	
-    /*
-    public void testOneNormalResidentComesToHomeWithNoIntention()
-    {
+   @Test
+    public void testOneNormalResidentComesToHomeWithNoIntention() throws InterruptedException{
+    	
             //Check initial conditions
-            assertTrue("The transactionList should be empty at the customer's creation. It is not.", 
-                            bankCustomer.transactionList.size() == 0);
-            
+	   		
+            assertTrue("The groceryBag should be empty at the resident's creation. It is not.", 
+                            resident.groceryBag.size() == 0);
+            assertTrue("The resident's rentBills should be empty at the resident's creation. It is not.",
+            		landlord.rentBills.size() == 0);
             assertTrue("Resident state to begin with should be DoingNothing. It's currently not.", 
                              resident.state == HomeState.DoingNothing);
+            landlord.rent = 10;
+            //RentBill rb = myPerson.new RentBill(myPerson, 10);
+            landlord.sendRentBills();
+            
+            assertFalse("The resident's rentBills should NOT be empty at the resident's creation. It is .",
+            		myPerson.rentBills.size() == 0);
             
             
             
+            
+    } 
+}
+            /*
+           
             
             assertTrue("Name should be testCustomer. It is instead " + bankCustomer.getName(), 
                             bankCustomer.getName().equals("testCustomer"));

@@ -64,6 +64,7 @@ public class MarketAnimationPanel extends Screen {
     	return market;
     }
     
+
     @Override
     public void paintBackground(Graphics g){
     	

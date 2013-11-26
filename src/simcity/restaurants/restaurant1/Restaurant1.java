@@ -25,7 +25,7 @@ public class Restaurant1 extends Restaurant {
 	
 	@Override
 	public void setHost(Role host) {
-		this.host = (HostRole) host;
+		//this.host = (HostRole) host;
 	}
 	
 	@Override
@@ -35,7 +35,7 @@ public class Restaurant1 extends Restaurant {
 	
 	@Override
 	public void setCashier(Role cashier) {
-		this.cashier = (CashierRole)cashier;
+		//this.cashier = (CashierRole)cashier;
 	}
 	
 	@Override

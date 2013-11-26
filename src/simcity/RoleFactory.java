@@ -7,6 +7,7 @@ import agent.Role;
 import simcity.Home.ResidentRole;
 import simcity.Market.MarketCustomerRole;
 import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
+import simcity.restaurants.restaurant3.Restaurant3CustomerRole;
 import simcity.restaurants.restaurant4.Restaurant4CustomerRole;
 import simcity.bank.*;
 
@@ -40,8 +41,8 @@ public class RoleFactory {
 		}
 		//Evan's Restaurant
 		else if(type.equalsIgnoreCase("restaurant3Customer")) {
-			//Restaurant3CustomerRole r = new Restaurant3CustomerRole();
-			return new Role();
+			Restaurant3CustomerRole r = new Restaurant3CustomerRole();
+			return r;
 		}
 		//Mika's Restaurant
 		else if(type.equalsIgnoreCase("restaurant4Customer")) {
