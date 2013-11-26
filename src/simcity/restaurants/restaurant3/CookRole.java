@@ -7,7 +7,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import simcity.PersonAgent;
+import Gui.ScreenFactory;
 import agent.Role;
+import simcity.Market.MarketGui.MarketAnimationPanel;
+import simcity.Market.interfaces.MarketCashier;
 import simcity.restaurants.restaurant3.Order.OrderState;
 import simcity.restaurants.restaurant3.gui.CookGui;
 import simcity.restaurants.restaurant3.gui.HostGui;
@@ -19,9 +22,10 @@ import agent.Agent;
  * Restaurant Host Agent
  */
 public class CookRole extends Role implements Cook{
-	
+
 	public List<Order> orders = Collections.synchronizedList(new Vector<Order>()); 
 	public Map<String, Food> foods = Collections.synchronizedMap(new HashMap<String, Food>());
+	public Map<String, Integer> neededFood = Collections.synchronizedMap(new HashMap<String, Integer>());
 	public List<MarketRole> markets = Collections.synchronizedList(new ArrayList<MarketRole>());
 	private int threshold;
 	private String name;
@@ -29,38 +33,39 @@ public class CookRole extends Role implements Cook{
 	private Food f;
 	public HostGui hostGui = null;
 	private CookGui cookGui;
-	public CashierRole cashier;
-	
+	public CashierRole restCashier;
+	public MarketCashier cashier;
+
 	//private WaiterAgent waiter;
-	
-	 	 
+
+
 	public CookRole(PersonAgent p) {
 		super(p);
-		
+
 		Food f = new Food ("Chicken");
 		foods.put("Chicken", f);
-		
+
 		f = new Food ("Steak");
 		foods.put("Steak", f);
-		
+
 		f = new Food ("Pizza");
 		foods.put("Pizza", f);
-		
+
 		f = new Food ("Salad");
 		foods.put("Salad", f);
-		
+
 		MarketRole market = new MarketRole("restaurant1");
 		markets.add(market);
 		market = new MarketRole("restaurant2");
 		markets.add(market);
 		market = new MarketRole("restaurant3");
 		markets.add(market);
-		
+
 	}
 	public CookRole(){
-		
+
 	}
-	
+
 	public String getMaitreDName() {
 		return name;
 	}
@@ -69,19 +74,19 @@ public class CookRole extends Role implements Cook{
 		return name;
 	}
 
-	
+
 	// Messages
 
 	public void msgHereIsOrder(Order o) {
-		
+
 		System.out.println("waiter gives " + this.getName() + " an order of from customer" );
 		orders.add(o);
 		o.os = OrderState.pending;
 		stateChanged();
-	
+
 		//orders.add(new Order(w, choice, table, OrderState.pending))
 	}
-	
+
 	public void msgFoodDone(Order o) {
 		System.out.println("The food is done cooking");
 		o.os = OrderState.doneCooking;
@@ -90,39 +95,39 @@ public class CookRole extends Role implements Cook{
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	  
+
 	public boolean pickAndExecuteAnAction() {
-	//	synchronized(orders) {
+		//	synchronized(orders) {
 		try {
-		for (Order o: orders) {
-			if(o.os == OrderState.outOfInventory) {
-				messageWaiterOutOfInventory(o);
-				System.out.println("OUT OF INVENTORY");
-				return true;
+			for (Order o: orders) {
+				if(o.os == OrderState.outOfInventory) {
+					messageWaiterOutOfInventory(o);
+					System.out.println("OUT OF INVENTORY");
+					return true;
+				}
+				//	}
 			}
-	//	}
-		}
-	//	synchronized (orders){
-		for (Order o: orders) {
-			if(o.os == OrderState.doneCooking) {
-				plateIt(o);
-				return true;
-			}
-		}
-	//	}
-	//	synchronized(orders) {
-		for (Order o: orders) {
-			if(o.os == OrderState.pending) {
-				tryToCookIt(o); 
-				return true;
+			//	synchronized (orders){
+			for (Order o: orders) {
+				if(o.os == OrderState.doneCooking) {
+					plateIt(o);
+					return true;
 				}
 			}
-	//	}
-	} catch (ConcurrentModificationException e) {
-		e.printStackTrace();
-	}
+			//	}
+			//	synchronized(orders) {
+			for (Order o: orders) {
+				if(o.os == OrderState.pending) {
+					tryToCookIt(o); 
+					return true;
+				}
+			}
+			//	}
+		} catch (ConcurrentModificationException e) {
+			e.printStackTrace();
+		}
 		return false;
-		
+
 	}
 	// Actions
 
@@ -130,21 +135,21 @@ public class CookRole extends Role implements Cook{
 		System.out.println("Out of inventory!!");
 		o.os = OrderState.reordering;
 		o.waiter.msgWaiterOutOfFood(o);
-		
+
 	}
-	
+
 	private void plateIt(Order o) {
 		System.out.println(this.getName() + " is plating the food");
 		DoPlating(o);
 		o.waiter.msgOrderIsReady(o); 
 		orders.remove(o);
 	}
-	
+
 	private void tryToCookIt(Order o) {
 		//print("cookIt action");
-		
+
 		Food f = foods.get(o.choice.getType());
-		
+
 		if (checkInventory(f)) {
 			//print("cook is cooking the food");
 			int amount = f.getAmount() - 1;
@@ -158,10 +163,16 @@ public class CookRole extends Role implements Cook{
 			CookGui.plating = false;
 			DoCooking(o); 
 			msgFoodDone(o);
-			
+
 			// check low threshold
-			if (amount <= f.getLowThreshold()) { 
-				OrderFoodThatIsLow(f);
+			for (Map.Entry<String, Food> entry: foods.entrySet()){
+				if (entry.getValue().amount <= 2){
+					//person.Do("Need " + entry.getKey());
+					int needed = entry.getValue().capacity - entry.getValue().amount;
+					neededFood.put(entry.getKey(), needed);
+					OrderFoodThatIsLow(neededFood);
+					//order = true;
+				}
 			}
 		}
 		else {
@@ -170,61 +181,62 @@ public class CookRole extends Role implements Cook{
 			System.out.println(this.getName() + " has run out of " + o.choice);
 			stateChanged();
 		}
-	
-		
+
+
 		//if(f.amount == 0) {
-			//o.waiter.outOfFood(o.table, o.choice);
-			//orders.remove(o);
+		//o.waiter.outOfFood(o.table, o.choice);
+		//orders.remove(o);
 		//}
-		
+
 		//stateChanged();
-		
+
 		//timer.start(run(foodDone(o)));
 		//foods.get(o.choice);
 	}
-	
 
-	private void OrderFoodThatIsLow(Food f) {
-		
-		/*HashMap<String, Integer> groceryList = new HashMap<String, Integer>(); //Map of grocery list
-		for(Map.Entry<String, Food> entry : foods.entrySet()) {					// iterate through map
-			if(entry.getValue().getAmount()<entry.getValue().getLowThreshold()) { //Food.amount<food.lowthreshold
-				groceryList.put(entry.getValue().getType(), entry.getValue().getAmount()); //groceryList.put(food.type, food.getCapacity)
-			}
-		}*/
+
+	private void OrderFoodThatIsLow(Map<String, Integer> neededFood) {
+			print("ordering food that is low");
+			//Market m = ((MarketAnimationPanel) ScreenFactory.getMeScreen("Market")).getMarket();
+			Market m = (Market) ((MarketAnimationPanel) ScreenFactory.getMeScreen("Market")).getMarket();
+			
+			cashier = ((simcity.Market.Market) m).getCashier();
+			cashier.INeedFood(neededFood, this, restCashier);
+		/*
 		System.out.println(this.getName() + " is ordering from the market.");
 		int amountNeeded = f.getCapacity() - f.getAmount();
 		double bill = 0;
-		
+
 		// Market Order
 		MarketOrder mo = new MarketOrder(f.getType(),amountNeeded);
-		
+
 		for (int i = 0; i < 3; ++i) {
-			
+
 			mo = markets.get(i).msgOrderRestock(mo);
-			
+
 			if (mo == null) {
 				System.out.println("NO MORE FOOD LEFT IN THE TOWN");
 				return;
 			}
-			
+
 			else if (mo.amountNeeded == mo.amountProvided) {
 				bill += mo.bill; 
 				break;
 			}
-				
+
 			// go to the next market
 			else if (mo.amountNeeded > mo.amountProvided) {
 				mo.amountNeeded -= mo.amountProvided;
 				bill += mo.bill; 
 			}
 		}
-			cashier.msgPayMarketBill(bill);
+		restCashier.msgPayMarketBill(bill);
+		*/
 	}
-	
+
 	private boolean checkInventory(Food f) {
 		//print("checking Inventory");
-		
+
 		int amount = f.getAmount(); 
 		if (amount > 0) {
 			return true;
@@ -263,15 +275,15 @@ public class CookRole extends Role implements Cook{
 	public HostGui getGui() {
 		return hostGui;
 	}
-	
+
 	public void setMarket(MarketRole market){
 		//this.market = market;
 	}
 
 	public void setCashier(CashierRole cashier) {
-		this.cashier = cashier;
-		
+		restCashier = cashier;
+
 	}
-	
+
 }
 

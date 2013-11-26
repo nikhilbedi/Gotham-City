@@ -49,6 +49,7 @@ public class MarketAnimationPanel extends Screen {
     public MarketCustomerRole marketCustomer3 = new MarketCustomerRole(agentCust3);
     public MarketCustomerGui customerGui3 = new MarketCustomerGui(marketCustomer3);
     public MainScreen mainScreen = ScreenFactory.getMainScreen();
+    
     List <Market> m = mainScreen.getMarketList();
     public Market market = m.get(0);
   //  private BufferedImage image = ImageIO.read("shop.png"); 
@@ -95,6 +96,9 @@ public class MarketAnimationPanel extends Screen {
         }*/
     }
     
+    public Market getMarket (){
+        return market;
+}
     
     @Override
     public void paintBackground(Graphics g){

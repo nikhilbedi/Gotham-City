@@ -4,12 +4,12 @@ import java.util.HashMap;
 
 public class Food {
 
-	private String type;
-	private double price;
-	private int cookingTime;
-	private int capacity;
-	private int lowThreshold;
-	private int amount;
+	public String type;
+	public double price;
+	public int cookingTime;
+	public int capacity;
+	public int lowThreshold;
+	public int amount;
 	//OrderState orderState;
 	
 	
