@@ -775,6 +775,11 @@ public class PersonAgent extends Agent implements Person {
 			restTemp = RoleFactory.makeMeRole(currentPreference.getCustomerName());
 			restGui = new Restaurant1CustomerGui((Restaurant1CustomerRole)restTemp, ScreenFactory.getMeScreen(currentPreference.getName()));
 		}
+		else if(currentPreference.getName().equalsIgnoreCase("Restaurant 3")) {
+			print("currentPreference = restaurant 3");
+			restTemp =  RoleFactory.makeMeRole(currentPreference.getCustomerName());
+			restGui = new Restaurant3CustomerGui((Restaurant3CustomerRole)restTemp, ScreenFactory.getMeScreen(currentPreference.getName()));
+		}
 		else if(currentPreference.getName().equalsIgnoreCase("Restaurant 4")) {
 			restTemp =  RoleFactory.makeMeRole(currentPreference.getCustomerName());
 			restGui = new Restaurant4CustomerGui((Restaurant4CustomerRole)restTemp, ScreenFactory.getMeScreen(currentPreference.getName()));
@@ -783,6 +788,7 @@ public class PersonAgent extends Agent implements Person {
 		
 		restTemp.setPerson(this);
 		restGui.setHomeScreen(ScreenFactory.getMeScreen(currentPreference.getName()));
+		//print("here:"+ currentPreference.getName());
 
 
 		checkPersonScheduler = false;

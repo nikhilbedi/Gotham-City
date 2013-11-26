@@ -160,6 +160,7 @@ public class ScreenFactory {
 			return rest2;
 		}
 		if(s.equalsIgnoreCase("Restaurant 3")){
+			System.out.println("RETURNING RESTAURANT 3");
 			return rest3;
 		}
 		if(s.equalsIgnoreCase("Restaurant 4")){

@@ -236,8 +236,9 @@ public class CookRole extends Role implements Cook{
 			print("ordering food that is low");
 			//Market m = ((MarketAnimationPanel) ScreenFactory.getMeScreen("Market")).getMarket();
 			Market m = (Market) ((MarketAnimationPanel) ScreenFactory.getMeScreen("Market")).getMarket();
+			//Market m = (Market) ScreenFactory.getMeScreen("Market")).getMarket();
 			
-			cashier = ((simcity.Market.Market) m).getCashier();
+			cashier =  ((simcity.Market.Market) m).getCashier();
 			cashier.INeedFood(neededFood, this, restCashier);
 		/*
 		System.out.println(this.getName() + " is ordering from the market.");

@@ -34,7 +34,11 @@ public class RestaurantEvanAnimationPanel extends Screen  {
 
 	public RestaurantEvanAnimationPanel() { 
 		super();
-		r3 = ScreenFactory.getMainScreen().getRestaurantList().get(2);
+	 	for(Restaurant r : restaurants) {
+			if(r.getName().equals("Restaurant 3")){
+				r3 = r;
+			}
+		}
 		populate();
 		//System.err.println(" "+temp);
 		//Timer timer = new Timer(20, this );

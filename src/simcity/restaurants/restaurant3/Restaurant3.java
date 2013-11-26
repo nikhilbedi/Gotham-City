@@ -11,6 +11,8 @@ import javax.print.attribute.standard.MediaSize.NA;
 import simcity.PersonAgent;
 import agent.Role;
 import simcity.restaurants.*;
+import simcity.restaurants.restaurant3.CashierRole;
+import simcity.restaurants.restaurant3.HostRole;
 import simcity.restaurants.restaurant3.*;
 import simcity.restaurants.restaurant3.Order.OrderState;
 import simcity.restaurants.restaurant3.gui.HostGui;
@@ -96,22 +98,30 @@ public class Restaurant3 extends Restaurant {
 		this.cook = cook;
 		
 	}
-	//@Override
-	 public void setHost(HostRole host) {
-         this.host = host;
-	 }
-	 @Override
-	 public Role getHost() {
-         return host;
-	 }
-	 //@Override
-	 public void setCashier(CashierRole cashier) {
-         this.cashier = cashier;
-	 }
-	 @Override
-	 public Role getCashier() {
-         return cashier;
-	 }	
+	@Override
+	public void setHost(Role host) {
+		this.host = (HostRole) host;
+	}
+	
+	@Override
+	public Role getHost() {
+		return (HostRole)host;
+	}
+	
+	@Override
+	public void setCashier(Role cashier) {
+		this.cashier = (CashierRole)cashier;
+	}
+	
+	@Override
+	public Role getCashier() {
+		return (CashierRole)cashier;
+	}
+	
+	@Override
+	public String getCustomerName(){
+		return "restaurant3customer";
+	}
 	
 }
 

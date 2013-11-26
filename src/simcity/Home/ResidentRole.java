@@ -515,7 +515,7 @@ public class ResidentRole extends Role implements Resident {
 				print("done cooking statechanged");
 				stateChanged();
 			}
-		}, cookingTime * 250);
+		}, cookingTime * 150);
 		//residentGui.cooking = false;
 	}
 
@@ -538,7 +538,7 @@ public class ResidentRole extends Role implements Resident {
 				event = HomeEvent.donePlating;
 				stateChanged();
 			}
-		}, 3000);
+		}, 1500);
 		//residentGui.plating = false;
 	}
 
@@ -568,7 +568,7 @@ public class ResidentRole extends Role implements Resident {
 				hungry = false;
 				myPerson.justAte();
 			}
-		}, 2500);
+		}, 1500);
 	}
 
 	public void goToSink() {
@@ -593,7 +593,7 @@ public class ResidentRole extends Role implements Resident {
 				//residentGui.clearing = false;
 				stateChanged();
 			}
-		}, 3000);
+		}, 1500);
 	}
 
 

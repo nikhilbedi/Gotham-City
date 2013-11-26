@@ -34,7 +34,11 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 
 	public RestaurantNikhilAnimationPanel() { 
 		super();
-		r1 = ScreenFactory.getMainScreen().getRestaurantList().get(0);
+	 	for(Restaurant r : restaurants) {
+			if(r.getName().equals("Restaurant 1")){
+				r1 = r;
+			}
+		}
 		populate();
 		//System.err.println(" "+temp);
 		//Timer timer = new Timer(20, this );

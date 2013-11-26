@@ -59,7 +59,7 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 		//hello
 		
 		name = getPersonAgent().getName();
-		wallet = myPerson.getMoney();
+		
 		//Random random = new Random();
 		//this.wallet = random.nextInt(20); //random generated amount of money in wallet.
 		//this.wallet = 7;
@@ -70,7 +70,7 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 		super();
 		customerGui = (Restaurant3CustomerGui)super.gui;
 		//hello
-		wallet = myPerson.getMoney();
+		
 		//Random random = new Random();
 		//this.wallet = random.nextInt(20); //random generated amount of money in wallet.
 		//this.wallet = 7;
@@ -104,6 +104,7 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 	// Messages
 	
 	@Override
+	
     public void startBuildingMessaging(){
             //Set host and cashier
             host = (HostRole) myPerson.currentPreference.getHost();
@@ -262,11 +263,11 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 
 	private void goToRestaurant() {
 		System.out.println(this.getName() + " is going to the restaurant");
-//		Do("Going to restaurant");
+
 		host.msgIWantToEat(this);//send our instance, so he can respond to us
 	}
 	/*private void tellHostIWantToEat() {
-//		Do("Telling host they are hungry");
+//		
 		System.out.println("Telling host they are hungry");
 	}
 	*/
@@ -381,7 +382,7 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 	// Accessors, etc.
 
 	public String getName() {
-		return name;
+		return myPerson.getName();
 	}
 
 	public int getHungerLevel() {
@@ -443,8 +444,9 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 		return "customer " + getName();
 	}
 
-	public void setGui(Restaurant3CustomerGui g) {
-		customerGui = g;
+	public void setGui(RoleGui g) {
+		super.setGui(g);
+		customerGui = (Restaurant3CustomerGui)g;
 	}
 
 	public void setWaiter(WaiterRole waiter) {
