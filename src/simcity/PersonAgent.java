@@ -179,7 +179,11 @@ public class PersonAgent extends Agent implements Person {
 
 	public void setRestaurants(List<Restaurant> r) {
 		restaurants = r;
-		currentPreference = restaurants.get(0);
+		for(Restaurant rest : restaurants) {
+			if(rest.getName().equals("Restaurant 1")) {
+				currentPreference = rest;
+			}
+		}
 	}
 
 	public void setMarkets(List<Market> m) {
@@ -713,9 +717,9 @@ public class PersonAgent extends Agent implements Person {
 
 		rest1Temp = RoleFactory.makeMeRole("Restaurant1Customer");
 		currentBuilding = currentPreference;
-		rest1Gui = new Restaurant1CustomerGui((Restaurant1CustomerRole)rest1Temp, ScreenFactory.getMeScreen("Restaurant"));
+		rest1Gui = new Restaurant1CustomerGui((Restaurant1CustomerRole)rest1Temp, ScreenFactory.getMeScreen(currentPreference.getName()));
 		rest1Temp.setPerson(this);
-		rest1Gui.setHomeScreen(ScreenFactory.getMeScreen("Restaurant"));
+		rest1Gui.setHomeScreen(ScreenFactory.getMeScreen(currentPreference.getName()));
 
 		checkPersonScheduler = false;
 		rest1Temp.setGui(rest1Gui);
