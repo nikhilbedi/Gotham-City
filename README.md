@@ -42,6 +42,7 @@ Homes (bottom row).
 When you click on a building, the screen zooms in and gets replaced with the GUI and animation of that building. There is a small black box 
 on the top left of each zoomed in building view that can be clicked to return to the city view.
 
+Our character that moves around is batman. We underlayed fillRect behind the batman characters to distinguish the roles and customers from the robots.
 
 When a person is added you can set the amount of money they have using a slider on the pop up menu.  The minimum amount of
 money a person can start with is $250 and the maximum is $1000.
@@ -52,7 +53,7 @@ money a person can start with is $250 and the maximum is $1000.
 There is only one Home in our city and only one new person can live there.  If more than one person in our city is created, 
 the others are spawned in a temporary location
 #####Bank:
-  If the person's money is low, or high, or he needs to pay a bill he will go the the bank.  In the bank there is a greeter and a teller.
+If the person's money is low, or high, or he needs to pay a bill he will go the the bank.  In the bank there is a greeter and a teller.
 ######BankGreeterRole: 
 The GreeterRole greets the customers and manages the customers and tellers.  When customers come in the gretter puts them in a waiting line in fron of the bank counter.  The greeter notifies a teller if they are needed when a customer comes into the bank and sends the customer to the teller.
 ######BankCustomerRole: 
@@ -66,8 +67,15 @@ The TellerRole gets messaged if a customer needs a transaction.  The teller hand
 ######CashierRole:
 ######MarketWorkerRole:
 #####Restaurants:
-//all restaurants are implemented. They do not include the producer-consumer revolving stand. This is something we decided early
+Every one of our team member's restaurants are implemented into the city. Although e made this one of our biggest goals They do not include the producer-consumer revolving stand. This is something we decided early
 on was not vital to our V1 and could be easily implemented in V2.
+Mika's restaurant: location=left bottom
+Nikhil's restaurant: location=top left
+Evan's restaurant: location=right top
+William's restaurant:
+Brice's restaurant:
+
+
 Including all team member's restaurants into the city was a difficult task that we thought if done successfully would set us apart 
 from a lot of other teams.
 only one of the restaurants can successfully order from the market.  The others have enough inventoy so it is not necessary.
