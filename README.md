@@ -42,7 +42,6 @@ Homes (bottom row).
 When you click on a building, the screen zooms in and gets replaced with the GUI and animation of that building. There is a small black box 
 on the top left of each zoomed in building view that can be clicked to return to the city view.
 
-Our character that moves around is batman. We underlayed fillRect behind the batman characters to distinguish the roles and customers from the robots.
 
 When a person is added you can set the amount of money they have using a slider on the pop up menu.  The minimum amount of
 money a person can start with is $250 and the maximum is $1000.
@@ -50,34 +49,37 @@ money a person can start with is $250 and the maximum is $1000.
 ######HomeResident Role:
 ######Landlord Role:
 
-There is only one Home in our city and only one new person can live there.  If more than one person in our city is created, the others are spawned in a temporary location
+There is only one Home in our city and only one new person can live there.  If more than one person in our city is created, 
+the others are spawned in a temporary location
 #####Bank:
-If the person's money is low, or high, or he needs to pay a bill he will go the the bank.  In the bank there is a greeter and a teller.
-######BankGreeterRole: 
-The GreeterRole greets the customers and manages the customers and tellers.  When customers come in the gretter puts them in a waiting line in fron of the bank counter.  The greeter notifies a teller if they are needed when a customer comes into the bank and sends the customer to the teller.
-######BankCustomerRole: 
-The customer has a list of transaction types and tells the teller which transaction they want to make.
-These transaction include: deposit, withdrawal, opening account, closing account, need a loan, paying rent bill, leaving.
-When the bank customer comes in to make a withdrawal and the customer does not have a bank account, the teller will open a bank account for that customer
-######BankTellerRole: 
-The TellerRole gets messaged if a customer needs a transaction.  The teller handles each transaction and every transaction that the bank customer needs.  The teller checks a BankDatabase to get the info for the customer they are handling. For example if the customer wants to take out a loan, the teller will check the database to see if they have enough money in their account to be eligible for a loan.
+  If the person's money is low he will go the the bank.  In the bank there is a greeter and a teller.
+  ######BankGreeterRole: The GreeterRole greets the customers and manages the customers and tellers.  When customers come in the
+  gretter puts them in a waiting line in fron of the bank counter.  The greeter notifies a teller if they are needed when a customer
+  comes into the bank and sends the customer to the teller.
+  ######BankCustomerRole: The customer has a list of transaction types and tells the teller which transaction they want to make.
+  These transaction include: deposit, withdrawal, opening account, closing account, need a loan, paying rent bill, leaving.
+  When the bank customer comes in to make a withdrawal and the customer does not have a bank account, the teller will open a bank
+  account for that customer
+  ######BankTellerRole: The TellerRole gets messaged if a customer needs a transaction.  The teller handles each transaction and 
+  every transaction that the bank customer needs.  The teller checks a BankDatabase to get the info for the customer they are handling.
+  For example if the customer wants to take out a loan, the teller will check the database to see if they have enough money in their
+  account to be eligible for a loan.
   
-#####Market:
-######CashierRole:
-######MarketWorkerRole:
+#####Market: There is a cashier and worker in a market. Marker accepts two types of orders. First one customer orders, the second is restaurant orders. Customers walks to market, stay in a line, by telling market cashier that he needs food, when cashier asks him what he needs he walks to the cashier, passes his orders pays, and moves to get his items. While customer is paying worker walks to bring food to the customer. When customer gets his food he leaves the market.
+Restaurant cooks "call" market and give order, cashier interacts with restaurant cashier, and worker sends food to cook.
+
+######CashierRole: greets customers, accepts orders from customers and retsaurant cooks, Accepts payments, gives change.
+Also, cashier makes worker bring or send food depending on order.
+######MarketWorkerRole: Brings or sends food to restaurant or customer after cashier tells to do so. For now, worker "sends" food without trucks, food magically appears in restaurants.
 #####Restaurants:
-Every one of our team member's restaurants are implemented into the city. We made this one of our biggest goals to complete by V1. Although including all team member's restaurants into the city was a difficult task, we thought if done successfully it would set us apart from other teams. None of our restaurants include the producer-consumer revolving stand. We knew that this would not be important to the main functionality of the city and we wanted to focus on getting our city running before focusing on smaller details like this. This is something we decided early on was not vital to our V1 and could be easily implemented in V2.
+//all restaurants are implemented. They do not include the producer-consumer revolving stand. This is something we decided early
+on was not vital to our V1 and could be easily implemented in V2.
+Including all team member's restaurants into the city was a difficult task that we thought if done successfully would set us apart 
+from a lot of other teams.
+only one of the restaurants can successfully order from the market.  The others have enough inventoy so it is not necessary.
 
-  + Mika's restaurant: location=left bottom
-  + Nikhil's restaurant: location=top left
-  + Evan's restaurant: location=right top
-  + William's restaurant: location=right bottom
-  + Brice's restaurant: location=left top
-
-Mika's restaurant is the only restaurant that can successfully order from the market when the cook runs out of inventory. The other restaurants have enough inventoy so it is not necessary.
 
 #####PersonAgent:
-
 #####GUI:
 ScreenFactory:
 
