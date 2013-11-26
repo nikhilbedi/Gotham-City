@@ -2,7 +2,7 @@ package simcity.restaurants.restaurant2.interfaces;
 
 import simcity.restaurants.restaurant2.Check;
 import simcity.restaurants.restaurant2.Menu;
-import simcity.restaurants.restaurant2.gui.CustomerGui;
+import simcity.restaurants.restaurant2.gui.Restaurant2CustomerGui;
 
 public interface Customer {
 	/**
@@ -51,7 +51,7 @@ public interface Customer {
 	//hacks
 	public abstract String getName();
 
-	public abstract CustomerGui getGui();
+	public abstract Restaurant2CustomerGui getGui();
 
 	public abstract double getCash();
 

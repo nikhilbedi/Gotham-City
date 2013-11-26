@@ -143,7 +143,7 @@ public class HostRole extends Role implements Host{
 	
 	// Actions
 
-	private void seatCustomer(CustomerRole customer, Table table) {
+	private void seatCustomer(Restaurant2CustomerRole customer, Table table) {
 		customer.msgSitAtTable(table.tableNumber);
 		DoSeatCustomer(customer, table);
 		try {
@@ -158,7 +158,7 @@ public class HostRole extends Role implements Host{
 	}
 
 	// The animation DoXYZ() routines
-	private void DoSeatCustomer(CustomerRole customer, Table table) {
+	private void DoSeatCustomer(Restaurant2CustomerRole customer, Table table) {
 		//Notice how we print "customer" directly. It's toString method will do it.
 		//Same with "table"
 		System.out.println(getName() + ": Seating " + customer + " at " + table);

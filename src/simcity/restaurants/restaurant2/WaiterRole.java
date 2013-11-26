@@ -3,7 +3,7 @@ package simcity.restaurants.restaurant2;
 import agent.Agent;
 import agent.Role;
 //import restaurant.HostAgent.Table;
-import simcity.restaurants.restaurant2.CustomerRole.AgentEvent;
+import simcity.restaurants.restaurant2.Restaurant2CustomerRole.AgentEvent;
 import simcity.restaurants.restaurant2.gui.HostGui;
 import simcity.restaurants.restaurant2.gui.WaiterGui;
 import simcity.restaurants.restaurant2.interfaces.Cashier;

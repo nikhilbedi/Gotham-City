@@ -155,7 +155,6 @@ public class RoleGui {
 		g.drawImage(current.getImage(), xPos, yPos, null);
 	}
 
-
 	public void doLeaveBuilding(){
 	}
 	public void setColor(Color c){

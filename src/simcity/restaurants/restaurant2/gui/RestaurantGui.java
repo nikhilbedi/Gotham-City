@@ -1,6 +1,6 @@
 package simcity.restaurants.restaurant2.gui;
 
-import simcity.restaurants.restaurant2.CustomerRole;
+import simcity.restaurants.restaurant2.Restaurant2CustomerRole;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -169,8 +169,8 @@ public class RestaurantGui extends JFrame implements ActionListener {
      */
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == stateCB) {
-            if (currentPerson instanceof CustomerRole) {
-                CustomerRole c = (CustomerRole) currentPerson;
+            if (currentPerson instanceof Restaurant2CustomerRole) {
+                Restaurant2CustomerRole c = (Restaurant2CustomerRole) currentPerson;
                 c.getGui().setHungry();
                 stateCB.setEnabled(false);
             }
@@ -183,9 +183,9 @@ public class RestaurantGui extends JFrame implements ActionListener {
      *
      * @param c reference to the customer
      */
-    public void setCustomerEnabled(CustomerRole c) {
-        if (currentPerson instanceof CustomerRole) {
-            CustomerRole cust = (CustomerRole) currentPerson;
+    public void setCustomerEnabled(Restaurant2CustomerRole c) {
+        if (currentPerson instanceof Restaurant2CustomerRole) {
+            Restaurant2CustomerRole cust = (Restaurant2CustomerRole) currentPerson;
             if (c.equals(cust)) {
                 stateCB.setEnabled(true);
                 stateCB.setSelected(false);
