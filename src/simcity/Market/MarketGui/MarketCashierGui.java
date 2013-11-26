@@ -8,10 +8,7 @@ import Gui.RoleGui;
 import simcity.Market.interfaces.MarketCashier;
 
 public class MarketCashierGui extends RoleGui{
-	private int xPos;
-	private int yPos;
-	private int xDestination;
-	private int yDestination;
+	
 	private MarketCashier cashier;
 	
 	public MarketCashierGui(MarketCashier mc){
@@ -23,22 +20,10 @@ public class MarketCashierGui extends RoleGui{
 	}
 	
 
-	public void updatePosition() {
-		 if (xPos < xDestination)
-	            xPos++;
-	        else if (xPos > xDestination)
-	            xPos--;
-
-	        if (yPos < yDestination)
-	            yPos++;
-	        else if (yPos > yDestination)
-	            yPos--;
-	}
-
 
 	public void draw(Graphics g) {
-		g.setColor(Color.MAGENTA);
-        g.fillRect(xPos, yPos, 20, 20);
+		super.draw(g);
+		
 		
 	}
 

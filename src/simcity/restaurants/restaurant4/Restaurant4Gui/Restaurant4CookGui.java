@@ -10,10 +10,7 @@ import simcity.restaurants.restaurant4.interfaces.Restaurant4Cook;
 
 public class Restaurant4CookGui extends RoleGui {
 	public Restaurant4Cook agent;
-	private int xPos;
-	private int yPos;
-	private int xDestination;
-	private int yDestination;
+	
 	private List<String> current = new ArrayList<String>();
 	private Command command;
 	private boolean bring = false;
@@ -35,22 +32,15 @@ public class Restaurant4CookGui extends RoleGui {
 	
 	public void updatePosition() {
 		//if(agent.getPause() == false){	
-			if (xPos < xDestination)
-				xPos++;
-			else if (xPos > xDestination)
-				xPos--;
-
-			if (yPos < yDestination)
-				yPos++;
-			else if (yPos > yDestination)
-				yPos--;
+			super.updatePosition();
 		
 		//}
 	}
 	
 	public void draw(Graphics g){
-	g.setColor(Color.RED);
-	g.fillRect(xPos, yPos, 20, 20);
+		super.draw(g);
+	/*g.setColor(Color.RED);
+	g.fillRect(xPos, yPos, 20, 20);*/
 	drawOrder(g);
 	
 	}

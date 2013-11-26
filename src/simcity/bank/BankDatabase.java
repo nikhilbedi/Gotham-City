@@ -5,10 +5,10 @@ import java.util.LinkedList;
 import java.util.Map;
 
 public class BankDatabase {
-	double safeBalance;
+	public double safeBalance;
 	int nextAccountNumber;
-	Map<Integer, BankAccount> accounts = new HashMap<Integer, BankAccount>();
-	Map<String, LinkedList<Integer>> accountNumbers = new HashMap<String, LinkedList<Integer>>();
+	public Map<Integer, BankAccount> accounts = new HashMap<Integer, BankAccount>();
+	public Map<String, LinkedList<Integer>> accountNumbers = new HashMap<String, LinkedList<Integer>>();
 	//public loanHolders;
 	public Map<String, Double> loanHolders = new HashMap<String, Double>();
 	
@@ -41,11 +41,10 @@ public class BankDatabase {
 	
 	//Removes an account from the database; updates both lists
 	
-	public BankAccount removeAccount(String customerName, int accountNumber) {
-		BankAccount removedAccount = accounts.get(accountNumber);
+	public void removeAccount(String customerName, int accountNumber) {
 		accounts.remove(accountNumber);
-		accountNumbers.get(customerName).remove(accountNumber);
-		return removedAccount;
+		accountNumbers.get(customerName).remove(0);
+		accountNumbers.remove(customerName);
 	}
 	
 	

@@ -2,6 +2,7 @@ package Gui;
    import java.awt.event.*;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
@@ -11,31 +12,26 @@ import java.util.*;
    public class SimCityPanel extends JPanel implements MouseListener
    {
       Player player;//this will soon be replaced by AgentGuis
-      ScreenFactory loader;
+      //ScreenFactory loader;
       Screen currentScreen;
+   
       boolean start;
       boolean always = true;
            
       public SimCityPanel(){
-    	  setPreferredSize(new Dimension(800, 800));
-         loader = new ScreenFactory();
-         currentScreen = loader.getCity();
+    	 setPreferredSize(new Dimension(800, 800));
+         currentScreen = ScreenFactory.getMainScreen();
          addMouseListener(this);
          setFocusable(true);  
       }
       
 
       public void paintComponent(Graphics g){//Here is where everything in the animation panel is generated
-         loader.updateAllPositions();
+         ScreenFactory.updateScreens();
          //currentScreen.updateAgents();
     	 currentScreen.paintBackground(g);
          //currentScreen.paintObstacles(g);
-         currentScreen.paintAgents(g);
-
-               
-               //update position of all screens?
-         //player.paintSprite(g, player.getSprite());
-         
+         currentScreen.paintAgents(g);         
       }
       
       
@@ -60,11 +56,13 @@ import java.util.*;
             //Have map check coords
             String swap = currentScreen.checkSwap(x,y);
             //System.out.println("swap is " + swap);
-            Screen swapScreen = loader.getScreen(swap);
+    		//swap = "Restaurant";
+            Screen swapScreen = ScreenFactory.getMeScreen(swap);
             if(!(swapScreen == null)){
                     currentScreen = swapScreen;
+                    selPane.refresh();
                     //currentScreen.generate();
-            }
+            } 
     }
       
       
@@ -82,8 +80,19 @@ import java.util.*;
         }
         
         public MainScreen getCityScreen(){
-        	return loader.getCity();
+        	return ScreenFactory.getMainScreen();
         }
+        
+        public PersonSelectionPane getSelPane() {
+    		return selPane;
+    	}
+
+
+    	public void setSelPane(PersonSelectionPane selPane) {
+    		this.selPane = selPane;
+    	}
+
+    	PersonSelectionPane selPane;
     
     
         @Override        

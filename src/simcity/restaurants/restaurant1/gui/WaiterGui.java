@@ -1,7 +1,7 @@
 package simcity.restaurants.restaurant1.gui;
 
 
-import simcity.restaurants.restaurant1.CustomerRole;
+import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
 import simcity.restaurants.restaurant1.HostRole;
 import simcity.restaurants.restaurant1.WaiterRole;
 
@@ -73,7 +73,7 @@ public class WaiterGui extends RoleGui {
 		yDestination = y;
 	}
 
-	public void DoSeatCustomer(CustomerRole customer, int table) {
+	public void DoSeatCustomer(Restaurant1CustomerRole customer, int table) {
 		release = true;
 		//Send customer's gui dimension coordinates
 		//have the waiter walk to the table first
@@ -120,7 +120,7 @@ public class WaiterGui extends RoleGui {
 		showFood = true;
 	}
 
-	public void setFood(CustomerRole c, String choice) {
+	public void setFood(Restaurant1CustomerRole c, String choice) {
 		showFood = false;
 		c.getGui().eatingFood(choice);
 	} 

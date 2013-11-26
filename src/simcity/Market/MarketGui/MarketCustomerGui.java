@@ -59,8 +59,9 @@ public class MarketCustomerGui extends RoleGui{
 	}
 
 	public void draw(Graphics g) {
-		g.setColor(Color.BLUE);
-        g.fillRect(xPos, yPos, 20, 20);
+		super.draw(g);
+		/*g.setColor(Color.BLUE);
+        g.fillRect(xPos, yPos, 20, 20);*/
 		
 	}
 

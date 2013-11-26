@@ -13,10 +13,7 @@ import simcity.Market.interfaces.MarketCustomer;
 import simcity.Market.interfaces.MarketWorker;
 
 public class MarketWorkerGui extends RoleGui{
-	private int xPos;
-	private int yPos;
-	private int xDestination;
-	private int yDestination;
+	
 	private MarketWorker worker;
 	private MarketCustomer customer;
 	private Command command;
@@ -27,6 +24,7 @@ public class MarketWorkerGui extends RoleGui{
 	
 	
 	public MarketWorkerGui(MarketWorker mw){
+		
 		worker = mw;
 		xPos = 430;
 		yPos = 360;
@@ -36,15 +34,8 @@ public class MarketWorkerGui extends RoleGui{
 	
 
 	public void updatePosition() {
-		 if (xPos < xDestination)
-	            xPos++;
-	        else if (xPos > xDestination)
-	            xPos--;
-
-	        if (yPos < yDestination)
-	            yPos++;
-	        else if (yPos > yDestination)
-	            yPos--;
+		super.updatePosition();
+		
 	        if (xPos == 550 && yPos == 250   && command == Command.getting){
 	        	command = Command.none;
 	        	Deliver();
@@ -65,13 +56,14 @@ public class MarketWorkerGui extends RoleGui{
 	        }
 	}
 
-
+	
 	public void draw(Graphics g) {
-		g.setColor(Color.RED);
+		super.draw(g);
+		/*g.setColor(Color.RED);
         g.fillRect(xPos, yPos, 20, 20);
 		if (drawString == true){
 			//drawOrder(g);
-		}
+		}*/
         
 	}
 

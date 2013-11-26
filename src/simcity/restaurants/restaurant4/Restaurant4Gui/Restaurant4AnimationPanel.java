@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class Restaurant4AnimationPanel extends Screen {
 	MainScreen mainScreen = ScreenFactory.getMainScreen();
 	
-	Restaurant4 r4 = (Restaurant4) mainScreen.getRestaurantList().get(0);
+	Restaurant4 r4 = (Restaurant4) mainScreen.getRestaurantList().get(3);
 	
 
 	static final int X = 50;
@@ -38,6 +38,7 @@ public class Restaurant4AnimationPanel extends Screen {
     private final int WINDOWX = 450;
     private final int WINDOWY = 350;
     private Image bufferImage;
+    
     private Dimension bufferSize;
   public PersonAgent host = new Robot("host");
   public Restaurant4HostRole hostRole = new Restaurant4HostRole(host);

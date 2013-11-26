@@ -1,21 +1,20 @@
 package simcity.restaurants.restaurant1.gui;
 
-import simcity.restaurants.restaurant1.CustomerRole;
-import simcity.restaurants.restaurant1.HostRole;
-
+import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
 import Gui.RoleGui;
+import Gui.Screen;
 
 import java.awt.*;
 
-public class CustomerGui extends RoleGui {
+public class Restaurant1CustomerGui extends RoleGui {
 
-	private CustomerRole agent = null;
+	private Restaurant1CustomerRole agent = null;
 	private boolean isPresent = false;
 	private boolean isHungry = false;
 
 	//private HostAgent host;
 
-	private enum Command {noCommand, GoToSeat, GoToCashier, LeaveRestaurant};
+	private enum Command {noCommand, GoToWaitingArea, GoToSeat, GoToCashier, LeaveRestaurant};
 	private Command command=Command.noCommand;
 
 	private String myFood;
@@ -23,8 +22,19 @@ public class CustomerGui extends RoleGui {
 	public static final int xTable = 200;
 	public static final int yTable = 250;
 
-	public CustomerGui(CustomerRole c){ //HostAgent m) {
-		super.setColor(Color.green);
+	public Restaurant1CustomerGui(Restaurant1CustomerRole c){ //HostAgent m) {
+		super.setColor(myColor.yellow);
+		agent = c;
+		xPos = 20;
+		yPos = 400;
+		xDestination = 20;
+		yDestination = 400;
+	}
+
+	public Restaurant1CustomerGui(Restaurant1CustomerRole c,
+			Screen s) {
+		super(c, s);
+		super.setColor(myColor.yellow);
 		agent = c;
 		xPos = 20;
 		yPos = 400;
@@ -48,6 +58,10 @@ public class CustomerGui extends RoleGui {
 				agent.madeItToCashier();
 				isHungry = false;
 				//	gui.setCustomerEnabled(agent);
+			}
+			else if(command == Command.GoToWaitingArea) {
+				agent.msgAnimationFinishedWaitingArea();
+				isHungry = false;
 			}
 			command=Command.noCommand;
 		}
@@ -91,6 +105,7 @@ public class CustomerGui extends RoleGui {
 		xDestination = x;
 		yDestination = y;
 		//you can choose to do a command later if you want to do an animation
+		command = Command.GoToWaitingArea;
 	}
 
 	public void DoGoToSeat(int x, int y) {//later you will map seatnumber to table coordinates.

@@ -23,7 +23,6 @@ public abstract class Agent {
 	 */
 	public void stateChanged() {
 		stateChange.release();
-		print("Available permits: " + stateChange.availablePermits());
 	}
 
 	/**

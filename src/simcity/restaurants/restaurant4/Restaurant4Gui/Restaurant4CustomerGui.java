@@ -71,16 +71,7 @@ public class Restaurant4CustomerGui extends RoleGui{
 	
 	public void updatePosition() {
 //	if(agent.getPause() == false){	
-		if (xPos < xDestination)
-			xPos++;
-		else if (xPos > xDestination)
-			xPos--;
-
-		if (yPos < yDestination)
-			yPos++;
-		else if (yPos > yDestination)
-			yPos--;
-		
+	super.updatePosition();
 		if (xPos == 220 && yPos == 50 && command==Command.GoToCashier){
 			command=Command.noCommand;
 			agent.arrivedToCashier();
@@ -114,8 +105,9 @@ public class Restaurant4CustomerGui extends RoleGui{
 	}
 
 	public void draw(Graphics g) {
-		g.setColor(Color.GREEN);
-		g.fillRect(xPos, yPos, rectSize, rectSize);
+		super.draw(g);
+		/*g.setColor(Color.GREEN);
+		g.fillRect(xPos, yPos, rectSize, rectSize);*/
 		if (ordered ==true && gotOrder==false){
 		drawOrder(g);
 		}

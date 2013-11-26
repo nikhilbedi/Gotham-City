@@ -1,14 +1,13 @@
 package simcity.restaurants.restaurant1;
 
 import simcity.PersonAgent;
-import simcity.tests.mock.*;
-import agent.Agent;
 import simcity.restaurants.restaurant1.CashierRole.Check;
 import simcity.restaurants.restaurant1.WaiterRole;
 import simcity.restaurants.restaurant1.HostRole;
 import simcity.restaurants.restaurant1.Menu;
-import simcity.restaurants.restaurant1.gui.CustomerGui;
+import simcity.restaurants.restaurant1.gui.Restaurant1CustomerGui;
 import simcity.restaurants.restaurant1.interfaces.*;
+import Gui.RoleGui;
 import agent.Role;
 
 import java.util.Timer;
@@ -18,16 +17,16 @@ import java.util.Random;
 /**
  * Restaurant customer agent.
  */
-public class CustomerRole extends Role implements Customer {
+public class Restaurant1CustomerRole extends Role implements Customer {
 	private String name;
 	private int hungerLevel = 5;        // determines length of meal
 	//which table to sit at
 	private int openTable = 1;
 	Timer timer = new Timer();
-	private CustomerGui customerGui;
+	private Restaurant1CustomerGui customerGui;
 	private String myChoice;
 	private Menu myMenu;
-	private double money;
+	//private double money;
 	private Check myCheck;
 	private int waitingPosX = 100;
 	private int waitingPosY = 100;
@@ -43,7 +42,8 @@ public class CustomerRole extends Role implements Customer {
 	private AgentState state = AgentState.DoingNothing;//The start state
 
 	public enum AgentEvent 
-	{none, gotHungry, mustWaitInArea, followWaiter, seated, thoughtOfOrder, askedForOrder, gaveOrder, receivedFood, doneEating, receivedBill, reachedCashier, doneLeaving, left};
+	{none, gotHungry, mustWaitInArea, followWaiter, seated, thoughtOfOrder, askedForOrder, gaveOrder, receivedFood, doneEating, receivedBill, reachedCashier, 
+		doneLeaving, leavingRestaurant, left};
 	AgentEvent event = AgentEvent.none;
 
 	/**
@@ -52,18 +52,25 @@ public class CustomerRole extends Role implements Customer {
 	 * @param name name of the customer
 	 * @param gui  reference to the customergui so the customer can send it messages
 	 */
-	public CustomerRole(PersonAgent p){
+	public Restaurant1CustomerRole(PersonAgent p){
 		super(p);
 		//myChoice = name;
 		//Set how much cash the customer has
 		Random rnd = new Random();
 		int max = 25;
 		int min = 4;
-		money = rnd.nextInt(max-min) + min;
+	//	money = rnd.nextInt(max-min) + min;
 		name = getPersonAgent().getName();
 		/*	if(name.equals("flake")) {
 		    money = 4.0;
 		}*/
+	}
+	
+	public Restaurant1CustomerRole() {
+		Random rnd = new Random();
+		int max = 25;
+		int min = 4;
+		//money = rnd.nextInt(max-min) + min;
 	}
 
 	/**
@@ -91,6 +98,14 @@ public class CustomerRole extends Role implements Customer {
 
 	// Messages
 
+	@Override
+	public void startBuildingMessaging(){
+		//Set host and cashier
+		host = (HostRole) myPerson.currentPreference.getHost();
+		cashier = (CashierRole) myPerson.currentPreference.getCashier();
+		gotHungry();
+	}
+	
 	/**
        handles the hungry message, in which the event will cause this customer to message the host
 	 */
@@ -109,6 +124,11 @@ public class CustomerRole extends Role implements Customer {
 		//from animation
 		event = AgentEvent.doneLeaving;
 		stateChanged();
+	}
+	
+	public void msgAnimationFinishedWaitingArea() {
+		//from animation - Just manually send host message.
+		host.inWaitingPosition();
 	}
 
 	public void waitInArea(int posX, int posY){
@@ -172,13 +192,15 @@ public class CustomerRole extends Role implements Customer {
 
 	public void hereIsChange(double amount) {
 		//If the amount is greater than zero, then the customer receives how much money he has left
-		money = amount;
-		print("Cashier gave me change. I have " + money + " money left.");
+		myPerson.setMoney(amount);
+		print("Cashier gave me change. I have " + myPerson.getMoney() + " money left.");
 		//If he is in debt, then cash him up so he can pay next time
-		if(money < 0 ) {
-			money = 30;
+		if(myPerson.getMoney() < 0 ) {
+			myPerson.addMoney(30);
 			print("Since I was in debt and God likes to speak to me, I was given 30 dollars to clear my payments.");
 		}
+		event = AgentEvent.leavingRestaurant;
+		stateChanged();
 		//We can perhaps have a boolean for a flake and set the boolean true under the above condition
 		//we will need to call an action to up this guys cash flow too, remember
 	}
@@ -189,9 +211,7 @@ public class CustomerRole extends Role implements Customer {
 	//Make sure to implement the new states once you take away the host from the Gui
 	public boolean pickAndExecuteAnAction() {
 		//	CustomerAgent is a correctly implemented finite state machine
-print("got here");
 		if (state == AgentState.DoingNothing && event == AgentEvent.gotHungry ){
-			
 			state = AgentState.WaitingInRestaurant;
 			goToRestaurant();
 			return true;
@@ -199,7 +219,6 @@ print("got here");
 
 		if(state == AgentState.WaitingInRestaurant && event == AgentEvent.mustWaitInArea) {
 			state = AgentState.WaitingInArea;
-			print("customer scheduler");
 			goToArea();
 			return true;
 		}
@@ -241,6 +260,11 @@ print("got here");
 			payCashier();
 			return true;
 		}
+		if(state == AgentState.Paying && event == AgentEvent.leavingRestaurant) {
+			state = AgentState.Leaving;
+			leaveRestaurant();
+			return true;
+		}
 		/*	if (state == AgentState.Leaving && event == AgentEvent.left) {
 	    // state = AgentState.DoingNothing;
 	    return true;
@@ -258,7 +282,7 @@ print("got here");
 		//Do a timer to check if we've been waiting for 10 seconds or more
 		//if the state is still "waitingInRestaurant", then message and leave
 		//else, do nothing
-		final CustomerRole temp = this;
+		final Restaurant1CustomerRole temp = this;
 		final WaiterRole w = myWaiter;
 		//The requirements don't say that the customer should be allowed to become hungry again since he left the restaurant
 		timer.schedule(new TimerTask() {
@@ -302,7 +326,7 @@ print("got here");
 				boolean stillChoosing = true;
 				boolean haveEnoughMoney = false;
 				//The customer's name might not be flake and might not have enough money for anything. Need to keep check first if he can order anything
-				if(!name.equals("flake")) {
+			/*	if(!name.equals("flake")) {
 					synchronized(myMenu.choices){
 						for(String c : myMenu.choices.keySet()) {
 							if(money >= myMenu.choices.get(c)) {
@@ -317,7 +341,7 @@ print("got here");
 						print("Can't order anything! I'll just leave.");
 						leaveTableAndRestaurant();
 					}
-				}
+				}*/
 				while(stillChoosing) {
 					// for(String c : myMenu.choices.keySet()) {
 					//     print(c);
@@ -333,14 +357,15 @@ print("got here");
 							++counter;
 							if(randomChoice == counter) {
 								//Check if the customer can afford it
-								if(money >= myMenu.choices.get(c) && !name.equals("flake")) {
+								//if(money >= myMenu.choices.get(c) && !name.equals("flake")) {
+								if(myPerson.getMoney() >= myMenu.choices.get(c)) {
 									myChoice = c;
 									stillChoosing = false;
 									event = AgentEvent.thoughtOfOrder;
 									stateChanged();
 
 								}
-								else if(name.equals("flake")) {
+								else if(getName().equals("flake")) {
 									myChoice = c;
 									stillChoosing = false;
 									event = AgentEvent.thoughtOfOrder;
@@ -371,7 +396,7 @@ print("got here");
        messages the waiter with an order choice
 	 */
 	private void giveOrder() {
-		print("I have this much money: " + money + " so I'll get " + myChoice);
+		print("I have this much money: " + myPerson.getMoney() + " so I'll get " + myChoice);
 		myWaiter.hereIsMyChoice(myChoice, this);
 		event = AgentEvent.gaveOrder;
 	}
@@ -390,11 +415,14 @@ print("got here");
 		//Since Java does not all us to pass functions, only objects.
 		//So, we use Java syntactic mechanism to create an
 		//anonymous inner class that has the public method run() in it.
+		final Restaurant1CustomerRole roleTemp = this;
 		timer.schedule(new TimerTask() {
 			Object cookie = 1;
 			public void run() {
 				print("Done eating "  + myChoice);
-				event = AgentEvent.doneEating;
+				myPerson.justAte();
+				myWaiter.readyForCheck(roleTemp);
+				//event = AgentEvent.doneEating;
 				customerGui.doneWithFood();
 				//  isHungry = false;
 				stateChanged();
@@ -418,17 +446,15 @@ print("got here");
 
 	private void payCashier() {
 		print("Paying Cashier");
-		cashier.hereIsPayment(myCheck, money);
-		state = AgentState.DoingNothing;
+		cashier.hereIsPayment(myCheck, myPerson.getMoney());
 		customerGui.DoExitRestaurant();
 		myCheck = null;
 	}
 
-	private void leaveTableAndRestaurant() {
-		print("Leaving.");
-		myWaiter.doneAndLeaving(this);
+	private void leaveRestaurant() {
+		print("derp");
 		event = AgentEvent.left;
-		customerGui.DoExitRestaurant();
+		myPerson.leftBuilding(this);
 	}
 
 
@@ -453,11 +479,12 @@ print("got here");
 		return "customer " + getName();
 	}
 
-	public void setGui(CustomerGui g) {
-		customerGui = g;
+	public void setGui(RoleGui g) {
+		super.setGui(g);
+		customerGui = (Restaurant1CustomerGui)g;
 	}
 
-	public CustomerGui getGui() {
+	public Restaurant1CustomerGui getGui() {
 		return customerGui;
 	}
 }

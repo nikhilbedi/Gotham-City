@@ -16,6 +16,7 @@ import simcity.restaurants.restaurant4.Restaurant4CashierRole;
 import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4AnimationPanel;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Cashier;
 import simcity.PersonAgent;
+import simcity.TheCity;
 import Gui.ScreenFactory;
 import agent.Role;
 
@@ -30,7 +31,7 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	private List<RestaurantOrder> restaurantOrders = new ArrayList<RestaurantOrder>();
 	public MarketCustomer currentCustomer;
 	public List<MarketCustomer> customersInMarket = new ArrayList<MarketCustomer>();
-	public Restaurant4Cashier cashier4;
+	public Restaurant4CashierRole cashier4;
 //	public CashierRole cashier1;
 	
 	//private PersonAgent person;
@@ -189,8 +190,8 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	
 	public void ProcessRestaurantOrder(RestaurantOrder o){
 		
-        Restaurant4 r4 = ((Restaurant4AnimationPanel) ScreenFactory.getMeScreen("Restaurant")).getRestaurant();
-    	cashier4 = r4.getCashier();
+        Restaurant4 r4 = (Restaurant4)TheCity.getBuildingFromString("Restaurant 4");
+    	cashier4 = (Restaurant4CashierRole) r4.getCashier();
     	
     	//Restaurant1 r1 = ((Restaurant)
 		

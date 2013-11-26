@@ -3,6 +3,7 @@ package simcity.restaurants.restaurant4;
 import java.util.ArrayList;
 import java.util.List;
 
+import agent.Role;
 import simcity.Building;
 import simcity.TheCity;
 import simcity.Market.Market;
@@ -14,9 +15,9 @@ import simcity.restaurants.restaurant4.interfaces.Restaurant4Host;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Waiter;
 
 public class Restaurant4 extends Restaurant {
-	private Restaurant4Host host;
+	private Restaurant4HostRole host;
 	private List<Restaurant4Waiter> waiters = new ArrayList<Restaurant4Waiter>();
-	private Restaurant4Cashier cashier;
+	private Restaurant4CashierRole cashier;
 	private Restaurant4Cook cook;
 	public TheCity cp;
 	private Menu menu;
@@ -30,7 +31,7 @@ public class Restaurant4 extends Restaurant {
 
 	
 	
-	public  Restaurant4Host  getHost(){
+	public  Role  getHost(){
 		return host;
 	}
 	
@@ -42,14 +43,14 @@ public class Restaurant4 extends Restaurant {
 		return cook;
 	}
 	
-	public Restaurant4Cashier getCashier(){
+	public Role getCashier(){
 		return cashier;
 	}
 	  public void setCity(TheCity c){
 	    	cp = c;
 	    }
 
-	public void  setHost(Restaurant4Host h){
+	public void  setHost(Restaurant4HostRole h){
 		host = h;
 	}
 	
@@ -64,7 +65,7 @@ public class Restaurant4 extends Restaurant {
 		cook.setMarketCashier(m.get(0).getCashier());*/
 	}
 	
-	public void setCashier(Restaurant4Cashier c){
+	public void setCashier(Restaurant4CashierRole c){
 		cashier = c;
 	}
 	

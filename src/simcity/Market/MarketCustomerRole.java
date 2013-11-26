@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import simcity.PersonAgent;
+import simcity.PersonAgent.MarketState;
 import simcity.Market.MarketGui.MarketCustomerGui;
 import simcity.Market.interfaces.MarketCashier;
 import simcity.Market.interfaces.MarketCustomer;
@@ -47,8 +48,7 @@ public class MarketCustomerRole extends Role implements MarketCustomer{
 	public void getGroceries(){
 		 //person.groceryList.put("Chicken", 3);
 		 //person.groceryList.put("Rice", 2);
-	//	Map<String, Integer> map = new HashMap<String, Integer>();
-		//map.put("Chicken", 2);
+
 		System.out.println("Got order to get groceries");
 		for (Map.Entry<String, Integer> entry: myPerson.groceryList.entrySet() ){
 			orders.add(new Order(this, entry.getKey(), entry.getValue(), false));
@@ -97,6 +97,7 @@ public class MarketCustomerRole extends Role implements MarketCustomer{
 	}
 	
 	public void HereIsYourStuff(Map<String, Integer> map){
+		
 		System.out.println(myPerson.name+ " " +"Got my stuff");
 		myPerson.groceryBag = map;
 		myPerson.groceryList.clear();
@@ -161,6 +162,8 @@ public class MarketCustomerRole extends Role implements MarketCustomer{
 	public void Leave(){
 		System.out.println(myPerson.name+ " " + "Leaving");
 		customerGui.DoLeave();
+		//testing
+		myPerson.marketState = MarketState.TakeGroceriesHome;
 	}
 	
 	public void Waiting(){

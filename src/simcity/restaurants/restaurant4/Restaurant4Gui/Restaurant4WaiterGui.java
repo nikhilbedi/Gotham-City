@@ -18,8 +18,6 @@ public class Restaurant4WaiterGui extends RoleGui {
     public Command command;
     private int table;
     public enum Command {none, atDefult, bringingToTable, goToCustomer,  hereIsCheck, arrivedToGetOrder,pickUpCheck, arrivedToNotifyNoFood, atCook, pickUpOrder, hereIsFood, onBreak, giveMeCheck};
-    public int xPos = 20, yPos = 70;//default waiter position
-    private int xDestination = 20, yDestination = 70;//default start position
     private int xTable;
     private boolean deliver = false;
     public static final int yTable = 170;
@@ -51,15 +49,7 @@ public class Restaurant4WaiterGui extends RoleGui {
     private final int firstTable = 50;
     public void updatePosition() {
     	//if(agent.getPause()==false){
-        if (xPos < xDestination)
-            xPos++;
-        else if (xPos > xDestination)
-            xPos--;
-
-        if (yPos < yDestination)
-            yPos++;
-        else if (yPos > yDestination)
-            yPos--;
+    	super.updatePosition();
 
         if (xPos == xDestination && yPos == yDestination & (xDestination == xTable + rect) & (yDestination == yTable - rect) && command == Command.bringingToTable) {
           command = Command.none;
@@ -143,8 +133,9 @@ public class Restaurant4WaiterGui extends RoleGui {
     }
     
     public void draw(Graphics g) {
-        g.setColor(Color.MAGENTA);
-        g.fillRect(xPos, yPos, rect, rect);
+    	super.draw(g);
+        /*g.setColor(Color.MAGENTA);
+        g.fillRect(xPos, yPos, rect, rect);*/
         if (deliver==true){
         	drawOrder(g);
         }

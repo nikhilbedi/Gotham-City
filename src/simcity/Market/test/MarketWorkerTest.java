@@ -77,17 +77,23 @@ public class MarketWorkerTest {
 		orders2.add(o1);
 		worker.Bring(orders);
 		worker.Bring(orders2);
-		assertTrue("Workers deliveries list should contain one delivery", worker.getCustomerDeliveries().size()==2);
+		assertTrue("Workers deliveries list should contain two deliveries", worker.getCustomerDeliveries().size()==2);
 		//assertTrue("Scheduler should return false", worker.pickAndExecuteAnAction());
 		assertTrue("Delivery state should be pending", worker.getCustomerDeliveries().get(0).state == CustomerDelivery.DeliveryState.pending);
 		assertTrue("Delivery state should be pending", worker.getCustomerDeliveries().get(1).state == CustomerDelivery.DeliveryState.pending);
 		worker.delivering.release();
-		assertTrue("Scheduler should return false", worker.pickAndExecuteAnAction());
+		assertTrue("Scheduler should return true", worker.pickAndExecuteAnAction());
 		assertTrue("Delivery state should be pending", worker.getCustomerDeliveries().get(0).state == CustomerDelivery.DeliveryState.getting);
 		worker.Brought(customer);
 		assertTrue("Workers deliveries list should contain one delivery", worker.getCustomerDeliveries().size()==1);
 		worker.delivering.release();
-		assertTrue("Scheduler should return false", worker.pickAndExecuteAnAction());
+		assertTrue("Delivery state should be pending", worker.getCustomerDeliveries().get(0).state == CustomerDelivery.DeliveryState.pending);
+		worker.delivering.release();
+		assertTrue("Scheduler should return true", worker.pickAndExecuteAnAction());
+		assertTrue("Delivery state should be pending", worker.getCustomerDeliveries().get(0).state == CustomerDelivery.DeliveryState.getting);
+		worker.Brought(customer2);
+		assertTrue("Workers deliveries list should contain no delivery", worker.getCustomerDeliveries().size()==0);
+		assertTrue("Scheduler should return false", !worker.pickAndExecuteAnAction());
 	}
 
 }
