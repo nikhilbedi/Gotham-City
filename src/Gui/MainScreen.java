@@ -14,6 +14,7 @@ import simcity.Market.Market;
 import simcity.bank.Bank;
 import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant1.Restaurant1;
+import simcity.restaurants.restaurant2.Restaurant2;
 
 public class MainScreen extends Screen{
 
@@ -29,6 +30,7 @@ public class MainScreen extends Screen{
 	Building market;
 	Building bank;
 	Building rest1;
+	Building rest2;
 
 
 
@@ -69,6 +71,7 @@ public class MainScreen extends Screen{
 	public List<Restaurant> getRestaurantList(){
 		List<Restaurant> tempcast = new ArrayList<Restaurant>();
 		tempcast.add((Restaurant1)rest1);
+		tempcast.add((Restaurant2)rest2);
 
 		return tempcast;
 	}
