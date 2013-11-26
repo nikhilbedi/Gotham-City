@@ -26,3 +26,12 @@
 | Weekly Meeting 1    | Tues. 05:00pm to 10:00pm        | GFS 112            |
 | Weekly Meeting 2    | Thur. 05:00pm to 10:30pm        | SAL 125            |
 | General meetings    | Tues./Thur. 05:00pm to 10:30pm  | WPH B34            |
+
+
+
+##### Team Project V1
+we weren't able to find out the perfect "hour length" for our program to run realistically.  By that we mean, the program may
+run in a loop (e.g. the person keeps going to the restaurant and to the home repeatedly because every four hours he gets hungry
+and each hour could be 5 seconds but in 20 seconds he will need to go to the restaurant to eat again) due to short hour lengths.
+We kept it short for faster testing (and also for faster grading) since watching a program simulate for 5-15 minutes (representativ
+of a full day) can take a toll on productivity.
