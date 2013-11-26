@@ -41,7 +41,7 @@ public class MainScreen extends Screen{
 		market.setImagePath("/resources/Buildings/MarketDark2.png");
 		bank = new Bank("Bank", 410, 110, 400, 100);
 		bank.setImagePath("/resources/Buildings/BankDark2.png");
-		rest1 = new Restaurant1("Restauarant 1", 610, 110, 600, 100);
+		rest1 = new Restaurant1("Restaurant 1", 610, 110, 600, 100);
 		rest1.setImagePath("/resources/Buildings/RestaurantDark2.png");
 
 		buildings.add(house);

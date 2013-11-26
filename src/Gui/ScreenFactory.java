@@ -113,7 +113,8 @@ public class ScreenFactory {
 		if(s.equalsIgnoreCase("City")){
 			return main;
 		}
-		if(s.equalsIgnoreCase("Restaurant")){
+		if(s.equalsIgnoreCase("Restaurant 1")){
+			System.out.println("Here");
 			return rest;
 		}
 		if(s.equalsIgnoreCase("Market")){
