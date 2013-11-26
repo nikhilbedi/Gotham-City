@@ -19,6 +19,7 @@ import java.util.TimerTask;
 import simcity.Home.Food;
 import simcity.PersonAgent;
 import simcity.PersonAgent.HungerState;
+import simcity.PersonAgent.MoneyState;
 import simcity.PersonAgent.RentBill;
 import simcity.PersonAgent.RentState;
 
@@ -327,6 +328,7 @@ public class ResidentRole extends Role implements Resident {
 			return true;
 		}*/
 
+		//taking money into mind - Nikhil
 		if((myPerson.hungerState == HungerState.FeedingHunger  ||
 				myPerson.hungerState == HungerState.Famished ||
 				myPerson.hungerState == HungerState.Hungry ||
@@ -490,6 +492,10 @@ public class ResidentRole extends Role implements Resident {
 			print("about to change state to check empty fridge");
 			event = HomeEvent.EmptyFridge;
 			//stateChanged();
+		}
+		
+		if(myPerson.moneyState != MoneyState.Low){
+			event = HomeEvent.EmptyFridge;
 		}
 		return choice;
 	}

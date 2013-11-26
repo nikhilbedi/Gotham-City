@@ -16,13 +16,14 @@ import simcity.restaurants.restaurant3.gui.Restaurant3CustomerGui;
 import simcity.restaurants.restaurant4.Restaurant4;
 import simcity.restaurants.restaurant4.Restaurant4CustomerRole;
 import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4CustomerGui;
+
 import simcity.restaurants.restaurant5.Restaurant5CustomerRole;
 import simcity.restaurants.restaurant5.gui.Restaurant5CustomerGui;
 
-
 import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
 import simcity.restaurants.restaurant1.gui.Restaurant1CustomerGui;
-
+import simcity.restaurants.restaurant2.Restaurant2CustomerRole;
+import simcity.restaurants.restaurant2.gui.Restaurant2CustomerGui;
 import simcity.Market.Market;
 import simcity.Market.MarketCustomerRole;
 import simcity.Market.MarketGui.MarketCustomerGui;
@@ -68,14 +69,15 @@ public class PersonAgent extends Agent implements Person {
         //Saves time from having to loop all the time to find the active role
 
 
+	// Locations
+	// These buildings will be set when any person is added
+	public List<Restaurant> restaurants;
+	public Restaurant currentPreference;
+	private int restaurantCounter=1;
+	public List<Market> markets; 
+
+
         Role activeRole;
-
-
-        // Locations
-        // These buildings will be set when any person is added
-        public List<Restaurant> restaurants;
-        public Restaurant currentPreference;
-        public List<Market> markets; 
 
         public Bank bank;
 
@@ -214,12 +216,15 @@ public class PersonAgent extends Agent implements Person {
 =======*/
 	public void setRestaurants(List<Restaurant> r) {
 		restaurants = r;
-		for(Restaurant rest : restaurants) {
-			if(rest.getName().equals("Restaurant 1")) {
+
+		currentPreference = restaurants.get(restaurantCounter);
+		/*for(Restaurant rest : restaurants) {
+			if(rest.getName().equals("Restaurant 2")) {
+>>>>>>> bank
 				currentPreference = rest;
 			}
-		}
-
+		}*/
+		restaurantCounter++;
 	}
 
 
@@ -782,6 +787,11 @@ public class PersonAgent extends Agent implements Person {
 			restTemp =  RoleFactory.makeMeRole(currentPreference.getCustomerName());
 			restGui = new Restaurant3CustomerGui((Restaurant3CustomerRole)restTemp, ScreenFactory.getMeScreen(currentPreference.getName()));
 		}
+		else if(currentPreference.getName().equalsIgnoreCase("Restaurant 2")) {
+			restTemp =  RoleFactory.makeMeRole(currentPreference.getCustomerName());
+			restGui = new Restaurant2CustomerGui((Restaurant2CustomerRole)restTemp, ScreenFactory.getMeScreen(currentPreference.getName()));
+			//restGui = new Restaurant2CustomerGui(restTemp, ScreenFactory.getMeScreen(currentPreference.getName()));
+		}
 		else if(currentPreference.getName().equalsIgnoreCase("Restaurant 4")) {
 			restTemp =  RoleFactory.makeMeRole(currentPreference.getCustomerName());
 			restGui = new Restaurant4CustomerGui((Restaurant4CustomerRole)restTemp, ScreenFactory.getMeScreen(currentPreference.getName()));
@@ -790,6 +800,10 @@ public class PersonAgent extends Agent implements Person {
 			restTemp =  RoleFactory.makeMeRole(currentPreference.getCustomerName());
 			restGui = new Restaurant5CustomerGui((Restaurant5CustomerRole)restTemp, ScreenFactory.getMeScreen(currentPreference.getName()));
 		}
+		else {
+			
+		}
+		
 		//rest1Temp = RoleFactory.makeMeRole("Restaurant4Customer"); //currentPreference.getCustomerName()
 		
 		restTemp.setPerson(this);
@@ -802,6 +816,12 @@ public class PersonAgent extends Agent implements Person {
 		//Enter building
 		currentBuilding = currentPreference;
 		enteringBuilding(restTemp);
+		
+		
+		currentPreference = restaurants.get(restaurantCounter);
+		restaurantCounter++;
+		if(restaurantCounter >4)
+			restaurantCounter =0;
 
 	}
 

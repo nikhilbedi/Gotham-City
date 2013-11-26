@@ -8,9 +8,11 @@ import simcity.Home.gui.HomeAnimationPanel;
 import simcity.Market.MarketGui.MarketAnimationPanel;
 import simcity.restaurants.restaurant1.gui.RestaurantNikhilAnimationPanel;
 
-
 import simcity.restaurants.restaurant5.gui.RestaurantHunterAnimationPanel;
 import simcity.restaurants.restaurant3.gui.RestaurantEvanAnimationPanel;
+
+import simcity.restaurants.restaurant2.gui.Restaurant2AnimationPanel;
+
 import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4AnimationPanel;
 
 import simcity.Home.gui.HomeAnimationPanel;
@@ -33,7 +35,7 @@ public class ScreenFactory {
 
 
 	public static Screen rest1 = new RestaurantNikhilAnimationPanel();
-	public static Screen rest2 = new RestaurantNikhilAnimationPanel();
+	public static Screen rest2 = new Restaurant2AnimationPanel();
 	public static Screen rest3 = new RestaurantEvanAnimationPanel();
 	public static Screen rest4 = new Restaurant4AnimationPanel();
 	public static Screen rest5 = new RestaurantHunterAnimationPanel();

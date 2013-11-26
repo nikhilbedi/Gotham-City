@@ -3,7 +3,7 @@ package simcity.restaurants.restaurant1;
 import java.util.*;
 
 import agent.Role;
-import simcity.restaurants.*;
+import simcity.restaurants.Restaurant;
 
 /**
  * Nikhil's restaurant
