@@ -34,8 +34,14 @@
 #### Welcome to Gotham City
 
 Immediately upon entering Gotham City (and running our program using the SimCityRun file to run it on Eclipse) you will hear
-the Batman soundtrack, which will immediately immerse yourself into the dark, chaotic, and unpredictable Gotham City.
+the Batman soundtrack, which will immediately immerse yourself into the darkness, chaos, and unpredictability that is Gotham City.
 
+#####For V1
+As you can see in our GUI we have 4 different types of buildings: Market (top right), Bank (top middle), Restaurant (top left and sides),
+Homes (bottom row).
+
+
+#####For V2
 
 we weren't able to find out the perfect "hour length" for our program to run realistically.  By that we mean, the program may
 run in a loop (e.g. the person keeps going to the restaurant and to the home repeatedly because every four hours he gets hungry
