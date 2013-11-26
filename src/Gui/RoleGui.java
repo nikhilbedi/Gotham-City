@@ -52,10 +52,12 @@ public class RoleGui {
 
 	public RoleGui(Role r, Screen meScreen) {
 		// TODO Auto-generated constructor stub
+		homeScreen = meScreen;
 	}
 
 
 	public void updatePosition(){
+		
 		Orientation temp = o;
 		if (xPos < xDestination){
 			xPos+=speed;
@@ -80,7 +82,7 @@ public class RoleGui {
 		updateImage();
 	}
 
-	private void updateImage(){	      
+	public void updateImage(){	      
 		if(o == Orientation.North)
 		{
 			if(repeat > repeatBuffer){

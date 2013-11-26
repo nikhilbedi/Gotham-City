@@ -14,7 +14,6 @@ public class CookGui extends RoleGui implements Gui {
 	private int defaultX = 202, defaultY = 76;
 	
 	private int cookingX = 232, cookingY = 70;
-	private int xDestination = defaultX, yDestination = defaultY;
 	private int DEBUGX = 600;
 	private int DEBUGY = 25;
 
@@ -24,6 +23,9 @@ public class CookGui extends RoleGui implements Gui {
 	private Command command=Command.noCommand;
 
 	public CookGui(CookRole agent) {
+		super();
+		xDestination = defaultX;
+		yDestination = defaultY;
 		this.agent = agent;
 		setColor(Color.CYAN);
 	}
@@ -48,7 +50,6 @@ public class CookGui extends RoleGui implements Gui {
 
 	public void draw(Graphics g) {
 		super.draw(g);
-		
 		g.setColor(Color.BLACK);
 		g.drawString(agent.returnAmounts(), DEBUGX, DEBUGY);
 	}
@@ -62,13 +63,14 @@ public class CookGui extends RoleGui implements Gui {
 		return agent.returnAmounts();
 	}
 	public void DoGoToPlating(){
+		System.err.println("DoGoToPlating in cookGui called");
 		xDestination = defaultX;
 		yDestination = defaultY;
 		command = command.getOrder;
 		
 	}
 	public void DoGoToGrill(){
-
+		System.err.println("DoGoToPlating in cookGui called");
 		xDestination = cookingX;
 		yDestination = cookingY;
 		command = command.cookOrder;

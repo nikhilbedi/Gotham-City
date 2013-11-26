@@ -133,6 +133,7 @@ public class CookRole extends Role implements Cook{
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
 	public boolean pickAndExecuteAnAction() {
+		print("Picking and excuting");
 		synchronized(orders){
 			for(Order o: orders){
 				if(o.s == OrderState.pending){
@@ -166,7 +167,7 @@ public class CookRole extends Role implements Cook{
 
 	private void tryCookIt(final Order o){//final hack allows timer to accesss order
 		//DoCooking(o);
-
+		print("trying to cook it");
 		if(o.f.amount == 0){
 			o.s = OrderState.invalid;
 			handleOutOfFood(o);
@@ -174,7 +175,7 @@ public class CookRole extends Role implements Cook{
 		}
 		o.s = OrderState.cooking;
 		o.f.amount--;
-		//print("time is" +foods.get(o.choice).cookingTime*1000);
+		print("time is" );
 		DoGoToGrill();
 		timer.schedule(new TimerTask() {
 			String foodName = o.choice;
@@ -204,8 +205,10 @@ public class CookRole extends Role implements Cook{
 	}
 	
 	private void DoGoToGrill(){
+		print("this far");
 		cookGui.DoGoToGrill();
 		try {
+			print("acquiring");
 			moving.acquire();
 		}
 		catch(InterruptedException e) {	

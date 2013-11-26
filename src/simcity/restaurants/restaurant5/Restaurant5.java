@@ -20,6 +20,10 @@ public class Restaurant5 extends Restaurant {
 	CookRole cook = new CookRole("What is this?");
 	//open and closing hours? hmmm..
 	
+	public String getCustomerName(){
+		return "restaurant5customer";
+	}
+	
 	@Override
 	public void setHost(Role host) {
 		this.host = (HostRole) host;

@@ -31,9 +31,9 @@ public class MarketCustomerGui extends RoleGui{
 		customer = role;
 		command  = Command.buy;
 		homeScreen = s;
-		xPos = 200;
+		xPos = 390;
 		yPos = 800;
-		xDestination = 200;
+		xDestination = 390;
 		yDestination = 800;
 	}
 
@@ -43,24 +43,25 @@ public class MarketCustomerGui extends RoleGui{
 	        if (xPos == 200 && yPos == 800 && command == Command.buy){
 			//customer.getGroceries();
 	        }
-	        if (xPos == 200 && yPos == 350 && command == Command.atCashier){
+	        if (xPos == 390 && yPos == 520&& command == Command.atCashier){
 	        	command = Command.none;
 	        	customer.AtCashier();
 	        }
-	        if (xPos == 450 && yPos == 350 && command == Command.gettingItems){
+	        if (xPos == 580 && yPos == 530 && command == Command.gettingItems){
 	        	System.out.println("arrived");
 	        	command = Command.none;
 	        	customer.ArrivedToGetItem();
 	        }
-	        if (yPos == 800  && xDestination == 450 && command == Command.left){
+	        if (yPos == 800  && xDestination == 580 && command == Command.left){
 	        	command = Command.none;
 	        	customer.msgOutOfMarket();
 	        }
 	}
 
 	public void draw(Graphics g) {
-		g.setColor(Color.BLUE);
-        g.fillRect(xPos, yPos, 20, 20);
+		super.draw(g);
+		/*g.setColor(Color.BLUE);
+        g.fillRect(xPos, yPos, 20, 20);*/
 		
 	}
 
@@ -69,21 +70,21 @@ public class MarketCustomerGui extends RoleGui{
 	}
 
 	public void DoMoveToCashier(){
-		yDestination = 350;
-		xDestination = 200;
+		yDestination = 520;
+		xDestination = 390;
 		command = Command.atCashier;
 	}
 	
 	public void DoGetItems(){
 		System.out.println("Started to move");
-		xDestination = 450;
-		yDestination = 350;
+		xDestination = 580;
+		yDestination = 530;
 		command = Command.gettingItems;
 	}
 	
 	public void DoLeave(){
 		yDestination = 800;
-		xDestination = 450;
+		xDestination = 580;
 		command = Command.left;
 	}
 }

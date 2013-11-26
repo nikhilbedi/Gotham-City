@@ -11,6 +11,9 @@ import java.util.Timer;
 import java.util.Map;
 import java.util.TimerTask;
 
+import simcity.restaurants.restaurant4.Restaurant4CashierRole;
+import simcity.restaurants.restaurant4.Restaurant4HostRole;
+import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4CustomerGui;
 import simcity.restaurants.restaurant5.interfaces.*;
 import simcity.restaurants.restaurant5.gui.*;
 
@@ -26,7 +29,6 @@ import java.util.concurrent.Semaphore;
  * Restaurant customer agent.
  */
 public class Restaurant5CustomerRole extends Role implements Customer {
-	private String name;
 	private int hungerLevel = 5;        // determines length of meal
 	private int table;	//hack will be removed
 	Timer timer = new Timer();
@@ -42,10 +44,10 @@ public class Restaurant5CustomerRole extends Role implements Customer {
 
 	// agent correspondents
 	private Waiter waiter =  null;
-	private Host host;
-	private Cashier cashier;
+	private HostRole host;
+	private CashierRole cashier;
 
-	double wallet = 0.0;
+
 	double check = 0.0;
 	boolean flake = false;
 
@@ -73,34 +75,30 @@ public class Restaurant5CustomerRole extends Role implements Customer {
 		 */
 		public Restaurant5CustomerRole(String name){
 			super();
-			this.name = name;
-			wallet = 20.0;
-			if(name.equalsIgnoreCase("flake")){
-				flake = true;
-				wallet = 0.0;
-			}
-			if(name.equalsIgnoreCase("Rich")){
-				wallet = 100.0;
-			}
-			if(name.equalsIgnoreCase("Poor")){
-				wallet = 6.0;
-			}
+		}
+
+		public Restaurant5CustomerRole() {
+			super();
+			customerGui  = (Restaurant5CustomerGui)super.gui;
 		}
 
 		/**
 		 * hack to establish connection to Host agent.
 		 */
-		public void setHost(Host host) {
-			this.host = host;
-		}
+		
 
 		public String getCustomerName() {
-			return name;
+			return getName();
 		}
 		// Messages
-
+		@Override
+		public void startBuildingMessaging(){
+			host =  (HostRole) myPerson.currentPreference.getHost();
+			cashier = (CashierRole) myPerson.currentPreference.getCashier();
+			becomesHungry();
+		}
 		public void becomesHungry() {//from animation
-			print( name + " is hungry");
+			print( getName() + " is hungry");
 			e = AgentEvent.gotHungry;
 			stateChanged();
 		}
@@ -146,13 +144,13 @@ public class Restaurant5CustomerRole extends Role implements Customer {
 		public void giveChange(Cashier ca, double cash){
 			print("Received change from cashier");
 			e = AgentEvent.paid;
-			wallet = cash;
+			myPerson.setMoney(cash);
 			stateChanged();
 		}
 		public void giveDebt(Cashier ca, double cash){
 			print("Recived debt from cashier");
 			e = AgentEvent.paid;
-			wallet = cash;
+			myPerson.setMoney(cash);
 			stateChanged();
 		}
 		public void hereIsCheck(double check){
@@ -284,21 +282,21 @@ public class Restaurant5CustomerRole extends Role implements Customer {
 				stateChanged();
 				return;
 			}
-			if(name.equalsIgnoreCase("Steak")&menu.get(0)!=null&wallet>=15.99){
+			if(getName().equalsIgnoreCase("Steak")&menu.get(0)!=null&myPerson.getMoney()>=15.99){
 				choiceNum = 0;
 			}
-			if(name.equalsIgnoreCase("Chicken")&menu.get(1)!=null&wallet>=10.99){
+			if(getName().equalsIgnoreCase("Chicken")&menu.get(1)!=null&myPerson.getMoney()>=10.99){
 				choiceNum = 1;
 			}
-			if(name.equalsIgnoreCase("Salad")&menu.get(2)!=null&wallet>=5.99){
+			if(getName().equalsIgnoreCase("Salad")&menu.get(2)!=null&myPerson.getMoney()>=5.99){
 				choiceNum = 2;
 			}
-			if(name.equalsIgnoreCase("Pizza")&menu.get(3)!=null&wallet>=8.99){
+			if(getName().equalsIgnoreCase("Pizza")&menu.get(3)!=null&myPerson.getMoney()>=8.99){
 				choiceNum = 3;
 			}
 
 			if(choiceNum < 0){
-				if(name.equalsIgnoreCase("flake")){//flake will order the most expensive thing that is still available
+				if(getName().equalsIgnoreCase("flake")){//flake will order the most expensive thing that is still available
 					if(menu.get(0) != null){
 						choiceNum = 0;
 					}
@@ -313,8 +311,8 @@ public class Restaurant5CustomerRole extends Role implements Customer {
 						choiceNum = 2;
 					}
 				}
-				else if(wallet >= 5.99){
-					choiceNum = generateRandom(wallet);
+				else if(myPerson.getMoney() >= 5.99){
+					choiceNum = generateRandom(myPerson.getMoney());
 				}
 			}
 			if(choiceNum < 0){
@@ -391,7 +389,7 @@ public class Restaurant5CustomerRole extends Role implements Customer {
 		private void payCashier(){
 			DoGoToCashier();
 			waiter.gotCheckAndLeaving(this);
-			cashier.payment(this, wallet, check);
+			cashier.payment(this, myPerson.getMoney(), check);
 			e = AgentEvent.paid;
 			stateChanged();
 		}
@@ -441,6 +439,7 @@ public class Restaurant5CustomerRole extends Role implements Customer {
 		private void leaveRestaurant() {//will be edited in v2
 			//Do("Leaving.");
 			DoLeaveRestaurant();
+			myPerson.leftBuilding(this);
 			//waiter.doneEatingAndLeaving(this);
 			//customerGui.DoExitRestaurant();
 		}
@@ -492,15 +491,9 @@ public class Restaurant5CustomerRole extends Role implements Customer {
 			return choiceNum;
 		}
 
-		public void setCashier(Cashier ca){
-			cashier = ca;
-		}
-		public String getName() {
-			return name;
-		}
-		public double getMoney(){//such a sick method name
-			return wallet;
-		}
+		
+		
+
 		public int getHungerLevel() {
 			return hungerLevel;
 		}
@@ -522,9 +515,9 @@ public class Restaurant5CustomerRole extends Role implements Customer {
 			return "customer " + getName();
 		}
 
-		public void setGui(Restaurant5CustomerGui g) {
+		public void setGui(RoleGui g) {
 			super.setGui(g);
-			customerGui = g;
+			customerGui = (Restaurant5CustomerGui)g;
 		}
 
 		public RoleGui getGui() {//Is this where the problem lies?

@@ -23,9 +23,6 @@ public class Restaurant1 extends Restaurant {
 	CookRole cook = new CookRole();
 	//open and closing hours? hmmm..
 	
-	public String getCustomerName(){
-		return "restaurant5customergui";
-	}
 	
 	@Override
 	public void setHost(Role host) {
@@ -45,5 +42,10 @@ public class Restaurant1 extends Restaurant {
 	@Override
 	public Role getCashier() {
 		return (CashierRole)cashier;
+	}
+	
+	@Override
+	public String getCustomerName(){
+		return "restaurant1customer";
 	}
 }

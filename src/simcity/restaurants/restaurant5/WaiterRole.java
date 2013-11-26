@@ -84,7 +84,7 @@ public class WaiterRole extends Role implements Waiter {
 	public WaiterRole(String name) {
 		super();
 		work = WorkState.working;
-		this.name = name;
+		this.name = super.getName();
 		// make some tables
 		tables = new ArrayList<Table>(NTABLES);
 		for (int ix = 0; ix < NTABLES; ix++) {
@@ -112,13 +112,9 @@ public class WaiterRole extends Role implements Waiter {
 		}
 	}
 
-	public String getMaitreDName() {
-		return name;
-	}
 
-	public String getName() {
-		return name;
-	}
+
+
 
 	public List getWaitingCustomers() {
 		return customers;
@@ -329,7 +325,7 @@ public class WaiterRole extends Role implements Waiter {
 		mc.c.msgSitAtTable(mc.table);
 		mc.c.followMeToTable(this, new Menu());
 		mc.s = CustomerState.seated;
-		if(name.equals("Lazy")){
+		if(getName().equals("Lazy")){
 			h.iWantABreak(this);
 		}
 	}
