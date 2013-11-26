@@ -37,7 +37,7 @@ Immediately upon entering Gotham City (and running our program using the SimCity
 the Batman soundtrack, which will immediately immerse yourself into the darkness, chaos, and unpredictability that is Gotham City.
 
 ####For V1
-NOTE:For V1 we did not use any code that was given out publicly via professors or CPs and designed and built everything from scratch on our own.
+NOTE: For V1 we did not use any code that was given out publicly via professors or CPs and designed and built everything from scratch on our own.
 
 As you can see in our GUI we have 4 different types of buildings: Market (top right), Bank (top middle), Restaurant (top left and sides), Homes (bottom row).
 
