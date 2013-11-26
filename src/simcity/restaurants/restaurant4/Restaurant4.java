@@ -9,6 +9,8 @@ import simcity.TheCity;
 import simcity.Market.Market;
 import simcity.Market.MarketCashierRole;
 import simcity.restaurants.Restaurant;
+import simcity.restaurants.restaurant1.CashierRole;
+import simcity.restaurants.restaurant1.HostRole;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Cashier;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Cook;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Host;
@@ -29,12 +31,27 @@ public class Restaurant4 extends Restaurant {
 		
 	}	
 
-	
-	
-	public  Role  getHost(){
-		return host;
+	@Override
+	public void setHost(Role host) {
+		this.host = (Restaurant4HostRole) host;
 	}
 	
+	@Override
+	public Role getHost() {
+		return (Restaurant4HostRole)host;
+	}
+	
+	@Override
+	public void setCashier(Role cashier) {
+		this.cashier = (Restaurant4CashierRole)cashier;
+	}
+	
+	@Override
+	public Role getCashier() {
+		return (Restaurant4CashierRole)cashier;
+	}
+	
+
 	public List<Restaurant4Waiter>  getWaiter(){
 		return waiters;
 	}
@@ -43,9 +60,7 @@ public class Restaurant4 extends Restaurant {
 		return cook;
 	}
 	
-	public Role getCashier(){
-		return cashier;
-	}
+
 	  public void setCity(TheCity c){
 	    	cp = c;
 	    }
@@ -69,5 +84,9 @@ public class Restaurant4 extends Restaurant {
 		cashier = c;
 	}
 	
+	@Override
+	public String getCustomerName(){
+		return "restaurant4customer";
+	}
 		
 }

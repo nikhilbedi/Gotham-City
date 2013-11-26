@@ -28,8 +28,9 @@ import java.util.ArrayList;
 public class Restaurant4AnimationPanel extends Screen {
 	MainScreen mainScreen = ScreenFactory.getMainScreen();
 	
-	Restaurant4 r4 = (Restaurant4) mainScreen.getRestaurantList().get(3);
-	
+	//Restaurant4 r4 = (Restaurant4) mainScreen.getRestaurantList().get(3);	
+	List<Restaurant> restaurants = mainScreen.getRestaurantList();
+	Restaurant r4;
 
 	static final int X = 50;
 	static final int Y = 170;
@@ -58,11 +59,16 @@ public class Restaurant4AnimationPanel extends Screen {
 
     public Restaurant4AnimationPanel() {
     	super();
+    	for(Restaurant r : restaurants) {
+			if(r.getName().equals("Restaurant 4")){
+				r4 = r;
+			}
+		}
     	populate();
     	
     }
     
-    public Restaurant4 getRestaurant(){
+    public Restaurant getRestaurant(){
     	return r4;
     }
     
@@ -169,8 +175,8 @@ public class Restaurant4AnimationPanel extends Screen {
     	//customerGui.setHungry();
     	r4.setHost(hostRole);
     	r4.setCashier(cashierRole);
-    	r4.setWaiter(waiterRole);
-    	r4.setCook(cookRole);
+    	((Restaurant4) r4).setWaiter(waiterRole);
+    	((Restaurant4) r4).setCook(cookRole);
     	/*List<Market> m = mainScreen.getMarketList();
     	r4.getCook().setMarketCashier(m.get(0).getCashier());*/
     }

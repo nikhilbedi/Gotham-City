@@ -13,6 +13,8 @@ import java.lang.Math;
 
 import simcity.PersonAgent;
 import simcity.Market.MarketGui.MarketCustomerGui;
+import simcity.restaurants.restaurant1.CashierRole;
+import simcity.restaurants.restaurant1.HostRole;
 import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4CustomerGui;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Cashier;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Customer;
@@ -53,6 +55,7 @@ public class Restaurant4CustomerRole extends Role implements Restaurant4Customer
 	public Restaurant4CustomerRole(PersonAgent p){
 		super(p);
 		customerGui  = (Restaurant4CustomerGui)super.gui;
+		//person = myPerson;
 	}
 
 	public Restaurant4CustomerRole(){
@@ -62,10 +65,13 @@ public class Restaurant4CustomerRole extends Role implements Restaurant4Customer
 	}
 	@Override
 	public void startBuildingMessaging(){
+		host = (Restaurant4HostRole) myPerson.currentPreference.getHost();
+		cashier = (Restaurant4CashierRole) myPerson.currentPreference.getCashier();
 		gotHungry();
 	}
 	
 	public void msgOutOfRestaurant4(){
+		System.out.println("Leaving restaurant 4 ");
 		myPerson.leftBuilding(this);
 	}
 	/**
@@ -117,11 +123,10 @@ public class Restaurant4CustomerRole extends Role implements Restaurant4Customer
 		customerGui.ordered = false;
 		customerGui.gotOrder = false;
 		customerGui.doneEating = false;
-		person.Do("I'm hungry");
+		myPerson.Do("I'm hungry");
 		event = AgentEvent.gotHungry;
 		stateChanged();
 	}
-	
 	
 	
 	public void setGui(RoleGui g){
@@ -130,7 +135,7 @@ public class Restaurant4CustomerRole extends Role implements Restaurant4Customer
 	}
 	
 	public void followMe(Restaurant4Waiter w, Menu u){
-		person.Do("My Waiter is "+ w.getName());
+		myPerson.Do("My Waiter is "+ w.getName());
 		event = AgentEvent.followWaiter;
 		myWaiter = w;
 		menu = u;
@@ -167,13 +172,13 @@ public class Restaurant4CustomerRole extends Role implements Restaurant4Customer
 			this.menu = menu;
 			state = AgentState.BeingSeated;
 			event = AgentEvent.seated;
-			person.Do("reordering");
+			myPerson.Do("reordering");
 			stateChanged();
 		}
 	}
 	
 	public void HereIsFood(){
-		person.Do("event food delievered");
+		myPerson.Do("event food delievered");
 		event = AgentEvent.foodDelivered;
 		stateChanged();
 	}
@@ -190,14 +195,14 @@ public class Restaurant4CustomerRole extends Role implements Restaurant4Customer
 	}
 
 	public void PayForFood(double check){
-		person.Do("Going to cashier, I have " + money + " dollars");
+		myPerson.Do("Going to cashier, I have " + money + " dollars");
 		setAmountDue(check);
 		event = AgentEvent.gotAmount; 
 		stateChanged();
 	}
 	
 	public void arrivedToCashier(){
-		person.Do("Arrived to cashier");
+		myPerson.Do("Arrived to cashier");
 		event = AgentEvent.atCashier;
 		stateChanged();
 	}
@@ -207,12 +212,12 @@ public class Restaurant4CustomerRole extends Role implements Restaurant4Customer
 			myPerson.addMoney(m);
 			//setMoney(m);
 			amountDue = 0;
-			person.Do("My change " + m);
+			myPerson.Do("My change " + m);
 		}
 		else {
 			setMoney(0);
 			amountDue = Math.abs(m);
-			person.Do("I will pay " + Math.abs(m) + " dolaars next time" );
+			myPerson.Do("I will pay " + Math.abs(m) + " dolaars next time" );
 		}
 		event = AgentEvent.paid;
 		stateChanged();
@@ -306,22 +311,22 @@ public class Restaurant4CustomerRole extends Role implements Restaurant4Customer
 	
 
 	private void goToRestaurant() {
-		person.Do("Going to restaurant");
+		myPerson.Do("Going to restaurant");
 		customerGui.DoGoToRestaurant();
 	}
 	
 	private void IWantFood(){
-		person.Do("Waiting to be seated");
+		myPerson.Do("Waiting to be seated");
 		host.msgIWantFood(this);
 	} 
 	
 	private void SitDown() {
-		person.Do("Being seated. Going to table");
+		myPerson.Do("Being seated. Going to table");
 		//customerGui.DoGoToSeat();
 	}
 	
 	public void chooseFood(){
-		person.Do("Choosing food");
+		myPerson.Do("Choosing food");
 		timer.schedule(new TimerTask() {
 			public void run() {
 				event = AgentEvent.doneChoosing;
@@ -329,7 +334,7 @@ public class Restaurant4CustomerRole extends Role implements Restaurant4Customer
 			}
 		},
 		timerTime);
-		person.Do("I have " + money+ " dollars");
+		myPerson.Do("I have " + money+ " dollars");
 		/*if (menu.choice.size() == 0){
 			leaveTable();
 		}
@@ -347,13 +352,13 @@ public class Restaurant4CustomerRole extends Role implements Restaurant4Customer
 	}
 	
 	public void notifyWaiter(){
-		person.Do("Ready to order");
+		myPerson.Do("Ready to order");
 		CallWaiter();
 		myWaiter.ReadyToOrder(this);
 	}
 	
 	public void orderFood(){
-		person.Do("I want " + choice);
+		myPerson.Do("I want " + choice);
 		myWaiter.HereIsMyChoice(this, choice);
 		OrderMade();
 		customerGui.ordered = true;
@@ -364,13 +369,13 @@ public class Restaurant4CustomerRole extends Role implements Restaurant4Customer
 		myWaiter.computeCheck(this);
 		customerGui.gotOrder = true;
 		customerGui.ordered = false;
-		person.Do("Please give me a check");
+		myPerson.Do("Please give me a check");
 		
 		TimerTask task;
 		
-		person.Do("Eating " + choice);
+		myPerson.Do("Eating " + choice);
 		timer.schedule(new TimerTask() { public void run() {
-			person.Do("Done eating " + choice );
+			myPerson.Do("Done eating " + choice );
 				event = AgentEvent.doneEating;
 				stateChanged();
 				myPerson.justAte();
@@ -381,7 +386,7 @@ public class Restaurant4CustomerRole extends Role implements Restaurant4Customer
 	}
 
 	public void goToCashier(){
-		person.Do("Do go to cashier");
+		myPerson.Do("Do go to cashier");
 		customerGui.doGoToCashier();
 	}
 	
@@ -390,7 +395,7 @@ public class Restaurant4CustomerRole extends Role implements Restaurant4Customer
 		double amount  = round(amountDue);
 		myPerson.removeMoney((float) amount);
 		cashier.hereIsPayment(this, amount);
-		person.Do("Here is money");
+		myPerson.Do("Here is money");
 	}
 	
 	private int round(double money){
@@ -406,7 +411,7 @@ public class Restaurant4CustomerRole extends Role implements Restaurant4Customer
 	
 	private void leaveTable() {
 		//customerGui.doneEating = true;
-		person.Do("Leaving.");
+		myPerson.Do("Leaving.");
 		myWaiter.DoneAndLeaving(this);
 		customerGui.DoExitRestaurant();
 		state = AgentState.DoingNothing;  
@@ -414,13 +419,13 @@ public class Restaurant4CustomerRole extends Role implements Restaurant4Customer
 	
 	public void leaveIfYouWant(){
 		if (name.equals("leave")){
-			person.Do("Leaving.");
+			myPerson.Do("Leaving.");
 			state = AgentState.DoingNothing;
 			customerGui.DoExitRestaurant();
 			host.leaving(this);
 		}
 		else {
-			person.Do("I'm staying");
+			myPerson.Do("I'm staying");
 			return;
 		}
 	}
@@ -429,7 +434,7 @@ public class Restaurant4CustomerRole extends Role implements Restaurant4Customer
 	// Accessors, etc.
 
 	public String getName() {
-		return name;
+		return super.getName();
 	}
 	
 	public int getHungerLevel() {

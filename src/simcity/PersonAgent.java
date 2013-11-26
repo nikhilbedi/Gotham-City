@@ -36,8 +36,8 @@ public class PersonAgent extends Agent implements Person {
 	RoleGui marketGui;
 	Role homeTemp;
 	RoleGui homeGui;
-	Role rest1Temp;
-	RoleGui rest1Gui;
+	Role restTemp;
+	RoleGui restGui;
 
 
 
@@ -183,13 +183,17 @@ public class PersonAgent extends Agent implements Person {
 		gui = g;
 	}
 
-/*<<<<<<< HEAD
+	/*<<<<<<< HEAD
 	public void setRestaurants(List<Restaurant> list) {
 		restaurants = list;
 =======*/
 	public void setRestaurants(List<Restaurant> r) {
 		restaurants = r;
-		currentPreference = restaurants.get(0);
+		for(Restaurant rest : restaurants) {
+			if(rest.getName().equals("Restaurant 4")) {
+				currentPreference = rest;
+			}
+		}
 
 	}
 
@@ -241,7 +245,7 @@ public class PersonAgent extends Agent implements Person {
 	public void removeMoney(double amount) {
 		money -= amount;
 	}
-	
+
 	public void setMoney(double amount) {
 		money = amount;
 	}
@@ -514,8 +518,6 @@ public class PersonAgent extends Agent implements Person {
 	public boolean pickAndExecuteAnAction() {
 
 		// Person Scheduler 
-
-
 		if(checkPersonScheduler) {
 			//if the man has groceries in his hand, let him take them home!
 
@@ -634,15 +636,10 @@ public class PersonAgent extends Agent implements Person {
 			//checkPersonScheduler should be made true anytime a role is done at a building, outside this scheduler
 			if(r.isActive()) {
 				if(r.pickAndExecuteAnAction()) {
-					checkPersonScheduler = false;
+					//checkPersonScheduler = false;
 					return true;
 				}
-
 			}
-
-			//Role Scheduler
-			//This should be changed to activeRole.pickAndExecuteAnAction();
-
 		}
 
 		return false;
@@ -719,9 +716,9 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	private void goEatAtRestaurant() {
-/*<<<<<<< HEAD
-		
-		
+		/*<<<<<<< HEAD
+
+
 		 gui.DoGoToLocation(currentPreference.getEntranceLocation());
          eatingState = EatingState.HeadedtoRestaurant;
          try {
@@ -758,17 +755,26 @@ public class PersonAgent extends Agent implements Person {
 			e.printStackTrace();
 		}
 
-		rest1Temp = RoleFactory.makeMeRole("Restaurant1Customer");
-		currentBuilding = currentPreference;
-		rest1Gui = new Restaurant1CustomerGui((Restaurant1CustomerRole)rest1Temp, ScreenFactory.getMeScreen("Restaurant"));
-		rest1Temp.setPerson(this);
-		rest1Gui.setHomeScreen(ScreenFactory.getMeScreen("Restaurant"));
+		//5 if statements, to check which restaurant customer needs to be cast :)
+		if(currentPreference.getName().equalsIgnoreCase("Restaurant 1")){
+			restTemp = RoleFactory.makeMeRole(currentPreference.getCustomerName());
+			restGui = new Restaurant1CustomerGui((Restaurant1CustomerRole)restTemp, ScreenFactory.getMeScreen(currentPreference.getName()));
+		}
+		else if(currentPreference.getName().equalsIgnoreCase("Restaurant 4")) {
+			restTemp =  RoleFactory.makeMeRole(currentPreference.getCustomerName());
+			restGui = new Restaurant4CustomerGui((Restaurant4CustomerRole)restTemp, ScreenFactory.getMeScreen(currentPreference.getName()));
+		}
+		//rest1Temp = RoleFactory.makeMeRole("Restaurant4Customer"); //currentPreference.getCustomerName()
+		
+		restTemp.setPerson(this);
+		restGui.setHomeScreen(ScreenFactory.getMeScreen(currentPreference.getName()));
 
 
 		checkPersonScheduler = false;
-		rest1Temp.setGui(rest1Gui);
+		restTemp.setGui(restGui);
 		//Enter building
-		enteringBuilding(rest1Temp);
+		currentBuilding = currentPreference;
+		enteringBuilding(restTemp);
 
 	}
 

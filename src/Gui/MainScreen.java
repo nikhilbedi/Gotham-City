@@ -147,7 +147,7 @@ public class MainScreen extends Screen{
 				return b.getName();
 			}
 		}
-		return null;
+		return "This is not a building";
 	}
 }
 

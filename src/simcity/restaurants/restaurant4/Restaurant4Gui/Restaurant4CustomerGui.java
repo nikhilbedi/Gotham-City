@@ -23,8 +23,7 @@ public class Restaurant4CustomerGui extends RoleGui{
 	static final int defaultPosX = 120;
 	static final int defaultPosY = 30;
 	static final int rectSize = 20;
-	private int xPos, yPos;
-	private int xDestination, yDestination;
+	
 	private enum Command {noCommand, GoToSeat, GoToCashier, LeaveRestaurant, GoToRestaurant};
 	private Command command=Command.noCommand;
 	public List <Restaurant4Customer> waitingLine = new ArrayList<Restaurant4Customer>();
@@ -53,6 +52,7 @@ public class Restaurant4CustomerGui extends RoleGui{
 	public Restaurant4CustomerGui(Restaurant4CustomerRole role, Screen s){
 		super(role, s);
 		agent = role;
+	
 		
 		xPos = defaultPos;
 		yPos = defaultPos;
@@ -77,7 +77,7 @@ public class Restaurant4CustomerGui extends RoleGui{
 			agent.arrivedToCashier();
 		}
 		
-		if (yPos == 30 && command == Command.GoToRestaurant){
+		if (yPos == 30 && xPos == 120 && command == Command.GoToRestaurant){
 			command = Command.noCommand;
 			agent.AtRestaurant();
 		}
@@ -103,6 +103,7 @@ public class Restaurant4CustomerGui extends RoleGui{
 		
 	//}
 	}
+	
 
 	public void draw(Graphics g) {
 		super.draw(g);
@@ -187,6 +188,7 @@ public void drawOrdered(Graphics g){
 		}	 
 	}
 	
+	
 	public void DoGoToRestaurant(){
 		//for waiting area
 		/*for (int i=0; i<listPanel.getCustomers().size(); i++){
@@ -194,7 +196,9 @@ public void drawOrdered(Graphics g){
 			waitingLine.add(listPanel.getCustomers().get(i));
 		}*/
 		
-		System.out.println(waitingLine.size());
+		
+		
+	/*	System.out.println(waitingLine.size());
 		for (int i=0; i<waitingLine.size(); i++){
 			if (waitingLine.get(i) == agent){
 				if (i == 0){
@@ -214,8 +218,9 @@ public void drawOrdered(Graphics g){
 					xDestination = 0;
 				}
 				
-			}
-		}
+			}*/
+		
+	xDestination = 120;
 		yDestination = 30;
 		command = Command.GoToRestaurant;
 	}
