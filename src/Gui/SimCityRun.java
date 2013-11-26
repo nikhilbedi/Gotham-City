@@ -35,7 +35,8 @@ public class SimCityRun extends JFrame implements ActionListener
 		
 		cityPanel = new SimCityPanel();
 		add(cityPanel);
-		peopleList = new PersonSelectionPane();
+		peopleList = new PersonSelectionPane(cityPanel);
+		cityPanel.setSelPane(peopleList);
 		
 		add(peopleList);
 

@@ -35,4 +35,7 @@ public final class CityClock {
 	public static void setTimeInterval(long hl) {
 		hourLength = hl;
 	}
+	public static Vector<PersonAgent> getPeople(){
+		return people;
+	}
 }
