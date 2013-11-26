@@ -43,17 +43,33 @@ When you click on a building, the screen zooms in and gets replaced with the GUI
 on the top left of each zoomed in building view that can be clicked to return to the city view.
 
 ######Home:
+#######HomeResident Role:
+########Landlord Role:
+
+There is only one Home in our city and only one new person can live there.  If more than one person in our city is created, 
+the others are spawned in a temporary location
 ######Bank:
 ######Market:
+#######CashierRole:
+#######MarketWorkerRole:
 ######Restaurants:
+//all restaurants are implemented. They do not include the producer-consumer revolving stand. This is something we decided early
+on was not vital to our V1 and could be easily implemented in V2.
+Including all team member's restaurants into the city was a difficult task that we thought if done successfully would set us apart 
+from a lot of other teams.
+only one of the restaurants can successfully order from the market.  The others have enough inventoy so it is not necessary.
 ######PersonAgent:
 ######GUI:
+ScreenFactory:
 
-WorldClock timer
-ScreenFactory
-RoleFactory
+WorldClock timer:
+
+RoleFactory:
 
 #####For V2
+
+Although we have robots in now, all of the jobs are set up for roles so we can easily transition to sending people to work
+to populate the business and have them running in V2.
 
 we weren't able to find out the perfect "hour length" for our program to run realistically.  By that we mean, the program may
 run in a loop (e.g. the person keeps going to the restaurant and to the home repeatedly because every four hours he gets hungry
