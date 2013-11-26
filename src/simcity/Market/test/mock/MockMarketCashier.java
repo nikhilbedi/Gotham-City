@@ -67,4 +67,6 @@ public class MockMarketCashier extends Mock implements MarketCashier {
 		return null;
 	}
 
+
+
 }

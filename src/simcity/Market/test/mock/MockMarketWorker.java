@@ -5,6 +5,8 @@ import java.util.Map;
 
 import agent.Role;
 import simcity.Market.Item;
+import simcity.Market.MarketWorkerRole.CustomerDelivery;
+import simcity.Market.MarketWorkerRole.RestaurantDelivery;
 import simcity.Market.Order;
 import simcity.Market.interfaces.MarketCustomer;
 import simcity.Market.interfaces.MarketWorker;
@@ -45,6 +47,18 @@ public class MockMarketWorker extends Mock implements MarketWorker{
 	public void Sent(Role role) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<CustomerDelivery> getCustomerDeliveries() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<RestaurantDelivery> getRestaurantDeliveries() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

@@ -10,7 +10,7 @@ import simcity.Home.ResidentRole.HomeState;
 import simcity.Home.gui.ResidentGui;
 import simcity.Home.interfaces.Landlord;
 import simcity.PersonAgent.RentBill;
-import simcity.agent.Role;
+import agent.Role;
 
 public class LandlordRole extends Role implements Landlord {
 	public PersonAgent person;

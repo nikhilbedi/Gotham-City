@@ -14,7 +14,11 @@ import simcity.Market.Market;
 import simcity.bank.Bank;
 import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant1.Restaurant1;
+
 import simcity.restaurants.restaurant3.Restaurant3;
+
+import simcity.restaurants.restaurant4.Restaurant4;
+
 
 public class MainScreen extends Screen{
 
@@ -41,6 +45,7 @@ public class MainScreen extends Screen{
 	public MainScreen()
 	{
 		temp = 1;
+
 		
 		
 		house = new Home("Home", 390, 590, 400, 600);
@@ -70,11 +75,10 @@ public class MainScreen extends Screen{
 		rest2.setImagePath("/resources/Buildings/RestaurantDark2.png");
 		rest3 = new Restaurant3("Restaurant 3", 650, 200, 650, 200);
 		rest3.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest4 = new Restaurant1("Restaurant 4", 50, 400, 50, 400);
+		rest4 = new Restaurant4("Restaurant 4", 50, 400, 50, 400);
 		rest4.setImagePath("/resources/Buildings/RestaurantDark2.png");
 		rest5 = new Restaurant1("Restaurant 5", 650, 400, 650, 400);
 		rest5.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		
 
 		buildings.add(house);
 		buildings.add(market);
@@ -113,11 +117,12 @@ public class MainScreen extends Screen{
 
 	public List<Restaurant> getRestaurantList(){
 		List<Restaurant> tempcast = new ArrayList<Restaurant>();
-		tempcast.add((Restaurant1)rest1);
-		tempcast.add((Restaurant1)rest2);
-		tempcast.add((Restaurant3)rest3);
-		tempcast.add((Restaurant1)rest4);
-		tempcast.add((Restaurant1)rest5);
+
+		tempcast.add((Restaurant)rest1);
+		tempcast.add((Restaurant)rest2);
+		tempcast.add((Restaurant)rest3);
+		tempcast.add((Restaurant)rest4);
+		tempcast.add((Restaurant)rest5);
 		
 		return tempcast;
 	}
@@ -147,7 +152,9 @@ public class MainScreen extends Screen{
 				return b.getName();
 			}
 		}
-		return "shouldn't get this";
+
+		return "This is not a building";
+
 	}
 }
 
