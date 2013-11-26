@@ -29,37 +29,40 @@
 
 
 
-### Team Project V1
+## Team Project V1
 
-#### Welcome to Gotham City
+### Welcome to Gotham City
 
 Immediately upon entering Gotham City (and running our program using the SimCityRun file to run it on Eclipse) you will hear
 the Batman soundtrack, which will immediately immerse yourself into the darkness, chaos, and unpredictability that is Gotham City.
 
-#####For V1
+####For V1
 As you can see in our GUI we have 4 different types of buildings: Market (top right), Bank (top middle), Restaurant (top left and sides),
 Homes (bottom row).
 When you click on a building, the screen zooms in and gets replaced with the GUI and animation of that building. There is a small black box 
 on the top left of each zoomed in building view that can be clicked to return to the city view.
 
-######Home:
-#######HomeResident Role:
-########Landlord Role:
+
+When a person is added you can set the amount of money they have using a slider on the pop up menu.  The minimum amount of
+money a person can start with is $250 and the maximum is $1000.
+#####Home:
+######HomeResident Role:
+######Landlord Role:
 
 There is only one Home in our city and only one new person can live there.  If more than one person in our city is created, 
 the others are spawned in a temporary location
-######Bank:
-######Market:
-#######CashierRole:
-#######MarketWorkerRole:
-######Restaurants:
+#####Bank:
+#####Market:
+######CashierRole:
+######MarketWorkerRole:
+#####Restaurants:
 //all restaurants are implemented. They do not include the producer-consumer revolving stand. This is something we decided early
 on was not vital to our V1 and could be easily implemented in V2.
 Including all team member's restaurants into the city was a difficult task that we thought if done successfully would set us apart 
 from a lot of other teams.
 only one of the restaurants can successfully order from the market.  The others have enough inventoy so it is not necessary.
-######PersonAgent:
-######GUI:
+#####PersonAgent:
+#####GUI:
 ScreenFactory:
 
 WorldClock timer:
