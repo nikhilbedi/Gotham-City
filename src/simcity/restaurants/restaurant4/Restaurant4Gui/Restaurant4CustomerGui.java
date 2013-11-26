@@ -6,8 +6,11 @@ import java.util.*;
 import java.util.List;
 import java.awt.*;
 
+import simcity.Market.MarketCustomerRole;
+import simcity.restaurants.restaurant4.Restaurant4CustomerRole;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Customer;
 import Gui.RoleGui;
+import Gui.Screen;
 
 public class Restaurant4CustomerGui extends RoleGui{
 
@@ -35,7 +38,7 @@ public class Restaurant4CustomerGui extends RoleGui{
 
 	
 	
-	public Restaurant4CustomerGui(Restaurant4Customer c){ //HostAgent m) {
+	public Restaurant4CustomerGui(Restaurant4CustomerRole c){ //HostAgent m) {
 		agent = c;
 		xPos = defaultPos;
 		yPos = defaultPos;
@@ -44,6 +47,16 @@ public class Restaurant4CustomerGui extends RoleGui{
 		yDestination = defaultPosY;*/
 		//maitreD = m;
 		//this.gui = gui;
+	}
+	
+	
+	public Restaurant4CustomerGui(Restaurant4CustomerRole role, Screen s){
+		super(role, s);
+		agent = role;
+		
+		xPos = defaultPos;
+		yPos = defaultPos;
+		status = Status.notSeated;
 	}
 	
 	public void setTable(int x, int y){

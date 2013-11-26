@@ -49,8 +49,10 @@ public class MarketAnimationPanel extends Screen {
     public MarketCustomerRole marketCustomer3 = new MarketCustomerRole(agentCust3);
     public MarketCustomerGui customerGui3 = new MarketCustomerGui(marketCustomer3);
     public MainScreen mainScreen = ScreenFactory.getMainScreen();
+    
     List <Market> m = mainScreen.getMarketList();
     public Market market = m.get(0);
+    
   //  private BufferedImage image = ImageIO.read("shop.png"); 
     public MarketAnimationPanel() {
     	super();
@@ -64,25 +66,25 @@ public class MarketAnimationPanel extends Screen {
     	timer.start();*/
     }
 
-
+/*
     public void paintComponent(Graphics g) {
        
     	Graphics2D g2 = (Graphics2D)g;
         //Clear the screen by painting a rectangle the size of the frame
-     /*   g2.setColor(getBackground());
-        g2.fillRect(0, 0, WINDOWX, WINDOWY );*/
+        g2.setColor(getBackground());
+        g2.fillRect(0, 0, WINDOWX, WINDOWY );
 
         //Here is the table
-        /*g2.setColor(Color.ORANGE);
+        g2.setColor(Color.ORANGE);
         g2.fillRect(80, 150, 250, 30);//200 and 250 need to be table params
 
         g2.setColor(Color.GREEN);
-        g2.fillRect(80, 30, 250, 10);*/
+        g2.fillRect(80, 30, 250, 10);
 
-       /* g2.setColor(Color.BLACK);
-        g2.fillRect(30, 50, 110, 2);*/
+        g2.setColor(Color.BLACK);
+        g2.fillRect(30, 50, 110, 2);
         
-       /* for(Gui gui : guis) {
+        for(Gui gui : guis) {
             if (gui.isPresent()) {
             //    gui.updatePosition();
             }
@@ -92,9 +94,11 @@ public class MarketAnimationPanel extends Screen {
             if (gui.isPresent()) {
               //  gui.draw(g2);
             }
-        }*/
+        }
+    }*/
+    public Market  getMarket (){
+    	return market;
     }
-    
     
     @Override
     public void paintBackground(Graphics g){

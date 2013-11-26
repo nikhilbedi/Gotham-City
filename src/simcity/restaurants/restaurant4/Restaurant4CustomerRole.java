@@ -85,7 +85,7 @@ public class Restaurant4CustomerRole extends Role implements Restaurant4Customer
 	}
 	
 	public void setMoney(double m){
-		money = money + m;
+		money = myPerson.getMoney();
 	}
 	public double getMoney(){
 		money = Math.round(money*100);
@@ -204,7 +204,8 @@ public class Restaurant4CustomerRole extends Role implements Restaurant4Customer
 	
 	public void HereIsYourChange(double m){
 		if (m>=0){
-			setMoney(m);
+			myPerson.addMoney(m);
+			//setMoney(m);
 			amountDue = 0;
 			person.Do("My change " + m);
 		}
@@ -368,18 +369,11 @@ public class Restaurant4CustomerRole extends Role implements Restaurant4Customer
 		TimerTask task;
 		
 		person.Do("Eating " + choice);
-		//This next complicated line creates and starts a timer thread.
-		//We schedule a deadline of getHungerLevel()*1000 milliseconds.
-		//When that time elapses, it will call back to the run routine
-		//located in the anonymous class created right there inline:
-		//TimerTask is an interface that we implement right there inline.
-		//Since Java does not all us to pass functions, only objects.
-		//So, we use Java syntactic mechanism to create an
-		//anonymous inner class that has the public method run() in it.
 		timer.schedule(new TimerTask() { public void run() {
 			person.Do("Done eating " + choice );
 				event = AgentEvent.doneEating;
 				stateChanged();
+				myPerson.justAte();
 				customerGui.doneEating = true;
 			}
 		},
@@ -392,8 +386,22 @@ public class Restaurant4CustomerRole extends Role implements Restaurant4Customer
 	}
 	
 	public void pay(){
-		cashier.hereIsPayment(this, money);
+		
+		double amount  = round(amountDue);
+		myPerson.removeMoney((float) amount);
+		cashier.hereIsPayment(this, amount);
 		person.Do("Here is money");
+	}
+	
+	private int round(double money){
+	    double d = Math.abs(money);
+	    int i = (int) d;
+	    double result = d - (double) i;
+	    if(result<0.5){
+	        return money<0 ? -i : i;            
+	    }else{
+	        return money<0 ? -(i+1) : i+1;          
+	    }
 	}
 	
 	private void leaveTable() {

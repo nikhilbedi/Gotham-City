@@ -10,6 +10,8 @@ import simcity.PersonAgent;
 import simcity.Market.Item;
 import simcity.Market.MarketCashierRole;
 import simcity.Market.MarketWorkerRole;
+import simcity.Market.MarketWorkerRole.CustomerDelivery;
+import simcity.Market.MarketWorkerRole.RestaurantDelivery;
 import simcity.Market.Order;
 import simcity.Market.MarketGui.MarketWorkerGui;
 import simcity.Market.test.mock.MockMarketCashier;
@@ -32,21 +34,50 @@ public class MarketWorkerTest {
 	MarketWorkerGui gui = new MarketWorkerGui(worker);
 	
 	@Test
-	public void oneTest() throws InterruptedException{
+	public void oneCustomerTest() throws InterruptedException{
 		worker.setGui(gui);
-		cashier.getInventory().put("Beef", beef);
-		cashier.getInventory().put("Chicken", chicken);
-		cashier.getInventory().put("Rice", rice);
-		cashier.getInventory().put("Potato", potato);
-		cashier.getInventory().put("Pizza", pizza);
-		cashier.getInventory().put("Salad", salad);
-		cashier.getInventory().put("Steak", steak);
-		
+		worker.getInventory().put("Beef", beef);
+		worker.getInventory().put("Chicken", chicken);
+		worker.getInventory().put("Rice", rice);
+		worker.getInventory().put("Potato", potato);
+		worker.getInventory().put("Pizza", pizza);
+		worker.getInventory().put("Salad", salad);
+		worker.getInventory().put("Steak", steak);
+		assertTrue("Workers deliveries list should contain one delivery", worker.getCustomerDeliveries().size()==0);
+		assertTrue("Scheduler should return false", !worker.pickAndExecuteAnAction());
 		Order o = new Order(customer, "Chicken", 2, false);
 		List<Order> orders = new ArrayList<Order>();
 		orders.add(o);
-		
-		
+		worker.Bring(orders);
+		assertTrue("Workers deliveries list should contain one delivery", worker.getCustomerDeliveries().size()==1);
+		assertTrue("Delivery state should be pending", worker.getCustomerDeliveries().get(0).state == CustomerDelivery.DeliveryState.pending);
+		worker.delivering.release();
+		assertTrue("Scheduler should return true", worker.pickAndExecuteAnAction());
+		assertTrue("Delivery state should be getting", worker.getCustomerDeliveries().get(0).state == CustomerDelivery.DeliveryState.getting);
+		worker.Brought(customer);
+		assertTrue("Workers deliveries list should contain one delivery", worker.getCustomerDeliveries().size()==0);
 }
+	@Test
+	public void twoCustomersTest() throws InterruptedException {
+		worker.setGui(gui);
+		worker.getInventory().put("Beef", beef);
+		worker.getInventory().put("Chicken", chicken);
+		worker.getInventory().put("Rice", rice);
+		worker.getInventory().put("Potato", potato);
+		worker.getInventory().put("Pizza", pizza);
+		worker.getInventory().put("Salad", salad);
+		worker.getInventory().put("Steak", steak);
+		assertTrue("Workers deliveries list should contain one delivery", worker.getCustomerDeliveries().size()==0);
+		assertTrue("Scheduler should return false", !worker.pickAndExecuteAnAction());
+		Order o = new Order(customer, "Chicken", 2, false);
+		List<Order> orders = new ArrayList<Order>();
+		orders.add(o);
+		Order o1 = new Order(customer2, "Chicken", 2, false);
+		List<Order> orders2 = new ArrayList<Order>();
+		orders2.add(o1);
+		worker.Bring(orders);
+		worker.Bring(orders2);
+		
+	}
 
 }

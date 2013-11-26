@@ -2,6 +2,8 @@ package simcity.restaurants.restaurant4.test.mock;
 
 import java.util.Map;
 
+import simcity.Market.MarketCashierRole;
+import simcity.Market.interfaces.MarketCashier;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Cook;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Waiter;
 
@@ -43,6 +45,14 @@ public class Restaurant4CookMock extends Mock implements Restaurant4Cook{
 
 	@Override
 	public void gotFood(String food) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+
+	@Override
+	public void setMarketCashier(MarketCashier marketCashier) {
 		// TODO Auto-generated method stub
 		
 	}

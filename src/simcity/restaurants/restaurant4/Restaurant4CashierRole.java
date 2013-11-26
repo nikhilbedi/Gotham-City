@@ -18,7 +18,7 @@ public class Restaurant4CashierRole extends Role implements Restaurant4Cashier {
 	public List<Check> checks= new ArrayList<Check>();
 	public List<Payment> payments = new ArrayList<Payment>();
 	//public List<MarketAgent> markets= new ArrayList<MarketAgent>();
-	private PersonAgent person; 
+	
 	
 	public Restaurant4CashierRole(PersonAgent person){
 		super(person);
@@ -47,10 +47,12 @@ public class Restaurant4CashierRole extends Role implements Restaurant4Cashier {
 	
 	public void HereIsYourChange(double d, MarketCashier c ){
 		restaurantMoney = restaurantMoney + d;
-		person.Do("Got change from market cashier " + d);
+		myPerson.Do("Got change from market cashier " + d);
 		for (Payment payment: payments){
+			if (payment.cashier == c){
 			payment.state = Payment.OrderState.gotChange;
 			stateChanged();
+			}
 		}
 	}
 	
@@ -113,7 +115,7 @@ public class Restaurant4CashierRole extends Role implements Restaurant4Cashier {
 	public void DoCallWaiter(Check o){
 		o.amountDue = o.prices.get(o.choice);
 		o.w.HereIsCheck(o.c, o.amountDue);
-		person.Do("Pick up the check");
+		myPerson.Do("Pick up the check");
 		//
 	}
 	
@@ -125,10 +127,10 @@ public class Restaurant4CashierRole extends Role implements Restaurant4Cashier {
 	
 	public void doGetPayment(Check o){
 		if (o.c.getMoney()>=o.c.getAmountDue()){
-			person.Do("Amount due "+ o.c.getAmountDue());
+			myPerson.Do("Amount due "+ o.c.getAmountDue());
 			o.moneyHePaid = o.c.getAmountDue();
 			restaurantMoney = restaurantMoney + o.moneyHePaid;
-			person.Do("Got your payment " +o.moneyHePaid+ " thank you");
+			myPerson.Do("Got your payment " +o.moneyHePaid+ " thank you");
 			double value = o.c.getMoney() - o.c.getAmountDue();	
     		value = Math.round(value * 100);
     		value = value/100;
@@ -137,14 +139,14 @@ public class Restaurant4CashierRole extends Role implements Restaurant4Cashier {
 			checks.remove(o);
 		}
 		else {
-			person.Do("Amount due "+ o.c.getAmountDue());
-			person.Do("You don't have enough money, pay the rest next time");
+			myPerson.Do("Amount due "+ o.c.getAmountDue());
+			myPerson.Do("You don't have enough money, pay the rest next time");
 			double i = o.c.getMoney() - o.c.getAmountDue();
 			i = Math.round(i*100);
 			i = i/100;
 			o.moneyHePaid = o.c.getMoney();
 			restaurantMoney = restaurantMoney + o.moneyHePaid;
-			person.Do("You paid " + o.moneyHePaid + ", pay " + Math.abs(i) + " next time");
+			myPerson.Do("You paid " + o.moneyHePaid + ", pay " + Math.abs(i) + " next time");
 			o.change = i;
 			o.c.HereIsYourChange(i);
 			checks.remove(o);

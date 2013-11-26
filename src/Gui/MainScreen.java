@@ -14,6 +14,7 @@ import simcity.Market.Market;
 import simcity.bank.Bank;
 import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant1.Restaurant1;
+import simcity.restaurants.restaurant4.Restaurant4;
 
 public class MainScreen extends Screen{
 
@@ -41,7 +42,7 @@ public class MainScreen extends Screen{
 		market.setImagePath("/resources/Buildings/Market.png");
 		bank = new Bank("Bank", 410, 110, 400, 100);
 		bank.setImagePath("/resources/Buildings/Bank.png");
-		rest1 = new Restaurant1("Restauarant 1", 610, 110, 600, 100);
+		rest1 = new Restaurant4("Restauarant 1", 610, 110, 600, 100);
 		rest1.setImagePath("/resources/Buildings/Restaurant.png");
 
 		buildings.add(house);

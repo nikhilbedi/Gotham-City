@@ -8,6 +8,9 @@ import Gui.ScreenFactory;
 import simcity.interfaces.Person;
 import simcity.RoleFactory;
 import simcity.restaurants.*;
+import simcity.restaurants.restaurant4.Restaurant4;
+import simcity.restaurants.restaurant4.Restaurant4CustomerRole;
+import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4CustomerGui;
 import simcity.Market.Market;
 import simcity.Market.MarketCustomerRole;
 import simcity.Market.MarketGui.MarketCustomerGui;
@@ -31,6 +34,9 @@ public class PersonAgent extends Agent implements Person {
 	
 	Role homeTemp;
 	RoleGui homeGui;
+
+	Role rest1Temp;
+    RoleGui rest1Gui;
 
 
 	public String name;
@@ -175,8 +181,8 @@ public class PersonAgent extends Agent implements Person {
 		gui = g;
 	}
 
-	public void setRestaurants(List<Restaurant> r) {
-		restaurants = r;
+	public void setRestaurants(List<Restaurant> list) {
+		restaurants = list;
 	}
 
 	public void setMarkets(List<Market> m) {
@@ -701,16 +707,27 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	private void goEatAtRestaurant() {
-		//if inside building and not in current restaurant preference
-		//animate outside building
-		gui.DoGoToLocation(currentPreference.getEntranceLocation());
-		try {
-			busyWithTask.acquire();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		
+		 gui.DoGoToLocation(currentPreference.getEntranceLocation());
+         eatingState = EatingState.HeadedtoRestaurant;
+         try {
+                 busyWithTask.acquire();
+         } catch (InterruptedException e) {
+                 // TODO Auto-generated catch block
+                 e.printStackTrace();
+         }
 
+         rest1Temp = RoleFactory.makeMeRole("Restaurant1Customer");
+         currentBuilding = currentPreference;
+         rest1Gui = new Restaurant4CustomerGui((Restaurant4CustomerRole)rest1Temp, ScreenFactory.getMeScreen("Restaurant"));
+         rest1Temp.setPerson(this);
+         rest1Gui.setHomeScreen(ScreenFactory.getMeScreen("Restaurant"));
+
+         checkPersonScheduler = false;
+         rest1Temp.setGui(rest1Gui);
+         //Enter building
+         enteringBuilding(rest1Temp);
 		//enter building (removing rect from city screen if it is there, adding rect to home if not there)
 
 		/*Role customerRoleTemp = roles.add(RoleFactory.makeMeRole(currentPreference.restaurantCustomerRole));

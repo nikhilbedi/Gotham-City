@@ -53,12 +53,14 @@ public class MarketWorkerGui extends RoleGui{
 	        	command = Command.none;
 	        	worker.Brought(customer);
 	        }
-	        if (xPos == 130 && yPos == 40 && command == Command.restGetting){
+	        if (xPos == 130 && yPos == 250 && command == Command.restGetting){
+	        	System.out.println("Got things");
 	        	command = Command.none;
 	        	LoadToTruck();
 	        }
-	        if (xPos == 0 && yPos == 40 && command == Command.truck){
+	        if (xPos == 100 && yPos == 250 && command == Command.truck){
 	        	command = Command.none;
+	        	System.out.println("Loaded to truck");
 	        	worker.Sent(role);
 	        }
 	}
@@ -78,15 +80,16 @@ public class MarketWorkerGui extends RoleGui{
 	}
 	
 	public void DoSend(Map<String, Integer> m, Role role){
+		System.out.println("Going to truck");
 		this.role = role;
 		xDestination = 130;
-		yDestination = 40;
+		yDestination = 250;
 		command = Command.restGetting;
 	}
 
 	public void LoadToTruck(){
-		xDestination = 0;
-		yDestination = 40;
+		xDestination = 100;
+		yDestination = 250;
 		command = Command.truck;
 	}
 	public void drawOrder(Graphics g){

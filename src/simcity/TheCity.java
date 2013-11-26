@@ -7,6 +7,7 @@ import simcity.Market.Market;
 import simcity.bank.Bank;
 import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant1.Restaurant1;
+import simcity.restaurants.restaurant4.Restaurant4;
 
 public class TheCity {
 	static List<String> homeList = new ArrayList<String>();
@@ -16,10 +17,11 @@ public class TheCity {
 	static List<String> homeOwnerList = new ArrayList<String>();
 	
 	static ArrayList<Building> buildings = new ArrayList<Building>();
+	static Building rest1;
 	static Building house;
 	static Building market;
 	static Building bank;
-	static Building rest1;
+	
 	
 	static{//populate person-specific elements
 	homeList.add("None (Homeless Shelter)");
@@ -45,13 +47,16 @@ public class TheCity {
 		market.setImagePath("/resources/Buildings/Market.png");
 		bank = new Bank("Bank", 410, 110, 400, 100);
 		bank.setImagePath("/resources/Buildings/Bank.png");
-		rest1 = new Restaurant1("Restauarant 1", 610, 110, 600, 100);
+		rest1 = new Restaurant4("Restauarant 1", 610, 110, 600, 100);
 		rest1.setImagePath("/resources/Buildings/Restaurant.png");
 
 		buildings.add(house);
 		buildings.add(market);
 		buildings.add(bank);
 		buildings.add(rest1);
+		
+		
+		
 	}
 	public static List<String> getJobLocs(){
 		return jobLocationList;
@@ -90,14 +95,12 @@ public class TheCity {
 	public List<Restaurant> getRestaurantList(){
 		List<Restaurant> tempcast = new ArrayList<Restaurant>();
 		tempcast.add((Restaurant)rest1);
-
 		return tempcast;
 	}
 
 	public List<Market> getMarketList(){
 		List<Market> tempcast = new ArrayList<Market>();
 		tempcast.add((Market)market);
-
 		return tempcast;
 	}
 

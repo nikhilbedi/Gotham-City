@@ -1,11 +1,15 @@
 package simcity.restaurants.restaurant4;
+import Gui.Screen;
+import Gui.ScreenFactory;
 import agent.Agent;
 import agent.Role;
 
 import java.util.*;
 
 import simcity.PersonAgent;
+import simcity.Market.Market;
 import simcity.Market.MarketCashierRole;
+import simcity.Market.MarketGui.MarketAnimationPanel;
 import simcity.Market.interfaces.MarketCashier;
 import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4CookGui;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Cashier;
@@ -71,7 +75,7 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 		stateChanged();
 	}
 	  
-	public void hereIsYourOrder(String s, int q){ //market
+/*	public void hereIsYourOrder(String s, int q){ //market
 		Food f = foods.get(s);
 		f.amount = f.amount + q;
 		person.Do("Now i have " + f.amount + " "+ s);
@@ -82,7 +86,7 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 			orderFoodThatIsLow();
 		}
 		stateChanged();
-	}
+	}*/
 	
 	public void setSalad(){
 		salad.amount = 0;
@@ -95,7 +99,6 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 			foods.put(entry.getKey(), f);
 			System.out.println("Got order from market, now I have " + f.type + " " + f.amount);
 		}
-		
 	}
 	//scheduler
 	
@@ -123,12 +126,12 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 				order = true;
 			}
 		}
-		/*if (order == true){
+		if (order == true){
 			order = false;
 			person.Do("Ordering food");
 			orderFoodThatIsLow();
 			return true;
-		}*/
+		}
 	
 		return false;
 	}
@@ -164,10 +167,15 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 	
 	public void orderFoodThatIsLow(){
 		person.Do("Ordering food from market");
+
+		Market m = ((MarketAnimationPanel) ScreenFactory.getMeScreen("Market")).getMarket();
+		
+    	cashier = m.getCashier();
 		cashier.INeedFood(neededFood, this, restCashier);
 	}
 
-	public void setMarketCashier(MarketCashierRole m){
+	public void setMarketCashier(MarketCashier m){
+		
 		cashier = m;
 	}
 	

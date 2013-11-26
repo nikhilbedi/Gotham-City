@@ -11,6 +11,7 @@ import simcity.Market.Market;
 import simcity.PersonAgent.RentBill;
 import simcity.bank.Bank;
 import simcity.restaurants.Restaurant;
+import simcity.restaurants.restaurant4.Restaurant4;
 import agent.Role;
 
 

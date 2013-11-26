@@ -7,6 +7,7 @@ import simcity.bank.bankAnimationPanel;
 import simcity.Home.gui.HomeAnimationPanel;
 import simcity.Market.MarketGui.MarketAnimationPanel;
 import simcity.restaurants.restaurant1.gui.RestaurantNikhilAnimationPanel;
+import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4AnimationPanel;
 import simcity.Home.gui.HomeAnimationPanel;
 import simcity.bank.bankAnimationPanel;
 
@@ -17,15 +18,15 @@ public class ScreenFactory {
 
         List<Screen> screenList = Collections.synchronizedList(new ArrayList<Screen>());
 
+    	public static MainScreen main = new MainScreen();
 
 
 	//public static Screen main = new Screen(1);
-	public static Screen rest = new Screen(2);
+	public static Screen rest = new Restaurant4AnimationPanel();
 	//public static Screen market = new Screen(3);
 	//public static Screen bank = new Screen(4);
 	//public static Screen home = new Screen(5);
 	
-	public static MainScreen main = new MainScreen();
 	//public static Screen rest = new RestaurantNikhilAnimationPanel();
 
 	//public static Screen market = new MarketAnimationPanel();

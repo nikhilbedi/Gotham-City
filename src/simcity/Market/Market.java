@@ -11,7 +11,7 @@ public class Market extends Building {
 	
 	private int locX;
 	private int locY;
-	private MarketCashier marketcashier;
+	private MarketCashierRole marketcashier;
 	private String CustomerRole;
 	private List <Item> items = new ArrayList<Item>();
 	private MarketWorker marketworker; //later will be a list
@@ -38,7 +38,8 @@ public class Market extends Building {
 		//setLocations
 	}*/
 	
-	public void setCashier(MarketCashier c){
+	public void setCashier(MarketCashierRole c){
+		System.out.println("setting cashier");
 		marketcashier = c;
 	}
 	
@@ -47,6 +48,7 @@ public class Market extends Building {
 	}
 	
 	public MarketCashier getCashier(){
+		
 		return marketcashier ;
 	}
 	

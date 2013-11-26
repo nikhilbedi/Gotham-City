@@ -22,7 +22,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	private MarketWorkerGui workerGui;
 //	private PersonAgent person;
 	public String name;
-	private Semaphore delivering = new Semaphore(0,true);
+	public Semaphore delivering = new Semaphore(0,true);
 	public MarketWorkerRole(PersonAgent p){
 		super(p);
 		
@@ -41,6 +41,14 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 		System.out.println(myPerson.name+ " " +"Got new order from " + o.get(0).customer.getName());
 		deliveries.add(new CustomerDelivery(o));
 		stateChanged();
+	}
+	
+	public List<CustomerDelivery> getCustomerDeliveries(){
+		return deliveries;
+	}
+	
+	public List<RestaurantDelivery> getRestaurantDeliveries(){
+		return restDeliveries;
 	}
 	
 	public Map<String, Item> getInventory(){
@@ -82,20 +90,18 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 			 if (delivery.state == CustomerDelivery.DeliveryState.pending){
 				delivery.state = CustomerDelivery.DeliveryState.getting;
 				System.out.println(myPerson.name + ": " +"pending state " + delivery.customer.getName());
-				if (delivery.d ==false){
 					Bring(delivery);
-				}
-				return true;
+					return true;
 			}	
 		}
+			
 			for (RestaurantDelivery delivery: restDeliveries){
 				if (delivery.state == RestaurantDelivery.DeliveryState.pending){
 					delivery.state = RestaurantDelivery.DeliveryState.getting;
 					Send(delivery);
+					return true;
 				}
 			}
-			
-			
 		workerGui.DefaultPos();
 		return false;
 	}
@@ -134,12 +140,12 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	}
 	
 	
-	static class CustomerDelivery{
+	public static class CustomerDelivery{
 		List<Order> orders = new ArrayList<Order>();
 		MarketCustomer customer;
-		DeliveryState state;
+		public DeliveryState state;
 		boolean d;
-		enum DeliveryState {pending, getting, delivering, delivered};
+		public enum DeliveryState {pending, getting, delivering, delivered};
 		
 		
 		public CustomerDelivery(List<Order> o){
@@ -150,7 +156,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 		}
 	}
 
-	static class RestaurantDelivery{
+	public static class RestaurantDelivery{
 		private Role cookRole;
 		private Map<String, Integer> foods;
 		//Location
