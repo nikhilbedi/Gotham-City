@@ -7,6 +7,7 @@ import simcity.bank.bankAnimationPanel;
 import simcity.Home.gui.HomeAnimationPanel;
 import simcity.Market.MarketGui.MarketAnimationPanel;
 import simcity.restaurants.restaurant1.gui.RestaurantNikhilAnimationPanel;
+import simcity.restaurants.restaurant2.gui.Restaurant2AnimationPanel;
 import simcity.Home.gui.HomeAnimationPanel;
 import simcity.bank.bankAnimationPanel;
 
@@ -30,7 +31,7 @@ public class ScreenFactory {
 	public static MainScreen main = new MainScreen();
 
 	public static Screen rest1 = new RestaurantNikhilAnimationPanel();
-	public static Screen rest2 = new RestaurantNikhilAnimationPanel();
+	public static Screen rest2 = new Restaurant2AnimationPanel();
 	public static Screen rest3 = new RestaurantNikhilAnimationPanel();
 	public static Screen rest4 = new RestaurantNikhilAnimationPanel();
 	public static Screen rest5 = new RestaurantNikhilAnimationPanel();

@@ -19,11 +19,9 @@ public class CookGui extends RoleGui {
     List<String> strs = Collections.synchronizedList(new LinkedList<String>());
     
     private static final int speed = 2, tableStarter = 1;
-    private int xPos = 490, yPos = 40;//default cook position
     private int strPos1X = 525, strPos1Y = 20;
     private int strPos2X = 525, strPos2Y = 50;
     private int strPos3X = 525, strPos3Y = 80;
-    private int xDestination = 460, yDestination = 40;//default start position
 
     public static final int xTable = 200;
     public static final int yTable = 250;
@@ -33,7 +31,7 @@ public class CookGui extends RoleGui {
     public static final int exitXBuffer = -20;
     public static final int exitYBuffer = -20;
 
-    public CookGui(CookRole agent, RestaurantGui gui) {
+    public CookGui(CookRole agent) {
         this.agent = agent;
         this.gui = gui;
         

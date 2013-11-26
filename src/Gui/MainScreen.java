@@ -59,20 +59,20 @@ public class MainScreen extends Screen{
 		house6.setImagePath("/resources/Buildings/HouseDark2.png");
 		
 		
-		market = new Market("Market", 500, 100, 500, 100);
+		market = new Market("Market", 600, 100, 600, 100);
 		market.setImagePath("/resources/Buildings/MarketDark2.png");
-		bank = new Bank("Bank", 350, 100, 350, 100);
+		bank = new Bank("Bank", 400, 100, 400, 100);
 		bank.setImagePath("/resources/Buildings/BankDark2.png");
 		
 		rest1 = new Restaurant1("Restaurant 1", 200, 100, 200, 100);
 		rest1.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest2 = new Restaurant1("Restaurant 2", 50, 200, 50, 200);
+		rest2 = new Restaurant1("Restaurant 2", 50, 210, 50, 210);
 		rest2.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest3 = new Restaurant1("Restaurant 3", 650, 200, 650, 200);
+		rest3 = new Restaurant1("Restaurant 3", 730, 210, 730, 210);
 		rest3.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest4 = new Restaurant1("Restaurant 4", 50, 400, 50, 400);
+		rest4 = new Restaurant1("Restaurant 4", 50, 410, 50, 410);
 		rest4.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest5 = new Restaurant1("Restaurant 5", 650, 400, 650, 400);
+		rest5 = new Restaurant1("Restaurant 5", 730, 410, 730, 410);
 		rest5.setImagePath("/resources/Buildings/RestaurantDark2.png");
 		
 
