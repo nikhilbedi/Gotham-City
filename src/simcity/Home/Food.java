@@ -12,32 +12,40 @@ public class Food {
 	
 	public Food (String type) {
 		this.type = type;
+		/*
 		if (type.equals("Steak")){
 			cookingTime = 10;
 			//amount = 5;
-			amount = 1;
+			amount = 0;
+			capacity = 6;
 		}
-		else if (type.equals("Chicken")){
+		*/
+		if (type.equals("Chicken")){
 			cookingTime = 8;
 			//amount = 4;
-			amount = 1;
+			amount = 0;
+			capacity = 6;
 		}
+		/*
 		else if (type.equals("Pizza")) {
 			cookingTime = 6;
 			//amount = 3;
-			amount = 1;
+			amount = 0;
+			capacity = 6;
 		}
 		else if (type.equals("Salad")) {
 			cookingTime = 4;
 			//amount = 5;
-			amount = 1;
+			amount = 0;
+			capacity = 6;
 		}
+		*/
 		//else if (type.equals("Food")) {
 			
 		//}
 		
 		//this.amount = 3;//amount of each order the cook has
-		this.capacity = 6;// maximum capacity
+		//this.capacity = 6;// maximum capacity
 		this.lowThreshold = 1;//threshold where cook orders from market
 	}
 	

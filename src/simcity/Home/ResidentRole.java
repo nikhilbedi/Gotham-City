@@ -46,6 +46,8 @@ public class ResidentRole extends Role implements Resident {
 
 	public Random random = new Random();
 	public boolean leaveRestaurant = random.nextBoolean();
+	public boolean hungry = false;
+	public boolean checkedGroceryBag = false;
 
 	// private String choice;
 
@@ -106,12 +108,14 @@ public class ResidentRole extends Role implements Resident {
 
 		f = new Food("Salad");
 		fridgeFoods.put("Salad", f);
-		
+
 		residentGui = (ResidentGui)super.gui;
 
 	}
 	@Override
 	public void startBuildingMessaging(){
+		state = HomeState.DoingNothing;
+		event = HomeEvent.none;
 		msgCheckMailbox(); //message to start Home gui
 		//gotHungry();
 		//gotSleepy();
@@ -130,7 +134,7 @@ public class ResidentRole extends Role implements Resident {
 	public void msgCheckMailbox() {
 		System.out.println("check your mailbox for mail");
 		state = HomeState.DoingNothing;
-		
+
 		if(state == HomeState.DoingNothing){
 			System.err.println("State is doing nothing and event is check MailBox");
 		}
@@ -138,28 +142,41 @@ public class ResidentRole extends Role implements Resident {
 			System.err.println("State is NOT doing nothing and event is check MailBox");
 		}
 		event = HomeEvent.checkMailbox;
+		print("check mailbox statechanged");
 		stateChanged();
-		
+
 	}
 
-	
-	
+	public void atMailbox() {
+		event = HomeEvent.atMailbox;
+		print("reached mailbox statechanged");
+		stateChanged();
+	}
+
+	public void atFridge() {
+		System.out.println("atfridge********************");
+		print("Size of fridge = " + fridgeFoods.get("Salad").getAmount());
+		event = HomeEvent.atFridge;
+		print("reached fridge statechanged");
+		stateChanged();
+	}
+
 	public void gotSleepy() {
 		System.out.println("I'm sleepy");
 		event = HomeEvent.gotSleepy;
-		stateChanged();
+		//stateChanged();
 	}
 	public void wakeUp() {
 		System.out.println("Good morning");
 		//event = HomeEvent.;
 		//stateChanged();
 	}
-/*
+	/*
 	public void msgCheckGroceryBag() {
 		event = HomeEvent.checkGroceryBag;
 		stateChanged();
 	}
-*/
+	 */
 
 	/**
 	 * Scheduler. Determine what action is called for, and do it.
@@ -173,7 +190,7 @@ public class ResidentRole extends Role implements Resident {
 		// returnToHomePosition();
 		// return true;
 		// }
-		
+
 		//mailbox scheduling events
 		if (state == HomeState.DoingNothing && event == HomeEvent.checkMailbox) {
 			state = HomeState.GoingToMailbox;
@@ -188,7 +205,7 @@ public class ResidentRole extends Role implements Resident {
 		if (state == HomeState.checkingMailbox && event == HomeEvent.payRent) {
 			state = HomeState.PayingRent;
 			payRent(home.getRentBills());
-			
+
 			// payRent(myPerson.new RentBill(myPerson, 10));
 			// payRent(new RentBill(myPerson, 10));
 			// payRent(rb);
@@ -204,29 +221,32 @@ public class ResidentRole extends Role implements Resident {
 			returnToHomePosition();
 			return true;
 		}
-		
-		
-		
+
+
+
 		//grocery bag scheduling events
-		if (myPerson.groceryBag.size() > 0){
+		if (myPerson.groceryBag.size() > 0 && !checkedGroceryBag){
 			//System.out.println("GroceryBag msg in sch *HI***");
 			checkGroceryBag();
+			checkedGroceryBag = true;
+			state = HomeState.DoingNothing;
+			print("Checked the grocery bag");
 			return true;
 		}
 		if (state == HomeState.DoingNothing && event == HomeEvent.putGroceriesInFridge) {
-			//System.out.println("Groceries Fridge msg in sch *HI***");
+			System.out.println("Groceries Fridge msg in sch *HI***");
 			state = HomeState.GoingToPutGroceriesInFridge;
 			goToFridge();
 			return true;
 		}
 		if (state == HomeState.GoingToPutGroceriesInFridge && event == HomeEvent.atFridge) {
-			//System.out.println("Groceries Fridge DONE msg in sch *HI***");
+			System.out.println("Groceries Fridge DONE msg in sch *HI***");
 			state = HomeState.PuttingGroceriesInFridge;
 			putGroceriesInFridge(myPerson.getGroceryBag());
 			return true;
 		}
 		if (state == HomeState.PuttingGroceriesInFridge && event == HomeEvent.none) {
-			//System.out.println("Groceries Fridge DONE msg in sch *HI***");
+			System.out.println("Groceries Fridge DONE msg in sch *HI***");
 			state = HomeState.DoingNothing;
 			returnToHomePosition();
 			return true;
@@ -239,22 +259,23 @@ public class ResidentRole extends Role implements Resident {
 			returnToHomePosition();
 			return true;
 		}
-		*/
-		
-		
-		
+		 */
+
+
+
 		//got hungry scheduling events
-		
+
 		if (state == HomeState.DoingNothing  && event == HomeEvent.gotHungry) {
 			// System.out.println("CHECking food supply");
 			//System.out.println("Check Fridge msg in sch *HI***");
+			print("Im hungry, so i will check the fridge");
 			state = HomeState.GoingToFridgeToCheckFood;
 			goToFridge();
 			//checkFridge();
 			return true;
 		}
 		if (state == HomeState.GoingToFridgeToCheckFood && event == HomeEvent.atFridge) {
-			//System.out.println("Check Food Supply msg in sch *HI***");
+			System.out.println("Check Food Supply msg in sch *HI****************");
 			state = HomeState.CheckingFoodSupply;
 			type = checkFoodSupply();
 			return true;
@@ -265,7 +286,7 @@ public class ResidentRole extends Role implements Resident {
 			exitHome();
 			return true;
 		}
-		
+
 		if (state == HomeState.CheckingFoodSupply && event == HomeEvent.collectedIngredients) {
 			//System.out.println("Check cook food msg in sch *HI***");
 			state = HomeState.Cooking;
@@ -296,48 +317,51 @@ public class ResidentRole extends Role implements Resident {
 			returnToHomePosition();
 			return true;
 		}
-		
-		
-		if (state == HomeState.LeavingHome && event == HomeEvent.none) {
+
+
+		/*if (state == HomeState.LeavingHome && event == HomeEvent.none) {
 			//System.out.println("NOTHING 3 msg in sch *HI***");
 			state = HomeState.DoingNothing;
 			//returnToHomePosition();
 			return true;
-		}
-		
+		}*/
+
 		if((myPerson.hungerState == HungerState.FeedingHunger  ||
 				myPerson.hungerState == HungerState.Famished ||
 				myPerson.hungerState == HungerState.Hungry ||
-				myPerson.hungerState == HungerState.Starving) && event == HomeEvent.none ) {
+				myPerson.hungerState == HungerState.Starving) && event == HomeEvent.none){// && !hungry) {
+			hungry = true;
+			print("make person get some food");
+			state = HomeState.DoingNothing;
 			gotHungry();
 			return true;
 		}
-		
-		
-		
-		
-	
-		
+
+
+
+
+
+
 		if (state == HomeState.DoingNothing && event == HomeEvent.gotSleepy) {
 			//System.out.println("SLEEPING ***");
 			state = HomeState.Sleeping;
 			goToBed();
 			return true;
 		}
-		
-		
+
+
 		/*
 		 if (state == HomeState.CheckingFoodSupply && event ==
 		 HomeEvent.checkedEmptyFridge){ state = HomeState.DoingNothing;
 		 LeavingRestaurant exitHome(); return true; }
 		 */
-		
+
 		return false;
 	}
 
 	// Actions
-	
-	
+
+
 
 	//checking mailbox when walking in and paying rent bills
 	public void goToMailbox() {
@@ -345,10 +369,7 @@ public class ResidentRole extends Role implements Resident {
 		residentGui.DoGoToMailbox();
 
 	}
-	public void atMailbox() {
-		event = HomeEvent.atMailbox;
-		//stateChanged();
-	}
+
 	public void checkMail() {
 		//rentBills.clear(); //CHANGE THIS ****************************
 		print("Inside checkMail function **********");
@@ -359,11 +380,11 @@ public class ResidentRole extends Role implements Resident {
 		}
 
 		else {
-			print("rent bills is NOT greater than 0");
+			print("rent bills is 0");
 			event = HomeEvent.none;
 			//stateChanged();
 		}
-		event = HomeEvent.none;
+		//event = HomeEvent.none;
 		//state = HomeState.DoingNothing;
 	}
 	public void payRent(List<RentBill> rentBills) {
@@ -375,14 +396,17 @@ public class ResidentRole extends Role implements Resident {
 		event = HomeEvent.none;
 		//stateChanged();
 	}
-	
-	
-	
-	
+
+
+
+
 	//checking grocery bag when walking in and putting groceries in fridge
 	public void checkGroceryBag() {
+		checkedGroceryBag= true;
+
 		if (groceryBag.size() > 0) {
 			event = HomeEvent.putGroceriesInFridge;
+
 			//stateChanged();
 		} else
 			event = HomeEvent.none;
@@ -391,19 +415,21 @@ public class ResidentRole extends Role implements Resident {
 	public void goToFridge() {
 		residentGui.DoGoToFridge();
 	}
-	public void atFridge() {
-		System.out.println("atfridge********************");
-		event = HomeEvent.atFridge;
-		//stateChanged();
-	}
+
 	public void putGroceriesInFridge(Map<String, Integer> groceryBag) {
 		//residentGui.DoGoToFridge();
-		fridgeFoods.get("Steak").setAmount(
-				fridgeFoods.get("Steak").getAmount() + groceryBag.get("Steak"));
+		print("putting item Steak into fridge. My grocery bag is filled with " + groceryBag.get("Steak"));
+		groceryBag = myPerson.groceryBag;
+		int temp = groceryBag.get("Chicken");
+		fridgeFoods.get("Chicken").setAmount(groceryBag.get("Chicken"));
+		//print("Grocery bag ")
+		//fridgeFoods.get("Steak").setAmount(fridgeFoods.get("Steak").getAmount() + groceryBag.get("Steak"));
+		
+		/*fridgeFoods.get("Steak").setAmount(10);
 		groceryBag.put("Steak", 0);
 		fridgeFoods.get("Chicken").setAmount(
 				fridgeFoods.get("Chicken").getAmount()
-						+ groceryBag.get("Chicken"));
+				+ groceryBag.get("Chicken"));
 		groceryBag.put("Chicken", 0);
 		fridgeFoods.get("Pizza").setAmount(
 				fridgeFoods.get("Pizza").getAmount() + groceryBag.get("Pizza"));
@@ -411,23 +437,30 @@ public class ResidentRole extends Role implements Resident {
 		fridgeFoods.get("Salad").setAmount(
 				fridgeFoods.get("Salad").getAmount() + groceryBag.get("Salad"));
 		groceryBag.put("Salad", 0);
-		
+*/
+		checkedGroceryBag = false;
+
+		myPerson.groceryBag.clear();
+
 		event = HomeEvent.none;
 	}
-	
-	
-	
+
+
+
 	//got hungry events
 	public void gotHungry() {
 		System.out.println("I'm hungry");
 		event = HomeEvent.gotHungry;
-		//stateChanged();
+		print("got hungry statechanged");
+		stateChanged();
 	}
-	
+
 	public String checkFoodSupply() {
 		System.out.println("check food supply **********");
-		String choice = randomizeFoodChoice();
-		// String choice = "food";
+		if(!myPerson.groceryBag.isEmpty())
+			putGroceriesInFridge(myPerson.groceryBag);
+		//String choice = randomizeFoodChoice();
+		String choice = "Chicken";
 		Food f = fridgeFoods.get(choice);
 
 		if (checkInventory(f)) {
@@ -453,24 +486,24 @@ public class ResidentRole extends Role implements Resident {
 			// o.outOfStock = true;
 			System.out.println( "no more " + choice + "in fridge.");
 			addToGroceryList(f);
-			print("about to chamge state to check empty fridge");
+			print("about to change state to check empty fridge");
 			event = HomeEvent.EmptyFridge;
 			//stateChanged();
 		}
 		return choice;
 	}
-	
+
 	public void goToStove(String type) {
 		System.out.println("resident cooking Food");
 		residentGui.DoGoToStove();
 	}
-	
+
 	public void atStove() {
 		//residentGui.cooking = true;
 		Food myChoice = new Food(type);
 		DoCooking(myChoice); // cooking timer
 	}
-	
+
 	private void DoCooking(Food f) {
 		System.out.println("Do Cooking");
 
@@ -478,33 +511,36 @@ public class ResidentRole extends Role implements Resident {
 		timer.schedule(new TimerTask() {
 			public void run() {
 				event = HomeEvent.doneCooking;
-				//stateChanged();
+				print("done cooking statechanged");
+				stateChanged();
 			}
 		}, cookingTime * 250);
 		//residentGui.cooking = false;
 	}
-	
+
 	public void goToPlatingArea() {
 		System.out.println("resident plating Food");
 		residentGui.DoGoToPlatingArea();
 	}
-	
+
 	public void atPlatingArea() {
 		//residentGui.plating = true;
 		DoPlating();
+		//stateChanged();
 	}
-	
+
 	private void DoPlating() {
 		System.out.println("Do plating");
 		timer.schedule(new TimerTask() {
 			public void run() {
+				print("done plating statechanged");
 				event = HomeEvent.donePlating;
-				//stateChanged();
+				stateChanged();
 			}
 		}, 3000);
 		//residentGui.plating = false;
 	}
-	
+
 	public void goToTable() {
 		System.out.println("resident eating Food");
 		// residentGui.waitingForFood=false;
@@ -515,12 +551,12 @@ public class ResidentRole extends Role implements Resident {
 		// customerGui.receivedFood=false;
 		// isHungry = false;
 	}
-	
+
 	public void AtTable() {
 		//residentGui.eating = true;
 		DoEatFood();
 	}
-	
+
 	public void DoEatFood(){
 		timer.schedule(new TimerTask() {
 			public void run() {
@@ -528,30 +564,33 @@ public class ResidentRole extends Role implements Resident {
 				System.out.println("resident done eating");
 				//residentGui.eating = false;
 				event = HomeEvent.doneEating;
+				hungry = false;
 				myPerson.justAte();
 			}
 		}, 2500);
 	}
-	
+
 	public void goToSink() {
 		System.out.println("resident cleaning plates");
 		residentGui.DoClearFood();
 	}
-	
+
 	public void atSink() {
 		//residentGui.clearing = true;
 		clearFood();
 	}
-	
+
 	public void clearFood() {
 		System.out.println("resident cleaning plates");
-		
+
 		stateChanged();
 		timer.schedule(new TimerTask() {
 			public void run() {
 				System.out.println("resident done cleaning");
 				event = HomeEvent.doneClearing;
+				print("done clearing statechanged");
 				//residentGui.clearing = false;
+				stateChanged();
 			}
 		}, 3000);
 	}
@@ -565,12 +604,13 @@ public class ResidentRole extends Role implements Resident {
 		state = HomeState.LeftHouse;
 		event = HomeEvent.LeftHouse;
 		//stateChanged();
-		
+		//myPerson.leftBuilding(this);
 		//state = HomeState.DoingNothing;
-		
+
 	}
 
 	public void returnToHomePosition() {
+		print("Going to home position");
 		residentGui.DoReturnToHomePosition();
 		event = HomeEvent.none;
 		//stateChanged();
@@ -581,11 +621,11 @@ public class ResidentRole extends Role implements Resident {
 		residentGui.DoGoToBed();
 		DoSleeping();
 	}
-	
+
 	public void atBed() {
 		residentGui.sleeping = true;
 		event = HomeEvent.doneSleeping;
-		stateChanged();
+		//stateChanged();
 	}
 
 	public void exited() {
@@ -593,9 +633,9 @@ public class ResidentRole extends Role implements Resident {
 		//event = HomeEvent.none;
 	}
 
-	
+
 	public void atHome() {
-		
+
 	}
 
 
@@ -623,7 +663,7 @@ public class ResidentRole extends Role implements Resident {
 
 	private void addToGroceryList(Food f) {
 		System.err.println("add to grocery list and go get groceries");
-		groceryList.put(f.getType(), f.getAmount());
+		groceryList.put(f.getType(), f.getCapacity());
 		myPerson.homeNeedsGroceries(groceryList);
 	}
 
@@ -685,5 +725,5 @@ public class ResidentRole extends Role implements Resident {
 		}
 
 	}
-		
+
 }
