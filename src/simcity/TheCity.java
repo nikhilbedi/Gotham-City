@@ -7,8 +7,12 @@ import simcity.Market.Market;
 import simcity.bank.Bank;
 import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant1.Restaurant1;
+import simcity.restaurants.restaurant4.Restaurant4;
 
 public class TheCity {
+	
+	//private static Vector<PersonAgent> people = new Vector<PersonAgent>();
+	
 	static List<String> homeList = new ArrayList<String>();
 	static List<String> jobLocationList = new ArrayList<String>();
 	static List<String> jobPositionList = new ArrayList<String>();
@@ -16,10 +20,11 @@ public class TheCity {
 	static List<String> homeOwnerList = new ArrayList<String>();
 	
 	static ArrayList<Building> buildings = new ArrayList<Building>();
-	static Building house;
+	static Building rest1, rest2, rest3, rest4, rest5;
+	static Building home;
 	static Building market;
 	static Building bank;
-	static Building rest1;
+	
 	
 	static{//populate person-specific elements
 	homeList.add("None (Homeless Shelter)");
@@ -39,19 +44,37 @@ public class TheCity {
 	}
 	
 	static{//populate Buildings
-		house = new Home("House", 390, 590, 400, 600);
-		house.setImagePath("/resources/Buildings/House.png");
-		market = new Market("Market", 210, 110, 200, 100);
-		market.setImagePath("/resources/Buildings/Market.png");
-		bank = new Bank("Bank", 410, 110, 400, 100);
-		bank.setImagePath("/resources/Buildings/Bank.png");
-		rest1 = new Restaurant1("Restauarant 1", 610, 110, 600, 100);
-		rest1.setImagePath("/resources/Buildings/Restaurant.png");
+		home = new Home("Home", 390, 590, 400, 600);
+		home.setImagePath("/resources/Buildings/HouseDark2.png");
+	
+		
+		market = new Market("Market", 500, 100, 500, 100);
+		market.setImagePath("/resources/Buildings/MarketDark2.png");
+		bank = new Bank("Bank", 350, 100, 350, 100);
+		bank.setImagePath("/resources/Buildings/BankDark2.png");
+		
+		rest1 = new Restaurant1("Restaurant 1", 200, 100, 200, 100);
+		rest1.setImagePath("/resources/Buildings/RestaurantDark2.png");
+		rest2 = new Restaurant1("Restaurant 2", 50, 200, 50, 200);
+		rest2.setImagePath("/resources/Buildings/RestaurantDark2.png");
+		rest3 = new Restaurant1("Restaurant 3", 650, 200, 650, 200);
+		rest3.setImagePath("/resources/Buildings/RestaurantDark2.png");
+		rest4 = new Restaurant4("Restaurant 4", 50, 400, 50, 400);
+		rest4.setImagePath("/resources/Buildings/RestaurantDark2.png");
+		rest5 = new Restaurant1("Restaurant 5", 650, 400, 650, 400);
+		rest5.setImagePath("/resources/Buildings/RestaurantDark2.png");
 
-		buildings.add(house);
+		buildings.add(home);
 		buildings.add(market);
 		buildings.add(bank);
 		buildings.add(rest1);
+		buildings.add(rest2);
+		buildings.add(rest3);
+		buildings.add(rest4);
+		buildings.add(rest5);
+		
+		
+		
 	}
 	public static List<String> getJobLocs(){
 		return jobLocationList;
@@ -70,18 +93,31 @@ public class TheCity {
 	}
 	
 	public static Building getBuildingFromString(String s){
-		if(s.equalsIgnoreCase("home")){
-		return house;	
+		if(s.equalsIgnoreCase("Restaurant 1")){
+			return rest1;
 		}
-		if(s.equalsIgnoreCase("market")){
-		return market;	
+		if(s.equalsIgnoreCase("Restaurant 2")){
+			return rest2;
 		}
-		if(s.equalsIgnoreCase("bank")){
-		return bank;	
+		if(s.equalsIgnoreCase("Restaurant 3")){
+			return rest3;
 		}
-		if(s.equalsIgnoreCase("rest1")){
-		return rest1;	
+		if(s.equalsIgnoreCase("Restaurant 4")){
+			return rest4;
 		}
+		if(s.equalsIgnoreCase("Restaurant 5")){
+			return rest5;
+		}
+		if(s.equalsIgnoreCase("Market")){
+			return market;
+		}
+		if(s.equalsIgnoreCase("Bank")){
+			return bank;
+		}
+		if(s.equalsIgnoreCase("Home")){
+			return home;
+		}
+
 		return null;
 	}
 	
@@ -90,14 +126,12 @@ public class TheCity {
 	public List<Restaurant> getRestaurantList(){
 		List<Restaurant> tempcast = new ArrayList<Restaurant>();
 		tempcast.add((Restaurant)rest1);
-
 		return tempcast;
 	}
 
 	public List<Market> getMarketList(){
 		List<Market> tempcast = new ArrayList<Market>();
 		tempcast.add((Market)market);
-
 		return tempcast;
 	}
 
@@ -107,7 +141,7 @@ public class TheCity {
 
 	public Home getHomeHack(){
 		//this is labeled as a Hack because technically there should be multiple homes
-		return (Home)house;
+		return (Home)home;
 	}
 	
 }

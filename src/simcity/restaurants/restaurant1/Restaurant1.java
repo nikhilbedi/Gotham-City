@@ -42,4 +42,9 @@ public class Restaurant1 extends Restaurant {
 	public Role getCashier() {
 		return (CashierRole)cashier;
 	}
+	
+	@Override
+	public String getCustomerName(){
+		return "restaurant1customer";
+	}
 }

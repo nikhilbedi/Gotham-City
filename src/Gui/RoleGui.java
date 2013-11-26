@@ -12,7 +12,7 @@ public class RoleGui {
 
 	protected int xPos, yPos;
 	protected int xDestination, yDestination;
-	private static int speed = 2;
+	private static int speed = 1;
 
 	private int repeat, repeatBuffer = 10;
 
@@ -50,7 +50,6 @@ public class RoleGui {
 		//this.gui = gui;
 	}
 
-
 	public RoleGui(Role r, Screen meScreen) {
 		// TODO Auto-generated constructor stub
 	}
@@ -81,7 +80,7 @@ public class RoleGui {
 		updateImage();
 	}
 
-	private void updateImage(){	      
+	public void updateImage(){	      
 		if(o == Orientation.North)
 		{
 			if(repeat > repeatBuffer){

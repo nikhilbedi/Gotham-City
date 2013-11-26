@@ -14,12 +14,16 @@ import Gui.Screen;
 import Gui.ScreenFactory;
 
 import java.awt.*;
+import java.util.List;
+import java.util.ArrayList;
 
 
 public class RestaurantNikhilAnimationPanel extends Screen  {
 	MainScreen mainScreen = ScreenFactory.getMainScreen();
+	Restaurant r1;
 	//TODO WE NEED TO CHECK THE TYPE OF EACH RESTAURANT TO MAKE SURE WE MAKE IT EQUAL TO THE CORRECT REST.
-	Restaurant r1 = mainScreen.getRestaurantList().get(0);
+	List<Restaurant> restaurants = mainScreen.getRestaurantList();
+	
 	/*private final int WINDOWX = 350;
     private final int WINDOWY = 250;
     private Image bufferImage;
@@ -30,6 +34,11 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 
 	public RestaurantNikhilAnimationPanel() { 
 		super();
+		for(Restaurant r : restaurants) {
+			if(r.getName().equals("Restaurant 1")){
+				r1 = r;
+			}
+		}
 		populate();
 		//System.err.println(" "+temp);
 		//Timer timer = new Timer(20, this );
