@@ -2,6 +2,7 @@ package simcity.restaurants.restaurant3;
 
 import java.util.*;
 
+import simcity.Market.interfaces.MarketCashier;
 import simcity.restaurants.restaurant3.Order.OrderState;
 import simcity.restaurants.restaurant3.gui.HostGui;
 import simcity.restaurants.restaurant3.interfaces.*;
@@ -28,6 +29,7 @@ public class CashierRole extends Role implements Cashier {
 	
 	public List<Order> orders = Collections.synchronizedList(new Vector<Order>()); 
 	public Map<String, Food> foods = Collections.synchronizedMap(new HashMap<String, Food>());
+	public List<Payment> payments = new ArrayList<Payment>();
 	private int threshold;
 	private String name;
 	private Semaphore atTable = new Semaphore(0,true);
@@ -39,7 +41,7 @@ public class CashierRole extends Role implements Cashier {
 	public enum CashierState {idle, calculating}
 	CashierState cashState;
 	public Map<Customer, Double> owed = Collections.synchronizedMap(new HashMap<Customer, Double>());
-	private double restaurantRevenue = 100;
+	private double restaurantRevenue = 1000;
 	
 	private int inventory = 5;
 	 
@@ -64,7 +66,7 @@ public class CashierRole extends Role implements Cashier {
 		
 	}
 	public CashierRole() {
-		
+		super();
 	}
 
 	public String getMaitreDName() {
@@ -74,7 +76,11 @@ public class CashierRole extends Role implements Cashier {
 	public String getName() {
 		return name;
 	}
-
+	
+	public void amountDue(double a, MarketCashier c){
+        payments.add(new Payment(c, a));
+        stateChanged();
+}
 	
 	// Messages
 	public void msgRequestCheck(Customer cust, Order o) {
@@ -93,11 +99,21 @@ public class CashierRole extends Role implements Cashier {
 		stateChanged();
 		
 	}
+	public void HereIsYourChange(double d, MarketCashier c ){
+        restaurantRevenue = restaurantRevenue + d;
+        myPerson.Do("Got change from market cashier " + d);
+        for (Payment payment: payments){
+                if (payment.cashier == c){
+                payment.state = Payment.OrderState.gotChange;
+                stateChanged();
+                }
+        }
+}
 	
-	public void msgPayMarketBill(double bill) {
+	//public void msgPayMarketBill(double bill) {
 		
-		this.restaurantRevenue -= bill;
-	}
+	//	this.restaurantRevenue -= bill;
+	//}
 
 	
 	/**
@@ -110,6 +126,19 @@ public class CashierRole extends Role implements Cashier {
             so that table is unoccupied and customer is waiting.
             If so seat him at the table.
 		 */
+		for (Payment payment: payments){
+            if (payment.state == Payment.OrderState.pending){
+                    payment.state = Payment.OrderState.paying;
+                    Pay(payment);
+                    return true;
+            }
+            if(payment.state == Payment.OrderState.gotChange){
+                    payment.state = Payment.OrderState.delete;
+                    Remove(payment);
+                    return true;
+            }
+            
+    }
 		for(Order o:orders) {
 			if(o.os == OrderState.requestCheck){
 				calculate(o);
@@ -137,6 +166,16 @@ public class CashierRole extends Role implements Cashier {
 	}
 	
 	// Actions
+	public void Pay(Payment p){
+        double money = round(p.amountDue);
+        restaurantRevenue = restaurantRevenue - money;
+        p.cashier.hereIsMoneyRestaurant(this, money);
+	}
+	private void Remove(Payment payment) {
+        payments.remove(payment);
+        stateChanged();
+        
+	}
 	private  void calculate(Order o) {
 		System.out.println("calculating order");
 		
@@ -179,6 +218,30 @@ public class CashierRole extends Role implements Cashier {
 		this.cook = cook;
 		
 	}
+	
+	public static class Payment{
+        MarketCashier cashier;
+        double amountDue;
+        public OrderState state;
+        public enum OrderState {pending, paying, paid, gotChange, delete};
+        
+        public Payment(MarketCashier c, double amountdue){
+                cashier = c;
+                amountDue = amountdue;
+                state = OrderState.pending;
+        }
+        
+}
+	private int round(double money){
+        double d = Math.abs(money);
+        int i = (int) d;
+        double result = d - (double) i;
+        if(result<0.5){
+            return money<0 ? -i : i;            
+        }else{
+            return money<0 ? -(i+1) : i+1;          
+        }
+    }
 	
 }
 

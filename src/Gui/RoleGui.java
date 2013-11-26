@@ -14,7 +14,7 @@ public class RoleGui {
 	protected int xDestination, yDestination;
 	private static int speed = 2;
 
-	private int repeat;
+	private int repeat, repeatBuffer = 10;
 
 
 	private enum Orientation{North, South, East, West};
@@ -22,14 +22,14 @@ public class RoleGui {
 
 	ImageIcon current;
 
-	ImageIcon south1 = new ImageIcon(this.getClass().getResource("/resources/Sprites/bunny_0.png"));
-	ImageIcon south2 = new ImageIcon(this.getClass().getResource("/resources/Sprites/bunny_1.png"));
-	ImageIcon west1 = new ImageIcon(this.getClass().getResource("/resources/Sprites/bunny_8.png"));
-	ImageIcon west2 = new ImageIcon(this.getClass().getResource("/resources/Sprites/bunny_9.png"));
-	ImageIcon east1 = new ImageIcon(this.getClass().getResource("/resources/Sprites/bunny_6.png"));
-	ImageIcon east2 = new ImageIcon(this.getClass().getResource("/resources/Sprites/bunny_7.png"));
-	ImageIcon north1 = new ImageIcon(this.getClass().getResource("/resources/Sprites/bunny_4.png"));
-	ImageIcon north2 = new ImageIcon(this.getClass().getResource("/resources/Sprites/bunny_5.png"));
+	ImageIcon south1 = new ImageIcon(this.getClass().getResource("/resources/Sprites/batman_South_2.png"));
+	ImageIcon south2 = new ImageIcon(this.getClass().getResource("/resources/Sprites/batman_South_3.png"));
+	ImageIcon west1 = new ImageIcon(this.getClass().getResource("/resources/Sprites/batman_West_1.png"));
+	ImageIcon west2 = new ImageIcon(this.getClass().getResource("/resources/Sprites/batman_West_3.png"));
+	ImageIcon east1 = new ImageIcon(this.getClass().getResource("/resources/Sprites/batman_East_1.png"));
+	ImageIcon east2 = new ImageIcon(this.getClass().getResource("/resources/Sprites/batman_East_3.png"));
+	ImageIcon north1 = new ImageIcon(this.getClass().getResource("/resources/Sprites/batman_North_2.png"));
+	ImageIcon north2 = new ImageIcon(this.getClass().getResource("/resources/Sprites/batman_North_3.png"));
 
 	public static final int guiSize = 20;
 
@@ -49,7 +49,6 @@ public class RoleGui {
 		current = south1;
 		//this.gui = gui;
 	}
-
 
 	public RoleGui(Role r, Screen meScreen) {
 		// TODO Auto-generated constructor stub
@@ -84,7 +83,7 @@ public class RoleGui {
 	private void updateImage(){	      
 		if(o == Orientation.North)
 		{
-			if(repeat >5){
+			if(repeat > repeatBuffer){
 				if(current == north1){
 					current = north2;
 				}
@@ -99,7 +98,7 @@ public class RoleGui {
 		}
 		else  if(o == Orientation.South)
 		{
-			if(repeat >5){
+			if(repeat > repeatBuffer){
 				if(current == south1){
 					current = south2;
 				}
@@ -114,7 +113,7 @@ public class RoleGui {
 		}
 		else  if(o == Orientation.East)
 		{
-			if(repeat >5){
+			if(repeat > repeatBuffer){
 				if(current == east1){
 					current = east2;
 				}
@@ -129,7 +128,7 @@ public class RoleGui {
 		}
 		else  if(o == Orientation.West)
 		{
-			if(repeat >5){
+			if(repeat > repeatBuffer){
 				if(current == west1){
 					current = west2;
 				}
@@ -151,7 +150,7 @@ public class RoleGui {
 
 	public void draw(Graphics g){
 		g.setColor(myColor);
-		g.fillRect(xPos, yPos, guiSize, guiSize);
+		//g.fillRect(xPos, yPos, guiSize, guiSize);
 		g.drawImage(current.getImage(), xPos, yPos, null);
 	}
 

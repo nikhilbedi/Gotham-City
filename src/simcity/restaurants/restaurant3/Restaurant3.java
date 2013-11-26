@@ -46,7 +46,7 @@ public class Restaurant3 extends Restaurant {
             int guiY) {
 		super(type, entranceX, entranceY, guiX, guiY);
 
-		this.name = name;
+		this.name = type;
 		cashState = CashierState.idle;
 		
 		
@@ -91,11 +91,27 @@ public class Restaurant3 extends Restaurant {
 	public double getRestaurantRevenue() {
 		return restaurantRevenue;
 	}
-	
+	//@Override
 	public void setCook(CookRole cook) {
 		this.cook = cook;
 		
 	}
+	//@Override
+	 public void setHost(HostRole host) {
+         this.host = host;
+	 }
+	 @Override
+	 public Role getHost() {
+         return host;
+	 }
+	 //@Override
+	 public void setCashier(CashierRole cashier) {
+         this.cashier = cashier;
+	 }
+	 @Override
+	 public Role getCashier() {
+         return cashier;
+	 }	
 	
 }
 

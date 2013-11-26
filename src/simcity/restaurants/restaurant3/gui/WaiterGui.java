@@ -1,6 +1,7 @@
 package simcity.restaurants.restaurant3.gui;
 
 import Gui.RoleGui;
+import Gui.ScreenFactory;
 
 import java.awt.*;
 import java.util.*;
@@ -11,9 +12,9 @@ public class WaiterGui extends RoleGui {
 
     private WaiterRole agent = null;
 
-    public int xPos = +40, yPos = +40;//default waiter position
+    //public int xPos = +40, yPos = +40;//default waiter position
     private static int Width = 20, Height = 20;
-    private int xDestination = +40, yDestination = +40;//default start position
+    //private int xDestination = +40, yDestination = +40;//default start position
     private int tableVariation = 85;
     private int waiterVariation = 20;
     private boolean returningToDoor = false;
@@ -165,6 +166,9 @@ public class WaiterGui extends RoleGui {
     public void draw(Graphics g) {
         g.setColor(Color.MAGENTA);
         g.fillRect(xPos, yPos, Width, Height);
+        if (deliveringFood){				
+        	g.drawString("bringing " + order, getXPos(), getYPos());
+        }
     }
     
     public boolean isPresent() {

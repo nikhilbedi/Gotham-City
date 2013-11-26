@@ -40,6 +40,5 @@ public class Home extends Building{
 	public void setRentBills(List<RentBill> rentBills) {
 		this.rentBills = rentBills;
 	}
-
 }	
 

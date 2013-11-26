@@ -9,9 +9,11 @@ import java.util.TimerTask;
 import simcity.PersonAgent;
 import Gui.ScreenFactory;
 import agent.Role;
+import simcity.Home.ResidentRole.HomeEvent;
 import simcity.Market.MarketGui.MarketAnimationPanel;
 import simcity.Market.interfaces.MarketCashier;
 import simcity.restaurants.restaurant3.Order.OrderState;
+import simcity.restaurants.restaurant3.Restaurant3CustomerRole.AgentEvent;
 import simcity.restaurants.restaurant3.gui.CookGui;
 import simcity.restaurants.restaurant3.gui.HostGui;
 import simcity.restaurants.restaurant3.interfaces.*;
@@ -35,7 +37,7 @@ public class CookRole extends Role implements Cook{
 	private CookGui cookGui;
 	public CashierRole restCashier;
 	public MarketCashier cashier;
-
+	Timer timer = new Timer();
 	//private WaiterAgent waiter;
 
 
@@ -92,6 +94,16 @@ public class CookRole extends Role implements Cook{
 		o.os = OrderState.doneCooking;
 		stateChanged();
 	}
+	
+	public void HereIsYourFood(Map<String, Integer> m){ 	 //from market
+		 for (Map.Entry<String, Integer> entry: m.entrySet()){
+             Food f = foods.get(entry.getKey());
+             f.amount =  entry.getValue();
+             foods.put(entry.getKey(), f);
+             System.out.println("Got order from market, now I have " + f.type + " " + f.amount);
+     }
+		}
+
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
@@ -138,14 +150,21 @@ public class CookRole extends Role implements Cook{
 
 	}
 
-	private void plateIt(Order o) {
+	private void plateIt(final Order o) {
 		System.out.println(this.getName() + " is plating the food");
-		DoPlating(o);
-		o.waiter.msgOrderIsReady(o); 
+		
+		CookGui.cooking = false;
+		CookGui.plating = true;
+		timer.schedule(new TimerTask() {
+			public void run() {
+				o.waiter.msgOrderIsReady(o);
+			}
+		}, 3000);
+		//DoPlating(o);
 		orders.remove(o);
 	}
 
-	private void tryToCookIt(Order o) {
+	private void tryToCookIt(final Order o) {
 		//print("cookIt action");
 
 		Food f = foods.get(o.choice.getType());
@@ -154,15 +173,21 @@ public class CookRole extends Role implements Cook{
 			//print("cook is cooking the food");
 			int amount = f.getAmount() - 1;
 			f.setAmount (amount);			
-			DoCooking(o);
+			//DoCooking(o);
 			System.out.println(this.getName() + " is cooking the food");
 			o.os = OrderState.cooking;
 			CookGui.order = o.choice.getType();
 			CookGui.tableNumber = o.tableNumber;
 			CookGui.cooking = true;
 			CookGui.plating = false;
-			DoCooking(o); 
-			msgFoodDone(o);
+			int cookingTime = o.choice.getCookingTime();
+			timer.schedule(new TimerTask() {
+				public void run() {
+					msgFoodDone(o);
+				}
+			}, cookingTime * 250);
+			//DoCooking(o); 
+			
 
 			// check low threshold
 			for (Map.Entry<String, Food> entry: foods.entrySet()){
@@ -193,6 +218,18 @@ public class CookRole extends Role implements Cook{
 		//timer.start(run(foodDone(o)));
 		//foods.get(o.choice);
 	}
+	/*
+	private void DoCooking(Order o) {
+		System.out.println("Do Cooking");
+		int cookingTime = o.choice.getCookingTime();
+		try {
+			Thread.currentThread().sleep(cookingTime*250);
+		} catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+	}
+	*/
 
 
 	private void OrderFoodThatIsLow(Map<String, Integer> neededFood) {
@@ -246,24 +283,10 @@ public class CookRole extends Role implements Cook{
 
 	//utilities
 
-	private void DoCooking(Order o) {
-		System.out.println("Do Cooking");
-		int cookingTime = o.choice.getCookingTime();
-		try {
-			Thread.currentThread().sleep(cookingTime*250);
-		} catch(Exception e) {
-			System.out.println(e.getMessage());
-		}
-	}
+	
 	private void DoPlating(Order o) {
 		//int cookingTime = o.choice.getCookingTime();
-		try {
-			CookGui.cooking = false;
-			CookGui.plating = true;
-			Thread.currentThread().sleep(2000);
-		} catch(Exception e) {
-			System.out.println(e.getMessage());
-		}
+		
 	}
 	public void setGui(HostGui gui) {
 		hostGui = gui;

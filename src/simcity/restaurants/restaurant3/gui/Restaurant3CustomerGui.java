@@ -16,9 +16,9 @@ public class Restaurant3CustomerGui extends RoleGui{
 	public String order;
 	//private HostAgent host;
 
-	private int xPos, yPos;
+	//private int xPos, yPos;
 	private static int Width, Height;
-	private int xDestination, yDestination;
+	//private int xDestination, yDestination;
 	private int tableVariation;
 	private enum Command {noCommand, GoToSeat, GoToCashier, LeaveRestaurant};
 	private Command command=Command.noCommand;
@@ -101,6 +101,13 @@ public class Restaurant3CustomerGui extends RoleGui{
 	public void draw(Graphics g) {
 		g.setColor(Color.GREEN);
 		g.fillRect(xPos, yPos, Width, Height);
+		if (waitingForFood){
+			g.drawString("waiting for " + order, getXPos(), getYPos());
+		}
+		if (receivedFood) {
+			g.drawString("eating " + order, getXPos(), getYPos());
+		}
+		
 	}
 
 	public boolean isPresent() {

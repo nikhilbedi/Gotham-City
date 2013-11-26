@@ -1,12 +1,8 @@
 package simcity.restaurants.restaurant3;
 
 import simcity.PersonAgent;
-import simcity.restaurants.restaurant3.WaiterRole;
-
-import simcity.restaurants.restaurant3.HostRole;
-import simcity.restaurants.restaurant3.Menu;
+import simcity.Home.ResidentRole.HomeEvent;
 import simcity.restaurants.restaurant3.*;
-import simcity.restaurants.restaurant3.Food;
 import simcity.restaurants.restaurant3.gui.Restaurant3CustomerGui;
 import simcity.restaurants.restaurant3.interfaces.*;
 import Gui.RoleGui;
@@ -63,9 +59,9 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 		//hello
 		
 		name = getPersonAgent().getName();
-		
-		Random random = new Random();
-		this.wallet = random.nextInt(20); //random generated amount of money in wallet.
+		wallet = myPerson.getMoney();
+		//Random random = new Random();
+		//this.wallet = random.nextInt(20); //random generated amount of money in wallet.
 		//this.wallet = 7;
 		//this.wallet = 0;
 		System.out.println(" initially has $" + wallet + " .");
@@ -74,8 +70,9 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 		super();
 		customerGui = (Restaurant3CustomerGui)super.gui;
 		//hello
-		Random random = new Random();
-		this.wallet = random.nextInt(20); //random generated amount of money in wallet.
+		wallet = myPerson.getMoney();
+		//Random random = new Random();
+		//this.wallet = random.nextInt(20); //random generated amount of money in wallet.
 		//this.wallet = 7;
 		//this.wallet = 0;
 		System.out.println(" initially has $" + wallet + " .");
@@ -101,7 +98,7 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 	}
 	
 	public void setWallet(double newWallet) {
-		this.wallet = newWallet;
+		//this.wallet = newWallet;
 	}
 	
 	// Messages
@@ -161,6 +158,7 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 	public void msgAnimationFinishedLeaveRestaurant() {
 		//from animation
 		System.out.println("Received msgFinishedLeaveRestaurant");
+		myPerson.leftBuilding(this);
 		event = AgentEvent.doneLeaving;
 		stateChanged();
 	}
@@ -283,7 +281,7 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 	private void SayChoice() {
 //		Do("Customer orders food");
 		System.out.println("Customer says what type of food he/she wants.");
-		if (wallet < cheapestFood()) {
+		if (myPerson.getMoney() < cheapestFood()) {
 			//Random random = new Random();
 			//boolean leaveRestaurant = random.nextBoolean();
 			if (leaveRestaurant) {
@@ -340,24 +338,25 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 			}
 		},
 		5000);//getHungerLevel() * 1000);//how long to wait before running task*/
-		try {
-			Thread.currentThread().sleep(5000);
-		}catch(Exception e) {
-			System.out.print(e.getMessage());
-		}
+		timer.schedule(new TimerTask() {
+			public void run() {
+				myPerson.justAte();
+				System.out.println("Done eating");
+				event = AgentEvent.doneEating;
+				stateChanged();
+			}
+		}, 3000);
 		
-		System.out.println("Done eating");
-		event = AgentEvent.doneEating;
 		customerGui.receivedFood=false;
 		//isHungry = false;
-		stateChanged();
+		
 	}
 	
 	private void PayCheck() {
 		System.out.println(this.getName() + " is going to the cashier and paying the check");
 		customerGui.DoGoToCashier();
-		if (wallet >= order.totalPrice) {
-			this.setWallet(wallet - order.totalPrice);
+		if (myPerson.getMoney() >= order.totalPrice) {
+			myPerson.setMoney(myPerson.getMoney() - order.totalPrice);
 			cashier.setRestaurantRevenue(order.totalPrice);
 		}
 		else {

@@ -1,21 +1,29 @@
 package simcity.restaurants.restaurant1.gui;
 
-import javax.swing.*;
-
-import simcity.PersonAgent;
+import simcity.bank.Bank;
+import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant1.CashierRole;
 import simcity.restaurants.restaurant1.CookRole;
-import simcity.restaurants.restaurant1.CustomerRole;
 import simcity.restaurants.restaurant1.HostRole;
+import simcity.restaurants.restaurant1.Restaurant1;
 import simcity.restaurants.restaurant1.WaiterRole;
+import simcity.PersonAgent;
+import simcity.Robot;
+import Gui.MainScreen;
 import Gui.Screen;
+import Gui.ScreenFactory;
 
 import java.awt.*;
 import java.util.List;
 import java.util.ArrayList;
 
-public class RestaurantNikhilAnimationPanel extends Screen  {
 
+public class RestaurantNikhilAnimationPanel extends Screen  {
+	MainScreen mainScreen = ScreenFactory.getMainScreen();
+	Restaurant r1;
+	//TODO WE NEED TO CHECK THE TYPE OF EACH RESTAURANT TO MAKE SURE WE MAKE IT EQUAL TO THE CORRECT REST.
+	List<Restaurant> restaurants = mainScreen.getRestaurantList();
+	
 	/*private final int WINDOWX = 350;
     private final int WINDOWY = 250;
     private Image bufferImage;
@@ -26,6 +34,7 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 
 	public RestaurantNikhilAnimationPanel() { 
 		super();
+		r1 = ScreenFactory.getMainScreen().getRestaurantList().get(0);
 		populate();
 		//System.err.println(" "+temp);
 		//Timer timer = new Timer(20, this );
@@ -85,120 +94,45 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 
 
 	public void populate(){
-		PersonAgent custPerson = new PersonAgent("customer");
-		PersonAgent waiterPerson = new PersonAgent("waiter");
-		PersonAgent hostPerson = new PersonAgent("host");
-		PersonAgent cookPerson = new PersonAgent("cook");
-		PersonAgent cashierPerson = new PersonAgent("cashier");
+		PersonAgent waiterPerson = new Robot("waiter");
+		PersonAgent hostPerson = new Robot("host");
+		PersonAgent cookPerson = new Robot("cook");
+		PersonAgent cashierPerson = new Robot("cashier");
 		//PersonAgent custPerson = new PersonAgent("customer");
 		
-		CustomerRole custRole = new CustomerRole(custPerson);
 		WaiterRole waiterRole = new WaiterRole(waiterPerson);
 		HostRole hostRole = new HostRole(hostPerson);
 		CookRole cookRole = new CookRole(cookPerson);
 		CashierRole cashierRole = new CashierRole(cashierPerson);
 		
-		CustomerGui custGui = new CustomerGui(custRole);
 		WaiterGui waiterGui = new WaiterGui(waiterRole,0);
 		CookGui cookGui = new CookGui(cookRole);
 		
-		custRole.setGui(custGui);
 		waiterRole.setGui(waiterGui);
 		cookRole.setGui(cookGui);
-		
-/*		custRole.setPerson(custPerson);
-		waiterRole.setPerson(waiterPerson);
-		hostRole.setPerson(hostPerson);
-		cookRole.setPerson(cookPerson);
-		cashierRole.setPerson(cashierPerson);*/
 
-		custPerson.addRole(custRole);
 		waiterPerson.addRole(waiterRole);
 		hostPerson.addRole(hostRole);
 		cookPerson.addRole(cookRole);
 		cashierPerson.addRole(cashierRole);
 		
-		
-		addGui(custGui);
 		addGui(waiterGui);
 		addGui(cookGui);
-		
-		custRole.setHost(hostRole);
-		custRole.setCashier(cashierRole);
+
 		waiterRole.setHost(hostRole);
 		waiterRole.setCook(cookRole);
 		waiterRole.setCashier(cashierRole);
 		hostRole.addWaiter(waiterRole);
 		
-		custRole.gotHungry();
+		r1.setCashier(cashierRole);
+		r1.setHost(hostRole);
 		
-
 		hostPerson.startThread();
-		custPerson.startThread();
 		cashierPerson.startThread();
 		waiterPerson.startThread();
 		cookPerson.startThread();
 		
-		/*HostRole host = new HostRole();
-		HostGui hostGui = new HostGui(host);
-		PersonAgent hostp = new PersonAgent("Host");
 		
-		//Implementing Cooks
-		CookRole cook = new CookRole();
-		CookGui cookgui = new CookGui(cook);
-		
-		//implement cashier
-		CashierRole cashier = new CashierRole();
-
-		WaiterRole waiter = new WaiterRole();
-
-		//Customer
-		CustomerRole customer = new CustomerRole();
-
-		PersonAgent waiterp = new PersonAgent("waiter");
-
-
-		
-		PersonAgent customerp = new PersonAgent("customer");
-		PersonAgent cookp = new PersonAgent("cook");
-		PersonAgent cashierp = new PersonAgent("cashier");
-
-		CustomerGui cgui = new CustomerGui(customer);
-		WaiterGui wgui = new WaiterGui(waiter,0);
-
-
-
-		host.setGui(hostGui);
-		host.setPerson(hostp);
-
-		//setting cook
-
-		cook.setPerson(cookp);
-		cook.setGui(cookgui);
-		cashier.setPerson(cashierp);
-		waiter.setPerson(waiterp);
-		customer.setPerson(customerp);
-
-		hostp.startThread();
-		customerp.startThread();
-		cashierp.startThread();
-		waiterp.startThread();
-		cookp.startThread();
-
-		hostp.addRole(host);
-		customerp.addRole(customer);
-		cashierp.addRole(cashier);
-		waiterp.addRole(waiter);
-		cookp.addRole(cook);
-
-		customer.setGui(cgui);
-		waiter.setGui(wgui);
-		host.msgIWantFood(customer);
-
-		addGui(cookgui);
-		addGui(new HostGui(host));
-		addGui(wgui);
-		addGui(cgui);*/
 
 	}
 }

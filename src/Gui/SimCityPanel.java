@@ -2,6 +2,7 @@ package Gui;
    import java.awt.event.*;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
@@ -13,6 +14,7 @@ import java.util.*;
       Player player;//this will soon be replaced by AgentGuis
       //ScreenFactory loader;
       Screen currentScreen;
+   
       boolean start;
       boolean always = true;
            
@@ -54,11 +56,13 @@ import java.util.*;
             //Have map check coords
             String swap = currentScreen.checkSwap(x,y);
             //System.out.println("swap is " + swap);
+    		//swap = "Restaurant";
             Screen swapScreen = ScreenFactory.getMeScreen(swap);
             if(!(swapScreen == null)){
                     currentScreen = swapScreen;
+                    selPane.refresh();
                     //currentScreen.generate();
-            }
+            } 
     }
       
       
@@ -78,6 +82,17 @@ import java.util.*;
         public MainScreen getCityScreen(){
         	return ScreenFactory.getMainScreen();
         }
+        
+        public PersonSelectionPane getSelPane() {
+    		return selPane;
+    	}
+
+
+    	public void setSelPane(PersonSelectionPane selPane) {
+    		this.selPane = selPane;
+    	}
+
+    	PersonSelectionPane selPane;
     
     
         @Override        

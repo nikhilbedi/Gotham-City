@@ -123,6 +123,7 @@ public class ResidentRole extends Role implements Resident {
 		//msgCheckGroceryBag();
 	}
 
+
 	/**
 	 * hack to establish connection to Host agent.
 	 */

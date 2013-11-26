@@ -10,9 +10,9 @@ public class HostGui extends RoleGui {
 
     private HostRole agent = null;
 
-    private int xPos = +40, yPos = +40;//default waiter position
+    //private int xPos = +40, yPos = +40;//default waiter position
     private static int Width = 20, Height = 20;
-    private int xDestination = +40, yDestination = +40;//default start position
+    //private int xDestination = +40, yDestination = +40;//default start position
     private int tableVariation = 85;
     private boolean returningToDoor = false;
     public static final int xTable = 200;

@@ -270,7 +270,7 @@ public class CashierTest extends TestCase
 		//Order o = new Order(waiter, "Salad", 1, OrderState.requestCheck, customer);
 		//cashier.msgRequestCheck(customer, o);
 		double bill = 11.00;
-		cashier.msgPayMarketBill(bill);
+		//cashier.msgPayMarketBill(bill);
 		
 		assertEquals("MockWaiter should have an empty event log before the Cashier's scheduler is called. Instead, the MockWaiter's event log reads: "
 				+ waiter.log.toString(), 0, waiter.log.size());
@@ -346,7 +346,7 @@ public class CashierTest extends TestCase
 		//step 1 of the test
 		
 		double bill = 11.00;
-		cashier.msgPayMarketBill(bill);
+		//cashier.msgPayMarketBill(bill);
 
 		//check postconditions for step 1 and preconditions for step 2
 		//assertEquals("CashierBills should have 1 bill in it. It doesn't.", cashier.bills.size(), 1);
@@ -414,7 +414,7 @@ public class CashierTest extends TestCase
 		MarketFood f1 = Food.get("Chicken");
 		MarketFood f2 = Food.get("Chicken");
 		
-		cashier.msgPayMarketBill(m1.getAmountNeeded() * 7.99);
+		//cashier.msgPayMarketBill(m1.getAmountNeeded() * 7.99);
 		
 		/*
 		cashier.msgMarketBillDelivered(mb1);//send the message from a waiter

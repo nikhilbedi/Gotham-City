@@ -10,6 +10,7 @@ import simcity.Building;
  *
  */
 public class Restaurant extends Building {
+
         protected Role host;
         protected Role cashier;
         
@@ -37,5 +38,5 @@ public class Restaurant extends Building {
                 return cashier;
         }
         
-        
+       
 }

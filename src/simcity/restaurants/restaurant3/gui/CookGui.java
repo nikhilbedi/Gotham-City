@@ -13,9 +13,9 @@ public class CookGui extends RoleGui {
 
     private CookRole agent = null;
 
-    private int xPos = +20, yPos = +200;//default cook position
+    //private int xPos = +20, yPos = +200;//default cook position
     private static int Width = 20, Height = 20;
-    private int xDestination = +20, yDestination = +200;//default start position
+    //private int xDestination = +20, yDestination = +200;//default start position
     //private int tableVariation = 85;
     //private boolean returningToDoor = false;
     //public static final int xTable = 200;
@@ -68,6 +68,34 @@ public class CookGui extends RoleGui {
     public void draw(Graphics g) {
         g.setColor(Color.BLACK);
         //g.fillRect(xPos, yPos, Width, Height);
+        if(cooking) {
+        	if(tableNumber == 1) {
+				g.drawString("cooking " + order, 0, 145);
+        	}
+			if(tableNumber == 2) {
+				g.drawString("cooking " + order, 0, 160);
+			}
+			if(tableNumber == 3) {
+				g.drawString("cooking " + order, 0, 175);
+			}
+			if(tableNumber == 4) {
+				g.drawString("cooking " + order, 0, 195);
+			}
+		}
+		if(plating) {
+			if(tableNumber == 1) {
+				g.drawString("plating " + order, 0, 225);
+			}
+			if(tableNumber == 2) {
+				g.drawString("plating " + order, 0, 240);
+			}
+			if(tableNumber == 3) {
+				g.drawString("plating " + order, 0, 255);
+			}
+			if(tableNumber == 4) {
+				g.drawString("plating " + order, 0, 270);
+			}
+		}
     }
 
     public boolean isPresent() {

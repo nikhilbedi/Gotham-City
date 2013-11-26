@@ -19,20 +19,22 @@ import java.util.*;
 public class RestaurantEvanAnimationPanel extends Screen  {
 	MainScreen mainScreen = ScreenFactory.getMainScreen();
 	//TODO WE NEED TO CHECK THE TYPE OF EACH RESTAURANT TO MAKE SURE WE MAKE IT EQUAL TO THE CORRECT REST.
-	Restaurant r3 = mainScreen.getRestaurantList().get(0);
+	Restaurant r3;
+	List<Restaurant> restaurants = mainScreen.getRestaurantList();
 	/*private final int WINDOWX = 350;
 	private final int WINDOWY = 250;
 	private Image bufferImage;
 	private Dimension bufferSize; */
 	private int width, height;
-	static final int xPos = 200;
-	static final int yPos = 150;
+	static final int tablexPos = 200;
+	static final int tableyPos = 150;
 	static final int WIDTH = 50;
 	static final int HEIGHT = 50;
 
 
 	public RestaurantEvanAnimationPanel() { 
 		super();
+		r3 = ScreenFactory.getMainScreen().getRestaurantList().get(2);
 		populate();
 		//System.err.println(" "+temp);
 		//Timer timer = new Timer(20, this );
@@ -61,85 +63,85 @@ public class RestaurantEvanAnimationPanel extends Screen  {
 
 		//Here is the table
 		g2.setColor(Color.ORANGE);
-		g2.fillRect(xPos, yPos, WIDTH, HEIGHT);//200 and 250 need to be table params
+		g2.fillRect(tablexPos, tableyPos, WIDTH, HEIGHT);//200 and 250 need to be table params
 
 		g2.setColor(Color.ORANGE);
-		g2.fillRect(xPos+85, yPos, WIDTH, HEIGHT);
+		g2.fillRect(tablexPos+85, tableyPos, WIDTH, HEIGHT);
 
 		g2.setColor(Color.ORANGE);
-		g2.fillRect(xPos, yPos+85, WIDTH, HEIGHT);
+		g2.fillRect(tablexPos, tableyPos+85, WIDTH, HEIGHT);
 
 		g2.setColor(Color.ORANGE);
-		g2.fillRect(xPos+85, yPos+85, WIDTH, HEIGHT);
+		g2.fillRect(tablexPos+85, tableyPos+85, WIDTH, HEIGHT);
 
 		
-		Screen restScreen = ScreenFactory.getMeScreen("rest3");
-		List<RoleGui> guis = restScreen.guis;
+		//Screen restScreen = ScreenFactory.getMeScreen("rest3");
+		//List<RoleGui> guis = restScreen.guis;
 		
 		
 		
-		for(RoleGui gui : guis) {
-			
-				Graphics order = (Graphics)g;
-				if (gui instanceof WaiterGui) {
-					WaiterGui waiterGui = (WaiterGui) gui;
-					if (waiterGui.deliveringFood)
-					{
-						order.drawString("bringing " + waiterGui.order, waiterGui.getXPos(), waiterGui.getYPos());
-					}
-				}
-				if (gui instanceof Restaurant3CustomerGui)
-				{
-					Restaurant3CustomerGui customerGui = (Restaurant3CustomerGui) gui;
-					if (customerGui.waitingForFood)
-					{
-						order.drawString("waiting for " + customerGui.order, customerGui.getXPos(), customerGui.getYPos());
-					}
-					if (customerGui.receivedFood)
-					{
-						order.drawString("eating " + customerGui.order, customerGui.getXPos(), customerGui.getYPos());
-					}
-				}
-
-				if (gui instanceof CookGui){
-					CookGui cookGui = (CookGui) gui;
-					if(cookGui.cooking) {
-						if(cookGui.tableNumber == 1) {
-							order.drawString("cooking " + cookGui.order, 0, 145);
-						}
-						if(cookGui.tableNumber == 2) {
-							order.drawString("cooking " + cookGui.order, 0, 160);
-						}
-						if(cookGui.tableNumber == 3) {
-							order.drawString("cooking " + cookGui.order, 0, 175);
-						}
-						if(cookGui.tableNumber == 4) {
-							order.drawString("cooking " + cookGui.order, 0, 195);
-						}
-					}
-					if(cookGui.plating) {
-						if(cookGui.tableNumber == 1) {
-							order.drawString("plating " + cookGui.order, 0, 225);
-						}
-						if(cookGui.tableNumber == 2) {
-							order.drawString("plating " + cookGui.order, 0, 240);
-						}
-						if(cookGui.tableNumber == 3) {
-							order.drawString("plating " + cookGui.order, 0, 255);
-						}
-						if(cookGui.tableNumber == 4) {
-							order.drawString("plating " + cookGui.order, 0, 270);
-						}
-					}
-				}
-
-				// else if(gui instanceof CustomerGui) {
-				//	CustomerGui customerGui = (CustomerGui) gui;
-				//order.drawString(customerGui.choice, customerGui.getXPos(), customerGui.getYPos());
-
-				//}
-
-			}
+//		for(RoleGui gui : guis) {
+//			
+//				Graphics order = (Graphics)g;
+//				if (gui instanceof WaiterGui) {
+//					WaiterGui waiterGui = (WaiterGui) gui;
+//					if (waiterGui.deliveringFood)
+//					{
+//						order.drawString("bringing " + waiterGui.order, waiterGui.getXPos(), waiterGui.getYPos());
+//					}
+//				}
+//				if (gui instanceof Restaurant3CustomerGui)
+//				{
+//					Restaurant3CustomerGui customerGui = (Restaurant3CustomerGui) gui;
+//					if (customerGui.waitingForFood)
+//					{
+//						order.drawString("waiting for " + customerGui.order, customerGui.getXPos(), customerGui.getYPos());
+//					}
+//					if (customerGui.receivedFood)
+//					{
+//						order.drawString("eating " + customerGui.order, customerGui.getXPos(), customerGui.getYPos());
+//					}
+//				}
+//
+//				if (gui instanceof CookGui){
+//					CookGui cookGui = (CookGui) gui;
+//					if(cookGui.cooking) {
+//						if(cookGui.tableNumber == 1) {
+//							order.drawString("cooking " + cookGui.order, 0, 145);
+//						}
+//						if(cookGui.tableNumber == 2) {
+//							order.drawString("cooking " + cookGui.order, 0, 160);
+//						}
+//						if(cookGui.tableNumber == 3) {
+//							order.drawString("cooking " + cookGui.order, 0, 175);
+//						}
+//						if(cookGui.tableNumber == 4) {
+//							order.drawString("cooking " + cookGui.order, 0, 195);
+//						}
+//					}
+//					if(cookGui.plating) {
+//						if(cookGui.tableNumber == 1) {
+//							order.drawString("plating " + cookGui.order, 0, 225);
+//						}
+//						if(cookGui.tableNumber == 2) {
+//							order.drawString("plating " + cookGui.order, 0, 240);
+//						}
+//						if(cookGui.tableNumber == 3) {
+//							order.drawString("plating " + cookGui.order, 0, 255);
+//						}
+//						if(cookGui.tableNumber == 4) {
+//							order.drawString("plating " + cookGui.order, 0, 270);
+//						}
+//					}
+//				}
+//
+//				// else if(gui instanceof CustomerGui) {
+//				//	CustomerGui customerGui = (CustomerGui) gui;
+//				//order.drawString(customerGui.choice, customerGui.getXPos(), customerGui.getYPos());
+//
+//				//}
+//
+//			}
 		}
 	
 	public void populate(){

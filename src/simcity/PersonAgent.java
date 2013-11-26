@@ -8,8 +8,13 @@ import Gui.ScreenFactory;
 import simcity.interfaces.Person;
 import simcity.RoleFactory;
 import simcity.restaurants.*;
+
 import simcity.restaurants.restaurant3.Restaurant3CustomerRole;
 import simcity.restaurants.restaurant3.gui.Restaurant3CustomerGui;
+
+import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
+import simcity.restaurants.restaurant1.gui.Restaurant1CustomerGui;
+
 import simcity.Market.Market;
 import simcity.Market.MarketCustomerRole;
 import simcity.Market.MarketGui.MarketCustomerGui;
@@ -24,6 +29,7 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 public class PersonAgent extends Agent implements Person {
+
         //TODO REMOVE THIS
         Role bankRoleTemp;
         RoleGui bankGui;
@@ -47,11 +53,14 @@ public class PersonAgent extends Agent implements Person {
         public boolean checkPersonScheduler = true;
         PersonGui gui;
 
+
         private LandlordRole landlord;
 
         //Saves time from having to loop all the time to find the active role
 
+
         Role activeRole;
+
 
         // Locations
         // These buildings will be set when any person is added
@@ -173,13 +182,15 @@ public class PersonAgent extends Agent implements Person {
 
         //essential setters for GUI (When adding a person to SimCity)
 
+
         public void setGui(PersonGui g) {
                 gui = g;
         }
 
+
         public void setRestaurants(List<Restaurant> r) {
                 restaurants = r;
-                currentPreference = restaurants.get(0);
+                currentPreference = restaurants.get(2); //SET restaurant preference
         }
 
         public void setMarkets(List<Market> m) {
@@ -721,7 +732,7 @@ public class PersonAgent extends Agent implements Person {
                 currentBuilding = currentPreference;
                 //rest3Gui = new Restaurant3CustomerGui((Restaurant3CustomerRole)rest3Temp, ScreenFactory.getMeScreen("Restaurant"));
                 rest3Temp.setPerson(this);
-                rest3Gui.setHomeScreen(ScreenFactory.getMeScreen("Restaurant"));
+                rest3Gui.setHomeScreen(ScreenFactory.getMeScreen("Restaurant 3"));
 
                 checkPersonScheduler = false;
                 rest3Temp.setGui(rest3Gui);
@@ -804,5 +815,6 @@ public class PersonAgent extends Agent implements Person {
 
                 return groceryBag;
         }
+
 
 }
