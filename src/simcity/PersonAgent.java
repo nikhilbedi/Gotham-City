@@ -873,6 +873,14 @@ public class PersonAgent extends Agent implements Person {
 
 		return groceryBag;
 	}
+	
+	public Building getCurrentBuilding() {
+		return currentBuilding;
+	}
+
+	public void setCurrentBuilding(Building currentBuilding) {
+		this.currentBuilding = currentBuilding;
+	}
 
 
 }
