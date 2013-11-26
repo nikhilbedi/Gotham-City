@@ -48,16 +48,19 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 
 	JPanel interactionPanel;
 	JPanel labelsPanel;
+	
+	PersonSelectionPane selPane;
 
 	public MyLabeledUnit labeledPosition;
 
 
-	public NewPersonWindow(MainScreen city, JButton b){
+	public NewPersonWindow(MainScreen city, JButton b, PersonSelectionPane pane){
 		setSize(WINDOWX, WINDOWY);
 
 
 		mainScreen = city;
 		reference = b;
+		selPane = pane;
 
 		setBounds(1000, 200, WINDOWX, WINDOWY);
 
@@ -190,7 +193,8 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 
 			//re-enable button
 			reference.setEnabled(true);
-
+			
+			selPane.refresh();
 
 			//close the window
 			dispose();

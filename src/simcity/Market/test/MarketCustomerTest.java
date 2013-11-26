@@ -13,7 +13,6 @@ import simcity.Market.MarketGui.MarketCustomerGui;
 import simcity.Market.test.mock.MockMarketCashier;
 import simcity.Market.test.mock.MockMarketCustomer;
 import simcity.Market.test.mock.MockMarketWorker;
-import simcity.restaurants.restaurant1.gui.CustomerGui;
 import static org.junit.Assert.* ;
 
 public class MarketCustomerTest {
