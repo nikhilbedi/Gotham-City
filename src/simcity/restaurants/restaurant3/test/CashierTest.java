@@ -1,15 +1,14 @@
-package simcity.restaurants.restaurant3.src.restaurant.test;
+package simcity.restaurants.restaurant3.test;
 
 import junit.framework.TestCase;
-import simcity.restaurants.restaurant3.src.restaurant.CashierRole;
-import simcity.restaurants.restaurant3.src.restaurant.Food;
-import simcity.restaurants.restaurant3.src.restaurant.MarketFood;
-import simcity.restaurants.restaurant3.src.restaurant.MarketOrder;
-import simcity.restaurants.restaurant3.src.restaurant.Order.OrderState;
-import simcity.restaurants.restaurant3.src.restaurant.test.mock.MockCustomer;
-import simcity.restaurants.restaurant3.src.restaurant.test.mock.MockMarket;
-import simcity.restaurants.restaurant3.src.restaurant.test.mock.MockWaiter;
 
+import java.util.List;
+
+import simcity.restaurants.restaurant3.*;
+import simcity.restaurants.restaurant3.Order.OrderState;
+import simcity.restaurants.restaurant3.test.mock.*;
+import simcity.tests.mock.*;
+import junit.framework.*;
 /**
  * 
  * This class is a JUnit test class to unit test the CashierAgent's basic interaction

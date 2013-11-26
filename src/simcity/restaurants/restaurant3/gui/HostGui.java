@@ -1,12 +1,12 @@
-package simcity.restaurants.restaurant3.src.restaurant.gui;
+package simcity.restaurants.restaurant3.gui;
 
 
-import java.awt.Color;
-import java.awt.Graphics;
+import simcity.restaurants.restaurant3.Restaurant3CustomerRole;
+import Gui.RoleGui;
+import simcity.restaurants.restaurant3.HostRole;
 
-import simcity.restaurants.restaurant3.src.restaurant.HostRole;
-
-public class HostGui implements Gui {
+import java.awt.*;
+public class HostGui extends RoleGui {
 
     private HostRole agent = null;
 

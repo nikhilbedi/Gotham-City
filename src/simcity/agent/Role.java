@@ -12,7 +12,7 @@ public class Role {
         }
         
         public Role() {
-        	
+                
         }
         
         protected PersonAgent myPerson;

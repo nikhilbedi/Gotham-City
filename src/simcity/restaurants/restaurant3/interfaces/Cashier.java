@@ -1,6 +1,6 @@
-package simcity.restaurants.restaurant3.src.restaurant.interfaces;
+package simcity.restaurants.restaurant3.interfaces;
 
-import simcity.restaurants.restaurant3.src.restaurant.Order;
+import simcity.restaurants.restaurant3.*;
 
 public interface Cashier {
 

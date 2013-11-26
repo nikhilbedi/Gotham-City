@@ -1,21 +1,20 @@
-package simcity.restaurants.restaurant3.src.restaurant;
+package simcity.restaurants.restaurant3;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
-import java.util.concurrent.Semaphore;
+import java.util.*;
+
+import simcity.restaurants.restaurant3.Order.OrderState;
+import simcity.restaurants.restaurant3.gui.HostGui;
+import simcity.restaurants.restaurant3.interfaces.*;
 
 import javax.print.attribute.standard.MediaSize.NA;
 
 import simcity.PersonAgent;
-import simcity.agent.Role;
-import simcity.restaurants.restaurant3.src.restaurant.Order.OrderState;
-import simcity.restaurants.restaurant3.src.restaurant.gui.HostGui;
-import simcity.restaurants.restaurant3.src.restaurant.interfaces.Cashier;
-import simcity.restaurants.restaurant3.src.restaurant.interfaces.Customer;
+import agent.Role;
 import agent.Agent;
+
+import java.util.concurrent.Semaphore;
+import java.util.Timer;
+import java.util.TimerTask;
 //import restaurant.WaiterAgent.myCustomer;
 
 /**
@@ -26,18 +25,7 @@ import agent.Agent;
 //the HostAgent. A Host is the manager of a restaurant who sees that all
 //is proceeded as he wishes.
 public class CashierRole extends Role implements Cashier {
-	public interface cashierBillState {
-
-	}
-
-	//static final int NTABLES = 4;//a global for the number of tables.
-	//Notice that we implement waitingCustomers using ArrayList, but type it
-	//with List semantics.
-	//public List<CustomerAgent> waitingCustomers
-	//= new ArrayList<CustomerAgent>();
-	//public Collection<Table> tables;
-	//note that tables is typed with Collection semantics.
-	//Later we will see how it is implemented
+	
 	public List<Order> orders = Collections.synchronizedList(new Vector<Order>()); 
 	public Map<String, Food> foods = Collections.synchronizedMap(new HashMap<String, Food>());
 	private int threshold;
@@ -55,19 +43,12 @@ public class CashierRole extends Role implements Cashier {
 	
 	private int inventory = 5;
 	 
-	public CashierRole() {
-		
-		//super(person);
+	public CashierRole(PersonAgent p) {
+		super(p);
 
 		this.name = name;
 		cashState = CashierState.idle;
-		
-		
-		// make some tables
-		//tables = new ArrayList<Table>(NTABLES);
-		//for (int ix = 1; ix <= NTABLES; ix++) {
-			//tables.add(new Table(ix));//how you add to a collections
-		//}
+	
 		
 		f = new Food ("Chicken");
 		foods.put("Chicken", f);
@@ -80,6 +61,9 @@ public class CashierRole extends Role implements Cashier {
 		
 		f = new Food ("Salad");
 		foods.put("Salad", f);
+		
+	}
+	public CashierRole() {
 		
 	}
 

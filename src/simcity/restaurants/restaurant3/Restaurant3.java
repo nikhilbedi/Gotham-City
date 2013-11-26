@@ -1,43 +1,30 @@
-package simcity.restaurants.restaurant3.src.restaurant;
+package simcity.restaurants.restaurant3;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
+import java.util.*;
 import java.util.concurrent.Semaphore;
+import java.util.Collections;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.print.attribute.standard.MediaSize.NA;
 
 import simcity.PersonAgent;
-import simcity.agent.Role;
-import simcity.restaurants.restaurant3.src.restaurant.Order.OrderState;
-import simcity.restaurants.restaurant3.src.restaurant.gui.HostGui;
-import simcity.restaurants.restaurant3.src.restaurant.interfaces.Cashier;
-import simcity.restaurants.restaurant3.src.restaurant.interfaces.Customer;
+import agent.Role;
+import simcity.restaurants.*;
+import simcity.restaurants.restaurant3.*;
+import simcity.restaurants.restaurant3.Order.OrderState;
+import simcity.restaurants.restaurant3.gui.HostGui;
+import simcity.restaurants.restaurant3.interfaces.*;
 import agent.Agent;
-//import restaurant.WaiterAgent.myCustomer;
 
 /**
- * Restaurant Host Agent
+ * Evan's restaurant
+ * @author Evan Coutre
+ *
  */
-//We only have 2 types of agents in this prototype. A customer and an agent that
-//does all the rest. Rather than calling the other agent a waiter, we called him
-//the HostAgent. A Host is the manager of a restaurant who sees that all
-//is proceeded as he wishes.
-public class Restaurant3 extends Role implements Cashier {
-	public interface cashierBillState {
 
-	}
-
-	//static final int NTABLES = 4;//a global for the number of tables.
-	//Notice that we implement waitingCustomers using ArrayList, but type it
-	//with List semantics.
-	//public List<CustomerAgent> waitingCustomers
-	//= new ArrayList<CustomerAgent>();
-	//public Collection<Table> tables;
-	//note that tables is typed with Collection semantics.
-	//Later we will see how it is implemented
+public class Restaurant3 extends Restaurant {
+	
 	public List<Order> orders = Collections.synchronizedList(new Vector<Order>()); 
 	public Map<String, Food> foods = Collections.synchronizedMap(new HashMap<String, Food>());
 	private int threshold;
@@ -55,19 +42,13 @@ public class Restaurant3 extends Role implements Cashier {
 	
 	private int inventory = 5;
 	 
-	public Restaurant3() {
-		
-		//super(person);
+	public Restaurant3(String type, int entranceX, int entranceY, int guiX,
+            int guiY) {
+		super(type, entranceX, entranceY, guiX, guiY);
 
 		this.name = name;
 		cashState = CashierState.idle;
 		
-		
-		// make some tables
-		//tables = new ArrayList<Table>(NTABLES);
-		//for (int ix = 1; ix <= NTABLES; ix++) {
-			//tables.add(new Table(ix));//how you add to a collections
-		//}
 		
 		f = new Food ("Chicken");
 		foods.put("Chicken", f);
@@ -91,87 +72,7 @@ public class Restaurant3 extends Role implements Cashier {
 		return name;
 	}
 
-	
-	// Messages
-	public void msgRequestCheck(Customer cust, Order o) {
-		System.out.println("Waiter needs the check from the cashier for his/her customer");
-		orders.add(o);
-		o.os = OrderState.requestCheck;
-		
-		stateChanged();		
-	}
-	
-	public void msgCustomerPayingCheck(Order o) {
-		
-		System.out.println("The Customer is paying the check");
-		o.os = OrderState.paying;
-		
-		stateChanged();
-		
-	}
-	
-	public void msgPayMarketBill(double bill) {
-		
-		this.restaurantRevenue -= bill;
-	}
 
-	
-	/**
-	 * Scheduler.  Determine what action is called for, and do it.
-	 */
-	public boolean pickAndExecuteAnAction() {
-		
-		/* Think of this next rule as:
-            Does there exist a table and customer,
-            so that table is unoccupied and customer is waiting.
-            If so seat him at the table.
-		 */
-		for(Order o:orders) {
-			if(o.os == OrderState.requestCheck){
-				calculate(o);
-				return true;
-			}
-		}
-		
-		for(Order o:orders) {
-			if(o.os == OrderState.paying){
-				receivingCheck(o);
-				return true;
-			}
-		}
-		
-		return false;
-		
-		
-	}
-	
-	private void receivingCheck(Order o) {
-		o.os = OrderState.idle;
-		stateChanged();
-		o.customer.setDonePayingState();
-		orders.remove(o);
-	}
-	
-	// Actions
-	private  void calculate(Order o) {
-		System.out.println("calculating order");
-		
-		// check if in owed list
-		if (owed.get(o.customer) != null) {
-			double previousBalance = owed.get(o.customer);
-			o.setTotalPrice(o.choice.getFoodPrice() + previousBalance);
-		}
-		else 
-			o.setTotalPrice(o.choice.getFoodPrice());
-		
-		
-		o.waiter.msgWaiterHereIsCheck(o);
-		//if(orders.size() == 0) {
-		o.os = OrderState.idle;
-		stateChanged();
-		//}
-		
-	}
 
 	//utilities
 

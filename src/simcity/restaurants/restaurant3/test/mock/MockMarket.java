@@ -1,9 +1,9 @@
-package simcity.restaurants.restaurant3.src.restaurant.test.mock;
+package simcity.restaurants.restaurant3.test.mock;
 
-import simcity.restaurants.restaurant3.src.restaurant.CookRole;
-import simcity.restaurants.restaurant3.src.restaurant.MarketOrder;
-import simcity.restaurants.restaurant3.src.restaurant.interfaces.Cashier;
-import simcity.restaurants.restaurant3.src.restaurant.interfaces.Market;
+import simcity.restaurants.restaurant3.*;
+import simcity.restaurants.restaurant3.interfaces.*;
+import simcity.tests.mock.*;
+
 //import restaurant.interfaces.Cook; 
 
 
@@ -22,5 +22,4 @@ public class MockMarket extends Mock implements Market{
 			
 			return null;
 		}
-		
 }

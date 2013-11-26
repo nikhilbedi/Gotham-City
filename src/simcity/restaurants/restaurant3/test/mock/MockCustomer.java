@@ -1,15 +1,14 @@
-package simcity.restaurants.restaurant3.src.restaurant.test.mock;
+package simcity.restaurants.restaurant3.test.mock;
 
 
-import simcity.restaurants.restaurant3.src.restaurant.Menu;
-import simcity.restaurants.restaurant3.src.restaurant.Order;
-import simcity.restaurants.restaurant3.src.restaurant.interfaces.Cashier;
-import simcity.restaurants.restaurant3.src.restaurant.interfaces.Customer;
+import simcity.restaurants.restaurant3.*;
+import simcity.restaurants.restaurant3.interfaces.*;
+import simcity.tests.mock.*;
 
 /**
- * A sample MockCustomer built to unit test a CashierAgent.
  *
- * @author Monroe Ekilah
+ *
+ * @author Evan Coutre
  *
  */
 public class MockCustomer extends Mock implements Customer {
@@ -64,39 +63,17 @@ public class MockCustomer extends Mock implements Customer {
 	public void msgAnimationFinishedLeaveRestaurant() {
 		log.add(new LoggedEvent("Animation finished leave restaurant"));
 	}
-	//@Override
-	//public void HereIsYourTotal(double total) {
-		//log.add(new LoggedEvent("Received HereIsYourTotal from cashier. Total = "+ total));
-/*
-		if(this.getName().toLowerCase().contains("thief")){
-			//test the non-normative scenario where the customer has no money if their name contains the string "theif"
-			cashier.IAmShort(this, 0);
-
-		}else if (this.name.toLowerCase().contains("rich")){
-			//test the non-normative scenario where the customer overpays if their name contains the string "rich"
-			cashier.HereIsMyPayment(this, Math.ceil(total));
-
-		}else{
-			//test the normative scenario
-			cashier.HereIsMyPayment(this, total);
-			
-		}
-		*/
-	//}
+	
 	@Override
 	public void setDonePayingState() {
 		log.add(new LoggedEvent("Done paying state"));
 		
 	}
+	@Override
+	public void setWaiter(WaiterRole waiter) {
+		// TODO Auto-generated method stub
+		
+	}
 
-	//@Override
-	//public void HereIsYourChange(double total) {
-		//log.add(new LoggedEvent("Received HereIsYourChange from cashier. Change = "+ total));
-	//}
-
-	//@Override
-//	public void YouOweUs(double remaining_cost) {
-		//log.add(new LoggedEvent("Received YouOweUs from cashier. Debt = "+ remaining_cost));
-	//}
 
 }

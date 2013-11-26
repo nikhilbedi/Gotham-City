@@ -1,8 +1,8 @@
-package simcity.restaurants.restaurant3.src.restaurant.test.mock;
+package simcity.restaurants.restaurant3.test.mock;
 
-
-import simcity.restaurants.restaurant3.src.restaurant.CustomerRole;
-import simcity.restaurants.restaurant3.src.restaurant.Order;
+import simcity.restaurants.restaurant3.*;
+import simcity.restaurants.restaurant3.interfaces.*;
+import simcity.tests.mock.*;
 
 public class MockWaiter extends Mock implements Waiter{
 
@@ -15,19 +15,19 @@ public class MockWaiter extends Mock implements Waiter{
 	}
 
 	@Override
-	public void msgSitAtTable(CustomerRole c, int table) {
+	public void msgSitAtTable(Customer c, int table) {
 		log.add(new LoggedEvent("Received msgSitAtTable from Host"));
 		
 	}
 
 	@Override
-	public void msgReadyToOrder(CustomerRole cust) {
+	public void msgReadyToOrder(Customer cust) {
 		// TODO Auto-generated method stub
 		log.add(new LoggedEvent("Ready to Order"));
 	}
 
 	@Override
-	public void msgHereIsMyChoice(CustomerRole cust, String choice) {
+	public void msgHereIsMyChoice(Customer cust, String choice) {
 		// TODO Auto-generated method stub
 		log.add(new LoggedEvent("Here is my choice"));
 	}
@@ -46,7 +46,7 @@ public class MockWaiter extends Mock implements Waiter{
 	}
 
 	@Override
-	public void msgIWantTheCheck(CustomerRole cust) {
+	public void msgIWantTheCheck(Customer cust) {
 		// TODO Auto-generated method stub
 		log.add(new LoggedEvent("I want the check"));
 	}
@@ -58,7 +58,7 @@ public class MockWaiter extends Mock implements Waiter{
 	}
 
 	@Override
-	public void msgDoneEatingAndLeavingTable(CustomerRole cust) {
+	public void msgDoneEatingAndLeavingTable(Customer cust) {
 		// TODO Auto-generated method stub
 		log.add(new LoggedEvent("Eating anf leaving table"));
 	}

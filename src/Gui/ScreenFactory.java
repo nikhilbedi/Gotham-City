@@ -7,10 +7,9 @@ import simcity.bank.bankAnimationPanel;
 import simcity.Home.gui.HomeAnimationPanel;
 import simcity.Market.MarketGui.MarketAnimationPanel;
 import simcity.restaurants.restaurant1.gui.RestaurantNikhilAnimationPanel;
+import simcity.restaurants.restaurant3.gui.RestaurantEvanAnimationPanel;
 import simcity.Home.gui.HomeAnimationPanel;
 import simcity.bank.bankAnimationPanel;
-
-
 import simcity.Home.gui.HomeAnimationPanel;
 
 public class ScreenFactory {
@@ -20,14 +19,14 @@ public class ScreenFactory {
 
 
 	//public static Screen main = new Screen(1);
-	public static Screen rest = new Screen(2);
+	//public static Screen rest = new Screen(2);
 	//public static Screen market = new Screen(3);
 	//public static Screen bank = new Screen(4);
 	//public static Screen home = new Screen(5);
 
 	public static MainScreen main = new MainScreen();
 
-	//public static Screen rest = new RestaurantNikhilAnimationPanel();
+	public static Screen rest3 = new RestaurantEvanAnimationPanel();
 	//public static Screen market = new MarketAnimationPanel();
 	public static Screen market = new MarketAnimationPanel();
 	public static Screen home = new HomeAnimationPanel();
@@ -37,7 +36,7 @@ public class ScreenFactory {
 
 	static{
 		screenList.add(main);
-		screenList.add(rest);
+		screenList.add(rest3);
 		screenList.add(market);
 		screenList.add(bank);
 		screenList.add(home);
@@ -46,7 +45,7 @@ public class ScreenFactory {
 	public ScreenFactory(){
 		synchronized(screenList) {
 			screenList.add(main);
-			screenList.add(rest);
+			screenList.add(rest3);
 			screenList.add(market);
 			screenList.add(bank);
 			screenList.add(home);
@@ -59,7 +58,7 @@ public class ScreenFactory {
 		return main;
 	}
 	public Screen getRestaurant(){
-		return rest;
+		return rest3;
 	}
 	public Screen getMarket(){
 		return market;
@@ -90,7 +89,7 @@ public class ScreenFactory {
 			return main;
 		}
 		if(s.equalsIgnoreCase("Restaurant")){
-			return rest;
+			return rest3;
 		}
 		if(s.equalsIgnoreCase("Market")){
 			return market;
@@ -113,8 +112,9 @@ public class ScreenFactory {
 		if(s.equalsIgnoreCase("City")){
 			return main;
 		}
-		if(s.equalsIgnoreCase("Restaurant")){
-			return rest;
+		
+		if(s.equalsIgnoreCase("Rest3")){
+			return rest3;
 		}
 		if(s.equalsIgnoreCase("Market")){
 			return market;

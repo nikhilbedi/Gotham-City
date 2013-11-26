@@ -1,18 +1,15 @@
-package simcity.restaurants.restaurant3.src.restaurant.gui;
+package simcity.restaurants.restaurant3.gui;
 
+import Gui.RoleGui;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.util.ArrayList;
+import java.awt.*;
+import java.util.*;
 
-import simcity.restaurants.restaurant3.src.restaurant.WaiterRole;
+import simcity.restaurants.restaurant3.*;
 
-public class WaiterGui implements Gui {
+public class WaiterGui extends RoleGui {
 
     private WaiterRole agent = null;
-    RestaurantGui gui;
-    
-    private ArrayList<OrderGui> orderGuis = new ArrayList<OrderGui>();
 
     public int xPos = +40, yPos = +40;//default waiter position
     private static int Width = 20, Height = 20;
@@ -28,7 +25,7 @@ public class WaiterGui implements Gui {
     private static int waitingCustomers[] = new int[]{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
     private int posInWaitArea = -1;
 
-    public WaiterGui(WaiterRole agent, RestaurantGui gui) {
+    public WaiterGui(WaiterRole agent, int home) {
     	for (int i = 0; i < waitingCustomers.length; ++i){
 			if (waitingCustomers[i] == -1) { //empty position
 				waitingCustomers[i] = 1;
@@ -41,10 +38,11 @@ public class WaiterGui implements Gui {
     	xDestination = xPos;
     	
         this.agent = agent;
-        this.gui = gui;
+
     }
 
     public void updatePosition() {
+    	super.updatePosition();
     	//System.out.println("xPos:" + xPos + ", yPos:" + yPos + ", xDestination:" + xDestination + ", yDestination" + yDestination);
         if (xPos < xDestination)
             xPos++;

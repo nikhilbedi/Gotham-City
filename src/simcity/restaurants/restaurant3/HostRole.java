@@ -1,16 +1,13 @@
-package simcity.restaurants.restaurant3.src.restaurant;
+package simcity.restaurants.restaurant3;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-import java.util.Vector;
+import java.util.*;
 import java.util.concurrent.Semaphore;
 
 import simcity.PersonAgent;
-import simcity.agent.Role;
-import simcity.restaurants.restaurant3.src.restaurant.gui.WaiterGui;
+import agent.Role;
+import simcity.restaurants.restaurant3.gui.HostGui;
+import simcity.restaurants.restaurant3.gui.WaiterGui;
+import simcity.restaurants.restaurant3.interfaces.*;
 import agent.Agent;
 //import restaurant.WaiterAgent.MyCustomer;
 
@@ -21,12 +18,12 @@ import agent.Agent;
 //does all the rest. Rather than calling the other agent a waiter, we called him
 //the HostAgent. A Host is the manager of a restaurant who sees that all
 //is proceeded as he wishes.
-public class HostRole extends Role {
+public class HostRole extends Role implements Host {
 	static final int NTABLES = 4;//a global for the number of tables.
 	//Notice that we implement waitingCustomers using ArrayList, but type it
 	//with List semantics.
 	public List<MyCustomer> customers = Collections.synchronizedList(new ArrayList<MyCustomer>());
-	private Vector<WaiterRole>  waiters;
+	private Vector<WaiterRole>  waiters = new Vector<WaiterRole>();
 	//public List<myCustomer> customers = new ArrayList<myCustomer>();
 	public Collection<Table> tables;
 	//note that tables is typed with Collection semantics.
@@ -38,11 +35,20 @@ public class HostRole extends Role {
 	public enum customerState {waitingToBeSeated, seated, leftRestaurant, restaurantFull}
 	customerState cs;
 	public WaiterGui waiterGui = null;
+	public HostGui hostGui = null;
 
+	public HostRole(PersonAgent p) {
+		super(p);
+	
+		// make some tables
+		tables = new ArrayList<Table>(NTABLES);
+		for (int ix = 1; ix <= NTABLES; ix++) {
+			tables.add(new Table(ix));//how you add to a collections
+		}
+	}
 	public HostRole() {
-		
-
-		this.name = name;
+		super();
+	
 		// make some tables
 		tables = new ArrayList<Table>(NTABLES);
 		for (int ix = 1; ix <= NTABLES; ix++) {
@@ -67,7 +73,7 @@ public class HostRole extends Role {
 	}
 	// Messages
 
-	public void msgIWantToEat(CustomerRole cust) {
+	public void msgIWantToEat(Restaurant3CustomerRole cust) {
 		System.out.println(cust.getName() + " tells the host that he/she is ready to eat.");
 		int customerCapacity = tables.size();
 		
@@ -79,7 +85,7 @@ public class HostRole extends Role {
 		stateChanged();
 	}
 	
-	public void msgTableIsFree(CustomerRole cust) {
+	public void msgTableIsFree(Customer cust) {
 		System.out.println("Waiter tells the host that the table is free");
 		for (MyCustomer mc:customers) {
 			if (mc.cust == cust) {
@@ -88,7 +94,7 @@ public class HostRole extends Role {
 		}
 		for(Table t: tables){
 			if (t.getOccupant() == cust) {
-				System.out.println(cust.getName() + " is leaving " + t);
+				//System.out.println(cust.getName() + " is leaving " + t);
 				System.out.println(t + " is now available.");
 				t.setUnoccupied();
 			}
@@ -171,12 +177,12 @@ public class HostRole extends Role {
 				Random r = new Random();
 				boolean leaveRestaurantIfFull = r.nextBoolean();
 				if (leaveRestaurantIfFull) {
-					System.out.println("Restaurant is full. " + mc.cust.getName() + " chose to leave the restaurant");
+					System.out.println("Restaurant is full. Customer chose to leave the restaurant");
 					//mc.
 					customers.remove(mc);
 				}
 				else {
-					System.out.println("Restaurant is full. " + mc.cust.getName() + " chose to stay in the restaurant");
+					System.out.println("Restaurant is full. Customer chose to stay in the restaurant");
 					mc.cs = customerState.waitingToBeSeated;
 					stateChanged();
 				}
@@ -225,8 +231,9 @@ public class HostRole extends Role {
 		return waiterGui;
 	}
 	
-	public void setWaiter(Vector<WaiterRole>  waiters) {
-		this.waiters = waiters;
+	public void setWaiter(WaiterRole  waiter) { //CHANGED TO SINGLE WAITER AND ADDED THAT WAITER TO WAITER VECTOR
+		waiters.add(waiter);
+		//this.waiters = waiters;
 	}
 	private WaiterRole hostChooseWaiter() {
 		//WaiterAgent result = null;
@@ -247,14 +254,14 @@ public class HostRole extends Role {
 	}
 
 	private class Table {
-		CustomerRole occupiedBy;
+		Customer occupiedBy;
 		int tableNumber;
 
 		Table(int tableNumber) {
 			this.tableNumber = tableNumber;
 		}
 
-		void setOccupant(CustomerRole cust) {
+		void setOccupant(Customer cust) {
 			occupiedBy = cust;
 		}
 
@@ -262,7 +269,7 @@ public class HostRole extends Role {
 			occupiedBy = null;
 		}
 
-		CustomerRole getOccupant() {
+		Customer getOccupant() {
 			return occupiedBy;
 		}
 
@@ -275,10 +282,10 @@ public class HostRole extends Role {
 		}
 	}
 	public class MyCustomer {
-		CustomerRole cust;
+		Customer cust;
 		customerState cs;
 		
-		MyCustomer(CustomerRole cust, customerState cs) {
+		MyCustomer(Customer cust, customerState cs) {
 			this.cust = cust;
 			this.cs = cs;
 		}

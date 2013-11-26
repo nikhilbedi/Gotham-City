@@ -1,4 +1,4 @@
-package simcity.restaurants.restaurant3.src.restaurant;
+package simcity.restaurants.restaurant3;
 
 public class MarketOrder {
 

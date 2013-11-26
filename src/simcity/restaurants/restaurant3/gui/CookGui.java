@@ -1,12 +1,15 @@
-package simcity.restaurants.restaurant3.src.restaurant.gui;
+package simcity.restaurants.restaurant3.gui;
 
+import Gui.RoleGui;
 
-import java.awt.Color;
-import java.awt.Graphics;
+import java.awt.*;
+import java.util.List;
+import java.util.*;
 
-import simcity.restaurants.restaurant3.src.restaurant.CookRole;
+import simcity.restaurants.restaurant3.Restaurant3CustomerRole;
+import simcity.restaurants.restaurant3.*;
 
-public class CookGui implements Gui {
+public class CookGui extends RoleGui {
 
     private CookRole agent = null;
 
@@ -27,6 +30,7 @@ public class CookGui implements Gui {
     }
 
     public void updatePosition() {
+    	super.updatePosition();
     	/*
         if (xPos < xDestination)
             xPos++;

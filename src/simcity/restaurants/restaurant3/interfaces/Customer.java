@@ -1,16 +1,16 @@
-package simcity.restaurants.restaurant3.src.restaurant.interfaces;
+package simcity.restaurants.restaurant3.interfaces;
 
-import simcity.restaurants.restaurant3.src.restaurant.Menu;
-import simcity.restaurants.restaurant3.src.restaurant.Order;
+import simcity.restaurants.restaurant3.*;
 
 /**
  * A sample Customer interface built to unit test a CashierAgent.
  *
- * @author Monroe Ekilah
+ * @author Evan Coutre
  *
  */
 public interface Customer {
 	
+
 	public abstract void gotHungry();
 	
 	public abstract void msgFollowMeToTable(Menu menu, int tnum);
@@ -49,5 +49,7 @@ public interface Customer {
 	//public abstract void YouOweUs(double remaining_cost);
 
 	public abstract void setDonePayingState();
+
+	public abstract void setWaiter(WaiterRole waiter);
 
 }

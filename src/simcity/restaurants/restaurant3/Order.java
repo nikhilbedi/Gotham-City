@@ -1,8 +1,6 @@
-package simcity.restaurants.restaurant3.src.restaurant;
+package simcity.restaurants.restaurant3;
 
-import simcity.restaurants.restaurant3.src.restaurant.interfaces.Customer;
-import simcity.restaurants.restaurant3.src.restaurant.interfaces.Waiter;
-
+import simcity.restaurants.restaurant3.interfaces.* ;
 
 
 public class Order {

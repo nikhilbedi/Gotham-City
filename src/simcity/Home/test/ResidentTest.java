@@ -29,15 +29,18 @@ public class ResidentTest extends TestCase {
 			resident.setGui(new ResidentGui((ResidentRole)resident, ScreenFactory.getMeScreen("Home")));
 			mockResident = new MockResident("mockResident");
 		}
-}
+
 	
-    /*
+   
     public void testOneNormalResidentComesToHomeWithNoIntention()
     {
+    	
             //Check initial conditions
-            assertTrue("The transactionList should be empty at the customer's creation. It is not.", 
-                            bankCustomer.transactionList.size() == 0);
-            
+            assertTrue("The groceryBag should be empty at the resident's creation. It is not.", 
+                            resident.groceryBag.size() == 0);
+   }
+}
+            /*
             assertTrue("Resident state to begin with should be DoingNothing. It's currently not.", 
                              resident.state == HomeState.DoingNothing);
             

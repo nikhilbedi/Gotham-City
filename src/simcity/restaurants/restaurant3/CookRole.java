@@ -1,26 +1,24 @@
-package simcity.restaurants.restaurant3.src.restaurant;
+package simcity.restaurants.restaurant3;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.ConcurrentModificationException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
+import java.util.*;
 import java.util.concurrent.Semaphore;
+import java.util.Collections;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import simcity.PersonAgent;
-import simcity.agent.Role;
-import simcity.restaurants.restaurant3.src.restaurant.Order.OrderState;
-import simcity.restaurants.restaurant3.src.restaurant.gui.CookGui;
-import simcity.restaurants.restaurant3.src.restaurant.gui.HostGui;
+import agent.Role;
+import simcity.restaurants.restaurant3.Order.OrderState;
+import simcity.restaurants.restaurant3.gui.CookGui;
+import simcity.restaurants.restaurant3.gui.HostGui;
+import simcity.restaurants.restaurant3.interfaces.*;
 import agent.Agent;
 //import restaurant.WaiterAgent.myCustomer;
 
 /**
  * Restaurant Host Agent
  */
-public class CookRole extends Role {
+public class CookRole extends Role implements Cook{
 	
 	public List<Order> orders = Collections.synchronizedList(new Vector<Order>()); 
 	public Map<String, Food> foods = Collections.synchronizedMap(new HashMap<String, Food>());
@@ -30,20 +28,14 @@ public class CookRole extends Role {
 	private Semaphore atTable = new Semaphore(0,true);
 	private Food f;
 	public HostGui hostGui = null;
+	private CookGui cookGui;
 	public CashierRole cashier;
 	
 	//private WaiterAgent waiter;
 	
 	 	 
-	public CookRole() {
-		
-
-		this.name = name;
-		// make some tables
-		//tables = new ArrayList<Table>(NTABLES);
-		//for (int ix = 1; ix <= NTABLES; ix++) {
-			//tables.add(new Table(ix));//how you add to a collections
-		//}
+	public CookRole(PersonAgent p) {
+		super(p);
 		
 		Food f = new Food ("Chicken");
 		foods.put("Chicken", f);
@@ -57,15 +49,18 @@ public class CookRole extends Role {
 		f = new Food ("Salad");
 		foods.put("Salad", f);
 		
-		MarketRole market = new MarketRole();
+		MarketRole market = new MarketRole("restaurant1");
 		markets.add(market);
-		market = new MarketRole();
+		market = new MarketRole("restaurant2");
 		markets.add(market);
-		market = new MarketRole();
+		market = new MarketRole("restaurant3");
 		markets.add(market);
 		
 	}
-
+	public CookRole(){
+		
+	}
+	
 	public String getMaitreDName() {
 		return name;
 	}
@@ -261,6 +256,9 @@ public class CookRole extends Role {
 	public void setGui(HostGui gui) {
 		hostGui = gui;
 	}
+	public void setGui(CookGui gui) {
+		cookGui = gui;
+	}
 
 	public HostGui getGui() {
 		return hostGui;
@@ -274,5 +272,6 @@ public class CookRole extends Role {
 		this.cashier = cashier;
 		
 	}
+	
 }
 

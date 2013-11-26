@@ -1,28 +1,20 @@
-package simcity.restaurants.restaurant3.src.restaurant;
+package simcity.restaurants.restaurant3;
 
 //import Restaurant;
 //import MarketAgent.Status;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Vector;
+import java.util.*;
 
 import simcity.PersonAgent;
-import simcity.agent.Role;
-import simcity.restaurants.restaurant3.src.restaurant.Order.OrderState;
+import agent.Role;
+import simcity.restaurants.restaurant3.Order.OrderState;
+import simcity.restaurants.restaurant3.interfaces.*;
 import agent.Agent;
-//import restaurant.WaiterAgent.myCustomer;
+import java.util.Timer;
+import java.util.TimerTask;
 
-/**
- * Restaurant Host Agent
- */
-//We only have 2 types of agents in this prototype. A customer and an agent that
-//does all the rest. Rather than calling the other agent a waiter, we called him
-//the Host
-//Agent. A Host is the manager of a restaurant who sees that all
-//is proceeded as he wishes.
-public class MarketRole extends Role {
+
+
+public class MarketRole extends Role implements Market{
 	
 	public List<Order> orders = Collections.synchronizedList(new Vector<Order>()); 
 	public Map<String, MarketFood> foods = Collections.synchronizedMap(new HashMap<String, MarketFood>());
@@ -39,7 +31,8 @@ public class MarketRole extends Role {
 	
 	 private int Inventory = 5;
 	 
-	public MarketRole() {
+	public MarketRole(String name) {
+		super();
 		this.name = name;
 		
 		//Create the market's stock.

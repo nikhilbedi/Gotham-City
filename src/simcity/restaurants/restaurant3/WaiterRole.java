@@ -1,4 +1,4 @@
-package simcity.restaurants.restaurant3.src.restaurant;
+package simcity.restaurants.restaurant3;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -8,30 +8,19 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Semaphore;
 
 import simcity.PersonAgent;
-import simcity.agent.Role;
-import simcity.restaurants.restaurant3.src.restaurant.Order.OrderState;
-import simcity.restaurants.restaurant3.src.restaurant.gui.CookGui;
-import simcity.restaurants.restaurant3.src.restaurant.gui.CustomerGui;
-import simcity.restaurants.restaurant3.src.restaurant.gui.HostGui;
-import simcity.restaurants.restaurant3.src.restaurant.gui.WaiterGui;
-import simcity.restaurants.restaurant3.src.restaurant.interfaces.Waiter;
+import agent.Role;
+import simcity.restaurants.restaurant3.Order.OrderState;
+import simcity.restaurants.restaurant3.gui.*;
+import simcity.restaurants.restaurant3.interfaces.*;
 import agent.Agent;
 
 /**
- * Restaurant Host Agent
+ * Restaurant WaiterRole
  * 
  */
-//We only have 2 types of agents in this prototype. A customer and an agent that
-//does all the rest. Rather than calling the other agent a waiter, we called him
-//the HostAgent. A Host is the manager of a restaurant who sees that all
-//is proceeded as he wishes.
-public class WaiterRole extends Role implements Waiter{
-	public interface Bill {
 
-	}
-	//static final int NTABLES = 4;//a global for the number of tables.
-	//Notice that we implement waitingCustomers using ArrayList, but type it
-	//with List semantics.
+public class WaiterRole extends Role implements Waiter{
+	
 	public List<myCustomer> customers= Collections.synchronizedList(new CopyOnWriteArrayList<myCustomer>());
 	public Collection<Table> tables;
 	public boolean isOnBreak = false;
@@ -50,24 +39,35 @@ public class WaiterRole extends Role implements Waiter{
 	private CashierRole cashier = null;
 	public WaiterGui waiterGui = null;
 	public HostGui hostGui = null;
-	public CustomerGui customerGui = null;
+	public Restaurant3CustomerGui customerGui = null;
 	public Menu menu = new Menu();
 	
 	
 	public class myCustomer {
-		CustomerRole c;
+		Customer c;
 		int table;
 		String choice;
 		public customerState cs;
 		Order order;
+		int initialX;
+        int initialY;
 		
-		
-		public myCustomer(CustomerRole c, int table, customerState cs, Order order) {
+		public myCustomer(Customer c, int table, customerState cs, Order order) {
 			this.c = c;
 			this.table = table;
 			this.cs = cs;
 			this.order = order;
 		}
+		/*
+		public myCustomer(Customer c, int table, customerState cs, Order order, int x, int y) {
+			this.c = c;
+			this.table = table;
+			this.cs = cs;
+			this.order = order;
+			initialX = x;
+            initialY = y;
+		}
+		*/
 	}
 	private waiterState ws;
 	
@@ -77,8 +77,8 @@ public class WaiterRole extends Role implements Waiter{
 	
 	public enum waiterState {available, notAvailable }
 	
-	public WaiterRole() {
-		
+	public WaiterRole(PersonAgent p) {
+		super(p);
 		this.name = name;
 	}
 	
@@ -106,13 +106,13 @@ public class WaiterRole extends Role implements Waiter{
 		stateChanged();
 	}*/
 	
-	public void msgSitAtTable(CustomerRole c, int table) {
-		System.out.println("The host tells " + this.getName() + " to seat " + c.getName() + " at table " + table);
+	public void msgSitAtTable(Customer c, int table) {
+		System.out.println("The host tells " + this.getName() + " to seat the customer at table " + table);
 		customers.add(new myCustomer(c, table, customerState.waiting, null));//potential null pointer
 		stateChanged();
 	}
-	public void msgReadyToOrder(CustomerRole cust) {
-		System.out.println(cust.getName() + " tells " + this.getName() + " he/she is ready to order;");
+	public void msgReadyToOrder(Customer cust) {
+		System.out.println("customer tells " + this.getName() + " he/she is ready to order;");
 		for (myCustomer c: customers) {
 			if(c.c.equals(cust)) {
 				c.cs = customerState.readyToOrder;
@@ -121,7 +121,7 @@ public class WaiterRole extends Role implements Waiter{
 			}
 		}
 	}
-	public void msgHereIsMyChoice(CustomerRole cust, String choice) {
+	public void msgHereIsMyChoice(Customer cust, String choice) {
 		for (myCustomer c: customers) {
 			if(c.c.equals(cust)) {
 				c.cs = customerState.ordered;
@@ -160,8 +160,8 @@ public class WaiterRole extends Role implements Waiter{
 		//myCustomer mc = customer.find(c);
 		//mc.cs = waitingForFoodToBeDelivered;
 	}
-	public void msgIWantTheCheck(CustomerRole cust) {
-		System.out.println(cust.getName() + " tells " + this.getName() + " he/she is ready for the check;");
+	public void msgIWantTheCheck(Customer cust) {
+		//System.out.println(cust.getName() + " tells " + this.getName() + " he/she is ready for the check;");
 		for(myCustomer c: customers) {
 			if(c.c == cust){
 				c.cs = customerState.waitingForCheckToCalculate;
@@ -179,7 +179,7 @@ public class WaiterRole extends Role implements Waiter{
 		}
 	}
 	
-	public void msgDoneEatingAndLeavingTable(CustomerRole cust) {
+	public void msgDoneEatingAndLeavingTable(Customer cust) {
 		for(myCustomer c: customers) {
 			if(c.c == cust){
 				
@@ -367,7 +367,7 @@ public class WaiterRole extends Role implements Waiter{
 		System.out.println("Delivering order to cook");
 		waiterGui.DoGoToCook();
 		Order myOrder = new Order(this, cust.choice, cust.table, OrderState.pending, cust.c);
-		cust.c.order = myOrder;
+		//cust.c.order = myOrder;
 		cust.order = myOrder;
 		//waiterGui.foodOrdered(cust.choice);
 		//waiterGui.OrderGoToCook(cust.choice);
@@ -470,7 +470,7 @@ public class WaiterRole extends Role implements Waiter{
 	}
 
 	// The animation DoXYZ() routines
-	private void DoSeatCustomer(WaiterRole w, CustomerRole customer, int table) {
+	private void DoSeatCustomer(WaiterRole w, Customer customer, int table) {
 		//Notice how we System.out.println "customer" directly. It's toString method will do it.
 		//Same with "table"
 		System.out.println(w.getName() + " is seating " + customer + " at " + table);
@@ -484,16 +484,16 @@ public class WaiterRole extends Role implements Waiter{
 	public void setGui(WaiterGui gui) {
 		waiterGui = gui;
 	}
-	public void setGui(CustomerGui gui) {
+	public void setGui(Restaurant3CustomerGui gui) {
 		customerGui = gui;
 	}
-	public void setCustomerStateLeaving(CustomerRole cust) {
+	public void setCustomerStateLeaving(Restaurant3CustomerRole cust) {
 		for (myCustomer mc: customers) {
 			mc.cs = customerState.leaving;
 			stateChanged();
 		}
 	}
-	public void setCustomerStateReadyToOrder(CustomerRole cust) {
+	public void setCustomerStateReadyToOrder(Restaurant3CustomerRole cust) {
 		for (myCustomer mc: customers) {
 			mc.cs = customerState.readyToOrder;
 			stateChanged();
@@ -520,14 +520,14 @@ public class WaiterRole extends Role implements Waiter{
 	}
 
 	private class Table {
-		CustomerRole occupiedBy;
+		Restaurant3CustomerRole occupiedBy;
 		int tableNumber;
 
 		Table(int tableNumber) {
 			this.tableNumber = tableNumber;
 		}
 
-		void setOccupant(CustomerRole cust) {
+		void setOccupant(Restaurant3CustomerRole cust) {
 			occupiedBy = cust;
 		}
 
@@ -535,7 +535,7 @@ public class WaiterRole extends Role implements Waiter{
 			occupiedBy = null;
 		}
 
-		CustomerRole getOccupant() {
+		Restaurant3CustomerRole getOccupant() {
 			return occupiedBy;
 		}
 
@@ -548,6 +548,8 @@ public class WaiterRole extends Role implements Waiter{
 		}
 		
 	}
+
+	
 }
 
 
