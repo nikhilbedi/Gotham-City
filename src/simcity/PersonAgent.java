@@ -63,6 +63,7 @@ public class PersonAgent extends Agent implements Person {
 	// These buildings will be set when any person is added
 	public List<Restaurant> restaurants;
 	public Restaurant currentPreference;
+	private int restaurantCounter = 0;
 	public List<Market> markets; 
 
 	public Bank bank;
@@ -189,12 +190,13 @@ public class PersonAgent extends Agent implements Person {
 =======*/
 	public void setRestaurants(List<Restaurant> r) {
 		restaurants = r;
-		for(Restaurant rest : restaurants) {
-			if(rest.getName().equals("Restaurant 4")) {
+		/*for(Restaurant rest : restaurants) {
+			/*if(rest.getName().equals("Restaurant 4")) {
 				currentPreference = rest;
 			}
-		}
-
+		}*/
+		currentPreference = r.get(restaurantCounter);
+		restaurantCounter++;
 	}
 
 	public void setMarkets(List<Market> m) {
@@ -775,6 +777,10 @@ public class PersonAgent extends Agent implements Person {
 		//Enter building
 		currentBuilding = currentPreference;
 		enteringBuilding(restTemp);
+		
+		//make a new preference
+		currentPreference = restaurants.get(restaurantCounter);
+		restaurantCounter++;
 
 	}
 
