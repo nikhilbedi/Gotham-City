@@ -52,7 +52,7 @@ money a person can start with is $250 and the maximum is $1000.
 There is only one Home in our city and only one new person can live there.  If more than one person in our city is created, 
 the others are spawned in a temporary location
 #####Bank:
-  If the person's money is low he will go the the bank.  In the bank there is a greeter and a teller.
+  If the person's money is low, or high, or he needs to pay a bill he will go the the bank.  In the bank there is a greeter and a teller.
 ######BankGreeterRole: 
 The GreeterRole greets the customers and manages the customers and tellers.  When customers come in the gretter puts them in a waiting line in fron of the bank counter.  The greeter notifies a teller if they are needed when a customer comes into the bank and sends the customer to the teller.
 ######BankCustomerRole: 
