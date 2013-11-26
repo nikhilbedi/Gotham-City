@@ -53,17 +53,14 @@ There is only one Home in our city and only one new person can live there.  If m
 the others are spawned in a temporary location
 #####Bank:
   If the person's money is low he will go the the bank.  In the bank there is a greeter and a teller.
-######BankGreeterRole: The GreeterRole greets the customers and manages the customers and tellers.  When customers come in the
-  gretter puts them in a waiting line in fron of the bank counter.  The greeter notifies a teller if they are needed when a customer
-  comes into the bank and sends the customer to the teller.
-######BankCustomerRole: The customer has a list of transaction types and tells the teller which transaction they want to make.
-  These transaction include: deposit, withdrawal, opening account, closing account, need a loan, paying rent bill, leaving.
-  When the bank customer comes in to make a withdrawal and the customer does not have a bank account, the teller will open a bank
-  account for that customer
-######BankTellerRole: The TellerRole gets messaged if a customer needs a transaction.  The teller handles each transaction and 
-  every transaction that the bank customer needs.  The teller checks a BankDatabase to get the info for the customer they are handling.
-  For example if the customer wants to take out a loan, the teller will check the database to see if they have enough money in their
-  account to be eligible for a loan.
+######BankGreeterRole: 
+The GreeterRole greets the customers and manages the customers and tellers.  When customers come in the gretter puts them in a waiting line in fron of the bank counter.  The greeter notifies a teller if they are needed when a customer comes into the bank and sends the customer to the teller.
+######BankCustomerRole: 
+The customer has a list of transaction types and tells the teller which transaction they want to make.
+These transaction include: deposit, withdrawal, opening account, closing account, need a loan, paying rent bill, leaving.
+When the bank customer comes in to make a withdrawal and the customer does not have a bank account, the teller will open a bank account for that customer
+######BankTellerRole: 
+The TellerRole gets messaged if a customer needs a transaction.  The teller handles each transaction and every transaction that the bank customer needs.  The teller checks a BankDatabase to get the info for the customer they are handling. For example if the customer wants to take out a loan, the teller will check the database to see if they have enough money in their account to be eligible for a loan.
   
 #####Market:
 ######CashierRole:
