@@ -90,7 +90,7 @@ public class Restaurant4AnimationPanel extends Screen {
         g2.fillRect(X, Y, WIDTH, HEIGHT );//200 and 250 need to be table params
 */
         Graphics2D g1 = (Graphics2D) g2;
-        Image img2 = Toolkit.getDefaultToolkit().getImage("C:/Users/Mika/github/team31/src/simcity/restaurants/restaurant4/Restaurant4Gui/table.png");
+        Image img2 = Toolkit.getDefaultToolkit().getImage("/resources/mika/table.png");
         g1.drawImage(img2, X-40, Y-20, null);
         g1.finalize();
    	
@@ -98,7 +98,7 @@ public class Restaurant4AnimationPanel extends Screen {
        /* g2.setColor(Color.ORANGE);
         g2.fillRect(X+90, Y, WIDTH, HEIGHT );*/
         Graphics2D g4 = (Graphics2D) g2;
-        Image img3 = Toolkit.getDefaultToolkit().getImage("C:/Users/Mika/github/team31/src/simcity/restaurants/restaurant4/Restaurant4Gui/table.png");
+        Image img3 = Toolkit.getDefaultToolkit().getImage("/resources/mika/table.png");
         g4.drawImage(img3, X+50, Y-20, null);
         g4.finalize();
         
@@ -106,14 +106,14 @@ public class Restaurant4AnimationPanel extends Screen {
         /*g2.setColor(Color.ORANGE);
         g2.fillRect(X+180, Y, WIDTH, HEIGHT );*/
         Graphics2D g5 = (Graphics2D) g2;
-        Image img4 = Toolkit.getDefaultToolkit().getImage("C:/Users/Mika/github/team31/src/simcity/restaurants/restaurant4/Restaurant4Gui/table.png");
+        Image img4 = Toolkit.getDefaultToolkit().getImage("/resources/mika/table.png");
         g5.drawImage(img4, X+140, Y-20, null);
         g5.finalize();
       /*  
         g2.setColor(Color.ORANGE);
         g2.fillRect(X+270, Y, WIDTH, HEIGHT );*/
         Graphics2D g6 = (Graphics2D) g2;
-        Image img5 = Toolkit.getDefaultToolkit().getImage("C:/Users/Mika/github/team31/src/simcity/restaurants/restaurant4/Restaurant4Gui/table.png");
+        Image img5 = Toolkit.getDefaultToolkit().getImage("/resources/mika/table.png");
         g6.drawImage(img5, X+230, Y-20, null);
         g6.finalize();
         
@@ -121,7 +121,7 @@ public class Restaurant4AnimationPanel extends Screen {
         g2.fillRect(200, 20, 70, 30);*/
         
         Graphics2D g10 = (Graphics2D) g2;
-        Image img10 = Toolkit.getDefaultToolkit().getImage("C:/Users/Mika/github/team31/src/simcity/restaurants/restaurant4/Restaurant4Gui/sm.jpg");
+        Image img10 = Toolkit.getDefaultToolkit().getImage("/resources/mika/sm.jpg");
         g10.drawImage(img10, 220, 10, null);
         g10.finalize();
         

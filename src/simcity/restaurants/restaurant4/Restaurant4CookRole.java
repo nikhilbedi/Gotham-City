@@ -95,7 +95,7 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 	public void HereIsYourFood(Map<String, Integer> m){ //from market
 		for (Map.Entry<String, Integer> entry: m.entrySet()){
 			Food f = foods.get(entry.getKey());
-			f.amount =  entry.getValue();
+			f.amount = f.amount + entry.getValue();
 			foods.put(entry.getKey(), f);
 			System.out.println("Got order from market, now I have " + f.type + " " + f.amount);
 		}
