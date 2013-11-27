@@ -129,7 +129,7 @@ This is the Panel that contains all things related to animation including all of
 ######Screen:
 The Screen class is the crucial class to the Gui implementation. A Screen is populated with Gui elements and backgroundImages. These elements with then be displayed only when that particular screen is activated.  There are multiple classes that inherit from Screen:
 
-  + MainScreen (The "city-level" screen)
+  + MainScreen (The "city-level" screen) (*expand the resizable window when in this restaurant to see kitchen*)
   + BankAnimationPanel (Interior bank screen)
   + HomeAnimationPanel (Interior home screen)
   + MarketAnimationPanel (Interior market screen)
@@ -156,16 +156,29 @@ All visual represenations of PersonAgents are displayed via using a RoleGui clas
 
 #####Core Data
 
-PersonAgent:
+######PersonAgent:
+Nikhil laid this agent foundation early on for people to start understanding what sorts of data their roles would be using. It is a long file with tough logic that involves how and when people would eat (used with four different hunger levels), whether they choose to go to the restaurant or eat at home, if they should be getting groceries, and if they should be going to the bank to withdraw or deposit.  This file also contained classes he created, like the Job class, which contains when a certain role will need to go on and off work, and where its corresponding building is.  Also, Nikhil created RentBills, as the person needs to allow multiple roles to handle bills. He intuitively used multiple different states early on, before the professors noted this would be a good idea.
 
-Role:
+######Role:
+Nikhil also created the base Role class.  This once again, laid a foundation for others to branch off and do their work  while maintaining a loosely coupled environment. Nikhil made this an easy transition from agents, so it was understandable, and also allowed our restaurant agents to make the easy transition.   Hunter, our GUI man, handled how RoleGui was dealt.
 
-CityClock timer:
+######CityClock timer:
+Nikhil had fun with this one. Initially, this one of the design issues we thought we were gonna have, but Nikhil made this an entirely static class with static variables. This allowed this class to start its time in the main function and constantly update time. Also, because it was static, it was easy to add personagents to its vector and message every person when an "hour" passed by. 
 
+######Building
+Nikhil initiated the Building and Location class. Locations were small and a part of Building, and the Building came in handy to make our code general when it came to displaying them and using them as containers.  Hunter later expanded this class to make use of it in GUI components. 
+
+######Implementing Restaurants:
+Nikhil, having the design foundations for several other components, also laid out the general restaurant design and implementation for our group as others continued to finish their buildings or as Hunter continued to work on GUI.  He created the base Restaurant class which everyone extended and overrided necessary functions. It was created in such a way where our restaurant code would only have to be changed to roles and the customer would have to be renamed.  every other file stayed the same. For example, there are multiple HostRole.java files because Nikhil made it pertinent to what a certain instance wanted to access in a certain restaurant. He also generated an animation panel that could be the same for every one of our restaurants. 
 
 We weren't able to find out the perfect "hour length" for our program to run realistically.  By that we mean, the program may run in a loop (e.g. the person keeps going to the restaurant and to the home repeatedly because every four hours he gets hungry and each hour could be 5 seconds but in 20 seconds he will need to go to the restaurant to eat again) due to short hour lengths. We kept it short for faster testing (and also for faster grading) since watching a program simulate for 5-15 minutes (representative of a full day) can take a toll on productivity.
 
-RoleFactory:
+######RoleFactory:
+Nikhil designed and implemented this class and it greatly came in handy.  It was messy to try and juggle so many roles, but strings were easy to understand. Again, a static class by Nikhil comes in handy.
+
+
+
+We weren't able to find out the perfect "hour length" for our program to run realistically.  By that we mean, the program may run in a loop (e.g. the person keeps going to the restaurant and to the home repeatedly because every four hours he gets hungry and each hour could be 5 seconds but in 20 seconds he will need to go to the restaurant to eat again) due to short hour lengths. We kept it short for faster testing (and also for faster grading) since watching a program simulate for 5-15 minutes (representative of a full day) can take a toll on productivity.
 
 #####Weird things.
   +Why there is a gettingStarted.pdf from dropbox? Nobody knows.
