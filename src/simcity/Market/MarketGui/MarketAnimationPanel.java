@@ -51,6 +51,7 @@ public class MarketAnimationPanel extends Screen {
     public MainScreen mainScreen = ScreenFactory.getMainScreen();
     
     List <Market> m = mainScreen.getMarketList();
+    
     public Market market = m.get(0);
     
   //  private BufferedImage image = ImageIO.read("shop.png"); 
@@ -86,6 +87,7 @@ public class MarketAnimationPanel extends Screen {
     		addGui(cashierGui);
     		cashier.addRole(marketCashier);
     		marketWorker.setGui(workerGui);
+    		workerGui.setMainScreen(mainScreen);
     		addGui(workerGui);
     		agentWork.addRole(marketWorker);
     		marketCustomer.setGui(customerGui);

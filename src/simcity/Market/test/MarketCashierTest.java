@@ -3,7 +3,9 @@ package simcity.Market.test;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.junit.runners.Suite;
 
@@ -11,6 +13,7 @@ import simcity.PersonAgent;
 import simcity.Market.Item;
 import simcity.Market.MarketCashierRole;
 import simcity.Market.MarketCashierRole.Check;
+import simcity.Market.MarketCashierRole.RestaurantOrder;
 import simcity.Market.Order;
 import simcity.Market.test.mock.MockMarketCashier;
 import simcity.Market.test.mock.MockMarketCustomer;
@@ -19,6 +22,11 @@ import simcity.Market.test.mock.MockMarketWorker;
 //import junit.framework.Test;
 
 
+
+import simcity.restaurants.restaurant4.Restaurant4CashierRole;
+import simcity.restaurants.restaurant4.Restaurant4CookRole;
+import simcity.restaurants.restaurant4.test.mock.Restaurant4CashierMock;
+import simcity.restaurants.restaurant4.test.mock.Restaurant4CookMock;
 
 import org.junit.* ;
 
@@ -29,6 +37,8 @@ import static org.junit.Assert.* ;
 		public MockMarketWorker worker = new MockMarketWorker("worker");
 		public MockMarketCustomer customer = new MockMarketCustomer("customer");	
 		public MockMarketCustomer customer2 = new MockMarketCustomer("customer2");
+		public Restaurant4CookRole cook = new Restaurant4CookRole(new PersonAgent("cook"));
+		public Restaurant4CashierRole cashierRest = new Restaurant4CashierRole(new PersonAgent("cashierRest"));
 		Item beef = new Item("Beef", 10.99, 100);
 		Item chicken = new Item("Chicken", 8.99, 100);
 		Item rice = new Item("Rice", 6.99, 100);
@@ -75,6 +85,8 @@ import static org.junit.Assert.* ;
 		
 		}
 		
+		
+		//two customers and one restaurant orders
 		@Test
 		public void twoCustomers() throws InterruptedException{
 			cashier.getInventory().put("Beef", beef);
@@ -85,13 +97,20 @@ import static org.junit.Assert.* ;
 			cashier.getInventory().put("Salad", salad);
 			cashier.getInventory().put("Steak", steak);
 			cashier.setWorker(worker);
+			Map<String, Integer> map = new HashMap<String, Integer>();
+			map.put("Chicken", 2);
 			assertTrue("Cashier's waiting customers list must be empty",cashier.getCustomers().size()==0);
+			assertTrue("Cashier's rest orders list must be empty",cashier.getRestaurantOrders().size()==0);
 			assertTrue("Scheduler should not return true", !cashier.pickAndExecuteAnAction() );
 			cashier.needFood(customer);
 			cashier.needFood(customer2);
+			cashier.INeedFood(map, cook, cashierRest);
+			assertTrue("Cashier's waiting customers list must be empty",cashier.getRestaurantOrders().size()==1);
+			assertTrue("State should be pending", cashier.getRestaurantOrders().get(0).state == RestaurantOrder.State.pending);
 			assertTrue("Cashier's waiting customers list must have 1 customer",cashier.getCustomers().size()==2);
-			assertTrue("Current customer shoul be equal to customer", cashier.currentCustomer == customer);
-			  assertTrue("Scheduler should return true", cashier.pickAndExecuteAnAction() );
+			assertTrue("Current customer should be equal to customer", cashier.currentCustomer == customer);
+			  assertTrue("Scheduler should return true", cashier.pickAndExecuteAnAction());
+			  
 				Order o  = new Order(customer, "Chicken", 2, false);
 				Order o1 = new Order(customer, "Rice", 2, false );
 				List<Order> orders = new ArrayList<Order>();
@@ -125,13 +144,17 @@ import static org.junit.Assert.* ;
 				cashier.hereIsMoney(customer2, 30.00);
 				assertTrue("State should be got money ",  cashier.getChecks().get(0).state == Check.CheckState.gotMoney);
 				assertTrue("Scheduler should return true", cashier.pickAndExecuteAnAction());
+				assertTrue("Cashier should have empty list of checks ", cashier.getChecks().size()==0);
+				assertTrue("Current customer should be equal to customer2", cashier.currentCustomer == null);
+				assertTrue("Scheduler should return true", cashier.pickAndExecuteAnAction());
+				assertTrue("State should be pending", cashier.getRestaurantOrders().get(0).state == RestaurantOrder.State.processing);
+				cashier.hereIsMoneyRestaurant(cashierRest, 20.00);
+				assertTrue("State should be pending", cashier.getRestaurantOrders().get(0).state == RestaurantOrder.State.paying);
+				assertTrue("Scheduler should return true", cashier.pickAndExecuteAnAction());
+				assertTrue("Cashier's waiting customers list must be empty",cashier.getRestaurantOrders().size()==0);
+				assertTrue("Scheduler should return true", !cashier.pickAndExecuteAnAction());
 		}
 		
-		@Test
-		public void RestaurantOrder() throws InterruptedException{
-			
-			
-		}
 		
 		
 }
