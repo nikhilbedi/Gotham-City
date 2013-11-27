@@ -55,10 +55,17 @@ money a person can start with is $250 and the maximum is $1000.
 There is only 1 Home that can be occupied (it is the middle home on the GUI). If a person is added after that home is occupied he will live in the "batcave" which is in the bottom left of the screen.
 
 #####Home:
+Currently there is one Home is Gotham city.  The first person that is created in the city belongs to that home.  When the personAgent enters the home he turns into a residentRole.  The person will go home if it is hungry and doesnt have enough money to eat at a restaurant or if it has groceries from the market and needs to put them in the fridge.
 ######HomeResident Role:
-######Landlord Role:
+There are three main things the resident can do once it is in the home.  When it enters the home the first thing that it does is check its mailbox.  The resident checks his mailbox for rentBills to see if he has to pay his landlord if he doesnt own his home.  If he has a rentBill then he will go pay the bill (go to bank).  The next thing the  resident will do is check if his groceryBag is not empty.  If the grocerBag is not empty then the resident will go to the fridge to put the groceries in the fridge and replenish the fridge foods.  If the resident ever gets hungry, which is determined by the city clock then the resident will check the fridge to see if has food.  If the fridge is out of food the resident will go to the market to pick up groceries and a restaurant to fulfill its hunger.  If the fridge is not empty then the resident will choose a food, cook it, plate it, take it to the table, eat it, and clear it from the table.  When the resident is not doing anything then the resident will go to the couch.
 
-There is only one Home in our city and only one new person can live there.  If more than one person in our city is created, the others are spawned in a temporary location
+######Landlord Role:
+The landlord has a list of home owned. When the cityclock timer hits 12 or noon then the clock timer will send a message to for the landlord to send the rentbills out.  The landlord will then send the rentbills to the mailbox of all of the residents of the homes the landlord owns.
+
+There is only one Home in our city and only one new person can live there.  If more than one person in our city is created, the others are spawned in a temporary location that we call the batcave.  Obviously this will be changed for V2.
+
+  * Everything to do with the Home and resident and landlord was designed and implemented by Evan.
+
 #####Bank:
 If the person's money is low, or high, or he needs to pay a bill he will go the the bank.  In the bank there is a greeter and a teller.
 ######BankGreeterRole: 
@@ -69,6 +76,18 @@ These transaction include: deposit, withdrawal, opening account, closing account
 When the bank customer comes in to make a withdrawal and the customer does not have a bank account, the teller will open a bank account for that customer
 ######BankTellerRole: 
 The TellerRole gets messaged if a customer needs a transaction.  The teller handles each transaction and every transaction that the bank customer needs.  The teller checks a BankDatabase to get the info for the customer they are handling. For example if the customer wants to take out a loan, the teller will check the database to see if they have enough money in their account to be eligible for a loan.
+
+  * Everything to do with the Bank was designed and implemented by Brice.
+
+#####Market: 
+There is a cashier and worker in a market. Marker accepts two types of orders. First one customer orders, the second is restaurant orders. Customers walks to market, stay in a line, by telling market cashier that he needs food, when cashier asks him what he needs he walks to the cashier, passes his orders pays, and moves to get his items. While customer is paying worker walks to bring food to the customer. When customer gets his food he leaves the market. Restaurant cooks "call" market and give order, cashier interacts with restaurant cashier, and worker sends food to cook.
+
+######CashierRole: 
+greets customers, accepts orders from customers and retsaurant cooks, Accepts payments, gives change.
+Also, cashier makes worker bring or send food depending on order.
+
+######MarketWorkerRole: 
+Brings or sends food to restaurant or customer after cashier tells to do so. For now, worker "sends" food without trucks, food magically appears in restaurants.
   
 #####Market: 
 There is a cashier and worker in a market. Marker accepts two types of orders. First one customer orders, the second is restaurant orders. Customers walks to market, stay in a line, by telling market cashier that he needs food, when cashier asks him what he needs he walks to the cashier, passes his orders pays, and moves to get his items. While customer is paying worker walks to bring food to the customer. When customer gets his food he leaves the market. Restaurant cooks "call" market and give order, cashier interacts with restaurant cashier, and worker sends food to cook.
