@@ -99,38 +99,42 @@ Hunter (William) created all of the GUI elements from scratch and spend a large 
 
 The super sexy looking main screen elements were created by Brice while the skeleton for implementing them was created by Hunter.
 
-SimCityRun:
+######SimCityRun:
 This class creates a frame containing all of the JPanels and runs the program.
 
-SimCityPanel:
+######SimCityPanel:
 This is the Panel that contains all things related to animation including all of the Screen classes that will be discussed below. Every 10ms the program will update the current display and the positions of all the agent gui elements.  This class also checks where the mouse is clicked and updates the Screen accordingly. 
 
-Screen class:
+######Screen:
 The Screen class is the crucial class to the Gui implementation. A Screen is populated with Gui elements and backgroundImages. These elements with then be displayed only when that particular screen is activated.  There are multiple classes that inherit from Screen:
 
-  +MainScreen (The "city-level" screen)
-  +BankAnimationPanel (Interior bank screen)
-  +HomeAnimationPanel (Interior home screen)
-  +MarketAnimationPanel (Interior market screen)
-  +The individual restaurant animation panels
+  + MainScreen (The "city-level" screen)
+  + BankAnimationPanel (Interior bank screen)
+  + HomeAnimationPanel (Interior home screen)
+  + MarketAnimationPanel (Interior market screen)
+  + The individual restaurant animation panels
 
 
-ScreenFactory:
+######ScreenFactory:
 The ScreenFactory class was inspired by the RoleFactory discussed in class.  It allows for access to each of the Screens of the simulation if given a String.
 
-InfoPanel:
+######InfoPanel:
 There is an information panel at the bottom of the window that contains information specific to the PersonAgent selected in the side pane.  Right now only name, location, and current money is listed.  In future versions this panel will allow for a user to override the scheduler of the person and cause him to perform certain actions.
 
 
-PersonSelectionPane:
+######PersonSelectionPane:
 This side pane is much similar to the ones in our restaurant simulation. When a new person is added to the simulation he is added to this panel. If you click on the button associated with the personAgent, its information will be displayed on the infoPanel.  There were plans for the personSelectionPane to only display persons that are currently on the screen and also to highlight the person when they are selected. These ideas will be implemented in later versions.
 
 
-NewPersonWindow:
+######NewPersonWindow:
 When the Add Person button is pressed, a new window is opened that allows the user to customize the aspects of a given personAgent. Upon pressing done this person will be added to the simulation.  Only one newPerson window can be open at a time. These design decisions inspired my idea and implementation of the Robot class.
 
 
+#####Core Data
 
+PersonAgent:
+
+Role:
 
 CityClock timer:
 
