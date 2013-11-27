@@ -77,7 +77,7 @@ Every one of our team member's restaurants are implemented into the city. We mad
   + William's restaurant: location=right bottom
   + Brice's restaurant: location=left top
 
-Mika's restaurant is the only restaurant that can successfully order from the market when the cook runs out of inventory. The other restaurants have enough inventoy so it is not necessary.
+Mika's restaurant is the only restaurant that can successfully order from the market when the cook runs out of inventory. The other restaurants have enough inventoy so it is not necessary. We do not animate this transaction.
 
 #####PersonAgent:
 
