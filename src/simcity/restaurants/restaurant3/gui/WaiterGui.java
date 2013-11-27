@@ -164,7 +164,8 @@ public class WaiterGui extends RoleGui {
     
     */
     public void draw(Graphics g) {
-        g.setColor(Color.MAGENTA);
+        super.draw(g);
+    	g.setColor(Color.MAGENTA);
         g.fillRect(xPos, yPos, Width, Height);
         if (deliveringFood){				
         	g.drawString("bringing " + order, getXPos(), getYPos());

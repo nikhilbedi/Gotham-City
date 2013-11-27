@@ -2,7 +2,6 @@ package simcity.restaurants.restaurant1;
 
 import simcity.PersonAgent;
 import simcity.tests.mock.*;
-import agent.Agent;
 import simcity.restaurants.restaurant1.WaiterRole;
 import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
 import simcity.restaurants.restaurant1.Menu;
@@ -100,10 +99,11 @@ public class HostRole extends Role implements Host {
 	/**
        Handles new Customer and puts it onto waiting list
 	 */
-	public void msgIWantFood(Customer cust) {
+	public void msgIWantFood(Customer customer) {
 		print("received message that customer is hungry.");
-		waitingCustomers.add(cust);
+		waitingCustomers.add(customer);
 		//Waiter
+		print("persons name is " + myPerson.getName());
 		stateChanged();
 	}
 

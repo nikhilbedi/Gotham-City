@@ -1,6 +1,9 @@
 package simcity.restaurants.restaurant4.test.mock;
 
+import java.util.List;
+
 import simcity.Market.interfaces.MarketCashier;
+import simcity.restaurants.restaurant4.Restaurant4CashierRole.Payment;
 import simcity.restaurants.restaurant4.Restaurant4CustomerRole;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Cashier;
 
@@ -22,6 +25,12 @@ public class Restaurant4CashierMock extends Mock implements Restaurant4Cashier {
 			double money) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<Payment> getPayments() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

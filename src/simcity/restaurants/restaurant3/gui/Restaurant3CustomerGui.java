@@ -99,6 +99,7 @@ public class Restaurant3CustomerGui extends RoleGui{
 	}
 
 	public void draw(Graphics g) {
+		super.draw(g);
 		g.setColor(Color.GREEN);
 		g.fillRect(xPos, yPos, Width, Height);
 		if (waitingForFood){

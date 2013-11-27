@@ -12,6 +12,8 @@ import simcity.Market.interfaces.MarketCashier;
 import simcity.Market.interfaces.MarketCustomer;
 import simcity.Market.interfaces.MarketWorker;
 import simcity.restaurants.restaurant4.*;
+import simcity.restaurants.restaurant4.test.mock.Restaurant4CashierMock;
+import simcity.restaurants.restaurant4.test.mock.Restaurant4CookMock;
 import agent.Role;
 
 public class MarketWorkerRole extends Role implements MarketWorker{
@@ -75,10 +77,10 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	public void Sent(Role role){
 		delivering.release();
 		myPerson.Do("sent things to restaurant");
-		for (RestaurantDelivery delivery: restDeliveries){
-			if (delivery.cookRole == role){
-				   ((Restaurant4CookRole) delivery.cookRole).HereIsYourFood(delivery.foods);
-				restDeliveries.remove(delivery);
+		for (int i=0; i<restDeliveries.size(); i++){
+			if (restDeliveries.get(i).cookRole == role){
+				   ((Restaurant4CookRole) restDeliveries.get(0).cookRole).HereIsYourFood(restDeliveries.get(i).foods);
+				restDeliveries.remove(restDeliveries.get(i));
 				stateChanged();
 			}
 		}
@@ -159,8 +161,8 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 		private Role cookRole;
 		private Map<String, Integer> foods;
 		//Location
-		DeliveryState state;
-		enum DeliveryState {pending, getting, delivering, delivered};
+		public DeliveryState state;
+		public enum DeliveryState {pending, getting, delivering, delivered};
 		
 		public RestaurantDelivery(Map<String, Integer> f, Role role){
 			cookRole = role;
@@ -174,4 +176,5 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 		workerGui = Gui;
 		
 	}
+
 }

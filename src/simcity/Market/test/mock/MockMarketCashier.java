@@ -6,11 +6,13 @@ import java.util.Map;
 import agent.Role;
 import simcity.Market.Item;
 import simcity.Market.MarketCashierRole.Check;
+import simcity.Market.MarketCashierRole.RestaurantOrder;
 import simcity.Market.MarketCustomerRole;
 import simcity.Market.Order;
 import simcity.Market.interfaces.MarketCashier;
 import simcity.Market.interfaces.MarketCustomer;
 //import simcity.Restaurant4.Restaurant4CashierRole;
+import simcity.restaurants.restaurant4.Restaurant4CashierRole;
 
 public class MockMarketCashier extends Mock implements MarketCashier {
 
@@ -65,6 +67,18 @@ public class MockMarketCashier extends Mock implements MarketCashier {
 	public List<Check> getChecks() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public List<RestaurantOrder> getRestaurantOrders() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setRest4Cashier(Restaurant4CashierRole r) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

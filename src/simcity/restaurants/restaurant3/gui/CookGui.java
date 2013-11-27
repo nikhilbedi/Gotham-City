@@ -66,7 +66,8 @@ public class CookGui extends RoleGui {
     }
 
     public void draw(Graphics g) {
-        g.setColor(Color.BLACK);
+        super.draw(g);
+    	g.setColor(Color.BLACK);
         //g.fillRect(xPos, yPos, Width, Height);
         if(cooking) {
         	if(tableNumber == 1) {

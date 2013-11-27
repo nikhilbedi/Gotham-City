@@ -42,8 +42,8 @@ public class Screen
 
 	public void updateAgents(){
 		synchronized(guis) {
-			for (RoleGui gui : guis) {
-				gui.updatePosition();
+			for (int a = 0; a < guis.size(); a++) {//RoleGui gui : guis) {
+				guis.get(a).updatePosition();
 			}
 		}
 	}
@@ -71,7 +71,6 @@ public class Screen
 		else if(temp==2){//Restaurant
 			g.drawString("Restaurant", 400, 50);
 			g.drawRect(25,50,20,20);
-
 		}
 		else if(temp==3){//Market
 			g.drawString("Market", 400, 50);

@@ -11,12 +11,16 @@ public class Robot extends PersonAgent{
 	public Robot(String name, PersonGui g, Screen s) {
 		super(name, g, s);
 	}
+	
 	public boolean pickAndExecuteAnAction() {
 		//Role Scheduler
 		//This should be changed to activeRole.pickAndExecuteAnAction();
 		for(Role r : roles) {
 			//System.out.println("Calling role schedulers");
 			r.pickAndExecuteAnAction();
+			/*if(r.pickAndExecuteAnAction()) { //Nikhil: changed robot code because this it didnt return true
+				return true;
+			}*/
 		}
 
 		return false;
