@@ -65,13 +65,14 @@ When the bank customer comes in to make a withdrawal and the customer does not h
 ######BankTellerRole: 
 The TellerRole gets messaged if a customer needs a transaction.  The teller handles each transaction and every transaction that the bank customer needs.  The teller checks a BankDatabase to get the info for the customer they are handling. For example if the customer wants to take out a loan, the teller will check the database to see if they have enough money in their account to be eligible for a loan.
   
-####Market: There is a cashier and worker in a market. Marker accepts two types of orders. First one customer orders, the second is restaurant orders. Customers walks to market, stay in a line, by telling market cashier that he needs food, when cashier asks him what he needs he walks to the cashier, passes his orders pays, and moves to get his items. While customer is paying worker walks to bring food to the customer. When customer gets his food he leaves the market. Restaurant cooks "call" market and give order, cashier interacts with restaurant cashier, and worker sends food to cook.
+#####Market: 
+There is a cashier and worker in a market. Marker accepts two types of orders. First one customer orders, the second is restaurant orders. Customers walks to market, stay in a line, by telling market cashier that he needs food, when cashier asks him what he needs he walks to the cashier, passes his orders pays, and moves to get his items. While customer is paying worker walks to bring food to the customer. When customer gets his food he leaves the market. Restaurant cooks "call" market and give order, cashier interacts with restaurant cashier, and worker sends food to cook.
 
-#####CashierRole: 
+######CashierRole: 
 greets customers, accepts orders from customers and retsaurant cooks, Accepts payments, gives change.
 Also, cashier makes worker bring or send food depending on order.
 
-#####MarketWorkerRole: 
+######MarketWorkerRole: 
 Brings or sends food to restaurant or customer after cashier tells to do so. For now, worker "sends" food without trucks, food magically appears in restaurants.
 
 
