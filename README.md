@@ -113,6 +113,7 @@ Every one of our team member's restaurants are implemented into the city. We mad
 Mika's restaurant is the only restaurant that can successfully order from the market when the cook runs out of inventory. The other restaurants have enough inventoy so it is not necessary. We do not animate this transaction.
 
 #####PersonAgent:
+  The personAgent has a couple different types of states: MarketState (to tell when the person has or is getting groceries), EatingState (keeps track of where to eat), HungerState (keeps track of level of hunger), MoneyState (keeps track of what level of money the person has), TransportationState (to determine whether to walk, drive, or take the bus. this is not used yet), JobState (for work. not used yet), RentState(for paying bills).
 
 #####GUI:
 Hunter (William) created all of the GUI elements from scratch and spend a large amount helping others with integration and Git.
