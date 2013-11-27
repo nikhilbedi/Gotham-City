@@ -65,9 +65,16 @@ When the bank customer comes in to make a withdrawal and the customer does not h
 ######BankTellerRole: 
 The TellerRole gets messaged if a customer needs a transaction.  The teller handles each transaction and every transaction that the bank customer needs.  The teller checks a BankDatabase to get the info for the customer they are handling. For example if the customer wants to take out a loan, the teller will check the database to see if they have enough money in their account to be eligible for a loan.
   
-#####Market:
-######CashierRole:
-######MarketWorkerRole:
+####Market: There is a cashier and worker in a market. Marker accepts two types of orders. First one customer orders, the second is restaurant orders. Customers walks to market, stay in a line, by telling market cashier that he needs food, when cashier asks him what he needs he walks to the cashier, passes his orders pays, and moves to get his items. While customer is paying worker walks to bring food to the customer. When customer gets his food he leaves the market. Restaurant cooks "call" market and give order, cashier interacts with restaurant cashier, and worker sends food to cook.
+
+#####CashierRole: 
+greets customers, accepts orders from customers and retsaurant cooks, Accepts payments, gives change.
+Also, cashier makes worker bring or send food depending on order.
+
+#####MarketWorkerRole: 
+Brings or sends food to restaurant or customer after cashier tells to do so. For now, worker "sends" food without trucks, food magically appears in restaurants.
+
+
 #####Restaurants:
 Every one of our team member's restaurants are implemented into the city. We made this one of our biggest goals to complete by V1. Although including all team member's restaurants into the city was a difficult task, we thought if done successfully it would set us apart from other teams. None of our restaurants include the producer-consumer revolving stand. We knew that this would not be important to the main functionality of the city and we wanted to focus on getting our city running before focusing on smaller details like this. This is something we decided early on was not vital to our V1 and could be easily implemented in V2.
 
