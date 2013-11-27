@@ -73,7 +73,7 @@ public class PersonAgent extends Agent implements Person {
 	// These buildings will be set when any person is added
 	public List<Restaurant> restaurants;
 	public Restaurant currentPreference;
-	private int restaurantCounter=0;
+	private int restaurantCounter= (int) (Math.random()*5);
 	public List<Market> markets; 
 
 
@@ -212,7 +212,11 @@ public class PersonAgent extends Agent implements Person {
 
 	public void setRestaurants(List<Restaurant> r) {
 		restaurants = r;
-
+		restaurantCounter = (int) (Math.random()*5);
+		if(restaurantCounter > 4){
+			restaurantCounter = 2;
+		}
+		//System.out.println("First restauarant is " + (restaurantCounter +1 ) );
 		currentPreference = restaurants.get(restaurantCounter);
 		/*for(Restaurant rest : restaurants) {
 			if(rest.getName().equals("Restaurant 2")) {
