@@ -83,7 +83,7 @@ public class PersonAgent extends Agent implements Person {
 
         //These three are essential, but should be instantiated with the "Homeless Shelter" spawnpoint
         private boolean shelter = false;
-        private Building spawnPoint = new Building("spawnpoint");
+        private Building spawnPoint = new Building("bat cave");
         private Home myHome;
         public Building currentBuilding = spawnPoint; 
         public Building currentDestination = spawnPoint; 
@@ -352,7 +352,7 @@ public class PersonAgent extends Agent implements Person {
 		currentTime = time;
 		//Another hour, another chance to eat ;)
 		hungerCount++;
-		print("Checking my watch and it is " + time + " o' clock");
+		//print("Checking my watch and it is " + time + " o' clock");
 		//NEED TO CHECK IF THIS PERSON IS A HOMEOWNER. IF SO, MAKE THAT ROLE ACTIVE IF NO OTHER ROLE IS ACTIVE
 		if(landlord != null) {
 			//landlord.updateCurrentTime(time);
@@ -367,14 +367,14 @@ public class PersonAgent extends Agent implements Person {
 				hungerState != HungerState.FeedingHunger) {
 			hungerState = HungerState.Starving;
 			print("starving statechange");
-			stateChanged();
+			//stateChanged();
 		}
 		else if(hungerCount > 7 && hungerState != HungerState.Hungry && 
 				hungerState != HungerState.FeedingHunger &&
 				hungerState != HungerState.Starving) {
 			hungerState = HungerState.Hungry;
 			print("hungry statechange");
-			stateChanged();
+			//stateChanged();
 		}
 		else if(hungerCount > 3 && hungerState != HungerState.Famished && 
 				hungerState != HungerState.FeedingHunger &&
@@ -382,14 +382,14 @@ public class PersonAgent extends Agent implements Person {
 				hungerState != HungerState.Hungry) {
 			hungerState = HungerState.Famished;
 			print("famished statechange");
-			stateChanged();
+			//stateChanged();
 		}
 
 		//We should change any states here, not constantly check the scheduler to change states
 		if(myJob != null) {
 			if(currentTime == myJob.onWork) {
 				myJob.state = JobState.GoToWorkSoon;
-				stateChanged();
+				//stateChanged();
 			} 
 			//Maybe, also check if our current state is atWork
 			else if (currentTime == myJob.offWork) {
@@ -397,7 +397,7 @@ public class PersonAgent extends Agent implements Person {
 				myJob.state = JobState.LeaveWork;
 				//Need to now check the person scheduler so we leave work
 				checkPersonScheduler = true;
-				stateChanged();
+				//stateChanged();
 			}
 		}
 
@@ -407,15 +407,15 @@ public class PersonAgent extends Agent implements Person {
 		double high = 150.0;
 		if (money <= low && moneyState != MoneyState.Low) {
 			moneyState = MoneyState.Low;
-			stateChanged();
+			//stateChanged();
 		} else if (money >= high && moneyState != MoneyState.High) {
 			moneyState = MoneyState.High;
-			stateChanged();
+			//stateChanged();
 		}
 		else{
 			moneyState = MoneyState.Neutral;
 		}
-		//stateChanged();
+		stateChanged();
 	}
 
 	// Messages from User Interface or Animation

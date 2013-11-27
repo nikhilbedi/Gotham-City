@@ -30,19 +30,25 @@ public class InfoPanel extends JPanel {
 		//paintBackground();
 		//remove(welcome);
 		
+		JPanel namePanel = new JPanel();
 		name = new JLabel("Name: " + p.getName());
 		name.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
-		location = new JLabel("Location: " + p.getCurrentBuilding().toString());
+		JPanel locationPanel = new JPanel();
+		location = new JLabel("Location: " + p.getCurrentBuilding().getName());
 		location.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
+		JPanel moneyPanel = new JPanel();
 		money = new JLabel("$: " + p.getMoney());
 		
-		add(name);
+		namePanel.add(name);
+		add(namePanel);
 		add(Box.createRigidArea(new Dimension(10,10)));
-		add(location);
+		locationPanel.add(location);
+		add(locationPanel);
 		add(Box.createRigidArea(new Dimension(10,10)));
-		add(money);
+		moneyPanel.add(money);
+		add(moneyPanel);
 		validate();
 	}
 }

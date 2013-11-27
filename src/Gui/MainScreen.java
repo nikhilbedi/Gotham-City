@@ -56,8 +56,6 @@ public class MainScreen extends Screen{
 		house.setImagePath("/resources/Buildings/HouseDark2.png");
 		
 		//These are just added to make Evan happy
-		house2 = new Home("Home2", 90, 590, 100, 600);
-		house2.setImagePath("/resources/Buildings/HouseDark2.png");
 		house3 = new Home("Home3", 190, 590, 200, 600);
 		house3.setImagePath("/resources/Buildings/HouseDark2.png");
 		house4 = new Home("Home4", 290, 590, 300, 600);
@@ -94,7 +92,7 @@ public class MainScreen extends Screen{
 		buildings.add(rest5);
 		
 		//just for looks
-		buildings.add(house2);
+		//buildings.add(house2);
 		buildings.add(house3);
 		buildings.add(house4);
 		buildings.add(house5);

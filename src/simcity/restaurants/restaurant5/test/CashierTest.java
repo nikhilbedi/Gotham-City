@@ -1,12 +1,11 @@
-package restaurant.test;
+package simcity.restaurants.restaurant5.test;
 
 import junit.framework.TestCase;
-import restaurant.CashierAgent;
-import restaurant.CustomerAgent;
-import restaurant.WaiterAgent;
-import restaurant.test.mock.*;
-
+import simcity.restaurants.restaurant5.*;
+import simcity.restaurants.restaurant5.gui.*;
+import simcity.restaurants.restaurant5.interfaces.*;
 //import junit.framework.*;
+import simcity.restaurants.restaurant5.test.mock.*;
 
 /**
  * 

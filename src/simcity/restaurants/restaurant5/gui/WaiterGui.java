@@ -23,8 +23,6 @@ public class WaiterGui extends RoleGui implements Gui {
 	public static int waitX = 70;
 	public static int waitY = 36;
     
-    RestaurantGui gui;
-    
     static final int hostSize = 20;
     
     private Map<Integer, Dimension> tableMap;

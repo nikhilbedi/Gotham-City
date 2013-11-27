@@ -1,4 +1,4 @@
-package restaurant.test.mock;
+package simcity.restaurants.restaurant5.test.mock;
 
 import java.util.LinkedList;
 import java.util.List;

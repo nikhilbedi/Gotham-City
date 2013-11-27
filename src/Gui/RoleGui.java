@@ -162,7 +162,7 @@ public class RoleGui {
 		myColor = c;
 	}
 	public Screen getHomeScreen() {
-		System.out.println("Here is home Screen: " + homeScreen);
+		//System.out.println("Here is home Screen: " + homeScreen);
 		return homeScreen;
 	}
 	public void setHomeScreen(Screen s){

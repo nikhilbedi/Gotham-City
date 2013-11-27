@@ -19,6 +19,7 @@ public final class CityClock {
 				if(currentTime == 25) {
 					currentTime = 1;
 				}
+				System.out.println("The time is now: " + currentTime);
 				for(PersonAgent p : people) {
 					p.updateTime(currentTime);
 				}

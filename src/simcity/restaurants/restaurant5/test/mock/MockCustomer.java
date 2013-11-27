@@ -1,13 +1,9 @@
-package restaurant.test.mock;
+package simcity.restaurants.restaurant5.test.mock;
 
 
-import restaurant.Menu;
-import restaurant.gui.CustomerGui;
-import restaurant.interfaces.Cashier;
-import restaurant.interfaces.Cook;
-import restaurant.interfaces.Customer;
-import restaurant.interfaces.Host;
-import restaurant.interfaces.Waiter;
+import simcity.restaurants.restaurant5.*;
+import simcity.restaurants.restaurant5.gui.*;
+import simcity.restaurants.restaurant5.interfaces.*;
 
 public class MockCustomer extends Mock implements Customer{
 	

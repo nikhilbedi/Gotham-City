@@ -1,7 +1,9 @@
-package restaurant.test.mock;
+package simcity.restaurants.restaurant5.test.mock;
 
-import restaurant.CookAgent;
-import restaurant.interfaces.*;
+import simcity.restaurants.restaurant5.*;
+import simcity.restaurants.restaurant5.gui.*;
+import simcity.restaurants.restaurant5.interfaces.*;
+
 
 public class MockMarket extends Mock implements Market {
 	public MockMarket(String name){

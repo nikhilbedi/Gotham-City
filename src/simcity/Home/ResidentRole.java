@@ -290,7 +290,7 @@ public class ResidentRole extends Role implements Resident {
 		}
 
 		if (state == HomeState.CheckingFoodSupply && event == HomeEvent.collectedIngredients) {
-			//System.out.println("Check cook food msg in sch *HI***");
+			System.out.println("Check cook food msg in sch *HI***");
 			state = HomeState.Cooking;
 			goToStove(type);
 			return true;
@@ -358,7 +358,15 @@ public class ResidentRole extends Role implements Resident {
 		 HomeEvent.checkedEmptyFridge){ state = HomeState.DoingNothing;
 		 LeavingRestaurant exitHome(); return true; }
 		 */
-
+		
+		//Evan, can you reevaluate this addition hunter and I made? - Nikhil TODO
+		if(state == HomeState.DoingNothing && event == HomeEvent.none) {
+			state = HomeState.checkingMailbox;
+			//returnToHomePosition();
+			return true;
+		}
+		
+		//System.err.println("DEADLOOCKKKK");
 		return false;
 	}
 
@@ -617,7 +625,7 @@ public class ResidentRole extends Role implements Resident {
 	}
 
 	public void returnToHomePosition() {
-		print("Going to home position");
+		//print("Going to home position");
 		residentGui.DoReturnToHomePosition();
 		event = HomeEvent.none;
 		//stateChanged();

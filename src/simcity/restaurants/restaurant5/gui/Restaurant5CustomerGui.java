@@ -40,7 +40,7 @@ public class Restaurant5CustomerGui extends RoleGui implements Gui{
 
 
 
-	public Restaurant5CustomerGui(Restaurant5CustomerRole c, RestaurantGui gui){ //HostAgent m) {
+	public Restaurant5CustomerGui(Restaurant5CustomerRole c){ //HostAgent m) {
 		role = c;
 		xPos = -40;
 		yPos = -40;
