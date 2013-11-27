@@ -151,6 +151,9 @@ This side pane is much similar to the ones in our restaurant simulation. When a 
 When the Add Person button is pressed, a new window is opened that allows the user to customize the aspects of a given personAgent. Upon pressing done this person will be added to the simulation.  Only one newPerson window can be open at a time. These design decisions inspired my idea and implementation of the Robot class.
 
 
+######RoleGui
+All visual represenations of PersonAgents are displayed via using a RoleGui class that contains information about spriting, background color, and movement.
+
 #####Core Data
 
 PersonAgent:
