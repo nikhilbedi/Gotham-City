@@ -8,7 +8,7 @@ import simcity.Market.interfaces.MarketCashier;
 
 public class Role {
 
-        protected PersonAgent myPerson;
+        public PersonAgent myPerson;
 
         protected RoleGui gui;
         private boolean active; 

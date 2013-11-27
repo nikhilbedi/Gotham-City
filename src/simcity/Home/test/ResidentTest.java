@@ -1,11 +1,15 @@
 package simcity.Home.test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import Gui.ScreenFactory;
 import junit.framework.TestCase;
 import simcity.PersonAgent;
 import simcity.PersonAgent.RentBill;
 import simcity.Home.Home;
 import simcity.Home.ResidentRole;
+import simcity.Home.ResidentRole.HomeEvent;
 import simcity.Home.ResidentRole.HomeState;
 import simcity.Home.gui.ResidentGui;
 import simcity.Home.test.mock.MockLandlord;
@@ -16,10 +20,11 @@ import org.junit.* ;
 import static org.junit.Assert.* ;
 
 public class ResidentTest  {
-		PersonAgent myPerson;
-		public ResidentRole resident = new ResidentRole(new PersonAgent("testResident"));
+		PersonAgent myPerson = new PersonAgent("person");
+		public ResidentRole resident = new ResidentRole(myPerson);
 		public MockLandlord landlord = new MockLandlord("landord");
 		Home h = new Home("Home", 0, 0, 0, 0);
+		private List<RentBill> rentBills = new ArrayList<RentBill>();
         //resident.getPersonAgent().setBank(b);
 		
 	
@@ -32,20 +37,31 @@ public class ResidentTest  {
                             resident.groceryBag.size() == 0);
             assertTrue("The resident's rentBills should be empty at the resident's creation. It is not.",
             		landlord.rentBills.size() == 0);
+       
             assertTrue("Resident state to begin with should be DoingNothing. It's currently not.", 
                              resident.state == HomeState.DoingNothing);
-            landlord.rent = 10;
-            //RentBill rb = myPerson.new RentBill(myPerson, 10);
-            landlord.sendRentBills();
             
+            //landlord.rent = 10;
+            RentBill rb =  resident.myPerson.new RentBill(resident.myPerson, 10);
+            
+			resident.myPerson.rentBills.add(rb);
+           
             assertFalse("The resident's rentBills should NOT be empty at the resident's creation. It is .",
-            		myPerson.rentBills.size() == 0);
+            		resident.myPerson.rentBills.size() == 0);
+            assertTrue("Scheduler should return true", resident.pickAndExecuteAnAction());
+            assertTrue("The resident event should be payRent. It's currently not.",
+            		resident.event == HomeEvent.payRent);
             
             
             
             
-    } 
-}
+    }
+
+
+
+	
+} 
+
             /*
            
             
