@@ -43,12 +43,17 @@ As you can see in our GUI we have 4 different types of buildings: Market (top ri
 
 When you click on a building, the screen zooms in and gets replaced with the GUI and animation of that building. There is a small black box on the top left of each zoomed in building view that can be clicked to return to the city view.
 
-To run a simulation of our city use the add Person buttom on the 
+To run a simulation of our city use the add Person button on the top right of the frame.
+
+To simplify testing we have our buildings populated with Robots instead of PersonAgents.  Robots are functionally the same as PersonAgents but their schedulers only run through job-related commands.
 
 Our character that moves around is batman. We underlayed fillRect behind the batman characters to distinguish the roles and customers from the robots.
 
 When a person is added you can set the amount of money they have using a slider on the pop up menu.  The minimum amount of
 money a person can start with is $250 and the maximum is $1000.
+
+There is only 1 Home that can be occupied (it is the middle home on the GUI). If a person is added after that home is occupied he will live in the "batcave" which is in the bottom left of the screen.
+
 #####Home:
 ######HomeResident Role:
 ######Landlord Role:
@@ -90,8 +95,42 @@ Mika's restaurant is the only restaurant that can successfully order from the ma
 #####PersonAgent:
 
 #####GUI:
-Hunter
+Hunter (William) created all of the GUI elements from scratch and spend a large amount helping others with integration and Git.
+
+The super sexy looking main screen elements were created by Brice while the skeleton for implementing them was created by Hunter.
+
+SimCityRun:
+This class creates a frame containing all of the JPanels and runs the program.
+
+SimCityPanel:
+This is the Panel that contains all things related to animation including all of the Screen classes that will be discussed below. Every 10ms the program will update the current display and the positions of all the agent gui elements.  This class also checks where the mouse is clicked and updates the Screen accordingly. 
+
+Screen class:
+The Screen class is the crucial class to the Gui implementation. A Screen is populated with Gui elements and backgroundImages. These elements with then be displayed only when that particular screen is activated.  There are multiple classes that inherit from Screen:
+
+  +MainScreen (The "city-level" screen)
+  +BankAnimationPanel (Interior bank screen)
+  +HomeAnimationPanel (Interior home screen)
+  +MarketAnimationPanel (Interior market screen)
+  +The individual restaurant animation panels
+
+
 ScreenFactory:
+The ScreenFactory class was inspired by the RoleFactory discussed in class.  It allows for access to each of the Screens of the simulation if given a String.
+
+InfoPanel:
+There is an information panel at the bottom of the window that contains information specific to the PersonAgent selected in the side pane.  Right now only name, location, and current money is listed.  In future versions this panel will allow for a user to override the scheduler of the person and cause him to perform certain actions.
+
+
+PersonSelectionPane:
+This side pane is much similar to the ones in our restaurant simulation. When a new person is added to the simulation he is added to this panel. If you click on the button associated with the personAgent, its information will be displayed on the infoPanel.  There were plans for the personSelectionPane to only display persons that are currently on the screen and also to highlight the person when they are selected. These ideas will be implemented in later versions.
+
+
+NewPersonWindow:
+When the Add Person button is pressed, a new window is opened that allows the user to customize the aspects of a given personAgent. Upon pressing done this person will be added to the simulation.  Only one newPerson window can be open at a time. These design decisions inspired my idea and implementation of the Robot class.
+
+
+
 
 CityClock timer:
 
@@ -99,6 +138,9 @@ CityClock timer:
 We weren't able to find out the perfect "hour length" for our program to run realistically.  By that we mean, the program may run in a loop (e.g. the person keeps going to the restaurant and to the home repeatedly because every four hours he gets hungry and each hour could be 5 seconds but in 20 seconds he will need to go to the restaurant to eat again) due to short hour lengths. We kept it short for faster testing (and also for faster grading) since watching a program simulate for 5-15 minutes (representative of a full day) can take a toll on productivity.
 
 RoleFactory:
+
+#####Weird things.
+  +Why there is a gettingStarted.pdf from dropbox? Nobody knows.
 
 #####For V2
 
