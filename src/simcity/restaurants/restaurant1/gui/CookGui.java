@@ -81,8 +81,10 @@ public class CookGui extends RoleGui {
 			}
 		}*/
 		synchronized(ordersOnStand) {
+			int counter = 0;
 			for(String s : ordersOnStand) {
-				g.drawString(s, 826, 250);
+				g.drawString(s, 820+(counter*15), 260);
+				counter++;
 			}
 		}
 	}

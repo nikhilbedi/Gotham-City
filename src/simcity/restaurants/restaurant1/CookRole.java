@@ -184,17 +184,22 @@ public class CookRole extends Role implements Cook {
 
 	private void goCheckStand() {
 		print("checking stand");
-		Order o = RevolvingStand.removeOrder();
+		final Order o = RevolvingStand.removeOrder();
+		String paperOrder = "";
 		if(o != null) {
-			orders.add(o);
-			((CookGui) cookGui).addToStand(o.getChoice());
+			paperOrder = o.getChoice().substring(0,2);
+			cookGui.addToStand(paperOrder);
+			final String temp = paperOrder;
+			cookingTimer.schedule(new TimerTask() {
+				public void run() {
+					print("Taking order of stand and preparing to cook");
+					orders.add(o);
+					cookGui.removeFromStand(temp);
+					stateChanged();
+				}
+			},
+			1200);
 		}
-		cookingTimer.schedule(new TimerTask() {
-			public void run() {
-				stateChanged();
-			}
-		},
-		1200);
 	}
 
 

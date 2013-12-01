@@ -88,9 +88,14 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 		g2.drawString("Waiting", xPos, yPos);
 
 		g2.setColor(Color.RED);
-		xPos=830;
+		xPos=850;
 		yPos = 20;
 		g2.drawString("KITCHEN", xPos, yPos);
+		
+		g2.setColor(Color.CYAN);
+		xPos=830;
+		yPos = 250;
+		g2.drawString("Order Stand", xPos, yPos);
 
 		//Here is the table
 		g2.setColor(Color.BLUE); 
