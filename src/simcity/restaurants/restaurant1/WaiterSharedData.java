@@ -16,7 +16,7 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 /**
- * Restaurant Waiter Agent
+ * Restaurant Waiter Agent with Shared Data with Cook
  */
 public class WaiterSharedData extends Role implements Waiter {
 	private List<MyCustomer> myCustomers
@@ -365,19 +365,23 @@ public class WaiterSharedData extends Role implements Waiter {
 		customer.state = CustomerState.askedToOrder;
 	}
 
-	//Sends correct Customer order to cook
+	
+	/**
+	 * A reimplementation so that the waiter takes the order to a stand rather than the cook
+	 * @param customer
+	 */
 	private void takeOrderToCook(MyCustomer customer) {
-		waiterGui.DoGoToCook();
-		//freeze this thread until gui sends message back to release you from your current task when you reach the cook
-
+		waiterGui.DoGoToStand();
+		//add icon to stand
 		try {
 			busyWithTask.acquire();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Here is the order");
-		cook.hereIsOrder(this, customer.tableNumber, customer.choice);
+		System.out.println("I am putting the order on the stand");
+		//cook.hereIsOrder(this, customer.tableNumber, customer.choice);
+		RevolvingStand.addOrder(this, customer.choice, customer.tableNumber, cook);
 		customer.state = CustomerState.gaveOrderAndWaiting;
 		waiterGui.DoWaitingNearKitchen();
 		//customer.state = CustomerState.waitingForFood;

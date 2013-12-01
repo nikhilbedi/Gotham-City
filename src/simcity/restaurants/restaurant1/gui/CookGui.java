@@ -1,10 +1,9 @@
 package simcity.restaurants.restaurant1.gui;
 
 import Gui.RoleGui;
-
-
 import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
 import simcity.restaurants.restaurant1.CookRole;
+import simcity.restaurants.restaurant1.RevolvingStand;
 import simcity.restaurants.restaurant1.WaiterRole;
 
 import java.awt.*;
@@ -20,6 +19,7 @@ public class CookGui extends RoleGui {
 	public static int xTable = 200;
 	public static int yTable = 250;
 	public List<FoodGui> foodTypes = Collections.synchronizedList(new ArrayList<FoodGui>());
+	public List<String> ordersOnStand = Collections.synchronizedList(new ArrayList<String>());
 	//public Map<String, Boolean> foodTypes = Collections.synchronizedMap(new LinkedHashMap<String, Boolean>());
 
 	//Notifies when to release a permit
@@ -72,6 +72,19 @@ public class CookGui extends RoleGui {
 				i++;
 			}*/
 		}
+
+		/*	if(RevolvingStand.checkStand()){
+			List<String> revolvingStand = RevolvingStand.choicesOnStand();
+			int counter = 0;
+			for(String s : revolvingStand) {
+				g.drawString(s, 826, 250);
+			}
+		}*/
+		synchronized(ordersOnStand) {
+			for(String s : ordersOnStand) {
+				g.drawString(s, 826, 250);
+			}
+		}
 	}
 
 	public boolean isPresent() {
@@ -85,6 +98,18 @@ public class CookGui extends RoleGui {
 
 	public int getYPos() {
 		return yPos;
+	}
+
+	public void addToStand(String s) {
+		synchronized(ordersOnStand){
+			ordersOnStand.add(s);
+		}
+	}
+	
+	public void removeFromStand(String s) {
+		synchronized(ordersOnStand){
+			ordersOnStand.remove(s);
+		}
 	}
 
 	public static class FoodGui {

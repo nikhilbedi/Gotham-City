@@ -39,7 +39,9 @@ public class WaiterGui extends RoleGui {
 		tableCoords.put(2, new Dimension(300, 150));
 		tableCoords.put(3, new Dimension(500, 150));
 		tableCoords.put(4, new Dimension(700, 150));
-		/*	xHome += home*25;
+		
+		//WHY IS THIS CRASHING THE PROGRAM. IT DOESN'T MAKE SENSE.
+		/*xHome += home*25;
 		xPos = xHome;
 		xDestination = xHome;*/
 	}
@@ -102,6 +104,12 @@ public class WaiterGui extends RoleGui {
 		release = true;
 		xDestination = 800;
 		yDestination = 76;
+	}
+	
+	public void DoGoToStand() {
+		release = true;
+		xDestination = 800;
+		yDestination = 276;
 	}
 
 	public void DoWaitingNearKitchen() {

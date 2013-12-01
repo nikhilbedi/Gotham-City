@@ -118,41 +118,41 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 
 
 	public void populate(){
-		//waiterPerson = new Robot("waiter");
+		waiterPerson = new Robot("waiter");
 		waiterSharedDataPerson = new Robot("waiterShared");
 		hostPerson = new Robot("host");
 		cookPerson = new Robot("cook");
 		cashierPerson = new Robot("cashier");
 		//PersonAgent custPerson = new PersonAgent("customer");
 		
-		//waiterRole = new WaiterRole(waiterPerson);
+		waiterRole = new WaiterRole(waiterPerson);
 		waiterSharedDataRole = new WaiterSharedData(waiterSharedDataPerson);
 		hostRole = new HostRole(hostPerson);
 		cookRole = new CookRole(cookPerson);
 		cashierRole = new CashierRole(cashierPerson);
 		
-		//waiterGui = new WaiterGui(waiterRole,1);
+		waiterGui = new WaiterGui(waiterRole,1);
 		waiterSharedDataGui = new WaiterGui(waiterSharedDataRole, 0);
 		cookGui = new CookGui(cookRole);
 		
-		//waiterRole.setGui(waiterGui);
+		waiterRole.setGui(waiterGui);
 		waiterSharedDataRole.setGui(waiterSharedDataGui);
 		cookRole.setGui(cookGui);
 
-		//waiterPerson.addRole(waiterRole);
+		waiterPerson.addRole(waiterRole);
 		waiterSharedDataPerson.addRole(waiterSharedDataRole);
 		hostPerson.addRole(hostRole);
 		cookPerson.addRole(cookRole);
 		cashierPerson.addRole(cashierRole);
 		
-		//addGui(waiterGui);
+		addGui(waiterGui);
 		addGui(waiterSharedDataGui);
 		addGui(cookGui);
 
-		//waiterRole.setHost(hostRole);
-		//waiterRole.setCook(cookRole);
-		//waiterRole.setCashier(cashierRole);
-		//hostRole.addWaiter(waiterRole);
+		waiterRole.setHost(hostRole);
+		waiterRole.setCook(cookRole);
+		waiterRole.setCashier(cashierRole);
+		hostRole.addWaiter(waiterRole);
 		
 		waiterSharedDataRole.setHost(hostRole);
 		waiterSharedDataRole.setCook(cookRole);
@@ -172,7 +172,7 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 		*/
 		hostPerson.startThread();
 		cashierPerson.startThread();
-		//waiterPerson.startThread();
+		waiterPerson.startThread();
 		waiterSharedDataPerson.startThread();
 		cookPerson.startThread();
 		

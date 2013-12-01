@@ -827,11 +827,10 @@ public class PersonAgent extends Agent implements Person {
 		currentBuilding = currentPreference;
 		enteringBuilding(restTemp);
 
-
-		currentPreference = restaurants.get(restaurantCounter);
 		restaurantCounter++;
 		if(restaurantCounter >4)
 			restaurantCounter =0;
+		currentPreference = restaurants.get(restaurantCounter);
 	}
 
 	private void goGetGroceries() {
