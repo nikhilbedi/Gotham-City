@@ -142,8 +142,8 @@ public class Restaurant1CustomerRole extends Role implements Customer {
 	/**
        handles waiter's follow me message and eventually sits down at the correct table (the coordinates are passed from the waitergui to customer gui)
 	 */
-	public void followMe(WaiterRole w, Menu m) {
-		print("I am following waiter " + w.getPersonAgent().getName());
+	public void followMe(Waiter w, Menu m) {
+		print("I am following waiter");
 		myWaiter = w;
 		myMenu = m;
 		event = AgentEvent.followWaiter;

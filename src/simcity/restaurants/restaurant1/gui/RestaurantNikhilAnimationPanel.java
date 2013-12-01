@@ -6,6 +6,7 @@ import simcity.restaurants.restaurant1.CashierRole;
 import simcity.restaurants.restaurant1.CookRole;
 import simcity.restaurants.restaurant1.HostRole;
 import simcity.restaurants.restaurant1.WaiterRole;
+import simcity.restaurants.restaurant1.WaiterSharedData;
 import simcity.PersonAgent;
 import simcity.Robot;
 import Gui.MainScreen;
@@ -27,17 +28,20 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 	//TODO WE NEED TO CHECK THE TYPE OF EACH RESTAURANT TO MAKE SURE WE MAKE IT EQUAL TO THE CORRECT REST.
 	List<Restaurant> restaurants = mainScreen.getRestaurantList();
 	PersonAgent waiterPerson;
+	PersonAgent waiterSharedDataPerson;
 	PersonAgent hostPerson;
 	PersonAgent cookPerson;
 	PersonAgent cashierPerson;
 	//PersonAgent custPerson = new PersonAgent("customer");
 	
 	WaiterRole waiterRole;
+	WaiterSharedData waiterSharedDataRole;
 	HostRole hostRole;
 	CookRole cookRole;
 	CashierRole cashierRole;
 	
 	WaiterGui waiterGui;
+	WaiterGui waiterSharedDataGui;
 	CookGui cookGui;
 	
 	/*private final int WINDOWX = 350;
@@ -114,35 +118,46 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 
 
 	public void populate(){
-		waiterPerson = new Robot("waiter");
+		//waiterPerson = new Robot("waiter");
+		waiterSharedDataPerson = new Robot("waiterShared");
 		hostPerson = new Robot("host");
 		cookPerson = new Robot("cook");
 		cashierPerson = new Robot("cashier");
 		//PersonAgent custPerson = new PersonAgent("customer");
 		
-		waiterRole = new WaiterRole(waiterPerson);
+		//waiterRole = new WaiterRole(waiterPerson);
+		waiterSharedDataRole = new WaiterSharedData(waiterSharedDataPerson);
 		hostRole = new HostRole(hostPerson);
 		cookRole = new CookRole(cookPerson);
 		cashierRole = new CashierRole(cashierPerson);
 		
-		waiterGui = new WaiterGui(waiterRole,0);
+		//waiterGui = new WaiterGui(waiterRole,1);
+		waiterSharedDataGui = new WaiterGui(waiterSharedDataRole, 0);
 		cookGui = new CookGui(cookRole);
 		
-		waiterRole.setGui(waiterGui);
+		//waiterRole.setGui(waiterGui);
+		waiterSharedDataRole.setGui(waiterSharedDataGui);
 		cookRole.setGui(cookGui);
 
-		waiterPerson.addRole(waiterRole);
+		//waiterPerson.addRole(waiterRole);
+		waiterSharedDataPerson.addRole(waiterSharedDataRole);
 		hostPerson.addRole(hostRole);
 		cookPerson.addRole(cookRole);
 		cashierPerson.addRole(cashierRole);
 		
-		addGui(waiterGui);
+		//addGui(waiterGui);
+		addGui(waiterSharedDataGui);
 		addGui(cookGui);
 
-		waiterRole.setHost(hostRole);
-		waiterRole.setCook(cookRole);
-		waiterRole.setCashier(cashierRole);
-		hostRole.addWaiter(waiterRole);
+		//waiterRole.setHost(hostRole);
+		//waiterRole.setCook(cookRole);
+		//waiterRole.setCashier(cashierRole);
+		//hostRole.addWaiter(waiterRole);
+		
+		waiterSharedDataRole.setHost(hostRole);
+		waiterSharedDataRole.setCook(cookRole);
+		waiterSharedDataRole.setCashier(cashierRole);
+		hostRole.addWaiter(waiterSharedDataRole);
 		
 		r1.setCashier(cashierRole);
 		r1.setHost(hostRole);
@@ -157,7 +172,8 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 		*/
 		hostPerson.startThread();
 		cashierPerson.startThread();
-		waiterPerson.startThread();
+		//waiterPerson.startThread();
+		waiterSharedDataPerson.startThread();
 		cookPerson.startThread();
 		
 		

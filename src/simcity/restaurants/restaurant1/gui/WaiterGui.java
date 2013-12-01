@@ -4,7 +4,7 @@ package simcity.restaurants.restaurant1.gui;
 import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
 import simcity.restaurants.restaurant1.HostRole;
 import simcity.restaurants.restaurant1.WaiterRole;
-
+import simcity.restaurants.restaurant1.interfaces.Waiter;
 import Gui.RoleGui;
 
 import java.awt.*;
@@ -12,7 +12,7 @@ import java.util.*;
 
 public class WaiterGui extends RoleGui {
 
-	private WaiterRole agent = null;
+	private Waiter agent = null;
 
 	private int xHome = 100;
 
@@ -29,7 +29,7 @@ public class WaiterGui extends RoleGui {
 	private Map<Integer, Dimension> tableCoords = new HashMap<Integer, Dimension>();
 
 
-	public WaiterGui(WaiterRole agent, int home) {
+	public WaiterGui(Waiter agent, int home) {
 		super.setColor(Color.RED);
 		this.agent = agent;
 		xPos = 100;

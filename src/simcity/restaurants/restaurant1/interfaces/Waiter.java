@@ -17,14 +17,15 @@ public interface Waiter {
 	public abstract void goOnBreak();
 	public abstract void doNotGoOnBreak();
 	public abstract void pleaseSeatCustomer(Customer cust, int table, int x, int y);
-	
 
 	
 	//gui message
+	public abstract void doneWithTask();
 	public abstract void shouldTakeBreak();
 	public abstract void ledCustomerToTableAnimation();
 	public abstract void reachedCookAnimation();
-
+	public abstract boolean onBreak();
+	
 	
 	//Customer
 	public abstract void readyToOrder(Customer cust);
@@ -45,6 +46,7 @@ public interface Waiter {
      */
     public abstract void hereIsCheck(Check ch);
 	//print("Received check for " + ch.customer);
+	
     
     /**
      * @param amount The price the customer either owes or is given back. If it is negative, it is a debt.

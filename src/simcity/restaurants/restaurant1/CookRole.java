@@ -79,8 +79,8 @@ public class CookRole extends Role implements Cook {
     }
     
     //cook receives an order from the waiter and stores it in a list
-    public void hereIsOrder(WaiterRole waiter, int table, String choice) {
-		print("Received order " + choice + " from waiter " + waiter.getName() + " for table " + table);
+    public void hereIsOrder(Waiter waiter, int table, String choice) {
+		print("Received order " + choice + " from waiter for table " + table);
 		orders.add(new Order(waiter, choice, table));
 		stateChanged();
     }
@@ -90,12 +90,12 @@ public class CookRole extends Role implements Cook {
 		stateChanged();
     }
 
-    public void pickedUpFood(WaiterRole w, int table, String choice) {
+    public void pickedUpFood(Waiter w, int table, String choice) {
     	synchronized(orders) {
 			for(Order o : orders) {
 			    if(o.waiter == w && o.table == table && o.choice == choice) {
 					o.state = OrderState.pickedUp;
-					print(w.getName() + " picked up the food.");
+					print("Waiter picked up the food.");
 					break;
 			    }
 			}
@@ -275,7 +275,7 @@ public class CookRole extends Role implements Cook {
 		int table;
 		public OrderState state = OrderState.pending;
 		
-		public Order(WaiterRole w, String c, int t) {
+		public Order(Waiter w, String c, int t) {
 		    waiter = w;
 		    choice = c;
 		    table = t;
