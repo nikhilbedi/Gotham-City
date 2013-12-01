@@ -44,14 +44,10 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	public void setRest4Cashier(Restaurant4CashierRole r){
 		cashier4 = r;
 	}
-	/*
-	public Role findCashier(Role r){
-		if (cashier4 == r){
-			return cashier4;
-		}
-		
-		return r;
-	}*/
+
+	public List<RestaurantOrder> getRestaurantOrders(){
+		return restaurantOrders;
+	}
 	
 	public MarketCashierRole(){
 		super();
@@ -259,8 +255,8 @@ public class MarketCashierRole extends Role implements MarketCashier{
 		private double moneyGiven;
 		private Role cashierRole;
 		private Map<String, Integer> foodNeeded;
-		private State state;
-		private enum State {pending, processing, gotMoney, paying, paid};
+		public State state;
+		public enum State {pending, processing, gotMoney, paying, paid};
 		double amountDue;
 		
 		public RestaurantOrder(Map<String,Integer> food, Role role, Role cashier){

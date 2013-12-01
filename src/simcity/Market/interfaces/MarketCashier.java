@@ -5,11 +5,13 @@ import java.util.Map;
 
 import agent.Role;
 import simcity.Market.Item;
+import simcity.Market.MarketCashierRole.RestaurantOrder;
 import simcity.Market.MarketCustomerRole;
 import simcity.Market.Order;
 //import simcity.Restaurant4.Restaurant4CashierRole;
 //import simcity.Restaurant4.interfaces.Restaurant4Cashier;
 import simcity.Market.MarketCashierRole.Check;
+import simcity.restaurants.restaurant4.Restaurant4CashierRole;
 
 public interface MarketCashier {
 
@@ -26,4 +28,8 @@ public interface MarketCashier {
 	abstract void hereIsMoneyRestaurant(Role role, double money);
 
 	abstract List<Check> getChecks();
+	
+	abstract List<RestaurantOrder> getRestaurantOrders();
+	
+	abstract void setRest4Cashier(Restaurant4CashierRole r);
 }

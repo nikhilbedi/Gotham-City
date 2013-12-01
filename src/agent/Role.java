@@ -19,7 +19,7 @@ public class Role {
 	public void setGui(RoleGui g){
 		gui = g;
 	}
-	
+
 	/**
 	 * Base class for simple roles
 	 */
@@ -27,7 +27,7 @@ public class Role {
 		this.gui = gui;
 		myPerson = person;
 	}
-	
+
 	public Role(PersonAgent person){
 		myPerson = person;
 	}
@@ -76,14 +76,16 @@ public class Role {
 	 */
 	protected void print(String msg, Throwable e) {
 		StringBuffer sb = new StringBuffer();
-		sb.append(myPerson.getName());
-		sb.append(": ");
-		sb.append(msg);
-		sb.append("\n");
-		if (e != null) {
-			sb.append(StringUtil.stackTraceString(e));
+		if(myPerson != null){
+			sb.append(myPerson.getName());
+			sb.append(": ");
+			sb.append(msg);
+			sb.append("\n");
+			if (e != null) {
+				sb.append(StringUtil.stackTraceString(e));
+			}
+			System.out.print(sb.toString());
 		}
-		System.out.print(sb.toString());
 	}
 
 	//Everyone needs to provide an @Override to their pickAndExecuteAnAction

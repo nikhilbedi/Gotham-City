@@ -32,7 +32,7 @@ public class Restaurant1CustomerRole extends Role implements Customer {
 	private int waitingPosY = 100;
 
 	// agent correspondents
-	private WaiterRole myWaiter;
+	private Waiter myWaiter;
 	private HostRole host;
 	private Cashier cashier;
 
@@ -154,14 +154,14 @@ public class Restaurant1CustomerRole extends Role implements Customer {
        handles waiter's message about what customer wants
 	 */
 	public void whatDoYouWant() {
-		print("Waiter " + myWaiter.getName() + " has asked me What I Want.");
+		print("Waiter has asked me What I Want.");
 		event = AgentEvent.askedForOrder;
 		stateChanged();
 	}
 
 	public void hereIsYourFood(String order) {
 		if(myChoice == order){
-			print("Waiter " + myWaiter.getName() + " has given me my food: " + order);
+			print("Waiter has given me my food: " + order);
 			event = AgentEvent.receivedFood;
 		} 
 		stateChanged();
@@ -283,7 +283,7 @@ public class Restaurant1CustomerRole extends Role implements Customer {
 		//if the state is still "waitingInRestaurant", then message and leave
 		//else, do nothing
 		final Restaurant1CustomerRole temp = this;
-		final WaiterRole w = myWaiter;
+		final Waiter w = myWaiter;
 		//The requirements don't say that the customer should be allowed to become hungry again since he left the restaurant
 		timer.schedule(new TimerTask() {
 			public void run() {

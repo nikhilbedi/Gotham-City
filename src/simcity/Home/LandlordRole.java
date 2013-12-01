@@ -10,11 +10,11 @@ import simcity.Home.ResidentRole.HomeState;
 import simcity.Home.gui.ResidentGui;
 import simcity.Home.interfaces.Landlord;
 import simcity.PersonAgent.RentBill;
-import simcity.agent.Role;
+import agent.Role;
 
 public class LandlordRole extends Role implements Landlord {
 	public PersonAgent person;
-	float rent;
+	public float rent;
 	private List<RentBill> rentBills = new ArrayList<RentBill>();
 	private List<Home> homesOwned = new ArrayList<Home>();
 	int currentTime;

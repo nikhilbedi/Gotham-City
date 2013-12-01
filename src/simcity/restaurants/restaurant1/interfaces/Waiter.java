@@ -1,5 +1,7 @@
 package simcity.restaurants.restaurant1.interfaces;
 
+import agent.Role;
+import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
 import simcity.restaurants.restaurant1.CashierRole.Check;
 
 /**
@@ -9,6 +11,33 @@ import simcity.restaurants.restaurant1.CashierRole.Check;
  *
  */
 public interface Waiter {
+	
+	//Host
+	public abstract void goOffBreak();
+	public abstract void goOnBreak();
+	public abstract void doNotGoOnBreak();
+	public abstract void pleaseSeatCustomer(Customer cust, int table, int x, int y);
+	
+
+	
+	//gui message
+	public abstract void shouldTakeBreak();
+	public abstract void ledCustomerToTableAnimation();
+	public abstract void reachedCookAnimation();
+
+	
+	//Customer
+	public abstract void readyToOrder(Customer cust);
+	public abstract void hereIsMyChoice(String choice, Customer cust);
+	public abstract void readyForCheck(Restaurant1CustomerRole role);
+	public abstract void doneAndLeaving(Customer cust);
+	public abstract void customerLeft(Customer cust);
+	
+	//Cook
+	public abstract void orderDone(int table, String choice);
+	public abstract void outOfFood(int table, String choice);
+
+
     /**
      * @param ch The Check object containing the amount, customer, and waiter
      * 

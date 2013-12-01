@@ -179,7 +179,7 @@ public class ResidentGui extends RoleGui {
 	}
 
 	public void DoReturnToHomePosition() {
-		System.out.println("At Home Position");
+		//System.out.println("At Home Position");
 		xDestination = 84;
 		yDestination = 224;
 		command = Command.atHome;

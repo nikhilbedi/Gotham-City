@@ -123,11 +123,15 @@ public class BankCustomerRole extends Role implements BankCustomer{
 					transactionList.add(new BankTransaction("payingRentBill", b.amount, b.accountHolder.getName()));
 		}
 		
-		if(myPerson.moneyState == MoneyState.Low)
+		if(myPerson.moneyState == MoneyState.Low) {
+			print("Withdrawing some money"); //Nikhil --
 			transactionList.add(new BankTransaction("withdrawal", 50));
-		if(myPerson.moneyState == MoneyState.High)
-			transactionList.add(new BankTransaction("deposit", 50));
-		
+		}
+		if(myPerson.moneyState == MoneyState.High) {
+			print("Gonna deposit some money"); //Nikhil - debugging this code
+			transactionList.add(new BankTransaction("deposit", myPerson.getMoney() - 130.0)); // Changed from set 50 to deposit proper amount - Nikhil
+		//	myPerson.setMoney(130.0); //Above didnt work, so manually removing from person's wallet so he doesnt repeated go to bank - Nikhil
+		}
 		
 	}
 	
@@ -136,8 +140,8 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	
 	@Override
 	public void startBuildingMessaging(){
-		msgEnteredBank();
 		setTransactions();
+		msgEnteredBank();
 	}
 
 	public void msgWaitHere(int i) {
@@ -211,6 +215,7 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	}
 	
 	public void msgOutOfBank() {
+		print("The person's money after leaving the bank: " + myPerson.getMoney()); //Nikhil: Trying to debug to see why the person keeps coming back to bank
 		System.out.println(getName() + ": left the bank.");
 		transactionList.clear();
 		myPerson.leftBuilding(this);
@@ -269,9 +274,11 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	}
 	
 	private void makeATransaction() {
-		System.out.println(getName() + ": Making a transaction. Type: " + transactionList.get(0).transactionType);
-		getBankTeller().msgNeedATransaction(this, transactionList.get(0));
-		transactionList.remove(0);
+		if(!transactionList.isEmpty()) {
+			System.out.println(getName() + ": Making a transaction. Type: " + transactionList.get(0).transactionType);
+			getBankTeller().msgNeedATransaction(this, transactionList.get(0));
+			transactionList.remove(0);
+		}
 		state = CustomerState.waiting;
 	}
 	

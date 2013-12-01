@@ -270,7 +270,7 @@ public class CookRole extends Role implements Cook {
 
     //Food and Order classes properly created and used
     class Order {
-		WaiterRole waiter;
+		Waiter waiter;
 		String choice;
 		int table;
 		public OrderState state = OrderState.pending;

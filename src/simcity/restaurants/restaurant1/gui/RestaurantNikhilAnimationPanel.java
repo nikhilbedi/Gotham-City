@@ -1,11 +1,10 @@
 package simcity.restaurants.restaurant1.gui;
 
-import simcity.bank.Bank;
+
 import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant1.CashierRole;
 import simcity.restaurants.restaurant1.CookRole;
 import simcity.restaurants.restaurant1.HostRole;
-import simcity.restaurants.restaurant1.Restaurant1;
 import simcity.restaurants.restaurant1.WaiterRole;
 import simcity.PersonAgent;
 import simcity.Robot;
@@ -15,14 +14,31 @@ import Gui.ScreenFactory;
 
 import java.awt.*;
 import java.util.List;
-import java.util.ArrayList;
 
 
+/**
+ * Everyone should copy my version of the animation panel to see their own correctly work in our simcity
+ * @author nikhil
+ *
+ */
 public class RestaurantNikhilAnimationPanel extends Screen  {
 	MainScreen mainScreen = ScreenFactory.getMainScreen();
 	Restaurant r1;
 	//TODO WE NEED TO CHECK THE TYPE OF EACH RESTAURANT TO MAKE SURE WE MAKE IT EQUAL TO THE CORRECT REST.
 	List<Restaurant> restaurants = mainScreen.getRestaurantList();
+	PersonAgent waiterPerson;
+	PersonAgent hostPerson;
+	PersonAgent cookPerson;
+	PersonAgent cashierPerson;
+	//PersonAgent custPerson = new PersonAgent("customer");
+	
+	WaiterRole waiterRole;
+	HostRole hostRole;
+	CookRole cookRole;
+	CashierRole cashierRole;
+	
+	WaiterGui waiterGui;
+	CookGui cookGui;
 	
 	/*private final int WINDOWX = 350;
     private final int WINDOWY = 250;
@@ -34,7 +50,7 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 
 	public RestaurantNikhilAnimationPanel() { 
 		super();
-		for(Restaurant r : restaurants) {
+	 	for(Restaurant r : restaurants) {
 			if(r.getName().equals("Restaurant 1")){
 				r1 = r;
 			}
@@ -98,19 +114,19 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 
 
 	public void populate(){
-		PersonAgent waiterPerson = new Robot("waiter");
-		PersonAgent hostPerson = new Robot("host");
-		PersonAgent cookPerson = new Robot("cook");
-		PersonAgent cashierPerson = new Robot("cashier");
+		waiterPerson = new Robot("waiter");
+		hostPerson = new Robot("host");
+		cookPerson = new Robot("cook");
+		cashierPerson = new Robot("cashier");
 		//PersonAgent custPerson = new PersonAgent("customer");
 		
-		WaiterRole waiterRole = new WaiterRole(waiterPerson);
-		HostRole hostRole = new HostRole(hostPerson);
-		CookRole cookRole = new CookRole(cookPerson);
-		CashierRole cashierRole = new CashierRole(cashierPerson);
+		waiterRole = new WaiterRole(waiterPerson);
+		hostRole = new HostRole(hostPerson);
+		cookRole = new CookRole(cookPerson);
+		cashierRole = new CashierRole(cashierPerson);
 		
-		WaiterGui waiterGui = new WaiterGui(waiterRole,0);
-		CookGui cookGui = new CookGui(cookRole);
+		waiterGui = new WaiterGui(waiterRole,0);
+		cookGui = new CookGui(cookRole);
 		
 		waiterRole.setGui(waiterGui);
 		cookRole.setGui(cookGui);
@@ -131,6 +147,14 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 		r1.setCashier(cashierRole);
 		r1.setHost(hostRole);
 		
+		
+		//The host doesnt think it has set it's person? I'm manually setting them
+		
+		/*waiterRole.setPerson(waiterPerson);
+		hostRole.setPerson(hostPerson);
+		cookRole.setPerson(cookPerson);
+		cashierRole.setPerson(cashierPerson);;
+		*/
 		hostPerson.startThread();
 		cashierPerson.startThread();
 		waiterPerson.startThread();

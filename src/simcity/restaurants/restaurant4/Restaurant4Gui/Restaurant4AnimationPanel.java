@@ -76,54 +76,35 @@ public class Restaurant4AnimationPanel extends Screen {
     public void setCity(TheCity c){
     	cp = c;
     }
-
-
-   /* public void paintComponent(Graphics g) {
-        Graphics2D g2 = (Graphics2D)g;
-
-    }*/
-
+    
     public void paintBackground(Graphics g2){
     	super.paintBackground(g2);
     	
-      /*  g2.setColor(Color.ORANGE);
-        g2.fillRect(X, Y, WIDTH, HEIGHT );//200 and 250 need to be table params
-*/
-        Graphics2D g1 = (Graphics2D) g2;
-        Image img2 = Toolkit.getDefaultToolkit().getImage("C:/Users/Mika/github/team31/src/simcity/restaurants/restaurant4/Restaurant4Gui/table.png");
-        g1.drawImage(img2, X-40, Y-20, null);
-        g1.finalize();
-   	
+    	 java.net.URL imgtemp = this.getClass().getResource("/resources/mika/table.png");
+    	 ImageIcon  current= new ImageIcon(imgtemp);
+         g2.drawImage(current.getImage(), X-40, Y-20, null);
+        g2.finalize();
         
-       /* g2.setColor(Color.ORANGE);
-        g2.fillRect(X+90, Y, WIDTH, HEIGHT );*/
-        Graphics2D g4 = (Graphics2D) g2;
-        Image img3 = Toolkit.getDefaultToolkit().getImage("C:/Users/Mika/github/team31/src/simcity/restaurants/restaurant4/Restaurant4Gui/table.png");
-        g4.drawImage(img3, X+50, Y-20, null);
-        g4.finalize();
+        java.net.URL imgtemp1 = this.getClass().getResource("/resources/mika/table.png");
+        ImageIcon  current1= new ImageIcon(imgtemp1);
+        g2.drawImage(current1.getImage(), X+50, Y-20, null);
+       g2.finalize();
         
+       java.net.URL imgtemp2 = this.getClass().getResource("/resources/mika/table.png");
+       ImageIcon  current2= new ImageIcon(imgtemp2);
+        g2.drawImage(current2.getImage(), X+140, Y-20, null);
+        g2.finalize();
+
+        java.net.URL imgtemp3 = this.getClass().getResource("/resources/mika/table.png");
+        ImageIcon  current3= new ImageIcon(imgtemp3);
+         g2.drawImage(current3.getImage(), X+230, Y-20, null);
+         g2.finalize();
+     
         
-        /*g2.setColor(Color.ORANGE);
-        g2.fillRect(X+180, Y, WIDTH, HEIGHT );*/
-        Graphics2D g5 = (Graphics2D) g2;
-        Image img4 = Toolkit.getDefaultToolkit().getImage("C:/Users/Mika/github/team31/src/simcity/restaurants/restaurant4/Restaurant4Gui/table.png");
-        g5.drawImage(img4, X+140, Y-20, null);
-        g5.finalize();
-      /*  
-        g2.setColor(Color.ORANGE);
-        g2.fillRect(X+270, Y, WIDTH, HEIGHT );*/
-        Graphics2D g6 = (Graphics2D) g2;
-        Image img5 = Toolkit.getDefaultToolkit().getImage("C:/Users/Mika/github/team31/src/simcity/restaurants/restaurant4/Restaurant4Gui/table.png");
-        g6.drawImage(img5, X+230, Y-20, null);
-        g6.finalize();
-        
-      /*  g2.setColor(Color.GREEN);
-        g2.fillRect(200, 20, 70, 30);*/
-        
-        Graphics2D g10 = (Graphics2D) g2;
-        Image img10 = Toolkit.getDefaultToolkit().getImage("C:/Users/Mika/github/team31/src/simcity/restaurants/restaurant4/Restaurant4Gui/sm.jpg");
-        g10.drawImage(img10, 220, 10, null);
-        g10.finalize();
+         java.net.URL imgtemp4 = this.getClass().getResource("/resources/mika/sm.jpg");
+         ImageIcon  current4= new ImageIcon(imgtemp4);
+          g2.drawImage(current4.getImage(), 220, 10, null);
+          g2.finalize();
         
         
         g2.setColor(Color.GREEN);

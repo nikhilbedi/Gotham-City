@@ -12,7 +12,7 @@ public class RoleGui {
 
 	protected int xPos, yPos;
 	protected int xDestination, yDestination;
-	private static int speed = 1;
+	private static int speed = 2;
 
 	private int repeat, repeatBuffer = 10;
 
@@ -52,10 +52,12 @@ public class RoleGui {
 
 	public RoleGui(Role r, Screen meScreen) {
 		// TODO Auto-generated constructor stub
+		homeScreen = meScreen;
 	}
 
 
 	public void updatePosition(){
+		
 		Orientation temp = o;
 		if (xPos < xDestination){
 			xPos+=speed;
@@ -150,10 +152,9 @@ public class RoleGui {
 
 	public void draw(Graphics g){
 		g.setColor(myColor);
-		//g.fillRect(xPos, yPos, guiSize, guiSize);
+		g.fillRect(xPos, yPos, guiSize, guiSize);
 		g.drawImage(current.getImage(), xPos, yPos, null);
 	}
-
 
 	public void doLeaveBuilding(){
 	}
@@ -161,7 +162,7 @@ public class RoleGui {
 		myColor = c;
 	}
 	public Screen getHomeScreen() {
-		System.out.println("Here is home Screen: " + homeScreen);
+		//System.out.println("Here is home Screen: " + homeScreen);
 		return homeScreen;
 	}
 	public void setHomeScreen(Screen s){

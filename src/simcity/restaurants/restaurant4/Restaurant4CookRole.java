@@ -95,7 +95,7 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 	public void HereIsYourFood(Map<String, Integer> m){ //from market
 		for (Map.Entry<String, Integer> entry: m.entrySet()){
 			Food f = foods.get(entry.getKey());
-			f.amount =  entry.getValue();
+			f.amount = f.amount + entry.getValue();
 			foods.put(entry.getKey(), f);
 			System.out.println("Got order from market, now I have " + f.type + " " + f.amount);
 		}
@@ -222,14 +222,14 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 
 	}
 	
-	static class Food{
-		private String type;
-		private int amount;
-		private int low=2;
-		private int capacity=6;
-		private FoodState state;
-		private enum FoodState {enough, ordering, low};
-		private Map<String, Integer> cookTime = new HashMap<String,Integer>();
+	public static class Food{
+		public String type;
+		public int amount;
+		public int low=2;
+		public int capacity=6;
+		public FoodState state;
+		public enum FoodState {enough, ordering, low};
+		public Map<String, Integer> cookTime = new HashMap<String,Integer>();
 		
 		
 		public Food(String type, int amount){
