@@ -81,7 +81,12 @@ public class MarketAnimationPanel extends Screen {
     }
 
     public void populate(){
-    
+    	
+    	
+    	
+    	
+    	
+    	//THIS IS THE GREATEST COMMENT OF ALL TIME
     	List<String> foods = new ArrayList<String>();
     		marketCashier.setGui(cashierGui);
     		addGui(cashierGui);
