@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.URL;
 
-import read.XMLReader;
+import helpers.XMLReader;
 import  sun.audio.*;
 
 import javax.sound.*;
@@ -20,13 +20,6 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.print.attribute.standard.Media;
 import javax.swing.*;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Node;
-import org.w3c.dom.Element;
 
 import java.io.File;
 
