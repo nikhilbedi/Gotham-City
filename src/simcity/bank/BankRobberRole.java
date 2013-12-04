@@ -18,7 +18,7 @@ import java.util.Timer;
  * Bank Customer Role
  * Programmer: Brice Roland
  */
-public class BankRobberRole extends Role implements BankCustomer{
+public class BankRobberRole extends Role implements BankRobber{
 	
 	// agent correspondents
 	
@@ -29,19 +29,16 @@ public class BankRobberRole extends Role implements BankCustomer{
 	//constructor call to Role constructor
 	public BankRobberRole(PersonAgent person) {
 		super(person);
-		bankCustomerGui = (bankCustomerGui)super.gui;
-		//setTransactions();
+		bankRobberGui = (bankRobberGui)super.gui;
 	}
 	public BankRobberRole(){
 		super();
-		bankCustomerGui = (bankCustomerGui)super.gui;
-		//setTransactions();
+		bankRobberGui = (bankRobberGui)super.gui;
 	}
 	
 	
 	//State Variables
 	
-	public int  waitingNumber;
 	private int tellerIndex;
 	Timer timer = new Timer();
 	double cash, transactionAmount;
@@ -52,13 +49,13 @@ public class BankRobberRole extends Role implements BankCustomer{
 	
 	//Gui
 	
-	public bankCustomerGui bankCustomerGui;
+	public BankRobberGui bankRobberGui;
 	
 	//sets gui and initial positioning (Temp)
 	
 	public void setGui(RoleGui g){
 		super.setGui(g);
-		bankCustomerGui = (bankCustomerGui)g;
+		bankRobberGui = (BankRobberGui)g;
 	}
 	
 	/*public void setGui(bankCustomerGui gui, int x, int y) {
@@ -68,9 +65,9 @@ public class BankRobberRole extends Role implements BankCustomer{
 		}*/
 	//States for finite state machine
 	
-	public enum CustomerState
+	public enum RobberState
 	{nothing, entered, waiting, goingToLine, inLine, goingToTeller, atTeller, receivedReceipt, done};
-	public CustomerState state = CustomerState.nothing;//The start state
+	public RobberState state = RobberState.nothing;//The start state
 	
 	
 	//Functions
@@ -88,10 +85,6 @@ public class BankRobberRole extends Role implements BankCustomer{
 		return super.getName();
 	}
 	
-	public int getWaitingNumber() {
-		return waitingNumber;
-	}
-	
 	public BankTeller getBankTeller() {
 		return teller;
 	}
@@ -101,17 +94,6 @@ public class BankRobberRole extends Role implements BankCustomer{
 	}
 		
 	public void setTransactions() {
-		/*transactionList.add("openingAccount");
-		transactionList.add("deposit");
-		transactionList.add("withdrawal");
-		transactionList.add("needALoan");*/
-		
-		//myPerson.rentBills.add();
-		
-		/*transactionList.add(new BankTransaction("openingAccount", 50));
-		transactionList.add(new BankTransaction("deposit", 50));
-		transactionList.add(new BankTransaction("withdrawal", 40));
-		transactionList.add(new BankTransaction("needALoan", 200));*/
 		
 		if(myPerson.getAccountNumber() == 0) {
 			System.out.println(getName() + ": NEED TO OPEN ACCOUNT");
