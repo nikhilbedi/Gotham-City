@@ -76,7 +76,7 @@ public class MarketAnimationPanel extends Screen {
     	 java.net.URL imgtemp = this.getClass().getResource("/resources/mika/rsz_market.jpg");
     	 ImageIcon  current= new ImageIcon(imgtemp);
          g.drawImage(current.getImage(), 50, 0, null);
-        g.finalize();
+         g.finalize();
     	
     }
 
@@ -87,7 +87,7 @@ public class MarketAnimationPanel extends Screen {
     		addGui(cashierGui);
     		cashier.addRole(marketCashier);
     		marketWorker.setGui(workerGui);
-    		workerGui.setMainScreen(mainScreen);
+    		//workerGui.setMainScreen(mainScreen);
     		addGui(workerGui);
     		agentWork.addRole(marketWorker);
     		marketCustomer.setGui(customerGui);
