@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<!-- Attributes of a person within an XML file -->
+<simcity>
+	<person name="Batman">
+	
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+		
+		<!-- The Person's job -->
+		<job building="Restaurant1">
+			<position></position>
+			<shift></shift>
+		</job>
+		
+		<!-- The specific home Person resides -->
+		<home type="Home">
+			<address>1</address>
+		</home>
+		
+		<!-- Properties owned by person -->
+		<properties>
+			<home>
+				<address>1</address>
+				<address>2</address>
+			</home>
+			<apartment></apartment>
+		</properties>
+		
+		<!-- Transportation preference -->
+		<transportation>
+			<mode>car</mode>
+			<mode>bus</mode>
+			<mode>walk</mode>
+		</transportation>
+	</person>
+</simcity>

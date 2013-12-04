@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.URL;
 
-import helpers.XMLReader;
+//import helpers.XMLReader;
 import  sun.audio.*;
 
 import javax.sound.*;
@@ -89,7 +89,7 @@ public class SimCityRun extends JFrame implements ActionListener
 	public static void main(String[] args)
 	{
 		//Sample reading an XML file
-		XMLReader.createPeople("sampleXML.xml");
+		XMLHelper.createPeople("sampleXML.xml");
 		
 		//THE BIG BANG
 		CityClock.startTime();
