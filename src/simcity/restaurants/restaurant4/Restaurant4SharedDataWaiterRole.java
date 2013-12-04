@@ -338,6 +338,7 @@ public class Restaurant4SharedDataWaiterRole extends Restaurant4WaiterAgent impl
 			e.printStackTrace();
 		}
 	}
+	//Hello Mika it's Hunter fixing your github!
 
 	@Override
 	public void TakeOrder(MyCustomer c){
@@ -354,6 +355,7 @@ public class Restaurant4SharedDataWaiterRole extends Restaurant4WaiterAgent impl
 	public void GoToCook(MyCustomer customer){
 		person.Do("Going to cook");
 		waiterGui.GoToCook(customer.myCustomer);
+		waiterGui.GoToRevolvingStand(customer.myCustomer);
 		try {
 			atTable.acquire();
 		} catch (InterruptedException e) {
