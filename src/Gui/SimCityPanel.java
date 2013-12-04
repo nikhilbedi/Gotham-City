@@ -98,7 +98,8 @@ import java.util.*;
             
         }
         
-        public MainScreen getCityScreen(){
+        //Can I make this a static function? I want to be able to get the correct main screen without creating an instance of city panel - Nikhil
+        public static MainScreen getCityScreen(){
         	return ScreenFactory.getMainScreen();
         }
         

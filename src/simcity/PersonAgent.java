@@ -212,7 +212,7 @@ public class PersonAgent extends Agent implements Person {
 		 * /*if(rest.getName().equals("Restaurant 4")) { currentPreference =
 		 * rest; } }
 		 */
-		currentPreference = r.get(0);
+		currentPreference = r.get(restaurantCounter);
 		restaurantCounter++;
 	}
 
@@ -545,10 +545,6 @@ public class PersonAgent extends Agent implements Person {
 		// Person Scheduler
 
 		if (checkPersonScheduler) {
-			if (true) {
-				goEatAtRestaurant();
-				return true;
-			}
 			// if the man has groceries in his hand, let him take them home!
 			// print("person sched");
 			if (marketState == MarketState.TakeGroceriesHome) {
