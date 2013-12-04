@@ -1,17 +1,24 @@
 package simcity.restaurants.restaurant4;
-import agent.Agent;
-import agent.Role;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
+import agent.Role;
 import simcity.PersonAgent;
 import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4WaiterGui;
+
+import simcity.restaurants.restaurant4.Restaurant4WaiterRole.WaiterState;
+
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Cook;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Customer;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Waiter;
 
-public class Restaurant4WaiterRole extends Restaurant4WaiterAgent implements Restaurant4Waiter {
+public class Restaurant4SharedDataWaiterRole extends Restaurant4WaiterAgent implements Restaurant4Waiter{
+
 	private Restaurant4HostRole host = null;
 	private Restaurant4CashierRole cashier = null;
 	private String name;
@@ -25,12 +32,9 @@ public class Restaurant4WaiterRole extends Restaurant4WaiterAgent implements Res
 	private boolean Break = false;
 	private PersonAgent person;
 	
-	public Restaurant4WaiterRole(PersonAgent p){
+	public Restaurant4SharedDataWaiterRole(PersonAgent p){
 		super(p);
 		this.person = p;
-	}
-	public String getName(){
-		return name;
 	}
 	@Override
 	public void setGui(Restaurant4WaiterGui gui){
@@ -438,7 +442,7 @@ public class Restaurant4WaiterRole extends Restaurant4WaiterAgent implements Res
 	}
 	
 	
-
+	
 	public void GotFood(String food) {
 		cook.gotFood(food);
 		
