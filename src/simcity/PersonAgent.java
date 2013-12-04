@@ -93,6 +93,11 @@ public class PersonAgent extends Agent implements Person {
 
 	//States - Currently the states are private. If need be, we can change them to public so our roles can see them
 
+	//The day of the week
+	public enum DayOfTheWeek {Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday};
+	int day = 0;
+	public DayOfTheWeek dayState = DayOfTheWeek.values()[day]; 
+	
 	//Preferred Transportation
 	public enum TransportationState {Walking, Bus, Car};
 	public TransportationState transportationState = TransportationState.Walking;
@@ -133,6 +138,7 @@ public class PersonAgent extends Agent implements Person {
 		Role role;
 		String type;
 		Building workplace;
+		int wage = 0;
 
 		// How does he know where to work? Building base class?
 
@@ -360,6 +366,13 @@ public class PersonAgent extends Agent implements Person {
 			else
 				landlord.setActive(false);*/
 		}
+		
+		//Next Day
+		if(currentTime == 1) {
+			day++;
+			dayState = DayOfTheWeek.values()[day];
+			print("The day of the week is " + dayState.name());
+		}
 
 		if(hungerCount > 11 && hungerState != HungerState.Starving && 
 				hungerState != HungerState.FeedingHunger) {
@@ -384,6 +397,7 @@ public class PersonAgent extends Agent implements Person {
 		}
 
 		//We should change any states here, not constantly check the scheduler to change states
+		//TODO If it is a weekend, then don't go to work
 		if(myJob != null) {
 			if(currentTime == myJob.onWork) {
 				myJob.state = JobState.GoToWorkSoon;
