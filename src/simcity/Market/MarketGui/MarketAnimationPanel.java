@@ -102,9 +102,10 @@ public class MarketAnimationPanel extends Screen {
     		
     		cashier.startThread();
     		agentWork.startThread();
-    		//customer.startThread();
+    		//customer.startThread();  
     		//agentCust2.startThread();
     		//agentCust3.startThread();
+    		//you'll never find me
     		
     		marketCashier.setWorker(marketWorker);
     		marketCustomer.setCashier(marketCashier);
