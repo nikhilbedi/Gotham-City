@@ -9,19 +9,100 @@
 
 		<!-- The Person's job -->
 		<job>
-			<building>Restaurant1</building>
+			<building>Restaurant 1</building>
 			<position>Host</position>
 			<shift>1</shift>
 		</job>
 
 		<!-- The specific home Person resides -->
 		<residency>
-			<home>Home1</home>
+			<home>Home 1</home>
 		</residency>
 
 		<!-- Properties owned by person -->
 		<property>
-			<address>Home1</address>
+			<address>Home 1</address>
+		</property>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+	
+	<person name="Batman">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 1</building>
+			<position>Host</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Properties owned by person -->
+		<property>
+			<address>Home 1</address>
+		</property>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+	<person name="Batman">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 1</building>
+			<position>Host</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Properties owned by person -->
+		<property>
+			<address>Home 1</address>
+		</property>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+	<person name="Batman">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 1</building>
+			<position>Host</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Properties owned by person -->
+		<property>
+			<address>Home 1</address>
+		</property>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+	<person name="Batman">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 1</building>
+			<position>Host</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Properties owned by person -->
+		<property>
+			<address>Home 1</address>
 		</property>
 
 		<!-- Transportation preference -->

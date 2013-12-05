@@ -11,9 +11,12 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import simcity.Building;
 import simcity.CityClock;
 import simcity.PersonAgent;
 import simcity.PersonGui;
+import simcity.TheCity;
+import simcity.Home.Home;
 
 /**
  * A class that assists in using XML files for simcity
@@ -56,33 +59,7 @@ public class XMLHelper {
 					//Get the name
 					System.out.println("Person Name: " + personElement.getAttribute("name"));
 					String name = personElement.getAttribute("name");
-
-					//Get the money
-					System.out.println("Money: "+ personElement.getElementsByTagName("money").item(0).getTextContent());
-					double money = Double.parseDouble(personElement.getElementsByTagName("money").item(0).getTextContent());
-
-					//Get what kind of job (or 'no job')
-					Element jobElement = (Element) personElement.getElementsByTagName("job").item(0);
-					System.out.println("Job building: " + jobElement.getElementsByTagName("building").item(0).getTextContent());
-					System.out.println("Job position: " + jobElement.getElementsByTagName("position").item(0).getTextContent());
-					System.out.println("Job shift: " + jobElement.getElementsByTagName("shift").item(0).getTextContent());
-
-					//Get what home he lives in (or 'no home')
-					Element homeElement = (Element) personElement.getElementsByTagName("residency").item(0);
-					System.out.println("Resident building: " + homeElement.getElementsByTagName("home").item(0).getTextContent());
 					
-					//Get whatever properties may be owned (for loop)
-					Element propertyElement = (Element) personElement.getElementsByTagName("property").item(0);
-					NodeList propertiesList = propertyElement.getElementsByTagName("address");
-					System.out.println("Number of properties owned: " + propertiesList.getLength());
-					for(int j = 0; j < propertiesList.getLength(); j++) {
-						System.out.println("\tProperty: " + propertiesList.item(j).getTextContent());
-					}
-					
-					//Get preferred transportation (walk, car, bus)
-					//If it is a car, the person is spawned owning a car
-					System.out.println("Transportation preference: "+ personElement.getElementsByTagName("transportation").item(0).getTextContent());
-
 					// Creating a person agent using data from XML
 					PersonGui personGui = new PersonGui();
 					PersonAgent personXML = new PersonAgent(name, personGui, mainScreen);
@@ -93,6 +70,41 @@ public class XMLHelper {
 					personXML.setBank(mainScreen.getBank());
 					mainScreen.addGui(personGui);
 					CityClock.addPersonAgent(personXML);
+
+					//Get the money
+					System.out.println("Money: "+ personElement.getElementsByTagName("money").item(0).getTextContent());
+					double money = Double.parseDouble(personElement.getElementsByTagName("money").item(0).getTextContent());
+
+					//Get what kind of job (or 'no job')
+					Element jobElement = (Element) personElement.getElementsByTagName("job").item(0);
+					System.out.println("Job building: " + jobElement.getElementsByTagName("building").item(0).getTextContent());
+					Building workplace = TheCity.getBuildingFromString(jobElement.getElementsByTagName("building").item(0).getTextContent());
+					System.out.println("Job position: " + jobElement.getElementsByTagName("position").item(0).getTextContent());
+					//Role jobRole = workplace.getJobFromString(jobElement.getElementsByTagName("position").item(0).getTextContent());
+					System.out.println("Job shift: " + jobElement.getElementsByTagName("shift").item(0).getTextContent());
+					int shift = Integer.parseInt(jobElement.getElementsByTagName("shift").item(0).getTextContent());
+
+					//Get what home he lives in (or 'no home')
+					Element homeElement = (Element) personElement.getElementsByTagName("residency").item(0);
+					Building home;
+					if(homeElement != null) {
+						System.out.println("Resident building: " + homeElement.getElementsByTagName("home").item(0).getTextContent());
+						home = TheCity.getBuildingFromString(homeElement.getElementsByTagName("home").item(0).getTextContent());
+						personXML.setHome((Home)home);
+					}
+
+					//Get whatever properties may be owned (for loop)
+					Element propertyElement = (Element) personElement.getElementsByTagName("property").item(0);
+					NodeList propertiesList = propertyElement.getElementsByTagName("address");
+					System.out.println("Number of properties owned: " + propertiesList.getLength());
+					for(int j = 0; j < propertiesList.getLength(); j++) {
+						System.out.println("\tProperty: " + propertiesList.item(j).getTextContent());
+					}
+
+					//Get preferred transportation (walk, car, bus)
+					//If it is a car, the person is spawned owning a car
+					System.out.println("Transportation preference: "+ personElement.getElementsByTagName("transportation").item(0).getTextContent());
+
 					personXML.addMoney(money); 
 					personXML.startThread();
 				}
@@ -107,6 +119,6 @@ public class XMLHelper {
 	 * this function creates an XML that fulfills every need
 	 */
 	public static void generateFullCityFile() {
-
+		
 	}
 }

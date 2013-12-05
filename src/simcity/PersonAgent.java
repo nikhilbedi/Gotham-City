@@ -128,7 +128,6 @@ public class PersonAgent extends Agent implements Person {
 	public enum MoneyState {
 		Low, High, Neutral
 	};
-
 	public MoneyState moneyState = MoneyState.Neutral;
 
 	// Job

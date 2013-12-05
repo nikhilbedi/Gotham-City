@@ -44,7 +44,8 @@ public class TheCity {
 	}
 	
 	static{//populate Buildings
-		home = new Home("Home", 390, 590, 400, 600);
+		//Changing from Home to Home 1 because now we have multiple buildings
+		home = new Home("Home 1", 390, 590, 400, 600);
 		home.setImagePath("/resources/Buildings/HouseDark2.png");
 	
 		
@@ -114,7 +115,7 @@ public class TheCity {
 		if(s.equalsIgnoreCase("Bank")){
 			return bank;
 		}
-		if(s.equalsIgnoreCase("Home")){
+		if(s.equalsIgnoreCase("Home 1")){
 			return home;
 		}
 
