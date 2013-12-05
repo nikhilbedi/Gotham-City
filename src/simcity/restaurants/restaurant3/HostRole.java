@@ -23,7 +23,7 @@ public class HostRole extends Role implements Host {
 	//Notice that we implement waitingCustomers using ArrayList, but type it
 	//with List semantics.
 	public List<MyCustomer> customers = Collections.synchronizedList(new ArrayList<MyCustomer>());
-	private Vector<WaiterRole>  waiters = new Vector<WaiterRole>();
+	private Vector<Waiter>  waiters = new Vector<Waiter>();
 	//public List<myCustomer> customers = new ArrayList<myCustomer>();
 	public Collection<Table> tables;
 	//note that tables is typed with Collection semantics.
@@ -120,7 +120,7 @@ public class HostRole extends Role implements Host {
 		stateChanged();
 	}
 	
-	public boolean msgAskToGoOnBreak(WaiterRole w) {
+	public boolean msgAskToGoOnBreak(Waiter w) {
 		System.out.println(w.getName() + " asks the host if he/she can go on a break.");
 		int availableWaiters = 0;
 		// check the number of waiters
@@ -158,7 +158,7 @@ public class HostRole extends Role implements Host {
 				synchronized(customers) {
 				for (MyCustomer mc: customers ) {
 					if(mc.cs == customerState.waitingToBeSeated) {
-						WaiterRole waiter = hostChooseWaiter();
+						Waiter waiter = hostChooseWaiter();
 						tellWaiterToSeatCustomer(mc, table, waiter);//the action
 					
 					
@@ -202,7 +202,7 @@ public class HostRole extends Role implements Host {
 
 	// Actions
 
-	private void tellWaiterToSeatCustomer(MyCustomer mc, Table table, WaiterRole waiter) {
+	private void tellWaiterToSeatCustomer(MyCustomer mc, Table table, Waiter waiter) {
 		//System.out.println("The host tells " + waiter.getName()+ " to seat " + mc.cust.getName() + " at " + table);
 		mc.cust.setWaiter(waiter); //TO DO
 		waiter.msgSitAtTable(mc.cust, table.tableNumber);
@@ -231,18 +231,19 @@ public class HostRole extends Role implements Host {
 		return waiterGui;
 	}
 	
-	public void setWaiter(WaiterRole  waiter) { //CHANGED TO SINGLE WAITER AND ADDED THAT WAITER TO WAITER VECTOR
+	public void setWaiter(Waiter  waiter) { //CHANGED TO SINGLE WAITER AND ADDED THAT WAITER TO WAITER VECTOR
 		waiters.add(waiter);
 		//this.waiters = waiters;
 	}
-	private WaiterRole hostChooseWaiter() {
+	
+	private Waiter hostChooseWaiter() {
 		//WaiterAgent result = null;
 		if(customers.size() == 0 || waiters.size() == 0) {
 			return null;
 		}
 		int min = Integer.MAX_VALUE;
-		WaiterRole minWaiter = null;
-		for(WaiterRole w: waiters) {
+		Waiter minWaiter = null;
+		for(Waiter w: waiters) {
 			if (w.isOnBreak)
 				continue;
 			if(w.getCustomersCount() < min) {
@@ -290,5 +291,6 @@ public class HostRole extends Role implements Host {
 			this.cs = cs;
 		}
 	}
+	
 }
 

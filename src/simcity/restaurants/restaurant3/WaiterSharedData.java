@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.ConcurrentModificationException;
 import java.util.List;
+import java.util.Vector;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Semaphore;
 
@@ -19,7 +20,7 @@ import agent.Agent;
  * 
  */
 
-public class WaiterRole extends Role implements Waiter{
+public class WaiterSharedData extends Role implements Waiter{
 	
 	public List<myCustomer> customers= Collections.synchronizedList(new CopyOnWriteArrayList<myCustomer>());
 	public Collection<Table> tables;
@@ -41,7 +42,6 @@ public class WaiterRole extends Role implements Waiter{
 	public HostGui hostGui = null;
 	public Restaurant3CustomerGui customerGui = null;
 	public Menu menu = new Menu();
-	
 	
 	public class myCustomer {
 		Customer c;
@@ -77,7 +77,7 @@ public class WaiterRole extends Role implements Waiter{
 	
 	public enum waiterState {available, notAvailable }
 	
-	public WaiterRole(PersonAgent p) {
+	public WaiterSharedData(PersonAgent p) {
 		super(p);
 		this.name = name;
 	}
@@ -105,6 +105,12 @@ public class WaiterRole extends Role implements Waiter{
 		waitingCustomers.add(cust);
 		stateChanged();
 	}*/
+	
+	public void pushOrder(Order o) {
+		RevolvingStand.pushOrder(o);
+	}
+	
+	
 	
 	public void msgSitAtTable(Customer c, int table) {
 		System.out.println("The host tells " + this.getName() + " to seat the customer at table " + table);
@@ -364,20 +370,22 @@ public class WaiterRole extends Role implements Waiter{
 
 	
 	private void deliverOrderToCook(myCustomer cust) {
-		System.out.println("Delivering order to cook");
+		System.out.println("Putting order on stand");
 		waiterGui.DoGoToCook();
+		//waiterGui.DoGoToStand();
 		Order myOrder = new Order(this, cust.choice, cust.table, OrderState.pending, cust.c);
 		//cust.c.order = myOrder;
 		cust.order = myOrder;
 		//waiterGui.foodOrdered(cust.choice);
 		//waiterGui.OrderGoToCook(cust.choice);
 		try {
-			atCook.acquire();
+			pushOrder(myOrder);
+			//atCook.acquire();
 			//System.out.println ("acuiqred atCook  # 1*****");
-		} catch (InterruptedException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		cook.msgHereIsOrder(myOrder);
+		//cook.msgHereIsOrder(myOrder);
 		cust.cs = customerState.waitingForFoodToCook;
 	}
 	private void deliverOrderToCustomer(myCustomer cust) {
@@ -464,13 +472,13 @@ public class WaiterRole extends Role implements Waiter{
 		}
 		*/
 	}
-	private void goOnBreak(WaiterRole w) {
+	private void goOnBreak(WaiterSharedData w) {
 		System.out.println(w.getName() + " is going on break.");
 		waiterGui.DoGoToBreakSpot();
 	}
 
 	// The animation DoXYZ() routines
-	private void DoSeatCustomer(WaiterRole w, Customer customer, int table) {
+	private void DoSeatCustomer(WaiterSharedData w, Customer customer, int table) {
 		//Notice how we System.out.println "customer" directly. It's toString method will do it.
 		//Same with "table"
 		System.out.println(w.getName() + " is seating " + customer + " at " + table);

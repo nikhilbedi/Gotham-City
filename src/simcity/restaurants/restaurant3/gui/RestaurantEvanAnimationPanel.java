@@ -151,34 +151,45 @@ public class RestaurantEvanAnimationPanel extends Screen  {
 	public void populate(){
 
 		PersonAgent waiterPerson = new Robot("waiter");
+		PersonAgent waiterSharedDataPerson = new Robot("waiterSharedData");
 		PersonAgent hostPerson = new Robot("host");
 		PersonAgent cookPerson = new Robot("cook");
 		PersonAgent cashierPerson = new Robot("cashier");
 		//PersonAgent custPerson = new PersonAgent("customer");
 
 		WaiterRole waiterRole = new WaiterRole(waiterPerson);
+		WaiterSharedData waiterSharedDataRole = new WaiterSharedData(waiterSharedDataPerson);
 		HostRole hostRole = new HostRole(hostPerson);
 		CookRole cookRole = new CookRole(cookPerson);
 		CashierRole cashierRole = new CashierRole(cashierPerson);
 
 		WaiterGui waiterGui = new WaiterGui(waiterRole,0);
+		//waiterSharedDataGui = new WaiterGui(waiterSharedDataRole, 0);
 		CookGui cookGui = new CookGui(cookRole);
 
 		waiterRole.setGui(waiterGui);
+		//waiterSharedDataRole.setGui(waiterSharedDataGui);
 		cookRole.setGui(cookGui);
 
 		waiterPerson.addRole(waiterRole);
+		waiterSharedDataPerson.addRole(waiterSharedDataRole);
 		hostPerson.addRole(hostRole);
 		cookPerson.addRole(cookRole);
 		cashierPerson.addRole(cashierRole);
 
 		addGui(waiterGui);
+		//addGui(waiterSharedDataGui);
 		addGui(cookGui);
 
 		waiterRole.setHost(hostRole);
 		waiterRole.setCook(cookRole);
 		waiterRole.setCashier(cashierRole);
 		hostRole.setWaiter(waiterRole);
+		
+		waiterSharedDataRole.setHost(hostRole);
+        waiterSharedDataRole.setCook(cookRole);
+        waiterSharedDataRole.setCashier(cashierRole);
+        hostRole.setWaiter(waiterSharedDataRole);
 
 		r3.setCashier(cashierRole);
 		r3.setHost(hostRole);
@@ -186,6 +197,7 @@ public class RestaurantEvanAnimationPanel extends Screen  {
 		hostPerson.startThread();
 		cashierPerson.startThread();
 		waiterPerson.startThread();
+		waiterSharedDataPerson.startThread();
 		cookPerson.startThread();
 	}
 }

@@ -38,6 +38,7 @@ public class CookRole extends Role implements Cook{
 	public CashierRole restCashier;
 	public MarketCashier cashier;
 	Timer timer = new Timer();
+	private Timer cookingTimer = new Timer();
 	//private WaiterAgent waiter;
 
 
@@ -134,6 +135,13 @@ public class CookRole extends Role implements Cook{
 					return true;
 				}
 			}
+			
+			if(RevolvingStand.checkStand()) {
+				print("Order available on stand");
+                goCheckStand();
+                return true;
+        }
+			
 			//	}
 		} catch (ConcurrentModificationException e) {
 			e.printStackTrace();
@@ -143,6 +151,28 @@ public class CookRole extends Role implements Cook{
 	}
 	// Actions
 
+	private void goCheckStand() {
+		print("Checking stand");
+		try {
+			final Order o = RevolvingStand.popOrder();
+			if (o != null) {
+				// process order
+				cookingTimer.schedule(new TimerTask() {
+                    public void run() {
+                            print("Taking order of stand and preparing to cook");
+                            orders.add(o);
+                  //          cookGui.removeFromStand(temp);
+                            stateChanged();
+                    }
+            },
+            1200);
+			}	
+				
+		}catch(Exception e){
+			
+		}
+	}
+	
 	private void messageWaiterOutOfInventory(Order o) {
 		System.out.println("Out of inventory!!");
 		o.os = OrderState.reordering;

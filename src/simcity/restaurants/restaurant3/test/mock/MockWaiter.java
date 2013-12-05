@@ -62,5 +62,9 @@ public class MockWaiter extends Mock implements Waiter{
 		// TODO Auto-generated method stub
 		log.add(new LoggedEvent("Eating anf leaving table"));
 	}
+	
+	public int getCustomersCount() {
+		return -1;
+	}
 
 }

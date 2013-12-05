@@ -217,7 +217,8 @@ public class PersonAgent extends Agent implements Person {
 			restaurantCounter = 2;
 		}
 		//System.out.println("First restauarant is " + (restaurantCounter +1 ) );
-		currentPreference = restaurants.get(restaurantCounter);
+		//currentPreference = restaurants.get(restaurantCounter);
+		currentPreference = restaurants.get(2);
 		/*for(Restaurant rest : restaurants) {
 			if(rest.getName().equals("Restaurant 2")) {
 >>>>>>> bank
@@ -542,11 +543,15 @@ public class PersonAgent extends Agent implements Person {
 	public boolean pickAndExecuteAnAction() {
 
 		// Person Scheduler 
-		
+	//	goEatAtRestaurant(); //hack to make him go to the restaurant first.TODO remo
 		
 		if(checkPersonScheduler) {
 			//if the man has groceries in his hand, let him take them home!
 		//	print("person sched");
+			if(true){
+				goEatAtRestaurant();
+				return true;
+			}
 			if(marketState == MarketState.TakeGroceriesHome) {
 				marketState = MarketState.TakingGroceriesHome;
 				goToHome();

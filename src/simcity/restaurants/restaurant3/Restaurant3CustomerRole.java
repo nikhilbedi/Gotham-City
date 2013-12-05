@@ -22,7 +22,7 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 	//List<AgentEvent> events;
 	// agent correspondents
 	private HostRole host;
-	private WaiterRole waiter;
+	private Waiter waiter;
 	public Menu menu;
 	private CashierRole cashier;
 	public int tableNum;
@@ -449,7 +449,7 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 		customerGui = (Restaurant3CustomerGui)g;
 	}
 
-	public void setWaiter(WaiterRole waiter) {
+	public void setWaiter(Waiter waiter) {
 		this.waiter = waiter;
 	}
 
