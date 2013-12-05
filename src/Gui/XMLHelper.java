@@ -22,15 +22,15 @@ import simcity.PersonGui;
  */
 
 public class XMLHelper { 
-	
+
 	/**
 	 * Using a custom standard, this function generates people and adds them to simcity using data from a file
 	 * @param filepath The file's name, which currently must be located under a source folder (and under "bin/" in the workspace)
 	 */
 	public static void createPeople(String filepath) {
-		
+
 		MainScreen mainScreen = SimCityPanel.getCityScreen();
-		
+
 		try {
 			File fXmlFile = new File("bin/" + filepath);
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory
@@ -39,41 +39,53 @@ public class XMLHelper {
 			Document doc = dBuilder.parse(fXmlFile);
 			doc.getDocumentElement().normalize();
 
-			System.out.println("Root element :"
+			System.out.println("\nRoot element: "
 					+ doc.getDocumentElement().getNodeName());
 
-			NodeList nList = doc.getElementsByTagName("person");
+			NodeList personList = doc.getElementsByTagName("person");
 
 			System.out.println("----------------------------");
 
-			for (int temp = 0; temp < nList.getLength(); temp++) {
+			for (int i = 0; i < personList.getLength(); i++) {
 
-				Node nNode = nList.item(temp);
+				Node nNode = personList.item(i);
 
 				System.out.println("Current Element: " + nNode.getNodeName());
 
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
-					Element eElement = (Element) nNode;
+					Element personElement = (Element) nNode;
 
 					//Get the name
-					System.out.println("Person Name: "
-							+ eElement.getAttribute("name"));
-					String name = eElement.getAttribute("name");
+					System.out.println("Person Name: " + personElement.getAttribute("name"));
+					String name = personElement.getAttribute("name");
 
 					//Get the money
-					System.out.println("Money: "
-							+ eElement.getElementsByTagName("money").item(0)
-							.getTextContent());
-					double money = Double.parseDouble(eElement.getElementsByTagName("money").item(0).getTextContent());
-					
-					//Get what kind of job (or 'no job') ID = workplace
-					//Shift
-					//Get what home he lives in (or 'no home')
-					//Get whatever properties may be owned (for loop)
-					//Get preferred transportation (walk, car, bus)
+					System.out.println("Money: "+ personElement.getElementsByTagName("money").item(0).getTextContent());
+					double money = Double.parseDouble(personElement.getElementsByTagName("money").item(0).getTextContent());
 
+					//Get what kind of job (or 'no job')
+					Element jobElement = (Element) personElement.getElementsByTagName("job").item(0);
+					System.out.println("Job building: " + jobElement.getElementsByTagName("building").item(0).getTextContent());
+					System.out.println("Job position: " + jobElement.getElementsByTagName("position").item(0).getTextContent());
+					System.out.println("Job shift: " + jobElement.getElementsByTagName("shift").item(0).getTextContent());
+
+					//Get what home he lives in (or 'no home')
+					Element homeElement = (Element) personElement.getElementsByTagName("residency").item(0);
+					System.out.println("Resident building: " + homeElement.getElementsByTagName("home").item(0).getTextContent());
 					
+					//Get whatever properties may be owned (for loop)
+					Element propertyElement = (Element) personElement.getElementsByTagName("property").item(0);
+					NodeList propertiesList = propertyElement.getElementsByTagName("address");
+					System.out.println("Number of properties owned: " + propertiesList.getLength());
+					for(int j = 0; j < propertiesList.getLength(); j++) {
+						System.out.println("\tProperty: " + propertiesList.item(j).getTextContent());
+					}
+					
+					//Get preferred transportation (walk, car, bus)
+					//If it is a car, the person is spawned owning a car
+					System.out.println("Transportation preference: "+ personElement.getElementsByTagName("transportation").item(0).getTextContent());
+
 					// Creating a person agent using data from XML
 					PersonGui personGui = new PersonGui();
 					PersonAgent personXML = new PersonAgent(name, personGui, mainScreen);

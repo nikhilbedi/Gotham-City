@@ -3,35 +3,29 @@
 <!-- Attributes of a person within an XML file -->
 <simcity>
 	<person name="Batman">
-	
+
 		<!-- Beginning amount of money -->
 		<money>100000</money>
-		
+
 		<!-- The Person's job -->
-		<job building="Restaurant1">
-			<position></position>
-			<shift></shift>
+		<job>
+			<building>Restaurant1</building>
+			<position>Host</position>
+			<shift>1</shift>
 		</job>
-		
+
 		<!-- The specific home Person resides -->
-		<home type="Home">
-			<address>1</address>
-		</home>
-		
+		<residency>
+			<home>Home1</home>
+		</residency>
+
 		<!-- Properties owned by person -->
-		<properties>
-			<home>
-				<address>1</address>
-				<address>2</address>
-			</home>
-			<apartment></apartment>
-		</properties>
-		
+		<property>
+			<address>Home1</address>
+		</property>
+
 		<!-- Transportation preference -->
-		<transportation>
-			<mode>car</mode>
-			<mode>bus</mode>
-			<mode>walk</mode>
-		</transportation>
+		<transportation>walk</transportation>
 	</person>
+
 </simcity>
