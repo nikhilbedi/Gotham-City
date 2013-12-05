@@ -25,7 +25,7 @@ public class XMLHelper {
 
 	/**
 	 * Using a custom standard, this function generates people and adds them to simcity using data from a file
-	 * @param filepath The file's name, which currently must be located under a source folder (and under "bin/" in the workspace)
+	 * @param filepath The file's name, which currently must be located under a source folder (and under "bin/" in the eclipse workspace)
 	 */
 	public static void createPeople(String filepath) {
 
@@ -47,11 +47,8 @@ public class XMLHelper {
 			System.out.println("----------------------------");
 
 			for (int i = 0; i < personList.getLength(); i++) {
-
 				Node nNode = personList.item(i);
-
 				System.out.println("Current Element: " + nNode.getNodeName());
-
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
 					Element personElement = (Element) nNode;

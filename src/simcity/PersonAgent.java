@@ -8,17 +8,13 @@ import Gui.ScreenFactory;
 import simcity.interfaces.Person;
 import simcity.RoleFactory;
 import simcity.restaurants.*;
-
 import simcity.restaurants.restaurant3.Restaurant3CustomerRole;
 import simcity.restaurants.restaurant3.gui.Restaurant3CustomerGui;
-
 import simcity.restaurants.restaurant4.Restaurant4;
 import simcity.restaurants.restaurant4.Restaurant4CustomerRole;
 import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4CustomerGui;
-
 import simcity.restaurants.restaurant5.Restaurant5CustomerRole;
 import simcity.restaurants.restaurant5.gui.Restaurant5CustomerGui;
-
 import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
 import simcity.restaurants.restaurant1.gui.Restaurant1CustomerGui;
 import simcity.restaurants.restaurant2.Restaurant2CustomerRole;
@@ -136,42 +132,11 @@ public class PersonAgent extends Agent implements Person {
 	public MoneyState moneyState = MoneyState.Neutral;
 
 	// Job
-
 	private Job myJob;
-
 	public enum JobState {
 		OffWork, GoToWorkSoon, HeadedToWork, AtWork, LeaveWork, LeavingWork
 	};
 
-	public class Job {
-		public JobState state = JobState.OffWork;
-		int onWork = 8; // 8am
-		int offWork = 17; // military hours - 17 == 5pm
-		Role role;
-		String type;
-		Building workplace;
-		int wage = 0;
-
-		// How does he know where to work? Building base class?
-
-		// Job Constructor
-		public Job(Role r, Building w) {
-			role = r;
-			workplace = w;
-		}
-
-		public Job(Role r, String type, Building w) {
-			role = r;
-			this.type = type;
-			workplace = w;
-		}
-
-		public void setJob(Role r, Building w) {
-			role = r;
-			workplace = w;
-		}
-
-	}
 
 	// Paying Rent
 	// When to pay rent
@@ -274,8 +239,8 @@ public class PersonAgent extends Agent implements Person {
 		return currentBuilding.getEntranceLocation();
 	}
 
-	public void setJob(Role role, Building building) {
-		myJob = new Job(role, building);
+	public void setJob(Role role, Building building, int shift) {
+		myJob = new Job(role, building, shift);
 	}
 
 	public void setJob(String type, Building building) {
