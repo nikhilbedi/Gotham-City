@@ -6,8 +6,9 @@ public class RevolvingStand {
 
 	public static Vector<Order> data = new Vector<Order>();
 	
-	public static void pushOrder(Order o){
+	public static void pushOrder(Order o, CookRole cook){
 		data.add(o);
+		cook.orderIsOnStand();
 	}
 	
 	public static Order popOrder() {
@@ -21,8 +22,10 @@ public class RevolvingStand {
 	}
 	
 	public static boolean checkStand() {
-		if (data.size() > 0)
+		System.out.println("Checking stand...");
+		if (!data.isEmpty()){
 			return true;
+		}
 		return false;
 	}
 }

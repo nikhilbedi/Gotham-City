@@ -32,6 +32,7 @@ public class WaiterRole extends Role implements Waiter{
 	private Semaphore atHost = new Semaphore(0, true);
 	private Semaphore atCook = new Semaphore(1, true);
 	private Semaphore atCashier = new Semaphore(1, true);
+	private Semaphore atStand = new Semaphore (1, true);
 	
 
 	public HostRole host = null;
@@ -202,6 +203,10 @@ public class WaiterRole extends Role implements Waiter{
 	}
 	public void msgAtCook() {
 		atCook.release();
+		stateChanged();
+	}
+	public void msgAtStand() {
+		atTable.release();
 		stateChanged();
 	}
 	
@@ -548,6 +553,8 @@ public class WaiterRole extends Role implements Waiter{
 		}
 		
 	}
+
+	
 
 	
 }

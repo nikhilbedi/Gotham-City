@@ -67,4 +67,33 @@ public class MockWaiter extends Mock implements Waiter{
 		return -1;
 	}
 
+	@Override
+	public void msgAtTable() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void msgAtHost() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void msgAtCashier() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void msgAtCook() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void msgAtStand() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -25,4 +25,14 @@ public interface Waiter {
 	public abstract int getCustomersCount();
 
 	public boolean isOnBreak = false;
+
+	public abstract void msgAtTable();
+
+	public abstract void msgAtHost();
+
+	public abstract void msgAtCashier();
+
+	public abstract void msgAtCook();
+
+	public abstract void msgAtStand();
 }

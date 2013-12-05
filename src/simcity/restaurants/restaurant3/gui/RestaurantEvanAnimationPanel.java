@@ -53,6 +53,7 @@ public class RestaurantEvanAnimationPanel extends Screen  {
 		Graphics cookingArea = (Graphics)g;
 		Graphics platingArea = (Graphics)g;
 		Graphics cashierArea = (Graphics)g;
+		Graphics revolvingStand = (Graphics)g;
 		super.paintBackground(g);
 
 
@@ -64,6 +65,9 @@ public class RestaurantEvanAnimationPanel extends Screen  {
 
 		platingArea.setColor(Color.PINK);
 		platingArea.fillRect(0, 210, 40, 80);
+		
+		revolvingStand.setColor(Color.BLACK);
+		revolvingStand.fillRect(35, 125, 5, 5);
 
 		//Here is the table
 		g2.setColor(Color.ORANGE);
@@ -164,11 +168,11 @@ public class RestaurantEvanAnimationPanel extends Screen  {
 		CashierRole cashierRole = new CashierRole(cashierPerson);
 
 		WaiterGui waiterGui = new WaiterGui(waiterRole,0);
-		//waiterSharedDataGui = new WaiterGui(waiterSharedDataRole, 0);
+		WaiterGui waiterSharedDataGui = new WaiterGui(waiterSharedDataRole, 0);
 		CookGui cookGui = new CookGui(cookRole);
 
 		waiterRole.setGui(waiterGui);
-		//waiterSharedDataRole.setGui(waiterSharedDataGui);
+		waiterSharedDataRole.setGui(waiterSharedDataGui);
 		cookRole.setGui(cookGui);
 
 		waiterPerson.addRole(waiterRole);
@@ -178,7 +182,7 @@ public class RestaurantEvanAnimationPanel extends Screen  {
 		cashierPerson.addRole(cashierRole);
 
 		addGui(waiterGui);
-		//addGui(waiterSharedDataGui);
+		addGui(waiterSharedDataGui);
 		addGui(cookGui);
 
 		waiterRole.setHost(hostRole);

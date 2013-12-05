@@ -7,10 +7,11 @@ import java.awt.*;
 import java.util.*;
 
 import simcity.restaurants.restaurant3.*;
+import simcity.restaurants.restaurant3.interfaces.Waiter;
 
 public class WaiterGui extends RoleGui {
 
-    private WaiterRole agent = null;
+    private Waiter agent = null;
 
     //public int xPos = +40, yPos = +40;//default waiter position
     private static int Width = 20, Height = 20;
@@ -26,7 +27,9 @@ public class WaiterGui extends RoleGui {
     private static int waitingCustomers[] = new int[]{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
     private int posInWaitArea = -1;
 
-    public WaiterGui(WaiterRole agent, int home) {
+    public WaiterGui(Waiter agent, int home) {
+    	super.setColor(Color.pink);
+    	
     	for (int i = 0; i < waitingCustomers.length; ++i){
 			if (waitingCustomers[i] == -1) { //empty position
 				waitingCustomers[i] = 1;
@@ -36,10 +39,9 @@ public class WaiterGui extends RoleGui {
 				break;
 			}
 		}
-    	xDestination = xPos;
-    	
+		
+    	//xDestination = xPos;
         this.agent = agent;
-
     }
 
     public void updatePosition() {
@@ -101,6 +103,11 @@ public class WaiterGui extends RoleGui {
         
         if(xPos == xDestination && yPos == yDestination & (xPos == +40) & (yPos == 200)) {
         	agent.msgAtCook();
+        	atDestination = true;
+        }
+        if(xPos == xDestination && yPos == yDestination & (xPos == +40) & (yPos == 100)) {
+        	agent.msgAtStand();
+        	atDestination = true;
         }
         if(xPos == +40 && yPos == +40 && returningToDoor) {
         	if(!atDestination) {
@@ -206,6 +213,11 @@ public class WaiterGui extends RoleGui {
     public void DoGoToCook() {
 		xDestination = +40;
 		yDestination = 200;//location of cook
+		atDestination = false;
+	}
+    public void DoGoToStand() {
+    	xDestination = +40;
+		yDestination = 100;//location of revolving stand
 		atDestination = false;
 	}
     

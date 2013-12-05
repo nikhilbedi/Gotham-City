@@ -33,6 +33,7 @@ public class WaiterSharedData extends Role implements Waiter{
 	private Semaphore atHost = new Semaphore(0, true);
 	private Semaphore atCook = new Semaphore(1, true);
 	private Semaphore atCashier = new Semaphore(1, true);
+	private Semaphore atStand = new Semaphore(0, true);
 	
 
 	public HostRole host = null;
@@ -107,7 +108,7 @@ public class WaiterSharedData extends Role implements Waiter{
 	}*/
 	
 	public void pushOrder(Order o) {
-		RevolvingStand.pushOrder(o);
+		RevolvingStand.pushOrder(o, cook);
 	}
 	
 	
@@ -208,6 +209,10 @@ public class WaiterSharedData extends Role implements Waiter{
 	}
 	public void msgAtCook() {
 		atCook.release();
+		stateChanged();
+	}
+	public void msgAtStand() {
+		atStand.release();
 		stateChanged();
 	}
 	
@@ -371,20 +376,22 @@ public class WaiterSharedData extends Role implements Waiter{
 	
 	private void deliverOrderToCook(myCustomer cust) {
 		System.out.println("Putting order on stand");
-		waiterGui.DoGoToCook();
-		//waiterGui.DoGoToStand();
+		waiterGui.DoGoToStand();
 		Order myOrder = new Order(this, cust.choice, cust.table, OrderState.pending, cust.c);
 		//cust.c.order = myOrder;
 		cust.order = myOrder;
 		//waiterGui.foodOrdered(cust.choice);
 		//waiterGui.OrderGoToCook(cust.choice);
 		try {
-			pushOrder(myOrder);
+			atStand.acquire();
+			
 			//atCook.acquire();
 			//System.out.println ("acuiqred atCook  # 1*****");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		pushOrder(myOrder);
+		waiterGui.DoLeaveCustomer();
 		//cook.msgHereIsOrder(myOrder);
 		cust.cs = customerState.waitingForFoodToCook;
 	}
