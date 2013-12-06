@@ -1,5 +1,6 @@
 package Gui;
 
+import agent.Role;
 
 import java.io.File;
 
@@ -78,9 +79,10 @@ public class XMLHelper {
 					//Get what kind of job (or 'no job')
 					Element jobElement = (Element) personElement.getElementsByTagName("job").item(0);
 					System.out.println("Job building: " + jobElement.getElementsByTagName("building").item(0).getTextContent());
+					//TODO SHOULD I OBTAIN THE BUILDING FROM THE CITY OR MAINSCREEN
 					Building workplace = TheCity.getBuildingFromString(jobElement.getElementsByTagName("building").item(0).getTextContent());
 					System.out.println("Job position: " + jobElement.getElementsByTagName("position").item(0).getTextContent());
-					//Role jobRole = workplace.getJobFromString(jobElement.getElementsByTagName("position").item(0).getTextContent());
+					Role jobRole = workplace.getRoleFromString(jobElement.getElementsByTagName("position").item(0).getTextContent());
 					System.out.println("Job shift: " + jobElement.getElementsByTagName("shift").item(0).getTextContent());
 					int shift = Integer.parseInt(jobElement.getElementsByTagName("shift").item(0).getTextContent());
 

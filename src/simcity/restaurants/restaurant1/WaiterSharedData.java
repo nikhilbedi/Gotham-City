@@ -40,8 +40,10 @@ public class WaiterSharedData extends Role implements Waiter {
 
 	public WaiterSharedData(PersonAgent p) {
 		super(p);
-		this.name = name;
-		print("I am a waiter. Sup.");
+	}
+	
+	public WaiterSharedData() {
+		super();
 	}
 
 	public void setHost(HostRole host) {

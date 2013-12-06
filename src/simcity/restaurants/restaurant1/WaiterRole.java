@@ -40,8 +40,10 @@ public class WaiterRole extends Role implements Waiter {
 
 	public WaiterRole(PersonAgent p) {
 		super(p);
-		this.name = name;
-		print("I am a waiter. Sup.");
+	}
+	
+	public WaiterRole() {
+		super();
 	}
 
 	public void setHost(HostRole host) {
