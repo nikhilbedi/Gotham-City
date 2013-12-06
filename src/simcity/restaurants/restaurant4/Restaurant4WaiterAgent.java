@@ -5,14 +5,13 @@ import java.util.TimerTask;
 
 import simcity.PersonAgent;
 import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4WaiterGui;
-
 import simcity.restaurants.restaurant4.Restaurant4WaiterRole.WaiterState;
-
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Cook;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Customer;
+import simcity.restaurants.restaurant4.interfaces.Restaurant4Waiter;
 import agent.Role;
 
-public class Restaurant4WaiterAgent extends Role{
+public class Restaurant4WaiterAgent extends Role {
 	
 	
 	
@@ -197,6 +196,8 @@ public class Restaurant4WaiterAgent extends Role{
 		s= CustomerState.Waiting;
 	}
 	}
+
+
 
 	
 

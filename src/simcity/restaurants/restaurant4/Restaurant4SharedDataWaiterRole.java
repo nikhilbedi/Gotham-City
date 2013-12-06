@@ -250,7 +250,16 @@ public class Restaurant4SharedDataWaiterRole extends Restaurant4WaiterAgent impl
 		}
 	}
 	
-	
+	public void atRevolvingStand(Restaurant4Customer customer){
+		atTable.release();
+		myPerson.Do("sie " + customers.size());
+		for (MyCustomer c: customers){
+			if (c.myCustomer == customer){
+				myPerson.Do("at revolving stand");
+				RevolvingStand.addOrder(cook, this, c.choice, c.table);
+			}
+		}
+	}
 	
 //	scheduler
 	@Override
@@ -353,8 +362,7 @@ public class Restaurant4SharedDataWaiterRole extends Restaurant4WaiterAgent impl
 	}
 	@Override
 	public void GoToCook(MyCustomer customer){
-		person.Do("Going to cook");
-		waiterGui.GoToCook(customer.myCustomer);
+		person.Do("Going to revolving stand");
 		waiterGui.GoToRevolvingStand(customer.myCustomer);
 		try {
 			atTable.acquire();

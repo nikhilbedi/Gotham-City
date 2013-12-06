@@ -47,5 +47,7 @@ public interface Restaurant4Waiter {
 
 	void atDefaultPosition();
 
+	void atRevolvingStand(Restaurant4Customer customer);
+
 
 }

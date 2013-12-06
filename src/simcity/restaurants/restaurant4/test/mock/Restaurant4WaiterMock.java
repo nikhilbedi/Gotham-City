@@ -133,4 +133,10 @@ public class Restaurant4WaiterMock extends Mock implements Restaurant4Waiter {
 		
 	}
 
+	@Override
+	public void atRevolvingStand(Restaurant4Customer customer) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

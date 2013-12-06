@@ -437,10 +437,13 @@ public class Restaurant4WaiterRole extends Restaurant4WaiterAgent implements Res
 		}
 	}
 	
-	
-
 	public void GotFood(String food) {
 		cook.gotFood(food);
+		
+	}
+
+	public void atRevolvingStand(Restaurant4Customer customer) {
+		// TODO Auto-generated method stub
 		
 	}
 	
