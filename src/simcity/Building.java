@@ -1,6 +1,11 @@
 package simcity;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.swing.ImageIcon;
+
 import agent.Role;
 
 /**
@@ -19,7 +24,7 @@ public class Building {
 	protected int weekendOpen;
 	protected int weekendClose;
 	public ImageIcon icon;
-	//protected Map<String, Role>
+	protected Map<String, Role> jobRoles = Collections.synchronizedMap(new HashMap<String, Role>());
 	
 	public ImageIcon getIcon() {
 		return icon;
@@ -105,24 +110,41 @@ public class Building {
 		return weekendClose;
 	}
 	
-	public void setWeekdayOpen(int weekdayOpen) {
-		this.weekdayOpen = weekdayOpen;
+	public void setWeekdayHours(int open, int close) {
+		weekdayOpen = open;
+		weekdayClose = close;
 	}
 
-	public void setWeekdayClose(int weekdayClose) {
-		this.weekdayClose = weekdayClose;
+	public void setWeekendHours(int open, int close) {
+		weekendOpen = open;
+		weekendClose = close;
 	}
 
-	public void setWeekendOpen(int weekendOpen) {
-		this.weekendOpen = weekendOpen;
+	public Map<String, Role> getJobRoles() {
+		return jobRoles;
 	}
 
-	public void setWeekendClose(int weekendClose) {
-		this.weekendClose = weekendClose;
+	public void setJobRoles(Map<String, Role> jobRoles) {
+		this.jobRoles = jobRoles;
 	}
 
-	public Role getRoleFromString(String s)	{
-		//have some sort of map<string, role> created and return appropriately
-		return new Role();
+	public Role getRoleFromString(String roleString) {
+		Role temp = new Role();
+		boolean jobExists = false;
+		synchronized(jobRoles){
+			for(String s : jobRoles.keySet()) {
+				if(roleString.equalsIgnoreCase(s)){
+					temp = jobRoles.get(s);
+					jobExists = true;
+				}
+			}
+		}
+		if(jobExists) {
+			return temp;
+		}
+		else {
+			System.out.println("Role not found in this building.");
+			return null;
+		}
 	}
 }
