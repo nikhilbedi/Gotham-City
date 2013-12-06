@@ -11,7 +11,7 @@ import simcity.restaurants.restaurant3.*;
 
 public class CookGui extends RoleGui {
 
-    private CookRole agent = null;
+    private Restaurant3CookRole agent = null;
 
     //private int xPos = +20, yPos = +200;//default cook position
     private static int Width = 20, Height = 20;
@@ -25,7 +25,7 @@ public class CookGui extends RoleGui {
     public static boolean cooking = false;
 	public static boolean plating = false;
 	
-    public CookGui(CookRole agent) {
+    public CookGui(Restaurant3CookRole agent) {
         this.agent = agent;
     }
 

@@ -36,8 +36,8 @@ public class WaiterRole extends Role implements Waiter{
 	
 
 	public HostRole host = null;
-	private CookRole cook = null;
-	private CashierRole cashier = null;
+	private Restaurant3CookRole cook = null;
+	private Restaurant3CashierRole cashier = null;
 	public WaiterGui waiterGui = null;
 	public HostGui hostGui = null;
 	public Restaurant3CustomerGui customerGui = null;
@@ -81,6 +81,9 @@ public class WaiterRole extends Role implements Waiter{
 	public WaiterRole(PersonAgent p) {
 		super(p);
 		this.name = name;
+	}
+	public WaiterRole() {
+		super();
 	}
 	
 
@@ -517,10 +520,10 @@ public class WaiterRole extends Role implements Waiter{
 		this.host = host;
 	}
 	
-	public void setCook(CookRole cook) {
+	public void setCook(Restaurant3CookRole cook) {
 		this.cook = cook;
 	}
-	public void setCashier(CashierRole cashier) {
+	public void setCashier(Restaurant3CashierRole cashier) {
 		this.cashier = cashier;
 	}
 

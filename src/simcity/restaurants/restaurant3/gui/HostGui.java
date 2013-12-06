@@ -56,8 +56,8 @@ public class HostGui extends RoleGui {
     }
 
     public void draw(Graphics g) {
-        g.setColor(Color.MAGENTA);
-        g.fillRect(xPos, yPos, Width, Height);
+      //  g.setColor(Color.MAGENTA);
+        //g.fillRect(xPos, yPos, Width, Height);
     }
 
     public boolean isPresent() {

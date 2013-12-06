@@ -11,7 +11,7 @@ import javax.print.attribute.standard.MediaSize.NA;
 import simcity.PersonAgent;
 import agent.Role;
 import simcity.restaurants.*;
-import simcity.restaurants.restaurant3.CashierRole;
+import simcity.restaurants.restaurant3.Restaurant3CashierRole;
 import simcity.restaurants.restaurant3.HostRole;
 import simcity.restaurants.restaurant3.*;
 import simcity.restaurants.restaurant3.Order.OrderState;
@@ -29,12 +29,9 @@ public class Restaurant3 extends Restaurant {
 	
 	public List<Order> orders = Collections.synchronizedList(new Vector<Order>()); 
 	public Map<String, Food> foods = Collections.synchronizedMap(new HashMap<String, Food>());
-	private int threshold;
 	private String name;
-	private Semaphore atTable = new Semaphore(0,true);
 	private Food f;
 	public HostGui hostGui = null;
-	public CookRole cook;
 	//private WaiterAgent waiter;
 	//CashierState cashState;
 	public enum CashierState {idle, calculating}
@@ -42,7 +39,14 @@ public class Restaurant3 extends Restaurant {
 	public Map<Customer, Double> owed = Collections.synchronizedMap(new HashMap<Customer, Double>());
 	private double restaurantRevenue = 100;
 	
-	private int inventory = 5;
+	public HostRole host = new HostRole();
+    public Restaurant3CashierRole cashier = new Restaurant3CashierRole();
+    //List<WaiterRole> waiters = new ArrayList<WaiterRole>();
+    public WaiterRole waiter1 = new WaiterRole();
+    public WaiterSharedData waiter2 = new WaiterSharedData();
+    public Restaurant3CookRole cook = new Restaurant3CookRole();
+	
+	
 	 
 	public Restaurant3(String type, int entranceX, int entranceY, int guiX,
             int guiY) {
@@ -51,7 +55,18 @@ public class Restaurant3 extends Restaurant {
 		this.name = type;
 		cashState = CashierState.idle;
 		
-		
+		//Set the open and closing hours
+        //setWeekdayHours(6, 24);
+        //setWeekendHours(0, 0);
+        //Add the key: strings & value: roles
+        Map<String, Role> jobs = Collections.synchronizedMap(new HashMap<String, Role>());
+        jobs.put("host", host);
+        jobs.put("cashier", cashier);
+        jobs.put("cook", cook);
+        jobs.put("waiter1", waiter1);
+        jobs.put("waiter2", waiter2);
+        //setJobRoles(jobs);
+        
 		f = new Food ("Chicken");
 		foods.put("Chicken", f);
 		
@@ -94,7 +109,7 @@ public class Restaurant3 extends Restaurant {
 		return restaurantRevenue;
 	}
 	//@Override
-	public void setCook(CookRole cook) {
+	public void setCook(Restaurant3CookRole cook) {
 		this.cook = cook;
 		
 	}
@@ -110,12 +125,12 @@ public class Restaurant3 extends Restaurant {
 	
 	@Override
 	public void setCashier(Role cashier) {
-		this.cashier = (CashierRole)cashier;
+		this.cashier = (Restaurant3CashierRole)cashier;
 	}
 	
 	@Override
 	public Role getCashier() {
-		return (CashierRole)cashier;
+		return (Restaurant3CashierRole)cashier;
 	}
 	
 	@Override

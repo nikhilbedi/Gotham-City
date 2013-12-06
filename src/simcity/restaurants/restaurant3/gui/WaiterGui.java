@@ -102,12 +102,16 @@ public class WaiterGui extends RoleGui {
         }
         
         if(xPos == xDestination && yPos == yDestination & (xPos == +40) & (yPos == 200)) {
+        	if(!atDestination) {
         	agent.msgAtCook();
         	atDestination = true;
+        	}
         }
         if(xPos == xDestination && yPos == yDestination & (xPos == +40) & (yPos == 100)) {
-        	agent.msgAtStand();
-        	atDestination = true;
+        	if(!atDestination) {
+            	agent.msgAtStand();
+            	atDestination = true;
+            	}
         }
         if(xPos == +40 && yPos == +40 && returningToDoor) {
         	if(!atDestination) {
@@ -117,59 +121,8 @@ public class WaiterGui extends RoleGui {
         	returningToDoor = false;
         }
     }
-   /* 
-    public void OrderGoToCook(String type) {
-    	for(OrderGui icon: orderGuis){
-    		if(icon.type.equals(type)){
-    			icon.DoGoToCook();
-    		}
-    	}
-    }
-    */
-    /*
-    public void createOrderGui(String type) {
-    	OrderGui oGui = new OrderGui(type, gui, xPos, yPos);
-    	orderGuis.add(oGui);
-    	gui.animationPanel.addGui(oGui);
-    }
-    */
-    /*
-    public void OrderGoToCustomer(String choice, int tableNumber) {
-    	for(OrderGui icon: orderGuis){
-    		if(icon.type.equals(choice)){
-    			icon.DoGoToTable(tableNumber);
-    		}
-    	}
-    }
-    */
-    /*
-    public synchronized void foodOrdered(String choice) {
-    	for(OrderGui oGui: orderGuis) {
-    		if(oGui.type.equals(choice)) {
-    			oGui.foodOrdered();
-    		}
-    	}
-    }
-    */
-    /*
-    public synchronized void doneCooking(String choice) {
-    	for(OrderGui oGui: orderGuis){
-    		if(oGui.type.equals(choice)){
-    			oGui.doneCooking();
-    		}
-    	}
-    }
-    */
-    /*
-    public synchronized void doneEating(String choice) {
-    	for(OrderGui oGui: orderGuis) {
-    		if(oGui.type.equals(choice)) {
-    			oGui.doneEating();
-    		}
-    	}
-    }
+   
     
-    */
     public void draw(Graphics g) {
         super.draw(g);
     	g.setColor(Color.MAGENTA);

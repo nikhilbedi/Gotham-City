@@ -6,7 +6,7 @@ public class RevolvingStand {
 
 	public static Vector<Order> data = new Vector<Order>();
 	
-	public static void pushOrder(Order o, CookRole cook){
+	public static void pushOrder(Order o, Restaurant3CookRole cook){
 		data.add(o);
 		cook.orderIsOnStand();
 	}

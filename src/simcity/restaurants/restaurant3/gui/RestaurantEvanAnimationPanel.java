@@ -66,8 +66,8 @@ public class RestaurantEvanAnimationPanel extends Screen  {
 		platingArea.setColor(Color.PINK);
 		platingArea.fillRect(0, 210, 40, 80);
 		
-		revolvingStand.setColor(Color.BLACK);
-		revolvingStand.fillRect(35, 125, 5, 5);
+		revolvingStand.setColor(Color.LIGHT_GRAY);
+		revolvingStand.fillRect(15, 110, 20, 20);
 
 		//Here is the table
 		g2.setColor(Color.ORANGE);
@@ -164,8 +164,8 @@ public class RestaurantEvanAnimationPanel extends Screen  {
 		WaiterRole waiterRole = new WaiterRole(waiterPerson);
 		WaiterSharedData waiterSharedDataRole = new WaiterSharedData(waiterSharedDataPerson);
 		HostRole hostRole = new HostRole(hostPerson);
-		CookRole cookRole = new CookRole(cookPerson);
-		CashierRole cashierRole = new CashierRole(cashierPerson);
+		Restaurant3CookRole cookRole = new Restaurant3CookRole(cookPerson);
+		Restaurant3CashierRole cashierRole = new Restaurant3CashierRole(cashierPerson);
 
 		WaiterGui waiterGui = new WaiterGui(waiterRole,0);
 		WaiterGui waiterSharedDataGui = new WaiterGui(waiterSharedDataRole, 0);

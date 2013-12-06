@@ -33,12 +33,12 @@ public class WaiterSharedData extends Role implements Waiter{
 	private Semaphore atHost = new Semaphore(0, true);
 	private Semaphore atCook = new Semaphore(1, true);
 	private Semaphore atCashier = new Semaphore(1, true);
-	private Semaphore atStand = new Semaphore(0, true);
+	private Semaphore atStand = new Semaphore(1, true);
 	
 
 	public HostRole host = null;
-	private CookRole cook = null;
-	private CashierRole cashier = null;
+	private Restaurant3CookRole cook = null;
+	private Restaurant3CashierRole cashier = null;
 	public WaiterGui waiterGui = null;
 	public HostGui hostGui = null;
 	public Restaurant3CustomerGui customerGui = null;
@@ -81,6 +81,9 @@ public class WaiterSharedData extends Role implements Waiter{
 	public WaiterSharedData(PersonAgent p) {
 		super(p);
 		this.name = name;
+	}
+	public WaiterSharedData() {
+		super();
 	}
 	
 
@@ -418,7 +421,7 @@ public class WaiterSharedData extends Role implements Waiter{
 		waiterGui.deliveringFood=false;
 		//waiterGui.DoGoToHost();
 		cust.cs = customerState.eating;
-		stateChanged();
+		//stateChanged();
 		waiterGui.DoLeaveCustomer();
 		//atTable.release();
 	}
@@ -433,7 +436,7 @@ public class WaiterSharedData extends Role implements Waiter{
 		//System.out.println("******************message received");
 		cashier.msgRequestCheck(mc.c, mc.order);
 		mc.cs = customerState.waitingForCheckToBeDelivered;
-		stateChanged();
+		//stateChanged();
 	}
 		
 	private void deliverCheckToCustomer(myCustomer mc) {
@@ -527,10 +530,10 @@ public class WaiterSharedData extends Role implements Waiter{
 		this.host = host;
 	}
 	
-	public void setCook(CookRole cook) {
+	public void setCook(Restaurant3CookRole cook) {
 		this.cook = cook;
 	}
-	public void setCashier(CashierRole cashier) {
+	public void setCashier(Restaurant3CashierRole cashier) {
 		this.cashier = cashier;
 	}
 
