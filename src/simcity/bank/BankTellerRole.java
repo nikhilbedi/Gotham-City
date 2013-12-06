@@ -4,6 +4,7 @@ import agent.Role;
 import simcity.PersonAgent;
 import simcity.bank.interfaces.BankCustomer;
 import simcity.bank.interfaces.BankGreeter;
+import simcity.bank.interfaces.BankRobber;
 import simcity.bank.interfaces.BankTeller;
 
 import java.util.*;
@@ -18,6 +19,7 @@ public class BankTellerRole extends Role implements BankTeller{
 	
 	public List<MyCustomer> myCustomers
 	= Collections.synchronizedList(new ArrayList<MyCustomer>());
+	public BankRobber robber;
 	public BankGreeter greeter;
 	private boolean isAvailable = false;
 	public boolean handledTransaction = false;
@@ -132,10 +134,26 @@ public class BankTellerRole extends Role implements BankTeller{
 		stateChanged();
 	}
 	
+	@Override
+	public void msgDoneAndLeaving(BankRobber bankRobber) {
+		System.out.println(getName() + ": Thank God.");
+		stateChanged();
+	}
+	
+	@Override
+	public void msgGiveMeMoney(BankRobber robber) {
+		print("Okay, okay, just don't hurt anyone...");
+		this.robber = robber;
+		stateChanged();
+	}
 
 	// Scheduler
 	
 	public boolean pickAndExecuteAnAction() {
+		if(robber != null) {
+			giveRobberMoney();
+		}
+		
 		for(int a = 0; a < myCustomers.size(); a++) {
 			if(myCustomers.get(a).s == customerState.doneAndLeaving) {
 				handledTransaction = true;
@@ -208,7 +226,7 @@ public class BankTellerRole extends Role implements BankTeller{
 
 	
 	// Actions
-	
+
 	public void depositFunds(MyCustomer c) {
 		System.out.println(getName() + ": Depositing funds for customer " + c.c.getName());
 		System.out.println(bankDatabase.accountNumbers.get(c.c.getName()));
@@ -266,6 +284,14 @@ public class BankTellerRole extends Role implements BankTeller{
 		System.out.println(getName() + ": Done with customer. Ready for next customer.");
 		myCustomers.remove(c);
 		greeter.msgReadyForCustomer(this);
+	}
+	
+	private void giveRobberMoney() { //Non-norm for bank robber
+		print("Here's your money. Now get out!");
+		double payoff = bankDatabase.safeBalance / 10;
+		bankDatabase.safeBalance -= payoff;
+		
+		robber.msgHeresYourMoney(payoff);
 	}
 }
 

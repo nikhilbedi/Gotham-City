@@ -8,6 +8,7 @@ import simcity.PersonAgent.RentBill;
 import simcity.bank.BankReceipt;
 import simcity.bank.interfaces.BankCustomer;
 import simcity.bank.interfaces.BankGreeter;
+import simcity.bank.interfaces.BankRobber;
 import simcity.bank.interfaces.BankTeller;
 
 import java.util.List;
@@ -29,11 +30,11 @@ public class BankRobberRole extends Role implements BankRobber{
 	//constructor call to Role constructor
 	public BankRobberRole(PersonAgent person) {
 		super(person);
-		bankRobberGui = (bankRobberGui)super.gui;
+		bankRobberGui = (BankRobberGui)super.gui;
 	}
 	public BankRobberRole(){
 		super();
-		bankRobberGui = (bankRobberGui)super.gui;
+		bankRobberGui = (BankRobberGui)super.gui;
 	}
 	
 	
@@ -42,7 +43,7 @@ public class BankRobberRole extends Role implements BankRobber{
 	private int tellerIndex;
 	Timer timer = new Timer();
 	double cash, transactionAmount;
-	String transactionType = "openingAccount";  //This must be changed to interact with the Person's intentions at the bank
+	//String transactionType = "openingAccount";  //This must be changed to interact with the Person's intentions at the bank
 	//public List<String> transactionList = new ArrayList<String>();
 	public List<BankTransaction> transactionList = new ArrayList<BankTransaction>();
 	
@@ -66,7 +67,7 @@ public class BankRobberRole extends Role implements BankRobber{
 	//States for finite state machine
 	
 	public enum RobberState
-	{nothing, entered, waiting, goingToLine, inLine, goingToTeller, atTeller, receivedReceipt, done};
+	{nothing, entered, waiting, goingToLine, inLine, goingToTeller, atTeller, receivedMoney, done};
 	public RobberState state = RobberState.nothing;//The start state
 	
 	
@@ -93,7 +94,7 @@ public class BankRobberRole extends Role implements BankRobber{
 		this.teller = teller;
 	}
 		
-	public void setTransactions() {
+	/*public void setTransactions() {
 		
 		if(myPerson.getAccountNumber() == 0) {
 			System.out.println(getName() + ": NEED TO OPEN ACCOUNT");
@@ -115,46 +116,58 @@ public class BankRobberRole extends Role implements BankRobber{
 		//	myPerson.setMoney(130.0); //Above didnt work, so manually removing from person's wallet so he doesnt repeated go to bank - Nikhil
 		}
 		
-	}
+	}*/
 	
 	
 	// Messages
 	
 	@Override
 	public void startBuildingMessaging(){
-		setTransactions();
+		//setTransactions();
 		msgEnteredBank();
 	}
-
-	public void msgWaitHere(int i) {
+	
+	/*public void msgWaitHere(int i) {
 		System.out.println(getName() + ": Told to wait in line");
 		waitingNumber = i;
 		state = CustomerState.inLine;
 		DoGoToLine();
-	}
-
+	}*/
+	
 	public void msgGoToTeller(BankTeller teller) {
 		this.setBankTeller(teller);
 		tellerIndex = teller.getIndex();
 		System.out.println(getName() + ": Told to go to teller");
-		state = CustomerState.inLine;
+		state = RobberState.inLine;
 		stateChanged();
 	}
 	
 	public void msgAtTeller() {
 		System.out.println("Customer: At Teller.");
-		state = CustomerState.atTeller;
+		state = RobberState.atTeller;
 		stateChanged();
 	}	
 	
 	public void msgEnteredBank() {
 		System.out.println("Entered Bank");
 		greeter = myPerson.bank.getGreeter();
-		state = CustomerState.entered;
+		state = RobberState.entered;
 		stateChanged();
 	}
 	
-	@Override
+	public void msgHeresYourMoney(double amount) {
+		System.out.println("Thank you. I'll see myself out.");
+		state = RobberState.receivedMoney;
+		stateChanged();
+	}
+	
+	public void msgOutOfBank() {
+		print("The person's money after leaving the bank: " + myPerson.getMoney()); //Nikhil: Trying to debug to see why the person keeps coming back to bank
+		System.out.println(getName() + ": left the bank.");
+		myPerson.leftBuilding(this);
+	}
+	
+	/*@Override
 	public void NotEligibleForLoan() {
 		state = CustomerState.receivedReceipt; //For Scheduler - no actual receipt
 		stateChanged();
@@ -196,41 +209,32 @@ public class BankRobberRole extends Role implements BankRobber{
 		stateChanged();
 	}
 	
-	public void msgOutOfBank() {
-		print("The person's money after leaving the bank: " + myPerson.getMoney()); //Nikhil: Trying to debug to see why the person keeps coming back to bank
-		System.out.println(getName() + ": left the bank.");
-		transactionList.clear();
-		myPerson.leftBuilding(this);
-	}
+	*/
 	
 	
 	//Scheduler
 	
 	public boolean pickAndExecuteAnAction() {
 		
-		if (state == CustomerState.entered ){
+		if (state == RobberState.entered ){
 			System.out.println("talk to greeter");
 			talkToGreeter();
 			return true;
 		}
 		
-		if (state == CustomerState.inLine){
+		if (state == RobberState.inLine){
 			System.out.println("Going to Teller");
 			DoGoToTeller();
 			return true;
 		}
 		
-		if (state == CustomerState.atTeller){
-			makeATransaction();
+		if (state == RobberState.atTeller){
+			demandMoney();
 			return true;
 		}
 		
-		if (state == CustomerState.receivedReceipt){
-			if(transactionList.size() > 0)
-				makeATransaction();
-			else
-				DoLeaveBank();
-			return true;
+		if (state == RobberState.receivedMoney){
+			DoLeaveBank();
 		}
 		return false;
 	}
@@ -240,34 +244,26 @@ public class BankRobberRole extends Role implements BankRobber{
 	
 	private void talkToGreeter() {
 		System.out.println("Need a teller");
-		greeter.msgNeedATeller(this);
-		state = CustomerState.waiting;
-	}
-	
-	private void DoGoToLine() {
-		state = CustomerState.goingToLine;
-		bankCustomerGui.GetInLine(waitingNumber);
+		greeter.msgGiveMeATeller(this);
+		state = RobberState.waiting;
 	}
 	
 	private void DoGoToTeller() {
-		state = CustomerState.goingToTeller;
-		System.out.println("this is a message" + bankCustomerGui);
-		bankCustomerGui.GoToTeller(tellerIndex);
+		state = RobberState.goingToTeller;
+		//System.out.println("this is a message" + bankRobberGui);
+		bankRobberGui.GoToTeller(tellerIndex);
 	}
 	
-	private void makeATransaction() {
-		if(!transactionList.isEmpty()) {
-			System.out.println(getName() + ": Making a transaction. Type: " + transactionList.get(0).transactionType);
-			getBankTeller().msgNeedATransaction(this, transactionList.get(0));
-			transactionList.remove(0);
-		}
-		state = CustomerState.waiting;
+	private void demandMoney() {
+		System.out.println(getName() + ": Gimme da money.");
+		getBankTeller().msgGiveMeMoney(this);
+		transactionList.remove(0);
 	}
 	
 	private void DoLeaveBank() {
 		getBankTeller().msgDoneAndLeaving(this);
-		bankCustomerGui.LeaveBank();
-		state = CustomerState.done;
+		bankRobberGui.LeaveBank();
+		state = RobberState.done;
 	}
 }
 
