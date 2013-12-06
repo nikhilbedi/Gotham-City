@@ -1,13 +1,25 @@
 package simcity;
 
 import javax.swing.ImageIcon;
+import agent.Role;
 
+/**
+ * The base class that every building will extend. 
+ * The gui and instantiation system will function more smoothly with this class 
+ * @author nikhil
+ *
+ */
 public class Building {
 	private String name;
 	private String imagePath = "";
 	private Location entranceLocation;
 	private Location guiLocation;
+	protected int weekdayOpen;
+	protected int weekdayClose;
+	protected int weekendOpen;
+	protected int weekendClose;
 	public ImageIcon icon;
+	//protected Map<String, Role>
 	
 	public ImageIcon getIcon() {
 		return icon;
@@ -75,5 +87,42 @@ public class Building {
 	
 	public void setImagePath(String i) {
 		imagePath = i;
+	}
+	
+	public int getWeekdayOpen() {
+		return weekdayOpen;
+	}
+
+	public int getWeekdayClose() {
+		return weekdayClose;
+	}
+
+	public int getWeekendOpen() {
+		return weekendOpen;
+	}
+
+	public int getWeekendClose() {
+		return weekendClose;
+	}
+	
+	public void setWeekdayOpen(int weekdayOpen) {
+		this.weekdayOpen = weekdayOpen;
+	}
+
+	public void setWeekdayClose(int weekdayClose) {
+		this.weekdayClose = weekdayClose;
+	}
+
+	public void setWeekendOpen(int weekendOpen) {
+		this.weekendOpen = weekendOpen;
+	}
+
+	public void setWeekendClose(int weekendClose) {
+		this.weekendClose = weekendClose;
+	}
+
+	public Role getRoleFromString(String s)	{
+		//have some sort of map<string, role> created and return appropriately
+		return new Role();
 	}
 }

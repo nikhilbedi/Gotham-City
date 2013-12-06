@@ -32,7 +32,7 @@ public class XMLHelper {
 	 */
 	public static void createPeople(String filepath) {
 
-		MainScreen mainScreen = SimCityPanel.getCityScreen();
+		MainScreen mainScreen = ScreenFactory.getMainScreen();
 
 		try {
 			File fXmlFile = new File("bin/" + filepath);

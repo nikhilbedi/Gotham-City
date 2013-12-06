@@ -320,7 +320,7 @@ public class Restaurant1CustomerRole extends Role implements Customer {
 	}
 
 	private void thinkingOfOrder() {
-		print("thinking of what to order...");
+		print("thinking of what to order!");
 		timer.schedule(new TimerTask() {
 			public void run() {
 				boolean stillChoosing = true;
