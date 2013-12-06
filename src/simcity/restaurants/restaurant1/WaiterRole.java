@@ -2,6 +2,7 @@ package simcity.restaurants.restaurant1;
 
 import simcity.PersonAgent;
 import simcity.tests.mock.*;
+import Gui.RoleGui;
 import agent.Agent;
 import simcity.restaurants.restaurant1.WaiterRole;
 import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
@@ -503,8 +504,9 @@ public class WaiterRole extends Role implements Waiter {
 		busyWithTask.release();
 	}
 
-	public void setGui(WaiterGui gui) {
-		waiterGui = gui;
+	public void setGui(RoleGui gui) {
+		super.setGui(gui);
+		waiterGui = (WaiterGui)gui;
 	}
 
 	public WaiterGui getGui() {

@@ -75,7 +75,7 @@ public class Restaurant4WaiterGui extends RoleGui {
         	command = Command.none;
         	agent.arrivedToCook(customer);
         }
-        if (xPos == 5 && yPos == 280 && command == Command.pickUpOrder){
+        if (xPos == 4 && yPos == 280 && command == Command.pickUpOrder){
         	command = Command.none;
         	agent.GotFood(food);
         	DeliverFood(table);
@@ -94,7 +94,7 @@ public class Restaurant4WaiterGui extends RoleGui {
         	agent.arrivedAtCashier(customer);
         }
         
-        if(xPos == 120 && yPos == 55 && command == Command.goToCustomer){
+        if(xPos == 120 && yPos == 54 && command == Command.goToCustomer){
         	command = Command.none;
         	bringToTable();
         }

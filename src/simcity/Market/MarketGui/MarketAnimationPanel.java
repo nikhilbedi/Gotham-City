@@ -65,6 +65,7 @@ public class MarketAnimationPanel extends Screen {
     	return market;
     }
     
+
     @Override
     public void paintBackground(Graphics g){
     	
@@ -75,7 +76,7 @@ public class MarketAnimationPanel extends Screen {
     	 java.net.URL imgtemp = this.getClass().getResource("/resources/mika/rsz_market.jpg");
     	 ImageIcon  current= new ImageIcon(imgtemp);
          g.drawImage(current.getImage(), 50, 0, null);
-        g.finalize();
+         g.finalize();
     	
     }
 

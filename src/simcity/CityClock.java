@@ -9,7 +9,7 @@ public final class CityClock {
 	private static Vector<PersonAgent> people = new Vector<PersonAgent>();
 	private static Timer timer = new Timer();
 	private static int currentTime = 1;
-	private static long hourLength = 2000;
+	private static long hourLength = 4000;
 
 	public static void startTime() {
 		final long hourTemp = hourLength;
@@ -19,6 +19,7 @@ public final class CityClock {
 				if(currentTime == 25) {
 					currentTime = 1;
 				}
+				System.out.println("The time is now: " + currentTime);
 				for(PersonAgent p : people) {
 					p.updateTime(currentTime);
 				}
