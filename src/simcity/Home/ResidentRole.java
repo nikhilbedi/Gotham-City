@@ -36,6 +36,7 @@ public class ResidentRole extends Role implements Resident {
 	public PersonAgent person;
 	// public PersonAgent accountHolder;
 	private Home home;
+	public Apartment apartment;
 	private double wallet;
 	public Map<String, Food> fridgeFoods = new HashMap<String, Food>();
 	public Map<String, Food> foods = new HashMap<String, Food>();

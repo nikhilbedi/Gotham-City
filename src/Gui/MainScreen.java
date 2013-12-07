@@ -62,8 +62,8 @@ public class MainScreen extends Screen{
 		house4.setImagePath("/resources/Buildings/HouseDark2.png");
 		house5 = new Home("Home5", 490, 590, 500, 600);
 		house5.setImagePath("/resources/Buildings/HouseDark2.png");
-		house6 = new Home("Home6", 590, 590, 600, 600);
-		house6.setImagePath("/resources/Buildings/HouseDark2.png");
+		house6 = new Home("Apartment", 590, 590, 600, 600);//this is hacked for now TODO change
+		house6.setImagePath("/resources/Buildings/HouseDark.png");
 		
 		
 		market = new Market("Market", 600, 100, 600, 100);
@@ -151,7 +151,9 @@ public class MainScreen extends Screen{
 			int tempX = b.getGuiLocation().getX();
 			int tempY = b.getGuiLocation().getY();
 			if( (x>tempX) && (x<tempX + b.icon.getIconWidth()) && (y>tempY) && (y<tempY+b.icon.getIconHeight())){
+				System.err.println(b.getName());
 				return b.getName();
+			
 			}
 		}
 

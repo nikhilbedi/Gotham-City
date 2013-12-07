@@ -11,6 +11,10 @@ import simcity.Home.test.mock.MockResident;
 public class Apartment extends Building{
 
 	String type;
+	int size;
+	int roomNumber;
+	public List<Integer> roomNumbers;
+	public List<Home> rooms;
 	public List<String> groceryList;
 	//public List<String> groceryBag;
 	public List<RentBill> rentBills;
@@ -26,7 +30,10 @@ public class Apartment extends Building{
 		groceryList = new ArrayList<String>();
 		rentBills = new ArrayList<RentBill>();
 		fridgeFoods = new ArrayList<Food>();	
-		resident = new ArrayList<ResidentRole>();  
+		resident = new ArrayList<ResidentRole>();
+		rooms = new ArrayList<Home>();
+		roomNumbers = new ArrayList<Integer>();
+		
 		//You'll notice for this particular role, resident needs a Person as a parameter. 
 		//But, we don't necessarily immediately know who this Person is.
 		//Please add ANOTHER constructor that doesnt need a Person parameter
@@ -39,6 +46,12 @@ public class Apartment extends Building{
 
 	public void setRentBills(List<RentBill> rentBills) {
 		this.rentBills = rentBills;
+	}
+	public List<Home> getRooms() {
+		return rooms;
+	}
+	public void setRooms(List<Home> homes) {
+		this.rooms = rooms;
 	}
 }	
 

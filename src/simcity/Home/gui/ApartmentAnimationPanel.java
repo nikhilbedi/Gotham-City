@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ArrayList;
 
-public class HomeAnimationPanel extends Screen {
+public class ApartmentAnimationPanel extends Screen {
 
 	static final int xPos = 200;
 	static final int yPos = 150;
@@ -23,9 +23,40 @@ public class HomeAnimationPanel extends Screen {
 	private Image bufferImage;
 	private Dimension bufferSize;
 	public ResidentGui gui;
-	public Home home;
+	public int size;
+	
+	public int x1;
+	public int y1;
+	public int x2;
+	public int y2;
+	public int x3;
+	public int y3;
+	public int x4;
+	public int y5;
+	public int x5;
+	public int x6;
+	public int y6;
+	
+	/*
+	int xStartRoomPos = 0;
+	int yStartRoomPos = 0;
+	
+	int xFridgeStart = 445;
+	int yFridgeStart = 690;
+	
+	int xFridgeDoorStart1 = 380;
+	int yFridgeDoorStart1 = 700;
+	int xFridgeDoorStart2 = 380;
+	int yFridgeDoorStart2 = 690;
+	*/
+	
+	public int roomHeight = 550;
+	public int roomLength = 360;
+	public int wallLength = 10;
+	public int hallLength = 280;
+	
 
-	public HomeAnimationPanel() {
+	public ApartmentAnimationPanel() {
 		// setSize(WINDOWX, WINDOWY);
 		// setVisible(true);
 		// bufferSize = this.getSize();
@@ -44,6 +75,9 @@ public class HomeAnimationPanel extends Screen {
 		resident.setGui(residentGui);
 		agentCust.addRole(resident);
 		
+		
+		
+		
 		//agentCust.startThread();
 		//addGui(residentGui);
 		
@@ -56,6 +90,8 @@ public class HomeAnimationPanel extends Screen {
 	@Override
 	public void paintBackground(Graphics g) {
 		super.paintBackground(g);
+		
+		
 		Graphics g2 = (Graphics) g;
 		Graphics text = (Graphics) g;
 		Graphics table = (Graphics) g;

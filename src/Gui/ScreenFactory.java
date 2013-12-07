@@ -4,17 +4,14 @@ package Gui;
 import java.util.*;
 
 import simcity.bank.bankAnimationPanel;
+import simcity.Home.gui.ApartmentAnimationPanel;
 import simcity.Home.gui.HomeAnimationPanel;
 import simcity.Market.MarketGui.MarketAnimationPanel;
 import simcity.restaurants.restaurant1.gui.RestaurantNikhilAnimationPanel;
-
 import simcity.restaurants.restaurant5.gui.RestaurantHunterAnimationPanel;
 import simcity.restaurants.restaurant3.gui.RestaurantEvanAnimationPanel;
-
 import simcity.restaurants.restaurant2.gui.Restaurant2AnimationPanel;
-
 import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4AnimationPanel;
-
 import simcity.Home.gui.HomeAnimationPanel;
 import simcity.bank.bankAnimationPanel;
 import simcity.Home.gui.HomeAnimationPanel;
@@ -45,6 +42,8 @@ public class ScreenFactory {
 	public static Screen rest4 = new Restaurant4AnimationPanel();
 	public static Screen rest5 = new RestaurantHunterAnimationPanel();
 	
+	public static Screen apart = new ApartmentAnimationPanel();
+	
 
 
 	public static Screen market = new MarketAnimationPanel();
@@ -61,6 +60,7 @@ public class ScreenFactory {
 		screenList.add(rest3);
 		screenList.add(rest4);
 		screenList.add(rest5);
+		screenList.add(apart);//can only be accessed statically for now
 
 		screenList.add(market);
 		screenList.add(bank);
@@ -139,6 +139,9 @@ public class ScreenFactory {
 			return rest5;
 
 		}
+		if(s.equalsIgnoreCase("Apartment")){
+			return apart;
+		}
 		if(s.equalsIgnoreCase("Market")){
 			return market;
 		}
@@ -176,6 +179,9 @@ public class ScreenFactory {
 		if(s.equalsIgnoreCase("Restaurant 5")){
 			return rest5;
 
+		}
+		if(s.equalsIgnoreCase("Apartment")){
+			return apart;
 		}
 		if(s.equalsIgnoreCase("Market")){
 			return market;
