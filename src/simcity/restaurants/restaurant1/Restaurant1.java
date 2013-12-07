@@ -2,8 +2,13 @@ package simcity.restaurants.restaurant1;
 
 import java.util.*;
 
+import Gui.ScreenFactory;
 import agent.Role;
+import simcity.Market.MarketCustomerRole;
+import simcity.Market.MarketGui.MarketCustomerGui;
 import simcity.restaurants.Restaurant;
+import simcity.restaurants.restaurant1.gui.CookGui;
+import simcity.restaurants.restaurant1.gui.WaiterGui;
 
 /**
  * Nikhil's restaurant - original
@@ -13,10 +18,17 @@ import simcity.restaurants.Restaurant;
 public class Restaurant1 extends Restaurant {
 	HostRole host = new HostRole();
 	CashierRole cashier = new CashierRole();
-	//List<WaiterRole> waiters = new ArrayList<WaiterRole>();
+	CookRole cook = new CookRole();
 	WaiterRole waiter1 = new WaiterRole();
 	WaiterSharedData waiter2 = new WaiterSharedData();
-	CookRole cook = new CookRole();
+	
+	//The GUIs
+	marketGui = new MarketCustomerGui((MarketCustomerRole) marketRoleTemp,
+			ScreenFactory.getMeScreen("Market"));
+	CookGui cookGui = new CookGui(cook, ScreenFactory.getMeScreen("Restaurant 1"));
+	WaiterGui w1Gui = new WaiterGui(waiter1, 0);
+	WaiterGui w2Gui = new WaiterGui(waiter2, 0);
+
 	
 	public Restaurant1(String type, int entranceX, int entranceY, int guiX,
 			int guiY) {
@@ -24,6 +36,10 @@ public class Restaurant1 extends Restaurant {
 		//Set the open and closing hours
 		setWeekdayHours(8, 22);
 		setWeekendHours(9, 21);
+		//Set guis
+		cook.setGui(cookGui);
+		waiter1.setGui(w1Gui);
+		waiter2.setGui(w2Gui);
 		//Add the key: strings & value: roles
 		Map<String, Role> jobs = Collections.synchronizedMap(new HashMap<String, Role>());
 		jobs.put("host", host);

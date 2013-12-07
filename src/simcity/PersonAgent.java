@@ -47,8 +47,8 @@ public class PersonAgent extends Agent implements Person {
 	public String name;
 	int currentTime; // (ranges from 1-24)
 	public int accountNumber; // Not currently sure how we're using account
-								// numbers, but the person should know it if
-								// we're removing that role
+	// numbers, but the person should know it if
+	// we're removing that role
 	Semaphore busyWithTask = new Semaphore(0, false);
 	double money = 0.0;
 	protected List<Role> roles = new ArrayList<Role>();
@@ -430,6 +430,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	public void enteringBuilding(Role role) {
+		role.setPerson(this);
 		roles.add(role);
 		role.setActive(true);
 		gui.getHomeScreen().removeGui(gui);
@@ -632,13 +633,13 @@ public class PersonAgent extends Agent implements Person {
 
 	// Actions
 	private void goToWork() {
-
+		//TODO change state to at work? 
+		
 		// animate out of building
 		// activeRole.DoLeaveBuilding();
 
 		// animate to desired location
 		gui.DoGoToLocation(myJob.workplace.getEntranceLocation());
-
 		try {
 			busyWithTask.acquire();
 		} catch (InterruptedException e) {
@@ -717,30 +718,6 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	private void goEatAtRestaurant() {
-		/*
-		 * <<<<<<< HEAD
-		 * 
-		 * 
-		 * gui.DoGoToLocation(currentPreference.getEntranceLocation());
-		 * eatingState = EatingState.HeadedtoRestaurant; try {
-		 * busyWithTask.acquire(); } catch (InterruptedException e) { // TODO
-		 * Auto-generated catch block e.printStackTrace(); }
-		 * 
-		 * rest1Temp = RoleFactory.makeMeRole("Restaurant1Customer");
-		 * currentBuilding = currentPreference; rest1Gui = new
-		 * Restaurant4CustomerGui((Restaurant4CustomerRole)rest1Temp,
-		 * ScreenFactory.getMeScreen("Restaurant")); rest1Temp.setPerson(this);
-		 * rest1Gui.setHomeScreen(ScreenFactory.getMeScreen("Restaurant"));
-		 * 
-		 * checkPersonScheduler = false; rest1Temp.setGui(rest1Gui); //Enter
-		 * building enteringBuilding(rest1Temp); //enter building (removing rect
-		 * from city screen if it is there, adding rect to home if not there)
-		 * 
-		 * Role customerRoleTemp =
-		 * roles.add(RoleFactory.makeMeRole(currentPreference
-		 * .restaurantCustomerRole)); activeRole = customerRoleTemp;
-		 * roles.add(customerRoleTemp); =======
-		 */
 		// if inside building and not in current restaurant preference
 		// animate outside building
 		gui.DoGoToLocation(currentPreference.getEntranceLocation());
@@ -794,9 +771,9 @@ public class PersonAgent extends Agent implements Person {
 		// rest1Temp = RoleFactory.makeMeRole("Restaurant4Customer");
 		// //currentPreference.getCustomerName()
 
-		restTemp.setPerson(this);
-		restGui.setHomeScreen(ScreenFactory.getMeScreen(currentPreference
-				.getName()));
+		//restTemp.setPerson(this);
+		//restGui.setHomeScreen(ScreenFactory.getMeScreen(currentPreference
+			//	.getName()));
 		// print("here:"+ currentPreference.getName());
 
 		checkPersonScheduler = false;
