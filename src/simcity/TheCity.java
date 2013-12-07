@@ -7,7 +7,10 @@ import simcity.Market.Market;
 import simcity.bank.Bank;
 import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant1.Restaurant1;
+import simcity.restaurants.restaurant2.Restaurant2;
+import simcity.restaurants.restaurant3.Restaurant3;
 import simcity.restaurants.restaurant4.Restaurant4;
+import simcity.restaurants.restaurant5.Restaurant5;
 
 public class TheCity {
 	
@@ -58,7 +61,8 @@ public class TheCity {
 	}
 	
 	static{//populate Buildings
-		home = new Home("Home", 390, 590, 400, 600);
+		//Changing from Home to Home 1 because now we have multiple buildings
+		home = new Home("Home 1", 390, 590, 400, 600);
 		home.setImagePath("/resources/Buildings/HouseDark2.png");
 	
 		
@@ -69,13 +73,13 @@ public class TheCity {
 		
 		rest1 = new Restaurant1("Restaurant 1", 200, 100, 200, 100);
 		rest1.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest2 = new Restaurant1("Restaurant 2", 50, 200, 50, 200);
+		rest2 = new Restaurant2("Restaurant 2", 50, 200, 50, 200);
 		rest2.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest3 = new Restaurant1("Restaurant 3", 650, 200, 650, 200);
+		rest3 = new Restaurant3("Restaurant 3", 650, 200, 650, 200);
 		rest3.setImagePath("/resources/Buildings/RestaurantDark2.png");
 		rest4 = new Restaurant4("Restaurant 4", 50, 400, 50, 400);
 		rest4.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest5 = new Restaurant1("Restaurant 5", 650, 400, 650, 400);
+		rest5 = new Restaurant5("Restaurant 5", 650, 400, 650, 400);
 		rest5.setImagePath("/resources/Buildings/RestaurantDark2.png");
 
 		buildings.add(home);
@@ -128,7 +132,7 @@ public class TheCity {
 		if(s.equalsIgnoreCase("Bank")){
 			return bank;
 		}
-		if(s.equalsIgnoreCase("Home")){
+		if(s.equalsIgnoreCase("Home 1")){
 			return home;
 		}
 
