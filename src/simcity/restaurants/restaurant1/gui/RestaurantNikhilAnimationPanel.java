@@ -41,7 +41,7 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 	CashierRole cashierRole;
 	
 	WaiterGui waiterGui;
-	WaiterGui waiterSharedDataGui;
+	WaiterSharedDataGui waiterSharedDataGui;
 	CookGui cookGui;
 	
 	/*private final int WINDOWX = 350;
@@ -137,7 +137,7 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 		cashierRole = new CashierRole(cashierPerson);
 		
 		waiterGui = new WaiterGui(waiterRole,1);
-		waiterSharedDataGui = new WaiterGui(waiterSharedDataRole, 0);
+		waiterSharedDataGui = new WaiterSharedDataGui(waiterSharedDataRole, 0);
 		cookGui = new CookGui(cookRole);
 		
 		waiterRole.setGui(waiterGui);

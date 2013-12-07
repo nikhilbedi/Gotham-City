@@ -8,6 +8,7 @@ import simcity.restaurants.restaurant1.WaiterRole;
 import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
 import simcity.restaurants.restaurant1.Menu;
 import simcity.restaurants.restaurant1.gui.WaiterGui;
+import simcity.restaurants.restaurant1.gui.WaiterSharedDataGui;
 import simcity.restaurants.restaurant1.interfaces.*;
 import simcity.restaurants.restaurant1.CashierRole.Check;
 import agent.Role;
@@ -36,7 +37,7 @@ public class WaiterSharedData extends Role implements Waiter {
 	private CookRole cook;
 	private CashierRole cashier;
 
-	private WaiterGui waiterGui = null;
+	private WaiterSharedDataGui waiterGui = null;
 
 	public WaiterSharedData(PersonAgent p) {
 		super(p);
@@ -512,10 +513,10 @@ public class WaiterSharedData extends Role implements Waiter {
 
 	public void setGui(RoleGui gui) {
 		super.setGui(gui);
-		waiterGui = (WaiterGui)gui;
+		waiterGui = (WaiterSharedDataGui)gui;
 	}
 
-	public WaiterGui getGui() {
+	public WaiterSharedDataGui getGui() {
 		return waiterGui;
 	}
 
