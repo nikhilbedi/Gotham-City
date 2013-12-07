@@ -310,6 +310,60 @@ public class PersonTest extends TestCase
 		assertTrue("The person's state should be set so that he thinks he is not hungry, but it is not", person.hungerState == HungerState.NotHungry);
 
 		//Step 2 - Update the time multiple times
+		time++;
+		person.updateTime(time);
+		time++;
+		person.updateTime(time);
+		time++;
+		person.updateTime(time);
+		
+		//post/preconditions
+		assertEquals("Hunger count should be 4. But it isnt", 4, person.hungerCount);
+		assertTrue("The money allocated when a person is instantiated is zero. It is not.", person.checkMoney() == 0.0);
+		assertEquals("Job should be null. It is not", person.getJob(), null);
+		assertTrue("The size of rentBills should be zero. It isnt", person.getRentBills().size() == 0);
+		assertEquals("Bank account number should be zero. it isnt", person.getAccountNumber(), 0);
+		assertTrue("personScheduler should be true. it isnt", person.getPersonScheduler());
+		assertTrue("The person's state should be set so that he thinks he is famished, but it is not", person.hungerState == HungerState.Famished);
+
+		
+		//Step 3 - Update the time multiple times
+		time++;
+		person.updateTime(time);
+		time++;
+		person.updateTime(time);
+		time++;
+		person.updateTime(time);
+		time++;
+		person.updateTime(time);
+		
+		//post/preconditions
+		assertEquals("Hunger count should be 8. But it isnt", 8, person.hungerCount);
+		assertTrue("The money allocated when a person is instantiated is zero. It is not.", person.checkMoney() == 0.0);
+		assertEquals("Job should be null. It is not", person.getJob(), null);
+		assertTrue("The size of rentBills should be zero. It isnt", person.getRentBills().size() == 0);
+		assertEquals("Bank account number should be zero. it isnt", person.getAccountNumber(), 0);
+		assertTrue("personScheduler should be true. it isnt", person.getPersonScheduler());
+		assertTrue("The person's state should be set so that he thinks he is hungry, but it is not", person.hungerState == HungerState.Hungry);
+		
+		//Step 4 - Update the time multiple times
+		time++;
+		person.updateTime(time);
+		time++;
+		person.updateTime(time);
+		time++;
+		person.updateTime(time);
+		time++;
+		person.updateTime(time);
+		
+		//post/preconditions
+		assertEquals("Hunger count should be 12. But it isnt", 12, person.hungerCount);
+		assertTrue("The money allocated when a person is instantiated is zero. It is not.", person.checkMoney() == 0.0);
+		assertEquals("Job should be null. It is not", person.getJob(), null);
+		assertTrue("The size of rentBills should be zero. It isnt", person.getRentBills().size() == 0);
+		assertEquals("Bank account number should be zero. it isnt", person.getAccountNumber(), 0);
+		assertTrue("personScheduler should be true. it isnt", person.getPersonScheduler());
+		assertTrue("The person's state should be set so that he thinks he is starving, but it is not", person.hungerState == HungerState.Starving);
 		
 	}
 }

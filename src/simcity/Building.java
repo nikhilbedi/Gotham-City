@@ -1,13 +1,30 @@
 package simcity;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.swing.ImageIcon;
 
+import agent.Role;
+
+/**
+ * The base class that every building will extend. 
+ * The gui and instantiation system will function more smoothly with this class 
+ * @author nikhil
+ *
+ */
 public class Building {
 	private String name;
 	private String imagePath = "";
 	private Location entranceLocation;
 	private Location guiLocation;
+	protected int weekdayOpen;
+	protected int weekdayClose;
+	protected int weekendOpen;
+	protected int weekendClose;
 	public ImageIcon icon;
+	protected Map<String, Role> jobRoles = Collections.synchronizedMap(new HashMap<String, Role>());
 	
 	public ImageIcon getIcon() {
 		return icon;
@@ -75,5 +92,59 @@ public class Building {
 	
 	public void setImagePath(String i) {
 		imagePath = i;
+	}
+	
+	public int getWeekdayOpen() {
+		return weekdayOpen;
+	}
+
+	public int getWeekdayClose() {
+		return weekdayClose;
+	}
+
+	public int getWeekendOpen() {
+		return weekendOpen;
+	}
+
+	public int getWeekendClose() {
+		return weekendClose;
+	}
+	
+	public void setWeekdayHours(int open, int close) {
+		weekdayOpen = open;
+		weekdayClose = close;
+	}
+
+	public void setWeekendHours(int open, int close) {
+		weekendOpen = open;
+		weekendClose = close;
+	}
+
+	public Map<String, Role> getJobRoles() {
+		return jobRoles;
+	}
+
+	public void setJobRoles(Map<String, Role> jobRoles) {
+		this.jobRoles = jobRoles;
+	}
+
+	public Role getRoleFromString(String roleString) {
+		Role temp = new Role();
+		boolean jobExists = false;
+		synchronized(jobRoles){
+			for(String s : jobRoles.keySet()) {
+				if(roleString.equalsIgnoreCase(s)){
+					temp = jobRoles.get(s);
+					jobExists = true;
+				}
+			}
+		}
+		if(jobExists) {
+			return temp;
+		}
+		else {
+			System.out.println("Role not found in this building.");
+			return null;
+		}
 	}
 }
