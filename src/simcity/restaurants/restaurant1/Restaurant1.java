@@ -23,13 +23,13 @@ public class Restaurant1 extends Restaurant {
 	WaiterSharedData waiter2 = new WaiterSharedData();
 	
 	//The GUIs
-	marketGui = new MarketCustomerGui((MarketCustomerRole) marketRoleTemp,
+	/*marketGui = new MarketCustomerGui((MarketCustomerRole) marketRoleTemp,
 			ScreenFactory.getMeScreen("Market"));
-	CookGui cookGui = new CookGui(cook, ScreenFactory.getMeScreen("Restaurant 1"));
+	//CookGui cookGui = new CookGui(cook, ScreenFactory.getMeScreen("Restaurant 1"));
 	WaiterGui w1Gui = new WaiterGui(waiter1, 0);
 	WaiterGui w2Gui = new WaiterGui(waiter2, 0);
 
-	
+	*/
 	public Restaurant1(String type, int entranceX, int entranceY, int guiX,
 			int guiY) {
 		super(type, entranceX, entranceY, guiX, guiY);
@@ -37,7 +37,7 @@ public class Restaurant1 extends Restaurant {
 		setWeekdayHours(8, 22);
 		setWeekendHours(9, 21);
 		//Set guis
-		cook.setGui(cookGui);
+		/*cook.setGui(cookGui);
 		waiter1.setGui(w1Gui);
 		waiter2.setGui(w2Gui);
 		//Add the key: strings & value: roles
@@ -47,7 +47,7 @@ public class Restaurant1 extends Restaurant {
 		jobs.put("cook", cook);
 		jobs.put("waiter1", waiter1);
 		jobs.put("waiter2", waiter2);
-		setJobRoles(jobs);
+		setJobRoles(jobs);*/
 	}
 
 	@Override
