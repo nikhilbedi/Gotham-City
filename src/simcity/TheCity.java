@@ -30,10 +30,24 @@ public class TheCity {
 	homeList.add("None (Homeless Shelter)");
 	homeList.add("Home 1");
 	
+
+	buildings.add(home);
+	buildings.add(market);
+	buildings.add(bank);
+	buildings.add(rest1);
+	buildings.add(rest2);
+	buildings.add(rest3);
+	buildings.add(rest4);
+	buildings.add(rest5);
+	
 	jobLocationList.add("No job");
-	jobLocationList.add("Market");
+	for(Building b: buildings){
+		jobLocationList.add(b.getName());
+	}
+	
+	/*jobLocationList.add("Market");
 	jobLocationList.add("Bank");
-	jobLocationList.add("Restaurant 1");
+	jobLocationList.add("Restaurant 1");*/
 	
 	jobPositionList.add("This is a temp variable I still need to figure out how to make this list dynamic");
 	

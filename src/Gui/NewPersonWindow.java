@@ -112,6 +112,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 
 		add(nameField);
 		add(Box.createRigidArea(new Dimension(0,15)));
+		add(new JLabel("Money"));
 		add(money);
 		add(Box.createRigidArea(new Dimension(0,15)));
 		add(labeledHome);
