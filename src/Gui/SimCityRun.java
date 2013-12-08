@@ -26,6 +26,7 @@ import java.io.File;
 import Gui.SoundClip;
 import simcity.CityClock;
 import simcity.PersonAgent;
+import simcity.TheCity;
 import simcity.Home.gui.HomePanel;
 
 
@@ -59,10 +60,14 @@ public class SimCityRun extends JFrame implements ActionListener
 		//set information for infoPanel
 		InfoPanel info = new InfoPanel();
 		peopleList.setInfoPanel(info);
-
+		add(TheCity.bar);//Adds clock gui
 		add(animationPanel);
 		add(info);
 		setVisible(true);
+		
+	
+		//add(TheCity.bar);
+		
 		cityPanel.go();//starts the animation in the panel
 
 

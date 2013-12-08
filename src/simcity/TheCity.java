@@ -2,6 +2,8 @@ package simcity;
 
 import java.util.*;
 
+import Gui.TimeBar;
+
 import simcity.Home.Home;
 import simcity.Market.Market;
 import simcity.bank.Bank;
@@ -29,8 +31,14 @@ public class TheCity {
 	static Building market;
 	static Building bank;
 	
+	//Making timebar static so it can be updated by static city clock is this bad?
+	public static TimeBar bar;
+	
 	
 	static{//populate Buildings
+		bar = new TimeBar();
+		bar.setVisible(true);
+		
 		//Changing from Home to Home 1 because now we have multiple buildings
 		home = new Home("Home 1", 390, 590, 400, 600);
 		home.setImagePath("/resources/Buildings/HouseDark2.png");
@@ -52,6 +60,8 @@ public class TheCity {
 		rest5 = new Restaurant5("Restaurant 5", 650, 400, 650, 400);
 		rest5.setImagePath("/resources/Buildings/RestaurantDark2.png");
 
+		
+			
 		buildings.add(home);
 		buildings.add(market);
 		buildings.add(bank);
