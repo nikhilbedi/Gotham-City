@@ -216,6 +216,11 @@ public class MarketCustomerRole extends Role implements MarketCustomer{
 		super.setGui(g);
 		customerGui = (MarketCustomerGui)g;
 	}
+
+	
+	public MarketCustomerGui getCustomerGui(){
+		return customerGui;
+	}
 	
 	public void msgOutOfMarket(){
 		

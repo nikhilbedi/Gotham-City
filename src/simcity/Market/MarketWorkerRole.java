@@ -1,6 +1,7 @@
 package simcity.Market;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,7 @@ import simcity.restaurants.restaurant4.test.mock.Restaurant4CookMock;
 import agent.Role;
 
 public class MarketWorkerRole extends Role implements MarketWorker{
-	private List<CustomerDelivery> deliveries = new ArrayList<CustomerDelivery>();
+	private List<CustomerDelivery> deliveries = Collections.synchronizedList(new ArrayList<CustomerDelivery>());
 	private List<RestaurantDelivery> restDeliveries = new ArrayList<RestaurantDelivery>();
 	public Map<String, Item> inventory = new HashMap<String, Item>();
 	private MarketCashier cashier;
@@ -25,7 +26,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 //	private PersonAgent person;
 	public String name;
 	public Semaphore delivering = new Semaphore(0,true);
-	private List<MarketCustomer> waitingCustomers  = new ArrayList<MarketCustomer>();
+	private List<MarketCustomer> waitingCustomers  = Collections.synchronizedList(new ArrayList<MarketCustomer>());
 	public MarketWorkerRole(PersonAgent p){
 		super(p);
 		name = p.name;
@@ -49,6 +50,14 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 		deliveries.add(new CustomerDelivery(o));
 	
 		stateChanged();
+	}
+	
+	public void updateCustomerPositions(){
+		synchronized(waitingCustomers){
+		for(int i=0; i<waitingCustomers.size(); i++){
+			//waitingCustomers.get(i).getGui().
+		}
+		}
 	}
 	
 	public List<CustomerDelivery> getCustomerDeliveries(){

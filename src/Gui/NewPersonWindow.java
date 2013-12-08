@@ -46,7 +46,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 
 	JButton finalize;
 
-	MainScreen mainScreen;
+	//MainScreen mainScreen;
 
 	JButton reference;
 
@@ -58,11 +58,10 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 	public MyLabeledUnit labeledPosition;
 
 
-	public NewPersonWindow(MainScreen city, JButton b, PersonSelectionPane pane){
+	public NewPersonWindow(JButton b, PersonSelectionPane pane){
 		setSize(WINDOWX, WINDOWY);
 
 
-		mainScreen = city;
 		reference = b;
 		selPane = pane;
 
@@ -162,6 +161,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == finalize){
+			MainScreen mainScreen = ScreenFactory.getMainScreen();
 			PersonGui newPersonGui = new PersonGui();
 			PersonAgent newPerson = new PersonAgent(nameField.getText(), newPersonGui, mainScreen);
 			newPersonGui.setAgent(newPerson);
@@ -173,9 +173,9 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			//setJob
 
 			newPerson.setGui(newPersonGui);	
-			newPerson.setRestaurants(mainScreen.getRestaurantList());
-			newPerson.setMarkets(mainScreen.getMarketList());
-			newPerson.setBank(mainScreen.getBank());
+			newPerson.setRestaurants(TheCity.getRestaurantList());
+			newPerson.setMarkets(TheCity.getMarketList());
+			newPerson.setBank(TheCity.getBank());
 
 			//Give him money
 			newPerson.addMoney(money.getValue()); 

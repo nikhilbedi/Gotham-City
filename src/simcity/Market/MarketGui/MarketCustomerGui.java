@@ -86,4 +86,8 @@ public class MarketCustomerGui extends RoleGui{
 		xDestination = 580;
 		command = Command.left;
 	}
+	
+	public void setDestination(int x){
+		xDestination = x;
+	}
 }
