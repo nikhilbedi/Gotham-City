@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Event;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -60,7 +62,13 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 
 	public NewPersonWindow(JButton b, PersonSelectionPane pane){
 		setSize(WINDOWX, WINDOWY);
-
+		addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+		    	reference.setEnabled(true);
+		        dispose();
+		    }
+		});
 
 		reference = b;
 		selPane = pane;
@@ -234,6 +242,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			}
 		}
 	}
+
 	
 
 }
