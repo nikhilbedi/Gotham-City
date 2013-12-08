@@ -36,6 +36,7 @@ public class MainScreen extends Screen{
 	Building rest3;
 	Building rest4;
 	Building rest5;
+	Character[][] grid;
 
 
 
@@ -43,9 +44,9 @@ public class MainScreen extends Screen{
 	{
 		temp = 1;
 
+		//TODO Need to update the entrance positions for each location in order to match the new gui movement
 		
-		
-		house = new Home("Home", 390, 590, 400, 600);
+		house = new Home("Home", 420, 590, 420, 600);
 		house.setImagePath("/resources/Buildings/HouseDark2.png");
 		
 		//These are just added to make Evan happy
@@ -61,7 +62,7 @@ public class MainScreen extends Screen{
 		house6.setImagePath("/resources/Buildings/HouseDark2.png");
 		
 		
-		market = new Market("Market", 600, 100, 600, 100);
+		market = new Market("Market", 630, 130, 600, 100);
 		market.setImagePath("/resources/Buildings/MarketDark2.png");
 		bank = new Bank("Bank", 400, 100, 400, 100);
 		bank.setImagePath("/resources/Buildings/BankDark2.png");
@@ -96,22 +97,50 @@ public class MainScreen extends Screen{
 		
 	}
 
-	public  void paintBackground(Graphics g)
+	public void paintBackground(Graphics g)
 	{
-		 g.setColor(Color.white);
-         //g.fillRect(0,0,1000, 800);
-		 java.net.URL image1 = this.getClass().getResource("/resources/Backgrounds/SimCityBackground.png");
+		g.setColor(Color.white);
+        //g.fillRect(0,0,1000, 800);
+		java.net.URL image1 = this.getClass().getResource("/resources/Backgrounds/SimCityBackground.png");
  		ImageIcon current1 = new ImageIcon(image1);
  		g.drawImage(current1.getImage(), 0, 0, null);
          
-		for(Building b : buildings){
+ 		//for(int x = 0; x < )
+ 		for(int x = 0; x < grid.length; x++)
+ 			for(int y = 0; y < grid[0].length; y++) {
+ 				if(grid[x][y] == 'E')
+ 					g.setColor(Color.white);
+ 				else if(grid[x][y] == 'R')
+ 					g.setColor(Color.red);
+ 				else if(grid[x][y] == 'P')
+ 					g.setColor(Color.green);
+ 				else if(grid[x][y] == 'S')
+ 					g.setColor(Color.gray);
+ 				else if(grid[x][y] == 'I')
+ 					g.setColor(Color.magenta);
+ 				
+ 				g.fillRect(x*20, y*20, 40, 40);
+ 			}
+ 		
+ 		for(Building b : buildings){
 			java.net.URL image = this.getClass().getResource(b.getImagePath());
 			b.icon = new ImageIcon(image);
 			g.drawImage(b.icon.getImage(), b.getGuiLocation().getX(), b.getGuiLocation().getY(), null);
 		}
-
+		
+		/*for(int x = 0; x < grid.length; x++)
+ 			for(int y = 0; y < grid[0].length; y++) {
+ 				if(grid[x][y] == 'E')
+ 					g.setColor(Color.white);
+ 				else if(grid[x][y] == 'R')
+ 					g.setColor(Color.red);
+ 				else if(grid[x][y] == 'P')
+ 					g.setColor(Color.green);
+ 				
+ 				g.fillRect(x*20, y*20, 40, 40);
+ 			}*/
 	}
-
+	
 	public List<Restaurant> getRestaurantList(){
 		List<Restaurant> tempcast = new ArrayList<Restaurant>();
 		tempcast.add((Restaurant)rest1);
@@ -149,6 +178,11 @@ public class MainScreen extends Screen{
 			}
 		}
 		return "This is not a building";
+	}
+
+	public void setGrid(Character[][] grid) {
+		this.grid = grid;
+		
 	}
 }
 

@@ -2,6 +2,8 @@ package simcity;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.ConcurrentModificationException;
+import java.util.TimerTask;
 
 import Gui.RoleGui;
 
@@ -26,10 +28,19 @@ public class PersonGui extends RoleGui {
 	boolean reachedBuildingLocation;
 	
 	public PersonGui(PersonAgent c){ 
+		//super();
 		super.setColor(Color.yellow);
 		agent = c;
 		
+		xPos = 200; //Possibly remove this
+		xDestination = 200;
+		yPos = 220;
+		yDestination = 220;
 		
+		xPos = 160; //Possibly remove this
+		xDestination = 160;
+		yPos = 180;
+		yDestination = 180;
 		/*
 		xPos = agent.getLocation().getX();
 		yPos = agent.getLocation().getY();
@@ -38,8 +49,18 @@ public class PersonGui extends RoleGui {
 	}
 	
 	public PersonGui(){ 
+		//super();
 		super.setColor(Color.yellow);
 		
+		xPos = 200; //Possibly remove this
+		xDestination = 200;
+		yPos = 220;
+		yDestination = 220;
+		
+		xPos = 160; //Possibly remove this
+		xDestination = 160;
+		yPos = 180;
+		yDestination = 180;
 		/*
 		xPos = agent.getLocation().getX();
 		yPos = agent.getLocation().getY();
@@ -49,7 +70,8 @@ public class PersonGui extends RoleGui {
 
 	public void updatePosition() {
 		super.updatePosition();
-		if(xPos == xDestination && yPos == yDestination && tempStill && command.equalsIgnoreCase("GoingToLocation")) {
+		if(xPos == xDestination && yPos == yDestination && tempStill && command.equalsIgnoreCase("GoingToLocation")&&agent.finalX == xDestination && agent.finalY == yDestination) {
+			System.out.println("REACHED BUILDING");
 			agent.reachedBuilding();
 			tempStill = false;
 		}
@@ -65,5 +87,15 @@ public class PersonGui extends RoleGui {
 		xDestination = destination.getX();
 		yDestination = destination.getY();
 		command = "GoingToLocation";
+	}
+	
+	public int getX() { return xPos;}
+	
+	public int getY() { return yPos;}
+
+	public void reachedBuilding() {
+		System.out.println("REACHED BUILDING");
+		agent.reachedBuilding();
+		tempStill = false;
 	}
 }

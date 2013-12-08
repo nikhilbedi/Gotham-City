@@ -159,8 +159,13 @@ public class PersonAgent extends Agent implements Person {
 		}
 	}
 
-
-
+	//Brice - Movement around City Screen
+	
+	int finalX, finalY;
+	Character[][] grid;
+	char prevTile = ' ';
+	Timer moveTimer = new Timer();
+	
 	//constructors
 
 
@@ -184,10 +189,6 @@ public class PersonAgent extends Agent implements Person {
 		gui = g;
 	}
 
-	/*<<<<<<< HEAD
-	public void setRestaurants(List<Restaurant> list) {
-		restaurants = list;
-=======*/
 	public void setRestaurants(List<Restaurant> r) {
 		restaurants = r;
 		currentPreference = restaurants.get(restaurantCounter);
@@ -227,7 +228,10 @@ public class PersonAgent extends Agent implements Person {
 		}
 	}
 
-
+	public void setGrid(Character[][] grid) { //Brice - setting grid for City Screen movement
+		this.grid = grid;
+		prevTile = grid[gui.getX()/20][gui.getY()/20];
+	}
 
 	//functions so we can function
 	public void setHomeOwnerRole() {
@@ -691,7 +695,18 @@ public class PersonAgent extends Agent implements Person {
 	private void goToHome() {
 		//if inside building and not in home, animate there
 		if(currentBuilding != myHome) {
-			gui.DoGoToLocation(myHome.getEntranceLocation());
+			//gui.DoGoToLocation(myHome.getEntranceLocation());
+			
+			System.out.println("What Brice needs to succeed: " + myHome.getEntranceLocation().getX());
+			System.out.println("What Brice needs to succeed: " + myHome.getEntranceLocation().getY());
+			
+			finalX = myHome.getEntranceLocation().getX()/20; //Brice - Code to get to next location via Grid
+			finalY = myHome.getEntranceLocation().getY()/20;
+			
+			//finalX = (myHome.getEntranceLocation().getX())/20; //Brice - Code to get to next location via Grid
+			//finalY = (myHome.getEntranceLocation().getY())/20;
+			guiMoveFromCurrentPositionTo(gui.getX()/20, gui.getY()/20);
+			
 			try {
 				//print("Available permits: " + busyWithTask.availablePermits());
 				busyWithTask.acquire();
@@ -718,37 +733,14 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	private void goEatAtRestaurant() {
-		/*<<<<<<< HEAD
-
-
-		 gui.DoGoToLocation(currentPreference.getEntranceLocation());
-         eatingState = EatingState.HeadedtoRestaurant;
-         try {
-                 busyWithTask.acquire();
-         } catch (InterruptedException e) {
-                 // TODO Auto-generated catch block
-                 e.printStackTrace();
-         }
-
-         rest1Temp = RoleFactory.makeMeRole("Restaurant1Customer");
-         currentBuilding = currentPreference;
-         rest1Gui = new Restaurant4CustomerGui((Restaurant4CustomerRole)rest1Temp, ScreenFactory.getMeScreen("Restaurant"));
-         rest1Temp.setPerson(this);
-         rest1Gui.setHomeScreen(ScreenFactory.getMeScreen("Restaurant"));
-
-         checkPersonScheduler = false;
-         rest1Temp.setGui(rest1Gui);
-         //Enter building
-         enteringBuilding(rest1Temp);
-		//enter building (removing rect from city screen if it is there, adding rect to home if not there)
-
-		Role customerRoleTemp = roles.add(RoleFactory.makeMeRole(currentPreference.restaurantCustomerRole));
-		activeRole = customerRoleTemp;
-		roles.add(customerRoleTemp);
-=======*/
 		//if inside building and not in current restaurant preference
 		//animate outside building
-		gui.DoGoToLocation(currentPreference.getEntranceLocation());
+		//gui.DoGoToLocation(currentPreference.getEntranceLocation());
+		
+		finalX = (currentPreference.getEntranceLocation().getX() + 10)/20; //Brice - Code to get to next location via Grid
+		finalY = (currentPreference.getEntranceLocation().getY() + 10)/20;
+		guiMoveFromCurrentPositionTo(gui.getX()/20, gui.getY()/20);
+		
 		eatingState = EatingState.HeadedtoRestaurant;
 		try {
 			busyWithTask.acquire();
@@ -763,7 +755,6 @@ public class PersonAgent extends Agent implements Person {
 			restGui = new Restaurant1CustomerGui((Restaurant1CustomerRole)restTemp, ScreenFactory.getMeScreen(currentPreference.getName()));
 		}
 		else if(currentPreference.getName().equalsIgnoreCase("Restaurant 2")) {
-			System.out.println("IN REST 2");
 			System.out.println(currentPreference.getCustomerName());
 			restTemp =  RoleFactory.makeMeRole(currentPreference.getCustomerName());
 			restGui = new Restaurant2CustomerGui((Restaurant2CustomerRole)restTemp, ScreenFactory.getMeScreen(currentPreference.getName()));
@@ -807,7 +798,12 @@ public class PersonAgent extends Agent implements Person {
 		//if inside building and not in current restaurant preference
 		//animate outside building
 		for(Market m : markets){
-			gui.DoGoToLocation(m.getEntranceLocation());
+			//gui.DoGoToLocation(m.getEntranceLocation());
+			
+			finalX = (m.getEntranceLocation().getX() + 10)/20; //Brice - Code to get to next location via Grid
+			finalY = (m.getEntranceLocation().getY() + 10)/20;
+			guiMoveFromCurrentPositionTo(gui.getX()/20, gui.getY()/20);
+			
 			break;
 		}
 		try {
@@ -844,7 +840,14 @@ public class PersonAgent extends Agent implements Person {
 		System.out.println("Y: " + bank.getEntranceLocation().getY());
 		//print("Current permits when going to bank are: " + busyWithTask.availablePermits());
 		currentDestination = bank;
-		gui.DoGoToLocation(bank.getEntranceLocation());
+		//gui.DoGoToLocation(bank.getEntranceLocation());
+		
+		System.out.println("NEED TO GO TO BANK RIGHT NOW");
+		
+		finalX = (bank.getEntranceLocation().getX() + 10)/20; //Brice - Code to get to next location via Grid
+		finalY = (bank.getEntranceLocation().getY() + 10)/20;
+		guiMoveFromCurrentPositionTo(gui.getX()/20, gui.getY()/20);
+		
 		try{
 			busyWithTask.acquire();
 		}
@@ -866,7 +869,119 @@ public class PersonAgent extends Agent implements Person {
 		checkPersonScheduler = false;
 
 	}
-
+	
+	void guiMoveFromCurrentPositionTo(final int x, final int y){ // Brice - Method for traveling along the grid within the City Screen
+	 	if(finalX == x && finalY == y) {
+	 		gui.reachedBuilding();
+	 		return;
+	 	}
+	 	
+	 	System.out.println(x);
+	 	System.out.println("1st condition: " + (x));
+	 	System.out.println(grid[x+1][y]);
+	 	System.out.println("2nd condition: " + (grid[x+1][y]));
+	 	//Move RIGHT
+	 	if(finalX - (x + 1)  >= 0 /*<= deltaX*/ && (grid[x+1][y] == 'S' || grid[x+1][y] == 'I')) {
+	 		System.out.println("MOVING RIGHT");
+	 		try {
+	 			char temp = grid[x+1][y];
+	 			grid[x+1][y] = 'P';
+	 			grid[x][y] = prevTile;
+	 			prevTile = temp;
+	 			gui.DoGoToLocation(new Location((x+1)*20, y*20)); //Temporary timer or semaphore?
+	 			moveTimer.schedule(new TimerTask() {
+	 				Object cookie = 1;
+	 				public void run() {
+	 					guiMoveFromCurrentPositionTo(x+1, y);
+	 				}
+	 			},
+	 			350);
+	 			
+	 		}
+	 		catch(ConcurrentModificationException e) {
+	 			System.err.println("Concurrent Modification Exception");
+	 		}
+	 	}
+	 	
+	 	//Move LEFT
+	 	
+	 	else if((x - 1) - finalX >= 0 && (grid[x-1][y] == 'S' || grid[x-1][y] == 'I')) {
+	 		System.out.println("MOVING LEFT");
+	 		try {
+	 			char temp = grid[x-1][y];
+	 			grid[x-1][y] = 'P';
+	 			grid[x][y] = prevTile;
+	 			prevTile = temp;
+	 			gui.DoGoToLocation(new Location((x-1)*20, y*20)); //Temporary timer or semaphore?
+	 			moveTimer.schedule(new TimerTask() {
+	 				Object cookie = 1;
+	 				public void run() {
+	 					guiMoveFromCurrentPositionTo(x-1, y);
+	 				}
+	 			},
+	 			350);
+	 		}
+	 		catch(ConcurrentModificationException e) {
+	 			System.err.println("Concurrent Modification Exception");
+	 		}
+	 	}
+	 	
+	 	//Move UP
+	 	else if((y - 1) - finalY  >= 0 && (grid[x][y-1] == 'S' || grid[x][y-1] == 'I')) {
+	 		System.out.println("MOVING UP");
+	 		try {
+	 			char temp = grid[x][y-1];
+	 			grid[x][y-1] = 'P';
+	 			grid[x][y] = prevTile;
+	 			prevTile = temp;
+	 			gui.DoGoToLocation(new Location(x*20, (y-1)*20)); //Temporary timer or semaphore?
+	 			moveTimer.schedule(new TimerTask() {
+	 				Object cookie = 1;
+	 				public void run() {
+	 					guiMoveFromCurrentPositionTo(x, y-1);
+	 				}
+	 			},
+	 			350);
+	 		}
+	 		catch(ConcurrentModificationException e) {
+	 			System.err.println("Concurrent Modification Exception");
+	 		}
+	 	}
+	 	
+	 	//Move DOWN
+	 	else if(finalY - (y + 1) >= 0 && (grid[x][y+1] == 'S' || grid[x][y+1] == 'I')) {
+	 		System.out.println("MOVING DOWN");
+	 		try {
+	 			char temp = grid[x][y+1];
+	 			grid[x][y+1] = 'P';
+	 			grid[x][y] = prevTile;
+	 			prevTile = temp;
+	 			gui.DoGoToLocation(new Location(x*20, (y+1)*20)); //Temporary timer or semaphore?
+	 			moveTimer.schedule(new TimerTask() {
+	 				Object cookie = 1;
+	 				public void run() {
+	 					guiMoveFromCurrentPositionTo(x, y+1);
+	 				}
+	 			},
+	 			350);
+	 			
+	 		}
+	 		catch(ConcurrentModificationException e) {
+	 			System.err.println("Concurrent Modification Exception");
+	 		}
+	 	}
+	 	
+	 	else {
+	 		moveTimer.schedule(new TimerTask() {
+ 				Object cookie = 1;
+ 				public void run() {
+ 					guiMoveFromCurrentPositionTo(x, y);
+ 				}
+ 			},
+ 			500);
+	 	}
+    }
+	
 	public void restart() {
 		// TODO Auto-generated method stub
 

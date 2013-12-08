@@ -44,7 +44,7 @@ public class TheCity {
 	}
 	
 	static{//populate Buildings
-		home = new Home("Home", 390, 590, 400, 600);
+		home = new Home("Home", 420, 590, 420, 600);
 		home.setImagePath("/resources/Buildings/HouseDark2.png");
 	
 		

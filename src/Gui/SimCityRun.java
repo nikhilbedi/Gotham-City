@@ -33,7 +33,8 @@ public class SimCityRun extends JFrame implements ActionListener
 	{
 		super("Team 31 Sim City");
 		//This sets up the frame of the animation window
-		setSize(1000, 800);
+		//setSize(1000, 800);
+		setSize(1400, 1000);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		setLayout(new BoxLayout((Container)this.getContentPane(), BoxLayout.Y_AXIS));

@@ -84,7 +84,6 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 		transportation = new JComboBox(transportationList);
 		homeOwned = new JComboBox(homeOwnerList);
 
-
 		money = new JSlider(JSlider.HORIZONTAL, 0, 1000, 1000);
 		money.setMajorTickSpacing(100);
 		money.setMinorTickSpacing(100);
@@ -171,7 +170,8 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			newPerson.setRestaurants(mainScreen.getRestaurantList());
 			newPerson.setMarkets(mainScreen.getMarketList());
 			newPerson.setBank(mainScreen.getBank());
-
+			newPerson.setGrid(selPane.city.getGrid()); //Brice - setting grid for the new person to navigate City screen
+			
 			//Give him money
 			newPerson.addMoney(money.getValue()); //Evan: leaving money at 0 to test going to home ******
 
