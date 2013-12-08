@@ -131,7 +131,7 @@ public class PersonAgent extends Agent implements Person {
 	public MoneyState moneyState = MoneyState.Neutral;
 
 	// Job
-	private Job myJob;
+	private Job myJob = null;
 	public enum JobState {
 		OffWork, GoToWorkSoon, HeadedToWork, AtWork, LeaveWork, LeavingWork
 	};
@@ -353,21 +353,28 @@ public class PersonAgent extends Agent implements Person {
 			// stateChanged();
 		}
 
-		// We should change any states here, not constantly check the scheduler
-		// to change states
-		// TODO If it is a weekend, then don't go to work
 		if (myJob != null) {
-			if (currentTime == myJob.onWork) {
-				myJob.state = JobState.GoToWorkSoon;
-				// stateChanged();
+			if(day != 0 && day != 6) {
+				if (currentTime == myJob.weekDayOnWork) {
+					myJob.state = JobState.GoToWorkSoon;
+				}
+				// Maybe, also check if our current state is atWork
+				else if (currentTime == myJob.weekDayOffWork) {
+					myJob.state = JobState.LeaveWork;
+					// Need to now check the person scheduler so we leave work
+					checkPersonScheduler = true;
+				}
 			}
-			// Maybe, also check if our current state is atWork
-			else if (currentTime == myJob.offWork) {
-
-				myJob.state = JobState.LeaveWork;
-				// Need to now check the person scheduler so we leave work
-				checkPersonScheduler = true;
-				// stateChanged();
+			else {
+				if (currentTime == myJob.weekEndOnWork) {
+					myJob.state = JobState.GoToWorkSoon;
+				}
+				// Maybe, also check if our current state is atWork
+				else if (currentTime == myJob.weekEndOffWork) {
+					myJob.state = JobState.LeaveWork;
+					// Need to now check the person scheduler so we leave work
+					checkPersonScheduler = true;
+				}
 			}
 		}
 
@@ -538,15 +545,15 @@ public class PersonAgent extends Agent implements Person {
 			// Work comes first--his family probably doesn't like this :/
 			if (myJob != null) {
 				if (myJob.state == JobState.GoToWorkSoon) {
+					myJob.state = JobState.HeadedToWork;
 					goToWork();
-					// return true; or boolean person = true;?
 					return true;
 				} else if (myJob.state == JobState.LeaveWork
 						&& myJob.state == JobState.AtWork) {
+					myJob.state = JobState.LeavingWork;
 					leaveWork();
 					return true;
 				}
-
 			}
 
 			// if he's REALLY hungry, then eat something before paying bills.
@@ -634,10 +641,7 @@ public class PersonAgent extends Agent implements Person {
 	// Actions
 	private void goToWork() {
 		//TODO change state to at work? 
-		
-		// animate out of building
-		// activeRole.DoLeaveBuilding();
-
+		print("GOING TO WORK MAAAANG.");
 		// animate to desired location
 		gui.DoGoToLocation(myJob.workplace.getEntranceLocation());
 		try {
@@ -646,16 +650,11 @@ public class PersonAgent extends Agent implements Person {
 			e.printStackTrace();
 		}
 
-		// enter building (thus deleting rect in city and adding rect to
-		// workplace)
-		roles.add(myJob.role);
-
-		// This loop should be changed to using ActiveRole
-		myJob.role.setActive(true);
-
 		checkPersonScheduler = false;
 
-		// add role to building's list of workers
+		enteringBuilding(myJob.role);
+		
+		myJob.state = JobState.AtWork;
 	}
 
 	private void leaveWork() {
@@ -669,6 +668,8 @@ public class PersonAgent extends Agent implements Person {
 		roles.remove(myJob.role);
 		// Going home is not a critical section
 		gui.DoGoToLocation(myHome.getEntranceLocation());
+		
+		myJob.state = JobState.OffWork;
 	}
 
 	private void goToHome() {
@@ -773,7 +774,7 @@ public class PersonAgent extends Agent implements Person {
 
 		//restTemp.setPerson(this);
 		//restGui.setHomeScreen(ScreenFactory.getMeScreen(currentPreference
-			//	.getName()));
+		//	.getName()));
 		// print("here:"+ currentPreference.getName());
 
 		checkPersonScheduler = false;

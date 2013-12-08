@@ -4,12 +4,16 @@ import java.util.Vector;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
+/**
+ * The fourth dimension: Time.
+ * @author nikhil
+ *
+ */
 public final class CityClock {
 	private static Vector<PersonAgent> people = new Vector<PersonAgent>();
 	private static Timer timer = new Timer();
 	private static int currentTime = 1;
-	private static long hourLength = 4000;
+	private static long hourLength = 1000;
 
 	public static void startTime() {
 		final long hourTemp = hourLength;
