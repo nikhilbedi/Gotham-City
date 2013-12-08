@@ -195,6 +195,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			//set home
 			if(CityClock.getPeople().size() < 1)
 				newPerson.setHome((Home)TheCity.getBuildingFromString("home"));
+				newPerson.setHome((Home)TheCity.getBuildingFromString("Apartment"));
 			
 			
 			newPerson.startThread();

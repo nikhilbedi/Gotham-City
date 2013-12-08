@@ -24,11 +24,14 @@ public class TheCity {
 	static Building home;
 	static Building market;
 	static Building bank;
+	static Building apart;
 	
 	
 	static{//populate person-specific elements
 	homeList.add("None (Homeless Shelter)");
 	homeList.add("Home 1");
+	homeList.add("Apartment 1");
+	
 	
 	jobLocationList.add("No job");
 	jobLocationList.add("Market");
@@ -41,6 +44,7 @@ public class TheCity {
 	
 	homeOwnerList.add("none");
 	homeOwnerList.add("Home 1");
+	
 	}
 	
 	static{//populate Buildings

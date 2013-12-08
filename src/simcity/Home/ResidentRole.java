@@ -37,6 +37,7 @@ public class ResidentRole extends Role implements Resident {
 	// public PersonAgent accountHolder;
 	private Home home;
 	public Apartment apartment;
+	public  int roomNumber = (int)Math.random() % 6 + 1;
 	private double wallet;
 	public Map<String, Food> fridgeFoods = new HashMap<String, Food>();
 	public Map<String, Food> foods = new HashMap<String, Food>();
@@ -537,6 +538,9 @@ public class ResidentRole extends Role implements Resident {
 	public void goToPlatingArea() {
 		System.out.println("resident plating Food");
 		residentGui.DoGoToPlatingArea();
+		
+		//ApartmentResidentGui.DoGoToPlatingArea();
+		
 	}
 
 	public void atPlatingArea() {

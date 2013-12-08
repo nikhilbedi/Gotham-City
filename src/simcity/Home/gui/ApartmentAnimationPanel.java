@@ -25,6 +25,8 @@ public class ApartmentAnimationPanel extends Screen {
 	public ResidentGui gui;
 	public int size;
 	
+	public int scaleMultiplier = 3;
+	
 	public int x1;
 	public int y1;
 	public int x2;
@@ -50,10 +52,7 @@ public class ApartmentAnimationPanel extends Screen {
 	int yFridgeDoorStart2 = 690;
 	*/
 	
-	public int roomHeight = 550;
-	public int roomLength = 360;
-	public int wallLength = 10;
-	public int hallLength = 280;
+	
 	
 
 	public ApartmentAnimationPanel() {
@@ -91,6 +90,9 @@ public class ApartmentAnimationPanel extends Screen {
 	public void paintBackground(Graphics g) {
 		super.paintBackground(g);
 		
+		int wallWidth = 10, hallwayWidth = 250;
+		int roomHeight = 780/scaleMultiplier;
+		int roomWidth = 800/scaleMultiplier;
 		
 		Graphics g2 = (Graphics) g;
 		Graphics text = (Graphics) g;
@@ -106,120 +108,218 @@ public class ApartmentAnimationPanel extends Screen {
 		Graphics couch = (Graphics) g;
 		Graphics tv = (Graphics) g;
 		Graphics chair = (Graphics) g;
-
-		refridgerator.setColor(Color.lightGray);
-		refridgerator.fill3DRect(380, 700, 130, 80, true);
-		refridgerator.setColor(Color.GRAY);
-		refridgerator.fill3DRect(380, 690, 130, 10, true);
-		refridgerator.setColor(Color.black);
-		refridgerator.fill3DRect(445, 690, 2, 10, true);
-		text.setColor(Color.black);
-		text.drawString("refridgerator", 400, 740);
-
-		counterTop.setColor(Color.yellow);
-		counterTop.fill3DRect(0, 700, 380, 80, true);
-
-		counterTop.setColor(Color.yellow);
-		counterTop.fill3DRect(0, 400, 80, 380, true);
-
-		sink.setColor(Color.CYAN);
-		sink.fillRect(10, 500, 60, 80);
-		text.setColor(Color.black);
-		text.drawString("sink", 25, 540);
-
-		tv.setColor(Color.DARK_GRAY);
-		tv.fill3DRect(210, 168, 10, 70, true);
-
-		cookingArea.setColor(Color.pink);
-		cookingArea.fill3DRect(160, 700, 110, 80, true);
-		// cookingArea.setColor(Color.DARK_GRAY);
-		// cookingArea.fillOval(190, 720, 20, 20);
-		text.setColor(Color.black);
-		text.drawString("cooktop", 190, 740);
-
-		table.setColor(Color.BLUE);
-		table.fill3DRect(260, 350, 110, 110, true);
-
-		text.setColor(Color.white);
-		text.drawString("table", 300, 400);
-
-		chair.setColor(Color.gray);// bottom chair
-		chair.fill3DRect(300, 465, 30, 30, false);
-		chair.setColor(Color.lightGray);
-		chair.fill3DRect(300, 485, 30, 9, true);
-		chair.setColor(Color.gray);// right chair
-		chair.fill3DRect(375, 395, 30, 30, false);
-		chair.setColor(Color.lightGray);
-		chair.fill3DRect(395, 395, 9, 30, true);
-		chair.setColor(Color.gray);// left chair
-		chair.fill3DRect(225, 395, 30, 30, false);
-		chair.setColor(Color.lightGray);
-		chair.fill3DRect(225, 395, 9, 30, true);
-		chair.setColor(Color.gray); // top chair
-		chair.fill3DRect(300, 318, 30, 30, false);
-		chair.setColor(Color.lightGray);
-		chair.fill3DRect(300, 318, 30, 9, true);
-
+		Graphics walls = (Graphics)g;
+		
+		walls.setColor(Color.DARK_GRAY);
+		walls.fill3DRect(0, 260, 280, 2, true);
+		walls.fill3DRect(0, 270, 280, 2, true);
+		
+		walls.fill3DRect(0, 530, 280, 2, true);
+		walls.fill3DRect(0, 540, 280, 2, true);
+		
+		walls.fill3DRect(533, 260, 320, 2, true);
+		walls.fill3DRect(533, 270, 320, 2, true);
+		
+		walls.fill3DRect(533, 530, 320, 2, true);
+		walls.fill3DRect(533, 540, 320, 2, true);
+		
+		walls.fill3DRect(280, 0, 2, 800, true);
+		walls.fill3DRect(290, 0, 2, 800, true);
+		
+		walls.fill3DRect(533, 0, 2, 800, true);
+		walls.fill3DRect(523, 0, 2, 800, true);
+		
+		walls.fill3DRect(282, 20, 8, 2, true);
+		walls.fill3DRect(282, 40, 8, 2, true);
+		walls.fill3DRect(282, 292, 8, 2, true);
+		walls.fill3DRect(282, 312, 8, 2, true);
+		walls.fill3DRect(282, 562, 8, 2, true);
+		walls.fill3DRect(282, 582, 8, 2, true);
+		
+		walls.fill3DRect(525, 20, 8, 2, true);
+		walls.fill3DRect(525, 40, 8, 2, true);
+		walls.fill3DRect(525, 292, 8, 2, true);
+		walls.fill3DRect(525, 312, 8, 2, true);
+		walls.fill3DRect(525, 562, 8, 2, true);
+		walls.fill3DRect(525, 582, 8, 2, true);
+		
+		door.setColor(Color.white);
+		door.fillRect( 280, 22, 15, 18);
+		door.fillRect( 270 + hallwayWidth, 22, 15, 18);
+		door.fillRect( 270 + hallwayWidth, 24 + roomHeight + wallWidth, 15, 18);
+		door.fillRect( 270 + hallwayWidth, 24 + 2*roomHeight + 2*wallWidth, 15, 18);
+		door.fillRect( 280, 24 + roomHeight + wallWidth, 15, 18);
+		door.fillRect( 280, 24 + 2*roomHeight + 2*wallWidth, 15, 18);
+		
 		door.setColor(Color.ORANGE);
-		door.fill3DRect(350, 0, 100, 10, true);
-
-		bed.setColor(Color.green);
-		bed.fill3DRect(680, 180, 100, 150, false);
-		bed.setColor(Color.green);
-		bed.fill3DRect(685, 185, 40, 32, true);
-		bed.setColor(Color.green);
-		bed.fill3DRect(735, 185, 40, 32, true);
-		text.setColor(Color.white);
-		text.drawString("bed", 716, 260);
-
-		couch.setColor(Color.green);
-		couch.fill3DRect(40, 140, 75, 130, false);
-		couch.setColor(Color.green);
-		couch.fill3DRect(40, 140, 75, 20, true);
-		couch.setColor(Color.green);
-		couch.fill3DRect(40, 250, 75, 20, true);
-		couch.setColor(Color.green);
-		couch.fill3DRect(40, 162, 32, 41, true);
-		couch.setColor(Color.green);
-		couch.fill3DRect(40, 206, 32, 41, true);
-		text.setColor(Color.white);
-		// text.drawString("bed", 716, 260);
-
-		mailbox.setColor(Color.MAGENTA);
-		mailbox.fill3DRect(130, 0, 24, 30, false);
-		text.setColor(Color.black);
-		text.drawString("mailbox", 120, 20);
-		/*
-		//if (gui.isPresent()) {
-		Graphics order = (Graphics) g;
-		if (gui.cooking == true) {
-			order.drawString("cooking " + gui.choice, gui.getXPos(),
-					gui.getYPos());
-		} 
-		//}
+		door.fill3DRect( 283, 22, 6, 18, true);
+		door.fill3DRect( 276 + hallwayWidth, 22, 6, 18, true);
+		door.fill3DRect( 276 + hallwayWidth, 24 + roomHeight + wallWidth, 6, 18, true);
+		door.fill3DRect( 276 + hallwayWidth, 24 + 2*roomHeight + 2*wallWidth, 6, 18, true);
+		door.fill3DRect( 284, 24 + roomHeight + wallWidth, 6, 18, true);
+		door.fill3DRect( 284, 24 + 2*roomHeight + 2*wallWidth, 6, 18, true);
 		
 		
-		else if (gui.plating) {
-			order.drawString("plating " + gui.choice, gui.getXPos(),
-					gui.getYPos());
-		} 
-		else if (gui.eating) {
-			order.drawString("eating " + gui.choice, gui.getXPos(),
-					gui.getYPos());
-		} 
-		else if (gui.clearing) {
-			order.drawString("cleaning dishes.", gui.getXPos(),
-					gui.getYPos());
-		} 
-		else if (gui.sleeping) {
-			order.drawString("zzzzzzzzzzzz ", gui.getXPos(),
-					gui.getYPos());
-		} 
-		else if (gui.checkingMail) {
-			order.drawString("checking mail ", gui.getXPos(),
-					gui.getYPos());
+		
+		for (int roomNumber = 1; roomNumber <= 6; ++roomNumber) {
+			int xPadding = ((int)Math.ceil(roomNumber / 3.0)-1) * (roomWidth + hallwayWidth + wallWidth*2); 
+			int yPadding = (((roomNumber % 3 == 0 ? 3: (roomNumber % 3)) - 1) * (wallWidth + roomHeight) ) ;
+
+			refridgerator.setColor(Color.lightGray);
+			refridgerator.fill3DRect(xPadding + 380 / scaleMultiplier, yPadding + 700
+					/ scaleMultiplier, 130 / scaleMultiplier,
+					80 / scaleMultiplier, true);
+			refridgerator.setColor(Color.GRAY);
+			refridgerator.fill3DRect(xPadding + 380 / scaleMultiplier, yPadding + 690
+					/ scaleMultiplier, 130 / scaleMultiplier,
+					10 / scaleMultiplier, true);
+			refridgerator.setColor(Color.black);
+			refridgerator.fill3DRect(xPadding + 445 / scaleMultiplier, yPadding + 690
+					/ scaleMultiplier, 2, 10 / scaleMultiplier, true);
+			text.setFont(new Font("Serif", Font.BOLD, 9));
+			text.setColor(Color.black);
+			text.drawString("refridgerator", xPadding + 400 / scaleMultiplier, yPadding
+					+ 740 / scaleMultiplier);
+
+			counterTop.setColor(Color.yellow);
+			counterTop.fill3DRect(xPadding + 0, yPadding + 700 / scaleMultiplier,
+					380 / scaleMultiplier, 80 / scaleMultiplier, true);
+
+			counterTop.setColor(Color.yellow);
+			counterTop.fill3DRect(xPadding + 0, yPadding + 400 / scaleMultiplier,
+					80 / scaleMultiplier, 380 / scaleMultiplier, true);
+
+			sink.setColor(Color.CYAN);
+			sink.fillRect(xPadding + 10 / scaleMultiplier, yPadding + 500
+					/ scaleMultiplier, 60 / scaleMultiplier,
+					80 / scaleMultiplier);
+			text.setColor(Color.black);
+			text.drawString("sink", xPadding + 25 / scaleMultiplier, yPadding + 540
+					/ scaleMultiplier);
+
+			tv.setColor(Color.DARK_GRAY);
+			tv.fill3DRect(xPadding + 210 / scaleMultiplier, yPadding + 168
+					/ scaleMultiplier, 10 / scaleMultiplier,
+					70 / scaleMultiplier, true);
+
+			cookingArea.setColor(Color.pink);
+			cookingArea.fill3DRect(xPadding + 160 / scaleMultiplier, yPadding + 700
+					/ scaleMultiplier, 110 / scaleMultiplier,
+					80 / scaleMultiplier, true);
+			// cookingArea.setColor(Color.DARK_GRAY);
+			// cookingArea.fillOval(190, 720, 20, 20);
+			text.setColor(Color.black);
+			text.drawString("cooktop", xPadding + 190 / scaleMultiplier, yPadding + 740
+					/ scaleMultiplier);
+
+			table.setColor(Color.BLUE);
+			table.fill3DRect(xPadding + 260 / scaleMultiplier, yPadding + 350
+					/ scaleMultiplier, 110 / scaleMultiplier,
+					110 / scaleMultiplier, true);
+
+			text.setColor(Color.white);
+			text.drawString("table", xPadding + 300 / scaleMultiplier, yPadding + 400
+					/ scaleMultiplier);
+
+			chair.setColor(Color.gray);// bottom chair
+			chair.fill3DRect(xPadding + 300 / scaleMultiplier, yPadding + 465
+					/ scaleMultiplier, 30 / scaleMultiplier,
+					30 / scaleMultiplier, false);
+			chair.setColor(Color.lightGray);
+			chair.fill3DRect(xPadding + 300 / scaleMultiplier, yPadding + 485
+					/ scaleMultiplier, 30 / scaleMultiplier,
+					9 / scaleMultiplier, true);
+			chair.setColor(Color.gray);// right chair
+			chair.fill3DRect(xPadding + 375 / scaleMultiplier, yPadding + 395
+					/ scaleMultiplier, 30 / scaleMultiplier,
+					30 / scaleMultiplier, false);
+			chair.setColor(Color.lightGray);
+			chair.fill3DRect(xPadding + 395 / scaleMultiplier, yPadding + 395
+					/ scaleMultiplier, 9 / scaleMultiplier,
+					30 / scaleMultiplier, true);
+			chair.setColor(Color.gray);// left chair
+			chair.fill3DRect(xPadding + 225 / scaleMultiplier, yPadding + 395
+					/ scaleMultiplier, 30 / scaleMultiplier,
+					30 / scaleMultiplier, false);
+			chair.setColor(Color.lightGray);
+			chair.fill3DRect(xPadding + 225 / scaleMultiplier, yPadding + 395
+					/ scaleMultiplier, 9 / scaleMultiplier,
+					30 / scaleMultiplier, true);
+			chair.setColor(Color.gray); // top chair
+			chair.fill3DRect(xPadding + 300 / scaleMultiplier, yPadding + 318
+					/ scaleMultiplier, 30 / scaleMultiplier,
+					30 / scaleMultiplier, false);
+			chair.setColor(Color.lightGray);
+			chair.fill3DRect(xPadding + 300 / scaleMultiplier, yPadding + 318
+					/ scaleMultiplier, 30 / scaleMultiplier,
+					9 / scaleMultiplier, true);
+/*
+			door.setColor(Color.ORANGE);
+			door.fill3DRect(xPadding + 350 / scaleMultiplier, yPadding + 0
+					/ scaleMultiplier, 100 / scaleMultiplier,
+					10 / scaleMultiplier, true);
+*/
+			bed.setColor(Color.green);
+			bed.fill3DRect(xPadding + 680 / scaleMultiplier, yPadding + 180
+					/ scaleMultiplier, 100 / scaleMultiplier,
+					150 / scaleMultiplier, false);
+			bed.setColor(Color.green);
+			bed.fill3DRect(xPadding + 685 / scaleMultiplier, yPadding + 185
+					/ scaleMultiplier, 40 / scaleMultiplier,
+					32 / scaleMultiplier, true);
+			bed.setColor(Color.green);
+			bed.fill3DRect(xPadding + 735 / scaleMultiplier, yPadding + 185
+					/ scaleMultiplier, 40 / scaleMultiplier,
+					32 / scaleMultiplier, true);
+			text.setColor(Color.white);
+			text.drawString("bed", xPadding + 716 / scaleMultiplier, yPadding + 260
+					/ scaleMultiplier);
+
+			couch.setColor(Color.green);
+			couch.fill3DRect(xPadding + 40 / scaleMultiplier, yPadding + 140
+					/ scaleMultiplier, 75 / scaleMultiplier,
+					130 / scaleMultiplier, false);
+			couch.setColor(Color.green);
+			couch.fill3DRect(xPadding + 40 / scaleMultiplier, yPadding + 140
+					/ scaleMultiplier, 75 / scaleMultiplier,
+					20 / scaleMultiplier, true);
+			couch.setColor(Color.green);
+			couch.fill3DRect(xPadding + 40 / scaleMultiplier, yPadding + 250
+					/ scaleMultiplier, 75 / scaleMultiplier,
+					20 / scaleMultiplier, true);
+			couch.setColor(Color.green);
+			couch.fill3DRect(xPadding + 40 / scaleMultiplier, yPadding + 162
+					/ scaleMultiplier, 32 / scaleMultiplier,
+					41 / scaleMultiplier, true);
+			couch.setColor(Color.green);
+			couch.fill3DRect(xPadding + 40 / scaleMultiplier, yPadding + 206
+					/ scaleMultiplier, 32 / scaleMultiplier,
+					41 / scaleMultiplier, true);
+			text.setColor(Color.white);
+			// text.drawString("bed", 716, 260);
+
+			mailbox.setColor(Color.MAGENTA);
+			mailbox.fill3DRect(xPadding + 130 / scaleMultiplier, yPadding + 0,
+					24 / scaleMultiplier, 30 / scaleMultiplier, false);
+			text.setColor(Color.black);
+			text.drawString("mailbox", xPadding + 120 / scaleMultiplier, yPadding + 20
+					/ scaleMultiplier);
 		}
-		*/
+		/*
+		 * //if (gui.isPresent()) { Graphics order = (Graphics) g; if
+		 * (gui.cooking == true) { order.drawString("cooking " + gui.choice,
+		 * gui.getXPos(), gui.getYPos()); } //}
+		 * 
+		 * 
+		 * else if (gui.plating) { order.drawString("plating " + gui.choice,
+		 * gui.getXPos(), gui.getYPos()); } else if (gui.eating) {
+		 * order.drawString("eating " + gui.choice, gui.getXPos(),
+		 * gui.getYPos()); } else if (gui.clearing) {
+		 * order.drawString("cleaning dishes.", gui.getXPos(), gui.getYPos()); }
+		 * else if (gui.sleeping) { order.drawString("zzzzzzzzzzzz ",
+		 * gui.getXPos(), gui.getYPos()); } else if (gui.checkingMail) {
+		 * order.drawString("checking mail ", gui.getXPos(), gui.getYPos()); }
+		 */
 	}
 
 		/*

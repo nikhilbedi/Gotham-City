@@ -48,6 +48,7 @@ public class PersonAgent extends Agent implements Person {
 	RoleGui homeGui;
 	Role restTemp;
 	RoleGui restGui;
+	
 
 
 
@@ -85,6 +86,7 @@ public class PersonAgent extends Agent implements Person {
         private boolean shelter = false;
         private Building spawnPoint = new Building("bat cave");
         private Home myHome;
+        
         public Building currentBuilding = spawnPoint; 
         public Building currentDestination = spawnPoint; 
 
@@ -548,10 +550,11 @@ public class PersonAgent extends Agent implements Person {
 		if(checkPersonScheduler) {
 			//if the man has groceries in his hand, let him take them home!
 		//	print("person sched");
-			if(true){
-				goEatAtRestaurant();
-				return true;
-			}
+			//if(true){
+				//goToHome();
+				//goEatAtRestaurant();
+				//return true;
+			//}
 			if(marketState == MarketState.TakeGroceriesHome) {
 				marketState = MarketState.TakingGroceriesHome;
 				goToHome();

@@ -33,7 +33,7 @@ public class WaiterSharedData extends Role implements Waiter{
 	private Semaphore atHost = new Semaphore(0, true);
 	private Semaphore atCook = new Semaphore(1, true);
 	private Semaphore atCashier = new Semaphore(1, true);
-	private Semaphore atStand = new Semaphore(1, true);
+	private Semaphore atStand = new Semaphore(0, true);
 	
 
 	public HostRole host = null;
@@ -402,6 +402,7 @@ public class WaiterSharedData extends Role implements Waiter{
 		System.out.println("Delivering order to customer");
 		
 		waiterGui.DoGoToCook();
+		//System.err.println("DoGoToCookkkkkk");
 		try {
 			atCook.acquire();
 			//System.out.println ("acuiqred atCook  # 2*****");
