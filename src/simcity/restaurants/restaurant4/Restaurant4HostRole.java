@@ -1,12 +1,13 @@
 package simcity.restaurants.restaurant4;
 
+import Gui.RoleGui;
 import agent.Agent;
 import agent.Role;
-
 
 import java.util.*;
 
 import simcity.PersonAgent;
+import simcity.restaurants.restaurant4.Restaurant4Gui.HostGui;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Customer;
 //import java.util.concurrent.Semaphore;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Host;
@@ -28,6 +29,7 @@ public class Restaurant4HostRole extends Role implements Restaurant4Host{
 	//note that tables is typed with Collection semantics.
 	//Later we will see how it is implemented
 	private String name;
+	private HostGui hostGui = null;
 //	private Semaphore atTable = new Semaphore(0,true);
 	public List<Restaurant4Waiter> availableWaiters = new ArrayList<Restaurant4Waiter>();
 	private PersonAgent person;
@@ -48,6 +50,15 @@ public class Restaurant4HostRole extends Role implements Restaurant4Host{
 
 	public String getName() {
 		return name;
+	}
+	
+	public void setGui(RoleGui g) {
+		super.setGui(g);
+		hostGui = (HostGui)g;
+	}
+
+	public HostGui getGui() {
+		return hostGui;
 	}
 
 	public boolean isFull(){

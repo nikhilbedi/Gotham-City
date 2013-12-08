@@ -1,7 +1,7 @@
 package simcity.restaurants.restaurant5;
+import Gui.RoleGui;
 import agent.Agent;
 import agent.Role;
-
 
 import java.util.*;
 import java.util.concurrent.Semaphore;
@@ -13,6 +13,7 @@ import java.util.Map;
 import java.util.TimerTask;
 
 import simcity.PersonAgent;
+import simcity.restaurants.restaurant5.gui.CashierGui;
 import simcity.restaurants.restaurant5.interfaces.Cashier;
 import simcity.restaurants.restaurant5.interfaces.Customer;
 import simcity.restaurants.restaurant5.interfaces.Market;
@@ -42,7 +43,7 @@ public class CashierRole extends Role implements Cashier {
 		name = n;
 
 	}
-	//private CookGui cookGui = null;
+	private CashierGui gui = null;
 
 
 	// Messages
@@ -165,13 +166,14 @@ public class CashierRole extends Role implements Cashier {
 	//utilities
 
 
-	/*	public void setGui(CookGui gui) {
-		//cookGui = gui;
+	public void setGui(RoleGui g) {
+		super.setGui(g);
+		gui = (CashierGui)g;
 	}
 
-	public CookGui getGui() {
-		//return cookGui;
-	}*/
+	public CashierGui getGui() {
+		return gui;
+	}
 
 	public void addMarket(Market market) {
 		markets.add(new MyMarket(market));
