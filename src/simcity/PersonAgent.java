@@ -661,6 +661,10 @@ public class PersonAgent extends Agent implements Person {
 		//gui.getHomeScreen().removeGui(gui);
 		myJob.state = JobState.AtWork;
 	}
+	
+	private void tellRoleToLeaveWork() {
+		
+	}
 
 	private void leaveWork() {
 		// Upon leaving work, person gains set amount of money in his wallet

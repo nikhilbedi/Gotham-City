@@ -29,14 +29,14 @@ public class Job {
 			
 			if(shift == 1) {
 				weekDayOnWork = dayOpen;
-				weekDayOffWork = (dayOpen-dayClose)/2 + dayOpen;
+				weekDayOffWork = (dayClose-dayOpen)/2 + dayOpen;
 				weekEndOnWork = endOpen;
-				weekEndOffWork = (endOpen-endClose)/2 + endOpen;
+				weekEndOffWork = (endClose-endOpen)/2 + endOpen;
 			}
 			else if(shift == 2) {
-				weekDayOnWork = (dayOpen-dayClose)/2 + dayOpen;
+				weekDayOnWork = (dayClose-dayOpen)/2 + dayOpen;
 				weekDayOffWork = dayClose;
-				weekEndOnWork = (endOpen-endClose)/2 + endOpen;
+				weekEndOnWork = (endClose-endOpen)/2 + endOpen;
 				weekEndOffWork = endClose;
 			}
 		}
