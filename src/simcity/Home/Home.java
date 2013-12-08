@@ -32,6 +32,20 @@ public class Home extends Building{
 		//Please add ANOTHER constructor that doesnt need a Person parameter
 		//(You can still keep the other constructor, resulting in two constructors)
 	}
+	
+	public Home(String type, int entranceX, int entranceY, int guiX,
+			int guiY, int exitX, int exitY){
+		super(type, entranceX, entranceY, guiX, guiY, exitX, exitY);
+		this.type = type;
+		groceryList = new ArrayList<String>();
+		rentBills = new ArrayList<RentBill>();
+		fridgeFoods = new ArrayList<Food>();	
+		resident = new ResidentRole();  
+		//You'll notice for this particular role, resident needs a Person as a parameter. 
+		//But, we don't necessarily immediately know who this Person is.
+		//Please add ANOTHER constructor that doesnt need a Person parameter
+		//(You can still keep the other constructor, resulting in two constructors)
+	}
 
 	public List<RentBill> getRentBills() {
 		return rentBills;

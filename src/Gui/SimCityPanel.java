@@ -1,21 +1,8 @@
 package Gui;
    import java.awt.event.*;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
-
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.*;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
-import java.util.*;
-   
    
    public class SimCityPanel extends JPanel implements MouseListener
    {
@@ -117,13 +104,13 @@ import java.util.*;
         		 grid[x][y] = 'R';
          
          //Setup crosswalks for intersections
-         setupIntersectionFromPosition(5, 6);//Top-Left Intersection
-         setupIntersectionFromPosition(18, 6);//Top-Middle Intersection
-         setupIntersectionFromPosition(31, 6);//Top-Right Intersection
-         setupIntersectionFromPosition(5, 19);//Mid-Left Intersection
+         setupIntersectionFromPosition(5, 6);  //Top-Left Intersection
+         setupIntersectionFromPosition(18, 6); //Top-Middle Intersection
+         setupIntersectionFromPosition(31, 6); //Top-Right Intersection
+         setupIntersectionFromPosition(5, 19); //Mid-Left Intersection
          setupIntersectionFromPosition(18, 19);//Middle Intersection
          setupIntersectionFromPosition(31, 19);//Mid-Right Intersection
-         setupIntersectionFromPosition(5, 32);//Bot-Left Intersection
+         setupIntersectionFromPosition(5, 32); //Bot-Left Intersection
          setupIntersectionFromPosition(18, 32);//Bottom Intersection
          setupIntersectionFromPosition(31, 32);//Bot-Right Intersection
          
@@ -133,23 +120,11 @@ import java.util.*;
         	 System.out.println();
          }
          
-        //for()
-         
-         /*String fileName="TheDarkKnight.mp3";
- 		File soundFile = new File(fileName);
- 		AudioInputStream audioInputStream = null;
- 		System.out.println("Trying to play audio");
- 		try {
- 		    audioInputStream = AudioSystem.getAudioInputStream(soundFile);
- 		} catch (Exception ex) {
- 			System.out.println("DIDNT WORK");
- 		   ex.printStackTrace();
- 		}*/
       }
       
 
       private void setupIntersectionFromPosition(int i, int j) {
-    	  grid[i+1][j+3] = 'I'; //Middle Intersection
+    	  grid[i+1][j+3] = 'I';
           grid[i+2][j+3] = 'I';
           grid[i][j+1] = 'I';
           grid[i][j+2] = 'I';

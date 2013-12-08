@@ -19,7 +19,11 @@ public class Bank extends Building {
 	public Bank(String type, int entranceX, int entranceY, int guiX,
 			int guiY) {
 		super(type, entranceX, entranceY, guiX, guiY);
-		// TODO Auto-generated constructor stub
+	}
+	
+	public Bank(String type, int entranceX, int entranceY, int guiX,
+			int guiY, int exitX, int exitY) {
+		super(type, entranceX, entranceY, guiX, guiY, exitX, exitY);
 	}
 	
 	

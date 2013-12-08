@@ -6,6 +6,7 @@ public class Building {
 	private String name;
 	private String imagePath = "";
 	private Location entranceLocation;
+	private Location exitLocation;
 	private Location guiLocation;
 	public ImageIcon icon;
 	
@@ -25,6 +26,13 @@ public class Building {
 	 */
 	public Building(String name, int entranceX, int entranceY, int guiX, int guiY) {
 		entranceLocation = new Location (entranceX, entranceY);
+		guiLocation = new Location(guiX, guiY);
+		this.name = name;
+	}
+	
+	public Building(String name, int entranceX, int entranceY, int guiX, int guiY, int exitX, int exitY) {
+		entranceLocation = new Location (entranceX, entranceY);
+		exitLocation = new Location(exitX, exitY);
 		guiLocation = new Location(guiX, guiY);
 		this.name = name;
 	}

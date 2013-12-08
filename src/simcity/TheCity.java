@@ -44,13 +44,13 @@ public class TheCity {
 	}
 	
 	static{//populate Buildings
-		home = new Home("Home", 420, 590, 420, 600);
+		home = new Home("Home", 420, 590, 420, 600, 460, 600);
 		home.setImagePath("/resources/Buildings/HouseDark2.png");
 	
 		
 		market = new Market("Market", 500, 100, 500, 100);
 		market.setImagePath("/resources/Buildings/MarketDark2.png");
-		bank = new Bank("Bank", 350, 100, 350, 100);
+		bank = new Bank("Bank", 350, 100, 350, 100, 310, 100);
 		bank.setImagePath("/resources/Buildings/BankDark2.png");
 		
 		rest1 = new Restaurant1("Restaurant 1", 200, 100, 200, 100);

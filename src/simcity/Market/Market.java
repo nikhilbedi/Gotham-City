@@ -20,10 +20,18 @@ public class Market extends Building {
 		Item rice = new Item("Rice", 6.99, 10);
 		Item potato = new Item("Potato", 5.99, 10);
 	
+		public Market(String type, int entranceX, int entranceY, int guiX,
+				int guiY, int exitX, int exitY) {
+			super(type, entranceX, entranceY, guiX, guiY, exitX, exitY);
+			items.add(beef);
+			items.add(chicken);
+			items.add(rice);
+			items.add(potato);
+		}
+		
 	public Market(String type, int entranceX, int entranceY, int guiX,
 				int guiY) {
 			super(type, entranceX, entranceY, guiX, guiY);
-			// TODO Auto-generated constructor stub
 			items.add(beef);
 			items.add(chicken);
 			items.add(rice);

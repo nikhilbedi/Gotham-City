@@ -43,7 +43,7 @@ public class MainScreen extends Screen{
 	public MainScreen()
 	{
 		temp = 1;
-
+		
 		//TODO Need to update the entrance positions for each location in order to match the new gui movement
 		
 		house = new Home("Home", 420, 590, 420, 600);
