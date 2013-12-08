@@ -355,11 +355,13 @@ public class PersonAgent extends Agent implements Person {
 
 		if (myJob != null) {
 			if(day != 0 && day != 6) {
-				if (currentTime == myJob.weekDayOnWork) {
+				if (currentTime == myJob.weekDayOnWork &&
+					myJob.state == JobState.OffWork) {
 					myJob.state = JobState.GoToWorkSoon;
 				}
 				// Maybe, also check if our current state is atWork
-				else if (currentTime == myJob.weekDayOffWork) {
+				else if (currentTime == myJob.weekDayOffWork &&
+						myJob.state == JobState.AtWork) {
 					myJob.state = JobState.LeaveWork;
 					// Need to now check the person scheduler so we leave work
 					checkPersonScheduler = true;
@@ -640,8 +642,7 @@ public class PersonAgent extends Agent implements Person {
 
 	// Actions
 	private void goToWork() {
-		//TODO change state to at work? 
-		print("GOING TO WORK MAAAANG.");
+		print("Going to work.");
 		// animate to desired location
 		gui.DoGoToLocation(myJob.workplace.getEntranceLocation());
 		try {
@@ -658,18 +659,25 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	private void leaveWork() {
-
 		// Upon leaving work, person gains set amount of money in his wallet
-		money += 100;
-
+		money += 100; //20 dollar wage * hours worked
+		print("leaving work now.");
 		// Use Screen to draw rect outside currentBuilding
 		// Use Screen to delete rect inside currentBuilding
 		// animate to desired location
-		roles.remove(myJob.role);
 		// Going home is not a critical section
+		gui.getHomeScreen().addGui(gui);
 		gui.DoGoToLocation(myHome.getEntranceLocation());
 		
 		myJob.state = JobState.OffWork;
+		
+		checkPersonScheduler = true;
+		if(myJob.role.getPersonAgent() == this){
+			myJob.role.setActive(false);
+			myJob.role.getGui().getHomeScreen().removeGui(myJob.role.getGui());
+		}
+
+		roles.remove(myJob.role);
 	}
 
 	private void goToHome() {
