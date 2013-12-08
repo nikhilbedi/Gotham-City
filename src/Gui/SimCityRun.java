@@ -66,8 +66,6 @@ public class SimCityRun extends JFrame implements ActionListener
 		add(info);
 		setVisible(true);
 		
-	
-		//add(TheCity.bar);
 		
 		cityPanel.go();//starts the animation in the panel
 
@@ -115,7 +113,7 @@ public class SimCityRun extends JFrame implements ActionListener
 				}
 			});
 
-			clip.open(AudioSystem.getAudioInputStream(new File("The_Dark_Knight.wav")));
+			//clip.open(AudioSystem.getAudioInputStream(new File("The_Dark_Knight.wav"))); commenting because i listen to music on my cpu
 			//clip.start();
 		}
 		catch (Exception exc)

@@ -15,53 +15,64 @@ import simcity.restaurants.restaurant4.Restaurant4;
 import simcity.restaurants.restaurant5.Restaurant5;
 
 public class TheCity {
-	
+
 	//private static Vector<PersonAgent> people = new Vector<PersonAgent>();
-	
+
 	static List<String> homeList = new ArrayList<String>();
 	static List<String> jobLocationList = new ArrayList<String>();
 	static HashMap<String, Collection<String>> buildingJobsMap = new HashMap<String,Collection<String>>();
 	static Vector<Vector<String>> jobPositionList = new Vector<Vector<String>>();
 	static List<String> transportationList = new ArrayList<String>();
 	static List<String> homeOwnerList = new ArrayList<String>();
-	
+
 	static ArrayList<Building> buildings = new ArrayList<Building>();
 	static Building rest1, rest2, rest3, rest4, rest5;
 	static Building home;
 	static Building market;
 	static Building bank;
-	
+
 	//Making timebar static so it can be updated by static city clock is this bad?
 	public static TimeBar bar;
-	
-	
+
+
 	static{//populate Buildings
 		bar = new TimeBar();
 		bar.setVisible(true);
-		
-		//Changing from Home to Home 1 because now we have multiple buildings
-		home = new Home("Home 1", 390, 590, 400, 600);
+
+
+		//These are just added to make Evan happy
+		//For reference, not putting them in anymore
+		/*house3 = new Home("Home3", 190, 590, 200, 600);
+           house3.setImagePath("/resources/Buildings/HouseDark2.png");
+           house4 = new Home("Home4", 290, 590, 300, 600);
+           house4.setImagePath("/resources/Buildings/HouseDark2.png");
+           house5 = new Home("Home5", 490, 590, 500, 600);
+           house5.setImagePath("/resources/Buildings/HouseDark2.png");
+           house6 = new Home("Home6", 590, 590, 600, 600);
+           house6.setImagePath("/resources/Buildings/HouseDark2.png");*/ 
+
+		home = new Home("Home", 390, 590, 400, 600);
 		home.setImagePath("/resources/Buildings/HouseDark2.png");
-	
-		
-		market = new Market("Market", 500, 100, 500, 100);
+
+
+		market = new Market("Market", 600, 100, 600, 100);
 		market.setImagePath("/resources/Buildings/MarketDark2.png");
 		bank = new Bank("Bank", 350, 100, 350, 100, 310, 100);
 		bank.setImagePath("/resources/Buildings/BankDark2.png");
-		
+
 		rest1 = new Restaurant1("Restaurant 1", 200, 100, 200, 100);
 		rest1.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest2 = new Restaurant2("Restaurant 2", 50, 200, 50, 200);
+		rest2 = new Restaurant2("Restaurant 2", 50, 210, 50, 210);
 		rest2.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest3 = new Restaurant3("Restaurant 3", 650, 200, 650, 200);
+		rest3 = new Restaurant3("Restaurant 3", 730, 210, 730, 210);
 		rest3.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest4 = new Restaurant4("Restaurant 4", 50, 400, 50, 400);
+		rest4 = new Restaurant4("Restaurant 4", 50, 410, 50, 410);
 		rest4.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest5 = new Restaurant5("Restaurant 5", 650, 400, 650, 400);
+		rest5 = new Restaurant5("Restaurant 5", 730, 410, 730, 410);
 		rest5.setImagePath("/resources/Buildings/RestaurantDark2.png");
 
-		
-			
+
+
 		buildings.add(home);
 		buildings.add(market);
 		buildings.add(bank);
@@ -70,37 +81,34 @@ public class TheCity {
 		buildings.add(rest3);
 		buildings.add(rest4);
 		buildings.add(rest5);
-		
-		
-		
 	}
-	
+
 	static{//populate person-specific elements
-	homeList.add("None (Homeless Shelter)");
-	homeList.add("Home 1");
-	
-	
-	//populate lists
-	jobLocationList.add("No job");
-	for(Building b: buildings){
-		jobLocationList.add(b.getName());
-	}
-	//populate building jobs map
-	for(Building b: buildings){
-		jobPositionList.add(b.getJobCollec());
-		buildingJobsMap.put(b.getName(), b.getJobCollec());
-	}
-	
-	/*jobLocationList.add("Market");
+		homeList.add("None (Homeless Shelter)");
+		homeList.add("Home 1");
+
+
+		//populate lists
+		jobLocationList.add("No job");
+		for(Building b: buildings){
+			jobLocationList.add(b.getName());
+		}
+		//populate building jobs map
+		for(Building b: buildings){
+			jobPositionList.add(b.getJobCollec());
+			buildingJobsMap.put(b.getName(), b.getJobCollec());
+		}
+
+		/*jobLocationList.add("Market");
 	jobLocationList.add("Bank");
 	jobLocationList.add("Restaurant 1");*/
-	
-	//jobPositionList.add("This is a temp variable I still need to figure out how to make this list dynamic");
-	
-	transportationList.add("Walker");
-	
-	homeOwnerList.add("none");
-	homeOwnerList.add("Home 1");
+
+		//jobPositionList.add("This is a temp variable I still need to figure out how to make this list dynamic");
+
+		transportationList.add("Walker");
+
+		homeOwnerList.add("none");
+		homeOwnerList.add("Home 1");
 	}
 	public static List<String> getJobLocs(){
 		return jobLocationList;
@@ -117,7 +125,7 @@ public class TheCity {
 	public static List<String> getProperty(){
 		return homeOwnerList;
 	}
-	
+
 	public static Building getBuildingFromString(String s){
 		if(s.equalsIgnoreCase("Restaurant 1")){
 			return rest1;
@@ -146,29 +154,39 @@ public class TheCity {
 
 		return null;
 	}
-	
-	
-	
-	public List<Restaurant> getRestaurantList(){
-		List<Restaurant> tempcast = new ArrayList<Restaurant>();
-		tempcast.add((Restaurant)rest1);
-		return tempcast;
-	}
 
-	public List<Market> getMarketList(){
+
+
+	public static List<Market> getMarketList(){
 		List<Market> tempcast = new ArrayList<Market>();
 		tempcast.add((Market)market);
+
 		return tempcast;
 	}
 
-	public Bank getBank(){
+
+	public static List<Restaurant> getRestaurantList(){
+		List<Restaurant> tempcast = new ArrayList<Restaurant>();
+		//maybe this populate should be done in the static constructor
+		tempcast.add((Restaurant)rest1);
+		tempcast.add((Restaurant)rest2);
+		tempcast.add((Restaurant)rest3);
+		tempcast.add((Restaurant)rest4);
+		tempcast.add((Restaurant)rest5);
+		return tempcast;
+	}
+
+
+	public static Bank getBank(){
 		return (Bank)bank;
 	}
 
-	public Home getHomeHack(){
+	public static Home getHomeHack(){
 		//this is labeled as a Hack because technically there should be multiple homes
 		return (Home)home;
 	}
-	
+	public static ArrayList<Building> getBuildings(){
+		return buildings;
+	}
 }
 

@@ -23,39 +23,22 @@ public class ScreenFactory {
 
 	static List<Screen> screenList = Collections.synchronizedList(new ArrayList<Screen>());
 
-	//public static Screen main = new Screen(1);
-
-	//public static Screen rest = new Screen(2);
-
-	//public static Screen market = new Screen(3);
-	//public static Screen bank = new Screen(4);
-	//public static Screen home = new Screen(5);
-
 	public static MainScreen main = new MainScreen();
-
-
 	public static Screen rest1 = new RestaurantNikhilAnimationPanel();
-	/*public static Screen rest2 = new RestaurantNikhilAnimationPanel();
-	public static Screen rest3 = new RestaurantNikhilAnimationPanel();
-	public static Screen rest4 = new RestaurantNikhilAnimationPanel();
-	public static Screen rest5 = new RestaurantNikhilAnimationPanel();*/
-	//public static Screen rest1 = new Restaurant2AnimationPanel();
 	public static Screen rest2 = new Restaurant2AnimationPanel();
 	public static Screen rest3 = new RestaurantEvanAnimationPanel();
 	public static Screen rest4 = new Restaurant4AnimationPanel();
 	public static Screen rest5 = new RestaurantHunterAnimationPanel();
-	
-
 
 	public static Screen market = new MarketAnimationPanel();
 	public static Screen bank = new bankAnimationPanel();
 	public static Screen home = new HomeAnimationPanel();
 
-	
+
 
 	static{
 		screenList.add(main);
-		
+
 		screenList.add(rest1);
 		screenList.add(rest2);
 		screenList.add(rest3);
@@ -70,9 +53,10 @@ public class ScreenFactory {
 	public ScreenFactory(){
 		synchronized(screenList) {
 			screenList.add(main);
-	screenList.add(rest2);
+			
+
 			screenList.add(rest1);
-		
+			screenList.add(rest2);
 			screenList.add(rest3);
 			screenList.add(rest4);
 			screenList.add(rest5);
@@ -84,33 +68,24 @@ public class ScreenFactory {
 		}
 	}
 
-
-
-	public MainScreen getCity(){
+	public static MainScreen getMainScreen(){
 		return main;
 	}
 
-	public Screen getRestaurant(int i){
+	public static Screen getRestaurant(int i){//pass number of restaurant as parameter and get according Screen
 		return screenList.get(i);
 
 	}
-	public Screen getMarket(){
+	public static Screen getMarket(){
 		return market;
 	}
-	public Screen getBank(){
+	public static Screen getBank(){
 		return bank;
 	}
-	public Screen getHome(){
+	public static Screen getHome(){
 		return home;
 	}
 
-	public void updateAllPositions(){
-		synchronized(screenList) {
-			for (Screen s : screenList) {
-				s.updateAgents();
-			}
-		}
-	}
 	public static void updateScreens(){
 		synchronized(screenList) {
 			for (Screen s : screenList) {
@@ -118,44 +93,8 @@ public class ScreenFactory {
 			}
 		}
 	}
-	public Screen getScreen(String s){//requires instance of screenFactory to use
-		if(s.equalsIgnoreCase("City")){
-			return main;
-		}
-		
-		if(s.equalsIgnoreCase("Restaurant 1")){
-			return rest1;
-		}
-		if(s.equalsIgnoreCase("Restaurant 2")){
-			return rest2;
-		}
-		if(s.equalsIgnoreCase("Restaurant 3")){
-			return rest3;
-		}
-		if(s.equalsIgnoreCase("Restaurant 4")){
-			return rest4;
-		}
-		if(s.equalsIgnoreCase("Restaurant 5")){
-			return rest5;
 
-		}
-		if(s.equalsIgnoreCase("Market")){
-			return market;
-		}
-		if(s.equalsIgnoreCase("Bank")){
-			return bank;
-		}
-		if(s.equalsIgnoreCase("Home")){
-			return home;
-		}
-
-		return null;
-	}
-
-	public static MainScreen getMainScreen(){
-		return main;
-	}
-
+	
 	public static Screen getMeScreen(String s){
 		if(s.equalsIgnoreCase("City")){
 			return main;

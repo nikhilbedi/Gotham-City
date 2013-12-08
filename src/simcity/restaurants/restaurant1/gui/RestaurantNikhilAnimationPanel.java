@@ -9,6 +9,7 @@ import simcity.restaurants.restaurant1.WaiterRole;
 import simcity.restaurants.restaurant1.WaiterSharedData;
 import simcity.PersonAgent;
 import simcity.Robot;
+import simcity.TheCity;
 import Gui.MainScreen;
 import Gui.Screen;
 import Gui.ScreenFactory;
@@ -23,10 +24,9 @@ import java.util.List;
  *
  */
 public class RestaurantNikhilAnimationPanel extends Screen  {
-	MainScreen mainScreen = ScreenFactory.getMainScreen();
 	Restaurant r1;
 	//TODO WE NEED TO CHECK THE TYPE OF EACH RESTAURANT TO MAKE SURE WE MAKE IT EQUAL TO THE CORRECT REST.
-	List<Restaurant> restaurants = mainScreen.getRestaurantList();
+	List<Restaurant> restaurants = TheCity.getRestaurantList();
 	PersonAgent waiterPerson;
 	PersonAgent waiterSharedDataPerson;
 	PersonAgent hostPerson;
