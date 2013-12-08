@@ -329,6 +329,9 @@ public class PersonAgent extends Agent implements Person {
 		// Next Day
 		if (currentTime == 1) {
 			day++;
+			if(day >6){
+				day = 0;
+			}
 			dayState = DayOfTheWeek.values()[day];
 			print("The day of the week is " + dayState.name());
 		}
