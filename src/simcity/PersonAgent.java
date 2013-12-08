@@ -354,14 +354,16 @@ public class PersonAgent extends Agent implements Person {
 		}
 
 		if (myJob != null) {
+			print("I have a job");
 			if(day != 0 && day != 6) {
 				if (currentTime == myJob.weekDayOnWork &&
-					myJob.state == JobState.OffWork) {
+						myJob.state == JobState.OffWork) {
 					myJob.state = JobState.GoToWorkSoon;
 				}
 				// Maybe, also check if our current state is atWork
 				else if (currentTime == myJob.weekDayOffWork &&
 						myJob.state == JobState.AtWork) {
+					print("Time to get off work");
 					myJob.state = JobState.LeaveWork;
 					// Need to now check the person scheduler so we leave work
 					checkPersonScheduler = true;
@@ -520,16 +522,26 @@ public class PersonAgent extends Agent implements Person {
 
 		if (checkPersonScheduler) {
 			// if the man has groceries in his hand, let him take them home!
-			// print("person sched");
+			print("person sched");
 			if (marketState == MarketState.TakeGroceriesHome) {
 				marketState = MarketState.TakingGroceriesHome;
 				goToHome();
 				return true;
 			}
 
+			//Clockin' out, yo.
+			if (myJob != null) {
+				if (myJob.state == JobState.LeaveWork) {
+					print("time to get out of here");
+					myJob.state = JobState.LeavingWork;
+					leaveWork();
+					return true;
+				}
+			}
+
+
 			// If he's CRRAAAZZY hungry, then eat something first. Then do
 			// checks of eating at home versus the restaurant
-
 			if (hungerState == HungerState.Starving
 					&& marketState != MarketState.GetGroceries
 					&& marketState != MarketState.GettingGroceries) {
@@ -549,11 +561,6 @@ public class PersonAgent extends Agent implements Person {
 				if (myJob.state == JobState.GoToWorkSoon) {
 					myJob.state = JobState.HeadedToWork;
 					goToWork();
-					return true;
-				} else if (myJob.state == JobState.LeaveWork
-						&& myJob.state == JobState.AtWork) {
-					myJob.state = JobState.LeavingWork;
-					leaveWork();
 					return true;
 				}
 			}
@@ -654,7 +661,7 @@ public class PersonAgent extends Agent implements Person {
 		checkPersonScheduler = false;
 
 		enteringBuilding(myJob.role);
-		
+
 		myJob.state = JobState.AtWork;
 	}
 
@@ -668,9 +675,9 @@ public class PersonAgent extends Agent implements Person {
 		// Going home is not a critical section
 		gui.getHomeScreen().addGui(gui);
 		gui.DoGoToLocation(myHome.getEntranceLocation());
-		
+
 		myJob.state = JobState.OffWork;
-		
+
 		checkPersonScheduler = true;
 		if(myJob.role.getPersonAgent() == this){
 			myJob.role.setActive(false);

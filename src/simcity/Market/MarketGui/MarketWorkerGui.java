@@ -38,9 +38,6 @@ public class MarketWorkerGui extends RoleGui{
 		yDestination = 360;
 	}
 	
-	public void setMainScreen(MainScreen m){
-		mc = m;
-	}
 	
 
 	public void updatePosition() {
@@ -72,7 +69,7 @@ public class MarketWorkerGui extends RoleGui{
 		super.draw(g);
 		g.setColor(Color.WHITE);
 		g.fillRect(500, 500, 50, 50);
-		mc.paintBackground(g);
+	//	mc.paintBackground(g);
 		/*g.setColor(Color.RED);
         g.fillRect(xPos, yPos, 20, 20);
 		if (drawString == true){
