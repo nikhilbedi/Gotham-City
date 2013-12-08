@@ -58,6 +58,15 @@ public class Restaurant4 extends Restaurant {
 		jobs.put("waiter1", waiter);
 		jobs.put("waiter2", sharedDataWaiter);
 		setJobRoles(jobs);
+		//host.setWaiter(waiter);
+	//	host.setWaiter(sharedDataWaiter);
+		//waiter.setHost(host);
+		//sharedDataWaiter.setHost(host);
+	//	waiter.setCashier(cashier);
+	//	sharedDataWaiter.setCashier(cashier);
+	//	waiter.setCook(cook);
+	//	sharedDataWaiter.setCook(cook);
+	//	cook.setCashier(cashier);
 	}	
 
 	@Override

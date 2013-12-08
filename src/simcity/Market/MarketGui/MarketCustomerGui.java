@@ -76,7 +76,6 @@ public class MarketCustomerGui extends RoleGui{
 	}
 	
 	public void DoGetItems(){
-		System.out.println("Started to move");
 		xDestination = 580;
 		yDestination = 530;
 		command = Command.gettingItems;
