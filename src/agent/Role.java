@@ -29,6 +29,10 @@ public class Role {
 	public void setWorkStatus(boolean b) {
 		onWork = b;
 	}
+	
+	public boolean checkWorkStatus() {
+		return onWork;
+	}
 
 	/**
 	 * Base class for simple roles

@@ -363,7 +363,7 @@ public class PersonAgent extends Agent implements Person {
 				// Maybe, also check if our current state is atWork
 				else if (currentTime == myJob.weekDayOffWork &&
 						myJob.state == JobState.AtWork) {
-					myJob.state = JobState.LeaveWork;
+					myJob.state = JobState.TimeToLeave;
 					// Need to now check the person scheduler so we leave work
 					checkPersonScheduler = true;
 				}
@@ -374,7 +374,7 @@ public class PersonAgent extends Agent implements Person {
 				}
 				// Maybe, also check if our current state is atWork
 				else if (currentTime == myJob.weekEndOffWork) {
-					myJob.state = JobState.LeaveWork;
+					myJob.state = JobState.TimeToLeave;
 					// Need to now check the person scheduler so we leave work
 					checkPersonScheduler = true;
 				}
@@ -398,7 +398,12 @@ public class PersonAgent extends Agent implements Person {
 		stateChanged();
 	}
 
-	// Messages from User Interface or Animation
+	// Messages from User Interface or Animation or Roles
+	public void doneWithWork() {
+		myJob.state = JobState.LeaveWork;
+		checkPersonScheduler = true;
+	}
+	
 	/**
 	 * 
 	 */
@@ -406,23 +411,6 @@ public class PersonAgent extends Agent implements Person {
 		currentBuilding = currentDestination;
 		busyWithTask.release();
 	}
-
-	/**
-	 * Notifies the person that the current role is done with all interactions
-	 * in the restaurant
-	 * 
-	 * @param role
-	 */
-	/*
-	 * public void leftBuilding(Role role) { //if role is of type host or
-	 * bankgreeter, don't remove. Still need them to be active
-	 * roles.remove(role); // checkPersonScheduler = true; }
-	 *//**
-	 * Notifies the person that the current role is done with all
-	 * interactions in the restaurant
-	 * 
-	 * @param role
-	 */
 
 	/**
 	 * Notifies the person that the current role is done with all interactions
@@ -475,8 +463,6 @@ public class PersonAgent extends Agent implements Person {
 		}
 	}
 
-	// Messages from Roles
-
 	/**
 	 * a message from HomeResidentRole sends a grocery list of what foods are
 	 * needed
@@ -521,17 +507,14 @@ public class PersonAgent extends Agent implements Person {
 		// Person Scheduler
 
 		if (checkPersonScheduler) {
-			//Clockin' out, yo.
+			//Time to leave, yo.
 			if (myJob != null) {
 				if (myJob.state == JobState.TimeToLeave) {
 					myJob.state = JobState.PreparingToLeave;
 					tellRoleToLeaveWork();
 					return true;
 				}
-			}
-			
 			//Clockin' out, yo.
-			if (myJob != null) {
 				if (myJob.state == JobState.LeaveWork) {
 					myJob.state = JobState.LeavingWork;
 					leaveWork();
