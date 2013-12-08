@@ -2,36 +2,25 @@ package Gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.ImageIcon;
 
 import simcity.Building;
+
 import simcity.TheCity;
-import simcity.Home.Home;
-import simcity.Market.Market;
-import simcity.bank.Bank;
-import simcity.restaurants.Restaurant;
-import simcity.restaurants.restaurant1.Restaurant1;
-
-import simcity.restaurants.restaurant5.Restaurant5;
-import simcity.restaurants.restaurant3.Restaurant3;
-
-import simcity.restaurants.restaurant2.Restaurant2;
-
-import simcity.restaurants.restaurant4.Restaurant4;
 
 
 public class MainScreen extends Screen{
 
 	ArrayList<Building> buildings = new ArrayList<Building>();
-
+	Character[][] grid;
+	
 	public MainScreen()
 	{
 		//so much cleaner
 		buildings = TheCity.getBuildings();
+		//grid = TheCity.getGrid();
 	}
 
 	public void paintBackground(Graphics g)

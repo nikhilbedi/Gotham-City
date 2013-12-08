@@ -5,9 +5,12 @@ package simcity.restaurants.restaurant4.Restaurant4Gui;
 
 import javax.swing.*;
 
+import simcity.restaurants.restaurant4.Restaurant4WaiterAgent;
+import simcity.restaurants.restaurant4.Restaurant4WaiterRole;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Customer;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Waiter;
 import Gui.RoleGui;
+import Gui.Screen;
 
 import java.awt.*;
 
@@ -17,7 +20,7 @@ public class Restaurant4WaiterGui extends RoleGui {
     private Restaurant4Customer customer = null;
     public Command command;
     private int table;
-    public enum Command {none, atDefult, bringingToTable, goToCustomer,  hereIsCheck, arrivedToGetOrder,pickUpCheck, arrivedToNotifyNoFood, atCook, pickUpOrder, hereIsFood, onBreak, giveMeCheck};
+    public enum Command {none, atDefult, bringingToTable, goToCustomer,  hereIsCheck, arrivedToGetOrder,pickUpCheck, arrivedToNotifyNoFood, atCook, pickUpOrder, hereIsFood, onBreak, giveMeCheck, atRevolvingStand};
     private int xTable;
     private boolean deliver = false;
     public static final int yTable = 170;
@@ -33,7 +36,27 @@ public class Restaurant4WaiterGui extends RoleGui {
         	yPos = yPos+60;
         	yDestination = yDestination+60;
         	defY = defY+60;
-        	
+        }
+        
+        if (i==3){
+        	yPos = yPos+90;
+        	yDestination = yDestination+90;
+        	defY = defY+90;
+        }
+    }
+    
+    public Restaurant4WaiterGui(Restaurant4WaiterAgent agent, int i, Screen s) {
+    	super(agent, s);
+        this.agent = (Restaurant4Waiter) agent;
+        if (i==1){
+        	yPos = yPos+30;
+        	yDestination = yDestination+30;
+        	defY = defY+30;
+        }
+        if (i==2){
+        	yPos = yPos+60;
+        	yDestination = yDestination+60;
+        	defY = defY+60;
         }
         
         if (i==3){
@@ -54,6 +77,12 @@ public class Restaurant4WaiterGui extends RoleGui {
         if (xPos == xDestination && yPos == yDestination & (xDestination == xTable + rect) & (yDestination == yTable - rect) && command == Command.bringingToTable) {
           command = Command.none;
         	agent.msgAtTable();
+        }
+        if (xPos == 30 && yPos == 260 && command == Command.atRevolvingStand){
+        	command = Command.none;
+        	System.out.println("got to stand");
+        	
+        	agent.atRevolvingStand(customer);
         }
         if (xPos == xDestination && yPos == yDestination & (xDestination == xTable + rect) & (yDestination == yTable - rect) && command == Command.arrivedToGetOrder) {
             command = Command.none;
@@ -105,6 +134,8 @@ public class Restaurant4WaiterGui extends RoleGui {
         	command = Command.none;
         	agent.atDefaultPosition();
         }
+        
+        
     	//}
     }
 
@@ -205,6 +236,14 @@ public class Restaurant4WaiterGui extends RoleGui {
     	command = Command.atCook;
     }
     
+    public void GoToRevolvingStand(Restaurant4Customer customer){
+    	System.out.println("moving to stand");
+    	this.customer = customer;
+    	xDestination = 30;
+    	yDestination = 260;
+    	command = Command.atRevolvingStand;
+    }
+    
     public void notifyNoFood(Restaurant4Customer customer, int table){
     	this.table = table;
     	this.customer = customer;
@@ -266,8 +305,4 @@ public class Restaurant4WaiterGui extends RoleGui {
         	return false;
         }
         }
-
-
-	
-  
 }

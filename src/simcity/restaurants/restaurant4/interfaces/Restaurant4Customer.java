@@ -43,5 +43,7 @@ public interface Restaurant4Customer {
 
 	abstract void msgOutOfRestaurant4();
 
+	abstract Restaurant4Host getHost();
+
 
 }

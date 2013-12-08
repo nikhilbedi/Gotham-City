@@ -19,4 +19,6 @@ public interface Restaurant4Cook {
 
 	abstract void gotFood(String food);
 	abstract void setMarketCashier(MarketCashier marketCashier);
+
+	abstract void OrderOnTheStand();
 }

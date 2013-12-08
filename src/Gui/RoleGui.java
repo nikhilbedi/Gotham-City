@@ -12,12 +12,14 @@ public class RoleGui {
 
 	protected int xPos, yPos;
 	protected int xDestination, yDestination;
-	private static int speed = 2;
+	protected static int speed = 2;
+
 
 	private int repeat, repeatBuffer = 10;
 	boolean active;
 
-	private enum Orientation{North, South, East, West};
+
+	protected enum Orientation{North, South, East, West};
 	protected Orientation o;
 
 	ImageIcon current;

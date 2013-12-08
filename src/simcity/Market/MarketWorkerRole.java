@@ -1,6 +1,7 @@
 package simcity.Market;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,7 +18,7 @@ import simcity.restaurants.restaurant4.test.mock.Restaurant4CookMock;
 import agent.Role;
 
 public class MarketWorkerRole extends Role implements MarketWorker{
-	private List<CustomerDelivery> deliveries = new ArrayList<CustomerDelivery>();
+	private List<CustomerDelivery> deliveries = Collections.synchronizedList(new ArrayList<CustomerDelivery>());
 	private List<RestaurantDelivery> restDeliveries = new ArrayList<RestaurantDelivery>();
 	public Map<String, Item> inventory = new HashMap<String, Item>();
 	private MarketCashier cashier;
@@ -25,6 +26,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 //	private PersonAgent person;
 	public String name;
 	public Semaphore delivering = new Semaphore(0,true);
+	private List<MarketCustomer> waitingCustomers  = Collections.synchronizedList(new ArrayList<MarketCustomer>());
 	public MarketWorkerRole(PersonAgent p){
 		super(p);
 		name = p.name;
@@ -38,10 +40,24 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 		cashier = c;
 	}
 	
+	public List<MarketCustomer> getWaitingCustomers(){
+		return waitingCustomers;
+		
+	}
+	
 	public void Bring(List<Order> o){ //for customers
 		System.out.println(myPerson.name+ " " +"Got new order from " + o.get(0).customer.getName());
 		deliveries.add(new CustomerDelivery(o));
+	
 		stateChanged();
+	}
+	
+	public void updateCustomerPositions(){
+		synchronized(waitingCustomers){
+		for(int i=0; i<waitingCustomers.size(); i++){
+			//waitingCustomers.get(i).getGui().
+		}
+		}
 	}
 	
 	public List<CustomerDelivery> getCustomerDeliveries(){
@@ -74,12 +90,14 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 		}
 	}
 	
+	//food is delivered
 	public void Sent(Role role){
 		delivering.release();
 		myPerson.Do("sent things to restaurant");
 		for (int i=0; i<restDeliveries.size(); i++){
 			if (restDeliveries.get(i).cookRole == role){
 				   ((Restaurant4CookRole) restDeliveries.get(0).cookRole).HereIsYourFood(restDeliveries.get(i).foods);
+				   cashier.foodIsDelivered(restDeliveries.get(i).cookRole);
 				restDeliveries.remove(restDeliveries.get(i));
 				stateChanged();
 			}

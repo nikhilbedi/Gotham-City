@@ -32,4 +32,6 @@ public interface MarketCashier {
 	abstract List<RestaurantOrder> getRestaurantOrders();
 	
 	abstract void setRest4Cashier(Restaurant4CashierRole r);
+
+	abstract void foodIsDelivered(Role cookRole);
 }

@@ -24,5 +24,6 @@ public interface MarketCustomer {
 	abstract String getName();
 
 	abstract void getGroceries();
+
 	
 }

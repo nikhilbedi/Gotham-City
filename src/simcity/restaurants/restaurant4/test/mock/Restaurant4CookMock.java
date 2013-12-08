@@ -57,4 +57,10 @@ public class Restaurant4CookMock extends Mock implements Restaurant4Cook{
 		
 	}
 
+	@Override
+	public void OrderOnTheStand() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
