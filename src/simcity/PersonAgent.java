@@ -354,7 +354,6 @@ public class PersonAgent extends Agent implements Person {
 		}
 
 		if (myJob != null) {
-			print("I have a job");
 			if(day != 0 && day != 6) {
 				if (currentTime == myJob.weekDayOnWork &&
 						myJob.state == JobState.OffWork) {
@@ -363,7 +362,6 @@ public class PersonAgent extends Agent implements Person {
 				// Maybe, also check if our current state is atWork
 				else if (currentTime == myJob.weekDayOffWork &&
 						myJob.state == JobState.AtWork) {
-					print("Time to get off work");
 					myJob.state = JobState.LeaveWork;
 					// Need to now check the person scheduler so we leave work
 					checkPersonScheduler = true;
@@ -441,6 +439,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	public void enteringBuilding(Role role) {
+		checkPersonScheduler = false;
 		role.setPerson(this);
 		roles.add(role);
 		role.setActive(true);
@@ -522,7 +521,7 @@ public class PersonAgent extends Agent implements Person {
 
 		if (checkPersonScheduler) {
 			// if the man has groceries in his hand, let him take them home!
-			print("person sched");
+			//print("person sched");
 			if (marketState == MarketState.TakeGroceriesHome) {
 				marketState = MarketState.TakingGroceriesHome;
 				goToHome();
@@ -657,11 +656,9 @@ public class PersonAgent extends Agent implements Person {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
-		checkPersonScheduler = false;
-
+		
 		enteringBuilding(myJob.role);
-
+		//gui.getHomeScreen().removeGui(gui);
 		myJob.state = JobState.AtWork;
 	}
 

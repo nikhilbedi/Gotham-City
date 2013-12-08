@@ -2,7 +2,7 @@
 
 <!-- Attributes of a person within an XML file -->
 <simcity>
-	<person name="Batman">
+	<person name="Batman1">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -27,5 +27,46 @@
 		<!-- Transportation preference -->
 		<transportation>walk</transportation>
 	</person>
+	
+	<person name="Batman2">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 1</building>
+			<position>Waiter1</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- The specific home Person resides -->
+		
+		<!-- Properties owned by person -->
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+<person name="Batman3">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 1</building>
+			<position>Waiter2</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- The specific home Person resides -->
+		
+		<!-- Properties owned by person -->
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
 	
 </simcity>
