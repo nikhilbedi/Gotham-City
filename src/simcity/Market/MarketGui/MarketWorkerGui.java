@@ -13,6 +13,7 @@ import Gui.Screen;
 import Gui.ScreenFactory;
 import simcity.TheCity;
 import simcity.Truck;
+import simcity.Market.MarketWorkerRole;
 import simcity.Market.Order;
 import simcity.Market.interfaces.MarketCustomer;
 import simcity.Market.interfaces.MarketWorker;
@@ -38,6 +39,14 @@ public class MarketWorkerGui extends RoleGui{
 		yDestination = 360;
 	}
 	
+	public MarketWorkerGui(MarketWorkerRole mw, Screen s){
+		super(mw, s);
+		worker = mw;
+		xPos = 430;
+		yPos = 360;
+		xDestination = 430;
+		yDestination = 360;
+	}
 
 	public void updatePosition() {
 		super.updatePosition();

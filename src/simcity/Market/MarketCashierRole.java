@@ -49,6 +49,10 @@ public class MarketCashierRole extends Role implements MarketCashier{
 		name = p.name;
 	}
 	
+	public MarketCashierRole(){
+		super();
+	}
+	
 	public void setRest4Cashier(Restaurant4CashierRole r){
 		cashier4 = r;
 	}
@@ -57,9 +61,6 @@ public class MarketCashierRole extends Role implements MarketCashier{
 		return restaurantOrders;
 	}
 	
-	public MarketCashierRole(){
-		super();
-	}
 	
 	public List<MarketCustomer> getCustomers(){
 		return waitingCustomers;

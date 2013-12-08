@@ -2,7 +2,12 @@ package simcity.bank;
 
 import java.awt.Color;
 
+import agent.Role;
+
+import simcity.bank.interfaces.BankGreeter;
+
 import Gui.RoleGui;
+import Gui.Screen;
 
 public class BankGreeterGui extends RoleGui {
 	
@@ -15,5 +20,9 @@ public class BankGreeterGui extends RoleGui {
 		yPos = 300;
 		xDestination = 350;
 		yDestination = 300;
+	}
+
+	public BankGreeterGui(BankGreeter greeter, Screen meScreen) {
+		super((Role) greeter, meScreen);
 	}	
 }

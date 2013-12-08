@@ -7,6 +7,7 @@ import java.util.*;
 import simcity.PersonAgent;
 import simcity.Market.MarketCashierRole;
 import simcity.Market.interfaces.MarketCashier;
+import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4CashierGui;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Cashier;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Customer;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Waiter;
@@ -18,7 +19,7 @@ public class Restaurant4CashierRole extends Role implements Restaurant4Cashier {
 	public List<Check> checks= new ArrayList<Check>();
 	public List<Payment> payments = new ArrayList<Payment>();
 	//public List<MarketAgent> markets= new ArrayList<MarketAgent>();
-	
+	private Restaurant4CashierGui gui;
 	
 	public Restaurant4CashierRole(PersonAgent person){
 		super(person);
@@ -28,6 +29,10 @@ public class Restaurant4CashierRole extends Role implements Restaurant4Cashier {
 	public Restaurant4CashierRole(){
 		super();
 	
+	}
+	
+	public void setGui(Restaurant4CashierGui g){
+		gui = g;
 	}
 	
 	public List<Payment> getPayments(){

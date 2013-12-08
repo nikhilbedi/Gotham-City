@@ -4,9 +4,11 @@ import agent.Agent;
 import agent.Role;
 
 
+
 import java.util.*;
 
 import simcity.PersonAgent;
+import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4HostGui;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Customer;
 //import java.util.concurrent.Semaphore;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Host;
@@ -30,7 +32,7 @@ public class Restaurant4HostRole extends Role implements Restaurant4Host{
 	private String name;
 //	private Semaphore atTable = new Semaphore(0,true);
 	public List<Restaurant4Waiter> availableWaiters = new ArrayList<Restaurant4Waiter>();
-
+	private Restaurant4HostGui gui;
 	public Restaurant4HostRole(PersonAgent p) {
 		super(p);
 		// make some tables
@@ -48,7 +50,9 @@ public class Restaurant4HostRole extends Role implements Restaurant4Host{
 		}
 	}
 	
-
+	public void setGui(Restaurant4HostGui g){
+		gui = g;
+	}
 	public String getMaitreDName() {
 		return name;
 	}

@@ -6,6 +6,8 @@ import java.util.List;
 import java.awt.*;
 
 import Gui.RoleGui;
+import Gui.Screen;
+import simcity.restaurants.restaurant4.Restaurant4CookRole;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Cook;
 
 public class Restaurant4CookGui extends RoleGui {
@@ -28,7 +30,16 @@ public class Restaurant4CookGui extends RoleGui {
 		 yDestination = 325;
 		 
 	}
-	
+
+	public Restaurant4CookGui(Restaurant4CookRole c, Screen s){
+		super(c,s);
+		agent = c;
+		 xPos = 100;
+		 yPos = 325;
+		 xDestination = 100;
+		 yDestination = 325;
+		 
+	}
 	
 	public void updatePosition() {
 		//if(agent.getPause() == false){	

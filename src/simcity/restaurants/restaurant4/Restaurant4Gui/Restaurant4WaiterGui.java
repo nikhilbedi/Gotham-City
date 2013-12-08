@@ -6,9 +6,11 @@ package simcity.restaurants.restaurant4.Restaurant4Gui;
 import javax.swing.*;
 
 import simcity.restaurants.restaurant4.Restaurant4WaiterAgent;
+import simcity.restaurants.restaurant4.Restaurant4WaiterRole;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Customer;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Waiter;
 import Gui.RoleGui;
+import Gui.Screen;
 
 import java.awt.*;
 
@@ -25,6 +27,27 @@ public class Restaurant4WaiterGui extends RoleGui {
     private String food;
     public Restaurant4WaiterGui(Restaurant4Waiter agent, int i) {
         this.agent = agent;
+        if (i==1){
+        	yPos = yPos+30;
+        	yDestination = yDestination+30;
+        	defY = defY+30;
+        }
+        if (i==2){
+        	yPos = yPos+60;
+        	yDestination = yDestination+60;
+        	defY = defY+60;
+        }
+        
+        if (i==3){
+        	yPos = yPos+90;
+        	yDestination = yDestination+90;
+        	defY = defY+90;
+        }
+    }
+    
+    public Restaurant4WaiterGui(Restaurant4WaiterAgent agent, int i, Screen s) {
+    	super(agent, s);
+        this.agent = (Restaurant4Waiter) agent;
         if (i==1){
         	yPos = yPos+30;
         	yDestination = yDestination+30;

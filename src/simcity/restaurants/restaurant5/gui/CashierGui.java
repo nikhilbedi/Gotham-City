@@ -4,9 +4,11 @@ package simcity.restaurants.restaurant5.gui;
 
 import java.util.*;
 import java.awt.*;
-
+import agent.*;
 import Gui.RoleGui;
+import Gui.Screen;
 import simcity.restaurants.restaurant5.*;
+import simcity.restaurants.restaurant5.interfaces.Cashier;
 
 public class CashierGui extends RoleGui implements Gui {
 
@@ -23,6 +25,10 @@ public class CashierGui extends RoleGui implements Gui {
 		this.agent = agent;
 		super.setColor(Color.CYAN);
 
+	}
+
+	public CashierGui(Cashier cashier, Screen meScreen) {
+		super( (Role)cashier, meScreen);
 	}
 
 	public void updatePosition() {

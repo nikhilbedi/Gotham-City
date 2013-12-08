@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.net.URL;
 
+//import helpers.XMLReader;
 import  sun.audio.*;
 
 import javax.sound.*;
@@ -20,8 +21,11 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.print.attribute.standard.Media;
 import javax.swing.*;
 
+import java.io.File;
+
 import Gui.SoundClip;
 import simcity.CityClock;
+import simcity.PersonAgent;
 import simcity.Home.gui.HomePanel;
 
 
@@ -84,23 +88,13 @@ public class SimCityRun extends JFrame implements ActionListener
 
 	public static void main(String[] args)
 	{
+		//Sample reading an XML file
+		//XMLHelper.createPeople("sampleXML.xml");
+		
+		//THE BIG BANG
 		CityClock.startTime();
-		//new SoundClip();
-		//EPIC BATMAN MUSIC
-		/*String fileName="The_Dark_Knight.wav";
-		//String fileName="The_Dark_Knight.wav";
-		File soundFile = new File(getClass().getResource("The_Dark_Knight.wav").toString());
-		try {
-			Clip clip = AudioSystem.getClip();
-			AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-		    clip.open(audioInputStream);
-			//clip.start();
-			clip.loop(0);
-		} catch (Exception ex) {
-		   ex.printStackTrace();
-		}
-		 */
 
+		//EPIC BATMAN THEME SONG
 		try
 		{
 			final Clip clip = (Clip)AudioSystem.getLine(new Line.Info(Clip.class));
@@ -116,7 +110,7 @@ public class SimCityRun extends JFrame implements ActionListener
 			});
 
 			clip.open(AudioSystem.getAudioInputStream(new File("The_Dark_Knight.wav")));
-			clip.start();
+			//clip.start();
 		}
 		catch (Exception exc)
 		{

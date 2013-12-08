@@ -1,8 +1,12 @@
 package simcity.restaurants.restaurant4;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import Gui.ScreenFactory;
 import agent.Role;
 import simcity.Building;
 import simcity.TheCity;
@@ -11,6 +15,10 @@ import simcity.Market.MarketCashierRole;
 import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant1.CashierRole;
 import simcity.restaurants.restaurant1.HostRole;
+import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4CashierGui;
+import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4CookGui;
+import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4HostGui;
+import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4WaiterGui;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Cashier;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Cook;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Host;
@@ -25,11 +33,31 @@ public class Restaurant4 extends Restaurant {
 	public TheCity cp;
 	private Menu menu;
  
-	
+	//gui
+	/*Restaurant4WaiterGui waiterGui1 = new Restaurant4WaiterGui(waiter, 1, ScreenFactory.getMeScreen(this.getName()));
+	Restaurant4WaiterGui waiterGui2 = new Restaurant4WaiterGui(sharedDataWaiter, 2, ScreenFactory.getMeScreen(this.getName()));
+	Restaurant4CookGui cookGui = new Restaurant4CookGui(cook, ScreenFactory.getMeScreen(this.getName()));
+	Restaurant4HostGui hostGui = new Restaurant4HostGui(host, ScreenFactory.getMeScreen(this.getName()));
+	Restaurant4CashierGui cashierGui = new Restaurant4CashierGui(cashier, ScreenFactory.getMeScreen(this.getName()));
+	*/
 	public Restaurant4(String type, int entranceX, int entranceY, int guiX,
 			int guiY) {
 		super(type, entranceX, entranceY, guiX, guiY);
-		
+		/*waiter.setGui(waiterGui1);
+		sharedDataWaiter.setGui(waiterGui2);
+		cook.setGui(cookGui);
+		host.setGui(hostGui);
+		cashier.setGui(cashierGui);
+		*/
+		setWeekdayHours(6, 6);
+		setWeekendHours(6, 6);
+		Map<String, Role> jobs = Collections.synchronizedMap(new HashMap<String, Role>());
+		jobs.put("host", host);
+		jobs.put("cashier", cashier);
+		jobs.put("cook", cook);
+		jobs.put("waiter1", waiter);
+		jobs.put("waiter2", sharedDataWaiter);
+		setJobRoles(jobs);
 	}	
 
 	@Override

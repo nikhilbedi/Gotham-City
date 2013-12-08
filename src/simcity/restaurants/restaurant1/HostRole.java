@@ -267,13 +267,13 @@ public class HostRole extends Role implements Host {
 		//Actually, make it simple. If waiter's amtOfCustomers is <2, let him go on break after he's finished.
 		if(mw.amtOfCustomers < 2) {
 			print("Okay, go on break " + ((PersonAgent) mw.waiter).getName() + "... BUT DON'T ASK ME FOR ANOTHER ONE!");   
-			((WaiterRole) mw.waiter).goOnBreak();
+			mw.waiter.goOnBreak();
 			mw.askedToGoOnBreak = false;
 			mw.onBreak = true;
 			return;
 		}
 		print("You lousy mutt! You think I'll ever let you go on break with all these customers rolling on, " + ((PersonAgent) mw.waiter).getName() + "?! GET BACK TO WORK!!!");
-		((WaiterRole) mw.waiter).doNotGoOnBreak();
+		mw.waiter.doNotGoOnBreak();
 		mw.askedToGoOnBreak = false;
 	}
 
@@ -287,7 +287,7 @@ public class HostRole extends Role implements Host {
 		Customer c = customer;
 		for(WaitingArea wa : waitingAreas) {
 			if(wa.getOccupant() == c){
-				((WaiterRole) w).pleaseSeatCustomer(c, t.tableNumber, wa.posX, wa.posY);
+				w.pleaseSeatCustomer(c, t.tableNumber, wa.posX, wa.posY);
 				t.setOccupant(c);
 				//wa.setUnoccupied();
 				break;
@@ -319,20 +319,6 @@ public class HostRole extends Role implements Host {
 			onBreak = false;
 		}
 	}
-
-	/*
-    private class WaitingCustomer {
-		CustomerAgent customer;
-		int waitingPos;
-		boolean isWaitingForPos;
-		boolean waitingInPos;
-
-		WaitingCustomer(CustomerAgent c){
-		    customer = c;
-		    isWaitingForPos = true;
-		    waitingInPos = false;
-		}
-    }*/
 
 	class WaitingArea {
 		Customer occupiedBy;

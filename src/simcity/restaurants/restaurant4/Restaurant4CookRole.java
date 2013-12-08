@@ -7,6 +7,7 @@ import agent.Role;
 import java.util.*;
 
 import simcity.PersonAgent;
+import simcity.TheCity;
 import simcity.Market.Market;
 import simcity.Market.MarketCashierRole;
 import simcity.Market.MarketGui.MarketAnimationPanel;
@@ -174,8 +175,7 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 	
 	public void orderFoodThatIsLow(){
 		myPerson.Do("Ordering food from market");
-
-		Market m = ((MarketAnimationPanel) ScreenFactory.getMeScreen("Market")).getMarket();
+		Market m = (Market) TheCity.getBuildingFromString("Market");
 		
     	cashier = m.getCashier();
 		cashier.INeedFood(neededFood, this, restCashier);
