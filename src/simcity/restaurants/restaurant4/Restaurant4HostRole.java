@@ -30,17 +30,24 @@ public class Restaurant4HostRole extends Role implements Restaurant4Host{
 	private String name;
 //	private Semaphore atTable = new Semaphore(0,true);
 	public List<Restaurant4Waiter> availableWaiters = new ArrayList<Restaurant4Waiter>();
-	private PersonAgent person;
+
 	public Restaurant4HostRole(PersonAgent p) {
 		super(p);
-		
-		person = p;
 		// make some tables
 		tables = new ArrayList<Table>(NTABLES);
 		for (int ix = 1; ix <= NTABLES; ix++) {
 			tables.add(new Table(ix));//how you add to a collection 
 		}
 	}
+	public Restaurant4HostRole() {
+		super();
+		// make some tables
+		tables = new ArrayList<Table>(NTABLES);
+		for (int ix = 1; ix <= NTABLES; ix++) {
+			tables.add(new Table(ix));//how you add to a collection 
+		}
+	}
+	
 
 	public String getMaitreDName() {
 		return name;
@@ -96,14 +103,14 @@ public class Restaurant4HostRole extends Role implements Restaurant4Host{
 		if (availableWaiters.size()!=1){
 			for(Restaurant4Waiter waiter: availableWaiters){
 				if (waiter==w){
-					person.Do("You may go after you finish serving customers");
+					myPerson.Do("You may go after you finish serving customers");
 					waiter.youMayGoToABreak();
 					availableWaiters.remove(waiter);
 				}
 			}
 		}
 		else {
-			person.Do("You cannot go to a break");
+			myPerson.Do("You cannot go to a break");
 			return;}
 	}
 	
@@ -158,7 +165,7 @@ public class Restaurant4HostRole extends Role implements Restaurant4Host{
 
 	// Actions
 	public void tellNoPlace(){
-		person.Do("No available tables, you can leave if you want");
+		myPerson.Do("No available tables, you can leave if you want");
 		for (Restaurant4Customer customer: waitingCustomers){
 			customer.leaveIfYouWant();
 		}

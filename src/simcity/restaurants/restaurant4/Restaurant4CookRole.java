@@ -40,6 +40,14 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 		foods.put("Pizza",pizza);
 		foods.put("Salad",salad);
 	}
+
+	public Restaurant4CookRole(){
+		super();
+		foods.put("Chicken",chicken);
+		foods.put("Steak",steak);
+		foods.put("Pizza",pizza);
+		foods.put("Salad",salad);
+	}
 	
 	public void setCashier(Restaurant4CashierRole mc){
 		restCashier = mc;

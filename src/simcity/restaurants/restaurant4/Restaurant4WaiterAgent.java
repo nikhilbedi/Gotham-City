@@ -17,7 +17,11 @@ public class Restaurant4WaiterAgent extends Role {
 	
 	public Restaurant4WaiterAgent(PersonAgent p){
 		super(p);
-		//this.person = p;
+		
+	}
+	
+	public Restaurant4WaiterAgent(){
+		super();
 	}
 	
 	public void setGui(Restaurant4WaiterGui gui){

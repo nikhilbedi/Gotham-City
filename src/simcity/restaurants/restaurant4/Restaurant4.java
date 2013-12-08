@@ -17,10 +17,11 @@ import simcity.restaurants.restaurant4.interfaces.Restaurant4Host;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Waiter;
 
 public class Restaurant4 extends Restaurant {
-	private Restaurant4HostRole host;
-	private List<Restaurant4Waiter> waiters = new ArrayList<Restaurant4Waiter>();
-	private Restaurant4CashierRole cashier;
-	private Restaurant4Cook cook;
+	Restaurant4HostRole host = new Restaurant4HostRole();
+	Restaurant4WaiterRole waiter = new Restaurant4WaiterRole();
+	Restaurant4SharedDataWaiterRole sharedDataWaiter = new Restaurant4SharedDataWaiterRole();
+	Restaurant4CashierRole cashier = new Restaurant4CashierRole();
+	Restaurant4CookRole cook = new Restaurant4CookRole();
 	public TheCity cp;
 	private Menu menu;
  
@@ -52,8 +53,8 @@ public class Restaurant4 extends Restaurant {
 	}
 	
 
-	public List<Restaurant4Waiter>  getWaiter(){
-		return waiters;
+	public Restaurant4WaiterRole  getWaiter(){
+		return waiter;
 	}
 	
 	public  Restaurant4Cook getCook(){
@@ -70,10 +71,14 @@ public class Restaurant4 extends Restaurant {
 	}
 	
 	public void  setWaiter(Restaurant4Waiter h){
-		waiters.add(h);
+		waiter = (Restaurant4WaiterRole) h;
 	}
 	
-	public void setCook(Restaurant4Cook c){
+	public void setSharedDataWaiter(Restaurant4Waiter h){
+		sharedDataWaiter = (Restaurant4SharedDataWaiterRole) h;
+	}
+	
+	public void setCook(Restaurant4CookRole c){
 		cook = c;
 	}
 	
