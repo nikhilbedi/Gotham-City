@@ -133,7 +133,8 @@ public class PersonAgent extends Agent implements Person {
 	// Job
 	private Job myJob = null;
 	public enum JobState {
-		OffWork, GoToWorkSoon, HeadedToWork, AtWork, LeaveWork, LeavingWork
+		OffWork, GoToWorkSoon, HeadedToWork, AtWork, TimeToLeave, 
+		PreparingToLeave, LeaveWork, LeavingWork, 
 	};
 
 
@@ -520,22 +521,30 @@ public class PersonAgent extends Agent implements Person {
 		// Person Scheduler
 
 		if (checkPersonScheduler) {
+			//Clockin' out, yo.
+			if (myJob != null) {
+				if (myJob.state == JobState.TimeToLeave) {
+					myJob.state = JobState.PreparingToLeave;
+					tellRoleToLeaveWork();
+					return true;
+				}
+			}
+			
+			//Clockin' out, yo.
+			if (myJob != null) {
+				if (myJob.state == JobState.LeaveWork) {
+					myJob.state = JobState.LeavingWork;
+					leaveWork();
+					return true;
+				}
+			}
+			
 			// if the man has groceries in his hand, let him take them home!
 			//print("person sched");
 			if (marketState == MarketState.TakeGroceriesHome) {
 				marketState = MarketState.TakingGroceriesHome;
 				goToHome();
 				return true;
-			}
-
-			//Clockin' out, yo.
-			if (myJob != null) {
-				if (myJob.state == JobState.LeaveWork) {
-					print("time to get out of here");
-					myJob.state = JobState.LeavingWork;
-					leaveWork();
-					return true;
-				}
 			}
 
 
@@ -657,13 +666,16 @@ public class PersonAgent extends Agent implements Person {
 			e.printStackTrace();
 		}
 		
+		myJob.role.setWorkStatus(true);
+		
 		enteringBuilding(myJob.role);
-		//gui.getHomeScreen().removeGui(gui);
+
 		myJob.state = JobState.AtWork;
 	}
 	
 	private void tellRoleToLeaveWork() {
-		
+		myJob.role.setWorkStatus(false);
+		checkPersonScheduler = false;
 	}
 
 	private void leaveWork() {

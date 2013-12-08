@@ -11,13 +11,23 @@ public class Role {
 	protected PersonAgent myPerson;
 
 	protected RoleGui gui;
-	private boolean active; 
+	private boolean active;
+	protected boolean onWork = false;
 
 	public RoleGui getGui() {
 		return gui;
 	}
 	public void setGui(RoleGui g){
 		gui = g;
+	}
+	
+	/**
+	 * This will be used so if a role still has customers, 
+	 * that role will finish without being given more customers
+	 * @param b If it is true, that means it can take customers. If it is false, the host/greeter/etc. won't give new customers
+	 */
+	public void setWorkStatus(boolean b) {
+		onWork = b;
 	}
 
 	/**
