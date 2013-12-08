@@ -75,9 +75,6 @@ public class Restaurant4 extends Restaurant {
 	
 	public void setCook(Restaurant4Cook c){
 		cook = c;
-		System.out.println("Creatd coook!!!!!!");
-		/*List<Market> m  = cp.getMarketList();
-		cook.setMarketCashier(m.get(0).getCashier());*/
 	}
 	
 	public void setCashier(Restaurant4CashierRole c){

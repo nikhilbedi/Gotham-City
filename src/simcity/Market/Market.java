@@ -29,14 +29,6 @@ public class Market extends Building {
 			items.add(rice);
 			items.add(potato);
 		}	
-		
-/*	public Market(){
-		items.add(beef);
-		items.add(chicken);
-		items.add(rice);
-		items.add(potato);
-		//setLocations
-	}*/
 	
 	public void setCashier(MarketCashierRole c){
 		System.out.println("setting cashier");

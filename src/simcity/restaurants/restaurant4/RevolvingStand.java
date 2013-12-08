@@ -18,7 +18,13 @@ public class RevolvingStand {
 		cook.OrderOnTheStand();
 	}
 	
-	
+	public static void removeOrder(Restaurant4Cook cook, Restaurant4Waiter waiter, String choice, int table){
+		for (StandOrder order: orders){
+			if (order.waiter == waiter && order.choice==choice && order.table == table){
+				orders.remove(order);
+			}
+		}
+	}
 	
 	static class StandOrder{
 		Restaurant4Cook cook;

@@ -78,7 +78,9 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 	public void OrderOnTheStand(){
 		orders.add(new Order(RevolvingStand.orders.get(0).waiter,RevolvingStand.orders.get(0).choice, RevolvingStand.orders.get(0).table ));
 		myPerson.Do("There is something on the stand");
-		RevolvingStand.orders.remove(RevolvingStand.orders.get(0));
+		int index = orders.size()-1;
+		Order o = orders.get(index);
+		RevolvingStand.removeOrder(this, o.waiter, o.choice, o.table);
 		stateChanged();
 	}
 
@@ -94,6 +96,7 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 			foods.put(entry.getKey(), f);
 			System.out.println("Got order from market, now I have " + f.type + " " + f.amount);
 		}
+		
 	}
 	//scheduler
 	

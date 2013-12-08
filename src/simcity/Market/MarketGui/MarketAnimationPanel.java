@@ -90,28 +90,19 @@ public class MarketAnimationPanel extends Screen {
     		addGui(workerGui);
     		agentWork.addRole(marketWorker);
     		marketCustomer.setGui(customerGui);
-    	//	addGui(customerGui);
     		customer.addRole(marketCustomer);
     		marketCustomer2.setGui(customerGui2);
-    	  //  addGui(customerGui2);
     		agentCust2.addRole(marketCustomer2);
     		agentCust3.addRole(marketCustomer3);
     		marketCustomer3.setGui(customerGui3);
-    	//	addGui(customerGui3);
     		
     		cashier.startThread();
     		agentWork.startThread();
-    		//customer.startThread();
-    		//agentCust2.startThread();
-    		//agentCust3.startThread();
-    		
     		marketCashier.setWorker(marketWorker);
     		marketCustomer.setCashier(marketCashier);
     		marketCustomer2.setCashier(marketCashier);
     		marketCustomer3.setCashier(marketCashier);
     		marketWorker.setCashier(marketCashier);
-    	//	System.out.println(agentCust.roles.size());
-    		
     		market.setCashier(marketCashier);
     		market.setWorker(marketWorker);
     		

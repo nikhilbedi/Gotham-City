@@ -1,6 +1,7 @@
 package simcity.restaurants.restaurant4;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Timer;
@@ -10,9 +11,7 @@ import java.util.concurrent.Semaphore;
 import agent.Role;
 import simcity.PersonAgent;
 import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4WaiterGui;
-
 import simcity.restaurants.restaurant4.Restaurant4WaiterRole.WaiterState;
-
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Cook;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Customer;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Waiter;
@@ -22,7 +21,7 @@ public class Restaurant4SharedDataWaiterRole extends Restaurant4WaiterAgent impl
 	private Restaurant4HostRole host = null;
 	private Restaurant4CashierRole cashier = null;
 	private String name;
-	public  List<MyCustomer> customers = new ArrayList<MyCustomer>();
+	public  List<MyCustomer> customers = Collections.synchronizedList(new ArrayList<MyCustomer>());
 	public Restaurant4WaiterGui waiterGui = null;
 	private Semaphore atTable = new Semaphore(0,true);
 	private Restaurant4Cook cook;
@@ -86,12 +85,14 @@ public class Restaurant4SharedDataWaiterRole extends Restaurant4WaiterAgent impl
 	
 	@Override
 	public void ReadyToOrder(Restaurant4Customer c){
+		synchronized(customers){
 		for (MyCustomer customer: customers) {
 			if (customer.myCustomer==c) {
 				customer.s = MyCustomer.CustomerState.ReadytoOrder;
 				stateChanged();
 			}
 		}		
+		}
 	}
 	
 	@Override
@@ -103,6 +104,7 @@ public class Restaurant4SharedDataWaiterRole extends Restaurant4WaiterAgent impl
 	
 	@Override
 	public void HereIsMyChoice(Restaurant4Customer c, String choice){
+		synchronized(customers){
 		for (MyCustomer customer: customers) {
 			if (customer.myCustomer==c) {
 				customer.choice = choice;
@@ -111,6 +113,7 @@ public class Restaurant4SharedDataWaiterRole extends Restaurant4WaiterAgent impl
 				stateChanged();
 			}
 		}	
+		}
 	}
 	
 	@Override
@@ -142,6 +145,7 @@ public class Restaurant4SharedDataWaiterRole extends Restaurant4WaiterAgent impl
 	@Override
 	public void arrivedToCook(Restaurant4Customer c){ //from animation
 		atTable.release();
+		synchronized(customers){
 		for(MyCustomer customer: customers){
 			if (customer.myCustomer==c){
 				person.Do("Ordering "+customer.choice+ " for "+customer.myCustomer.getName());
@@ -152,20 +156,22 @@ public class Restaurant4SharedDataWaiterRole extends Restaurant4WaiterAgent impl
 				}
 			}
 		}
+		}
 	
 	@Override
 	public void outOf(int table, String choice){
-		
+		synchronized(customers){
 		for(MyCustomer customer: customers){
 			if(customer.table==table){
 				customer.s = MyCustomer.CustomerState.outOf;
 		
 		}}
-	
+		}
 	}
 	@Override
 	public void arrivedToNotifyNoFood(Restaurant4Customer c, String choice){
 		atTable.release();
+		synchronized(customers){
 		for(MyCustomer customer: customers){
 			if (customer.myCustomer == c){
 				person.Do("Sorry " +c.getName() + " we have no " + choice);
@@ -176,10 +182,12 @@ public class Restaurant4SharedDataWaiterRole extends Restaurant4WaiterAgent impl
 				stateChanged();
 			}
 		}	
+		}
 	}
 	
 	@Override
 	public void OrderDone(String c, int table ){ //cook
+		synchronized(customers){
 		for(MyCustomer customer: customers){
 			if (customer.getTable()==table){
 				customer.s = MyCustomer.CustomerState.OrderDone;
@@ -187,10 +195,12 @@ public class Restaurant4SharedDataWaiterRole extends Restaurant4WaiterAgent impl
 			}
 			}
 		}
+		}
 	
 	@Override
 	public void HereIsYourFood(int table){//from animation
 		atTable.release();
+		synchronized(customers){
 		for(MyCustomer customer: customers){
 			if (customer.getTable()==table){
 				person.Do("Here is your food");
@@ -199,24 +209,29 @@ public class Restaurant4SharedDataWaiterRole extends Restaurant4WaiterAgent impl
 				stateChanged();
 			}
 		}
+		}
 	}
 	
 	@Override
 	public void DoneAndLeaving(Restaurant4Customer c){
+		synchronized(customers){
 		for (MyCustomer customer: customers){
 			if (customer.myCustomer==c){
 				customer.s = MyCustomer.CustomerState.DoneEating;
 				stateChanged();
 			}
 		}
+		}
 	} 
 	@Override
 	public void computeCheck(Restaurant4Customer c){
+		synchronized(customers){
 		for (MyCustomer customer: customers){
 			if (customer.myCustomer==c){
 				customer.s = MyCustomer.CustomerState.ComputeCheck;
 				stateChanged();
 			}
+		}
 		}
 	}
 	@Override
@@ -227,6 +242,7 @@ public class Restaurant4SharedDataWaiterRole extends Restaurant4WaiterAgent impl
 	}
 	@Override
 	public void HereIsCheck(Restaurant4Customer c, double price){ //cashier
+		synchronized(customers){
 		for (MyCustomer customer: customers){
 			if (customer.myCustomer==c){
 				customer.amountDue = price;
@@ -234,10 +250,12 @@ public class Restaurant4SharedDataWaiterRole extends Restaurant4WaiterAgent impl
 				stateChanged();
 			}
 		}
+		}
 	}
 	@Override
 	public void HereIsYourCheck(int table){ // from animation
 		atTable.release();
+		synchronized(customers){
 		for(MyCustomer customer: customers){
 			if (customer.getTable()==table){
 				person.Do("Here is your check");
@@ -248,16 +266,18 @@ public class Restaurant4SharedDataWaiterRole extends Restaurant4WaiterAgent impl
 				
 			}
 		}
+		}
 	}
 	
 	public void atRevolvingStand(Restaurant4Customer customer){
 		atTable.release();
-		myPerson.Do("sie " + customers.size());
+		synchronized(customers){
 		for (MyCustomer c: customers){
 			if (c.myCustomer == customer){
 				myPerson.Do("at revolving stand");
 				RevolvingStand.addOrder(cook, this, c.choice, c.table);
 			}
+		}
 		}
 	}
 	

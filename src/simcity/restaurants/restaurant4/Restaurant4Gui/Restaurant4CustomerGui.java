@@ -64,11 +64,6 @@ public class Restaurant4CustomerGui extends RoleGui{
 		yTable = y;
 	}
 	
-	  
-/*	public void setListPanel(ListPanel ls){
-		listPanel = ls;
-	}*/
-	
 	public void updatePosition() {
 //	if(agent.getPause() == false){	
 	super.updatePosition();
@@ -99,9 +94,7 @@ public class Restaurant4CustomerGui extends RoleGui{
 			}
 			command=Command.noCommand;
 		}
-		
-		
-	//}
+
 	}
 	
 
@@ -112,7 +105,6 @@ public class Restaurant4CustomerGui extends RoleGui{
 		if (ordered ==true && gotOrder==false){
 		drawOrder(g);
 		}
-		
 		if (ordered == false && gotOrder ==true && doneEating == false){
 			drawOrdered(g);
 		}
@@ -195,7 +187,7 @@ public void drawOrdered(Graphics g){
 			if (listPanel.getCustomers().get(i).customerGui.status != Status.seated)
 			waitingLine.add(listPanel.getCustomers().get(i));
 		}*/
-		
+		waitingLine =  agent.getHost().getWaitingCustomers();
 		
 		
 	/*	System.out.println(waitingLine.size());
@@ -220,7 +212,7 @@ public void drawOrdered(Graphics g){
 				
 			}*/
 		
-	xDestination = 120;
+	    xDestination = 120;
 		yDestination = 30;
 		command = Command.GoToRestaurant;
 	}

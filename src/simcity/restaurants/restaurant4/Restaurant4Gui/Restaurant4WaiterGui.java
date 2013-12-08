@@ -34,7 +34,6 @@ public class Restaurant4WaiterGui extends RoleGui {
         	yPos = yPos+60;
         	yDestination = yDestination+60;
         	defY = defY+60;
-        	
         }
         
         if (i==3){
@@ -283,8 +282,4 @@ public class Restaurant4WaiterGui extends RoleGui {
         	return false;
         }
         }
-
-
-	
-  
 }

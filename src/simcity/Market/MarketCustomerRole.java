@@ -172,8 +172,7 @@ public class MarketCustomerRole extends Role implements MarketCustomer{
 	}
 	
 	public void GetItems(){
-		customerGui.DoGetItems();
-		
+		customerGui.DoGetItems();	
 	}
 	
 	public void DoPay(){
@@ -197,8 +196,6 @@ public class MarketCustomerRole extends Role implements MarketCustomer{
 		 //gui will send this
 		cashier.INeed(orders);
 	}
-	
-	
 	
 	private int round(double money){
 	    double d = Math.abs(money);

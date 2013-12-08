@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 import simcity.Building;
+import simcity.Bus;
 import simcity.Home.Home;
 import simcity.Market.Market;
 import simcity.bank.Bank;
@@ -18,9 +19,7 @@ import simcity.restaurants.restaurant1.Restaurant1;
 
 import simcity.restaurants.restaurant5.Restaurant5;
 import simcity.restaurants.restaurant3.Restaurant3;
-
 import simcity.restaurants.restaurant2.Restaurant2;
-
 import simcity.restaurants.restaurant4.Restaurant4;
 
 
@@ -43,15 +42,16 @@ public class MainScreen extends Screen{
 	Building rest3;
 	Building rest4;
 	Building rest5;
-
-
+	Bus busClockWise;
+	Bus busCounterClockWise;
 
 	public MainScreen()
 	{
 		temp = 1;
 
 		
-		
+		busClockWise = new Bus("clockWise");
+		busCounterClockWise = new Bus("counterClockWise");
 		house = new Home("Home", 390, 590, 400, 600);
 		house.setImagePath("/resources/Buildings/HouseDark2.png");
 		
@@ -98,7 +98,8 @@ public class MainScreen extends Screen{
 		buildings.add(house5);
 		buildings.add(house6);
 		
-		
+		addGui(busClockWise);
+		addGui(busCounterClockWise);
 	}
 
 	public  void paintBackground(Graphics g)

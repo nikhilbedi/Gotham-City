@@ -25,6 +25,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 //	private PersonAgent person;
 	public String name;
 	public Semaphore delivering = new Semaphore(0,true);
+	private List<MarketCustomer> waitingCustomers  = new ArrayList<MarketCustomer>();
 	public MarketWorkerRole(PersonAgent p){
 		super(p);
 		name = p.name;
@@ -38,9 +39,15 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 		cashier = c;
 	}
 	
+	public List<MarketCustomer> getWaitingCustomers(){
+		return waitingCustomers;
+		
+	}
+	
 	public void Bring(List<Order> o){ //for customers
 		System.out.println(myPerson.name+ " " +"Got new order from " + o.get(0).customer.getName());
 		deliveries.add(new CustomerDelivery(o));
+	
 		stateChanged();
 	}
 	
@@ -74,12 +81,14 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 		}
 	}
 	
+	//food is delivered
 	public void Sent(Role role){
 		delivering.release();
 		myPerson.Do("sent things to restaurant");
 		for (int i=0; i<restDeliveries.size(); i++){
 			if (restDeliveries.get(i).cookRole == role){
 				   ((Restaurant4CookRole) restDeliveries.get(0).cookRole).HereIsYourFood(restDeliveries.get(i).foods);
+				   cashier.foodIsDelivered(restDeliveries.get(i).cookRole);
 				restDeliveries.remove(restDeliveries.get(i));
 				stateChanged();
 			}

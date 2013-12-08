@@ -81,6 +81,12 @@ public class MockMarketCashier extends Mock implements MarketCashier {
 		
 	}
 
+	@Override
+	public void foodIsDelivered(Role cookRole) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 
 }
