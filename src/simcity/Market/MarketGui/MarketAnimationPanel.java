@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import simcity.PersonAgent;
+import simcity.TheCity;
 import simcity.Market.Item;
 import simcity.Market.Market;
 import simcity.Market.MarketCashierRole;
@@ -48,9 +49,8 @@ public class MarketAnimationPanel extends Screen {
     public PersonAgent agentCust3 = new PersonAgent("Customer3");
     public MarketCustomerRole marketCustomer3 = new MarketCustomerRole(agentCust3);
     public MarketCustomerGui customerGui3 = new MarketCustomerGui(marketCustomer3);
-    public MainScreen mainScreen = ScreenFactory.getMainScreen();
     
-    List <Market> m = mainScreen.getMarketList();
+    List <Market> m = TheCity.getMarketList();
     
     public Market market = m.get(0);
     

@@ -6,13 +6,13 @@ import simcity.PersonAgent;
 import simcity.PersonAgent.MoneyState;
 import simcity.PersonAgent.RentBill;
 import simcity.Robot;
+import simcity.TheCity;
 import Gui.MainScreen;
 import Gui.Screen;
 import Gui.ScreenFactory;
 
 public class bankAnimationPanel extends Screen{
-	MainScreen mainScreen = ScreenFactory.getMainScreen();
-	Bank b = mainScreen.getBank();
+	Bank b = TheCity.getBank();
 	
 	public bankAnimationPanel() {
 		populate();

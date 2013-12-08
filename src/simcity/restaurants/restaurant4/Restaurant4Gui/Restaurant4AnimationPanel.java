@@ -26,10 +26,8 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Restaurant4AnimationPanel extends Screen {
-	MainScreen mainScreen = ScreenFactory.getMainScreen();
-	
 	//Restaurant4 r4 = (Restaurant4) mainScreen.getRestaurantList().get(3);	
-	List<Restaurant> restaurants = mainScreen.getRestaurantList();
+	List<Restaurant> restaurants = TheCity.getRestaurantList();
 	Restaurant r4;
 
 	static final int X = 50;

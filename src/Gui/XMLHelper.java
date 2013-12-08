@@ -66,9 +66,9 @@ public class XMLHelper {
 					PersonAgent personXML = new PersonAgent(name, personGui, mainScreen);
 					personGui.setAgent(personXML);
 					personXML.setGui(personGui);	
-					personXML.setRestaurants(mainScreen.getRestaurantList());
-					personXML.setMarkets(mainScreen.getMarketList());
-					personXML.setBank(mainScreen.getBank());
+					personXML.setRestaurants(TheCity.getRestaurantList());
+					personXML.setMarkets(TheCity.getMarketList());
+					personXML.setBank(TheCity.getBank());
 					mainScreen.addGui(personGui);
 					CityClock.addPersonAgent(personXML);
 

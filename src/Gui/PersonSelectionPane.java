@@ -67,7 +67,7 @@ public class PersonSelectionPane extends JPanel implements ActionListener {
 		if(e.getSource() == newPersonButton ){
 			if(firstTime) {
 				System.out.println("howdy partner");
-				npWindow = new NewPersonWindow(ScreenFactory.getMainScreen(), newPersonButton, this);
+				npWindow = new NewPersonWindow(newPersonButton, this);
 				npWindow.setVisible(true);
 				newPersonButton.setEnabled(false);
 				
