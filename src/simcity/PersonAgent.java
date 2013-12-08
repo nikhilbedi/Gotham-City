@@ -329,7 +329,8 @@ public class PersonAgent extends Agent implements Person {
 
 		// Next Day
 		if (currentTime == 1) {
-			day++;
+			//I would just get rid of the day variable, but I already use it in so many places, so I'll just set it.
+			day = CityClock.getDay();
 			dayState = DayOfTheWeek.values()[day];
 			print("The day of the week is " + dayState.name());
 		}

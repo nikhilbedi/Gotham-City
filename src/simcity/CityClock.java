@@ -14,6 +14,7 @@ public final class CityClock {
 	private static Timer timer = new Timer();
 	private static int currentTime = 1;
 	private static long hourLength = 1000;
+	private static int day = 0;
 
 	public static void startTime() {
 		final long hourTemp = hourLength;
@@ -22,6 +23,10 @@ public final class CityClock {
 				currentTime++;
 				if(currentTime == 25) {
 					currentTime = 1;
+					day++;
+					if(day > 6){
+						day = 0;
+					}
 				}
 				System.out.println("The time is now: " + currentTime);
 				for(PersonAgent p : people) {
@@ -42,5 +47,9 @@ public final class CityClock {
 	}
 	public static Vector<PersonAgent> getPeople(){
 		return people;
+	}
+	
+	public static int getDay() {
+		return day;
 	}
 }
