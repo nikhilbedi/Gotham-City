@@ -33,6 +33,11 @@ public class BankGreeterRole extends Role implements BankGreeter{
 	
 	// Functions
 	
+	public BankGreeterRole() {
+		super();
+	}
+
+
 	public void addTeller(BankTeller teller) {
 		tellers.add(teller);
 		teller.setIndex(tellers.size()-1);

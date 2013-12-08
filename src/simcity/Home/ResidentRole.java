@@ -19,6 +19,7 @@ import java.util.TimerTask;
 import simcity.Home.Food;
 import simcity.PersonAgent;
 import simcity.PersonAgent.HungerState;
+import simcity.PersonAgent.MoneyState;
 import simcity.PersonAgent.RentBill;
 import simcity.PersonAgent.RentState;
 
@@ -289,7 +290,7 @@ public class ResidentRole extends Role implements Resident {
 		}
 
 		if (state == HomeState.CheckingFoodSupply && event == HomeEvent.collectedIngredients) {
-			//System.out.println("Check cook food msg in sch *HI***");
+			System.out.println("Check cook food msg in sch *HI***");
 			state = HomeState.Cooking;
 			goToStove(type);
 			return true;
@@ -327,6 +328,7 @@ public class ResidentRole extends Role implements Resident {
 			return true;
 		}*/
 
+		//taking money into mind - Nikhil
 		if((myPerson.hungerState == HungerState.FeedingHunger  ||
 				myPerson.hungerState == HungerState.Famished ||
 				myPerson.hungerState == HungerState.Hungry ||
@@ -356,7 +358,15 @@ public class ResidentRole extends Role implements Resident {
 		 HomeEvent.checkedEmptyFridge){ state = HomeState.DoingNothing;
 		 LeavingRestaurant exitHome(); return true; }
 		 */
-
+		
+		//Evan, can you reevaluate this addition hunter and I made? - Nikhil TODO
+		if(state == HomeState.DoingNothing && event == HomeEvent.none) {
+			state = HomeState.checkingMailbox;
+			//returnToHomePosition();
+			return true;
+		}
+		
+		//System.err.println("DEADLOOCKKKK");
 		return false;
 	}
 
@@ -491,6 +501,10 @@ public class ResidentRole extends Role implements Resident {
 			event = HomeEvent.EmptyFridge;
 			//stateChanged();
 		}
+		
+		if(myPerson.moneyState != MoneyState.Low){
+			event = HomeEvent.EmptyFridge;
+		}
 		return choice;
 	}
 
@@ -515,7 +529,7 @@ public class ResidentRole extends Role implements Resident {
 				print("done cooking statechanged");
 				stateChanged();
 			}
-		}, cookingTime * 250);
+		}, cookingTime * 150);
 		//residentGui.cooking = false;
 	}
 
@@ -538,7 +552,7 @@ public class ResidentRole extends Role implements Resident {
 				event = HomeEvent.donePlating;
 				stateChanged();
 			}
-		}, 3000);
+		}, 1500);
 		//residentGui.plating = false;
 	}
 
@@ -568,7 +582,7 @@ public class ResidentRole extends Role implements Resident {
 				hungry = false;
 				myPerson.justAte();
 			}
-		}, 2500);
+		}, 1500);
 	}
 
 	public void goToSink() {
@@ -593,7 +607,7 @@ public class ResidentRole extends Role implements Resident {
 				//residentGui.clearing = false;
 				stateChanged();
 			}
-		}, 3000);
+		}, 1500);
 	}
 
 
@@ -611,7 +625,7 @@ public class ResidentRole extends Role implements Resident {
 	}
 
 	public void returnToHomePosition() {
-		print("Going to home position");
+		//print("Going to home position");
 		residentGui.DoReturnToHomePosition();
 		event = HomeEvent.none;
 		//stateChanged();

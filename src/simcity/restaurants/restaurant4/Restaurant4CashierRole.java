@@ -30,6 +30,10 @@ public class Restaurant4CashierRole extends Role implements Restaurant4Cashier {
 	
 	}
 	
+	public List<Payment> getPayments(){
+		return payments;
+	}
+	
 	public String getName(){
 		return name;
 	}

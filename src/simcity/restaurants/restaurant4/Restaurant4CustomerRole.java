@@ -391,8 +391,8 @@ public class Restaurant4CustomerRole extends Role implements Restaurant4Customer
 	}
 	
 	public void pay(){
-		
 		double amount  = round(amountDue);
+		
 		myPerson.removeMoney((float) amount);
 		cashier.hereIsPayment(this, amount);
 		myPerson.Do("Here is money");

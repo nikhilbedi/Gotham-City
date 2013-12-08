@@ -12,7 +12,8 @@ import java.util.*;
 public class Screen
 {
 
-	List<RoleGui> guis = Collections.synchronizedList( new ArrayList<RoleGui>() );
+
+	public List<RoleGui> guis = Collections.synchronizedList( new ArrayList<RoleGui>() );
 
 	String loc = "";
 	int xCord, yCord;
@@ -106,3 +107,4 @@ public class Screen
 		return guis.toString();
 	}
 }
+

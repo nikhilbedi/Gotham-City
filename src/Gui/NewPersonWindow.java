@@ -7,6 +7,10 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
 import javax.swing.*;
@@ -30,7 +34,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 
 	Vector<String> homeList;
 	Vector<String> jobLocationList;
-	Vector<String> jobPositionList;
+	Vector<Vector<String>> jobPositionList;
 	Vector<String> transportationList;
 	Vector<String> homeOwnerList;
 
@@ -71,20 +75,21 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 		nameField = new JTextField("Enter a name");
 		nameField.setMaximumSize(new Dimension(WINDOWX, 10));
 
-		homeList = new Vector<String>(TheCity.getHomes());
+		homeList = new Vector<String>(TheCity.getHomes()); //will pop the home from the list if someone is living in it. 
 		jobLocationList = new Vector<String>(TheCity.getJobLocs());
-		jobPositionList = new Vector<String>(TheCity.getPos());
+		jobPositionList = new Vector<Vector<String>>(TheCity.getPos());
 		transportationList = new Vector<String>(TheCity.getTransportation());
 		homeOwnerList = new Vector<String>(TheCity.getProperty());
 
 		home = new JComboBox(homeList);
 		jobLocation = new JComboBox(jobLocationList);
 		jobLocation.addActionListener(this);
-		jobPosition = new JComboBox(jobPositionList);
+		jobPosition = new JComboBox();//updatethis jones TODO
 		transportation = new JComboBox(transportationList);
 		homeOwned = new JComboBox(homeOwnerList);
 
-		money = new JSlider(JSlider.HORIZONTAL, 0, 1000, 1000);
+
+		money = new JSlider(JSlider.HORIZONTAL, 250, 1000, 1000);
 		money.setMajorTickSpacing(100);
 		money.setMinorTickSpacing(100);
 		money.setPaintTicks(true);
@@ -111,6 +116,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 
 		add(nameField);
 		add(Box.createRigidArea(new Dimension(0,15)));
+		add(new JLabel("Money"));
 		add(money);
 		add(Box.createRigidArea(new Dimension(0,15)));
 		add(labeledHome);
@@ -173,19 +179,30 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			newPerson.setGrid(selPane.city.getGrid()); //Brice - setting grid for the new person to navigate City screen
 			
 			//Give him money
-			newPerson.addMoney(money.getValue()); //Evan: leaving money at 0 to test going to home ******
+			newPerson.addMoney(money.getValue()); 
 
+			//Just realized this is entire class is created at every call, meaning we cant set things disable when needed. - Nikhil
+		/*	if(home.getSelectedItem().toString().equalsIgnoreCase("Home 1")) {
+				//set home
+				newPerson.setHome((Home)TheCity.getBuildingFromString("home"));
+				home.setEnabled(false);
+			}*/
 
 			//setJob
-			//newPerson.setJob(jobPosition.getSelectedItem().toString(), TheCity.getBuildingFromString(jobPosition.getSelectedItem().toString()));//will this work?
-
+			if(!jobLocation.getSelectedItem().toString().equalsIgnoreCase("no job")){ //Not sure how your code works, but this might do the trick - Nikhil
+				newPerson.setJob(jobLocation.getSelectedItem().toString(), TheCity.getBuildingFromString(jobLocation.getSelectedItem().toString()));//will this work?
+				//I had to change instance names and add this if statement, but yes, it will work
+			}
+				
 			//setting Transportation
 			newPerson.setPreferredTransportation(transportation.getSelectedItem().toString());
 
 
 			//set home
-			newPerson.setHome((Home)TheCity.getBuildingFromString("home"));
-
+			if(CityClock.getPeople().size() < 1)
+				newPerson.setHome((Home)TheCity.getBuildingFromString("Home 1"));
+			
+			
 			newPerson.startThread();
 
 
@@ -208,6 +225,13 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 
 			if(jobLocation.getSelectedIndex()>0){
 				labeledPosition.setVisible(true);
+				JComboBox box;
+				box = (JComboBox) labeledPosition.component;
+				box.removeAllItems();
+				//the -1 is because the initial value in the box is no Job and is not in the jobLocation data structure
+				for(int i=0; i < jobPositionList.get(jobLocation.getSelectedIndex()-1).size(); i++){
+					box.addItem(jobPositionList.get(jobLocation.getSelectedIndex()-1).get(i));
+				}
 			}
 		}
 	}

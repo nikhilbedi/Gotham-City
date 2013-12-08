@@ -14,8 +14,15 @@ import simcity.Market.Market;
 import simcity.bank.Bank;
 import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant1.Restaurant1;
+
+
+import simcity.restaurants.restaurant5.Restaurant5;
+import simcity.restaurants.restaurant3.Restaurant3;
+
 import simcity.restaurants.restaurant2.Restaurant2;
+
 import simcity.restaurants.restaurant4.Restaurant4;
+
 
 public class MainScreen extends Screen{
 
@@ -50,8 +57,6 @@ public class MainScreen extends Screen{
 		house.setImagePath("/resources/Buildings/HouseDark2.png");
 		
 		//These are just added to make Evan happy
-		house2 = new Home("Home2", 90, 590, 100, 600);
-		house2.setImagePath("/resources/Buildings/HouseDark2.png");
 		house3 = new Home("Home3", 190, 590, 200, 600);
 		house3.setImagePath("/resources/Buildings/HouseDark2.png");
 		house4 = new Home("Home4", 290, 590, 300, 600);
@@ -71,11 +76,11 @@ public class MainScreen extends Screen{
 		rest1.setImagePath("/resources/Buildings/RestaurantDark2.png");
 		rest2 = new Restaurant2("Restaurant 2", 50, 210, 50, 210);
 		rest2.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest3 = new Restaurant1("Restaurant 3", 730, 210, 730, 210);
+		rest3 = new Restaurant3("Restaurant 3", 730, 210, 730, 210);
 		rest3.setImagePath("/resources/Buildings/RestaurantDark2.png");
 		rest4 = new Restaurant4("Restaurant 4", 50, 410, 50, 410);
 		rest4.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest5 = new Restaurant1("Restaurant 5", 730, 410, 730, 410);
+		rest5 = new Restaurant5("Restaurant 5", 730, 410, 730, 410);
 		rest5.setImagePath("/resources/Buildings/RestaurantDark2.png");
 
 		buildings.add(house);
@@ -88,7 +93,7 @@ public class MainScreen extends Screen{
 		buildings.add(rest5);
 		
 		//just for looks
-		buildings.add(house2);
+		//buildings.add(house2);
 		buildings.add(house3);
 		buildings.add(house4);
 		buildings.add(house5);
@@ -106,7 +111,7 @@ public class MainScreen extends Screen{
  		g.drawImage(current1.getImage(), 0, 0, null);
          
  		//for(int x = 0; x < )
- 		for(int x = 0; x < grid.length; x++)
+ 		/*for(int x = 0; x < grid.length; x++)
  			for(int y = 0; y < grid[0].length; y++) {
  				if(grid[x][y] == 'E')
  					g.setColor(Color.white);
@@ -120,7 +125,7 @@ public class MainScreen extends Screen{
  					g.setColor(Color.magenta);
  				
  				g.fillRect(x*20, y*20, 40, 40);
- 			}
+ 			}*/
  		
  		for(Building b : buildings){
 			java.net.URL image = this.getClass().getResource(b.getImagePath());
@@ -143,6 +148,7 @@ public class MainScreen extends Screen{
 	
 	public List<Restaurant> getRestaurantList(){
 		List<Restaurant> tempcast = new ArrayList<Restaurant>();
+
 		tempcast.add((Restaurant)rest1);
 		tempcast.add((Restaurant)rest2);
 		tempcast.add((Restaurant)rest3);
@@ -177,7 +183,9 @@ public class MainScreen extends Screen{
 				return b.getName();
 			}
 		}
+
 		return "This is not a building";
+
 	}
 
 	public void setGrid(Character[][] grid) {

@@ -39,9 +39,9 @@ public interface Person {
 
 	public abstract Location getLocation();
 
-	public abstract void setJob(Role role, Building building);
+	public abstract void setJob(Role role, Building building, int shift);
 
-	public abstract void setJob(String type, Building building);
+	//public abstract void setJob(String type, Building building, int shift);
 
 	public abstract String getJob();
 	public abstract int getCurrentTime();

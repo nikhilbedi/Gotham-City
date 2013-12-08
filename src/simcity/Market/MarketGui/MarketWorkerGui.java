@@ -7,10 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 import agent.Role;
+import Gui.MainScreen;
 import Gui.RoleGui;
+import Gui.ScreenFactory;
+import simcity.TheCity;
 import simcity.Market.Order;
 import simcity.Market.interfaces.MarketCustomer;
 import simcity.Market.interfaces.MarketWorker;
+import simcity.restaurants.restaurant4.Restaurant4;
 
 public class MarketWorkerGui extends RoleGui{
 	
@@ -21,6 +25,8 @@ public class MarketWorkerGui extends RoleGui{
 	private List <Order> orders;
 	private boolean drawString = false;
 	private Role role;
+	private MainScreen mc;
+	boolean d = false;
 	
 	
 	public MarketWorkerGui(MarketWorker mw){
@@ -30,6 +36,10 @@ public class MarketWorkerGui extends RoleGui{
 		yPos = 360;
 		xDestination = 430;
 		yDestination = 360;
+	}
+	
+	public void setMainScreen(MainScreen m){
+		mc = m;
 	}
 	
 
@@ -53,12 +63,16 @@ public class MarketWorkerGui extends RoleGui{
 	        	command = Command.none;
 	        	System.out.println("Loaded to truck");
 	        	worker.Sent(role);
+	        	create();
 	        }
 	}
 
 	
 	public void draw(Graphics g) {
 		super.draw(g);
+		g.setColor(Color.WHITE);
+		g.fillRect(500, 500, 50, 50);
+		//mc.paintBackground(g);
 		/*g.setColor(Color.RED);
         g.fillRect(xPos, yPos, 20, 20);
 		if (drawString == true){
@@ -69,6 +83,11 @@ public class MarketWorkerGui extends RoleGui{
 
 	public boolean isPresent() {
 		return true;
+	}
+	
+	public void create(){
+		d = true;
+		
 	}
 	
 	public void DoSend(Map<String, Integer> m, Role role){
