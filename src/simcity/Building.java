@@ -1,8 +1,12 @@
 package simcity;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.Vector;
 
 import javax.swing.ImageIcon;
 
@@ -44,6 +48,12 @@ public class Building {
 		entranceLocation = new Location (entranceX, entranceY);
 		guiLocation = new Location(guiX, guiY);
 		this.name = name;
+		
+		//This is a test for the GUI remove if you want.
+	/*	jobRoles.put("Test1", new Role());
+		jobRoles.put("Test2", new Role());
+		jobRoles.put("Test3", new Role());*/
+		
 	}
 	
 	/**
@@ -126,6 +136,20 @@ public class Building {
 
 	public void setJobRoles(Map<String, Role> jobRoles) {
 		this.jobRoles = jobRoles;
+	}
+	
+	public Vector getJobCollec(){
+		
+		Vector<String> jobStringList;
+		//synchronize this list
+		jobStringList = new Vector<String>();
+		synchronized(jobRoles){
+			for(String s : jobRoles.keySet()) {
+				jobStringList.add(s);
+			}
+		}
+		
+		return jobStringList;
 	}
 
 	public Role getRoleFromString(String roleString) {

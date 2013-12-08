@@ -79,6 +79,10 @@ public class CookRole extends Role implements Cook{
 		foodMap.put("Pizza", new Food("Pizza", 3));
 	}
 
+	public CookRole() {
+		super();
+	}
+
 	//v2
 	public void hereIsAnOrder(Waiter w, String choice, int table){//(order)
 		print("Received order for " + choice + " from " + w.getName() + " at table " + table);

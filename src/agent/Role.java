@@ -53,6 +53,9 @@ public class Role {
          * name.
          */
         public String getName() {
+        		if(myPerson == null){
+        			return "No Person Assigned";
+        		}
                 return StringUtil.shortName(myPerson.getName());
         }
 

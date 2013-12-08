@@ -58,6 +58,11 @@ public class CashierRole extends Role implements Cashier {
 	}
 
 
+	public CashierRole() {
+		super();
+	}
+
+
 	//v2.1
 	public void computeBill(Waiter w, Customer c, String choice){
 		synchronized(customers){

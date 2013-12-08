@@ -18,7 +18,8 @@ public class TheCity {
 	
 	static List<String> homeList = new ArrayList<String>();
 	static List<String> jobLocationList = new ArrayList<String>();
-	static List<String> jobPositionList = new ArrayList<String>();
+	static HashMap<String, Collection<String>> buildingJobsMap = new HashMap<String,Collection<String>>();
+	static Vector<Vector<String>> jobPositionList = new Vector<Vector<String>>();
 	static List<String> transportationList = new ArrayList<String>();
 	static List<String> homeOwnerList = new ArrayList<String>();
 	
@@ -28,37 +29,6 @@ public class TheCity {
 	static Building market;
 	static Building bank;
 	
-	
-	static{//populate person-specific elements
-	homeList.add("None (Homeless Shelter)");
-	homeList.add("Home 1");
-	
-
-	buildings.add(home);
-	buildings.add(market);
-	buildings.add(bank);
-	buildings.add(rest1);
-	buildings.add(rest2);
-	buildings.add(rest3);
-	buildings.add(rest4);
-	buildings.add(rest5);
-	
-	jobLocationList.add("No job");
-	for(Building b: buildings){
-		jobLocationList.add(b.getName());
-	}
-	
-	/*jobLocationList.add("Market");
-	jobLocationList.add("Bank");
-	jobLocationList.add("Restaurant 1");*/
-	
-	jobPositionList.add("This is a temp variable I still need to figure out how to make this list dynamic");
-	
-	transportationList.add("Walker");
-	
-	homeOwnerList.add("none");
-	homeOwnerList.add("Home 1");
-	}
 	
 	static{//populate Buildings
 		//Changing from Home to Home 1 because now we have multiple buildings
@@ -94,10 +64,38 @@ public class TheCity {
 		
 		
 	}
+	
+	static{//populate person-specific elements
+	homeList.add("None (Homeless Shelter)");
+	homeList.add("Home 1");
+	
+	
+	//populate lists
+	jobLocationList.add("No job");
+	for(Building b: buildings){
+		jobLocationList.add(b.getName());
+	}
+	//populate building jobs map
+	for(Building b: buildings){
+		jobPositionList.add(b.getJobCollec());
+		buildingJobsMap.put(b.getName(), b.getJobCollec());
+	}
+	
+	/*jobLocationList.add("Market");
+	jobLocationList.add("Bank");
+	jobLocationList.add("Restaurant 1");*/
+	
+	//jobPositionList.add("This is a temp variable I still need to figure out how to make this list dynamic");
+	
+	transportationList.add("Walker");
+	
+	homeOwnerList.add("none");
+	homeOwnerList.add("Home 1");
+	}
 	public static List<String> getJobLocs(){
 		return jobLocationList;
 	}
-	public static List<String> getPos(){
+	public static Vector<Vector<String>> getPos(){
 		return jobPositionList;
 	}
 	public static List<String> getTransportation(){

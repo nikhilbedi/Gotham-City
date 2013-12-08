@@ -44,6 +44,11 @@ public class BankTellerRole extends Role implements BankTeller{
 	
 	//Functions
 	
+	public BankTellerRole() {
+		super();
+	}
+
+
 	public PersonAgent getPersonAgent() { return super.getPersonAgent();}
 	
 	public void setBankDatabase(BankDatabase dB) {

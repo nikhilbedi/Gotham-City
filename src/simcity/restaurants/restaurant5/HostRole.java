@@ -64,6 +64,10 @@ public class HostRole extends Role implements Host {
 		}
 	}
 
+	public HostRole() {
+		super();
+	}
+
 	public String getMaitreDName() {
 		return name;
 	}

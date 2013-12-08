@@ -116,6 +116,10 @@ public class WaiterRole extends Role implements Waiter {
 
 
 
+	public WaiterRole() {
+		super();
+	}
+
 	public List getWaitingCustomers() {
 		return customers;
 	}
