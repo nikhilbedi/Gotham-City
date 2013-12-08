@@ -2,11 +2,14 @@ package simcity.restaurants.restaurant1;
 
 import simcity.PersonAgent;
 import simcity.tests.mock.*;
+import Gui.RoleGui;
 import agent.Agent;
 import simcity.Market.MarketCashierRole;
 import simcity.restaurants.restaurant1.WaiterRole;
 import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
 import simcity.restaurants.restaurant1.Menu;
+import simcity.restaurants.restaurant1.gui.CashierGui;
+import simcity.restaurants.restaurant1.gui.HostGui;
 import simcity.restaurants.restaurant1.interfaces.*;
 import agent.Role;
 
@@ -23,7 +26,7 @@ public class CashierRole extends Role implements Cashier {
     //Notice that we implement MyCustomers using ArrayList, but type it
     //with List semantics.
     public List<Check> checks = Collections.synchronizedList(new ArrayList<Check>());
-    
+    public CashierGui gui = null;
     public EventLog log = new EventLog();
     public List<DeliveryBill> billsToPay = Collections.synchronizedList(new ArrayList<DeliveryBill>());
     private double registerAmt = 1000.00;
@@ -192,9 +195,6 @@ public class CashierRole extends Role implements Cashier {
     	}
     }
     
- 
-
-    
     public class Check {
 		public String type;
 		public Waiter waiter;
@@ -221,11 +221,19 @@ public class CashierRole extends Role implements Cashier {
 		public Market market;
 		public double amount;
 		//public CheckState state = CheckState.generating;
-	
 		
 		public DeliveryBill(Market m, double amt) {
 			market = m;
 			amount = amt;
 		}
     }
+    
+	public void setGui(RoleGui g) {
+		super.setGui(g);
+		gui = (CashierGui)g;
+	}
+
+	public CashierGui getGui() {
+		return gui;
+	}
 }

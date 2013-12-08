@@ -297,7 +297,6 @@ public class HostRole extends Role implements Host {
 
 
 	//utilities
-
 	public void setGui(HostGui gui) {
 		hostGui = gui;
 	}

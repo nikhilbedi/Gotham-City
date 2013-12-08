@@ -7,7 +7,9 @@ import agent.Role;
 import simcity.Market.MarketCustomerRole;
 import simcity.Market.MarketGui.MarketCustomerGui;
 import simcity.restaurants.Restaurant;
+import simcity.restaurants.restaurant1.gui.CashierGui;
 import simcity.restaurants.restaurant1.gui.CookGui;
+import simcity.restaurants.restaurant1.gui.HostGui;
 import simcity.restaurants.restaurant1.gui.WaiterGui;
 import simcity.restaurants.restaurant1.gui.WaiterSharedDataGui;
 
@@ -27,6 +29,8 @@ public class Restaurant1 extends Restaurant {
 	CookGui cookGui = new CookGui(cook, ScreenFactory.getMeScreen("Restaurant 1"));
 	WaiterGui w1Gui = new WaiterGui(waiter1, 0, ScreenFactory.getMeScreen("Restaurant 1"));
 	WaiterSharedDataGui w2Gui = new WaiterSharedDataGui(waiter2, 0, ScreenFactory.getMeScreen("Restaurant 1"));
+	HostGui hostGui = new HostGui(host, ScreenFactory.getMeScreen("Restaurant 1"));
+	CashierGui cashierGui = new CashierGui(cashier, ScreenFactory.getMeScreen("Restaurant 1"));
 
 	
 	public Restaurant1(String type, int entranceX, int entranceY, int guiX,
@@ -39,6 +43,8 @@ public class Restaurant1 extends Restaurant {
 		cook.setGui(cookGui);
 		waiter1.setGui(w1Gui);
 		waiter2.setGui(w2Gui);
+		host.setGui(hostGui);
+		cashier.setGui(cashierGui);
 		//Add the key: strings & value: roles
 		Map<String, Role> jobs = Collections.synchronizedMap(new HashMap<String, Role>());
 		jobs.put("host", host);
@@ -47,6 +53,9 @@ public class Restaurant1 extends Restaurant {
 		jobs.put("waiter1", waiter1);
 		jobs.put("waiter2", waiter2);
 		setJobRoles(jobs);
+		
+		//Remove the guis until people come in to take those roles
+		//hostGui.getHomeScreen().removeGui(hostGui);
 	}
 
 	@Override
