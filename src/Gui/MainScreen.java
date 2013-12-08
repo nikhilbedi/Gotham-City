@@ -109,7 +109,7 @@ public class MainScreen extends Screen{
 		java.net.URL image1 = this.getClass().getResource("/resources/Backgrounds/SimCityBackground.png");
  		ImageIcon current1 = new ImageIcon(image1);
  		g.drawImage(current1.getImage(), 0, 0, null);
-         
+        
  		//for(int x = 0; x < )
  		/*for(int x = 0; x < grid.length; x++)
  			for(int y = 0; y < grid[0].length; y++) {
@@ -133,7 +133,7 @@ public class MainScreen extends Screen{
 			g.drawImage(b.icon.getImage(), b.getGuiLocation().getX(), b.getGuiLocation().getY(), null);
 		}
 		
-		/*for(int x = 0; x < grid.length; x++)
+		for(int x = 0; x < grid.length; x++)
  			for(int y = 0; y < grid[0].length; y++) {
  				if(grid[x][y] == 'E')
  					g.setColor(Color.white);
@@ -143,7 +143,7 @@ public class MainScreen extends Screen{
  					g.setColor(Color.green);
  				
  				g.fillRect(x*20, y*20, 40, 40);
- 			}*/
+ 			}
 	}
 	
 	public List<Restaurant> getRestaurantList(){
