@@ -9,18 +9,15 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 import simcity.Building;
+import simcity.Home.Apartment;
 import simcity.Home.Home;
 import simcity.Market.Market;
 import simcity.bank.Bank;
 import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant1.Restaurant1;
-
-
 import simcity.restaurants.restaurant5.Restaurant5;
 import simcity.restaurants.restaurant3.Restaurant3;
-
 import simcity.restaurants.restaurant2.Restaurant2;
-
 import simcity.restaurants.restaurant4.Restaurant4;
 
 
@@ -62,7 +59,7 @@ public class MainScreen extends Screen{
 		house4.setImagePath("/resources/Buildings/HouseDark2.png");
 		house5 = new Home("Home5", 490, 590, 500, 600);
 		house5.setImagePath("/resources/Buildings/HouseDark2.png");
-		house6 = new Home("Apartment", 590, 590, 600, 600);//this is hacked for now TODO change
+		house6 = new Apartment("Apartment", 590, 590, 600, 600);//this is hacked for now TODO change
 		house6.setImagePath("/resources/Buildings/HouseDark.png");
 		
 		

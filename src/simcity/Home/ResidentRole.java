@@ -592,6 +592,7 @@ public class ResidentRole extends Role implements Resident {
 
 	public void goToSink() {
 		System.out.println("resident cleaning plates");
+		
 		residentGui.DoClearFood();
 	}
 

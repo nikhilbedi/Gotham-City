@@ -14,7 +14,7 @@ import simcity.PersonAgent;
 import simcity.PersonAgent.EatingState;
 import simcity.PersonAgent.HungerState;
 
-public class ResidentGui extends RoleGui {
+public class ApartmentResidentGui extends ResidentGui {
 	/*
 	 * private int xPos; private int yPos; private int xDestination; private int
 	 * yDestination;
@@ -24,6 +24,15 @@ public class ResidentGui extends RoleGui {
 	private Resident resident;
 	private Command command;
 	boolean payingRent = false;
+	public Integer roomNumber;
+	
+	int scaleMultiplier = 3;
+	int wallWidth = 10, hallwayWidth = 250;
+	int roomHeight = 780/scaleMultiplier;
+	int roomWidth = 800/scaleMultiplier;
+	
+	int xPadding = ((int)Math.ceil(roomNumber / 3.0)-1) * (roomWidth + hallwayWidth + wallWidth*2); 
+	int yPadding = (((roomNumber % 3 == 0 ? 3: (roomNumber % 3)) - 1) * (wallWidth + roomHeight) ) ;
 
 	public boolean cooking = false;
 	public boolean plating = false;
@@ -31,12 +40,15 @@ public class ResidentGui extends RoleGui {
 	public boolean clearing = false;
 	public boolean sleeping = false;
 	public boolean checkingMail = false;
+	
 
 	private enum Command {
 		none, atRefridgerator, left, atTable, atSink, atPlatingArea, atStove, atBed, atFridge, exited, atHome, atMailbox
 	};
-
-	public ResidentGui(Resident r) {
+	public ApartmentResidentGui() {
+		super();
+	}
+	public ApartmentResidentGui(Resident r) {
 		myColor = Color.red;
 		// System.err.println("Here we are 2");
 		resident = r;
@@ -46,7 +58,7 @@ public class ResidentGui extends RoleGui {
 		xDestination = 400;
 		yDestination = -40;
 	}
-	public ResidentGui(ResidentRole role, Screen s) {
+	public ApartmentResidentGui(ResidentRole role, Screen s) {
 		myColor = Color.red;
 		// System.err.println("Here we are 2");
 		resident = role;
@@ -57,18 +69,17 @@ public class ResidentGui extends RoleGui {
 		yDestination = -40;
 	}
 
-	public ResidentGui() {
-		//super();
-		
-	}
-	
-	public ResidentGui(Apartment apartment, ResidentRole res1, Screen meScreen) {
-		// TODO Auto-generated constructor stub
+	 public ApartmentResidentGui(Apartment apartment, ResidentRole res1,
+			Screen meScreen) {
 		super(apartment, res1, meScreen);
 	}
-	// @Override
+	@Override
 	public void updatePosition() {
 		super.updatePosition();
+		
+		for (roomNumber = 1; roomNumber <= 6; ++roomNumber) {
+			
+		
 		if (xPos == 400 && yPos == -40) {
 			// resident.checkMailbox();
 			// payingRent = true;
@@ -82,27 +93,27 @@ public class ResidentGui extends RoleGui {
 
 			//}
 		}
-		if (xPos == 300 && yPos == 460 && command == Command.atTable) {
+		if ( xPos == xPadding +300/ scaleMultiplier &&  yPos == yPadding + 460/ scaleMultiplier && command == Command.atTable) {
 			command = Command.none;
 			resident.AtTable();
 		}
-		else if (xPos == 80 && yPos == 520 && command == Command.atSink) {
+		else if (xPos == xPadding + 80/ scaleMultiplier && yPos == yPadding + 520/ scaleMultiplier && command == Command.atSink) {
 			command = Command.none;
 			resident.atSink();
 		}
-		else if (xPos == 120 && yPos == 680 && command == Command.atPlatingArea) {
+		else if (xPos == xPadding + 120/ scaleMultiplier && yPos == yPadding + 680/ scaleMultiplier && command == Command.atPlatingArea) {
 			command = Command.none;
 			resident.atPlatingArea();
 		}
-		else if (xPos == 230 && yPos == 680 && command == Command.atStove) {
+		else if (xPos == xPadding + 230/ scaleMultiplier && yPos == yPadding + 680/ scaleMultiplier && command == Command.atStove) {
 			command = Command.none;
 			resident.atStove();
 		}
-		else if (xPos == 700 && yPos == 214 && command == Command.atBed) {
+		else if (xPos == xPadding + 700/ scaleMultiplier && yPos == yPadding + 214/ scaleMultiplier && command == Command.atBed) {
 			command = Command.none;
 			resident.atBed();
 		}
-		else if (xPos == 420 && yPos == 670 && command == Command.atFridge) {
+		else if (xPos == xPadding + 420/ scaleMultiplier && yPos == yPadding + 670/ scaleMultiplier && command == Command.atFridge) {
 			command = Command.none;
 			resident.atFridge();
 		}
@@ -110,13 +121,14 @@ public class ResidentGui extends RoleGui {
 			command = Command.none;
 			resident.exited();
 		}
-		else if (xPos == 138 && yPos == 32 && command == Command.atMailbox) {
+		else if (xPos == xPadding + 138/ scaleMultiplier && yPos == yPadding + 32/ scaleMultiplier && command == Command.atMailbox) {
 			command = Command.none;
 			resident.atMailbox();
 		}
 		else if (xPos == 84 && yPos == 226 && command == Command.atHome) {
 			command = Command.none;
 			resident.atHome();
+		}
 		}
 
 	}
@@ -127,88 +139,108 @@ public class ResidentGui extends RoleGui {
 	 * 
 	 * }
 	 */
-
+	@Override
 	public void DoGoToTable() {// 260, 350, 110, 110
 		System.out.println("At Table");
-		xDestination = 300;
-		yDestination = 460;
+		for (roomNumber = 1; roomNumber <= 6; ++roomNumber) {
+		xDestination = xPadding + 300/scaleMultiplier;
+		yDestination = yPadding + 460/scaleMultiplier;
+		}
 		command = Command.atTable;
 	}
-
+	@Override
 	public void DoLeave() {// 350, 0, 100, 10
 		System.out.println("Left restaurant");
-		xDestination = 400;
+		
+		xDestination =  400;
 		yDestination = -40;
+		
 		command = Command.left;
 	}
-
+	@Override
 	public void DoClearFood() {// 10, 500, 60, 80
 		System.out.println("at sink");
-		xDestination = 80;
-		yDestination = 520;
+		for (roomNumber = 1; roomNumber <= 6; ++roomNumber) {
+		xDestination = xPadding +80/scaleMultiplier;
+		yDestination = yPadding + 520/scaleMultiplier;
+		}
 		command = Command.atSink;
 
 	}
-
+	@Override
 	public void DoGoToPlatingArea() {
 		System.out.println("at plating area");
-		xDestination = 120;
-		yDestination = 680;
+		for (roomNumber = 1; roomNumber <= 6; ++roomNumber) {
+		xDestination = xPadding + 120/scaleMultiplier;
+		yDestination = yPadding + 680/scaleMultiplier;
+		}
 		command = Command.atPlatingArea;
 	}
-
+	@Override
 	public void DoGoToStove() { // 160, 700, 110, 80
 		System.out.println("at Stove");
-		xDestination = 230;
-		yDestination = 680;
+		for (roomNumber = 1; roomNumber <= 6; ++roomNumber) {
+		xDestination = xPadding + 230/scaleMultiplier;
+		yDestination = yPadding + 680/scaleMultiplier;
+		}
 		command = Command.atStove;
 	}
-
+	@Override
 	public void DoGoToBed() {
 		System.out.println("at bed");
-		xDestination = 700;
-		yDestination = 214;
+		for (roomNumber = 1; roomNumber <= 6; ++roomNumber) {
+		xDestination = xPadding + 700/scaleMultiplier;
+		yDestination = yPadding + 214/scaleMultiplier;
+		}
 		command = Command.atBed;
 
 	}
-
+	@Override
 	public void DoGoToFridge() { // 380, 690, 130, 10
 		System.out.println("at fridge");
-		xDestination = 420;
-		yDestination = 670;
+		for (roomNumber = 1; roomNumber <= 6; ++roomNumber) {
+		xDestination = xPadding + 420/scaleMultiplier;
+		yDestination = yPadding + 670/scaleMultiplier;
+		}
 		command = Command.atFridge;
 
 	}
-
+	@Override
 	public void DoExitHome() {
 		System.out.println("exited home");
+		
 		xDestination = 400;
 		yDestination = -40;
+	
 		command = Command.exited;
 
 	}
-
+	@Override
 	public void DoReturnToHomePosition() {
 		//System.out.println("At Home Position");
-		xDestination = 84;
-		yDestination = 224;
+		for (roomNumber = 1; roomNumber <= 6; ++roomNumber) {
+		xDestination = xPadding + 84/scaleMultiplier;
+		yDestination = yPadding + 224/scaleMultiplier;
+		}
 		command = Command.atHome;
 
 	}
-
+	@Override
 	public void DoGoToMailbox() {
+		for (roomNumber = 1; roomNumber <= 6; ++roomNumber) {
 		System.out.println("At mailbox");
-		xDestination = 138;
-		yDestination = 32;
+		xDestination = xPadding + 138/scaleMultiplier;
+		yDestination = yPadding + 32/scaleMultiplier;
+		}
 		command = Command.atMailbox;
 
 	}
 
-
+	@Override
 	public int getXPos() {
 		return xPos;
 	}
-
+	@Override
 	public int getYPos() {
 		return yPos;
 	}

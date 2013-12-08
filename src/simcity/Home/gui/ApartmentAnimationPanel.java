@@ -24,6 +24,7 @@ public class ApartmentAnimationPanel extends Screen {
 	private Dimension bufferSize;
 	public ResidentGui gui;
 	public int size;
+	public int roomNumber;
 	
 	public int scaleMultiplier = 3;
 	
@@ -110,6 +111,9 @@ public class ApartmentAnimationPanel extends Screen {
 		Graphics chair = (Graphics) g;
 		Graphics walls = (Graphics)g;
 		
+		door.setColor(Color.ORANGE);
+		door.fill3DRect( 365 , 0, 50, 6 , true);
+		
 		walls.setColor(Color.DARK_GRAY);
 		walls.fill3DRect(0, 260, 280, 2, true);
 		walls.fill3DRect(0, 270, 280, 2, true);
@@ -161,7 +165,7 @@ public class ApartmentAnimationPanel extends Screen {
 		
 		
 		
-		for (int roomNumber = 1; roomNumber <= 6; ++roomNumber) {
+		for (roomNumber = 1; roomNumber <= 6; ++roomNumber) {
 			int xPadding = ((int)Math.ceil(roomNumber / 3.0)-1) * (roomWidth + hallwayWidth + wallWidth*2); 
 			int yPadding = (((roomNumber % 3 == 0 ? 3: (roomNumber % 3)) - 1) * (wallWidth + roomHeight) ) ;
 

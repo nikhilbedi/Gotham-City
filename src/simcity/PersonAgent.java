@@ -8,18 +8,13 @@ import Gui.ScreenFactory;
 import simcity.interfaces.Person;
 import simcity.RoleFactory;
 import simcity.restaurants.*;
-
-
 import simcity.restaurants.restaurant3.Restaurant3CustomerRole;
 import simcity.restaurants.restaurant3.gui.Restaurant3CustomerGui;
-
 import simcity.restaurants.restaurant4.Restaurant4;
 import simcity.restaurants.restaurant4.Restaurant4CustomerRole;
 import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4CustomerGui;
-
 import simcity.restaurants.restaurant5.Restaurant5CustomerRole;
 import simcity.restaurants.restaurant5.gui.Restaurant5CustomerGui;
-
 import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
 import simcity.restaurants.restaurant1.gui.Restaurant1CustomerGui;
 import simcity.restaurants.restaurant2.Restaurant2CustomerRole;
@@ -57,6 +52,8 @@ public class PersonAgent extends Agent implements Person {
         public int accountNumber; //Not currently sure how we're using account numbers, but the person should know it if we're removing that role
         Semaphore busyWithTask = new Semaphore(0, false);
         double money = 0.0;
+        int roomNumber = 1;
+        
         protected List<Role> roles = new ArrayList<Role>();
         public Map<String, Integer> groceryList = new HashMap<String, Integer>();
         public Map<String, Integer> groceryBag = new HashMap<String, Integer>();
@@ -241,7 +238,7 @@ public class PersonAgent extends Agent implements Person {
                         shelter = true;
                 }
                 else {
-                        myHome = h;
+                        setMyHome(h);
                         //currentBuilding = h;
                         currentDestination = h;
                         //Should I make a new one, or just make it equal to this one? There is only one resident for a home...
@@ -550,11 +547,11 @@ public class PersonAgent extends Agent implements Person {
 		if(checkPersonScheduler) {
 			//if the man has groceries in his hand, let him take them home!
 		//	print("person sched");
-			//if(true){
-				//goToHome();
+			if(true){
+				goToHome();
 				//goEatAtRestaurant();
-				//return true;
-			//}
+				return true;
+			}
 			if(marketState == MarketState.TakeGroceriesHome) {
 				marketState = MarketState.TakingGroceriesHome;
 				goToHome();
@@ -653,7 +650,7 @@ public class PersonAgent extends Agent implements Person {
 					return true;
 				}
 			}
-			if(currentBuilding != myHome) {
+			if(currentBuilding != getMyHome()) {
 				goToHome();
 				return true;
 			}
@@ -712,16 +709,16 @@ public class PersonAgent extends Agent implements Person {
 		//animate to desired location
 		roles.remove(myJob.role);
 		//Going home is not a critical section
-		gui.DoGoToLocation(myHome.getEntranceLocation());
+		gui.DoGoToLocation(getMyHome().getEntranceLocation());
 	}
 
 	private void goToHome() {
-		
+		System.err.println("atCall" + getMyHome().getName());
 		//Since there are not enough homes, some people will be left with a "null" home. Send them to a default location in the corner 
-		if(myHome != null) {
+		if(getMyHome() != null) {
 			//if inside building and not in home, animate there
-			if(currentBuilding != myHome) {
-				gui.DoGoToLocation(myHome.getEntranceLocation());
+			if(currentBuilding != getMyHome()) {
+				gui.DoGoToLocation(getMyHome().getEntranceLocation());
 				try {
 					//print("Available permits: " + busyWithTask.availablePermits());
 					busyWithTask.acquire();
@@ -732,18 +729,19 @@ public class PersonAgent extends Agent implements Person {
 			}
 	
 			//homeTemp = RoleFactory.makeMeRole("residentRole");
-			homeTemp = myHome.resident;
+			homeTemp = getMyHome().getResident();
 			homeTemp.setActive(true);
-			currentBuilding = myHome;
-			homeGui = new ResidentGui((ResidentRole)homeTemp, ScreenFactory.getMeScreen("Home"));
-			homeGui.setHomeScreen(ScreenFactory.getMeScreen("Home"));
+			currentBuilding = getMyHome();
+			homeGui = new ResidentGui((ResidentRole)homeTemp, ScreenFactory.getMeScreen("Apartment 1"));
+			homeGui.setHomeScreen(ScreenFactory.getMeScreen("Apartment 1"));
 	
 			//Add role
 	
 			homeTemp.setGui(homeGui);
 			//Enter building
 			homeTemp.setPerson(this);
-			enteringBuilding(homeTemp);
+			//hacking TODO
+			enteringBuilding(myHome.getResident());
 			checkPersonScheduler = false;
 		}
 		else {
@@ -927,6 +925,14 @@ public class PersonAgent extends Agent implements Person {
 
 	public void setCurrentBuilding(Building currentBuilding) {
 		this.currentBuilding = currentBuilding;
+	}
+
+	public Home getMyHome() {
+		return myHome;
+	}
+
+	public void setMyHome(Home myHome) {
+		this.myHome = myHome;
 	}
 
 

@@ -19,6 +19,8 @@ public class Home extends Building{
 	public ResidentRole resident; //When the PersonAgent reaches thehome, he needs to be able to look at this class and add this role to his list
 	//public String resident = "resident";
 	
+	
+
 	public Home(String type, int entranceX, int entranceY, int guiX,
 			int guiY){
 		super(type, entranceX, entranceY, guiX, guiY);
@@ -39,6 +41,13 @@ public class Home extends Building{
 
 	public void setRentBills(List<RentBill> rentBills) {
 		this.rentBills = rentBills;
+	}
+	public ResidentRole getResident() {
+		return resident;
+	}
+
+	public void setResident(ResidentRole resident) {
+		this.resident = resident;
 	}
 }	
 

@@ -23,7 +23,7 @@ public class Food {
 		if (type.equals("Chicken")){
 			cookingTime = 8;
 			//amount = 4;
-			amount = 0;
+			amount = 4;
 			capacity = 6;
 		}
 		/*

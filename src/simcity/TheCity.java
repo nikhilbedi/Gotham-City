@@ -2,6 +2,7 @@ package simcity;
 
 import java.util.*;
 
+import simcity.Home.Apartment;
 import simcity.Home.Home;
 import simcity.Market.Market;
 import simcity.bank.Bank;
@@ -50,6 +51,9 @@ public class TheCity {
 	static{//populate Buildings
 		home = new Home("Home", 390, 590, 400, 600);
 		home.setImagePath("/resources/Buildings/HouseDark2.png");
+		
+		apart = new Apartment("Apartment 1", 590, 590, 600, 600);
+		apart.setImagePath("/resources/Buildings/HouseDark.png");
 	
 		
 		market = new Market("Market", 500, 100, 500, 100);
@@ -76,6 +80,7 @@ public class TheCity {
 		buildings.add(rest3);
 		buildings.add(rest4);
 		buildings.add(rest5);
+		buildings.add(apart);
 		
 		
 		
@@ -120,6 +125,9 @@ public class TheCity {
 		}
 		if(s.equalsIgnoreCase("Home")){
 			return home;
+		}
+		if(s.equalsIgnoreCase("Apartment 1")){
+			return apart;
 		}
 
 		return null;
