@@ -21,6 +21,7 @@ import java.util.TimerTask;
 import simcity.Home.Food;
 import simcity.PersonAgent;
 import simcity.PersonAgent.HungerState;
+import simcity.PersonAgent.JobState;
 import simcity.PersonAgent.MoneyState;
 import simcity.PersonAgent.RentBill;
 import simcity.PersonAgent.RentState;
@@ -238,7 +239,10 @@ public class ResidentRole extends Role implements Resident {
 //		}
 
 		//mailbox scheduling events
-		
+		if (myPerson.myJob.state == JobState.GoToWorkSoon && hungry == false) {
+			state = HomeState.LeavingHome;
+			dropEverything();
+		}
 		
 		if (state == HomeState.DoingNothing && event == HomeEvent.checkMailbox) {
 			state = HomeState.GoingToMailbox;
@@ -331,7 +335,7 @@ public class ResidentRole extends Role implements Resident {
 		}
 		if (state == HomeState.CheckingFoodSupply && event == HomeEvent.EmptyFridge) {
 			//System.out.println("NOTHING 2 msg in sch *HI***++++");
-			state = HomeState.LeavingHome; // LeavingRestaurant
+			state = HomeState.LeavingHome; 
 			if(this.myPerson.getMyHome().getName().contains("Apartment")){
 				
 			exitRoom();
@@ -432,6 +436,14 @@ public class ResidentRole extends Role implements Resident {
 	// Actions
 
 
+
+	private void dropEverything() {
+		if(this.myPerson.getMyHome().getName().contains("Apartment")){
+			exitRoom();
+			}
+			else
+			exitHome();
+	}
 
 	//checking mailbox when walking in and paying rent bills
 	public void goToMailbox() {
