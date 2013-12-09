@@ -10,13 +10,17 @@ import java.util.Vector;
 import javax.print.attribute.standard.MediaSize.NA;
 
 import simcity.PersonAgent;
+import Gui.RoleGui;
 import agent.Role;
 import simcity.restaurants.*;
 import simcity.restaurants.restaurant3.*;
 import simcity.restaurants.restaurant3.Order.OrderState;
+import simcity.restaurants.restaurant3.gui.CookGui;
 import simcity.restaurants.restaurant3.gui.HostGui;
+import simcity.restaurants.restaurant3.gui.WaiterGui;
 import simcity.restaurants.restaurant3.interfaces.*;
 import agent.Agent;
+import Gui.ScreenFactory;
 
 /**
  * Evan's restaurant
@@ -25,23 +29,47 @@ import agent.Agent;
  */
 
 public class Restaurant3 extends Restaurant {
+	//create roles
+	Host host = new HostRole();
+	Cashier cashier = new Restaurant3CashierRole();
+	Waiter waiter1 = new WaiterRole();
+	Waiter waiter2 = new WaiterSharedData();
+	Waiter waiter3 = new WaiterRole();
+	Waiter waiter4 = new WaiterSharedData();
+	Cook cook = new Restaurant3CookRole(); 
+	
+	
+	//create guis
+	HostGui hostGui = new HostGui(host, ScreenFactory.getMeScreen("Restaurant 3"));
+	//CashierGui cashierGui = new CashierGui(cashier, ScreenFactory.getMeScreen(this.getName()));
+	WaiterGui waiterGui1 = new WaiterGui(waiter1, 0,ScreenFactory.getMeScreen("Restaurant 3"));
+	WaiterGui waiterGui2 = new WaiterGui(waiter2, 0,ScreenFactory.getMeScreen("Restaurant 3"));
+	WaiterGui waiterGui3 = new WaiterGui(waiter3, 0,ScreenFactory.getMeScreen("Restaurant 3"));
+	WaiterGui waiterGui4 = new WaiterGui(waiter4, 0,ScreenFactory.getMeScreen("Restaurant 3"));
+	
+	CookGui cookGui = new CookGui(cook, ScreenFactory.getMeScreen("Restaurant 3"));
+	
+	//public HostRole host = new HostRole();
+	//public Restaurant3CashierRole cashier = new Restaurant3CashierRole();
+	//public Restaurant3CookRole cook = new Restaurant3CookRole();
+   
+    //List<WaiterRole> waiters = new ArrayList<WaiterRole>();
+    //public WaiterRole waiter1 = new WaiterRole();
+    //public WaiterSharedData waiter2 = new WaiterSharedData();
+  
 	
 	public List<Order> orders = Collections.synchronizedList(new Vector<Order>()); 
 	public Map<String, Food> foods = Collections.synchronizedMap(new HashMap<String, Food>());
-	private int threshold;
 	private String name;
-	private Semaphore atTable = new Semaphore(0,true);
 	private Food f;
-	public HostGui hostGui = null;
-	public CookRole cook;
+	//public HostGui hostGui = null;
 	//private WaiterAgent waiter;
 	//CashierState cashState;
 	public enum CashierState {idle, calculating}
 	CashierState cashState;
 	public Map<Customer, Double> owed = Collections.synchronizedMap(new HashMap<Customer, Double>());
 	private double restaurantRevenue = 100;
-	
-	private int inventory = 5;
+
 	 
 	public Restaurant3(String type, int entranceX, int entranceY, int guiX,
             int guiY) {
@@ -50,7 +78,55 @@ public class Restaurant3 extends Restaurant {
 		this.name = type;
 		cashState = CashierState.idle;
 		
+		setWeekdayHours(6,24);
+		setWeekendHours(0, 0);
 		
+
+		((HostRole) host).setGui((RoleGui)hostGui);
+		//((Restaurant3CashierRole) cashier).setGui((RoleGui)cashierGui);
+		((WaiterRole) waiter1).setGui((RoleGui)waiterGui1);
+		((WaiterSharedData) waiter2).setGui((RoleGui)waiterGui2);
+		((WaiterRole) waiter3).setGui((RoleGui)waiterGui3);
+		((WaiterSharedData) waiter4).setGui((RoleGui)waiterGui4);
+		((Restaurant3CookRole) cook).setGui((RoleGui)cookGui);
+		
+		jobRoles.put("Host Early", (Role)host);
+		jobRoles.put("Host Late",  (Role)host);
+
+		jobRoles.put("Cashier Early",(Role)cashier);
+		jobRoles.put("Cashier Late", (Role)cashier);
+		
+		jobRoles.put("Waiter1 Early",(Role)waiter1);
+		jobRoles.put("Waiter1 Late", (Role)waiter1);
+		
+		jobRoles.put("Waiter2 Early",(Role)waiter2);
+		jobRoles.put("Waiter2 Late", (Role)waiter2);
+
+		jobRoles.put("Waiter3 Early",(Role)waiter3);
+		jobRoles.put("Waiter3 Late", (Role)waiter3);
+		
+
+		jobRoles.put("Waiter4 Early",(Role)waiter4);
+		jobRoles.put("Waiter4 Late", (Role)waiter4);
+		
+		
+		jobRoles.put("Cook Early",(Role)cook);
+		jobRoles.put("Cook Late", (Role)cook);
+		
+		//Set the open and closing hours
+        //setWeekdayHours(6, 24);
+        //setWeekendHours(0, 0);
+        //Add the key: strings & value: roles
+        Map<String, Role> jobs = Collections.synchronizedMap(new HashMap<String, Role>());
+        jobs.put("host", (Role) host);
+        jobs.put("cashier", (Role) cashier);
+        jobs.put("cook", (Role) cook);
+        jobs.put("waiter1", (Role) waiter1);
+        jobs.put("waiter2", (Role) waiter2);
+        jobs.put("waiter3", (Role) waiter3);
+        jobs.put("waiter4", (Role) waiter4);
+        //setJobRoles(jobs);
+        
 		f = new Food ("Chicken");
 		foods.put("Chicken", f);
 		
@@ -76,7 +152,7 @@ public class Restaurant3 extends Restaurant {
 
 
 	//utilities
-
+	
 	public void setGui(HostGui gui) {
 		hostGui = gui;
 	}
@@ -93,7 +169,7 @@ public class Restaurant3 extends Restaurant {
 		return restaurantRevenue;
 	}
 	//@Override
-	public void setCook(CookRole cook) {
+	public void setCook(Restaurant3CookRole cook) {
 		this.cook = cook;
 		
 	}
@@ -109,12 +185,12 @@ public class Restaurant3 extends Restaurant {
 	
 	@Override
 	public void setCashier(Role cashier) {
-		this.cashier = (CashierRole)cashier;
+		this.cashier = (Restaurant3CashierRole)cashier;
 	}
 	
 	@Override
 	public Role getCashier() {
-		return (CashierRole)cashier;
+		return (Restaurant3CashierRole)cashier;
 	}
 	
 	@Override

@@ -1,6 +1,6 @@
 package simcity.restaurants.restaurant3.gui;
 
-import simcity.restaurants.restaurant3.CashierRole;
+import simcity.restaurants.restaurant3.Restaurant3CashierRole;
 import Gui.RoleGui;
 import Gui.Screen;
 
@@ -11,9 +11,9 @@ import Gui.Screen;
  */
 public class Restaurant3CashierGui extends RoleGui {
 
-    private CashierRole agent = null;
+    private Restaurant3CashierRole agent = null;
 
-    public Restaurant3CashierGui(CashierRole agent, Screen s) {
+    public Restaurant3CashierGui(Restaurant3CashierRole agent, Screen s) {
     	super(agent, s);
         this.agent = agent;
         xPos = -10;

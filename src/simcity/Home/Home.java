@@ -18,7 +18,9 @@ public class Home extends Building{
 	public List<Food> fridgeFoods;
 
 	public ResidentRole resident; //When the PersonAgent reaches thehome, he needs to be able to look at this class and add this role to his list
-	//public String resident = "resident";
+	public String HomeResident = "resident";
+	//int openTime, closeTime;
+	//Location location = new Location(xCoor, yCoor);
 	
 	public Home(String type, int entranceX, int entranceY, int guiX,
 			int guiY){
@@ -34,6 +36,7 @@ public class Home extends Building{
 		//(You can still keep the other constructor, resulting in two constructors)
 	}
 	
+
 	public Vector<String> getBuildingInfo(){
 		Vector<String> info = new Vector<String>();
 		info.add("Home");
@@ -42,12 +45,20 @@ public class Home extends Building{
 		return info;
 	}
 
+
 	public List<RentBill> getRentBills() {
 		return rentBills;
 	}
 
 	public void setRentBills(List<RentBill> rentBills) {
 		this.rentBills = rentBills;
+	}
+	public ResidentRole getResident() {
+		return resident;
+	}
+
+	public void setResident(ResidentRole resident) {
+		this.resident = resident;
 	}
 }	
 

@@ -7,6 +7,7 @@ import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 import Gui.RoleGui;
 import Gui.Screen;
+import simcity.Home.Apartment;
 import simcity.Home.ResidentRole;
 import simcity.Home.interfaces.Resident;
 import simcity.PersonAgent;
@@ -46,6 +47,7 @@ public class ResidentGui extends RoleGui {
 		yDestination = -40;
 	}
 	public ResidentGui(ResidentRole role, Screen s) {
+		super(role, s);
 		myColor = Color.red;
 		// System.err.println("Here we are 2");
 		resident = role;
@@ -56,6 +58,11 @@ public class ResidentGui extends RoleGui {
 		yDestination = -40;
 	}
 
+	public ResidentGui() {
+		super();
+		
+	}
+	
 	// @Override
 	public void updatePosition() {
 		super.updatePosition();
@@ -117,7 +124,7 @@ public class ResidentGui extends RoleGui {
 	 * 
 	 * }
 	 */
-
+	
 	public void DoGoToTable() {// 260, 350, 110, 110
 		System.out.println("At Table");
 		xDestination = 300;

@@ -157,7 +157,7 @@ public class MarketRole extends Role implements Market{
 
 	//utilities
 	
-	public void setCook(CookRole cook) {
+	public void setCook(Restaurant3CookRole cook) {
 			cook = cook;
 	}
 }

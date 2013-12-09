@@ -10,6 +10,8 @@ import javax.swing.ImageIcon;
 
 import simcity.Building;
 
+import simcity.Home.Apartment;
+
 import simcity.Bus;
 
 import simcity.TheCity;
@@ -19,8 +21,6 @@ import simcity.Market.Market;
 import simcity.bank.Bank;
 import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant1.Restaurant1;
-
-
 import simcity.restaurants.restaurant5.Restaurant5;
 import simcity.restaurants.restaurant3.Restaurant3;
 import simcity.restaurants.restaurant2.Restaurant2;
@@ -38,10 +38,12 @@ public class MainScreen extends Screen{
 
 	public MainScreen()
 	{
+
 		addGui(bus);
 		//so much cleaner
 		buildings = TheCity.getBuildings();
 		addGui(bus);
+
 	}
 
 	public  void paintBackground(Graphics g)
@@ -67,7 +69,9 @@ public class MainScreen extends Screen{
 			int tempX = b.getGuiLocation().getX();
 			int tempY = b.getGuiLocation().getY();
 			if( (x>tempX) && (x<tempX + b.icon.getIconWidth()) && (y>tempY) && (y<tempY+b.icon.getIconHeight())){
+				System.err.println(b.getName());
 				return b.getName();
+				
 			}
 		}
 

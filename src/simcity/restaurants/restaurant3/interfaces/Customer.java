@@ -50,6 +50,6 @@ public interface Customer {
 
 	public abstract void setDonePayingState();
 
-	public abstract void setWaiter(WaiterRole waiter);
+	public abstract void setWaiter(Waiter waiter);
 
 }

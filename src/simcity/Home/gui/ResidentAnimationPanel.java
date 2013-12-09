@@ -14,7 +14,7 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ArrayList;
 
-public class HomeAnimationPanel extends Screen {
+public class ResidentAnimationPanel extends Screen {
 
 	static final int xPos = 200;
 	static final int yPos = 150;
@@ -22,10 +22,9 @@ public class HomeAnimationPanel extends Screen {
 	static final int HEIGHT = 50;
 	private Image bufferImage;
 	private Dimension bufferSize;
-	public ResidentGui gui;
-	public Home home;
+	private ResidentGui gui;
 
-	public HomeAnimationPanel() {
+	public ResidentAnimationPanel() {
 		// setSize(WINDOWX, WINDOWY);
 		// setVisible(true);
 		// bufferSize = this.getSize();

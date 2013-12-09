@@ -58,6 +58,12 @@ public interface Resident {
 
 
 	public abstract void atHome();
+
+	public abstract void atRoomEntrance();
+
+	
+
+	public abstract void atRoomExit();
 	
 	
 }
