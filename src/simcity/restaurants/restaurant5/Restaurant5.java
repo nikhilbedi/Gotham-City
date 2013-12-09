@@ -17,7 +17,7 @@ public class Restaurant5 extends Restaurant {
 
 
 	//create roles
-	Host host = new HostRole();
+/*	Host host = new HostRole();
 	Cashier cashier = new CashierRole();
 	Waiter waiter1 = new WaiterRole();
 	Cook cook = new CookRole(); 
@@ -27,7 +27,7 @@ public class Restaurant5 extends Restaurant {
 	HostGui hostGui = new HostGui(host, ScreenFactory.getMeScreen(this.getName()));
 	CashierGui cashierGui = new CashierGui(cashier, ScreenFactory.getMeScreen(this.getName()));
 	WaiterGui waiterGui = new WaiterGui(waiter1, ScreenFactory.getMeScreen(this.getName()));
-	CookGui cookGui = new CookGui(cook, ScreenFactory.getMeScreen(this.getName()));
+	CookGui cookGui = new CookGui(cook, ScreenFactory.getMeScreen(this.getName()));*/
 
 
 	List<WaiterRole> waiters = new ArrayList<WaiterRole>();
@@ -48,7 +48,7 @@ public class Restaurant5 extends Restaurant {
 		setWeekdayHours(9, 17);
 		setWeekendHours(0,0);
 
-		((HostRole) host).setGui((RoleGui)hostGui);
+/*		((HostRole) host).setGui((RoleGui)hostGui);
 		((CashierRole) cashier).setGui((RoleGui)cashierGui);
 		((WaiterRole) waiter1).setGui((RoleGui)waiterGui);
 		((CookRole) cook).setGui((RoleGui)cookGui);
@@ -63,7 +63,7 @@ public class Restaurant5 extends Restaurant {
 		jobRoles.put("Waiter1 Late", (Role)waiter1);
 
 		jobRoles.put("Cook Early",(Role)cook);
-		jobRoles.put("Cook Late", (Role)cook);
+		jobRoles.put("Cook Late", (Role)cook);*/
 
 	}
 
