@@ -338,21 +338,15 @@ public class PersonAgent extends Agent implements Person {
 		if (hungerCount > 11 && hungerState != HungerState.Starving
 				&& hungerState != HungerState.FeedingHunger) {
 			hungerState = HungerState.Starving;
-			print("starving statechange");
-			// stateChanged();
 		} else if (hungerCount > 7 && hungerState != HungerState.Hungry
 				&& hungerState != HungerState.FeedingHunger
 				&& hungerState != HungerState.Starving) {
 			hungerState = HungerState.Hungry;
-			print("hungry statechange");
-			// stateChanged();
 		} else if (hungerCount > 3 && hungerState != HungerState.Famished
 				&& hungerState != HungerState.FeedingHunger
 				&& hungerState != HungerState.Starving
 				&& hungerState != HungerState.Hungry) {
 			hungerState = HungerState.Famished;
-			print("famished statechange");
-			// stateChanged();
 		}
 
 		if (myJob != null) {
@@ -531,7 +525,6 @@ public class PersonAgent extends Agent implements Person {
 				return true;
 			}
 
-
 			// If he's CRRAAAZZY hungry, then eat something first. Then do
 			// checks of eating at home versus the restaurant
 			if (hungerState == HungerState.Starving
@@ -650,11 +643,32 @@ public class PersonAgent extends Agent implements Person {
 			e.printStackTrace();
 		}
 		
-		myJob.role.setWorkStatus(true);
-		
-		enteringBuilding(myJob.role);
-
 		myJob.state = JobState.AtWork;
+		checkPersonScheduler = false;
+		
+		if(myJob.role.checkWorkStatus()) {
+			waitToStartWork();
+		}
+		else {
+			enteringBuilding(myJob.role);
+			myJob.role.setWorkStatus(true);
+		}
+	}
+	
+	private void waitToStartWork() {
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			public void run() {
+				if(myJob.role.checkWorkStatus()) {
+					waitToStartWork();
+				}
+				else {
+					enteringBuilding(myJob.role);
+					myJob.role.setWorkStatus(true);
+				}
+			}
+		},
+		500);
 	}
 	
 	private void tellRoleToLeaveWork() {
