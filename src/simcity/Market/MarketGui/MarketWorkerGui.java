@@ -3,6 +3,8 @@ package simcity.Market.MarketGui;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -11,13 +13,20 @@ import Gui.MainScreen;
 import Gui.RoleGui;
 import Gui.Screen;
 import Gui.ScreenFactory;
+import simcity.Location;
 import simcity.TheCity;
 import simcity.Truck;
+import simcity.Market.Market;
 import simcity.Market.MarketWorkerRole;
 import simcity.Market.Order;
 import simcity.Market.interfaces.MarketCustomer;
 import simcity.Market.interfaces.MarketWorker;
+import simcity.restaurants.Restaurant;
+import simcity.restaurants.restaurant1.Restaurant1;
+import simcity.restaurants.restaurant2.Restaurant2;
+import simcity.restaurants.restaurant3.Restaurant3;
 import simcity.restaurants.restaurant4.Restaurant4;
+import simcity.restaurants.restaurant5.Restaurant5;
 
 public class MarketWorkerGui extends RoleGui{
 	
@@ -29,7 +38,12 @@ public class MarketWorkerGui extends RoleGui{
 	private boolean drawString = false;
 	private Role role;
 	boolean d = false;
-	
+	Restaurant1 r1;
+	Restaurant2 r2;
+	Restaurant3 r3;
+	Restaurant4 r4;
+	Restaurant5 r5;
+	Location loc;
 	
 	public MarketWorkerGui(MarketWorker mw){
 		worker = mw;
@@ -47,6 +61,10 @@ public class MarketWorkerGui extends RoleGui{
 		xDestination = 430;
 		yDestination = 360;
 	}
+	
+	/*public void setRestaurants(){
+		restaurants = TheCity.getRestaurantList();
+	}*/
 
 	public void updatePosition() {
 		super.updatePosition();
@@ -81,7 +99,27 @@ public class MarketWorkerGui extends RoleGui{
 	}
 
 	
-	public void DoSend(Map<String, Integer> m, Role role){
+	public void DoSend(Map<String, Integer> m, Role role, Restaurant restaurant){  //restaurant
+		r1 = (Restaurant1) TheCity.getBuildingFromString("Restaurant 1");
+		r2 = (Restaurant2) TheCity.getBuildingFromString("Restaurant 2");
+		r3 = (Restaurant3) TheCity.getBuildingFromString("Restaurant 3");
+		r4 = (Restaurant4) TheCity.getBuildingFromString("Restaurant 4");
+		r5 = (Restaurant5) TheCity.getBuildingFromString("Restaurant 5");
+		if (restaurant == r1){
+			loc = r1.getGuiLocation();
+		}
+		else if (restaurant == r2){
+			loc = r2.getGuiLocation();
+		}
+		else if (restaurant == r3){
+			loc = r3.getGuiLocation();
+		}
+		else if (restaurant == r4){
+			loc = r4.getGuiLocation();
+		}
+		else if (restaurant == r5){
+			loc = r5.getGuiLocation();
+		}
 		System.out.println("Going to truck");
 		this.role = role;
 		xDestination = 130;
@@ -89,12 +127,16 @@ public class MarketWorkerGui extends RoleGui{
 		command = Command.restGetting;
 	}
 
-	public void LoadToTruck(){
+	public void LoadToTruck(){ //restaurant
 		xDestination = 100;
 		yDestination = 250;
 		command = Command.truck;
-		Truck truck = new Truck(600,200, 200, 600);
+		Market m1  = (Market) TheCity.getBuildingFromString("Market");
+		Truck truck = new Truck(m1.getGuiLocation().getX(),m1.getGuiLocation().getY(), loc.getX(), loc.getY()
+				);
+		truck.setWorker(worker, role);
 		ScreenFactory.main.addGui(truck);
+		
 	}
 	public void drawOrder(Graphics g){
 		int x = xPos;
@@ -102,14 +144,14 @@ public class MarketWorkerGui extends RoleGui{
 	}
 	
 	
-	public void DoBring(MarketCustomer m){
+	public void DoBring(MarketCustomer m){ //customer
 		customer = m;
 		xDestination = 550;
 		yDestination = 250;
 		command = Command.getting;
 	}
 	
-	public void Deliver(){
+	public void Deliver(){ //customer
 		drawString = true; 
 		xDestination = 580;
 		yDestination = 410;

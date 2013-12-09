@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import simcity.Market.Order;
+import simcity.Market.MarketGui.MarketCustomerGui;
 
 public interface MarketCustomer {
 
@@ -24,6 +25,8 @@ public interface MarketCustomer {
 	abstract String getName();
 
 	abstract void getGroceries();
+
+	abstract MarketCustomerGui getCustomerGui();
 
 	
 }

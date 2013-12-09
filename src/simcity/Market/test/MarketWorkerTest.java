@@ -88,7 +88,7 @@ public class MarketWorkerTest {
 		worker.Bring(orders2);
 		Map<String, Integer> map = new HashMap<String, Integer>();
 		map.put("Chicken", 2);
-		worker.SendFood(map, cook);
+		//worker.SendFood(map, cook);
 		assertTrue("Workers deliveries list should contain one delivery", worker.getRestaurantDeliveries().size()==1);
 		assertTrue("Delivery state should be pending", worker.getRestaurantDeliveries().get(0).state == RestaurantDelivery.DeliveryState.pending);
 		assertTrue("Workers deliveries list should contain two deliveries", worker.getCustomerDeliveries().size()==2);

@@ -99,7 +99,7 @@ public class PersonAgent extends Agent implements Person {
 		Walking, Bus, Car
 	};
 
-	public TransportationState transportationState = TransportationState.Walking;
+	public TransportationState transportationState = TransportationState.Bus;
 
 	// Where to eat
 	public enum EatingState {
@@ -518,7 +518,10 @@ public class PersonAgent extends Agent implements Person {
 			}
 			
 			// if the man has groceries in his hand, let him take them home!
-			//print("person sched");
+
+			// print("person sched");
+			
+
 			if (marketState == MarketState.TakeGroceriesHome) {
 				marketState = MarketState.TakingGroceriesHome;
 				goToHome();
