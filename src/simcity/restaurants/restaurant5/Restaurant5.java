@@ -29,6 +29,9 @@ public class Restaurant5 extends Restaurant {
 	WaiterGui waiterGui = new WaiterGui(waiter1, ScreenFactory.getMeScreen(this.getName()));
 	CookGui cookGui = new CookGui(cook, ScreenFactory.getMeScreen(this.getName()));*/
 
+	//create 2 waiters and 2 sharedDataWaiter
+	
+
 
 	List<WaiterRole> waiters = new ArrayList<WaiterRole>();
 	//open and closing hours? hmmm..
@@ -111,5 +114,6 @@ public class Restaurant5 extends Restaurant {
 			name = s;
 			amount = i;
 		}
+		
 	}
 }
