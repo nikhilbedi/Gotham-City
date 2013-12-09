@@ -131,9 +131,10 @@ public class PersonAgent extends Agent implements Person {
 	public MoneyState moneyState = MoneyState.Neutral;
 
 	// Job
-	private Job myJob;
+	private Job myJob = null;
 	public enum JobState {
-		OffWork, GoToWorkSoon, HeadedToWork, AtWork, LeaveWork, LeavingWork
+		OffWork, GoToWorkSoon, HeadedToWork, AtWork, TimeToLeave, 
+		PreparingToLeave, LeaveWork, LeavingWork, 
 	};
 
 
@@ -328,10 +329,8 @@ public class PersonAgent extends Agent implements Person {
 
 		// Next Day
 		if (currentTime == 1) {
-			day++;
-			if(day >6){
-				day = 0;
-			}
+			//I would just get rid of the day variable, but I already use it in so many places, so I'll just set it.
+			day = CityClock.getDay();
 			dayState = DayOfTheWeek.values()[day];
 			print("The day of the week is " + dayState.name());
 		}
@@ -339,38 +338,41 @@ public class PersonAgent extends Agent implements Person {
 		if (hungerCount > 11 && hungerState != HungerState.Starving
 				&& hungerState != HungerState.FeedingHunger) {
 			hungerState = HungerState.Starving;
-			print("starving statechange");
-			// stateChanged();
 		} else if (hungerCount > 7 && hungerState != HungerState.Hungry
 				&& hungerState != HungerState.FeedingHunger
 				&& hungerState != HungerState.Starving) {
 			hungerState = HungerState.Hungry;
-			print("hungry statechange");
-			// stateChanged();
 		} else if (hungerCount > 3 && hungerState != HungerState.Famished
 				&& hungerState != HungerState.FeedingHunger
 				&& hungerState != HungerState.Starving
 				&& hungerState != HungerState.Hungry) {
 			hungerState = HungerState.Famished;
-			print("famished statechange");
-			// stateChanged();
 		}
 
-		// We should change any states here, not constantly check the scheduler
-		// to change states
-		// TODO If it is a weekend, then don't go to work
 		if (myJob != null) {
-			if (currentTime == myJob.onWork) {
-				myJob.state = JobState.GoToWorkSoon;
-				// stateChanged();
+			if(day != 0 && day != 6) {
+				if (currentTime == myJob.weekDayOnWork &&
+						myJob.state == JobState.OffWork) {
+					myJob.state = JobState.GoToWorkSoon;
+				}
+				// Maybe, also check if our current state is atWork
+				else if (currentTime == myJob.weekDayOffWork &&
+						myJob.state == JobState.AtWork) {
+					myJob.state = JobState.TimeToLeave;
+					// Need to now check the person scheduler so we leave work
+					checkPersonScheduler = true;
+				}
 			}
-			// Maybe, also check if our current state is atWork
-			else if (currentTime == myJob.offWork) {
-
-				myJob.state = JobState.LeaveWork;
-				// Need to now check the person scheduler so we leave work
-				checkPersonScheduler = true;
-				// stateChanged();
+			else {
+				if (currentTime == myJob.weekEndOnWork) {
+					myJob.state = JobState.GoToWorkSoon;
+				}
+				// Maybe, also check if our current state is atWork
+				else if (currentTime == myJob.weekEndOffWork) {
+					myJob.state = JobState.TimeToLeave;
+					// Need to now check the person scheduler so we leave work
+					checkPersonScheduler = true;
+				}
 			}
 		}
 
@@ -391,7 +393,12 @@ public class PersonAgent extends Agent implements Person {
 		stateChanged();
 	}
 
-	// Messages from User Interface or Animation
+	// Messages from User Interface or Animation or Roles
+	public void doneWithWork() {
+		myJob.state = JobState.LeaveWork;
+		checkPersonScheduler = true;
+	}
+	
 	/**
 	 * 
 	 */
@@ -399,23 +406,6 @@ public class PersonAgent extends Agent implements Person {
 		currentBuilding = currentDestination;
 		busyWithTask.release();
 	}
-
-	/**
-	 * Notifies the person that the current role is done with all interactions
-	 * in the restaurant
-	 * 
-	 * @param role
-	 */
-	/*
-	 * public void leftBuilding(Role role) { //if role is of type host or
-	 * bankgreeter, don't remove. Still need them to be active
-	 * roles.remove(role); // checkPersonScheduler = true; }
-	 *//**
-	 * Notifies the person that the current role is done with all
-	 * interactions in the restaurant
-	 * 
-	 * @param role
-	 */
 
 	/**
 	 * Notifies the person that the current role is done with all interactions
@@ -433,6 +423,7 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	public void enteringBuilding(Role role) {
+		checkPersonScheduler = false;
 		role.setPerson(this);
 		roles.add(role);
 		role.setActive(true);
@@ -466,8 +457,6 @@ public class PersonAgent extends Agent implements Person {
 			stateChanged();
 		}
 	}
-
-	// Messages from Roles
 
 	/**
 	 * a message from HomeResidentRole sends a grocery list of what foods are
@@ -513,10 +502,26 @@ public class PersonAgent extends Agent implements Person {
 		// Person Scheduler
 
 		if (checkPersonScheduler) {
+			//Time to leave, yo.
+			if (myJob != null) {
+				if (myJob.state == JobState.TimeToLeave) {
+					myJob.state = JobState.PreparingToLeave;
+					tellRoleToLeaveWork();
+					return true;
+				}
+			//Clockin' out, yo.
+				if (myJob.state == JobState.LeaveWork) {
+					myJob.state = JobState.LeavingWork;
+					leaveWork();
+					return true;
+				}
+			}
+			
 			// if the man has groceries in his hand, let him take them home!
+
 			// print("person sched");
 			
-			
+
 			if (marketState == MarketState.TakeGroceriesHome) {
 				marketState = MarketState.TakingGroceriesHome;
 				goToHome();
@@ -525,7 +530,6 @@ public class PersonAgent extends Agent implements Person {
 
 			// If he's CRRAAAZZY hungry, then eat something first. Then do
 			// checks of eating at home versus the restaurant
-
 			if (hungerState == HungerState.Starving
 					&& marketState != MarketState.GetGroceries
 					&& marketState != MarketState.GettingGroceries) {
@@ -543,15 +547,10 @@ public class PersonAgent extends Agent implements Person {
 			// Work comes first--his family probably doesn't like this :/
 			if (myJob != null) {
 				if (myJob.state == JobState.GoToWorkSoon) {
+					myJob.state = JobState.HeadedToWork;
 					goToWork();
-					// return true; or boolean person = true;?
-					return true;
-				} else if (myJob.state == JobState.LeaveWork
-						&& myJob.state == JobState.AtWork) {
-					leaveWork();
 					return true;
 				}
-
 			}
 
 			// if he's REALLY hungry, then eat something before paying bills.
@@ -609,7 +608,6 @@ public class PersonAgent extends Agent implements Person {
 			// Let me even see if I got money..
 			if (moneyState == MoneyState.Low || moneyState == MoneyState.High) {
 				if (currentBuilding != bank) {
-					print("Going to bank for money");
 					goToBank();
 					return true;
 				}
@@ -638,11 +636,7 @@ public class PersonAgent extends Agent implements Person {
 
 	// Actions
 	private void goToWork() {
-		//TODO change state to at work? 
-		
-		// animate out of building
-		// activeRole.DoLeaveBuilding();
-
+		print("Going to work.");
 		// animate to desired location
 		gui.DoGoToLocation(myJob.workplace.getEntranceLocation());
 		try {
@@ -650,30 +644,59 @@ public class PersonAgent extends Agent implements Person {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
-		// enter building (thus deleting rect in city and adding rect to
-		// workplace)
-		roles.add(myJob.role);
-
-		// This loop should be changed to using ActiveRole
-		myJob.role.setActive(true);
-
+		
+		myJob.state = JobState.AtWork;
 		checkPersonScheduler = false;
-
-		// add role to building's list of workers
+		
+		if(myJob.role.checkWorkStatus()) {
+			waitToStartWork();
+		}
+		else {
+			enteringBuilding(myJob.role);
+			myJob.role.setWorkStatus(true);
+		}
+	}
+	
+	private void waitToStartWork() {
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+			public void run() {
+				if(myJob.role.checkWorkStatus()) {
+					waitToStartWork();
+				}
+				else {
+					enteringBuilding(myJob.role);
+					myJob.role.setWorkStatus(true);
+				}
+			}
+		},
+		500);
+	}
+	
+	private void tellRoleToLeaveWork() {
+		myJob.role.setWorkStatus(false);
+		myJob.role.getReadyToLeave(this);
+		checkPersonScheduler = false;
 	}
 
 	private void leaveWork() {
-
 		// Upon leaving work, person gains set amount of money in his wallet
-		money += 100;
+		money += 100; //20 dollar wage * hours worked
+		print("leaving work now.");
 
-		// Use Screen to draw rect outside currentBuilding
-		// Use Screen to delete rect inside currentBuilding
-		// animate to desired location
-		roles.remove(myJob.role);
 		// Going home is not a critical section
+		gui.getHomeScreen().addGui(gui);
 		gui.DoGoToLocation(myHome.getEntranceLocation());
+
+		myJob.state = JobState.OffWork;
+
+		checkPersonScheduler = true;
+		if(myJob.role.getPersonAgent() == this){
+			myJob.role.setActive(false);
+			myJob.role.getGui().getHomeScreen().removeGui(myJob.role.getGui());
+		}
+
+		roles.remove(myJob.role);
 	}
 
 	private void goToHome() {
@@ -778,7 +801,7 @@ public class PersonAgent extends Agent implements Person {
 
 		//restTemp.setPerson(this);
 		//restGui.setHomeScreen(ScreenFactory.getMeScreen(currentPreference
-			//	.getName()));
+		//	.getName()));
 		// print("here:"+ currentPreference.getName());
 
 		checkPersonScheduler = false;

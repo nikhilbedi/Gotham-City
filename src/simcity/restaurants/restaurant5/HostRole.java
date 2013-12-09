@@ -1,5 +1,6 @@
 package simcity.restaurants.restaurant5;
 
+import Gui.RoleGui;
 import agent.Agent;
 import agent.Role;
 
@@ -11,6 +12,7 @@ import java.util.Map;
 import java.util.TimerTask;
 
 import simcity.PersonAgent;
+import simcity.restaurants.restaurant5.gui.HostGui;
 import simcity.restaurants.restaurant5.interfaces.*;
 import simcity.restaurants.restaurant5.gui.*;
 /**
@@ -260,8 +262,9 @@ public class HostRole extends Role implements Host {
 		avaliableWaiters++;
 	}
 
-	public void setGui(HostGui gui) {
-		hostGui = gui;
+	public void setGui(RoleGui g) {
+		super.setGui(g);
+		hostGui = (HostGui)g;
 	}
 
 	public HostGui getGui() {

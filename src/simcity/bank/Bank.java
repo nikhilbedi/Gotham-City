@@ -1,5 +1,7 @@
 package simcity.bank;
 
+import java.util.Vector;
+
 import Gui.RoleGui;
 import Gui.ScreenFactory;
 import agent.Role;
@@ -102,6 +104,14 @@ public class Bank extends Building {
 	
 	public BankGreeter getGreeter() {
 		return greeter;
+	}
+	
+	public Vector<String> getBuildingInfo(){
+		Vector<String> info = new Vector<String>();
+		info.add("Bank");
+		info.add("Created by: Brice Roland");
+		info.add("this is even more super class info");
+		return info;
 	}
 
 	

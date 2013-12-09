@@ -151,7 +151,7 @@ public class TheCity {
 		if(s.equalsIgnoreCase("Bank")){
 			return bank;
 		}
-		if(s.equalsIgnoreCase("Home 1")){
+		if(s.equalsIgnoreCase("Home")){
 			return home;
 		}
 

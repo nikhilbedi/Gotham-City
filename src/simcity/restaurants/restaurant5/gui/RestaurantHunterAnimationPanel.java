@@ -68,7 +68,7 @@ public class RestaurantHunterAnimationPanel extends Screen{
 		CookGui cookGui = new CookGui(cookRole);
 		
 		waiterRole.setGui(waiterGui);
-		cookRole.setGui(cookGui);
+		//cookRole.setGui(cookGui);
 
 		waiterPerson.addRole(waiterRole);
 		hostPerson.addRole(hostRole);

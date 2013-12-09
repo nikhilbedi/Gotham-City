@@ -47,4 +47,12 @@ public class Restaurant2 extends Restaurant {
 	public String getCustomerName(){
 		return "restaurant2Customer";
 	}
+	
+	public Vector<String> getBuildingInfo(){
+		Vector<String> info = new Vector<String>();
+		info.add("Restaurant 2");
+		info.add("Created by: Brice Roland");
+		info.add("this is even more super class info");
+		return info;
+	}
 }

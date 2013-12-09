@@ -8,6 +8,8 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
+import simcity.TheCity;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
@@ -17,18 +19,26 @@ import java.net.URL;
 import java.util.*;
 
 
-public class SimCityPanel extends JPanel implements MouseListener
+public class SimCityPanel extends JPanel implements MouseListener, KeyListener
 {
 	Screen currentScreen;
 
 	PersonSelectionPane selPane;
+	BuildingInfoPanel buildingInfo;
+
+
+
 	boolean start;
 	boolean always = true;
 
-	public SimCityPanel(){
+	public SimCityPanel(){/*
+		setPreferredSize(new Dimension(200,600));
+		setMinimumSize(new Dimension(800,600));
+		setMaximumSize(new Dimension(800,600));*/
 		setPreferredSize(new Dimension(800, 800));
 		currentScreen = ScreenFactory.getMainScreen();
 		addMouseListener(this);
+		addKeyListener(this);
 		setFocusable(true);  
 
 		/*String fileName="TheDarkKnight.mp3";
@@ -69,7 +79,6 @@ public class SimCityPanel extends JPanel implements MouseListener
 
 
 	public void checkMapChange(int x, int y){
-
 		//Have map check coords
 		String swap = currentScreen.checkSwap(x,y);
 		//System.out.println("swap is " + swap);
@@ -78,7 +87,14 @@ public class SimCityPanel extends JPanel implements MouseListener
 		if(!(swapScreen == null)){
 			currentScreen = swapScreen;
 			selPane.refresh();
-			//currentScreen.generate();
+			if(swap.equalsIgnoreCase("city")){
+				buildingInfo.setVisible(false);
+			}
+			else{
+				buildingInfo.setVisible(true);
+				buildingInfo.update(TheCity.getBuildingFromString(swap).getBuildingInfo());
+				buildingInfo.getUpdators(TheCity.getBuildingFromString(swap));
+			}
 		} 
 	}
 
@@ -109,6 +125,14 @@ public class SimCityPanel extends JPanel implements MouseListener
 		this.selPane = selPane;
 	}
 
+	public BuildingInfoPanel getBuildingInfo() {
+		return buildingInfo;
+	}
+
+
+	public void setBuildingInfo(BuildingInfoPanel buildingInfo) {
+		this.buildingInfo = buildingInfo;
+	}
 
 
 	@Override        
@@ -127,5 +151,31 @@ public class SimCityPanel extends JPanel implements MouseListener
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 
+	}
+
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		 int key = e.getKeyCode();
+		  System.out.println("key is "+key);
+	         if (key == 27){
+	        	 checkMapChange(26, 51);
+	         }//&&player.lChange)
+	       
+	}
+
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 }

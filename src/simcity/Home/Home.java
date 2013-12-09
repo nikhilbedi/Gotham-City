@@ -2,6 +2,7 @@ package simcity.Home;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import simcity.Building;
 import simcity.PersonAgent.RentBill;
@@ -31,6 +32,14 @@ public class Home extends Building{
 		//But, we don't necessarily immediately know who this Person is.
 		//Please add ANOTHER constructor that doesnt need a Person parameter
 		//(You can still keep the other constructor, resulting in two constructors)
+	}
+	
+	public Vector<String> getBuildingInfo(){
+		Vector<String> info = new Vector<String>();
+		info.add("Home");
+		info.add("Created by: Evan Coutre");
+		info.add("this is even more info");
+		return info;
 	}
 
 	public List<RentBill> getRentBills() {

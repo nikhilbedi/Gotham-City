@@ -92,6 +92,10 @@ public class MarketAnimationPanel extends Screen {
     		addGui(cashierGui);
     		cashier.addRole(marketCashier);
     		marketWorker.setGui(workerGui);
+<<<<<<< HEAD
+=======
+    		//workerGui.setMainScreen(mainScreen);
+>>>>>>> nikhil
     		addGui(workerGui);
     		agentWork.addRole(marketWorker);
     		marketCustomer.setGui(customerGui);

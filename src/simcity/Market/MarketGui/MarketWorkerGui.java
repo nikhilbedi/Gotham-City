@@ -52,7 +52,7 @@ public class MarketWorkerGui extends RoleGui{
 		xDestination = 430;
 		yDestination = 360;
 	}
-	
+
 	public MarketWorkerGui(MarketWorkerRole mw, Screen s){
 		super(mw, s);
 		worker = mw;

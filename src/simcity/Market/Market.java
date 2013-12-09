@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Vector;
 import java.util.Map;
 
+
 import Gui.ScreenFactory;
+
 import agent.Role;
 import simcity.Building;
 import simcity.Market.MarketGui.MarketCashierGui;
@@ -108,6 +111,14 @@ public class Market extends Building {
 		marketWorker.getInventory().put("Salad", salad);
 		marketWorker.getInventory().put("Steak", steak);
 
+	}
+	
+	public Vector<String> getBuildingInfo(){
+		Vector<String> info = new Vector<String>();
+		info.add("Market");
+		info.add("Created by: Miiiiiiikkkkkkaaaa!");
+		info.add("this is even more info");
+		return info;
 	}
 	
 }

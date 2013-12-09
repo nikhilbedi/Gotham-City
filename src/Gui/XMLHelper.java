@@ -75,17 +75,21 @@ public class XMLHelper {
 					//Get the money
 					System.out.println("Money: "+ personElement.getElementsByTagName("money").item(0).getTextContent());
 					double money = Double.parseDouble(personElement.getElementsByTagName("money").item(0).getTextContent());
-
+					personXML.addMoney(money); 
+					
 					//Get what kind of job (or 'no job')
 					Element jobElement = (Element) personElement.getElementsByTagName("job").item(0);
-					System.out.println("Job building: " + jobElement.getElementsByTagName("building").item(0).getTextContent());
-					//TODO SHOULD I OBTAIN THE BUILDING FROM THE CITY OR MAINSCREEN
-					Building workplace = TheCity.getBuildingFromString(jobElement.getElementsByTagName("building").item(0).getTextContent());
-					System.out.println("Job position: " + jobElement.getElementsByTagName("position").item(0).getTextContent());
-					Role jobRole = workplace.getRoleFromString(jobElement.getElementsByTagName("position").item(0).getTextContent());
-					System.out.println("Job shift: " + jobElement.getElementsByTagName("shift").item(0).getTextContent());
-					int shift = Integer.parseInt(jobElement.getElementsByTagName("shift").item(0).getTextContent());
-
+					if(jobElement != null){
+						System.out.println("Job building: " + jobElement.getElementsByTagName("building").item(0).getTextContent());
+						Building workplace = TheCity.getBuildingFromString(jobElement.getElementsByTagName("building").item(0).getTextContent());
+						System.out.println("Job position: " + jobElement.getElementsByTagName("position").item(0).getTextContent());
+						Role jobRole = workplace.getRoleFromString(jobElement.getElementsByTagName("position").item(0).getTextContent());
+						System.out.println("Job shift: " + jobElement.getElementsByTagName("shift").item(0).getTextContent());
+						int shift = Integer.parseInt(jobElement.getElementsByTagName("shift").item(0).getTextContent());
+						//Set the job here
+						personXML.setJob(jobRole, workplace, shift);
+					}
+					
 					//Get what home he lives in (or 'no home')
 					Element homeElement = (Element) personElement.getElementsByTagName("residency").item(0);
 					Building home;
@@ -97,17 +101,19 @@ public class XMLHelper {
 
 					//Get whatever properties may be owned (for loop)
 					Element propertyElement = (Element) personElement.getElementsByTagName("property").item(0);
-					NodeList propertiesList = propertyElement.getElementsByTagName("address");
-					System.out.println("Number of properties owned: " + propertiesList.getLength());
-					for(int j = 0; j < propertiesList.getLength(); j++) {
-						System.out.println("\tProperty: " + propertiesList.item(j).getTextContent());
+					if(propertyElement != null) {
+						NodeList propertiesList = propertyElement.getElementsByTagName("address");
+						System.out.println("Number of properties owned: " + propertiesList.getLength());
+						for(int j = 0; j < propertiesList.getLength(); j++) {
+							System.out.println("\tProperty: " + propertiesList.item(j).getTextContent());
+						}
 					}
 
 					//Get preferred transportation (walk, car, bus)
 					//If it is a car, the person is spawned owning a car
 					System.out.println("Transportation preference: "+ personElement.getElementsByTagName("transportation").item(0).getTextContent());
 
-					personXML.addMoney(money); 
+					
 					personXML.startThread();
 				}
 			}

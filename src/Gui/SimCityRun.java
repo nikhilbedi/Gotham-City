@@ -28,44 +28,65 @@ import simcity.CityClock;
 import simcity.PersonAgent;
 import simcity.TheCity;
 import simcity.Home.gui.HomePanel;
+import simcity.restaurants.restaurant5.Restaurant5;
+import trace.TracePanel;
 
 
 public class SimCityRun extends JFrame implements ActionListener
 {
+	JPanel dataPanel;
 	SimCityPanel cityPanel;
-	NewPersonWindow npWindow;
 	PersonSelectionPane peopleList;
+	BuildingInfoPanel buildingPanel;
+
 	public JButton newPersonButton;
-	JPanel animationPanel;
+
+	NewPersonWindow npWindow;
 
 	public SimCityRun()
 	{
 		super("Team 31 Sim City");
 		//This sets up the frame of the animation window
-		setSize(1000, 800);
+		setSize(1200, 800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		
+		CityMenuBar demo = new CityMenuBar();
+        setJMenuBar(demo);
+        
+		
 		setLayout(new BoxLayout((Container)this.getContentPane(), BoxLayout.Y_AXIS));
 
-		animationPanel = new JPanel();
-		animationPanel.setLayout(new BoxLayout(animationPanel, BoxLayout.X_AXIS));
+		dataPanel = new JPanel();
+		dataPanel.setLayout(new BoxLayout(dataPanel, BoxLayout.X_AXIS));
 
-		//Set information for animationpanel and personSelectionPane
+		//Set information for dataPane, personSelectionPane, and buildingPanel
 		cityPanel = new SimCityPanel();
-		animationPanel.add(cityPanel);
+		buildingPanel  = new BuildingInfoPanel();
+		buildingPanel.setVisible(false);
 		peopleList = new PersonSelectionPane(cityPanel);
+
+		cityPanel.setBuildingInfo(buildingPanel);
 		cityPanel.setSelPane(peopleList);
-		animationPanel.add(peopleList);
+
+		dataPanel.add(new BuildingControlPanel());
+		dataPanel.add(buildingPanel);	
+		dataPanel.add(cityPanel);
+		dataPanel.add(peopleList);
 
 		//set information for infoPanel
 		InfoPanel info = new InfoPanel();
 		peopleList.setInfoPanel(info);
 		add(TheCity.bar);//Adds clock gui
-		add(animationPanel);
+		add(dataPanel);
 		add(info);
+		
+		TracePanel tracePanel = new TracePanel();
+		tracePanel.showAlertsForAllLevels();
+		tracePanel.showAlertsForAllTags();
+		add(tracePanel);
 		setVisible(true);
-		
-		
+
+
 		cityPanel.go();//starts the animation in the panel
 
 
@@ -92,8 +113,9 @@ public class SimCityRun extends JFrame implements ActionListener
 	public static void main(String[] args)
 	{
 		//Sample reading an XML file
-		//XMLHelper.createPeople("sampleXML.xml");
 		
+		//XMLHelper.createPeople("sampleXML.xml");
+
 		//THE BIG BANG
 		CityClock.startTime();
 

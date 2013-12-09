@@ -21,6 +21,8 @@ public class Bus extends RoleGui{
 	ImageIcon busUp = new ImageIcon(this.getClass().getResource("/resources/mika/busUp.jpg"));
 	ImageIcon busDown = new ImageIcon(this.getClass().getResource("/resources/mika/busDown.jpg"));
 	public static List<PersonGui> passengers = new ArrayList<PersonGui>();
+
+
 	int currentDestinationX;
 	int currentDestinationY;
 	int counterX = 0;

@@ -5,14 +5,13 @@ import java.util.concurrent.Semaphore;
 import java.util.Collections;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Vector;
 
 import javax.print.attribute.standard.MediaSize.NA;
 
 import simcity.PersonAgent;
 import agent.Role;
 import simcity.restaurants.*;
-import simcity.restaurants.restaurant3.CashierRole;
-import simcity.restaurants.restaurant3.HostRole;
 import simcity.restaurants.restaurant3.*;
 import simcity.restaurants.restaurant3.Order.OrderState;
 import simcity.restaurants.restaurant3.gui.HostGui;
@@ -121,6 +120,14 @@ public class Restaurant3 extends Restaurant {
 	@Override
 	public String getCustomerName(){
 		return "restaurant3customer";
+	}
+	
+	public Vector<String> getBuildingInfo(){
+		Vector<String> info = new Vector<String>();
+		info.add("Restaurant 3");
+		info.add("Created by: Evan Coutre");
+		info.add("this is even more super class info");
+		return info;
 	}
 	
 }

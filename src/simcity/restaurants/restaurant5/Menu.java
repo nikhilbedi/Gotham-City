@@ -2,6 +2,7 @@ package simcity.restaurants.restaurant5;
 
 import java.util.Map;
 import java.util.HashMap;
+import java.util.Vector;
 
 public class Menu {
 	Map<Integer, String> map = new HashMap<Integer, String>();
@@ -42,5 +43,14 @@ public class Menu {
 	public void remove(String s){
 		//map.remove(s);
 		map.remove(nameToInt(s));
+	}
+	
+	public Vector<String> returnList(){
+		Vector<String> items = new Vector<String>();
+		items.add("Steak");
+		items.add("Chicken");
+		items.add("Salad");
+		items.add("Pizza");
+		return items;
 	}
 }
