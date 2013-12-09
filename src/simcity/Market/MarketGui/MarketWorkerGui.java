@@ -132,10 +132,10 @@ public class MarketWorkerGui extends RoleGui{
 		yDestination = 250;
 		command = Command.truck;
 		Market m1  = (Market) TheCity.getBuildingFromString("Market");
-		Truck truck = new Truck(m1.getGuiLocation().getX(),m1.getGuiLocation().getY(), loc.getX(), loc.getY()
-				);
-		truck.setWorker(worker, role);
-		ScreenFactory.main.addGui(truck);
+//	Truck truck = new Truck(m1.getGuiLocation().getX(),m1.getGuiLocation().getY(), loc.getX(), loc.getY()
+//				);
+	//	truck.setWorker(worker, role);
+	//	ScreenFactory.main.addGui(truck);
 		
 	}
 	public void drawOrder(Graphics g){

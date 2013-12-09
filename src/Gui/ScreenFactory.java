@@ -24,13 +24,14 @@ public class ScreenFactory {
 	static List<Screen> screenList = Collections.synchronizedList(new ArrayList<Screen>());
 
 	public static MainScreen main = new MainScreen();
+	public static Screen market = new MarketAnimationPanel();
 	public static Screen rest1 = new RestaurantNikhilAnimationPanel();
 	public static Screen rest2 = new Restaurant2AnimationPanel();
 	public static Screen rest3 = new RestaurantEvanAnimationPanel();
 	public static Screen rest4 = new Restaurant4AnimationPanel();
 	public static Screen rest5 = new RestaurantHunterAnimationPanel();
 
-	public static Screen market = new MarketAnimationPanel();
+	
 	public static Screen bank = new bankAnimationPanel();
 	public static Screen home = new HomeAnimationPanel();
 

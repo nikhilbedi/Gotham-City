@@ -28,10 +28,10 @@ import simcity.restaurants.restaurant4.interfaces.Restaurant4Waiter;
 
 public class Restaurant4 extends Restaurant {
 	Restaurant4HostRole host = new Restaurant4HostRole();
-	Restaurant4WaiterRole waiter = new Restaurant4WaiterRole();
-	Restaurant4SharedDataWaiterRole sharedDataWaiter = new Restaurant4SharedDataWaiterRole();
-	Restaurant4WaiterRole waiter2 = new Restaurant4WaiterRole();
-	Restaurant4SharedDataWaiterRole sharedDataWaiter2 = new Restaurant4SharedDataWaiterRole();
+	Restaurant4WaiterAgent waiter = new Restaurant4WaiterRole();
+	Restaurant4WaiterAgent sharedDataWaiter = new Restaurant4SharedDataWaiterRole();
+	Restaurant4WaiterAgent waiter2 = new Restaurant4WaiterRole();
+	Restaurant4WaiterAgent sharedDataWaiter2 = new Restaurant4SharedDataWaiterRole();
 	Restaurant4CashierRole cashier = new Restaurant4CashierRole();
 	Restaurant4CookRole cook = new Restaurant4CookRole();
 	public TheCity cp;
@@ -69,10 +69,10 @@ public class Restaurant4 extends Restaurant {
 		jobs.put("waiter3", waiter2);
 		jobs.put("waiter4", sharedDataWaiter2);
 		setJobRoles(jobs);
-		host.setWaiter(waiter);
-		host.setWaiter(sharedDataWaiter);
-		host.setWaiter(waiter2);
-		host.setWaiter(sharedDataWaiter2);
+		host.setWaiter((Restaurant4Waiter) waiter);
+		host.setWaiter((Restaurant4Waiter) sharedDataWaiter);
+		host.setWaiter((Restaurant4Waiter) waiter2);
+		host.setWaiter((Restaurant4Waiter) sharedDataWaiter2);
 		waiter.setHost(host);
 		sharedDataWaiter.setHost(host);
 		waiter2.setHost(host);
@@ -109,7 +109,7 @@ public class Restaurant4 extends Restaurant {
 	}
 	
 
-	public Restaurant4WaiterRole  getWaiter(){
+	public Restaurant4WaiterAgent  getWaiter(){
 		return waiter;
 	}
 	
@@ -127,7 +127,7 @@ public class Restaurant4 extends Restaurant {
 	}
 	
 	public void  setWaiter(Restaurant4Waiter h){
-		waiter = (Restaurant4WaiterRole) h;
+		waiter = (Restaurant4WaiterAgent) h;
 	}
 	
 	public void setSharedDataWaiter(Restaurant4Waiter h){

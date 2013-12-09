@@ -123,7 +123,7 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	}
 	
 	public void INeedFood(Map<String, Integer> food, Role role, Role cashier, Restaurant rest){ //order from restaurant
-		System.out.println(myPerson.name + ": " + "Got new order from restaurant cook" + role);
+		System.out.println("Got new order from restaurant cook" + role);
 		restaurantOrders.add(new RestaurantOrder(food, role, cashier, rest));
 		stateChanged();
 	}
