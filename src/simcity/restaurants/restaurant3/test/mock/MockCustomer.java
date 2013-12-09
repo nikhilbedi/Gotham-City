@@ -70,7 +70,7 @@ public class MockCustomer extends Mock implements Customer {
 		
 	}
 	@Override
-	public void setWaiter(WaiterRole waiter) {
+	public void setWaiter(Waiter waiter) {
 		// TODO Auto-generated method stub
 		
 	}

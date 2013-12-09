@@ -21,6 +21,7 @@ import simcity.CityClock;
 import simcity.PersonAgent;
 import simcity.PersonGui;
 import simcity.TheCity;
+import simcity.Home.Apartment;
 import simcity.Home.Home;
 import simcity.Market.MarketCustomerRole;
 import simcity.Market.MarketGui.MarketAnimationPanel;
@@ -208,11 +209,15 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 				
 			//setting Transportation
 			//newPerson.setPreferredTransportation(transportation.getSelectedItem().toString());
+			newPerson.setPreferredTransportation("Walking");
 
 
 			//set home
+
 			if(CityClock.getPeople().size() < 1)
 				newPerson.setHome((Home)TheCity.getBuildingFromString("Home"));
+				//newPerson.setHome((Apartment)TheCity.getBuildingFromString("Apartment 1"));
+
 			
 			
 			newPerson.startThread();
@@ -223,7 +228,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 
 			//re-enable button
 			reference.setEnabled(true);
-			
+			System.err.println("atGui" + newPerson.getMyHome().getName());
 			selPane.refresh();
 			
 			AlertLog.getInstance().logInfo(AlertTag.GUI, "Window", "Adding New Person: " + newPerson.getName() );

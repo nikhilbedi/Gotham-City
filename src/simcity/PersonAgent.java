@@ -43,6 +43,7 @@ public class PersonAgent extends Agent implements Person {
 	RoleGui homeGui;
 	Role restTemp;
 	RoleGui restGui;
+	
 
 	public String name;
 	int currentTime; // (ranges from 1-24)
@@ -51,6 +52,7 @@ public class PersonAgent extends Agent implements Person {
 	// we're removing that role
 	Semaphore busyWithTask = new Semaphore(0, false);
 	double money = 0.0;
+    int restaurantCounter = (int)(Math.random()*5);
 	protected List<Role> roles = new ArrayList<Role>();
 	public Map<String, Integer> groceryList = new HashMap<String, Integer>();
 	public Map<String, Integer> groceryBag = new HashMap<String, Integer>();
@@ -60,14 +62,11 @@ public class PersonAgent extends Agent implements Person {
 
 	private LandlordRole landlord;
 
-	// Saves time from having to loop all the time to find the active role
 
 	// Locations
 	// These buildings will be set when any person is added
 	public List<Restaurant> restaurants;
 	public Restaurant currentPreference;
-	private int restaurantCounter = (int) (Math.random() * 5);
-	public List<Market> markets;
 
 	Role activeRole;
 
@@ -77,7 +76,8 @@ public class PersonAgent extends Agent implements Person {
 	// "Homeless Shelter" spawnpoint
 	private boolean shelter = false;
 	private Building spawnPoint = new Building("bat cave");
-	private Home myHome;
+	public Home myHome;
+	private List<Market> markets;
 	public Building currentBuilding = spawnPoint;
 	public Building currentDestination = spawnPoint;
 
@@ -189,6 +189,10 @@ public class PersonAgent extends Agent implements Person {
 	public void setMarkets(List<Market> m) {
 		markets = m;
 	}
+	
+	public List<Market> getMarkets(){
+		return markets;
+	}
 
 	public void setBank(Bank b) {
 		bank = b;
@@ -204,8 +208,8 @@ public class PersonAgent extends Agent implements Person {
 		if (h.getName().contains("shelter")) {
 			shelter = true;
 		} else {
-			myHome = h;
-			// currentBuilding = h;
+			setMyHome(h);
+            // currentBuilding = h;
 			currentDestination = h;
 			// Should I make a new one, or just make it equal to this one? There
 			// is only one resident for a home...
@@ -428,7 +432,11 @@ public class PersonAgent extends Agent implements Person {
 		roles.add(role);
 		role.setActive(true);
 		gui.getHomeScreen().removeGui(gui);
+		role.getGui();
+		//role.getGui().getHomeScreen();
+		
 		role.getGui().getHomeScreen().addGui(role.getGui());
+		//ScreenFactory.getMeScreen("Home").addGui(role.getGui());
 		role.startBuildingMessaging();
 		stateChanged();
 	}
@@ -612,7 +620,7 @@ public class PersonAgent extends Agent implements Person {
 					return true;
 				}
 			}
-			if (currentBuilding != myHome) {
+			if(currentBuilding != getMyHome()) {
 				goToHome();
 				return true;
 			}
@@ -716,21 +724,22 @@ public class PersonAgent extends Agent implements Person {
 					e.printStackTrace();
 				}
 			}
-
-			// homeTemp = RoleFactory.makeMeRole("residentRole");
-			homeTemp = myHome.resident;
+	
+			homeTemp = RoleFactory.makeMeRole("residentRole");
+			homeTemp = getMyHome().getResident();
 			homeTemp.setActive(true);
-			currentBuilding = myHome;
-			homeGui = new ResidentGui((ResidentRole) homeTemp,
-					ScreenFactory.getMeScreen("Home"));
-			homeGui.setHomeScreen(ScreenFactory.getMeScreen("Home"));
-
-			// Add role
-
+			currentBuilding = getMyHome();
+			homeGui = new ResidentGui((ResidentRole)homeTemp, ScreenFactory.getMeScreen(myHome.getName()));
+			homeGui.setHomeScreen(ScreenFactory.getMeScreen(myHome.getName()));
+	
+//			//Add role
+	
 			homeTemp.setGui(homeGui);
 			// Enter building
 			homeTemp.setPerson(this);
 			enteringBuilding(homeTemp);
+			//hacking TODO
+			//enteringBuilding(myHome.getResident());
 			checkPersonScheduler = false;
 		} else {
 			gui.DoGoToLocation(new Location(26, 580, "Default"));
@@ -900,4 +909,11 @@ public class PersonAgent extends Agent implements Person {
 		this.currentBuilding = currentBuilding;
 	}
 
+	public Home getMyHome() {
+		return myHome;
+	}
+
+	public void setMyHome(Home myHome) {
+		this.myHome = myHome;
+	}
 }

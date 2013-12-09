@@ -11,7 +11,7 @@ public class MockMarket extends Mock implements Market{
 
 	
 		public Cashier cashier;
-		public CookRole cook;
+		public Restaurant3CookRole cook;
 		public EventLog log = new EventLog();
 
 		public MockMarket(String name) {
