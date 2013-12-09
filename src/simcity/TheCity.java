@@ -8,7 +8,10 @@ import simcity.Market.Market;
 import simcity.bank.Bank;
 import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant1.Restaurant1;
+import simcity.restaurants.restaurant2.Restaurant2;
+import simcity.restaurants.restaurant3.Restaurant3;
 import simcity.restaurants.restaurant4.Restaurant4;
+import simcity.restaurants.restaurant5.Restaurant5;
 
 public class TheCity {
 	
@@ -16,7 +19,8 @@ public class TheCity {
 	
 	static List<String> homeList = new ArrayList<String>();
 	static List<String> jobLocationList = new ArrayList<String>();
-	static List<String> jobPositionList = new ArrayList<String>();
+	static HashMap<String, Collection<String>> buildingJobsMap = new HashMap<String,Collection<String>>();
+	static Vector<Vector<String>> jobPositionList = new Vector<Vector<String>>();
 	static List<String> transportationList = new ArrayList<String>();
 	static List<String> homeOwnerList = new ArrayList<String>();
 	
@@ -28,28 +32,9 @@ public class TheCity {
 	static Building apart;
 	
 	
-	static{//populate person-specific elements
-	homeList.add("None (Homeless Shelter)");
-	homeList.add("Home 1");
-	homeList.add("Apartment 1");
-	
-	
-	jobLocationList.add("No job");
-	jobLocationList.add("Market");
-	jobLocationList.add("Bank");
-	jobLocationList.add("Restaurant 1");
-	
-	jobPositionList.add("This is a temp variable I still need to figure out how to make this list dynamic");
-	
-	transportationList.add("Walker");
-	
-	homeOwnerList.add("none");
-	homeOwnerList.add("Home 1");
-	
-	}
-	
 	static{//populate Buildings
-		home = new Home("Home", 390, 590, 400, 600);
+		//Changing from Home to Home 1 because now we have multiple buildings
+		home = new Home("Home 1", 390, 590, 400, 600);
 		home.setImagePath("/resources/Buildings/HouseDark2.png");
 		
 		apart = new Apartment("Apartment 1", 590, 590, 600, 600);
@@ -63,13 +48,13 @@ public class TheCity {
 		
 		rest1 = new Restaurant1("Restaurant 1", 200, 100, 200, 100);
 		rest1.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest2 = new Restaurant1("Restaurant 2", 50, 200, 50, 200);
+		rest2 = new Restaurant2("Restaurant 2", 50, 200, 50, 200);
 		rest2.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest3 = new Restaurant1("Restaurant 3", 650, 200, 650, 200);
+		rest3 = new Restaurant3("Restaurant 3", 650, 200, 650, 200);
 		rest3.setImagePath("/resources/Buildings/RestaurantDark2.png");
 		rest4 = new Restaurant4("Restaurant 4", 50, 400, 50, 400);
 		rest4.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest5 = new Restaurant1("Restaurant 5", 650, 400, 650, 400);
+		rest5 = new Restaurant5("Restaurant 5", 650, 400, 650, 400);
 		rest5.setImagePath("/resources/Buildings/RestaurantDark2.png");
 
 		buildings.add(home);
@@ -85,10 +70,40 @@ public class TheCity {
 		
 		
 	}
+	
+	static{//populate person-specific elements
+		
+	homeList.add("None (Homeless Shelter)");
+	homeList.add("Home 1");
+	homeList.add("Apartment 1");
+	
+	
+	//populate lists
+	jobLocationList.add("No job");
+	for(Building b: buildings){
+		jobLocationList.add(b.getName());
+	}
+	//populate building jobs map
+	for(Building b: buildings){
+		jobPositionList.add(b.getJobCollec());
+		buildingJobsMap.put(b.getName(), b.getJobCollec());
+	}
+	
+	/*jobLocationList.add("Market");
+	jobLocationList.add("Bank");
+	jobLocationList.add("Restaurant 1");*/
+	
+	//jobPositionList.add("This is a temp variable I still need to figure out how to make this list dynamic");
+	
+	transportationList.add("Walker");
+	
+	homeOwnerList.add("none");
+	homeOwnerList.add("Home 1");
+	}
 	public static List<String> getJobLocs(){
 		return jobLocationList;
 	}
-	public static List<String> getPos(){
+	public static Vector<Vector<String>> getPos(){
 		return jobPositionList;
 	}
 	public static List<String> getTransportation(){
@@ -123,7 +138,7 @@ public class TheCity {
 		if(s.equalsIgnoreCase("Bank")){
 			return bank;
 		}
-		if(s.equalsIgnoreCase("Home")){
+		if(s.equalsIgnoreCase("Home 1")){
 			return home;
 		}
 		if(s.equalsIgnoreCase("Apartment 1")){

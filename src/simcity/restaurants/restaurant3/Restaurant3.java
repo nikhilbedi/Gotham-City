@@ -26,6 +26,14 @@ import agent.Agent;
  */
 
 public class Restaurant3 extends Restaurant {
+	public HostRole host = new HostRole();
+	public Restaurant3CashierRole cashier = new Restaurant3CashierRole();
+	public Restaurant3CookRole cook = new Restaurant3CookRole();
+   
+    //List<WaiterRole> waiters = new ArrayList<WaiterRole>();
+    public WaiterRole waiter1 = new WaiterRole();
+    public WaiterSharedData waiter2 = new WaiterSharedData();
+  
 	
 	public List<Order> orders = Collections.synchronizedList(new Vector<Order>()); 
 	public Map<String, Food> foods = Collections.synchronizedMap(new HashMap<String, Food>());
@@ -39,12 +47,8 @@ public class Restaurant3 extends Restaurant {
 	public Map<Customer, Double> owed = Collections.synchronizedMap(new HashMap<Customer, Double>());
 	private double restaurantRevenue = 100;
 	
-	public HostRole host = new HostRole();
-    public Restaurant3CashierRole cashier = new Restaurant3CashierRole();
-    //List<WaiterRole> waiters = new ArrayList<WaiterRole>();
-    public WaiterRole waiter1 = new WaiterRole();
-    public WaiterSharedData waiter2 = new WaiterSharedData();
-    public Restaurant3CookRole cook = new Restaurant3CookRole();
+	
+
 	
 	
 	 
@@ -54,6 +58,9 @@ public class Restaurant3 extends Restaurant {
 
 		this.name = type;
 		cashState = CashierState.idle;
+		
+		setWeekdayHours(6,24);
+		setWeekendHours(0, 0);
 		
 		//Set the open and closing hours
         //setWeekdayHours(6, 24);
@@ -92,7 +99,7 @@ public class Restaurant3 extends Restaurant {
 
 
 	//utilities
-
+	
 	public void setGui(HostGui gui) {
 		hostGui = gui;
 	}

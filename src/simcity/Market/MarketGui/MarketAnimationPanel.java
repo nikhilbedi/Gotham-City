@@ -76,18 +76,23 @@ public class MarketAnimationPanel extends Screen {
     	 java.net.URL imgtemp = this.getClass().getResource("/resources/mika/rsz_market.jpg");
     	 ImageIcon  current= new ImageIcon(imgtemp);
          g.drawImage(current.getImage(), 50, 0, null);
-        g.finalize();
+         g.finalize();
     	
     }
 
     public void populate(){
-    
+    	
+    	
+    	
+    	
+    	
+    	//THIS IS THE GREATEST COMMENT OF ALL TIME
     	List<String> foods = new ArrayList<String>();
     		marketCashier.setGui(cashierGui);
     		addGui(cashierGui);
     		cashier.addRole(marketCashier);
     		marketWorker.setGui(workerGui);
-    		workerGui.setMainScreen(mainScreen);
+    		//workerGui.setMainScreen(mainScreen);
     		addGui(workerGui);
     		agentWork.addRole(marketWorker);
     		marketCustomer.setGui(customerGui);
@@ -102,9 +107,10 @@ public class MarketAnimationPanel extends Screen {
     		
     		cashier.startThread();
     		agentWork.startThread();
-    		//customer.startThread();
+    		//customer.startThread();  
     		//agentCust2.startThread();
     		//agentCust3.startThread();
+    		//you'll never find me
     		
     		marketCashier.setWorker(marketWorker);
     		marketCustomer.setCashier(marketCashier);

@@ -139,7 +139,7 @@ public class ScreenFactory {
 			return rest5;
 
 		}
-		if(s.equalsIgnoreCase("Apartment")){
+		if(s.equalsIgnoreCase("Apartment 1")){
 			return apart;
 		}
 		if(s.equalsIgnoreCase("Market")){
@@ -180,7 +180,7 @@ public class ScreenFactory {
 			return rest5;
 
 		}
-		if(s.equalsIgnoreCase("Apartment")){
+		if(s.equalsIgnoreCase("Apartment 1")){
 			return apart;
 		}
 		if(s.equalsIgnoreCase("Market")){

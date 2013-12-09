@@ -1,13 +1,34 @@
 package simcity;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.Vector;
+
 import javax.swing.ImageIcon;
 
+import agent.Role;
+
+/**
+ * The base class that every building will extend. 
+ * The gui and instantiation system will function more smoothly with this class 
+ * @author nikhil
+ *
+ */
 public class Building {
 	private String name;
 	private String imagePath = "";
 	private Location entranceLocation;
 	private Location guiLocation;
+	protected int weekdayOpen;
+	protected int weekdayClose;
+	protected int weekendOpen;
+	protected int weekendClose;
 	public ImageIcon icon;
+	protected Map<String, Role> jobRoles = Collections.synchronizedMap(new HashMap<String, Role>());
 	
 	public ImageIcon getIcon() {
 		return icon;
@@ -27,6 +48,12 @@ public class Building {
 		entranceLocation = new Location (entranceX, entranceY);
 		guiLocation = new Location(guiX, guiY);
 		this.name = name;
+		
+		//This is a test for the GUI remove if you want.
+	/*	jobRoles.put("Test1", new Role());
+		jobRoles.put("Test2", new Role());
+		jobRoles.put("Test3", new Role());*/
+		
 	}
 	
 	/**
@@ -75,5 +102,73 @@ public class Building {
 	
 	public void setImagePath(String i) {
 		imagePath = i;
+	}
+	
+	public int getWeekdayOpen() {
+		return weekdayOpen;
+	}
+
+	public int getWeekdayClose() {
+		return weekdayClose;
+	}
+
+	public int getWeekendOpen() {
+		return weekendOpen;
+	}
+
+	public int getWeekendClose() {
+		return weekendClose;
+	}
+	
+	public void setWeekdayHours(int open, int close) {
+		weekdayOpen = open;
+		weekdayClose = close;
+	}
+
+	public void setWeekendHours(int open, int close) {
+		weekendOpen = open;
+		weekendClose = close;
+	}
+
+	public Map<String, Role> getJobRoles() {
+		return jobRoles;
+	}
+
+	public void setJobRoles(Map<String, Role> jobRoles) {
+		this.jobRoles = jobRoles;
+	}
+	
+	public Vector getJobCollec(){
+		
+		Vector<String> jobStringList;
+		//synchronize this list
+		jobStringList = new Vector<String>();
+		synchronized(jobRoles){
+			for(String s : jobRoles.keySet()) {
+				jobStringList.add(s);
+			}
+		}
+		
+		return jobStringList;
+	}
+
+	public Role getRoleFromString(String roleString) {
+		Role temp = new Role();
+		boolean jobExists = false;
+		synchronized(jobRoles){
+			for(String s : jobRoles.keySet()) {
+				if(roleString.equalsIgnoreCase(s)){
+					temp = jobRoles.get(s);
+					jobExists = true;
+				}
+			}
+		}
+		if(jobExists) {
+			return temp;
+		}
+		else {
+			System.out.println("Role not found in this building.");
+			return null;
+		}
 	}
 }

@@ -59,7 +59,7 @@ public class MainScreen extends Screen{
 		house4.setImagePath("/resources/Buildings/HouseDark2.png");
 		house5 = new Home("Home5", 490, 590, 500, 600);
 		house5.setImagePath("/resources/Buildings/HouseDark2.png");
-		house6 = new Apartment("Apartment", 590, 590, 600, 600);//this is hacked for now TODO change
+		house6 = new Apartment("Apartment 1", 590, 590, 600, 600);//this is hacked for now TODO change
 		house6.setImagePath("/resources/Buildings/HouseDark.png");
 		
 		
@@ -150,7 +150,7 @@ public class MainScreen extends Screen{
 			if( (x>tempX) && (x<tempX + b.icon.getIconWidth()) && (y>tempY) && (y<tempY+b.icon.getIconHeight())){
 				System.err.println(b.getName());
 				return b.getName();
-			
+				
 			}
 		}
 

@@ -4,8 +4,10 @@ package simcity.restaurants.restaurant5.gui;
 import java.util.*;
 import java.awt.*;
 import simcity.restaurants.restaurant5.*;
-
+import simcity.restaurants.restaurant5.interfaces.Cook;
+import agent.*;
 import Gui.RoleGui;
+import Gui.Screen;
 
 public class CookGui extends RoleGui implements Gui {
 
@@ -28,6 +30,10 @@ public class CookGui extends RoleGui implements Gui {
 		yDestination = defaultY;
 		this.agent = agent;
 		setColor(Color.CYAN);
+	}
+
+	public CookGui(Cook cook, Screen meScreen) {
+		super( (Role)cook, meScreen);
 	}
 
 	public void updatePosition() {

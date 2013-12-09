@@ -7,9 +7,12 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.util.*;
 
+import agent.*;
 import simcity.restaurants.restaurant5.*;
+import simcity.restaurants.restaurant5.interfaces.Waiter;
 
 import Gui.RoleGui;
+import Gui.Screen;
 
 public class WaiterGui extends RoleGui implements Gui {
 
@@ -43,7 +46,12 @@ public class WaiterGui extends RoleGui implements Gui {
     }
 
 
-    public void updatePosition() {
+    public WaiterGui(Waiter waiter1, Screen meScreen) {
+		super( (Role)waiter1, meScreen);
+	}
+
+
+	public void updatePosition() {
        super.updatePosition();
 
         if (xPos == xDestination && yPos == yDestination){

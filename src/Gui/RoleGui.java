@@ -12,10 +12,10 @@ public class RoleGui {
 
 	protected int xPos, yPos;
 	protected int xDestination, yDestination;
-	private static int speed = 2;
+	private static int speed = 1;
 
 	private int repeat, repeatBuffer = 10;
-
+	boolean active;
 
 	private enum Orientation{North, South, East, West};
 	protected Orientation o;
@@ -47,6 +47,7 @@ public class RoleGui {
 		yDestination = 10;
 		myColor = Color.gray;
 		current = south1;
+		active = true;
 		//this.gui = gui;
 	}
 

@@ -47,6 +47,7 @@ public class ResidentGui extends RoleGui {
 		yDestination = -40;
 	}
 	public ResidentGui(ResidentRole role, Screen s) {
+		super(role, s);
 		myColor = Color.red;
 		// System.err.println("Here we are 2");
 		resident = role;
@@ -58,14 +59,10 @@ public class ResidentGui extends RoleGui {
 	}
 
 	public ResidentGui() {
-		//super();
+		super();
 		
 	}
 	
-	public ResidentGui(Apartment apartment, ResidentRole res1, Screen meScreen) {
-		// TODO Auto-generated constructor stub
-		super(apartment, res1, meScreen);
-	}
 	// @Override
 	public void updatePosition() {
 		super.updatePosition();
@@ -127,7 +124,7 @@ public class ResidentGui extends RoleGui {
 	 * 
 	 * }
 	 */
-
+	
 	public void DoGoToTable() {// 260, 350, 110, 110
 		System.out.println("At Table");
 		xDestination = 300;
