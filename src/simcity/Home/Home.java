@@ -2,6 +2,7 @@ package simcity.Home;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import simcity.Building;
 import simcity.PersonAgent.RentBill;
@@ -35,6 +36,15 @@ public class Home extends Building{
 		//(You can still keep the other constructor, resulting in two constructors)
 	}
 	
+
+	public Vector<String> getBuildingInfo(){
+		Vector<String> info = new Vector<String>();
+		info.add("Home");
+		info.add("Created by: Evan Coutre");
+		info.add("this is even more info");
+		return info;
+	}
+
 
 	public List<RentBill> getRentBills() {
 		return rentBills;

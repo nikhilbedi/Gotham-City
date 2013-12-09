@@ -3,6 +3,7 @@ package simcity.restaurants.restaurant4.test.mock;
 import simcity.restaurants.restaurant4.Menu;
 import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4CustomerGui;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Customer;
+import simcity.restaurants.restaurant4.interfaces.Restaurant4Host;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Waiter;
 
 public class Restaurant4CustomerMock extends Mock implements Restaurant4Customer{
@@ -112,6 +113,12 @@ public class Restaurant4CustomerMock extends Mock implements Restaurant4Customer
 	public void msgOutOfRestaurant4() {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Restaurant4Host getHost() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

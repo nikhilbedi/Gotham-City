@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.concurrent.Semaphore;
 
 import simcity.PersonAgent;
+import Gui.RoleGui;
 import agent.Role;
 import simcity.restaurants.restaurant3.gui.HostGui;
 import simcity.restaurants.restaurant3.gui.WaiterGui;
@@ -222,13 +223,22 @@ public class HostRole extends Role implements Host {
 
 	
 	//utilities
-
+/*
 	public void setGui(WaiterGui gui) {
 		waiterGui = gui;
 	}
 
 	public WaiterGui getGui() {
 		return waiterGui;
+	}*/
+	
+	public void setGui(RoleGui g) {
+		super.setGui(g);
+		hostGui = (HostGui)g;
+	}
+	
+	public HostGui getGui() {
+		return hostGui;
 	}
 	
 	public void setWaiter(Waiter  waiter) { //CHANGED TO SINGLE WAITER AND ADDED THAT WAITER TO WAITER VECTOR

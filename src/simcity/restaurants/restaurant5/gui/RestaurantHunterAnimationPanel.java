@@ -1,6 +1,7 @@
 package simcity.restaurants.restaurant5.gui;
 
 import javax.swing.*;
+import simcity.TheCity;
 
 import simcity.PersonAgent;
 import simcity.Robot;
@@ -25,7 +26,7 @@ import java.util.Vector;
 public class RestaurantHunterAnimationPanel extends Screen{
 	
 	// = ScreenFactory.getMainScreen().getRestaurantList().get(4);
-	List<Restaurant> restaurants = ScreenFactory.getMainScreen().getRestaurantList();
+	List<Restaurant> restaurants = TheCity.getRestaurantList();
 	Restaurant r5;
     private final int WINDOWX = 800;
     private final int WINDOWY = 360;
@@ -67,7 +68,7 @@ public class RestaurantHunterAnimationPanel extends Screen{
 		CookGui cookGui = new CookGui(cookRole);
 		
 		waiterRole.setGui(waiterGui);
-		cookRole.setGui(cookGui);
+		//cookRole.setGui(cookGui);
 
 		waiterPerson.addRole(waiterRole);
 		hostPerson.addRole(hostRole);

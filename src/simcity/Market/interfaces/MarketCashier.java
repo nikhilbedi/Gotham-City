@@ -11,6 +11,7 @@ import simcity.Market.Order;
 //import simcity.Restaurant4.Restaurant4CashierRole;
 //import simcity.Restaurant4.interfaces.Restaurant4Cashier;
 import simcity.Market.MarketCashierRole.Check;
+import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant4.Restaurant4CashierRole;
 
 public interface MarketCashier {
@@ -23,7 +24,7 @@ public interface MarketCashier {
 
 	abstract void needFood(MarketCustomer marketCustomerRole);
 
-	abstract void INeedFood(Map<String, Integer> food, Role role, Role cashier);
+	abstract void INeedFood(Map<String, Integer> food, Role role, Role cashier, Restaurant r);
 
 	abstract void hereIsMoneyRestaurant(Role role, double money);
 
@@ -32,4 +33,6 @@ public interface MarketCashier {
 	abstract List<RestaurantOrder> getRestaurantOrders();
 	
 	abstract void setRest4Cashier(Restaurant4CashierRole r);
+
+	abstract void foodIsDelivered(Role cookRole);
 }

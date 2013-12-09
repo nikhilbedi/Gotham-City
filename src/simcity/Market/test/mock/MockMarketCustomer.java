@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import simcity.Market.Order;
+import simcity.Market.MarketGui.MarketCustomerGui;
 import simcity.Market.interfaces.MarketCustomer;
 
 public class MockMarketCustomer extends Mock implements MarketCustomer{
@@ -69,5 +70,13 @@ public class MockMarketCustomer extends Mock implements MarketCustomer{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public MarketCustomerGui getCustomerGui() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 }

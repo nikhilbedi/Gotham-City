@@ -12,12 +12,15 @@ public class RoleGui {
 
 	protected int xPos, yPos;
 	protected int xDestination, yDestination;
-	private static int speed = 1;
+
+	protected static int speed = 1;
+
 
 	private int repeat, repeatBuffer = 10;
 	boolean active;
 
-	private enum Orientation{North, South, East, West};
+
+	protected enum Orientation{North, South, East, West};
 	protected Orientation o;
 
 	ImageIcon current;
@@ -164,6 +167,9 @@ public class RoleGui {
 	}
 	public Screen getHomeScreen() {
 		//System.out.println("Here is home Screen: " + homeScreen);
+		if(homeScreen == null){
+			System.out.println("Sup bro");
+		}
 		return homeScreen;
 	}
 	public void setHomeScreen(Screen s){

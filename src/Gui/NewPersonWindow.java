@@ -4,9 +4,11 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Event;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -23,6 +25,7 @@ import simcity.Home.Apartment;
 import simcity.Home.Home;
 import simcity.Market.MarketCustomerRole;
 import simcity.Market.MarketGui.MarketAnimationPanel;
+import trace.*;
 import simcity.interfaces.Person;
 
 public class NewPersonWindow extends JFrame implements ActionListener {
@@ -47,7 +50,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 
 	JButton finalize;
 
-	MainScreen mainScreen;
+	//MainScreen mainScreen;
 
 	JButton reference;
 
@@ -57,13 +60,18 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 	PersonSelectionPane selPane;
 
 	public MyLabeledUnit labeledPosition;
+	
 
-
-	public NewPersonWindow(MainScreen city, JButton b, PersonSelectionPane pane){
+	public NewPersonWindow(JButton b, PersonSelectionPane pane){
 		setSize(WINDOWX, WINDOWY);
+		addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+		    	reference.setEnabled(true);
+		        dispose();
+		    }
+		});
 
-
-		mainScreen = city;
 		reference = b;
 		selPane = pane;
 
@@ -73,7 +81,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 		BoxLayout windowLayout = new BoxLayout((Container) this.getContentPane(), BoxLayout.Y_AXIS);
 		setLayout(windowLayout);
 
-		nameField = new JTextField("Enter a name");
+		nameField = new JTextField("Person 0");
 		nameField.setMaximumSize(new Dimension(WINDOWX, 10));
 
 		homeList = new Vector<String>(TheCity.getHomes()); //will pop the home from the list if someone is living in it. 
@@ -157,12 +165,17 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			label.setVisible(b);
 		}
 	}
+	
+	public void updateDefaultText(String s){
+		nameField.setText(s);
+	}
 
 
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == finalize){
+			MainScreen mainScreen = ScreenFactory.getMainScreen();
 			PersonGui newPersonGui = new PersonGui();
 			PersonAgent newPerson = new PersonAgent(nameField.getText(), newPersonGui, mainScreen);
 			newPersonGui.setAgent(newPerson);
@@ -174,9 +187,9 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			//setJob
 
 			newPerson.setGui(newPersonGui);	
-			newPerson.setRestaurants(mainScreen.getRestaurantList());
-			newPerson.setMarkets(mainScreen.getMarketList());
-			newPerson.setBank(mainScreen.getBank());
+			newPerson.setRestaurants(TheCity.getRestaurantList());
+			newPerson.setMarkets(TheCity.getMarketList());
+			newPerson.setBank(TheCity.getBank());
 
 			//Give him money
 			newPerson.addMoney(money.getValue()); 
@@ -195,13 +208,16 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			}
 				
 			//setting Transportation
-			newPerson.setPreferredTransportation(transportation.getSelectedItem().toString());
+			//newPerson.setPreferredTransportation(transportation.getSelectedItem().toString());
+			newPerson.setPreferredTransportation("Walking");
 
 
 			//set home
-			//if(CityClock.getPeople().size() < 1)
-				//newPerson.setHome((Home)TheCity.getBuildingFromString("home"));
-				newPerson.setHome((Apartment)TheCity.getBuildingFromString("Apartment 1"));
+
+			if(CityClock.getPeople().size() < 1)
+				newPerson.setHome((Home)TheCity.getBuildingFromString("Home"));
+				//newPerson.setHome((Apartment)TheCity.getBuildingFromString("Apartment 1"));
+
 			
 			
 			newPerson.startThread();
@@ -214,9 +230,11 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			reference.setEnabled(true);
 			System.err.println("atGui" + newPerson.getMyHome().getName());
 			selPane.refresh();
-
+			
+			AlertLog.getInstance().logInfo(AlertTag.GUI, "Window", "Adding New Person: " + newPerson.getName() );
 			//close the window
 			dispose();
+			
 		}
 
 		if(e.getSource() == jobLocation){
@@ -236,6 +254,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			}
 		}
 	}
+
 	
 
 }

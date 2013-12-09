@@ -7,6 +7,7 @@ import Gui.ScreenFactory;
 import java.awt.*;
 import java.util.*;
 
+import agent.Role;
 import simcity.restaurants.restaurant3.*;
 import simcity.restaurants.restaurant3.interfaces.Waiter;
 
@@ -45,7 +46,8 @@ public class WaiterGui extends RoleGui {
         this.agent = agent;
     }
     public WaiterGui(Waiter agent, int home, Screen s) {
-    	super((WaiterRole)agent, s);
+    	super((Role) agent, s);
+   
     	//super.setColor(Color.pink);
     	
     	for (int i = 0; i < waitingCustomers.length; ++i){

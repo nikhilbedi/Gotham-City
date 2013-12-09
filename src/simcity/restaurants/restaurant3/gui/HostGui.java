@@ -27,6 +27,11 @@ public class HostGui extends RoleGui {
     	super((HostRole)agent, s);
         this.agent = (HostRole)agent;
     }
+    
+    public HostGui(HostRole agent, Screen s) {
+    	super(agent, s);
+        this.agent = agent;
+    }
 
     public void updatePosition() {
         if (xPos < xDestination)

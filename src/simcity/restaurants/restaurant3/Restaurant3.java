@@ -5,12 +5,12 @@ import java.util.concurrent.Semaphore;
 import java.util.Collections;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Vector;
 
 import javax.print.attribute.standard.MediaSize.NA;
 
 import simcity.PersonAgent;
 import Gui.RoleGui;
-import Gui.ScreenFactory;
 import agent.Role;
 import simcity.restaurants.*;
 import simcity.restaurants.restaurant3.*;
@@ -20,6 +20,7 @@ import simcity.restaurants.restaurant3.gui.HostGui;
 import simcity.restaurants.restaurant3.gui.WaiterGui;
 import simcity.restaurants.restaurant3.interfaces.*;
 import agent.Agent;
+import Gui.ScreenFactory;
 
 /**
  * Evan's restaurant
@@ -39,14 +40,14 @@ public class Restaurant3 extends Restaurant {
 	
 	
 	//create guis
-	HostGui hostGui = new HostGui(host, ScreenFactory.getMeScreen(this.getName()));
+	HostGui hostGui = new HostGui(host, ScreenFactory.getMeScreen("Restaurant 3"));
 	//CashierGui cashierGui = new CashierGui(cashier, ScreenFactory.getMeScreen(this.getName()));
-	WaiterGui waiterGui1 = new WaiterGui(waiter1, 0,ScreenFactory.getMeScreen(this.getName()));
-	WaiterGui waiterGui2 = new WaiterGui(waiter2, 0,ScreenFactory.getMeScreen(this.getName()));
-	WaiterGui waiterGui3 = new WaiterGui(waiter3, 0,ScreenFactory.getMeScreen(this.getName()));
-	WaiterGui waiterGui4 = new WaiterGui(waiter4, 0,ScreenFactory.getMeScreen(this.getName()));
+	WaiterGui waiterGui1 = new WaiterGui(waiter1, 0,ScreenFactory.getMeScreen("Restaurant 3"));
+	WaiterGui waiterGui2 = new WaiterGui(waiter2, 0,ScreenFactory.getMeScreen("Restaurant 3"));
+	WaiterGui waiterGui3 = new WaiterGui(waiter3, 0,ScreenFactory.getMeScreen("Restaurant 3"));
+	WaiterGui waiterGui4 = new WaiterGui(waiter4, 0,ScreenFactory.getMeScreen("Restaurant 3"));
 	
-	CookGui cookGui = new CookGui(cook, ScreenFactory.getMeScreen(this.getName()));
+	CookGui cookGui = new CookGui(cook, ScreenFactory.getMeScreen("Restaurant 3"));
 	
 	//public HostRole host = new HostRole();
 	//public Restaurant3CashierRole cashier = new Restaurant3CashierRole();
@@ -84,9 +85,9 @@ public class Restaurant3 extends Restaurant {
 		((HostRole) host).setGui((RoleGui)hostGui);
 		//((Restaurant3CashierRole) cashier).setGui((RoleGui)cashierGui);
 		((WaiterRole) waiter1).setGui((RoleGui)waiterGui1);
-		((WaiterRole) waiter2).setGui((RoleGui)waiterGui2);
+		((WaiterSharedData) waiter2).setGui((RoleGui)waiterGui2);
 		((WaiterRole) waiter3).setGui((RoleGui)waiterGui3);
-		((WaiterRole) waiter4).setGui((RoleGui)waiterGui4);
+		((WaiterSharedData) waiter4).setGui((RoleGui)waiterGui4);
 		((Restaurant3CookRole) cook).setGui((RoleGui)cookGui);
 		
 		jobRoles.put("Host Early", (Role)host);
@@ -195,6 +196,14 @@ public class Restaurant3 extends Restaurant {
 	@Override
 	public String getCustomerName(){
 		return "restaurant3customer";
+	}
+	
+	public Vector<String> getBuildingInfo(){
+		Vector<String> info = new Vector<String>();
+		info.add("Restaurant 3");
+		info.add("Created by: Evan Coutre");
+		info.add("this is even more super class info");
+		return info;
 	}
 	
 }

@@ -12,7 +12,7 @@ import simcity.Market.interfaces.MarketCustomer;
 
 public class MarketCustomerGui extends RoleGui{
 
-	private MarketCustomerRole customer;
+	private MarketCustomer customer;
 	private Command command;
 	private enum Command {buy, none, atCashier, gettingItems, left};
 	
@@ -54,7 +54,7 @@ public class MarketCustomerGui extends RoleGui{
 	        }
 	        if (yPos == 800  && xDestination == 580 && command == Command.left){
 	        	command = Command.none;
-	        	customer.msgOutOfMarket();
+	        	((MarketCustomerRole) customer).msgOutOfMarket();
 	        }
 	}
 
@@ -76,7 +76,6 @@ public class MarketCustomerGui extends RoleGui{
 	}
 	
 	public void DoGetItems(){
-		System.out.println("Started to move");
 		xDestination = 580;
 		yDestination = 530;
 		command = Command.gettingItems;
@@ -86,5 +85,9 @@ public class MarketCustomerGui extends RoleGui{
 		yDestination = 800;
 		xDestination = 580;
 		command = Command.left;
+	}
+	
+	public void setDestination(int x){
+		xDestination = x;
 	}
 }

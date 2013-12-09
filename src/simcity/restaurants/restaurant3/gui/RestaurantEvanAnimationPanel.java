@@ -1,6 +1,7 @@
 package simcity.restaurants.restaurant3.gui;
 
 import simcity.bank.Bank;
+import simcity.TheCity;
 import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant3.*;
 import simcity.PersonAgent;
@@ -17,10 +18,9 @@ import java.util.List;
 import java.util.*;
 
 public class RestaurantEvanAnimationPanel extends Screen  {
-	MainScreen mainScreen = ScreenFactory.getMainScreen();
 	//TODO WE NEED TO CHECK THE TYPE OF EACH RESTAURANT TO MAKE SURE WE MAKE IT EQUAL TO THE CORRECT REST.
 	Restaurant r3;
-	List<Restaurant> restaurants = mainScreen.getRestaurantList();
+	List<Restaurant> restaurants = TheCity.getRestaurantList();
 	/*private final int WINDOWX = 350;
 	private final int WINDOWY = 250;
 	private Image bufferImage;

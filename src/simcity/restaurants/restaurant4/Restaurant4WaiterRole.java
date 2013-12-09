@@ -11,11 +11,11 @@ import simcity.restaurants.restaurant4.interfaces.Restaurant4Cook;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Customer;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Waiter;
 
-public class Restaurant4WaiterRole extends Role implements Restaurant4Waiter {
+public class Restaurant4WaiterRole extends Restaurant4WaiterAgent implements Restaurant4Waiter {
 	private Restaurant4HostRole host = null;
 	private Restaurant4CashierRole cashier = null;
 	private String name;
-	public  List<MyCustomer> customers = new ArrayList<MyCustomer>();
+	public  List<MyCustomer> customers = Collections.synchronizedList(new ArrayList<MyCustomer>());
 	public Restaurant4WaiterGui waiterGui = null;
 	private Semaphore atTable = new Semaphore(0,true);
 	private Restaurant4Cook cook;
@@ -23,14 +23,18 @@ public class Restaurant4WaiterRole extends Role implements Restaurant4Waiter {
 	public enum WaiterState {available, onBreak};
 	private Timer timer = new Timer();
 	private boolean Break = false;
-	private PersonAgent person;
+	
+	
 	public Restaurant4WaiterRole(PersonAgent p){
 		super(p);
-		this.person = p;
+	}
+	public Restaurant4WaiterRole(){
+		super();
 	}
 	public String getName(){
 		return name;
 	}
+	@Override
 	public void setGui(Restaurant4WaiterGui gui){
 		waiterGui = gui;
 	}
@@ -39,74 +43,86 @@ public class Restaurant4WaiterRole extends Role implements Restaurant4Waiter {
 		return customers.size();
 	}
 	
+	@Override
 	public Restaurant4WaiterGui getGui(){
 		return waiterGui;
 	}
 	
+	@Override
 	public void setCook(Restaurant4Cook c){
 		cook = c;
 	}
-	
+	@Override
 	public void setHost(Restaurant4HostRole h){
 		host = h;
 	}
-	
+	@Override
 	public void setCashier(Restaurant4CashierRole c){
 		cashier = c;
 	}
 	
 	//messages
-	
+	@Override
 	public void atDefaultPosition(){
 		atTable.release();
 		
 		stateChanged();
 	}
+	
+	@Override
 	public void PleaseSeatCustomer(Restaurant4Customer c, int table){
-		person.Do("seating");
+		myPerson.Do("seating");
 		customers.add(new MyCustomer(c, table));
 		stateChanged();
 		
 	}
-	
+	@Override
 	public void msgAtTable() {//from animation
 		//print("msgAtTable() called");
 		atTable.release();// = true	
 	}
 	
+	@Override
 	public void ReadyToOrder(Restaurant4Customer c){
+		synchronized(customers){
 		for (MyCustomer customer: customers) {
 			if (customer.myCustomer==c) {
 				customer.s = MyCustomer.CustomerState.ReadytoOrder;
 				stateChanged();
 			}
-		}		
+		}	
+		}
 	}
 	
+	@Override
 	public void arrivedAtTable(Restaurant4Customer c){ //from animation
 		atTable.release();
 		c.whatDoYouWant();
-		person.Do("What do you want?");
+		myPerson.Do("What do you want?");
 	}
 	
+	@Override
 	public void HereIsMyChoice(Restaurant4Customer c, String choice){
+		synchronized(customers){
 		for (MyCustomer customer: customers) {
 			if (customer.myCustomer==c) {
 				customer.choice = choice;
-				person.Do(c.getName() + " ordered " + choice);
+				myPerson.Do(c.getName() + " ordered " + choice);
 				customer.s = MyCustomer.CustomerState.Ordered;
 				stateChanged();
 			}
 		}	
+		}
 	}
 	
+	@Override
 	public void startBreak(){
 		atTable.release();
-		person.Do("Starting a break");
+		myPerson.Do("Starting a break");
 		timer.schedule(new TimerTask() {
 			public void run() {
 				state = WaiterState.available;
-				person.Do("Break is over");
+				myPerson.Do("Break is over");
 				breakOver();
 			}
 		},
@@ -114,21 +130,24 @@ public class Restaurant4WaiterRole extends Role implements Restaurant4Waiter {
 		
 	}
 	
+	@Override
 	public void breakOver(){
 		host.BreakIsOver(this);
 		stateChanged();
 		}
-
+	@Override
 	public void youMayGoToABreak(){
 		state = WaiterState.onBreak;
 		stateChanged();
 		
 	}
+	@Override
 	public void arrivedToCook(Restaurant4Customer c){ //from animation
 		atTable.release();
+		synchronized(customers){
 		for(MyCustomer customer: customers){
 			if (customer.myCustomer==c){
-				person.Do("Ordering "+customer.choice+ " for "+customer.myCustomer.getName());
+				myPerson.Do("Ordering "+customer.choice+ " for "+customer.myCustomer.getName());
 				if (c.getMoney()>=5.99 && c.getMoney()<8.99 && c.getName().equals("cheapest")){
 					cook.setSalad();
 				}
@@ -136,32 +155,38 @@ public class Restaurant4WaiterRole extends Role implements Restaurant4Waiter {
 				}
 			}
 		}
+		}
 	
+	@Override
 	public void outOf(int table, String choice){
-		
+		synchronized(customers){
 		for(MyCustomer customer: customers){
 			if(customer.table==table){
 				customer.s = MyCustomer.CustomerState.outOf;
 		
 		}}
-	
+		}
 	}
+	@Override
 	public void arrivedToNotifyNoFood(Restaurant4Customer c, String choice){
 		atTable.release();
+		synchronized(customers){
 		for(MyCustomer customer: customers){
 			if (customer.myCustomer == c){
-				person.Do("Sorry " +c.getName() + " we have no " + choice);
+				myPerson.Do("Sorry " +c.getName() + " we have no " + choice);
 				//customer.s = MyCustomer.CustomerState.Seated;
 				Menu menu = new Menu();
 				menu.choice.remove(choice);
 				c.outOfChoice(menu);
 				stateChanged();
 			}
-		}	
+		}
+		}
 	}
 	
-	
+	@Override
 	public void OrderDone(String c, int table ){ //cook
+		synchronized(customers){
 		for(MyCustomer customer: customers){
 			if (customer.getTable()==table){
 				customer.s = MyCustomer.CustomerState.OrderDone;
@@ -169,45 +194,54 @@ public class Restaurant4WaiterRole extends Role implements Restaurant4Waiter {
 			}
 			}
 		}
+		}
 	
-	
+	@Override
 	public void HereIsYourFood(int table){//from animation
 		atTable.release();
+		synchronized(customers){
 		for(MyCustomer customer: customers){
 			if (customer.getTable()==table){
-				person.Do("Here is your food");
+				myPerson.Do("Here is your food");
 				customer.myCustomer.HereIsFood();
 				customer.s = MyCustomer.CustomerState.Eating;
 				stateChanged();
 			}
 		}
+		}
 	}
 	
+	@Override
 	public void DoneAndLeaving(Restaurant4Customer c){
+		synchronized(customers){
 		for (MyCustomer customer: customers){
 			if (customer.myCustomer==c){
 				customer.s = MyCustomer.CustomerState.DoneEating;
 				stateChanged();
 			}
 		}
+		}
 	} 
-	
+	@Override
 	public void computeCheck(Restaurant4Customer c){
+		synchronized(customers){
 		for (MyCustomer customer: customers){
 			if (customer.myCustomer==c){
 				customer.s = MyCustomer.CustomerState.ComputeCheck;
 				stateChanged();
 			}
 		}
+		}
 	}
-	
+	@Override
 	public void arrivedAtCashier(Restaurant4Customer c){
 		atTable.release();
-		person.Do("Arrived to the cashier");
+		myPerson.Do("Arrived to the cashier");
 		cashier.giveCheck(this, c, c.getChoice());
 	}
-	
+	@Override
 	public void HereIsCheck(Restaurant4Customer c, double price){ //cashier
+		synchronized(customers){
 		for (MyCustomer customer: customers){
 			if (customer.myCustomer==c){
 				customer.amountDue = price;
@@ -215,13 +249,15 @@ public class Restaurant4WaiterRole extends Role implements Restaurant4Waiter {
 				stateChanged();
 			}
 		}
+		}
 	}
-	
+	@Override
 	public void HereIsYourCheck(int table){ // from animation
 		atTable.release();
+		synchronized(customers){
 		for(MyCustomer customer: customers){
 			if (customer.getTable()==table){
-				person.Do("Here is your check");
+				myPerson.Do("Here is your check");
 				customer.myCustomer.PayForFood(customer.amountDue);
 				//removeCustomer(customer);
 				stateChanged();
@@ -229,12 +265,13 @@ public class Restaurant4WaiterRole extends Role implements Restaurant4Waiter {
 				
 			}
 		}
+		}
 	}
 	
 	
 	
 //	scheduler
-	
+	@Override
 	public boolean pickAndExecuteAnAction() {
 		try{
 		for (MyCustomer customer: customers){
@@ -257,28 +294,28 @@ public class Restaurant4WaiterRole extends Role implements Restaurant4Waiter {
 			
 			if (customer.s == MyCustomer.CustomerState.Ordered){
 				customer.s = MyCustomer.CustomerState.WaitingFood;
-				person.Do("Go to cook");
+				myPerson.Do("Go to cook");
 				GoToCook(customer);
 				return true;
 			}
 			
 			if (customer.s == MyCustomer.CustomerState.Computed){
 				customer.s = MyCustomer.CustomerState.deliveringCheck;
-				person.Do("Going to get a check");
+				myPerson.Do("Going to get a check");
 				doPickUpCheck(customer);
 				return true;
 			}
 			
 			if (customer.s == MyCustomer.CustomerState.outOf){
 				customer.s = MyCustomer.CustomerState.Seated;
-				person.Do("Notify no food");
+				myPerson.Do("Notify no food");
 				notifyNoFood(customer);
 				return true;
 			}
 			
 			if (customer.s == MyCustomer.CustomerState.ComputeCheck){
 				customer.s = MyCustomer.CustomerState.WaitingCheck;
-				person.Do("About to go to the cashier");
+				myPerson.Do("About to go to the cashier");
 				GoToCashier(customer);
 				return true;
 			}
@@ -295,7 +332,7 @@ public class Restaurant4WaiterRole extends Role implements Restaurant4Waiter {
 			return false;
 		}
 		if (state == WaiterState.onBreak && customers.size()== 0 && Break == true){
-			person.Do("About to go to the break");
+			myPerson.Do("About to go to the break");
 			goToABreak();
 			return true;
 		}
@@ -307,10 +344,10 @@ public class Restaurant4WaiterRole extends Role implements Restaurant4Waiter {
 	//actions
 
 	
-	
+	@Override
 	public void SeatCustomer(MyCustomer c){   
 		c.myCustomer.followMe(this, new Menu());
-		person.Do("Seating " + c.myCustomer.getName()+ " Table: " + c.table);
+		myPerson.Do("Seating " + c.myCustomer.getName()+ " Table: " + c.table);
 		waiterGui.DoBringToTable(c.myCustomer,c.table);
 		try {
 			atTable.acquire();
@@ -320,9 +357,9 @@ public class Restaurant4WaiterRole extends Role implements Restaurant4Waiter {
 		}
 	}
 
-	
+	@Override
 	public void TakeOrder(MyCustomer c){
-		person.Do("Going to take " + c.myCustomer.getName()+ "'s order");
+		myPerson.Do("Going to take " + c.myCustomer.getName()+ "'s order");
 		waiterGui.DoGoToTable(c.myCustomer, c.table);
 		try {
 			atTable.acquire();
@@ -331,9 +368,9 @@ public class Restaurant4WaiterRole extends Role implements Restaurant4Waiter {
 			e.printStackTrace();
 		}
 	}
-	 
+	@Override
 	public void GoToCook(MyCustomer customer){
-		person.Do("Going to cook");
+		myPerson.Do("Going to cook");
 		waiterGui.GoToCook(customer.myCustomer);
 		try {
 			atTable.acquire();
@@ -342,7 +379,7 @@ public class Restaurant4WaiterRole extends Role implements Restaurant4Waiter {
 			e.printStackTrace();
 		}
 	}
-	
+	@Override
 	public void DeliverFood(MyCustomer customer){
 		waiterGui.PickUpOrder(customer.table);
 		waiterGui.setFood(customer.choice);
@@ -353,7 +390,7 @@ public class Restaurant4WaiterRole extends Role implements Restaurant4Waiter {
 			e.printStackTrace();
 		}	
 	}
-	
+	@Override
 	public void doPickUpCheck(MyCustomer customer){
 		waiterGui.DoPickUpCheck(customer.table);
 		try {
@@ -364,10 +401,10 @@ public class Restaurant4WaiterRole extends Role implements Restaurant4Waiter {
 		}
 		
 	}	
-	
+	@Override
 	public void GoToCashier(MyCustomer customer){
 		waiterGui.DoGoToCashier(customer.myCustomer);
-		person.Do("Going to cashier");
+		myPerson.Do("Going to cashier");
 		try {
 			atTable.acquire();
 		} catch (InterruptedException e) {
@@ -376,7 +413,7 @@ public class Restaurant4WaiterRole extends Role implements Restaurant4Waiter {
 		}
 		
 	}
-	
+	@Override
 	public void notifyNoFood(MyCustomer c){
 		waiterGui.notifyNoFood(c.myCustomer, c.table);
 	
@@ -387,7 +424,7 @@ public class Restaurant4WaiterRole extends Role implements Restaurant4Waiter {
 		e.printStackTrace();
 	}
 	}
-	
+	@Override
 	public void removeCustomer(MyCustomer customer){
 		customers.remove(customer);
 		host.msgLeavingTable(customer.myCustomer);
@@ -395,12 +432,12 @@ public class Restaurant4WaiterRole extends Role implements Restaurant4Waiter {
 		Break = true;}
 		stateChanged();
 		}
-	
+	@Override
 	public void wantToGoOnBreak(){
-		person.Do("I want to go on a break");
+		myPerson.Do("I want to go on a break");
 		host.wantABreak(this);
 	}
-	
+	@Override
 	public void goToABreak(){
 		Break = false;
 		waiterGui.DoGoToABreak();
@@ -411,6 +448,7 @@ public class Restaurant4WaiterRole extends Role implements Restaurant4Waiter {
 			e.printStackTrace();
 		}
 	}
+	@Override
 	public void doLeaveCustomer(){
 		waiterGui.DoLeaveCustomer();
 		try {
@@ -420,32 +458,14 @@ public class Restaurant4WaiterRole extends Role implements Restaurant4Waiter {
 			e.printStackTrace();
 		}
 	}
-	public static class MyCustomer{
-		private Restaurant4Customer myCustomer;
-		private int table;
-		public CustomerState s;
-		private String choice;
-		private double amountDue;
-		public enum CustomerState {Waiting, Seated, ReadytoOrder,WaitingWaiter, Ordered, DeliveringFood, WaitingFood, OrderDone, Eating, ComputeCheck, WaitingCheck, DoneEating, deliveringCheck,Computed, gotCheck, outOf,  Leaving};
 	
-		
-	public int getTable(){
-		return table;
-	}	
-	
-	public Restaurant4Customer getCustomer(){
-		return myCustomer;
-	}
-	
-	public MyCustomer(Restaurant4Customer c, int t){
-		myCustomer = c;
-		table = t;
-		s= CustomerState.Waiting;
-	}
-	}
-	@Override
 	public void GotFood(String food) {
 		cook.gotFood(food);
+		
+	}
+
+	public void atRevolvingStand(Restaurant4Customer customer) {
+		// TODO Auto-generated method stub
 		
 	}
 	

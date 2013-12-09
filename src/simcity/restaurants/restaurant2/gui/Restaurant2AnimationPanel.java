@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import simcity.PersonAgent;
 import simcity.Robot;
+import simcity.TheCity;
 import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant2.Restaurant2;
 import simcity.restaurants.restaurant2.CashierRole;
@@ -24,10 +25,9 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Restaurant2AnimationPanel extends Screen {
-	MainScreen mainScreen = ScreenFactory.getMainScreen();
 	Restaurant r2;
 	//TODO WE NEED TO CHECK THE TYPE OF EACH RESTAURANT TO MAKE SURE WE MAKE IT EQUAL TO THE CORRECT REST.
-	List<Restaurant> restaurants = mainScreen.getRestaurantList();
+	List<Restaurant> restaurants = TheCity.getRestaurantList();
 	private final int WINDOWX1 = 0;
 	private final int WINDOWY1 = 0;
 	private final int WINDOWX = 450;
