@@ -13,7 +13,10 @@ import simcity.restaurants.restaurant4.Restaurant4CashierRole;
 import simcity.restaurants.restaurant4.Restaurant4CookRole;
 import simcity.restaurants.restaurant4.Restaurant4CustomerRole;
 import simcity.restaurants.restaurant4.Restaurant4HostRole;
+import simcity.restaurants.restaurant4.Restaurant4SharedDataWaiterRole;
+import simcity.restaurants.restaurant4.Restaurant4WaiterAgent;
 import simcity.restaurants.restaurant4.Restaurant4WaiterRole;
+import simcity.restaurants.restaurant4.interfaces.Restaurant4Waiter;
 import Gui.MainScreen;
 import Gui.Screen;
 import Gui.ScreenFactory;
@@ -39,20 +42,20 @@ public class Restaurant4AnimationPanel extends Screen {
     private Image bufferImage;
     
     private Dimension bufferSize;
-  public PersonAgent host = new Robot("host");
+ /* public PersonAgent host = new Robot("host");
   public Restaurant4HostRole hostRole = new Restaurant4HostRole(host);
   public PersonAgent waiter = new Robot("waiter");
-  public Restaurant4WaiterRole waiterRole = new Restaurant4WaiterRole(waiter);
-  public Restaurant4WaiterGui waiterGui = new Restaurant4WaiterGui(waiterRole, 1);
+  public Restaurant4WaiterAgent waiterRole = new Restaurant4SharedDataWaiterRole(waiter);
+  public Restaurant4WaiterGui waiterGui = new Restaurant4WaiterGui((Restaurant4Waiter) waiterRole, 1);
   public PersonAgent cook = new Robot("Cook");
   public Restaurant4CookRole cookRole = new Restaurant4CookRole(cook);
   public Restaurant4CookGui cookGui = new Restaurant4CookGui(cookRole);
 //  public PersonAgent customer = new PersonAgent("Customer");
-  public PersonAgent cashier = new Robot("cashier");
+  public PersonAgent cashier = new Robot("cashier");*/
  // public Restaurant4CustomerRole customerRole = new Restaurant4CustomerRole(customer);
  // public Restaurant4CustomerGui customerGui = new Restaurant4CustomerGui(customerRole);
-  public Restaurant4CashierRole cashierRole = new Restaurant4CashierRole(cashier);
-  public TheCity cp;
+//  public Restaurant4CashierRole cashierRole = new Restaurant4CashierRole(cashier);
+ // public TheCity cp;
   private List<Gui> guis = new ArrayList<Gui>();
 
     public Restaurant4AnimationPanel() {
@@ -71,9 +74,7 @@ public class Restaurant4AnimationPanel extends Screen {
     }
     
     
-    public void setCity(TheCity c){
-    	cp = c;
-    }
+    
     
     public void paintBackground(Graphics g2){
     	super.paintBackground(g2);
@@ -122,12 +123,18 @@ public class Restaurant4AnimationPanel extends Screen {
         
         g2.setColor(Color.YELLOW);
         g2.fillRect(183, 320, 20, 25);
+        
+        g2.setColor(Color.CYAN);
+        g2.fillRect(30, 260, 40, 20);
+        
+        g2.setColor(Color.BLACK);
+        g2.drawString("Stand", 35, 280);
     }
     
     
     public void populate(){
     	
-    	addGui(waiterGui);
+/*    	addGui(waiterGui);
     	addGui(cookGui);
     	//addGui(customerGui);
     	waiterRole.setGui(waiterGui);
@@ -141,7 +148,7 @@ public class Restaurant4AnimationPanel extends Screen {
     	cook.addRole(cookRole);
     //	customer.startThread();
     //	customer.addRole(customerRole);
-    	hostRole.setWaiter(waiterRole);
+    	hostRole.setWaiter((Restaurant4Waiter) waiterRole);
     	waiterRole.setCashier(cashierRole);
     	waiterRole.setCook(cookRole);
     	waiterRole.setHost(hostRole);
@@ -154,8 +161,8 @@ public class Restaurant4AnimationPanel extends Screen {
     	//customerGui.setHungry();
     	r4.setHost(hostRole);
     	r4.setCashier(cashierRole);
-    	((Restaurant4) r4).setWaiter(waiterRole);
-    	((Restaurant4) r4).setCook(cookRole);
+    	((Restaurant4) r4).setWaiter((Restaurant4Waiter) waiterRole);
+    	((Restaurant4) r4).setCook(cookRole);*/
     	/*List<Market> m = mainScreen.getMarketList();
     	r4.getCook().setMarketCashier(m.get(0).getCashier());*/
     }

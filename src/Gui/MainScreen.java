@@ -9,7 +9,11 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 import simcity.Building;
+
+import simcity.Bus;
+
 import simcity.TheCity;
+
 import simcity.Home.Home;
 import simcity.Market.Market;
 import simcity.bank.Bank;
@@ -19,19 +23,20 @@ import simcity.restaurants.restaurant1.Restaurant1;
 
 import simcity.restaurants.restaurant5.Restaurant5;
 import simcity.restaurants.restaurant3.Restaurant3;
-
 import simcity.restaurants.restaurant2.Restaurant2;
-
 import simcity.restaurants.restaurant4.Restaurant4;
 
 
 public class MainScreen extends Screen{
 
 	ArrayList<Building> buildings = new ArrayList<Building>();
+	Bus bus = new Bus("clockWise");
+	
 
 
 	public MainScreen()
 	{
+		addGui(bus);
 		//so much cleaner
 		buildings = TheCity.getBuildings();
 	}

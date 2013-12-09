@@ -70,6 +70,10 @@ public class Restaurant4CustomerRole extends Role implements Restaurant4Customer
 		gotHungry();
 	}
 	
+	public Restaurant4Host getHost(){
+		return host;
+	}
+	
 	public void msgOutOfRestaurant4(){
 		System.out.println("Leaving restaurant 4 ");
 		myPerson.leftBuilding(this);

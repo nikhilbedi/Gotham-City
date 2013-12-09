@@ -1,17 +1,23 @@
 package simcity.restaurants.restaurant4;
-import agent.Agent;
-import agent.Role;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.ConcurrentModificationException;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.Semaphore;
 
+import agent.Role;
 import simcity.PersonAgent;
 import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4WaiterGui;
+import simcity.restaurants.restaurant4.Restaurant4WaiterRole.WaiterState;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Cook;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Customer;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Waiter;
 
-public class Restaurant4WaiterRole extends Restaurant4WaiterAgent implements Restaurant4Waiter {
+public class Restaurant4SharedDataWaiterRole extends Restaurant4WaiterAgent implements Restaurant4Waiter{
+
 	private Restaurant4HostRole host = null;
 	private Restaurant4CashierRole cashier = null;
 	private String name;
@@ -23,17 +29,16 @@ public class Restaurant4WaiterRole extends Restaurant4WaiterAgent implements Res
 	public enum WaiterState {available, onBreak};
 	private Timer timer = new Timer();
 	private boolean Break = false;
+
 	
-	
-	public Restaurant4WaiterRole(PersonAgent p){
+	public Restaurant4SharedDataWaiterRole(PersonAgent p){
 		super(p);
 	}
-	public Restaurant4WaiterRole(){
+	public Restaurant4SharedDataWaiterRole(){
 		super();
 	}
-	public String getName(){
-		return name;
-	}
+	
+	
 	@Override
 	public void setGui(Restaurant4WaiterGui gui){
 		waiterGui = gui;
@@ -90,7 +95,7 @@ public class Restaurant4WaiterRole extends Restaurant4WaiterAgent implements Res
 				customer.s = MyCustomer.CustomerState.ReadytoOrder;
 				stateChanged();
 			}
-		}	
+		}		
 		}
 	}
 	
@@ -180,7 +185,7 @@ public class Restaurant4WaiterRole extends Restaurant4WaiterAgent implements Res
 				c.outOfChoice(menu);
 				stateChanged();
 			}
-		}
+		}	
 		}
 	}
 	
@@ -268,7 +273,17 @@ public class Restaurant4WaiterRole extends Restaurant4WaiterAgent implements Res
 		}
 	}
 	
-	
+	public void atRevolvingStand(Restaurant4Customer customer){
+		atTable.release();
+		synchronized(customers){
+		for (MyCustomer c: customers){
+			if (c.myCustomer == customer){
+				myPerson.Do("at revolving stand");
+				RevolvingStand.addOrder(cook, this, c.choice, c.table);
+			}
+		}
+		}
+	}
 	
 //	scheduler
 	@Override
@@ -356,6 +371,7 @@ public class Restaurant4WaiterRole extends Restaurant4WaiterAgent implements Res
 			e.printStackTrace();
 		}
 	}
+	//Hello Mika it's Hunter fixing your github!
 
 	@Override
 	public void TakeOrder(MyCustomer c){
@@ -370,8 +386,8 @@ public class Restaurant4WaiterRole extends Restaurant4WaiterAgent implements Res
 	}
 	@Override
 	public void GoToCook(MyCustomer customer){
-		myPerson.Do("Going to cook");
-		waiterGui.GoToCook(customer.myCustomer);
+		myPerson.Do("Going to revolving stand");
+		waiterGui.GoToRevolvingStand(customer.myCustomer);
 		try {
 			atTable.acquire();
 		} catch (InterruptedException e) {
@@ -459,13 +475,10 @@ public class Restaurant4WaiterRole extends Restaurant4WaiterAgent implements Res
 		}
 	}
 	
+	
+	
 	public void GotFood(String food) {
 		cook.gotFood(food);
-		
-	}
-
-	public void atRevolvingStand(Restaurant4Customer customer) {
-		// TODO Auto-generated method stub
 		
 	}
 	
