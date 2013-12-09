@@ -89,7 +89,8 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 		myPerson.Do("There is something on the stand");
 		int index = orders.size()-1;
 		Order o = orders.get(index);
-		RevolvingStand.removeOrder(this, o.waiter, o.choice, o.table);
+		//RevolvingStand.removeOrder(this, o.waiter, o.choice, o.table);
+		RevolvingStand.orders.remove(0);
 		stateChanged();
 	}
 
