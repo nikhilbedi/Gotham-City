@@ -2,6 +2,7 @@ package simcity.restaurants.restaurant4;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import agent.Role;
 import simcity.Building;
@@ -87,6 +88,14 @@ public class Restaurant4 extends Restaurant {
 	@Override
 	public String getCustomerName(){
 		return "restaurant4customer";
+	}
+	
+	public Vector<String> getBuildingInfo(){
+		Vector<String> info = new Vector<String>();
+		info.add("Restaurant 4");
+		info.add("Created by: Meruyert Aitbay");
+		info.add("this is even more super class info");
+		return info;
 	}
 		
 }

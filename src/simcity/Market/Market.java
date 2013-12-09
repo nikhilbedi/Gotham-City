@@ -2,6 +2,7 @@ package simcity.Market;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 import simcity.Building;
 import simcity.Market.interfaces.MarketCashier;
@@ -78,6 +79,14 @@ public class Market extends Building {
 		marketworker.getInventory().put("Salad", salad);
 		marketworker.getInventory().put("Steak", steak);
 
+	}
+	
+	public Vector<String> getBuildingInfo(){
+		Vector<String> info = new Vector<String>();
+		info.add("Market");
+		info.add("Created by: Miiiiiiikkkkkkaaaa!");
+		info.add("this is even more info");
+		return info;
 	}
 	
 }

@@ -36,8 +36,16 @@ public class PersonSelectionPane extends JPanel implements ActionListener {
 	SimCityPanel city;
 
 	InfoPanel info;
-
+	
+	//default name iterator info
+	int newPersonCounter = 0;
+	String defaultName = "Person 0";
+	
 	public PersonSelectionPane(SimCityPanel p) {
+		setPreferredSize(new Dimension(150,600));
+		setMinimumSize(new Dimension(150,600));
+		setMaximumSize(new Dimension(150,600));
+		
 		//format the button a bit
 		city = p;
 
@@ -67,6 +75,9 @@ public class PersonSelectionPane extends JPanel implements ActionListener {
 		if(e.getSource() == newPersonButton ){
 			if(firstTime) {
 				npWindow = new NewPersonWindow(newPersonButton, this);
+				newPersonCounter++;
+				defaultName = "Person " + newPersonCounter;
+				npWindow.updateDefaultText(defaultName);
 				npWindow.setVisible(true);
 				newPersonButton.setEnabled(false);
 				
@@ -129,6 +140,7 @@ public class PersonSelectionPane extends JPanel implements ActionListener {
 
 	}
 
+	//this is old code to get all of the person gui elements on screen
 	/*public void refresh(){
 		view.removeAll();
 		list.clear();

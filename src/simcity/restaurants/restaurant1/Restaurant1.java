@@ -74,4 +74,12 @@ public class Restaurant1 extends Restaurant {
 	public String getCustomerName(){
 		return "restaurant1customer";
 	}
+	
+	public Vector<String> getBuildingInfo(){
+		Vector<String> info = new Vector<String>();
+		info.add("Restaurant 1");
+		info.add("Created by: Nikhil Bedi");
+		info.add("this is even more super class info");
+		return info;
+	}
 }

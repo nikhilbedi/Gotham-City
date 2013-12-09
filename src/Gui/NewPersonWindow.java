@@ -24,6 +24,7 @@ import simcity.TheCity;
 import simcity.Home.Home;
 import simcity.Market.MarketCustomerRole;
 import simcity.Market.MarketGui.MarketAnimationPanel;
+import trace.*;
 import simcity.interfaces.Person;
 
 public class NewPersonWindow extends JFrame implements ActionListener {
@@ -58,7 +59,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 	PersonSelectionPane selPane;
 
 	public MyLabeledUnit labeledPosition;
-
+	
 
 	public NewPersonWindow(JButton b, PersonSelectionPane pane){
 		setSize(WINDOWX, WINDOWY);
@@ -79,7 +80,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 		BoxLayout windowLayout = new BoxLayout((Container) this.getContentPane(), BoxLayout.Y_AXIS);
 		setLayout(windowLayout);
 
-		nameField = new JTextField("Enter a name");
+		nameField = new JTextField("Person 0");
 		nameField.setMaximumSize(new Dimension(WINDOWX, 10));
 
 		homeList = new Vector<String>(TheCity.getHomes()); //will pop the home from the list if someone is living in it. 
@@ -163,6 +164,10 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			label.setVisible(b);
 		}
 	}
+	
+	public void updateDefaultText(String s){
+		nameField.setText(s);
+	}
 
 
 
@@ -207,7 +212,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 
 			//set home
 			if(CityClock.getPeople().size() < 1)
-				newPerson.setHome((Home)TheCity.getBuildingFromString("Home 1"));
+				newPerson.setHome((Home)TheCity.getBuildingFromString("Home"));
 			
 			
 			newPerson.startThread();
@@ -220,9 +225,11 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			reference.setEnabled(true);
 			
 			selPane.refresh();
-
+			
+			AlertLog.getInstance().logInfo(AlertTag.GUI, "Window", "Adding New Person: " + newPerson.getName() );
 			//close the window
 			dispose();
+			
 		}
 
 		if(e.getSource() == jobLocation){
