@@ -7,6 +7,7 @@ import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
 import simcity.restaurants.restaurant1.Menu;
 import simcity.restaurants.restaurant1.gui.HostGui;
 import simcity.restaurants.restaurant1.interfaces.*;
+import Gui.RoleGui;
 import agent.Role;
 
 import java.util.*;
@@ -297,9 +298,9 @@ public class HostRole extends Role implements Host {
 
 
 	//utilities
-
-	public void setGui(HostGui gui) {
-		hostGui = gui;
+	public void setGui(RoleGui g) {
+		super.setGui(g);
+		hostGui = (HostGui)g;
 	}
 
 	public HostGui getGui() {

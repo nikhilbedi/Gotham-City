@@ -1,8 +1,8 @@
 package simcity.restaurants.restaurant4;
 
+import Gui.RoleGui;
 import agent.Agent;
 import agent.Role;
-
 
 
 import java.util.*;
@@ -50,9 +50,15 @@ public class Restaurant4HostRole extends Role implements Restaurant4Host{
 		}
 	}
 	
-	public void setGui(Restaurant4HostGui g){
-		gui = g;
+	public void setGui(RoleGui g){
+		super.setGui(g);
+		gui = (Restaurant4HostGui)g;
 	}
+	
+	public Restaurant4HostGui getGui() {
+		return gui;
+	}
+	
 	public String getMaitreDName() {
 		return name;
 	}
@@ -60,6 +66,7 @@ public class Restaurant4HostRole extends Role implements Restaurant4Host{
 	public String getName() {
 		return name;
 	}
+
 
 	public boolean isFull(){
 		for (Table table : tables) {
