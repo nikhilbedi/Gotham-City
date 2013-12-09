@@ -23,6 +23,8 @@ import simcity.PersonAgent.HungerState;
 import simcity.PersonAgent.MoneyState;
 import simcity.PersonAgent.RentBill;
 import simcity.PersonAgent.RentState;
+import trace.AlertLog;
+import trace.AlertTag;
 
 /**
  * Home Resident Role
@@ -190,12 +192,12 @@ public class ResidentRole extends Role implements Resident {
 	public void gotSleepy() {
 		System.out.println("I'm sleepy");
 		event = HomeEvent.gotSleepy;
-		//stateChanged();
+		stateChanged();
 	}
 	public void wakeUp() {
 		System.out.println("Good morning");
-		//event = HomeEvent.;
-		//stateChanged();
+		event = HomeEvent.doneSleeping;
+		stateChanged();
 	}
 	/*
 	public void msgCheckGroceryBag() {
@@ -389,6 +391,12 @@ public class ResidentRole extends Role implements Resident {
 			goToBed();
 			return true;
 		}
+		if (state == HomeState.Sleeping && event == HomeEvent.doneSleeping) {
+			//System.out.println("SLEEPING ***");
+			state = HomeState.DoingNothing;
+			returnToHomePosition();
+			return true;
+		}
 
 
 		/*
@@ -414,14 +422,18 @@ public class ResidentRole extends Role implements Resident {
 
 	//checking mailbox when walking in and paying rent bills
 	public void goToMailbox() {
-		print("go to mailbox");
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"go to mailbox");
+		//print("go to mailbox");
 		residentGui.DoGoToMailbox();
 
 	}
 
 	public void checkMail() {
 		//rentBills.clear(); //CHANGE THIS ****************************
-		print("Inside checkMail function **********");
+		//print("Inside checkMail function **********");
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"go check mail");
 		if (rentBills.size() > 0) {
 			print("rent bills is greater than 0");
 			event = HomeEvent.payRent;
@@ -437,6 +449,8 @@ public class ResidentRole extends Role implements Resident {
 		//state = HomeState.DoingNothing;
 	}
 	public void payRent(List<RentBill> rentBills) {
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"Pay Rent");
 		for (RentBill rb : rentBills) {
 			if (rb.state == RentState.NotPaid) {
 				myPerson.goPayBill(rb);
@@ -451,6 +465,8 @@ public class ResidentRole extends Role implements Resident {
 
 	//checking grocery bag when walking in and putting groceries in fridge
 	public void checkGroceryBag() {
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"Check Grocery Bag ");
 		checkedGroceryBag= true;
 
 		if (groceryBag.size() > 0) {
@@ -462,15 +478,23 @@ public class ResidentRole extends Role implements Resident {
 		//stateChanged();
 	}
 	public void goToFridge() {
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"Go To Fridge ");
 		residentGui.DoGoToFridge();
 	}
 
 	public void putGroceriesInFridge(Map<String, Integer> groceryBag) {
 		//residentGui.DoGoToFridge();
-		print("putting item Steak into fridge. My grocery bag is filled with " + groceryBag.get("Steak"));
+		//print("putting item Steak into fridge. My grocery bag is filled with " + groceryBag.get("Steak"));
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"Putting groceries in the fridge. My grocery bag contains: Chicken: " + groceryBag.get("Chicken") + "Steak: " + 
+						groceryBag.get("Steak") + "Pizza: " + groceryBag.get("Pizza") + "Salad: " + groceryBag.get("Salad") );
 		groceryBag = myPerson.groceryBag;
 		int temp = groceryBag.get("Chicken");
-		fridgeFoods.get("Chicken").setAmount(groceryBag.get("Chicken"));
+		fridgeFoods.get("Chicken").setAmount(fridgeFoods.get("Chicken").getAmount() + groceryBag.get("Chicken"));
+		fridgeFoods.get("Steak").setAmount(fridgeFoods.get("Steak").getAmount() + groceryBag.get("Steak"));
+		fridgeFoods.get("Pizza").setAmount(fridgeFoods.get("Pizza").getAmount() + groceryBag.get("Pizza"));
+		fridgeFoods.get("Salad").setAmount(fridgeFoods.get("Salad").getAmount() + groceryBag.get("Salad"));
 		//print("Grocery bag ")
 		//fridgeFoods.get("Steak").setAmount(fridgeFoods.get("Steak").getAmount() + groceryBag.get("Steak"));
 		
@@ -686,7 +710,7 @@ public class ResidentRole extends Role implements Resident {
 
 	public void atBed() {
 		residentGui.sleeping = true;
-		event = HomeEvent.doneSleeping;
+		//event = HomeEvent.doneSleeping;
 		//stateChanged();
 	}
 
