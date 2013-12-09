@@ -605,7 +605,6 @@ public class PersonAgent extends Agent implements Person {
 			// Let me even see if I got money..
 			if (moneyState == MoneyState.Low || moneyState == MoneyState.High) {
 				if (currentBuilding != bank) {
-					print("Going to bank for money");
 					goToBank();
 					return true;
 				}
@@ -673,6 +672,7 @@ public class PersonAgent extends Agent implements Person {
 	
 	private void tellRoleToLeaveWork() {
 		myJob.role.setWorkStatus(false);
+		myJob.role.getReadyToLeave(this);
 		checkPersonScheduler = false;
 	}
 
@@ -680,9 +680,7 @@ public class PersonAgent extends Agent implements Person {
 		// Upon leaving work, person gains set amount of money in his wallet
 		money += 100; //20 dollar wage * hours worked
 		print("leaving work now.");
-		// Use Screen to draw rect outside currentBuilding
-		// Use Screen to delete rect inside currentBuilding
-		// animate to desired location
+
 		// Going home is not a critical section
 		gui.getHomeScreen().addGui(gui);
 		gui.DoGoToLocation(myHome.getEntranceLocation());

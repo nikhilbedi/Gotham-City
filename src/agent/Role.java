@@ -9,7 +9,7 @@ import simcity.Market.interfaces.MarketCashier;
 public class Role {
 
 	protected PersonAgent myPerson;
-
+	protected PersonAgent theManLeavingMe;
 	protected RoleGui gui;
 	private boolean active;
 	protected boolean onWork = false;
@@ -32,6 +32,10 @@ public class Role {
 	
 	public boolean checkWorkStatus() {
 		return onWork;
+	}
+	
+	public void getReadyToLeave(PersonAgent whoTurnedMeOff) {
+		theManLeavingMe = whoTurnedMeOff;
 	}
 
 	/**

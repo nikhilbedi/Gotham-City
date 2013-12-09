@@ -24,11 +24,15 @@ public class Restaurant1 extends Restaurant {
 	CookRole cook = new CookRole();
 	WaiterRole waiter1 = new WaiterRole();
 	WaiterSharedData waiter2 = new WaiterSharedData();
+	WaiterRole waiter3 = new WaiterRole();
+	WaiterSharedData waiter4 = new WaiterSharedData();
 	
 	//The GUIs
 	CookGui cookGui = new CookGui(cook, ScreenFactory.getMeScreen("Restaurant 1"));
 	WaiterGui w1Gui = new WaiterGui(waiter1, 0, ScreenFactory.getMeScreen("Restaurant 1"));
 	WaiterSharedDataGui w2Gui = new WaiterSharedDataGui(waiter2, 0, ScreenFactory.getMeScreen("Restaurant 1"));
+	WaiterGui w3Gui = new WaiterGui(waiter3, 0, ScreenFactory.getMeScreen("Restaurant 1"));
+	WaiterSharedDataGui w4Gui = new WaiterSharedDataGui(waiter4, 0, ScreenFactory.getMeScreen("Restaurant 1"));
 	HostGui hostGui = new HostGui(host, ScreenFactory.getMeScreen("Restaurant 1"));
 	CashierGui cashierGui = new CashierGui(cashier, ScreenFactory.getMeScreen("Restaurant 1"));
 
@@ -43,6 +47,8 @@ public class Restaurant1 extends Restaurant {
 		cook.setGui(cookGui);
 		waiter1.setGui(w1Gui);
 		waiter2.setGui(w2Gui);
+		waiter3.setGui(w1Gui);
+		waiter4.setGui(w2Gui);
 		host.setGui(hostGui);
 		cashier.setGui(cashierGui);
 		//Add the key: strings & value: roles
