@@ -24,6 +24,10 @@ public class HomeAnimationPanel extends Screen {
 	private Dimension bufferSize;
 	public ResidentGui gui;
 	public Home home;
+	
+	int yCookingArea = 700;
+	int ySink = 500;
+	int yCounterTop = 700;
 
 	public HomeAnimationPanel() {
 		// setSize(WINDOWX, WINDOWY);
@@ -72,30 +76,30 @@ public class HomeAnimationPanel extends Screen {
 		Graphics chair = (Graphics) g;
 
 		refridgerator.setColor(Color.lightGray);
-		refridgerator.fill3DRect(380, 700, 130, 80, true);
+		refridgerator.fill3DRect(380, yCounterTop, 130, 80, true);
 		refridgerator.setColor(Color.GRAY);
-		refridgerator.fill3DRect(380, 690, 130, 10, true);
+		refridgerator.fill3DRect(380, yCounterTop-10, 130, 10, true);
 		refridgerator.setColor(Color.black);
-		refridgerator.fill3DRect(445, 690, 2, 10, true);
+		refridgerator.fill3DRect(445, yCounterTop-10, 2, 10, true);
 		text.setColor(Color.black);
 		text.drawString("refridgerator", 400, 740);
 
 		counterTop.setColor(Color.yellow);
-		counterTop.fill3DRect(0, 700, 380, 80, true);
+		counterTop.fill3DRect(0, yCounterTop, 380, 80, true);
 
 		counterTop.setColor(Color.yellow);
-		counterTop.fill3DRect(0, 400, 80, 380, true);
+		counterTop.fill3DRect(0, yCounterTop - 300, 80, 380, true);
 
 		sink.setColor(Color.CYAN);
-		sink.fillRect(10, 500, 60, 80);
+		sink.fillRect(10, ySink, 60, 80);
 		text.setColor(Color.black);
-		text.drawString("sink", 25, 540);
+		text.drawString("sink", 25, ySink +40);
 
 		tv.setColor(Color.DARK_GRAY);
 		tv.fill3DRect(210, 168, 10, 70, true);
 
 		cookingArea.setColor(Color.pink);
-		cookingArea.fill3DRect(160, 700, 110, 80, true);
+		cookingArea.fill3DRect(160, yCookingArea, 110, 80, true);
 		// cookingArea.setColor(Color.DARK_GRAY);
 		// cookingArea.fillOval(190, 720, 20, 20);
 		text.setColor(Color.black);
