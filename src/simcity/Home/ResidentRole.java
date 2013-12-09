@@ -435,6 +435,7 @@ public class ResidentRole extends Role implements Resident {
 	public void goToMailbox() {
 		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
 				"going to mailbox");
+		residentGui.checkingMail = true;
 		//print("go to mailbox");
 		residentGui.DoGoToMailbox();
 
@@ -462,6 +463,7 @@ public class ResidentRole extends Role implements Resident {
 		}
 		//event = HomeEvent.none;
 		//state = HomeState.DoingNothing;
+		residentGui.checkingMail = false;
 	}
 	public void payRent(List<RentBill> rentBills) {
 		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
@@ -586,9 +588,9 @@ public class ResidentRole extends Role implements Resident {
 			//stateChanged();
 		}
 		
-		if(myPerson.moneyState != MoneyState.Low){
-			event = HomeEvent.EmptyFridge;
-		}
+//		if(myPerson.moneyState != MoneyState.Low){
+//			event = HomeEvent.EmptyFridge;
+//		}
 		return choice;
 	}
 
@@ -794,8 +796,8 @@ public class ResidentRole extends Role implements Resident {
 
 	private boolean checkInventory(Food f) {
 		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
-				"Checking fridge inventory. Fridge contains: Chicken: " + fridgeFoods.get("Chicken").getAmount() + "Steak: " +
-						fridgeFoods.get("Steak").getAmount() + "Pizza: "+ fridgeFoods.get("Pizza").getAmount() + "Salad: " + 
+				"Checking fridge inventory. Fridge contains: Chicken: " + fridgeFoods.get("Chicken").getAmount() + " Steak: " +
+						fridgeFoods.get("Steak").getAmount() + " Pizza: "+ fridgeFoods.get("Pizza").getAmount() + " Salad: " + 
 						fridgeFoods.get("Salad").getAmount());
 		//System.out.println("checking Fridge Inventory");
 		//System.err.println("amount of chicken = " + fridgeFoods.get("Chicken").getAmount());
