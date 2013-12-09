@@ -731,7 +731,7 @@ public class PersonAgent extends Agent implements Person {
 			currentBuilding = getMyHome();
 			homeGui = new ResidentGui((ResidentRole)homeTemp, ScreenFactory.getMeScreen(myHome.getName()));
 			homeGui.setHomeScreen(ScreenFactory.getMeScreen(myHome.getName()));
-	
+
 //			//Add role
 	
 			homeTemp.setGui(homeGui);
@@ -739,7 +739,7 @@ public class PersonAgent extends Agent implements Person {
 			homeTemp.setPerson(this);
 			enteringBuilding(homeTemp);
 			//hacking TODO
-			//enteringBuilding(myHome.getResident());
+			enteringBuilding(myHome.getResident());
 			checkPersonScheduler = false;
 		} else {
 			gui.DoGoToLocation(new Location(26, 580, "Default"));

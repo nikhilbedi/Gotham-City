@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+import Gui.ScreenFactory;
 import simcity.Building;
 import simcity.PersonAgent.RentBill;
+import simcity.Home.gui.ApartmentResidentGui;
+import simcity.Home.gui.ResidentGui;
 import simcity.Home.test.mock.MockResident;
 
 
@@ -21,6 +24,8 @@ public class Home extends Building{
 	public String HomeResident = "resident";
 	//int openTime, closeTime;
 	//Location location = new Location(xCoor, yCoor);
+	ResidentGui residentGui = new ResidentGui(resident, ScreenFactory.getMeScreen(this.getName()));
+	
 	
 	public Home(String type, int entranceX, int entranceY, int guiX,
 			int guiY){

@@ -5,6 +5,7 @@ import simcity.Home.gui.ApartmentResidentGui;
 import simcity.Home.gui.ResidentGui;
 import simcity.Home.interfaces.Resident;
 import Gui.RoleGui;
+import Gui.ScreenFactory;
 import agent.Agent;
 import agent.Role;
 
@@ -33,8 +34,9 @@ public class ResidentRole extends Role implements Resident {
 	private String name;
 	Timer timer = new Timer();
 
-	private ResidentGui residentGui;
-	private ApartmentResidentGui apartmentResidentGui;
+	//private ResidentGui residentGui;
+	ResidentGui residentGui;
+	ApartmentResidentGui apartmentResidentGui;
 	// public Food foodChoice;
 	String type;
 	public PersonAgent person;
