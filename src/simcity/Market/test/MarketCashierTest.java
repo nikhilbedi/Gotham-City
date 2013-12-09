@@ -104,7 +104,7 @@ import static org.junit.Assert.* ;
 			assertTrue("Scheduler should not return true", !cashier.pickAndExecuteAnAction() );
 			cashier.needFood(customer);
 			cashier.needFood(customer2);
-			cashier.INeedFood(map, cook, cashierRest);
+		//	cashier.INeedFood(map, cook, cashierRest);
 			assertTrue("Cashier's waiting customers list must be empty",cashier.getRestaurantOrders().size()==1);
 			assertTrue("State should be pending", cashier.getRestaurantOrders().get(0).state == RestaurantOrder.State.pending);
 			assertTrue("Cashier's waiting customers list must have 1 customer",cashier.getCustomers().size()==2);

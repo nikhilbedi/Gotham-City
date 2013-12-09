@@ -30,7 +30,7 @@ import simcity.restaurants.restaurant4.Restaurant4;
 public class MainScreen extends Screen{
 
 	ArrayList<Building> buildings = new ArrayList<Building>();
-
+	public Bus bus = new Bus("clockWise");
 	
 
 
@@ -38,6 +38,7 @@ public class MainScreen extends Screen{
 	{
 		//so much cleaner
 		buildings = TheCity.getBuildings();
+		addGui(bus);
 	}
 
 	public  void paintBackground(Graphics g)

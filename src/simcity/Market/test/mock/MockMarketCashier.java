@@ -11,6 +11,7 @@ import simcity.Market.MarketCustomerRole;
 import simcity.Market.Order;
 import simcity.Market.interfaces.MarketCashier;
 import simcity.Market.interfaces.MarketCustomer;
+import simcity.restaurants.Restaurant;
 //import simcity.Restaurant4.Restaurant4CashierRole;
 import simcity.restaurants.restaurant4.Restaurant4CashierRole;
 
@@ -45,11 +46,6 @@ public class MockMarketCashier extends Mock implements MarketCashier {
 		
 	}
 
-	@Override
-	public void INeedFood(Map<String, Integer> food, Role role, Role cashierRole) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
 	public void hereIsMoneyRestaurant(
@@ -83,6 +79,13 @@ public class MockMarketCashier extends Mock implements MarketCashier {
 
 	@Override
 	public void foodIsDelivered(Role cookRole) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void INeedFood(Map<String, Integer> food, Role role, Role cashier,
+			Restaurant r) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -1,6 +1,8 @@
 package simcity;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -18,25 +20,33 @@ public class Bus extends RoleGui{
 	ImageIcon busRight = new ImageIcon(this.getClass().getResource("/resources/mika/busright.jpg"));
 	ImageIcon busUp = new ImageIcon(this.getClass().getResource("/resources/mika/busUp.jpg"));
 	ImageIcon busDown = new ImageIcon(this.getClass().getResource("/resources/mika/busDown.jpg"));
+	public static List<PersonGui> passengers = new ArrayList<PersonGui>();
 	int currentDestinationX;
 	int currentDestinationY;
 	int counterX = 0;
 	int counterY = 0;
-	public boolean stoppedNorthRight = false; 
-	public boolean stoppedNorthLeft  = false;
-	public boolean stoppedSouthRight = false;
-	public boolean stoppedSouthLeft  = false;
-	public boolean stoppedEastRight = false; 
-	public boolean stoppedEastLeft  = false;
-	public boolean stoppedWestRight = false;
-	public boolean stoppedWestLeft  = false;
+	public static boolean stoppedNorthRight = false; 
+	public static boolean stoppedNorthLeft  = false;
+	public static boolean stoppedSouthRight = false;
+	public static boolean stoppedSouthLeft  = false;
+	public static boolean stoppedEastRight = false; 
+	public static boolean stoppedEastLeft  = false;
+	public static boolean stoppedWestRight = false;
+	public static boolean stoppedWestLeft  = false;
+	
+	public static Location northBusStop = new Location(400, 216, "North busstop");
+	public static Location southBusStop = new Location(400, 566, "South busstop");
+	public static Location eastBusStop = new Location(656, 352, "East busstop");
+	public static Location westBusStop = new Location(210, 352, "West busstop");
+	
+	
 	public Bus(String type){ //goes east
 		this.type = type;
 		if (this.type == "clockWise"){
 			xPos = 210;
-			yPos = 215;
+			yPos = 216;
 			xDestination = 610;
-			yDestination = 215;
+			yDestination = 216;
 			currentImage = busRight;
 		}
 		
@@ -55,35 +65,35 @@ public class Bus extends RoleGui{
 	public void updatePosition(){
 		super.updatePosition();
 		if (type == "clockWise"){
-			if (xPos == 610 && yPos == 215){  //going south
+			if (xPos == 610 && yPos == 216){  //going south
 				currentImage = busDown;
-				xPos = 655;
-				yPos = 215;
-				xDestination = 655;
-				yDestination = 531;
+				xPos = 656;
+				yPos = 216;
+				xDestination = 656;
+				yDestination = 532;
 			}
 			
-			if (xPos == 655 && yPos == 531){ //going west
+			if (xPos == 656 && yPos == 532){ //going west
 				currentImage = busLeft;
 				xPos = 610;
-				yPos = 565;
+				yPos = 566;
 				xDestination = 210;
-				yDestination = 565;
+				yDestination = 566;
 			}
 			
-			if (xPos == 210 && yPos == 565){//going north 
+			if (xPos == 210 && yPos == 566){//going north 
 				currentImage = busUp;
 				xPos = 210;
-				yPos = 507;
+				yPos = 508;
 				xDestination = 210;
-				yDestination = 215;
+				yDestination = 216;
 			}
 			
-			if (xPos == 210 && yPos == 215){ //going east
+			if (xPos == 210 && yPos == 216){ //going east
 				xPos = 210;
-				yPos = 215;
+				yPos = 216;
 				xDestination = 610;
-				yDestination = 215;
+				yDestination = 216;
 				currentImage = busRight;
 			}
 		}
@@ -119,20 +129,32 @@ public class Bus extends RoleGui{
 				xDestination = 575;
 				yDestination = 525;
 			}		
-				System.out.println();
+			
 			
 		}
 		
-		if (xPos == 401 || xPos == 400){
+		if (xPos == 400){
 				++counterX;
-				if (xPos == 400 && yPos == 215){
-				 stoppedNorthRight = true;
+				if (xPos == 400 && yPos == 216){  //north bus stop locations 
+					stoppedNorthRight = true;
+					for (int i= 0; i<passengers.size(); i++){
+						if (passengers.get(i).busStop == "north"){
+							passengers.get(i).getOut();
+							passengers.remove(i);
+						}
+					}
 				}
 				else if (xPos == 400 && yPos == 255){
 					stoppedNorthLeft = true;
 				}
-				else if (xPos == 400 && yPos == 565){
+				else if (xPos == 400 && yPos == 566){ //south bus stop locations
 					stoppedSouthRight = true;
+					for (int i= 0; i<passengers.size(); i++){
+						if (passengers.get(i).busStop == "south"){
+							passengers.get(i).getOut();
+							passengers.remove(i);
+						}
+					}
 				}
 				else if (xPos == 401 && yPos == 525){
 					stoppedSouthLeft = true;
@@ -145,16 +167,28 @@ public class Bus extends RoleGui{
 			}
 		
 		
-		if (yPos == 351 || yPos == 350){
+		if ( yPos == 352){
 			++counterY;
-			if (yPos == 351 && xPos == 655){
+			if (yPos == 352 && xPos == 656){   //east bus stop location
 				stoppedEastRight = true;
+				for (int i= 0; i<passengers.size(); i++){
+					if (passengers.get(i).busStop == "east"){
+						passengers.get(i).getOut();
+						passengers.remove(i);
+					}
+				}
 			}
 			else if (yPos == 351 && xPos ==615){
 				stoppedEastLeft = true;
 			}
-			else if (yPos == 351 && xPos == 210){
+			else if (yPos == 352 && xPos == 210){   //west bus stop location
 				stoppedWestRight = true;
+				for (int i= 0; i<passengers.size(); i++){
+					if (passengers.get(i).busStop == "west"){
+						passengers.get(i).getOut();
+						passengers.remove(i);
+					}
+				}
 			}
 			else if (yPos == 350 && xPos == 255){
 				stoppedWestLeft =true;
@@ -173,13 +207,13 @@ public class Bus extends RoleGui{
 	public void busStopX(){
 		timer.schedule(new TimerTask() { public void run() {
 			xDestination = currentDestinationX;
-			if (yPos == 215){
+			if (yPos == 216){
 				stoppedNorthRight = false;
 			}
 			else if (yPos == 255){
 				stoppedNorthLeft = false;
 			}
-			else if (yPos == 565){
+			else if (yPos == 566){
 				stoppedSouthRight = false;
 			}
 			else if (yPos == 525){
@@ -194,10 +228,10 @@ public class Bus extends RoleGui{
 	public void busStopY(){
 		timer.schedule(new TimerTask() { public void run() {
 			yDestination = currentDestinationY;
-			if (yPos == 655){
+			if (xPos == 655){
 				stoppedEastLeft = false;
 			}
-			if (yPos == 615){
+			if (xPos == 656){
 				stoppedEastRight = false;
 			}
 			if (xPos ==210){
@@ -212,7 +246,13 @@ public class Bus extends RoleGui{
 	2000);//how long to wait before running task
 		
 }	
+	public int getXPos(){
+		return xPos;
+	}
 	
+	public int getYPos(){
+		return yPos;
+	}
 	
 	@Override
 	public void draw(Graphics g){
