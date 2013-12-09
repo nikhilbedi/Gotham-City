@@ -27,7 +27,7 @@ import java.awt.*;
       public SimCityPanel(){
     	 setPreferredSize(new Dimension(800, 800));
          currentScreen = ScreenFactory.getMainScreen();
-         ScreenFactory.getMainScreen().setGrid(grid);
+         
          addMouseListener(this);
          setFocusable(true);
          
@@ -120,6 +120,8 @@ import java.awt.*;
         	 System.out.println();
          }
          
+         
+         ScreenFactory.getMainScreen().setGrid(grid);
       }
       
 

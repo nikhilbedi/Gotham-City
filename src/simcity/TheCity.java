@@ -51,24 +51,24 @@ public class TheCity {
            house6 = new Home("Home6", 590, 590, 600, 600);
            house6.setImagePath("/resources/Buildings/HouseDark2.png");*/ 
 
-		home = new Home("Home", 390, 590, 400, 600);
+		home = new Home("Home", 360, 700, 360, 720);
 		home.setImagePath("/resources/Buildings/HouseDark2.png");
-
-
-		market = new Market("Market", 600, 100, 600, 100);
+		
+		
+		market = new Market("Market", 620, 120, 620, 60);
 		market.setImagePath("/resources/Buildings/MarketDark2.png");
-		bank = new Bank("Bank", 350, 100, 350, 100, 310, 100);
+		bank = new Bank("Bank", 360, 80, 360, 60, 380, 80);
 		bank.setImagePath("/resources/Buildings/BankDark2.png");
 
-		rest1 = new Restaurant1("Restaurant 1", 200, 100, 200, 100);
+		rest1 = new Restaurant1("Restaurant 1", 100, 120, 100, 40);
 		rest1.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest2 = new Restaurant2("Restaurant 2", 50, 210, 50, 210);
+		rest2 = new Restaurant2("Restaurant 2", 100, 120, 0, 120);
 		rest2.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest3 = new Restaurant3("Restaurant 3", 730, 210, 730, 210);
+		rest3 = new Restaurant3("Restaurant 3", 680, 120, 700, 120);
 		rest3.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest4 = new Restaurant4("Restaurant 4", 50, 410, 50, 410);
+		rest4 = new Restaurant4("Restaurant 4", 100, 380, 0, 380);
 		rest4.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest5 = new Restaurant5("Restaurant 5", 730, 410, 730, 410);
+		rest5 = new Restaurant5("Restaurant 5", 680, 380, 700, 380);
 		rest5.setImagePath("/resources/Buildings/RestaurantDark2.png");
 
 

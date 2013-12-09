@@ -1,16 +1,15 @@
 package simcity;
 
 import java.awt.Graphics;
+import java.util.ConcurrentModificationException;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
-
-import simcity.restaurants.restaurant4.Restaurant4CustomerRole.AgentEvent;
 import Gui.RoleGui;
 
 public class Bus extends RoleGui{
-	Timer timer = new Timer();
+	Timer timer = new Timer(), moveTimer = new Timer();
 	private String type;
 	String destination;
 	ImageIcon currentImage;
@@ -22,6 +21,16 @@ public class Bus extends RoleGui{
 	int currentDestinationY;
 	int counterX = 0;
 	int counterY = 0;
+	int finalX, finalY;
+	
+	Character[][] grid;
+	char prevTile = 'R';
+	
+	Location topLeftCorner = new Location(140, 160);
+	Location topRightCorner = new Location(640, 160);
+	Location botLeftCorner = new Location(140, 660);
+	Location botRightCorner = new Location(640, 660);
+	
 	public boolean stoppedNorthRight = false; 
 	public boolean stoppedNorthLeft  = false;
 	public boolean stoppedSouthRight = false;
@@ -30,100 +39,174 @@ public class Bus extends RoleGui{
 	public boolean stoppedEastLeft  = false;
 	public boolean stoppedWestRight = false;
 	public boolean stoppedWestLeft  = false;
+	
+	boolean reachedDest = false;
+	
+	public void setGrid(Character[][] grid) {
+		System.out.println("GRID SET");
+		this.grid = grid;
+	}
+	
 	public Bus(String type){ //goes east
 		this.type = type;
 		if (this.type == "clockWise"){
-			xPos = 210;
-			yPos = 215;
-			xDestination = 610;
-			yDestination = 215;
-			currentImage = busRight;
+			xPos = topLeftCorner.getX();
+			yPos = topLeftCorner.getY();
+			//xDestination = 610;
+			//yDestination = 215;
+			
+			finalX = topRightCorner.getX()/20;
+			finalY = topRightCorner.getY()/20;
+			
+			//xDestination = topRightCorner.getX();
+			//yDestination = topRightCorner.getY();
+			//currentImage = busRight;
+			
+			guiMoveFromCurrentPositionTo(topLeftCorner.getX()/20, topLeftCorner.getY()/20);
 		}
 		
 		else if (this.type == "counterClockWise"){
-			xPos = 245;
-			yPos = 525;
+			xPos = botLeftCorner.getX();
+			yPos = botLeftCorner.getY();
 			currentImage = busRight;
-			xDestination = 575;
-			yDestination = 525;
+			//xDestination = 575;
+			//yDestination = 525;
+			
+			finalX = botRightCorner.getX()/20;
+			finalY = botRightCorner.getY()/20;
+			
+			guiMoveFromCurrentPositionTo(botLeftCorner.getX()/20, botLeftCorner.getY()/20);
+			
+			//xDestination = botRightCorner.getX();
+			//yDestination = botRightCorner.getY();
 		}
+		
+		prevTile = 'I';
 	}
 	
 	
 	
+	public Bus(String type, Character[][] grid2) {
+		this.type = type;
+		grid = grid2;
+		
+		if (this.type == "clockWise"){
+			xPos = topLeftCorner.getX();
+			yPos = topLeftCorner.getY();
+			//xDestination = 610;
+			//yDestination = 215;
+			currentImage = busRight;
+			finalX = topRightCorner.getX()/20;
+			finalY = topRightCorner.getY()/20;
+			
+			//xDestination = topRightCorner.getX();
+			//yDestination = topRightCorner.getY();
+			
+			
+			guiMoveFromCurrentPositionTo(topLeftCorner.getX()/20, topLeftCorner.getY()/20);
+		}
+		
+		else if (this.type == "counterClockWise"){
+			xPos = botLeftCorner.getX();
+			yPos = botLeftCorner.getY();
+			currentImage = busRight;
+			//xDestination = 575;
+			//yDestination = 525;
+			
+			finalX = botRightCorner.getX()/20;
+			finalY = botRightCorner.getY()/20;
+			
+			guiMoveFromCurrentPositionTo(botLeftCorner.getX()/20, botLeftCorner.getY()/20);
+			
+			//xDestination = botRightCorner.getX();
+			//yDestination = botRightCorner.getY();
+		}
+		
+		prevTile = 'I';
+	}
+
 	@Override
 	public void updatePosition(){
 		super.updatePosition();
-		if (type == "clockWise"){
-			if (xPos == 610 && yPos == 215){  //going south
-				currentImage = busDown;
-				xPos = 655;
-				yPos = 215;
-				xDestination = 655;
-				yDestination = 531;
+		if(reachedDest){
+			reachedDest = false;
+			if (type == "clockWise"){
+				if (xPos == topRightCorner.getX() && yPos == topRightCorner.getY()){  //going south
+					currentImage = busDown;
+					//xPos = 655;
+					//yPos = 215;
+					finalX = botRightCorner.getX()/20;
+					finalY = botRightCorner.getY()/20;
+					
+					guiMoveFromCurrentPositionTo(topRightCorner.getX()/20, topRightCorner.getY()/20);
+				}
+				
+				if (xPos == botRightCorner.getX() && yPos == botRightCorner.getY()){ //going west
+					currentImage = busLeft;
+					//xPos = 610;
+					//yPos = 565;
+					finalX = botLeftCorner.getX()/20;
+					finalY = botLeftCorner.getY()/20;
+					
+					guiMoveFromCurrentPositionTo(botRightCorner.getX()/20, botRightCorner.getY()/20);
+				}
+				
+				if (xPos == botLeftCorner.getX() && yPos == botLeftCorner.getY()){//going north 
+					currentImage = busUp;
+					//xPos = 210;
+					//yPos = 507;
+					finalX = topLeftCorner.getX()/20;
+					finalY = topLeftCorner.getY()/20;
+					
+					guiMoveFromCurrentPositionTo(botLeftCorner.getX()/20, botLeftCorner.getY()/20);
+				}
+				
+				if (xPos == topLeftCorner.getX() && yPos == topLeftCorner.getY()){ //going east
+					currentImage = busRight;
+					//xPos = 210;
+					//yPos = 215;
+					finalX = topRightCorner.getX()/20;
+					finalY = topRightCorner.getY()/20;
+					guiMoveFromCurrentPositionTo(topLeftCorner.getX()/20, topLeftCorner.getY()/20);
+				}
 			}
 			
-			if (xPos == 655 && yPos == 531){ //going west
-				currentImage = busLeft;
-				xPos = 610;
-				yPos = 565;
-				xDestination = 210;
-				yDestination = 565;
-			}
-			
-			if (xPos == 210 && yPos == 565){//going north 
-				currentImage = busUp;
-				xPos = 210;
-				yPos = 507;
-				xDestination = 210;
-				yDestination = 215;
-			}
-			
-			if (xPos == 210 && yPos == 215){ //going east
-				xPos = 210;
-				yPos = 215;
-				xDestination = 610;
-				yDestination = 215;
-				currentImage = busRight;
+			else if (type == "counterClockWise"){
+				if (xPos ==botRightCorner.getX() && yPos == botRightCorner.getY()){ //going north
+					currentImage = busUp;
+					//xPos = 615;
+					//yPos = 475;
+					finalX = topRightCorner.getX();
+					finalY = topRightCorner.getY();
+				}
+				if (xPos == topRightCorner.getX() && yPos == topRightCorner.getY()){ //going west
+					currentImage = busLeft;
+					//xPos = 580;
+					//yPos = 255;
+					finalX = topLeftCorner.getX();
+					finalY = topLeftCorner.getY();
+				}
+				
+				if (xPos == topLeftCorner.getX() && yPos == topLeftCorner.getY()){ //going south
+					currentImage = busDown;
+					//xPos = 255;
+					//yPos = 256;
+					finalX = botLeftCorner.getX();
+					finalY = botLeftCorner.getY();
+				}
+				
+				if (xPos == botLeftCorner.getX() && yPos == botLeftCorner.getY()){ //going east
+					currentImage = busRight;
+					//xPos = 245;
+					//yPos = 525;
+					finalX = botRightCorner.getX();
+					finalY = botRightCorner.getY();
+				}		
+					System.out.println();
+				
 			}
 		}
-		
-		else if (type == "counterClockWise"){
-			if (xPos ==575 && yPos == 525){ //going north
-				currentImage = busUp;
-				xPos = 615;
-				yPos = 475;
-				xDestination = 615;
-				yDestination = 255;
-			}
-			if (xPos ==615 && yPos == 255){ //going west
-				currentImage = busLeft;
-				xPos = 580;
-				yPos = 255;
-				xDestination = 260;
-				yDestination = 255;
-			}
-			
-			if (xPos ==260 && yPos == 255){ //going south
-				currentImage = busDown;
-				xPos = 255;
-				yPos = 256;
-				xDestination = 255;
-				yDestination = 496;
-			}
-			
-			if (xPos ==255 && yPos == 496){ //going east
-				currentImage = busRight;
-				xPos = 245;
-				yPos = 525;
-				xDestination = 575;
-				yDestination = 525;
-			}		
-				System.out.println();
-			
-		}
-		
-		if (xPos == 401 || xPos == 400){
+		/*if (xPos == 401 || xPos == 400){
 				++counterX;
 				if (xPos == 400 && yPos == 215){
 				 stoppedNorthRight = true;
@@ -165,7 +248,7 @@ public class Bus extends RoleGui{
 				busStopY();
 			}
 			
-		}
+		}*/
 	}
 	
 	
@@ -217,5 +300,138 @@ public class Bus extends RoleGui{
 	@Override
 	public void draw(Graphics g){
 		g.drawImage(currentImage.getImage(), xPos, yPos, null);
+	}
+	
+	void guiMoveFromCurrentPositionTo(final int x, final int y){ // Brice - Method for traveling along the grid within the City Screen
+	 	/*if(finalX == x && finalY == y) {
+	 		//gui.reachedBuilding();
+	 		System.out.println("HI");
+	 		return;
+	 	}*/
+	 	
+	 	if(Math.abs(finalX - x) < 1 && Math.abs(finalY - y) < 1) {
+	 		//gui.reachedBuilding();
+	 		reachedDest = true;
+	 		System.out.println("HI");
+	 		return;
+	 	}
+	 	
+	 	System.out.println("X: " + x);
+	 	System.out.println("FinalX: " + finalX);
+	 	System.out.println("Y: " + y);
+	 	System.out.println("FinalY: " + finalY);
+	 	System.out.println(grid[x][y-1]);
+	 	
+	 	//System.out.println(x);
+	 	//System.out.println("1st condition: " + (x));
+	 	//System.out.println(grid[x+1][y]);
+	 	//System.out.println("2nd condition: " + (grid[x+1][y]));
+	 	//Move RIGHT
+	 	if(finalX - (x + 1)  >= 0 /*<= deltaX*/ && (grid[x+1][y] == 'R' || grid[x+1][y] == 'I')) {
+	 		System.out.println("MOVING RIGHT");
+	 		try {
+	 			char temp = grid[x+1][y];
+	 			grid[x+1][y] = 'B';
+	 			grid[x][y] = prevTile;
+	 			prevTile = temp;
+	 			DoGoToLocation(new Location((x+1)*20, y*20)); //Temporary timer or semaphore?
+	 			moveTimer.schedule(new TimerTask() {
+	 				Object cookie = 1;
+	 				public void run() {
+	 					guiMoveFromCurrentPositionTo(x+1, y);
+	 				}
+	 			},
+	 			250);
+	 			
+	 		}
+	 		catch(ConcurrentModificationException e) {
+	 			System.err.println("Concurrent Modification Exception");
+	 		}
+	 	}
+	 	
+	 	//Move LEFT
+	 	
+	 	else if((x - 1) - finalX >= 0 && (grid[x-1][y] == 'R' || grid[x-1][y] == 'I')) {
+	 		System.out.println("MOVING LEFT");
+	 		try {
+	 			char temp = grid[x-1][y];
+	 			grid[x-1][y] = 'B';
+	 			grid[x][y] = prevTile;
+	 			prevTile = temp;
+	 			DoGoToLocation(new Location((x-1)*20, y*20)); //Temporary timer or semaphore?
+	 			moveTimer.schedule(new TimerTask() {
+	 				Object cookie = 1;
+	 				public void run() {
+	 					guiMoveFromCurrentPositionTo(x-1, y);
+	 				}
+	 			},
+	 			250);
+	 		}
+	 		catch(ConcurrentModificationException e) {
+	 			System.err.println("Concurrent Modification Exception");
+	 		}
+	 	}
+	 	
+	 	//Move UP
+	 	else if((y - 1) - finalY  >= 0 && (grid[x][y-1] == 'R' || grid[x][y-1] == 'I')) {
+	 		System.out.println("MOVING UP");
+	 		try {
+	 			char temp = grid[x][y-1];
+	 			grid[x][y-1] = 'B';
+	 			grid[x][y] = prevTile;
+	 			prevTile = temp;
+	 			DoGoToLocation(new Location(x*20, (y-1)*20)); //Temporary timer or semaphore?
+	 			moveTimer.schedule(new TimerTask() {
+	 				Object cookie = 1;
+	 				public void run() {
+	 					guiMoveFromCurrentPositionTo(x, y-1);
+	 				}
+	 			},
+	 			250);
+	 		}
+	 		catch(ConcurrentModificationException e) {
+	 			System.err.println("Concurrent Modification Exception");
+	 		}
+	 	}
+	 	
+	 	//Move DOWN
+	 	else if(finalY - (y + 1) >= 0 && (grid[x][y+1] == 'R' || grid[x][y+1] == 'I')) {
+	 		System.out.println("MOVING DOWN");
+	 		try {
+	 			char temp = grid[x][y+1];
+	 			grid[x][y+1] = 'B';
+	 			grid[x][y] = prevTile;
+	 			prevTile = temp;
+	 			DoGoToLocation(new Location(x*20, (y+1)*20)); //Temporary timer or semaphore?
+	 			moveTimer.schedule(new TimerTask() {
+	 				Object cookie = 1;
+	 				public void run() {
+	 					guiMoveFromCurrentPositionTo(x, y+1);
+	 				}
+	 			},
+	 			250);
+	 			
+	 		}
+	 		catch(ConcurrentModificationException e) {
+	 			System.err.println("Concurrent Modification Exception");
+	 		}
+	 	}
+	 	
+	 	else {
+	 		moveTimer.schedule(new TimerTask() {
+ 				Object cookie = 1;
+ 				public void run() {
+ 					guiMoveFromCurrentPositionTo(x, y);
+ 				}
+ 			},
+ 			500);
+	 	}
+    }
+	
+	public void DoGoToLocation(Location destination) {
+		//tempStill = true;
+		xDestination = destination.getX();
+		yDestination = destination.getY();
+		//command = "GoingToLocation";
 	}
 }

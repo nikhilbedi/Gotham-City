@@ -925,7 +925,7 @@ public class PersonAgent extends Agent implements Person {
 	 					guiMoveFromCurrentPositionTo(x+1, y);
 	 				}
 	 			},
-	 			350);
+	 			200);
 	 			
 	 		}
 	 		catch(ConcurrentModificationException e) {
@@ -949,7 +949,7 @@ public class PersonAgent extends Agent implements Person {
 	 					guiMoveFromCurrentPositionTo(x-1, y);
 	 				}
 	 			},
-	 			350);
+	 			200);
 	 		}
 	 		catch(ConcurrentModificationException e) {
 	 			System.err.println("Concurrent Modification Exception");
@@ -971,7 +971,7 @@ public class PersonAgent extends Agent implements Person {
 	 					guiMoveFromCurrentPositionTo(x, y-1);
 	 				}
 	 			},
-	 			350);
+	 			200);
 	 		}
 	 		catch(ConcurrentModificationException e) {
 	 			System.err.println("Concurrent Modification Exception");
@@ -993,7 +993,7 @@ public class PersonAgent extends Agent implements Person {
 	 					guiMoveFromCurrentPositionTo(x, y+1);
 	 				}
 	 			},
-	 			350);
+	 			200);
 	 			
 	 		}
 	 		catch(ConcurrentModificationException e) {

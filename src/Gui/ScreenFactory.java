@@ -10,9 +10,7 @@ import simcity.restaurants.restaurant1.gui.RestaurantNikhilAnimationPanel;
 
 import simcity.restaurants.restaurant5.gui.RestaurantHunterAnimationPanel;
 import simcity.restaurants.restaurant3.gui.RestaurantEvanAnimationPanel;
-
 import simcity.restaurants.restaurant2.gui.Restaurant2AnimationPanel;
-
 import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4AnimationPanel;
 
 import simcity.Home.gui.HomeAnimationPanel;

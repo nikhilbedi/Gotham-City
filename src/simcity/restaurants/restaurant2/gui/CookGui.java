@@ -1,15 +1,20 @@
 package simcity.restaurants.restaurant2.gui;
 
 
+import simcity.bank.interfaces.BankGreeter;
 import simcity.restaurants.restaurant2.CookRole;
 import simcity.restaurants.restaurant2.Restaurant2CustomerRole;
 import simcity.restaurants.restaurant2.HostRole;
+import simcity.restaurants.restaurant2.interfaces.Cook;
 import Gui.RoleGui;
+import Gui.Screen;
 
 import java.awt.*;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+
+import agent.Role;
 
 public class CookGui extends RoleGui {
 
@@ -38,7 +43,15 @@ public class CookGui extends RoleGui {
         strs.add("");
         strs.add("");
     }
-
+    
+    public CookGui(Cook cook, Screen meScreen) {
+		super((Role) cook, meScreen);
+		
+		strs.add("");
+        strs.add("");
+        strs.add("");
+	}	
+    
     public void updatePosition() {
         xPos = 490;
         yPos = 40;
