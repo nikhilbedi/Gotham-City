@@ -1,13 +1,14 @@
 package simcity.restaurants.restaurant3.gui;
 
 import Gui.RoleGui;
+import Gui.Screen;
 
 import java.awt.*;
 import java.util.List;
 import java.util.*;
 
-import simcity.restaurants.restaurant3.Restaurant3CustomerRole;
 import simcity.restaurants.restaurant3.*;
+import simcity.restaurants.restaurant3.interfaces.Cook;
 
 public class CookGui extends RoleGui {
 
@@ -25,8 +26,14 @@ public class CookGui extends RoleGui {
     public static boolean cooking = false;
 	public static boolean plating = false;
 	
-    public CookGui(Restaurant3CookRole agent) {
-        this.agent = agent;
+    public CookGui(Cook agent) {
+        this.agent = (Restaurant3CookRole) agent;
+    }
+    public CookGui(Cook agent, Screen s) {
+    	super((Restaurant3CookRole)agent, s);
+        this.agent = (Restaurant3CookRole) agent;
+       
+        
     }
 
     public void updatePosition() {

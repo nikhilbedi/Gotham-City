@@ -3,7 +3,9 @@ package simcity.restaurants.restaurant3.gui;
 
 import simcity.restaurants.restaurant3.Restaurant3CustomerRole;
 import Gui.RoleGui;
+import Gui.Screen;
 import simcity.restaurants.restaurant3.HostRole;
+import simcity.restaurants.restaurant3.interfaces.Host;
 
 import java.awt.*;
 public class HostGui extends RoleGui {
@@ -18,8 +20,12 @@ public class HostGui extends RoleGui {
     public static final int xTable = 200;
     public static final int yTable = 150;
 
-    public HostGui(HostRole agent) {
-        this.agent = agent;
+    public HostGui(Host agent) {
+        this.agent = (HostRole)agent;
+    }
+    public HostGui(Host agent, Screen s) {
+    	super((HostRole)agent, s);
+        this.agent = (HostRole)agent;
     }
 
     public void updatePosition() {

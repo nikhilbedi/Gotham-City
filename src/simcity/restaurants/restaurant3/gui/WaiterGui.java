@@ -1,6 +1,7 @@
 package simcity.restaurants.restaurant3.gui;
 
 import Gui.RoleGui;
+import Gui.Screen;
 import Gui.ScreenFactory;
 
 import java.awt.*;
@@ -43,6 +44,24 @@ public class WaiterGui extends RoleGui {
     	//xDestination = xPos;
         this.agent = agent;
     }
+    public WaiterGui(Waiter agent, int home, Screen s) {
+    	super((WaiterRole)agent, s);
+    	//super.setColor(Color.pink);
+    	
+    	for (int i = 0; i < waitingCustomers.length; ++i){
+			if (waitingCustomers[i] == -1) { //empty position
+				waitingCustomers[i] = 1;
+				posInWaitArea = i;
+				xPos = 100 + 20 * (i+1) + 5*i;
+				yPos = 40;
+				break;
+			}
+		}
+		
+    	//xDestination = xPos;
+        this.agent = agent;
+    }
+
 
     public void updatePosition() {
     	super.updatePosition();

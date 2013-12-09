@@ -17,10 +17,10 @@ public class Home extends Building{
 	public List<Food> fridgeFoods;
 
 	public ResidentRole resident; //When the PersonAgent reaches thehome, he needs to be able to look at this class and add this role to his list
-	//public String resident = "resident";
+	public String HomeResident = "resident";
+	//int openTime, closeTime;
+	//Location location = new Location(xCoor, yCoor);
 	
-	
-
 	public Home(String type, int entranceX, int entranceY, int guiX,
 			int guiY){
 		super(type, entranceX, entranceY, guiX, guiY);
@@ -34,6 +34,7 @@ public class Home extends Building{
 		//Please add ANOTHER constructor that doesnt need a Person parameter
 		//(You can still keep the other constructor, resulting in two constructors)
 	}
+	
 
 	public List<RentBill> getRentBills() {
 		return rentBills;

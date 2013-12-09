@@ -29,10 +29,11 @@ public class Apartment extends Home {
 
 	public List<ResidentRole> residents; //When the PersonAgent reaches thehome, he needs to be able to look at this class and add this role to his list
 	//public String resident = "resident";
-	public ResidentGui residentGui;
+	public List<ResidentGui> residentGui;
 	ResidentRole res1 = new ResidentRole();
 	ApartmentResidentGui res1gui = new ApartmentResidentGui(res1, ScreenFactory.getMeScreen("Apartment 1"));
-	
+	public ResidentRole resident; //When the PersonAgent reaches thehome, he needs to be able to look at this class and add this role to his list
+	public String HomeResident = "resident";
 	
 	public Apartment(String type, int entranceX, int entranceY, int guiX,
 			int guiY){
@@ -42,6 +43,8 @@ public class Apartment extends Home {
 		rentBills = new ArrayList<RentBill>();
 		fridgeFoods = new ArrayList<Food>();	
 		residents = new ArrayList<ResidentRole>();
+		
+		residentGui = new ArrayList<ResidentGui>();
 		
 		//res1.setGui((RoleGui)new ApartmentResidentGui());
 		res1.setGui(res1gui);
