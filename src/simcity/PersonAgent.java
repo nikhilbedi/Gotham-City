@@ -54,7 +54,7 @@ public class PersonAgent extends Agent implements Person {
 	// we're removing that role
 	Semaphore busyWithTask = new Semaphore(0, false);
 	double money = 0.0;
-	int restaurantCounter = (int)(Math.random()*5);
+	int restaurantCounter = (int)(Math.random()*3);
 	protected List<Role> roles = new ArrayList<Role>();
 	public Map<String, Integer> groceryList = new HashMap<String, Integer>();
 	public Map<String, Integer> groceryBag = new HashMap<String, Integer>();
@@ -180,9 +180,9 @@ public class PersonAgent extends Agent implements Person {
 		 * rest; } }
 		 */
 		//TODO uncomment this one and delete get(0)
-		//currentPreference = r.get(restaurantCounter);
-		currentPreference = r.get(0);
-		currentPreference = (Restaurant)TheCity.getBuildingFromString("Restaurant 4");
+		currentPreference = r.get(restaurantCounter);
+		//currentPreference = r.get(0);
+		//currentPreference = (Restaurant)TheCity.getBuildingFromString("Restaurant 4");
 		restaurantCounter++;
 	}
 
@@ -846,10 +846,10 @@ public class PersonAgent extends Agent implements Person {
 			hungerState = HungerState.Famished;
 		}
 		restaurantCounter++;
-		if (restaurantCounter > 4)
+		if (restaurantCounter > 2)
 			restaurantCounter = 0;
 		//TODO once all restaurants are back in, then uncomment below
-		//currentPreference = restaurants.get(restaurantCounter);
+		currentPreference = restaurants.get(restaurantCounter);
 	}
 
 	private void goGetGroceries() {

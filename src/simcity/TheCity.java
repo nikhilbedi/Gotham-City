@@ -210,10 +210,10 @@ public class TheCity {
 		List<Restaurant> tempcast = new ArrayList<Restaurant>();
 		//maybe this populate should be done in the static constructor
 		tempcast.add((Restaurant)rest1);
-	/*	tempcast.add((Restaurant)rest2);
-		tempcast.add((Restaurant)rest3);
+		//tempcast.add((Restaurant)rest2);
+		//tempcast.add((Restaurant)rest3);
 		tempcast.add((Restaurant)rest4);
-		tempcast.add((Restaurant)rest5);*/
+		tempcast.add((Restaurant)rest5);
 		return tempcast;
 	}
 
