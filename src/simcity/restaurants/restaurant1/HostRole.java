@@ -196,8 +196,7 @@ public class HostRole extends Role implements Host {
 		 */
 		print("host sched");
 		//leave cuz work is over
-		if(theManLeavingMe != null) {
-			print("host wants to leave work");
+		if(theManLeavingMe != null && waitingCustomers.isEmpty()) {
 			leaveWork();
 			return true;
 		}
