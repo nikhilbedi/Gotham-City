@@ -3,9 +3,8 @@ package simcity.restaurants.restaurant3;
 import java.util.*;
 
 import simcity.Market.interfaces.MarketCashier;
-import simcity.restaurants.restaurant3.gui.Restaurant3CashierGui;
 import simcity.restaurants.restaurant3.Order.OrderState;
-import simcity.restaurants.restaurant3.gui.HostGui;
+import simcity.restaurants.restaurant3.gui.*;
 import simcity.restaurants.restaurant3.interfaces.*;
 
 import javax.print.attribute.standard.MediaSize.NA;
@@ -40,7 +39,7 @@ public class Restaurant3CashierRole extends Role implements Cashier {
 	public HostGui hostGui = null;
 	public Restaurant3CookRole cook;
 
-	public Restaurant3CashierGui gui = null;
+	public CashierGui gui = null;
 	
 
 	//private WaiterAgent waiter;
@@ -244,10 +243,10 @@ public class Restaurant3CashierRole extends Role implements Cashier {
 	
 	public void setGui(RoleGui g) {
 		super.setGui(g);
-		gui = (Restaurant3CashierGui)g;
+		gui = (CashierGui)g;
 	}
 
-	public Restaurant3CashierGui getGui() {
+	public CashierGui getGui() {
 		return gui;
 	}
 

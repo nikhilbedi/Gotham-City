@@ -435,8 +435,8 @@ public class PersonAgent extends Agent implements Person {
 		role.setActive(true);
 		gui.getHomeScreen().removeGui(gui);
 		role.getGui();//debug
-		AlertLog.getInstance().logInfo(AlertTag.PERSON, "PersonAgent",
-				"Role's Screen is " + role.getGui().getHomeScreen());
+		/*AlertLog.getInstance().logInfo(AlertTag.PERSON, "PersonAgent",
+				"Role's Screen is " + role.getGui().getHomeScreen());*/
 		role.getGui().getHomeScreen();//debug
 		
 		role.getGui().getHomeScreen().addGui(role.getGui());

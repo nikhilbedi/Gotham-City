@@ -10,6 +10,8 @@ import java.util.*;
 import agent.Role;
 import simcity.restaurants.restaurant3.*;
 import simcity.restaurants.restaurant3.interfaces.Waiter;
+import trace.AlertLog;
+import trace.AlertTag;
 
 public class WaiterGui extends RoleGui {
 
@@ -47,6 +49,9 @@ public class WaiterGui extends RoleGui {
     }
     public WaiterGui(Waiter agent, Screen s) {
     	super((Role) agent, s);
+    	
+    	AlertLog.getInstance().logError(AlertTag.PERSON, "WaiterGUi",
+				homeScreen.toString());
    
     	//super.setColor(Color.pink);
     	

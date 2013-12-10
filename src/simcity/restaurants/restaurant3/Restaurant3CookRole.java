@@ -67,7 +67,7 @@ public class Restaurant3CookRole extends Role implements Cook{
 
 	}
 	public Restaurant3CookRole(){
-
+		super();
 	}
 
 	public String getMaitreDName() {

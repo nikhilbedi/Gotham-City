@@ -26,9 +26,9 @@ public class SimCityPanel extends JPanel implements MouseListener, KeyListener
 
 	PersonSelectionPane selPane;
 	BuildingInfoPanel buildingInfo;
+	
 
-
-
+	int clk = 0;
 	boolean start;
 	boolean always = true;
 
@@ -69,10 +69,9 @@ public class SimCityPanel extends JPanel implements MouseListener, KeyListener
 		{
 			try{
 				
-				//selPane.refresh();
-				//buildingInfo.refresh();
 				revalidate();
 				repaint();
+				//updateGui();
 				Thread.sleep(10);
 			}
 			catch(Exception e) {
@@ -82,6 +81,17 @@ public class SimCityPanel extends JPanel implements MouseListener, KeyListener
 		}
 	}
 
+
+
+	private void updateGui() {
+		// TODO Auto-generated method stub
+		clk++;
+		if(clk == 100){
+		selPane.refresh();
+		buildingInfo.refresh();
+		clk = 0;
+		}
+	}
 
 
 	public void checkMapChange(int x, int y){
