@@ -36,9 +36,9 @@ public class Restaurant5 extends Restaurant {
 	}
 
 	//create guis
-	HostGui hostGui = new HostGui(host, ScreenFactory.getMeScreen(this.getName()));
-	CashierGui cashierGui = new CashierGui(cashier, ScreenFactory.getMeScreen(this.getName()));
-	CookGui cookGui = new CookGui(cook, ScreenFactory.getMeScreen(this.getName()));
+	HostGui hostGui = new HostGui(host, ScreenFactory.getMeScreen("Restaurant 5"));
+	CashierGui cashierGui = new CashierGui(cashier, ScreenFactory.getMeScreen("Restaurant 5"));
+	CookGui cookGui = new CookGui(cook, ScreenFactory.getMeScreen("Restaurant 5"));
 	
 	WaiterGui waiterGui1 = new WaiterGui(waiter1, ScreenFactory.getMeScreen("Restaurant 5"));
 	WaiterGui waiterGui2 = new WaiterGui(waiter2, ScreenFactory.getMeScreen("Restaurant 5"));
@@ -61,7 +61,7 @@ public class Restaurant5 extends Restaurant {
 		menu = new Menu();
 		
 		setWeekdayHours(9, 17);
-		setWeekendHours(0,0);
+		setWeekendHours(3,24);
 		
 
 		((HostRole) host).setGui((RoleGui)hostGui);
