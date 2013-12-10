@@ -110,7 +110,13 @@ public class Bank extends Building {
 		
 		((BankGreeterRole) greeter).addTeller(teller);
 		((BankTellerRole) teller).setGreeter(greeter);
-
+		
+		BankDatabase db = new BankDatabase();
+		
+		greeter.addTeller(teller);
+		teller.setGreeter(greeter);
+		teller.setBankDatabase(db);
+		
 		jobRoles.put("BankGreeter", (Role)greeter);
 		//	jobRoles.put("BankGreeter Late",  (Role)greeter);
 
