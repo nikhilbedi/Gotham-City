@@ -99,7 +99,7 @@ public class Restaurant3CashierRole extends Role implements Cashier {
 	}
 	
 	public void msgCustomerPayingCheck(Order o) {
-		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
 				"The Customer is paying the check");
 		//System.out.println("The Customer is paying the check");
 		o.os = OrderState.paying;
@@ -187,7 +187,7 @@ public class Restaurant3CashierRole extends Role implements Cashier {
         
 	}
 	private  void calculate(Order o) {
-		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
 				"calculating order");
 		//System.out.println("calculating order");
 		

@@ -15,4 +15,8 @@ public interface BankTeller {
 	public abstract int getIndex();
 
 	public abstract void setIndex(int i);
+
+	public abstract void msgGiveMeMoney(BankRobber robber);
+
+	public abstract void msgDoneAndLeaving(BankRobber bankRobber);
 }

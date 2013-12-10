@@ -91,7 +91,7 @@ public class HostRole extends Role implements Host {
 	}
 	
 	public void msgTableIsFree(Customer cust) {
-		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
 				"Waiter tells the host that the table is free. ");
 		//System.out.println("Waiter tells the host that the table is free");
 		for (MyCustomer mc:customers) {
@@ -101,7 +101,7 @@ public class HostRole extends Role implements Host {
 		}
 		for(Table t: tables){
 			if (t.getOccupant() == cust) {
-				AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE,
+				AlertLog.getInstance().logInfo(AlertTag.REST3,
 						this.getName(), t+ " is now available.");
 				//System.out.println(t + " is now available.");
 				t.setUnoccupied();
@@ -129,7 +129,7 @@ public class HostRole extends Role implements Host {
 	}
 	
 	public boolean msgAskToGoOnBreak(Waiter w) {
-		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
 				" asks the host if he/she can go on a break. ");
 		//System.out.println(w.getName() + " asks the host if he/she can go on a break.");
 		int availableWaiters = 0;
@@ -137,13 +137,13 @@ public class HostRole extends Role implements Host {
 		for (int i = 0; i < waiters.size(); ++i) {
 			if (!waiters.get(i).isOnBreak){
 				++availableWaiters;
-				AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE,
+				AlertLog.getInstance().logInfo(AlertTag.REST3,
 						this.getName(), "Host tells waiter he/she cannot go on break at this time. ");
 				//System.out.println("Host tells " + w.getName() + " he/she cannot go on break at this time.");
 			}
 		}
 		if (availableWaiters > 1){
-			AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE,
+			AlertLog.getInstance().logInfo(AlertTag.REST3,
 					this.getName(), "Host tells he/she can go on break. ");
 			//System.out.println("Host tells " + w.getName() + " he/she can go on break.");
 			return true;
@@ -191,14 +191,14 @@ public class HostRole extends Role implements Host {
 				Random r = new Random();
 				boolean leaveRestaurantIfFull = r.nextBoolean();
 				if (leaveRestaurantIfFull) {
-					AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE,
+					AlertLog.getInstance().logInfo(AlertTag.REST3,
 							this.getName(), "Restaurant is full. Customer chose to leave the restaurant ");
 					//System.out.println("Restaurant is full. Customer chose to leave the restaurant");
 					//mc.
 					customers.remove(mc);
 				}
 				else {
-					AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE,
+					AlertLog.getInstance().logInfo(AlertTag.REST3,
 							this.getName(), "Restaurant is full. Customer chose to stay in the restaurant ");
 					//System.out.println("Restaurant is full. Customer chose to stay in the restaurant");
 					mc.cs = customerState.waitingToBeSeated;

@@ -1,11 +1,16 @@
 package Gui;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSpinner;
 import javax.swing.JToggleButton;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ChangeListener;
 
 import simcity.Building;
 import simcity.TheCity;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.util.*;
 //import simcity.TheCity;
@@ -22,3 +27,4 @@ public class BuildingControlPanel extends JPanel {
 		setMaximumSize(new Dimension(200,600));
 	}
 }
+ 

@@ -23,7 +23,7 @@ import java.util.concurrent.Semaphore;
  */
 public class CookRole extends Role implements Cook{
 	List<Order> orders = new LinkedList<Order>();
-	List<Integer> deliveryOrder = new LinkedList<Integer>();
+	Map<String, Integer> deliveryOrder = new HashMap<String, Integer>();
 	List<Market> markets = new LinkedList<Market>();
 	
 	Map <String, Food> foods = new HashMap<String, Food>();
@@ -210,32 +210,32 @@ public class CookRole extends Role implements Cook{
 		boolean needDelivery = false;
 		System.out.println(getName() + ": Checking for low inventory");
 		if(foods.get("Steak").amount <= foods.get("Steak").low) {
-			deliveryOrder.add(foods.get("Steak").capacity - foods.get("Steak").amount);
+			deliveryOrder.put("Steak", foods.get("Steak").capacity - foods.get("Steak").amount);
 			needDelivery = true;
 		}
 		else
-			deliveryOrder.add(0);
+			deliveryOrder.put("Steak", 0);
 		
 		if(foods.get("Pizza").amount <= foods.get("Pizza").low) {
-			deliveryOrder.add(foods.get("Pizza").capacity - foods.get("Pizza").amount);
+			deliveryOrder.put("Pizza", foods.get("Pizza").capacity - foods.get("Pizza").amount);
 			needDelivery = true;
 		}
 		else
-			deliveryOrder.add(0);
+			deliveryOrder.put("Pizza", 0);
 		
 		if(foods.get("Chicken").amount <= foods.get("Chicken").low) {
-			deliveryOrder.add(foods.get("Chicken").capacity - foods.get("Chicken").amount);
+			deliveryOrder.put("Chicken", foods.get("Chicken").capacity - foods.get("Chicken").amount);
 			needDelivery = true;
 		}
 		else
-			deliveryOrder.add(0);
+			deliveryOrder.put("Chicken", 0);
 		
 		if(foods.get("Salad").amount <= foods.get("Salad").low) {
-			deliveryOrder.add(foods.get("Salad").capacity - foods.get("Salad").amount);
+			deliveryOrder.put("Salad", foods.get("Salad").capacity - foods.get("Salad").amount);
 			needDelivery = true;
 		}
 		else
-			deliveryOrder.add(0);
+			deliveryOrder.put("Salad", 0);
 		
 		if(needDelivery && marketIterations < markets.size())
 			markets.get(marketIndex).msgNeedDelivery(deliveryOrder);

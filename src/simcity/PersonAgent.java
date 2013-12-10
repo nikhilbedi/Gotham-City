@@ -156,8 +156,9 @@ public class PersonAgent extends Agent implements Person {
 			amount = a;
 		}
 	}
+	
+	//constructors
 
-	// constructors
 
 	public PersonAgent(String name) {
 		super();
@@ -180,6 +181,7 @@ public class PersonAgent extends Agent implements Person {
 		 * rest; } }
 		 */
 		//currentPreference = r.get(restaurantCounter);
+		//currentPreference = r.get(1);
 		restaurantCounter++;
 	}
 
@@ -219,7 +221,11 @@ public class PersonAgent extends Agent implements Person {
 		}*/
 	}
 
-	// functions so we can function
+	public void setGrid(Character[][] grid) { //Brice - setting grid for City Screen movement
+		gui.setGrid(TheCity.getGrid());
+	}
+
+	//functions so we can function
 	public void setHomeOwnerRole() {
 		// When Evan is done with homeowner role, I can add this
 	}
@@ -656,6 +662,7 @@ public class PersonAgent extends Agent implements Person {
 	private void goToWork() {
 		print("Going to work.");
 		// animate to desired location
+		//System.out.println(myJob.getName());
 		gui.DoGoToLocation(myJob.workplace.getEntranceLocation());
 		try {
 			busyWithTask.acquire();
@@ -725,6 +732,17 @@ public class PersonAgent extends Agent implements Person {
 			// if inside building and not in home, animate there
 			if (currentBuilding != myHome) {
 				gui.DoGoToLocation(myHome.getEntranceLocation());
+				
+				System.out.println("What Brice needs to succeed: " + myHome.getEntranceLocation().getX());
+				System.out.println("What Brice needs to succeed: " + myHome.getEntranceLocation().getY());
+				
+				//gui.finalX = myHome.getEntranceLocation().getX()/20; //Brice - Code to get to next location via Grid
+				//gui.finalY = myHome.getEntranceLocation().getY()/20;
+				
+				//finalX = (myHome.getEntranceLocation().getX())/20; //Brice - Code to get to next location via Grid
+				//finalY = (myHome.getEntranceLocation().getY())/20;
+				//gui.DoGoToLocation(new Location(gui.getX()/20, gui.getY()/20));
+				
 				try {
 					// print("Available permits: " +
 					// busyWithTask.availablePermits());
@@ -765,9 +783,18 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	private void goEatAtRestaurant() {
+
+		//if inside building and not in current restaurant preference
+		//animate outside building
+		//gui.DoGoToLocation(currentPreference.getEntranceLocation());
+		
+		//gui.finalX = (currentPreference.getEntranceLocation().getX() + 10)/20; //Brice - Code to get to next location via Grid
+		//gui.finalY = (currentPreference.getEntranceLocation().getY() + 10)/20;
+		gui.DoGoToLocation(currentPreference.getEntranceLocation());
+		
 		// if inside building and not in current restaurant preference
 		// animate outside building
-		gui.DoGoToLocation(currentPreference.getEntranceLocation());
+		//gui.DoGoToLocation(currentPreference.getEntranceLocation());
 		eatingState = EatingState.HeadedtoRestaurant;
 		try {
 			busyWithTask.acquire();
@@ -837,10 +864,15 @@ public class PersonAgent extends Agent implements Person {
 
 	private void goGetGroceries() {
 		marketState = MarketState.GettingGroceries;
-		// if inside building and not in current restaurant preference
-		// animate outside building
-		for (Market m : markets) {
+		//if inside building and not in current restaurant preference
+		//animate outside building
+		for(Market m : markets){
+			//gui.DoGoToLocation(m.getEntranceLocation());
+			
+			//gui.finalX = (m.getEntranceLocation().getX() + 10)/20; //Brice - Code to get to next location via Grid
+			//gui.finalY = (m.getEntranceLocation().getY() + 10)/20;
 			gui.DoGoToLocation(m.getEntranceLocation());
+			
 			break;
 		}
 		try {
@@ -878,8 +910,13 @@ public class PersonAgent extends Agent implements Person {
 		// print("Current permits when going to bank are: " +
 		// busyWithTask.availablePermits());
 		currentDestination = bank;
+		//gui.DoGoToLocation(bank.getEntranceLocation());
+		
+		//gui.finalX = (bank.getEntranceLocation().getX() + 10)/20; //Brice - Code to get to next location via Grid
+		//gui.finalY = (bank.getEntranceLocation().getY() + 10)/20;
 		gui.DoGoToLocation(bank.getEntranceLocation());
-		try {
+		
+		try{
 			busyWithTask.acquire();
 		} catch (InterruptedException e) {
 
@@ -900,7 +937,9 @@ public class PersonAgent extends Agent implements Person {
 		checkPersonScheduler = false;
 
 	}
-
+	
+	
+	
 	public void restart() {
 		// TODO Auto-generated method stub
 
