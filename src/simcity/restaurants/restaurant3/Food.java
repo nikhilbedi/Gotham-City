@@ -18,21 +18,25 @@ public class Food {
 		if (type.equals("Steak")){
 			cookingTime = 10;
 			price = 15.99;
+			amount = 3;
 		}
 		else if (type.equals("Chicken")){
 			cookingTime = 8;
 			price = 10.99;
+			amount = 3;
 		}
 		else if (type.equals("Pizza")) {
 			cookingTime = 6;
 			price = 8.99;
+			amount = 3;
 		}
 		else if (type.equals("Salad")) {
 			cookingTime = 4;
 			price = 5.99;
+			amount = 3;
 		}
 		
-		this.amount = 20;//amount of each order the cook has
+		//this.amount = 0;//amount of each order the cook has
 		this.capacity = 21;// maximum capacity
 		this.lowThreshold = 1;//threshold where cook orders from market
 	}

@@ -7,12 +7,15 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import simcity.PersonAgent;
+import simcity.TheCity;
 import Gui.RoleGui;
 import Gui.ScreenFactory;
 import agent.Role;
 import simcity.Home.ResidentRole.HomeEvent;
 import simcity.Market.MarketGui.MarketAnimationPanel;
 import simcity.Market.interfaces.MarketCashier;
+import simcity.Market.*;
+import simcity.Market.Market;
 import simcity.restaurants.restaurant3.Order.OrderState;
 import simcity.restaurants.restaurant3.Restaurant3CustomerRole.AgentEvent;
 import simcity.restaurants.restaurant3.gui.CookGui;
@@ -37,6 +40,10 @@ public class Restaurant3CookRole extends Role implements Cook{
 	public MarketCashier cashier;
 	Timer timer = new Timer();
 	private Timer cookingTimer = new Timer();
+	Restaurant3 restaurant3;
+	boolean needFood = false;
+	boolean order = false;
+	
 	//private WaiterAgent waiter;
 
 
@@ -65,6 +72,24 @@ public class Restaurant3CookRole extends Role implements Cook{
 	}
 	public Restaurant3CookRole(){
 		//super();
+		Food f = new Food ("Chicken");
+		foods.put("Chicken", f);
+
+		f = new Food ("Steak");
+		foods.put("Steak", f);
+
+		f = new Food ("Pizza");
+		foods.put("Pizza", f);
+
+		f = new Food ("Salad");
+		foods.put("Salad", f);
+
+		MarketRole market = new MarketRole("restaurant1");
+		markets.add(market);
+		market = new MarketRole("restaurant2");
+		markets.add(market);
+		market = new MarketRole("restaurant3");
+		markets.add(market);
 	}
 
 	public String getName() {
@@ -92,10 +117,12 @@ public class Restaurant3CookRole extends Role implements Cook{
 		stateChanged();
 	}
 
-	public void HereIsYourFood(Map<String, Integer> m){ 	 //from market
+	public void HereIsYourFood(Map<String, Integer> m, MarketWorkerRole worker){ 	 //from market
+		needFood = false;
+		worker.Delivered(restaurant3);
 		for (Map.Entry<String, Integer> entry: m.entrySet()){
 			Food f = foods.get(entry.getKey());
-			f.amount =  entry.getValue();
+			f.amount +=  entry.getValue();
 			foods.put(entry.getKey(), f);
 			System.out.println("Got order from market, now I have " + f.type + " " + f.amount);
 		}
@@ -106,14 +133,23 @@ public class Restaurant3CookRole extends Role implements Cook{
 	 */
 
 	public boolean pickAndExecuteAnAction() {
-		//	synchronized(orders) {
-		if(RevolvingStand.checkStand()) {
-			print("Order available on stand");
-			goCheckStand();
-			return true;
-		}
+		
 		
 		try {
+			for (Map.Entry<String, Food> entry: foods.entrySet()){
+				if (entry.getValue().amount <= 2){
+					myPerson.Do("Need " + entry.getKey());
+					int needed = entry.getValue().capacity - entry.getValue().amount;
+					neededFood.put(entry.getKey(), needed);
+					needFood = true;
+				}
+			}
+			if((needFood == true) && (order == false)){
+				System.err.println("orderfoodthatislow ************");
+				order = true;
+				OrderFoodThatIsLow(neededFood);
+				return true;
+			}
 			for (Order o: orders) {
 				if(o.os == OrderState.outOfInventory) {
 					messageWaiterOutOfInventory(o);
@@ -137,7 +173,11 @@ public class Restaurant3CookRole extends Role implements Cook{
 					return true;
 				}
 			}
-
+			if(RevolvingStand.checkStand()) {
+				print("Order available on stand");
+				goCheckStand();
+				return true;
+			}
 		
 
 			//	}
@@ -160,7 +200,7 @@ public class Restaurant3CookRole extends Role implements Cook{
 						print("Taking order of stand and preparing to cook");
 						orders.add(o);
 						//          cookGui.removeFromStand(temp);
-						stateChanged();
+						//stateChanged();
 					}
 				},
 				1200);
@@ -223,10 +263,14 @@ public class Restaurant3CookRole extends Role implements Cook{
 					//person.Do("Need " + entry.getKey());
 					int needed = entry.getValue().capacity - entry.getValue().amount;
 					neededFood.put(entry.getKey(), needed);
-					OrderFoodThatIsLow(neededFood);
-					//order = true;
+					needFood = true;
 				}
 			}
+			if((needFood == true) && (order == false)){
+				order = true;
+				OrderFoodThatIsLow(neededFood);
+			}
+			
 		}
 		else {
 			o.os = OrderState.outOfInventory;
@@ -298,6 +342,10 @@ public class Restaurant3CookRole extends Role implements Cook{
 		}
 		restCashier.msgPayMarketBill(bill);
 		 */
+		Market market = (Market) TheCity.getBuildingFromString("Market");
+		restaurant3 = (Restaurant3) TheCity.getBuildingFromString("Restaurant 3");
+		market.getCashier().INeedFood(neededFood, restaurant3);
+		
 	}
 
 	private boolean checkInventory(Food f) {
@@ -329,8 +377,10 @@ public class Restaurant3CookRole extends Role implements Cook{
 		return cookGui;
 	}
 
-	public void setMarket(MarketRole market){
-		//this.market = market;
+	
+	public void setMarketCashier(MarketCashier m){
+		
+		cashier = m;
 	}
 
 	public void setCashier(Restaurant3CashierRole cashier) {
