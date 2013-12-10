@@ -837,11 +837,16 @@ public class PersonAgent extends Agent implements Person {
 		currentBuilding = currentPreference;
 		enteringBuilding(restTemp);
 
-		//Need to check if the person was able to 
-		/*for(int i = 0; i < roles.size(); i++) {
+		//Need to check if the person was able to actually go into the restaurant
+		boolean madeItIn = false;
+		for(int i = 0; i < roles.size(); i++) {
 			if(roles.get(i).equals(restTemp));
-				
-		}*/
+				madeItIn = true;
+		}
+		//If the person hasn't made it into the restaurant. You're still hungry
+		if(!madeItIn){
+			hungerState = HungerState.Famished;
+		}
 		restaurantCounter++;
 		if (restaurantCounter > 4)
 			restaurantCounter = 0;
