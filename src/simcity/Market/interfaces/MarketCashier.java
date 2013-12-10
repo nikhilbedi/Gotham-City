@@ -24,9 +24,9 @@ public interface MarketCashier {
 
 	abstract void needFood(MarketCustomer marketCustomerRole);
 
-	abstract void INeedFood(Map<String, Integer> food, Role role, Role cashier, Restaurant r);
+	abstract void INeedFood(Map<String, Integer> food, Restaurant r);
 
-	abstract void hereIsMoneyRestaurant(Role role, double money);
+	abstract void hereIsMoneyRestaurant(Restaurant r, double money);
 
 	abstract List<Check> getChecks();
 	
@@ -34,5 +34,5 @@ public interface MarketCashier {
 	
 	abstract void setRest4Cashier(Restaurant4CashierRole r);
 
-	abstract void foodIsDelivered(Role cookRole);
+	abstract void foodIsDelivered(Restaurant rest);
 }

@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -43,7 +44,9 @@ public class MarketWorkerGui extends RoleGui{
 	Restaurant3 r3;
 	Restaurant4 r4;
 	Restaurant5 r5;
+	Restaurant r;
 	Location loc;
+	Map<String, Integer> delivery = new HashMap<String, Integer>();
 	
 	public MarketWorkerGui(MarketWorker mw){
 		worker = mw;
@@ -99,10 +102,12 @@ public class MarketWorkerGui extends RoleGui{
 	}
 
 	
-	public void DoSend(Map<String, Integer> m, Role role, Restaurant restaurant){  //restaurant
+	public void DoSend(Map<String, Integer> m, Restaurant restaurant){
+		r = restaurant;//restaurant
+		delivery = m;
 		r1 = (Restaurant1) TheCity.getBuildingFromString("Restaurant 1");
-		r2 = (Restaurant2) TheCity.getBuildingFromString("Restaurant 2");
-		r3 = (Restaurant3) TheCity.getBuildingFromString("Restaurant 3");
+		/*r2 = (Restaurant2) TheCity.getBuildingFromString("Restaurant 2");
+		r3 = (Restaurant3) TheCity.getBuildingFromString("Restaurant 3");*/
 		r4 = (Restaurant4) TheCity.getBuildingFromString("Restaurant 4");
 		r5 = (Restaurant5) TheCity.getBuildingFromString("Restaurant 5");
 		if (restaurant == r1){
@@ -121,7 +126,7 @@ public class MarketWorkerGui extends RoleGui{
 			loc = r5.getGuiLocation();
 		}
 		System.out.println("Going to truck");
-		this.role = role;
+		//this.role = role;
 		xDestination = 130;
 		yDestination = 250;
 		command = Command.restGetting;
@@ -132,9 +137,24 @@ public class MarketWorkerGui extends RoleGui{
 		yDestination = 250;
 		command = Command.truck;
 		Market m1  = (Market) TheCity.getBuildingFromString("Market");
-		Truck truck = new Truck(m1.getGuiLocation().getX(),m1.getGuiLocation().getY(), loc.getX(), loc.getY()
-				);
-		truck.setWorker(worker, role);
+		Truck truck = new Truck(m1.getGuiLocation().getX(),m1.getGuiLocation().getY(), loc.getX(), loc.getY());
+		truck.setReturnCoordinates(m1.getGuiLocation().getX(), m1.getGuiLocation().getY());
+		truck.command = "delivering";
+		if (r == r1){
+			truck.setData(worker,  r1, delivery);
+		}
+		else if (r == r2){
+			truck.setData(worker, r2, delivery);
+		}
+		else if (r == r3){
+			truck.setData(worker, r3, delivery);
+		}
+		else if (r == r4){
+			truck.setData(worker, r4, delivery);
+		}
+		else if (r == r5){
+			truck.setData(worker, r5, delivery);
+		}
 		ScreenFactory.main.addGui(truck);
 		
 	}

@@ -18,8 +18,9 @@ public enum AlertTag {
 	BANK_TELLER,
 	BANK_CUSTOMER,
 	BUS_STOP,
-	RESTAURANT,		//For the demo code where you make a new restaurant
-	BANK,			//For the demo code where you make a new bank
+	RESTAURANT,
+	REST5,
+	BANK,			
 	GENERAL_CITY, 
 	RESIDENT_ROLE,
 	LANDLORD_ROLE

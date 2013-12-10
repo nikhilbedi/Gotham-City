@@ -8,6 +8,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Semaphore;
 
 import simcity.PersonAgent;
+import Gui.RoleGui;
 import agent.Role;
 import simcity.restaurants.restaurant3.Order.OrderState;
 import simcity.restaurants.restaurant3.gui.*;
@@ -489,8 +490,9 @@ public class WaiterRole extends Role implements Waiter{
 
 	//utilities
 
-	public void setGui(WaiterGui gui) {
-		waiterGui = gui;
+	public void setGui(RoleGui gui) {
+		super.setGui(gui);
+		waiterGui = (WaiterGui)gui;
 	}
 	public void setGui(Restaurant3CustomerGui gui) {
 		customerGui = gui;

@@ -24,6 +24,7 @@ public class ScreenFactory {
 
 	public static MainScreen main;
 	public static Screen market;
+
 	
 	public static Screen rest1; 
 	public static Screen rest2; 
@@ -37,29 +38,18 @@ public class ScreenFactory {
 
 
 
+
 	static{
 		bank = new bankAnimationPanel();
 		rest1 = new RestaurantNikhilAnimationPanel();
  		market = new MarketAnimationPanel();
  		rest4 = new Restaurant4AnimationPanel();
- 		
- 		
+ 		rest5 = new RestaurantHunterAnimationPanel();		
  		//rest2 = new Restaurant2AnimationPanel();
- 		
- 		
- 		
-		//home = new HomeAnimationPanel();
- 		//apart = new ApartmentAnimationPanel();
- 		
-
-/*		
+		home = new HomeAnimationPanel();
+ 		apart = new ApartmentAnimationPanel();	
 		rest3 = new RestaurantEvanAnimationPanel();
-		
-		rest5 = new RestaurantHunterAnimationPanel();*/
-
-		
-		
-		
+	
 	
 		screenList.add(rest1);
 		screenList.add(market);

@@ -68,6 +68,10 @@ public class SimCityPanel extends JPanel implements MouseListener, KeyListener
 		while(always)
 		{
 			try{
+				
+				//selPane.refresh();
+				//buildingInfo.refresh();
+				revalidate();
 				repaint();
 				Thread.sleep(10);
 			}
@@ -94,6 +98,7 @@ public class SimCityPanel extends JPanel implements MouseListener, KeyListener
 			}
 			else{
 				buildingInfo.setVisible(true);
+				buildingInfo.setB(TheCity.getBuildingFromString(swap));
 				buildingInfo.update(TheCity.getBuildingFromString(swap).getBuildingInfo());
 				buildingInfo.getUpdators(TheCity.getBuildingFromString(swap));
 			}

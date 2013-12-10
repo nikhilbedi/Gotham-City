@@ -5,6 +5,7 @@ import java.util.*;
 import Gui.RoleGui;
 import Gui.ScreenFactory;
 import agent.Role;
+import simcity.Building;
 import simcity.Item;
 import simcity.PersonAgent;
 import simcity.Robot;
@@ -26,15 +27,21 @@ public class Restaurant5 extends Restaurant {
 	Host host = new HostRole();
 	Cashier cashier = new CashierRole();
 	Waiter waiter1 = new WaiterRole();
+	Waiter waiter2 = new WaiterRole();
 	Cook cook = new CookRole(); 
 
+
+	public CookRole getCook() {
+		return (CookRole)cook;
+	}
 
 	//create guis
 	HostGui hostGui = new HostGui(host, ScreenFactory.getMeScreen(this.getName()));
 	CashierGui cashierGui = new CashierGui(cashier, ScreenFactory.getMeScreen(this.getName()));
-	WaiterGui waiterGui = new WaiterGui(waiter1, ScreenFactory.getMeScreen(this.getName()));
 	CookGui cookGui = new CookGui(cook, ScreenFactory.getMeScreen(this.getName()));
-
+	
+	WaiterGui waiterGui1 = new WaiterGui(waiter1, ScreenFactory.getMeScreen("Restaurant 5"));
+	WaiterGui waiterGui2 = new WaiterGui(waiter2, ScreenFactory.getMeScreen("Restaurant 5"));
 	//create 2 waiters and 2 sharedDataWaiter
 	
 
@@ -59,41 +66,44 @@ public class Restaurant5 extends Restaurant {
 
 		((HostRole) host).setGui((RoleGui)hostGui);
 		((CashierRole) cashier).setGui((RoleGui)cashierGui);
-		((WaiterRole) waiter1).setGui((RoleGui)waiterGui);
+		((WaiterRole) waiter1).setGui((RoleGui)waiterGui1);
+		((WaiterRole) waiter2).setGui((RoleGui)waiterGui2);
 		((CookRole) cook).setGui((RoleGui)cookGui);
 
-		jobRoles.put("Host Early", (Role)host);
-		jobRoles.put("Host Late",  (Role)host);
+		jobRoles.put("Host", (Role)host);
+		//jobRoles.put("Host Late",  (Role)host);
 
-		jobRoles.put("Cashier Early",(Role)cashier);
-		jobRoles.put("Cashier Late", (Role)cashier);
+		jobRoles.put("Cashier",(Role)cashier);
+		//jobRoles.put("Cashier Late", (Role)cashier);
 
-		jobRoles.put("Waiter1 Early",(Role)waiter1);
-		jobRoles.put("Waiter1 Late", (Role)waiter1);
+		jobRoles.put("Waiter1",(Role)waiter1);
+		jobRoles.put("Waiter2",(Role)waiter2);
+		
+		//jobRoles.put("Waiter1 Late", (Role)waiter1);
 
-		jobRoles.put("Cook Early",(Role)cook);
-		jobRoles.put("Cook Late", (Role)cook);
+		jobRoles.put("Cook",(Role)cook);
+		//jobRoles.put("Cook Late", (Role)cook);
 		
 		
-		PersonAgent waiterPerson = new Robot("waiter");
+		/*PersonAgent waiterPerson = new Robot("waiter");
 		PersonAgent hostPerson = new Robot("host");
 		PersonAgent cookPerson = new Robot("cook");
-		PersonAgent cashierPerson = new Robot("cashier");
+		PersonAgent cashierPerson = new Robot("cashier");*/
 		
-		waiterPerson.addRole((WaiterRole)waiter1);
+	/*	waiterPerson.addRole((WaiterRole)waiter1);
 		hostPerson.addRole((HostRole)host);
 		cookPerson.addRole((CookRole)cook);
-		cashierPerson.addRole((CashierRole)cashier);
+		cashierPerson.addRole((CashierRole)cashier);*/
 		
 		((WaiterRole)waiter1).setHost(host);
 		((WaiterRole)waiter1).setCook(cook);
 		((WaiterRole)waiter1).setCashier(cashier);
 		((HostRole)host).addWaiter(waiter1);
 		
-		ScreenFactory.getMeScreen("Restaurant 5").addGui(hostGui);
+/*		ScreenFactory.getMeScreen("Restaurant 5").addGui(hostGui);
 		ScreenFactory.getMeScreen("Restaurant 5").addGui(cookGui);
 		ScreenFactory.getMeScreen("Restaurant 5").addGui(waiterGui);
-		ScreenFactory.getMeScreen("Restaurant 5").addGui(cashierGui);
+		ScreenFactory.getMeScreen("Restaurant 5").addGui(cashierGui);*/
 
 	}
 
@@ -118,7 +128,7 @@ public class Restaurant5 extends Restaurant {
 	}
 
 	@Override
-	public Role getCashier() {
+	public CashierRole getCashier() {
 		return (CashierRole)cashier;
 	}
 	
@@ -127,11 +137,11 @@ public class Restaurant5 extends Restaurant {
 		this.cook = (CookRole)cook;
 	}
 
-	@Override
+/*	@Override
 	public Role getCook() {
 		return (CookRole)cook;
 	}
-
+*/
 	public Vector<String> getBuildingInfo(){
 		Vector<String> info = new Vector<String>();
 		info.add("Restaurant 5");
@@ -145,6 +155,12 @@ public class Restaurant5 extends Restaurant {
 		AlertLog.getInstance().logInfo(AlertTag.GUI, "Rest 5",
 				inventory.toString());
 		return inventory;
+	}
+	
+	public void updateItem(String s, int hashCode) {
+		// TODO Auto-generated method stub
+		//THIS MUST BE UPDATED BY YOUR BUILDING
+		((CookRole) cook).updateItem(s, hashCode);
 	}
 
 }

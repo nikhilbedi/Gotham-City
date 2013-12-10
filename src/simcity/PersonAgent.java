@@ -45,7 +45,7 @@ public class PersonAgent extends Agent implements Person {
 	RoleGui homeGui;
 	Role restTemp;
 	RoleGui restGui;
-	
+
 
 	public String name;
 	int currentTime; // (ranges from 1-24)
@@ -54,7 +54,7 @@ public class PersonAgent extends Agent implements Person {
 	// we're removing that role
 	Semaphore busyWithTask = new Semaphore(0, false);
 	double money = 0.0;
-    int restaurantCounter = (int)(Math.random()*5);
+	int restaurantCounter = (int)(Math.random()*5);
 	protected List<Role> roles = new ArrayList<Role>();
 	public Map<String, Integer> groceryList = new HashMap<String, Integer>();
 	public Map<String, Integer> groceryBag = new HashMap<String, Integer>();
@@ -193,7 +193,7 @@ public class PersonAgent extends Agent implements Person {
 	public void setMarkets(List<Market> m) {
 		markets = m;
 	}
-	
+
 	public List<Market> getMarkets(){
 		return markets;
 	}
@@ -213,7 +213,7 @@ public class PersonAgent extends Agent implements Person {
 			shelter = true;
 		} else {
 			setMyHome(h);
-            // currentBuilding = h;
+			// currentBuilding = h;
 			currentDestination = h;
 			// Should I make a new one, or just make it equal to this one? There
 			// is only one resident for a home...
@@ -334,7 +334,7 @@ public class PersonAgent extends Agent implements Person {
 			 * landlord.setActive(false);
 			 */
 		}
-		
+
 
 		// Next Day
 		if (currentTime == 1) {
@@ -344,7 +344,7 @@ public class PersonAgent extends Agent implements Person {
 			print("The day of the week is " + dayState.name());
 		}
 
-	/*	if (hungerCount > 15 && hungerState != HungerState.Starving
+		/*	if (hungerCount > 15 && hungerState != HungerState.Starving
 				&& hungerState != HungerState.FeedingHunger) {
 			hungerState = HungerState.Starving;
 		} else*/ if (hungerCount > 10 && hungerState != HungerState.Hungry
@@ -409,7 +409,7 @@ public class PersonAgent extends Agent implements Person {
 		myJob.state = JobState.LeaveWork;
 		checkPersonScheduler = true;
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -432,7 +432,7 @@ public class PersonAgent extends Agent implements Person {
 		roles.remove(role);
 		stateChanged();
 	}
-	
+
 	//TODO Might just make this a message 
 	public void leaveWork(Role role) {
 		// Upon leaving work, person gains set amount of money in his wallet
@@ -442,10 +442,10 @@ public class PersonAgent extends Agent implements Person {
 		checkPersonScheduler = true;
 		gui.getHomeScreen().addGui(gui);
 		roles.remove(role);
-		
+
 		// Going home is not a critical section
 		//gui.getHomeScreen().addGui(gui);
-	//	gui.DoGoToLocation(myHome.getEntranceLocation());
+		//	gui.DoGoToLocation(myHome.getEntranceLocation());
 
 		myJob.state = JobState.OffWork;
 
@@ -463,8 +463,6 @@ public class PersonAgent extends Agent implements Person {
 		roles.add(role);
 		role.setActive(true);
 		gui.getHomeScreen().removeGui(gui);
-		/*AlertLog.getInstance().logInfo(AlertTag.PERSON, "PersonAgent",
-				"Role's Screen is " + role.getGui().getHomeScreen());*/
 		role.getGui().getHomeScreen().addGui(role.getGui());
 		role.startBuildingMessaging();
 		stateChanged();
@@ -539,7 +537,7 @@ public class PersonAgent extends Agent implements Person {
 		// Person Scheduler
 
 		if (checkPersonScheduler) {
-			print("person sched");
+			//print("person sched");
 			//Time to leave, yo.
 			if (myJob != null) {
 				if (myJob.state == JobState.TimeToLeave) {
@@ -547,17 +545,17 @@ public class PersonAgent extends Agent implements Person {
 					tellRoleToLeaveWork();
 					return true;
 				}
-			//Clockin' out, yo.
-		/*		if (myJob.state == JobState.LeaveWork) {
+				//Clockin' out, yo.
+				/*		if (myJob.state == JobState.LeaveWork) {
 					myJob.state = JobState.LeavingWork;
 					leaveWork();
 					return true;
 				}*/
 			}
-			
+
 			// if the man has groceries in his hand, let him take them home!
 
-			
+
 
 
 			// If he's CRRAAAZZY hungry, then eat something first. Then do
@@ -585,7 +583,7 @@ public class PersonAgent extends Agent implements Person {
 					return true;
 				}
 			}
-			
+
 			if (marketState == MarketState.TakeGroceriesHome) {
 				marketState = MarketState.TakingGroceriesHome;
 				goToHome();
@@ -687,10 +685,10 @@ public class PersonAgent extends Agent implements Person {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		
+
 		myJob.state = JobState.AtWork;
 		checkPersonScheduler = false;
-		
+
 		if(myJob.role.checkWorkStatus()) {
 			waitToStartWork();
 		}
@@ -700,7 +698,7 @@ public class PersonAgent extends Agent implements Person {
 			myJob.role.setWorkStatus(true);
 		}
 	}
-	
+
 	private void waitToStartWork() {
 		Timer timer = new Timer();
 		timer.schedule(new TimerTask() {
@@ -717,7 +715,7 @@ public class PersonAgent extends Agent implements Person {
 		},
 		500);
 	}
-	
+
 	private void tellRoleToLeaveWork() {
 		print("Telling role to leave work");
 		myJob.role.setWorkStatus(false);
@@ -742,7 +740,7 @@ public class PersonAgent extends Agent implements Person {
 					e.printStackTrace();
 				}
 			}
-	
+
 			homeTemp = RoleFactory.makeMeRole("residentRole");
 			homeTemp = getMyHome().getResident();
 			homeTemp.setActive(true);
@@ -750,8 +748,8 @@ public class PersonAgent extends Agent implements Person {
 			homeGui = new ResidentGui((ResidentRole)homeTemp, ScreenFactory.getMeScreen(myHome.getName()));
 			homeGui.setHomeScreen(ScreenFactory.getMeScreen(myHome.getName()));
 
-//			//Add role
-	
+			//			//Add role
+
 			homeTemp.setGui(homeGui);
 			// Enter building
 			homeTemp.setPerson(this);
@@ -841,7 +839,7 @@ public class PersonAgent extends Agent implements Person {
 		boolean madeItIn = false;
 		for(int i = 0; i < roles.size(); i++) {
 			if(roles.get(i).equals(restTemp));
-				madeItIn = true;
+			madeItIn = true;
 		}
 		//If the person hasn't made it into the restaurant. You're still hungry
 		if(!madeItIn){

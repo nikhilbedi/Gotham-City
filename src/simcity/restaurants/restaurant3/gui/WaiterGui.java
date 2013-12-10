@@ -45,7 +45,7 @@ public class WaiterGui extends RoleGui {
     	//xDestination = xPos;
         this.agent = agent;
     }
-    public WaiterGui(Waiter agent, int home, Screen s) {
+    public WaiterGui(Waiter agent, Screen s) {
     	super((Role) agent, s);
    
     	//super.setColor(Color.pink);

@@ -324,9 +324,9 @@ public class Restaurant3CookRole extends Role implements Cook{
 		//int cookingTime = o.choice.getCookingTime();
 
 	}
-	public void setGui(HostGui gui) {
+	/*public void setGui(HostGui gui) {
 		hostGui = gui;
-	}
+	}*/
 	public void setGui(RoleGui gui) {
 		super.setGui(gui);
 		cookGui = (CookGui)gui;
