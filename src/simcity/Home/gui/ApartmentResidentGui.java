@@ -1,7 +1,6 @@
 package simcity.Home.gui;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.text.StyledEditorKit.ForegroundAction;
@@ -107,28 +106,6 @@ public class ApartmentResidentGui extends ResidentGui {
 		
 		xPadding = ((int)Math.ceil(roomNumber / 3.0)-1) * (roomWidth + hallwayWidth + wallWidth*2); 
 		yPadding = (((roomNumber % 3 == 0 ? 3: (roomNumber % 3)) - 1) * (wallWidth + roomHeight) ) ;
-	}
-	@Override
-	public void draw(Graphics g) {
-		super.draw(g);
-		g.setColor(Color.GREEN);
-		//g.fillRect(xPos, yPos, Width, Height);
-		if (cooking){
-			g.drawString("cooking food", getXPos(), getYPos());
-		}
-		else if (plating) {
-			g.drawString("plating food", getXPos(), getYPos());
-		}
-		else if (eating) {
-			g.drawString("eating ", getXPos(), getYPos());
-		}
-		else if (clearing) {
-			g.drawString("cleaning dishes", getXPos(), getYPos());
-		}
-		else if (checkingMail) {
-			g.drawString("checking mail", getXPos(), getYPos());
-		}
-		
 	}
 
 	@Override

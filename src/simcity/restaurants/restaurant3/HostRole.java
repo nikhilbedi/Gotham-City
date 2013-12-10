@@ -9,6 +9,8 @@ import agent.Role;
 import simcity.restaurants.restaurant3.gui.HostGui;
 import simcity.restaurants.restaurant3.gui.WaiterGui;
 import simcity.restaurants.restaurant3.interfaces.*;
+import trace.AlertLog;
+import trace.AlertTag;
 import agent.Agent;
 //import restaurant.WaiterAgent.MyCustomer;
 
@@ -75,7 +77,9 @@ public class HostRole extends Role implements Host {
 	// Messages
 
 	public void msgIWantToEat(Restaurant3CustomerRole cust) {
-		System.out.println(cust.getName() + " tells the host that he/she is ready to eat.");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"tells the host that he/she is ready to eat. ");
+		//System.out.println(cust.getName() + " tells the host that he/she is ready to eat.");
 		int customerCapacity = tables.size();
 		
 		if (customerCapacity  <= customers.size()) 
@@ -87,7 +91,9 @@ public class HostRole extends Role implements Host {
 	}
 	
 	public void msgTableIsFree(Customer cust) {
-		System.out.println("Waiter tells the host that the table is free");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"Waiter tells the host that the table is free. ");
+		//System.out.println("Waiter tells the host that the table is free");
 		for (MyCustomer mc:customers) {
 			if (mc.cust == cust) {
 				customers.remove(cust);
@@ -95,8 +101,9 @@ public class HostRole extends Role implements Host {
 		}
 		for(Table t: tables){
 			if (t.getOccupant() == cust) {
-				//System.out.println(cust.getName() + " is leaving " + t);
-				System.out.println(t + " is now available.");
+				AlertLog.getInstance().logInfo(AlertTag.REST3,
+						this.getName(), t+ " is now available.");
+				//System.out.println(t + " is now available.");
 				t.setUnoccupied();
 			}
 		}
@@ -122,17 +129,23 @@ public class HostRole extends Role implements Host {
 	}
 	
 	public boolean msgAskToGoOnBreak(Waiter w) {
-		System.out.println(w.getName() + " asks the host if he/she can go on a break.");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				" asks the host if he/she can go on a break. ");
+		//System.out.println(w.getName() + " asks the host if he/she can go on a break.");
 		int availableWaiters = 0;
 		// check the number of waiters
 		for (int i = 0; i < waiters.size(); ++i) {
 			if (!waiters.get(i).isOnBreak){
 				++availableWaiters;
-				System.out.println("Host tells " + w.getName() + " he/she cannot go on break at this time.");
+				AlertLog.getInstance().logInfo(AlertTag.REST3,
+						this.getName(), "Host tells waiter he/she cannot go on break at this time. ");
+				//System.out.println("Host tells " + w.getName() + " he/she cannot go on break at this time.");
 			}
 		}
 		if (availableWaiters > 1){
-			System.out.println("Host tells " + w.getName() + " he/she can go on break.");
+			AlertLog.getInstance().logInfo(AlertTag.REST3,
+					this.getName(), "Host tells he/she can go on break. ");
+			//System.out.println("Host tells " + w.getName() + " he/she can go on break.");
 			return true;
 		}
 		return false;
@@ -178,12 +191,16 @@ public class HostRole extends Role implements Host {
 				Random r = new Random();
 				boolean leaveRestaurantIfFull = r.nextBoolean();
 				if (leaveRestaurantIfFull) {
-					System.out.println("Restaurant is full. Customer chose to leave the restaurant");
+					AlertLog.getInstance().logInfo(AlertTag.REST3,
+							this.getName(), "Restaurant is full. Customer chose to leave the restaurant ");
+					//System.out.println("Restaurant is full. Customer chose to leave the restaurant");
 					//mc.
 					customers.remove(mc);
 				}
 				else {
-					System.out.println("Restaurant is full. Customer chose to stay in the restaurant");
+					AlertLog.getInstance().logInfo(AlertTag.REST3,
+							this.getName(), "Restaurant is full. Customer chose to stay in the restaurant ");
+					//System.out.println("Restaurant is full. Customer chose to stay in the restaurant");
 					mc.cs = customerState.waitingToBeSeated;
 					stateChanged();
 				}

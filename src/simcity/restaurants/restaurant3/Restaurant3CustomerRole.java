@@ -2,9 +2,12 @@ package simcity.restaurants.restaurant3;
 
 import simcity.PersonAgent;
 import simcity.Home.ResidentRole.HomeEvent;
+import simcity.bank.test.mock.LoggedEvent;
 import simcity.restaurants.restaurant3.*;
 import simcity.restaurants.restaurant3.gui.Restaurant3CustomerGui;
 import simcity.restaurants.restaurant3.interfaces.*;
+import trace.AlertLog;
+import trace.AlertTag;
 import Gui.RoleGui;
 import agent.Role;
 
@@ -64,7 +67,6 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 		//this.wallet = random.nextInt(20); //random generated amount of money in wallet.
 		//this.wallet = 7;
 		//this.wallet = 0;
-		System.out.println(" initially has $" + wallet + " .");
 	}
 	public Restaurant3CustomerRole(){
 		super();
@@ -75,7 +77,6 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 		//this.wallet = random.nextInt(20); //random generated amount of money in wallet.
 		//this.wallet = 7;
 		//this.wallet = 0;
-		System.out.println(" initially has $" + wallet + " .");
 	}
 
 	
@@ -113,13 +114,17 @@ public class Restaurant3CustomerRole extends Role implements Customer {
     }
 
 	public void gotHungry() {//from animation
-		System.out.println("I'm hungry");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"I'm hungry");
+		//System.out.println("I'm hungry");
 		event = AgentEvent.gotHungry;
 		stateChanged();
 	}
 
 	public void msgFollowMeToTable(Menu menu, int tnum) { //tnum
-		System.out.println("Follow me to the table");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"Follow me to the table");
+		//System.out.println("Follow me to the table");
 		this.menu = menu;
 		event = AgentEvent.followHost;
 		stateChanged();
@@ -127,18 +132,23 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 	}
 
 	public void msgWhatWouldYouLike() {
-		System.out.println(this.getName() + " is asked by the waiter what he/she would like to eat.");
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				" the waiter asks the customer what they would like to eat");
+		//System.out.println(this.getName() + " is asked by the waiter what he/she would like to eat.");
 		event = AgentEvent.AskedToOrder;
 		stateChanged();
 	}
 
 	public void msgHereIsYourFood() {
-		System.out.println(this.getName() + " received his/her order from the waiter.");
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"customer received his/her order from the waiter. ");
+		//System.out.println(this.getName() + " received his/her order from the waiter.");
 		//state = AgentState.Eating;
 		event = AgentEvent.foodDelivered;
 		stateChanged();
 	}
 	public void msgHereIsYourCheck(Order o) {
+		
 		System.out.println(this.getName() + " received the check from the waiter.");
 		this.order = o;
 		event = AgentEvent.checkDelivered;

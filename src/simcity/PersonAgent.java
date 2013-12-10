@@ -133,7 +133,7 @@ public class PersonAgent extends Agent implements Person {
 	public MoneyState moneyState = MoneyState.Neutral;
 
 	// Job
-	private Job myJob = null;
+	public Job myJob = null;
 	public enum JobState {
 		OffWork, GoToWorkSoon, HeadedToWork, AtWork, TimeToLeave, 
 		PreparingToLeave, LeaveWork, LeavingWork, 
