@@ -39,18 +39,20 @@ public class ScreenFactory {
 
 
 	static{
-		
+		bank = new bankAnimationPanel();
 		rest1 = new RestaurantNikhilAnimationPanel();
-		
  		market = new MarketAnimationPanel();
+ 		rest4 = new Restaurant4AnimationPanel();
  		
- 		//FOR SOME WEIRD RESASON BANK MUST COME AFTER REST1?
- 		bank = new bankAnimationPanel();
+ 		
+ 		//rest2 = new Restaurant2AnimationPanel();
+ 		
+ 		
  		
 		//home = new HomeAnimationPanel();
-/*		rest2 = new Restaurant2AnimationPanel();
+/*		
 		rest3 = new RestaurantEvanAnimationPanel();
-		rest4 = new Restaurant4AnimationPanel();
+		
 		rest5 = new RestaurantHunterAnimationPanel();*/
 
 		
@@ -60,8 +62,10 @@ public class ScreenFactory {
 		screenList.add(rest1);
 		screenList.add(market);
 		screenList.add(bank);
+		//screenList.add(rest2);
+		screenList.add(rest4);
 		//screenList.add(home);
-		/*screenList.add(rest2);
+		/*
 		screenList.add(rest3);
 		screenList.add(rest4);
 		screenList.add(rest5);

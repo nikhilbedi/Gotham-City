@@ -433,9 +433,11 @@ public class PersonAgent extends Agent implements Person {
 		role.getGui();
 		role.getGui().getHomeScreen();
 		AlertLog.getInstance().logInfo(AlertTag.PERSON, "PersonAgent",
-				"Error is " + role.getGui().getHomeScreen());
+				"Role's Screen is " + role.getGui().getHomeScreen());
 		role.getGui().getHomeScreen().addGui(role.getGui());
-		role.startBuildingMessaging();
+		
+		//TODO put this back in when ready to start messaging but for now leave out
+		//role.startBuildingMessaging();
 		stateChanged();
 	}
 
