@@ -109,6 +109,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	//food is delivered
 	public void Sent(Role role){  //gui sends this
 		delivering.release();
+		stateChanged();
 		//myPerson.Do("sent things to restaurant");
 	}
 
@@ -148,13 +149,14 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	}
 
 	public void RestaurantIsClosed(Restaurant r){
-		//myPerson.Do(r + " is closed");
-
-		//after some time send it again or check when it is open 
-		
-		
-		
-
+		myPerson.Do("Oops! restorant is closed, i will send truck when it is open");
+		for (int i=0; i<restDeliveries.size(); i++){
+			if (restDeliveries.get(i).rest == r){
+				restDeliveries.get(i).state = RestaurantDelivery.DeliveryState.resend;
+				stateChanged();
+				
+				}
+			}
 	}
 
 	public boolean pickAndExecuteAnAction(){
@@ -177,6 +179,17 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 				delivery.state = RestaurantDelivery.DeliveryState.getting;
 				Send(delivery);
 				return true;
+			}
+			if (delivery.state == RestaurantDelivery.DeliveryState.resend){
+				if (delivery.rest.isOpen()){
+					delivery.state = RestaurantDelivery.DeliveryState.getting;
+					Send(delivery);
+					return true;
+				}
+				else{
+					workerGui.DefaultPos();
+					return false;
+				}
 			}
 		}
 		workerGui.DefaultPos();
@@ -243,7 +256,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 		private Restaurant rest;
 		//Location
 		public DeliveryState state;
-		public enum DeliveryState {pending, getting, delivering, delivered};
+		public enum DeliveryState {pending, getting, delivering, delivered, resend};
 
 		public RestaurantDelivery(Map<String, Integer> f,  Restaurant r){
 			//cookRole = role;
