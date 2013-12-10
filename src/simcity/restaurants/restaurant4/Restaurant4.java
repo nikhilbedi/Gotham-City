@@ -67,6 +67,46 @@ public class Restaurant4 extends Restaurant {
 		cook.setGui(cookGui);
 		host.setGui(hostGui);
 		cashier.setGui(cashierGui);
+		setWeekdayHours(1, 12);
+		setWeekendHours(12, 24);
+		Map<String, Role> jobs = Collections.synchronizedMap(new HashMap<String, Role>());
+		jobs.put("Host", host);
+		jobs.put("Cashier", cashier);
+		jobs.put("Cook", cook);
+		jobs.put("Waiter1", waiter);
+		jobs.put("Waiter2", sharedDataWaiter);
+		jobs.put("Waiter3", waiter2);
+		jobs.put("Waiter4", sharedDataWaiter2);
+		setJobRoles(jobs);
+		host.setWaiter((Restaurant4Waiter) waiter);
+		host.setWaiter((Restaurant4Waiter) sharedDataWaiter);
+		host.setWaiter((Restaurant4Waiter) waiter2);
+		host.setWaiter((Restaurant4Waiter) sharedDataWaiter2);
+		waiter.setHost(host);
+		sharedDataWaiter.setHost(host);
+		waiter2.setHost(host);
+		sharedDataWaiter2.setHost(host);
+		waiter.setCashier(cashier);
+		sharedDataWaiter.setCashier(cashier);
+		waiter2.setCashier(cashier);
+		sharedDataWaiter2.setCashier(cashier);
+		waiter.setCook(cook);
+		sharedDataWaiter.setCook(cook);
+		waiter2.setCook(cook);
+		sharedDataWaiter2.setCook(cook);
+		cook.setCashier(cashier);
+	}	
+	
+	public Restaurant4(String type, int entranceX, int entranceY, int guiX,
+			int guiY, int exitX, int exitY) {
+		super(type, entranceX, entranceY, guiX, guiY, exitX, exitY);
+		waiter.setGui(waiterGui1);
+		sharedDataWaiter.setGui(waiterGui2);
+		waiter2.setGui(waiterGui3);
+		sharedDataWaiter2.setGui(waiterGui4);
+		cook.setGui(cookGui);
+		host.setGui(hostGui);
+		cashier.setGui(cashierGui);
 		setWeekdayHours(2, 24);
 		setWeekendHours(2, 24);
 		Map<String, Role> jobs = Collections.synchronizedMap(new HashMap<String, Role>());
@@ -96,7 +136,7 @@ public class Restaurant4 extends Restaurant {
 		sharedDataWaiter2.setCook(cook);
 		cook.setCashier(cashier);
 	}	
-
+	
 	@Override
 	public boolean isOpen() {
 		//Weekday

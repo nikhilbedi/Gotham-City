@@ -18,5 +18,8 @@ public class Restaurant3CashierGui extends RoleGui {
         this.agent = agent;
         xPos = -10;
         yPos = -10;
+        xPos = xDestination;
+        yPos = yDestination;
+    
     }
 }

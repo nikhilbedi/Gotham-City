@@ -140,6 +140,18 @@ public class PersonSelectionPane extends JPanel implements ActionListener {
 
 	}
 
+	/*public void refresh(List<RoleGui> guis) {
+		view.removeAll();
+		view.add(newPersonButton);
+		list.clear();
+		for(RoleGui gui: guis){
+			if(gui.role.getPersonAgent() != null){
+				addPerson(gui.role.getPersonAgent().getName());
+			}
+		}
+		
+	}*/
+
 	//this is old code to get all of the person gui elements on screen
 	/*public void refresh(){
 		view.removeAll();

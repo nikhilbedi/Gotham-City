@@ -55,7 +55,7 @@ public class BuildingControlPanel extends JPanel implements ActionListener {
 			}
 			
 		}
-		add(new LabeledToggleButton("CHAOS", "!"));
+		//add(new LabeledToggleButton("CHAOS", "!"));
 		
 		//add(new JToggleButton("CHAOS"));
 		

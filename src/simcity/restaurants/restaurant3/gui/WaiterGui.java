@@ -42,16 +42,19 @@ public class WaiterGui extends RoleGui {
 				yPos = 40;
 				break;
 			}
+		
 		}
 		
     	//xDestination = xPos;
         this.agent = agent;
+        xDestination = xPos;
+		yDestination = yPos;
     }
     public WaiterGui(Waiter agent, Screen s) {
     	super((Role) agent, s);
     	
-    	AlertLog.getInstance().logError(AlertTag.PERSON, "WaiterGUi",
-				homeScreen.toString());
+    	/*AlertLog.getInstance().logError(AlertTag.PERSON, "WaiterGUi",
+				homeScreen.toString());*/
    
     	//super.setColor(Color.pink);
     	
@@ -67,6 +70,8 @@ public class WaiterGui extends RoleGui {
 		
     	//xDestination = xPos;
         this.agent = agent;
+        xDestination = xPos;
+		yDestination = yPos;
     }
 
 

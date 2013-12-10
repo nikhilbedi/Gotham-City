@@ -263,11 +263,15 @@ public class PersonAgent extends Agent implements Person {
 	public void setJob(Role role, Building building, int shift) {
 		myJob = new Job(role, building, shift);
 	}
-
-	public void setJob(String type, Building building) {
-		myJob = new Job(RoleFactory.makeMeRole(type), type, building);
+	
+	public void setJob(Role role, Building building) {
+		myJob = new Job(role, building);
 	}
 
+	/*public void setJob(String type, Building building) {
+		myJob = new Job(RoleFactory.makeMeRole(type), type, building);
+	}
+*/
 	public String getJob() {
 		if (myJob != null)
 			return myJob.type;
@@ -947,6 +951,7 @@ public class PersonAgent extends Agent implements Person {
 
 		}
 		if(bank.isOpen()) {
+			print("Bank is open!");
 			currentBuilding = bank;
 
 			bankRoleTemp = RoleFactory.makeMeRole("bankCustomer");
@@ -993,5 +998,9 @@ public class PersonAgent extends Agent implements Person {
 
 	public void setMyHome(Home myHome) {
 		this.myHome = myHome;
+	}
+
+	public void setJob(String string, Building buildingFromString) {
+		//myJob = new Job(string, buildingFromString);
 	}
 }

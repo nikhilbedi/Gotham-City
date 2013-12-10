@@ -69,12 +69,10 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 	
 	/*public void setGui(Restaurant4CookGui c){ //This is messing things up
 		cg = c;
-	} 
-	*/
-	
-	public void setGui(RoleGui gui) {
-		super.setGui(gui);
-		cg = (Restaurant4CookGui) gui;
+*/
+	public void setGui(RoleGui g) {
+		super.setGui(g);
+		cg = (Restaurant4CookGui) g;
 	}
 	
 	public void resetInventory(){
@@ -201,6 +199,7 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 		}
 		else{
 			myPerson.Do("Cooking " + o.choice);
+			System.out.println(cg);
 			cg.DoCookFood(o.choice);
 			o.s = Order.OrderState.cooking;
 			

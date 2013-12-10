@@ -42,7 +42,7 @@ public class WaiterGui extends RoleGui {
     
     public WaiterGui(Waiter waiter, Screen meScreen) {
 		super((Role) waiter, meScreen);
-		
+		this.agent = (WaiterRole)waiter;
 		waiterDefaultX = 100;
         xPos = waiterDefaultX;
         xDestination = waiterDefaultX;

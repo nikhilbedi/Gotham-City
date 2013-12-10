@@ -8,4 +8,6 @@ public interface BankGreeter {
 
 	void msgGiveMeATeller(BankRobber bankRobber);
 
+	void addTeller(BankTeller teller);
+
 }

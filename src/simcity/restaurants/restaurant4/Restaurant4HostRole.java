@@ -30,7 +30,7 @@ public class Restaurant4HostRole extends Role implements Restaurant4Host{
 	//note that tables is typed with Collection semantics.
 	//Later we will see how it is implemented
 	private String name;
-//	private Semaphore atTable = new Semaphore(0,true);
+	//	private Semaphore atTable = new Semaphore(0,true);
 	public List<Restaurant4Waiter> availableWaiters = new ArrayList<Restaurant4Waiter>();
 	private Restaurant4HostGui gui;
 	public Restaurant4HostRole(PersonAgent p) {
@@ -49,16 +49,16 @@ public class Restaurant4HostRole extends Role implements Restaurant4Host{
 			tables.add(new Table(ix));//how you add to a collection 
 		}
 	}
-	
+
 	public void setGui(RoleGui g){
 		super.setGui(g);
 		gui = (Restaurant4HostGui)g;
 	}
-	
+
 	public Restaurant4HostGui getGui() {
 		return gui;
 	}
-	
+
 	public String getMaitreDName() {
 		return name;
 	}
@@ -76,7 +76,7 @@ public class Restaurant4HostRole extends Role implements Restaurant4Host{
 		}
 		return true;
 	}
-	
+
 	public List<Restaurant4Customer> getWaitingCustomers() {
 		return waitingCustomers;
 	}
@@ -107,9 +107,9 @@ public class Restaurant4HostRole extends Role implements Restaurant4Host{
 	public void setWaiter(Restaurant4Waiter waiter){
 		availableWaiters.add(waiter);
 		System.out.println(availableWaiters.size());
-	//	stateChanged();
+		//	stateChanged();
 	}
-	
+
 	public void wantABreak(Restaurant4Waiter w){
 		if (availableWaiters.size()!=1){
 			for(Restaurant4Waiter waiter: availableWaiters){
@@ -124,7 +124,7 @@ public class Restaurant4HostRole extends Role implements Restaurant4Host{
 			myPerson.Do("You cannot go to a break");
 			return;}
 	}
-	
+
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
@@ -138,42 +138,47 @@ public class Restaurant4HostRole extends Role implements Restaurant4Host{
 			leaveWork();
 			return true;
 		}
-		
+
 		for (Table table : tables) {
 			if (!table.isOccupied()) {
-					if (!availableWaiters.isEmpty()){
+				if (!availableWaiters.isEmpty()){
 					if (availableWaiters.size()==1){
 						if (!waitingCustomers.isEmpty()){
-							availableWaiters.get(0).PleaseSeatCustomer(waitingCustomers.get(0), table.getTable());
-							table.setOccupant(waitingCustomers.get(0));
-							waitingCustomers.remove(waitingCustomers.get(0));
-							return true;
+							//Nikhil made this if block for you. If we freeze, stick the return true outside this block
+							if(((Role)availableWaiters.get(0)).checkWorkStatus()){
+								availableWaiters.get(0).PleaseSeatCustomer(waitingCustomers.get(0), table.getTable());
+								table.setOccupant(waitingCustomers.get(0));
+								waitingCustomers.remove(waitingCustomers.get(0));
+								return true;
 							}
 						}
-						else {
-							while (!waitingCustomers.isEmpty()){
-								int min = 0;
-								for (int i=0; i<availableWaiters.size()-1; i++){
-									if (availableWaiters.get(i).getSize() > availableWaiters.get(i+1).getSize()){
-										min = i+1;
-									}
-									
+					}
+					else {
+						while (!waitingCustomers.isEmpty()){
+							int min = 0;
+							for (int i=0; i<availableWaiters.size()-1; i++){
+								if (availableWaiters.get(i).getSize() > availableWaiters.get(i+1).getSize()){
+									min = i+1;
 								}
+
+							}
+							if(((Role)availableWaiters.get(min)).checkWorkStatus()){
 								availableWaiters.get(min).PleaseSeatCustomer(waitingCustomers.get(0), table.getTable());
 								table.setOccupant(waitingCustomers.get(0));
 								waitingCustomers.remove(waitingCustomers.get(0));
 								return true;
-								
-								}
 							}
-		}
-		}	
+
+						}
+					}
+				}
+			}	
 		}
 		if (isFull() && waitingCustomers.size()>0){
 			tellNoPlace();
 		}
 		return false;
-		
+
 		//we have tried all our rules and found
 		//nothing to do. So return false to main loop of abstract agent
 		//and wait.
@@ -185,9 +190,9 @@ public class Restaurant4HostRole extends Role implements Restaurant4Host{
 		for (Restaurant4Customer customer: waitingCustomers){
 			customer.leaveIfYouWant();
 		}
-		
-		}
-	
+
+	}
+
 	public void leaving(Restaurant4CustomerRole c){
 		waitingCustomers.remove(c);
 	}
@@ -195,15 +200,15 @@ public class Restaurant4HostRole extends Role implements Restaurant4Host{
 	private class Table {
 		Restaurant4Customer occupiedBy;
 		int tableNumber;
-	
+
 		Table(int tableNumber) {
 			this.tableNumber = tableNumber;
 		}
-		 
+
 		int getTable(){
 			return tableNumber;
 		}
-		
+
 		void setOccupant(Restaurant4Customer cust) {
 			occupiedBy = cust;
 		}
@@ -224,6 +229,6 @@ public class Restaurant4HostRole extends Role implements Restaurant4Host{
 			return "table " + tableNumber;
 		}
 	}
-	
+
 }
 

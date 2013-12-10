@@ -287,10 +287,10 @@ public class WaiterRole extends Role implements Waiter{
 		myCustomers.get(find(c)).s = customerState.seated;
 		waiterGui.DoLeaveCustomer();
 		
-		if(name.equalsIgnoreCase("OnBreak")) {
+		/*if(name.equalsIgnoreCase("OnBreak")) {
 			System.out.println(getName() + ": I would like to go on break.");
 			host.msgWantToGoOnBreak(this);
-		}
+		}*/
 	}
 	
 	private void goToTableforOrder(Customer c, int tableNumber) {
