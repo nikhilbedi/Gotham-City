@@ -28,7 +28,7 @@ public class Restaurant5 extends Restaurant {
 	Host host = new HostRole();
 	Cashier cashier = new CashierRole();
 	Waiter waiter1 = new WaiterRole();
-	Waiter waiter2 = new WaiterRole();
+	Waiter waiter2 = new PCWaiterRole();
 	Cook cook = new CookRole(); 
 
 
@@ -68,8 +68,8 @@ public class Restaurant5 extends Restaurant {
 
 		((HostRole) host).setGui((RoleGui)hostGui);
 		((CashierRole) cashier).setGui((RoleGui)cashierGui);
-		((WaiterRole) waiter1).setGui((RoleGui)waiterGui1);
-		((WaiterRole) waiter2).setGui((RoleGui)waiterGui2);
+		((AbstractWaiterRole) waiter1).setGui((RoleGui)waiterGui1);
+		((AbstractWaiterRole) waiter2).setGui((RoleGui)waiterGui2);
 		((CookRole) cook).setGui((RoleGui)cookGui);
 
 		jobRoles.put("Host", (Role)host);
@@ -97,9 +97,9 @@ public class Restaurant5 extends Restaurant {
 		cookPerson.addRole((CookRole)cook);
 		cashierPerson.addRole((CashierRole)cashier);*/
 
-		((WaiterRole)waiter1).setHost(host);
-		((WaiterRole)waiter1).setCook(cook);
-		((WaiterRole)waiter1).setCashier(cashier);
+		((AbstractWaiterRole)waiter1).setHost(host);
+		((AbstractWaiterRole)waiter1).setCook(cook);
+		((AbstractWaiterRole)waiter1).setCashier(cashier);
 		((HostRole)host).addWaiter(waiter1);
 
 		/*		ScreenFactory.getMeScreen("Restaurant 5").addGui(hostGui);

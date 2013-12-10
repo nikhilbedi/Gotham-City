@@ -16,7 +16,7 @@ import Gui.Screen;
 
 public class WaiterGui extends RoleGui implements Gui {
 
-    private WaiterRole role = null;
+    private AbstractWaiterRole role = null;
     
     private int xHome = 20, yHome = 60;
     
@@ -54,7 +54,7 @@ public class WaiterGui extends RoleGui implements Gui {
     public WaiterGui(Waiter waiter1, Screen meScreen) {
 		 super( (Role)waiter1, meScreen);
 		 super.setColor(Color.BLUE);
-		 this.role = (WaiterRole) waiter1;
+		 this.role = (AbstractWaiterRole) waiter1;
 		 tableMap = new HashMap<Integer, Dimension>();
 	     tableMap.put(new Integer(0), new Dimension(50,250));
 	     tableMap.put(new Integer(1), new Dimension(150,250));
