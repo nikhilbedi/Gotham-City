@@ -230,13 +230,9 @@ public class TheCity {
 
 
 
-		homeList.add("None (Homeless Shelter)");
-		homeList.add("Home 1");
-		homeList.add("Apartment 1");
-
 
 		//populate lists
-		jobLocationList.add("No job");
+/*		jobLocationList.add("No job");
 		for(Building b: buildings){
 			jobLocationList.add(b.getName());
 		}
@@ -244,10 +240,7 @@ public class TheCity {
 		for(Building b: buildings){
 			jobPositionList.add(b.getJobCollec());
 			buildingJobsMap.put(b.getName(), b.getJobCollec());
-		}
-
-		jobLocationList.add("Bank");
-		jobLocationList.add("Restaurant 1");
+		}*/
 
 		//jobPositionList.add("This is a temp variable I still need to figure out how to make this list dynamic");
 

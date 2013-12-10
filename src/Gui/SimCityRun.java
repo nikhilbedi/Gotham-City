@@ -145,7 +145,7 @@ public class SimCityRun extends JFrame implements ActionListener
 		//XMLHelper.createPeople("Restaurant5.xml");
 		//XMLHelper.createPeople("Restaurant2.xml");
 		//XMLHelper.createPeople("Restaurant1Complete.xml");
-		XMLHelper.createPeople("FullCity.xml");
+		//XMLHelper.createPeople("FullCity.xml");
 
 
 
