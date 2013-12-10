@@ -6,6 +6,8 @@ public interface Cook {
 	
 		//v2
 		public abstract void hereIsAnOrder(Waiter w, String choice, int table);
+
+		public abstract void notifyOrderAvailable();
 		
 		//v2.1
 		//public abstract void hereIsFood(Market m, String s, int amount);

@@ -186,9 +186,9 @@ public class PersonAgent extends Agent implements Person {
 		 */
 
 		//TODO uncomment this one and delete get(0)
-		currentPreference = r.get(restaurantCounter);
+		//currentPreference = r.get(restaurantCounter);
 		//currentPreference = r.get(0);
-		//currentPreference = (Restaurant)TheCity.getBuildingFromString("Restaurant 4");
+		currentPreference = (Restaurant)TheCity.getBuildingFromString("Restaurant 5");
 		restaurantCounter++;
 	}
 
@@ -613,7 +613,6 @@ public class PersonAgent extends Agent implements Person {
 					goToHome();
 					return true;
 				} else {
-					print("checking to see if im going to the restaurant as a customer");
 					hungerState = HungerState.FeedingHunger;
 					goEatAtRestaurant();
 					return true;
@@ -881,14 +880,13 @@ public class PersonAgent extends Agent implements Person {
 			}
 		}
 		else {
-			print("Restaurant isn't open.");
 			hungerState = HungerState.Famished;
 		}
 		restaurantCounter++;
 		if (restaurantCounter > 2)
 			restaurantCounter = 0;
 		//TODO once all restaurants are back in, then uncomment below
-		currentPreference = restaurants.get(restaurantCounter);
+		//currentPreference = restaurants.get(restaurantCounter);
 	}
 
 	private void goGetGroceries() {
