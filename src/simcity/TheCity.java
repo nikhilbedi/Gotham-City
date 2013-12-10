@@ -30,7 +30,7 @@ public class TheCity {
 
 	static ArrayList<Building> buildings = new ArrayList<Building>();
 	static Building rest1, rest2, rest3, rest4, rest5;
-	static Building home;
+	static Building home, home1, home2, home3, home4;
 	static Building market;
 	static Building bank;
 
@@ -47,24 +47,22 @@ public class TheCity {
 
 	public static void populate(){//populate Buildings
 
-		//These are just added to make Evan happy
-		//For reference, not putting them in anymore
-		/*house3 = new Home("Home3", 190, 590, 200, 600);
-           house3.setImagePath("/resources/Buildings/HouseDark2.png");
-           house4 = new Home("Home4", 290, 590, 300, 600);
-           house4.setImagePath("/resources/Buildings/HouseDark2.png");
-           house5 = new Home("Home5", 490, 590, 500, 600);
-           house5.setImagePath("/resources/Buildings/HouseDark2.png");
-           house6 = new Home("Home6", 590, 590, 600, 600);
-           house6.setImagePath("/resources/Buildings/HouseDark2.png");*/ 
 
 		home = new Home("Home", 360, 700, 350, 720);
 		home.setImagePath("/resources/Buildings/HouseDark2.png");
 
+		home1 = new Home("Home1", 260, 700, 250, 720);
+		home1.setImagePath("/resources/Buildings/HouseDark2.png");
+		home2 = new Home("Home2", 160, 700, 150, 720);
+		home2.setImagePath("/resources/Buildings/HouseDark2.png");
+		home3 = new Home("Home3", 460, 700, 450, 720);
+		home3.setImagePath("/resources/Buildings/HouseDark2.png");
+		home4 = new Home("Home4", 560, 700, 550, 720);
+		home4.setImagePath("/resources/Buildings/HouseDark2.png");
 
-		apart = new Apartment("Apartment 1", 620, 700, 610, 720);
+		/*apart = new Apartment("Apartment 1", 620, 700, 610, 720);
 		apart.setImagePath("/resources/Buildings/HouseDark.png");
-
+*/
 		market = new Market("Market", 620, 120, 610, 60);
 		market.setImagePath("/resources/Buildings/MarketDark2.png");
 		bank = new Bank("Bank", 360, 120, 360, 60, 420, 80);
@@ -82,12 +80,16 @@ public class TheCity {
 		rest5.setImagePath("/resources/Buildings/RestaurantDark2.png");
 
 		buildings.add(home);
+		buildings.add(home1);
+		buildings.add(home2);
+		buildings.add(home3);
+		buildings.add(home4);
 		buildings.add(bank);
 		buildings.add(rest1);
 		buildings.add(market);
 		buildings.add(rest4);
 		buildings.add(rest5);
-		buildings.add(apart);
+		//buildings.add(apart);
 
 		buildings.add(rest3);
 		buildings.add(rest2);
@@ -205,9 +207,14 @@ public class TheCity {
 		bar.setVisible(true);
 
 
+	
 
 		homeList.add("None (Homeless Shelter)");
-		homeList.add("Home 1");
+		homeList.add("Home");
+		homeList.add("Home1");
+		homeList.add("Home2");
+		homeList.add("Home3");
+		homeList.add("Home4");
 		homeList.add("Apartment 1");
 
 
@@ -249,7 +256,12 @@ public class TheCity {
 		transportationList.add("Bus");
 
 		homeOwnerList.add("none");
-		homeOwnerList.add("Home 1");
+		homeOwnerList.add("Home");
+		homeOwnerList.add("Home1");
+		homeOwnerList.add("Home2");
+		homeOwnerList.add("Home3");
+		homeOwnerList.add("Home4");
+		
 	}
 	public static List<String> getJobLocs(){
 		return jobLocationList;
@@ -291,6 +303,18 @@ public class TheCity {
 		}
 		if(s.equalsIgnoreCase("Home")){
 			return home;
+		}
+		if(s.equalsIgnoreCase("Home1")){
+			return home1;
+		}
+		if(s.equalsIgnoreCase("Home2")){
+			return home2;
+		}
+		if(s.equalsIgnoreCase("Home3")){
+			return home3;
+		}
+		if(s.equalsIgnoreCase("Home4")){
+			return home4;
 		}
 		if(s.equalsIgnoreCase("Apartment 1")){
 			return apart;
