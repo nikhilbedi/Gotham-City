@@ -23,7 +23,7 @@ import java.awt.*;
 
       PersonSelectionPane selPane;
 	  BuildingInfoPanel buildingInfo;
-
+	  BuildingControlPanel bcp;
 
 	  int clk = 0;
 	  boolean start;
@@ -161,6 +161,7 @@ import java.awt.*;
 		// TODO Auto-generated method stub
 		clk++;
 		if(clk == 100){
+		bcp.refresh();
 		selPane.refresh();
 		buildingInfo.refresh();
 		clk = 0;
@@ -204,15 +205,7 @@ import java.awt.*;
 		if(!(swapScreen == null)){
 			currentScreen = swapScreen;
 			selPane.refresh();
-			if(swap.equalsIgnoreCase("city")){
-				//buildingInfo.setVisible(false);
-			}
-			else{
-				//buildingInfo.setVisible(true);
-				buildingInfo.setB(TheCity.getBuildingFromString(swap));
-				buildingInfo.update(TheCity.getBuildingFromString(swap).getBuildingInfo());
-				buildingInfo.getUpdators(TheCity.getBuildingFromString(swap));
-			}
+			buildingInfo.setBuildingAndUpdate(TheCity.getBuildingFromString(swap));
 		} 
 	}
 
@@ -298,6 +291,11 @@ import java.awt.*;
 		if (key == 27){
 			checkMapChange(26, 51);
 		}//&&player.lChange)
+	}
+
+	public void setBCP(BuildingControlPanel buildingControl) {
+		bcp = buildingControl;
+		
 	}
    }
 

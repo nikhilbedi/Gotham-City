@@ -10,6 +10,7 @@ import java.util.Vector;
 import javax.print.attribute.standard.MediaSize.NA;
 
 import simcity.CityClock;
+import simcity.Item;
 import simcity.PersonAgent;
 import Gui.RoleGui;
 import agent.Role;
@@ -21,6 +22,8 @@ import simcity.restaurants.restaurant3.gui.CookGui;
 import simcity.restaurants.restaurant3.gui.HostGui;
 import simcity.restaurants.restaurant3.gui.WaiterGui;
 import simcity.restaurants.restaurant3.interfaces.*;
+import trace.AlertLog;
+import trace.AlertTag;
 import agent.Agent;
 import Gui.ScreenFactory;
 
@@ -43,7 +46,7 @@ public class Restaurant3 extends Restaurant {
 
 	//create guis
 	HostGui hostGui = new HostGui(host, ScreenFactory.getMeScreen("Restaurant 3"));
-	CashierGui cashierGui = new CashierGui(cashier, ScreenFactory.getMeScreen(this.getName()));
+	CashierGui cashierGui = new CashierGui(cashier, ScreenFactory.getMeScreen("Restaurant 3"));
 	WaiterGui waiterGui1 = new WaiterGui(waiter1, ScreenFactory.getMeScreen("Restaurant 3"));
 	WaiterGui waiterGui2 = new WaiterGui(waiter2, ScreenFactory.getMeScreen("Restaurant 3"));
 	WaiterGui waiterGui3 = new WaiterGui(waiter3, ScreenFactory.getMeScreen("Restaurant 3"));
@@ -72,6 +75,7 @@ public class Restaurant3 extends Restaurant {
 	public Map<Customer, Double> owed = Collections.synchronizedMap(new HashMap<Customer, Double>());
 	private double restaurantRevenue = 100;
 
+	Vector<Item> inventory = new Vector<Item>();
 
 	public Restaurant3(String type, int entranceX, int entranceY, int guiX,
 			int guiY) {
@@ -81,7 +85,7 @@ public class Restaurant3 extends Restaurant {
 		cashState = CashierState.idle;
 
 		setWeekdayHours(6,24);
-		setWeekendHours(0, 0);
+		setWeekendHours(2,10);
 
 
 		((HostRole) host).setGui((RoleGui)hostGui);
@@ -92,6 +96,24 @@ public class Restaurant3 extends Restaurant {
 		((WaiterSharedData) waiter4).setGui((RoleGui)waiterGui4);
 		((Restaurant3CookRole) cook).setGui((RoleGui)cookGui);
 
+		//Nikhil is setting these for you
+		((HostRole) host).setWaiter(waiter1);
+		((HostRole) host).setWaiter(waiter2);
+		((HostRole) host).setWaiter(waiter3);
+		((HostRole) host).setWaiter(waiter4);
+		((WaiterRole) waiter1).setHost((HostRole) host);
+		((WaiterSharedData) waiter2).setHost((HostRole) host);
+		((WaiterRole) waiter3).setHost((HostRole) host);
+		((WaiterSharedData) waiter4).setHost((HostRole) host);
+		((WaiterRole) waiter1).setCashier((Restaurant3CashierRole) cashier);
+		((WaiterSharedData) waiter2).setCashier((Restaurant3CashierRole) cashier);
+		((WaiterRole) waiter3).setCashier((Restaurant3CashierRole) cashier);
+		((WaiterSharedData) waiter4).setCashier((Restaurant3CashierRole) cashier);
+		((WaiterRole) waiter1).setCook((Restaurant3CookRole) cook);
+		((WaiterSharedData) waiter2).setCook((Restaurant3CookRole) cook);
+		((WaiterRole) waiter3).setCook((Restaurant3CookRole) cook);
+		((WaiterSharedData) waiter4).setCook((Restaurant3CookRole) cook);
+		
 		jobRoles.put("Host", (HostRole)host);
 
 		//jobRoles.put("Host Late",  (Role)host);
@@ -194,6 +216,18 @@ public class Restaurant3 extends Restaurant {
 		info.add("Created by: Evan Coutre");
 		info.add("this is even more super class info");
 		return info;
+	}
+	public Vector<Item> getStockItems(){
+		inventory = ((Restaurant3CookRole) cook).getInventory();
+		/*AlertLog.getInstance().logInfo(AlertTag.GUI, "Rest 3",
+				inventory.toString());*/
+		return inventory;
+	}
+
+	public void updateItem(String s, int hashCode) {
+		// TODO Auto-generated method stub
+		//THIS MUST BE UPDATED BY YOUR BUILDING
+		((Restaurant3CookRole) cook).updateItem(s, hashCode);
 	}
 
 }

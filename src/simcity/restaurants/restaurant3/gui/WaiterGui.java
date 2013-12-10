@@ -50,8 +50,8 @@ public class WaiterGui extends RoleGui {
     public WaiterGui(Waiter agent, Screen s) {
     	super((Role) agent, s);
     	
-    	AlertLog.getInstance().logError(AlertTag.PERSON, "WaiterGUi",
-				homeScreen.toString());
+    	/*AlertLog.getInstance().logError(AlertTag.PERSON, "WaiterGUi",
+				homeScreen.toString());*/
    
     	//super.setColor(Color.pink);
     	

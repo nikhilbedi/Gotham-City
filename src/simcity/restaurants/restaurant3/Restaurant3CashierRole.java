@@ -135,6 +135,11 @@ public class Restaurant3CashierRole extends Role implements Cashier {
             so that table is unoccupied and customer is waiting.
             If so seat him at the table.
 		 */
+		if(theManLeavingMe != null && orders.isEmpty()) {
+			leaveWork();
+			return true;
+		}
+		
 		for (Payment payment: payments){
             if (payment.state == Payment.OrderState.pending){
                     payment.state = Payment.OrderState.paying;

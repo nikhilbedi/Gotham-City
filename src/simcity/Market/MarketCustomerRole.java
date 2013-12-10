@@ -7,6 +7,7 @@ import java.util.Map;
 
 import simcity.PersonAgent;
 import simcity.PersonAgent.MarketState;
+import simcity.TheCity;
 import simcity.Market.MarketGui.MarketCustomerGui;
 import simcity.Market.interfaces.MarketCashier;
 import simcity.Market.interfaces.MarketCustomer;
@@ -63,7 +64,8 @@ public class MarketCustomerRole extends Role implements MarketCustomer{
 		System.out.println("start build");
 		//System.out.println(person);
 		//print("maket" +myperson.markets.size());
-		cashier = myPerson.getMarkets().get(0).getCashier();
+		//cashier = myPerson.getMarkets().get(0).getCashier();
+		cashier = ((Market)TheCity.getBuildingFromString("Market")).getCashier();
 	}
 	
 	public void AtCashier(){//from gui

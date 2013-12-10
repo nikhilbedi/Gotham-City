@@ -45,7 +45,8 @@ public class Restaurant2 extends Restaurant {
 		
 		//set opening and closing hours
 		setWeekdayHours(12, 24);
-		setWeekendHours(12, 22);
+		//setWeekendHours(12, 22);
+		setWeekendHours(2, 10);
 		
 		//set guis
 		cook.setGui((RoleGui)cookGui);
@@ -77,8 +78,10 @@ public class Restaurant2 extends Restaurant {
 		jobs.put("cook", cook);
 		jobs.put("host", host);
 		jobs.put("cashier", cashier);
-		jobs.put("waiter1",(Role)waiter1);
-		jobs.put("waiter2", (Role)waiter2);
+		jobs.put("waiter1",waiter1);
+		jobs.put("waiter2",waiter2);
+		jobs.put("waiter3",waiter3);
+		jobs.put("waiter4",waiter4);
 		setJobRoles(jobs);
 	}
 	

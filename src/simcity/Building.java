@@ -10,6 +10,8 @@ import java.util.Vector;
 
 import javax.swing.ImageIcon;
 
+import trace.AlertLog;
+import trace.AlertTag;
 import agent.Role;
 
 /**
@@ -19,6 +21,8 @@ import agent.Role;
  *
  */
 public class Building {
+
+		
 	private String name;
 	private String imagePath = "";
 	private Location entranceLocation;
@@ -29,6 +33,7 @@ public class Building {
 	protected int weekendOpen;
 	protected int weekendClose;
 	public ImageIcon icon;
+	public boolean guiLock = true;
 	protected Map<String, Role> jobRoles = Collections.synchronizedMap(new HashMap<String, Role>());
 	
 	public ImageIcon getIcon() {
@@ -188,7 +193,10 @@ public class Building {
 					jobExists = true;
 				}
 			}
+			guiLock = !guiLock;
+			
 		}
+
 		if(jobExists) {
 			return temp;
 		}
@@ -215,5 +223,13 @@ public class Building {
 		// TODO Auto-generated method stub
 		//THIS MUST BE UPDATED BY YOUR BUILDING
 	}
-	
+	public void toggleLock() {
+		if(!guiLock){
+			AlertLog.getInstance().logInfo(AlertTag.GUI,
+					"Building", "Turning lock on");
+		}
+	}
 }
+				
+			
+
