@@ -51,21 +51,34 @@ public class MainScreen extends Screen{
 		
 		for(int x = 0; x < grid.length; x++)
  			for(int y = 0; y < grid[0].length; y++) {
- 				if(grid[x][y] == 'E')
- 					g.setColor(Color.white);
- 				else if(grid[x][y] == 'R')
- 					g.setColor(Color.red);
- 				else if(grid[x][y] == 'P')
- 					g.setColor(Color.green);
- 				else if(grid[x][y] == 'S')
- 					g.setColor(Color.gray);
- 				else if(grid[x][y] == 'I')
- 					g.setColor(Color.magenta);
- 				else if(grid[x][y] == 'B')
- 					g.setColor(Color.cyan);
- 				
- 				g.fillRect(x*20, y*20, 40, 40);
- 			}
+ 				/*if(grid[x][y] == 'R') {
+ 					java.net.URL im = this.getClass().getResource("/resources/Backgrounds/roadTile.png");
+ 					ImageIcon currentIm = new ImageIcon(im);
+ 					g.drawImage(currentIm.getImage(), x*20, y*20, null);
+ 				}*/
+ 				//else if(grid[x][y] == 'E') {
+ 				//	java.net.URL im2 = this.getClass().getResource("/resources/Backgrounds/stoneTile.png");
+ 				//	ImageIcon currentIm2 = new ImageIcon(im2);
+ 				//	g.drawImage(currentIm2.getImage(), x*20, y*20, null);
+ 				//}
+
+ 					if(grid[x][y] == 'E')
+ 						g.setColor(Color.white);
+ 					else if(grid[x][y] == 'R') {
+ 						g.setColor(Color.red);
+ 					}
+ 					//g.setColor(Color.red);
+ 					else if(grid[x][y] == 'P')
+ 						g.setColor(Color.green);
+ 					else if(grid[x][y] == 'S')
+ 						g.setColor(Color.gray);
+ 					else if(grid[x][y] == 'I')
+ 						g.setColor(Color.magenta);
+ 					else if(grid[x][y] == 'B')
+ 						g.setColor(Color.cyan);
+
+ 					g.fillRect(x*20, y*20, 40, 40);
+ 				}
 		
 		for(Building b : buildings){
 			java.net.URL image = this.getClass().getResource(b.getImagePath());

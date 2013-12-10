@@ -32,10 +32,42 @@ public class Market extends Building {
 	public Market(String type, int entranceX, int entranceY, int guiX,
 			int guiY, int exitX, int exitY) {
 		super(type, entranceX, entranceY, guiX, guiY, exitX, exitY);
+		marketCashier.setWorker(marketWorker);
+		marketWorker.setCashier(marketCashier);
+		setWeekdayHours(8, 24);
+		setWeekendHours(0, 0);
+		marketCashier.setGui(cashierGui);
+		marketWorker.setGui(workerGui);
+		// TODO Auto-generated constructor stub
 		items.add(beef);
 		items.add(chicken);
 		items.add(rice);
 		items.add(potato);
+		Map<String, Role> jobs = Collections.synchronizedMap(new HashMap<String, Role>());
+		jobs.put("marketCashier", marketCashier);
+		jobs.put("marketWorker", marketWorker);
+		setJobRoles(jobs);
+		Item beef = new Item("Beef", 10.99, 100);
+		Item chicken = new Item("Chicken", 8.99, 100);
+		Item rice = new Item("Rice", 6.99, 100);
+		Item potato = new Item("Potato", 5.99, 100);
+		Item pizza = new Item("Pizza", 5.99, 100);
+		Item salad = new Item("Salad", 3.99, 100);
+		Item steak = new Item("Steak", 10.99, 100);
+		marketCashier.getInventory().put("Beef", beef);
+		marketCashier.getInventory().put("Chicken", chicken);
+		marketCashier.getInventory().put("Rice", rice);
+		marketCashier.getInventory().put("Potato", potato);
+		marketCashier.getInventory().put("Pizza", pizza);
+		marketCashier.getInventory().put("Salad", salad);
+		marketCashier.getInventory().put("Steak", steak);
+		marketWorker.getInventory().put("Beef", beef);
+		marketWorker.getInventory().put("Chicken", chicken);
+		marketWorker.getInventory().put("Rice", rice);
+		marketWorker.getInventory().put("Potato", potato);
+		marketWorker.getInventory().put("Pizza", pizza);
+		marketWorker.getInventory().put("Salad", salad);
+		marketWorker.getInventory().put("Steak", steak);
 	}
 
 	public Market(String type, int entranceX, int entranceY, int guiX,

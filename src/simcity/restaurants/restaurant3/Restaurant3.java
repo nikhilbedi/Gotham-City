@@ -22,7 +22,6 @@ import simcity.restaurants.restaurant3.gui.CookGui;
 import simcity.restaurants.restaurant3.gui.HostGui;
 import simcity.restaurants.restaurant3.gui.WaiterGui;
 import simcity.restaurants.restaurant3.interfaces.*;
-import simcity.restaurants.restaurant5.CookRole;
 import trace.AlertLog;
 import trace.AlertTag;
 import agent.Agent;
@@ -85,8 +84,8 @@ public class Restaurant3 extends Restaurant {
 		this.name = type;
 		cashState = CashierState.idle;
 
-		setWeekdayHours(6,24);
-		setWeekendHours(2,10);
+		setWeekdayHours(1,12);
+		setWeekendHours(12,24);
 
 
 		((HostRole) host).setGui((RoleGui)hostGui);
@@ -140,7 +139,52 @@ public class Restaurant3 extends Restaurant {
 		//jobRoles.put("Cook Late", (Role)cook);
 		
 	}
+	
+	public Restaurant3(String type, int entranceX, int entranceY, int guiX,
+			int guiY, int exitX, int exitY) {
+		super(type, entranceX, entranceY, guiX, guiY, exitX, exitY);
 
+		this.name = type;
+		cashState = CashierState.idle;
+
+		setWeekdayHours(6,24);
+		setWeekendHours(0, 0);
+
+
+		((HostRole) host).setGui((RoleGui)hostGui);
+		((Restaurant3CashierRole) cashier).setGui((RoleGui)cashierGui);
+		((WaiterRole) waiter1).setGui((RoleGui)waiterGui1);
+		((WaiterSharedData) waiter2).setGui((RoleGui)waiterGui2);
+		((WaiterRole) waiter3).setGui((RoleGui)waiterGui3);
+		((WaiterSharedData) waiter4).setGui((RoleGui)waiterGui4);
+		((Restaurant3CookRole) cook).setGui((RoleGui)cookGui);
+
+		jobRoles.put("Host", (HostRole)host);
+
+		//jobRoles.put("Host Late",  (Role)host);
+
+		jobRoles.put("Cashier",(Role)cashier);
+		//jobRoles.put("Cashier Late", (Role)cashier);
+
+		jobRoles.put("Waiter1",(Role)waiter1);
+		//jobRoles.put("Waiter1 Late", (Role)waiter1);
+
+		jobRoles.put("Waiter2",(Role)waiter2);
+		//jobRoles.put("Waiter2 Late", (Role)waiter2);
+
+		jobRoles.put("Waiter3",(Role)waiter3);
+		//jobRoles.put("Waiter3 Late", (Role)waiter3);
+
+
+		jobRoles.put("Waiter4",(Role)waiter4);
+		//jobRoles.put("Waiter4 Late", (Role)waiter4);
+
+
+		jobRoles.put("Cook",(Role)cook);
+		//jobRoles.put("Cook Late", (Role)cook);
+		
+	}
+	
 	@Override
 	public boolean isOpen() {
 		//Weekday
@@ -219,16 +263,16 @@ public class Restaurant3 extends Restaurant {
 		return info;
 	}
 	public Vector<Item> getStockItems(){
-		inventory = ((CookRole) cook).getInventory();
-		AlertLog.getInstance().logInfo(AlertTag.GUI, "Rest 3",
-				inventory.toString());
+		inventory = ((Restaurant3CookRole) cook).getInventory();
+		/*AlertLog.getInstance().logInfo(AlertTag.GUI, "Rest 3",
+				inventory.toString());*/
 		return inventory;
 	}
 
 	public void updateItem(String s, int hashCode) {
 		// TODO Auto-generated method stub
 		//THIS MUST BE UPDATED BY YOUR BUILDING
-		((CookRole) cook).updateItem(s, hashCode);
+		((Restaurant3CookRole) cook).updateItem(s, hashCode);
 	}
 
 }

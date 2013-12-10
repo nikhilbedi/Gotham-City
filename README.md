@@ -191,3 +191,39 @@ Although we have robots in now, all of the jobs are set up for roles so we can e
 to populate the business and have them running in V2.
 
 
+
+## Team Project V2
+
+Welcome to the new and improved Gotham City!
+
+###Added Features
+
+####Transportation
+Batman has more options than simply walking! We added roads, sidewalks, and intersections into our city. We implemented a grid system to allow for this. People only travel on sidwalks when walking and can cross intersections.  We have a bus system where one bus circles around the city stopping at bus stops and dropping people off. People go onto the bus if the bus is at its location. Busses wait for pedestrians to cross the road. The bus checks the next location and sees if it is occupied.
+We have cars that work the same way.
+
+####GUI Upgrades
+Info Tab: Tells you the data of the current building you are looking at. It tells you the inventory at each building. You can change the amount of inventory in the buildings by adjusting the inventory spinners.
+Buildings Tab: For each building in the city the building tab lets you know if the building is open or closed and allows you to manually adjust if it is open or closed using the Lock toggle button.
+People Tab: displays the name of every person in our city. You can add a new person using the add person button.If you click on the name of a person it displays information about them like name, location, and amount of money they have.
+Debug Tab: This is our log filter mechanism to display our messages in each building
+
+Time Bar: At the top of our city we have a bar that shows you what time it is in the city (in military time) and what day of week it is. The bar starts yellow to indicate the beginning of the day and turns dark when it is nightime.
+
+####Jobs
+We replaced the robots who worked in our buildings into real people. When people are created and if they have a job they have a place to work and a shift.  A person can either have an early shift or a late shift.  The hours of the shift depend on how long the building is open for.  People go to work when their shift starts and leaves when their shift ends.  The person with the new shift takes over the messages and responsibilites of the worker they are replacing.
+
+####Buildings
+#####Market
+Every restaurant can now order from a market.  When a restaurant needs more inventory they will message the market who then sends a delivery truck to the respective restaurant.
+If a restaurant becomes closed while the truck is delivering. The truck turns around and returns to the market and then redelivers when the restaurant opens again.
+#####Apartments
+Apartment buildings house 6 different people
+
+#####Running Scenarios
+We included a File drop down menu on the top left of our gui.  This contains a list of XML files to load people into the city so you can run and test certain scenarios.
+  + To run scenario A, use this XML:
+  + To run scenario B, use this XML:
+  + To run scenario J, use this XML:
+
+

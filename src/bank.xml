@@ -35,36 +35,4 @@
 		<!-- Transportation preference -->
 		<transportation>walk</transportation>
 	</person>
-
-	<person name="BatmanBankGreeter2">
-
-		<!-- Beginning amount of money -->
-		<money>100000</money>
-
-		<!-- The Person's job -->
-		<job>
-			<building>Bank</building>
-			<position>bankGreeter</position>
-			<shift>2</shift>
-		</job>
-
-		<!-- Transportation preference -->
-		<transportation>walk</transportation>
-	</person>
-
-	<person name="BatmanBankTeller2">
-
-		<!-- Beginning amount of money -->
-		<money>100000</money>
-
-		<!-- The Person's job -->
-		<job>
-			<building>Bank</building>
-			<position>bankTeller</position>
-			<shift>2</shift>
-		</job>
-
-		<!-- Transportation preference -->
-		<transportation>walk</transportation>
-	</person>
 </simcity>

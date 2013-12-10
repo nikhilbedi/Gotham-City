@@ -1,5 +1,6 @@
 package simcity.bank;
 
+import Gui.RoleGui;
 import agent.Role;
 import simcity.PersonAgent;
 import simcity.bank.interfaces.BankCustomer;
@@ -44,10 +45,15 @@ public class BankGreeterRole extends Role implements BankGreeter{
 		teller.setAvailable(true);
 	}
 	
-	public void setGui(BankGreeterGui greeterGui) {
+	/*public void setGui(BankGreeterGui greeterGui) {
 		gui = greeterGui;
 		
-	}	
+	}	*/
+	
+	public void setGui(RoleGui g) {
+		super.setGui(g);
+		gui = (BankGreeterGui) g;
+	}
 	
 	//Class to hold BankCustomer and their information
 	

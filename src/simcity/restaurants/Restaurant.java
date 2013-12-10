@@ -20,6 +20,10 @@ public class Restaurant extends Building {
 		super(type, entranceX, entranceY, guiX, guiY);
 	}
 	
+	public Restaurant(String type, int entranceX, int entranceY, int guiX, int guiY, int exitX, int exitY) {
+		super(type, entranceX, entranceY, guiX, guiY, exitX, exitY);
+	}
+	
 	public Restaurant(String type, int entranceX, int entranceY, int guiX, int guiY, String address) {
 		super(type, entranceX, entranceY, guiX, guiY);
 	}

@@ -46,7 +46,7 @@ public class Restaurant2 extends Restaurant {
 		//set opening and closing hours
 		setWeekdayHours(12, 24);
 		//setWeekendHours(12, 22);
-		setWeekendHours(2, 10);
+		setWeekendHours(1, 12);
 		
 		//set guis
 		cook.setGui((RoleGui)cookGui);
@@ -82,6 +82,49 @@ public class Restaurant2 extends Restaurant {
 		jobs.put("waiter2",waiter2);
 		jobs.put("waiter3",waiter3);
 		jobs.put("waiter4",waiter4);
+		setJobRoles(jobs);
+	}
+	
+	public Restaurant2(String type, int entranceX, int entranceY, int guiX,
+			int guiY, int exitX, int exitY) {
+		super(type, entranceX, entranceY, guiX, guiY, exitX, exitY);
+		
+		//set opening and closing hours
+		setWeekdayHours(12, 24);
+		setWeekendHours(2, 10);
+		
+		//set guis
+		cook.setGui((RoleGui)cookGui);
+		waiter1.setGui((RoleGui)waiterGui1);
+		waiter2.setGui((RoleGui)waiterGui2);
+		waiter3.setGui(waiterGui3);
+		waiter4.setGui(waiterGui4);
+		host.setGui(hostGui);
+		cashier.setGui(cashierGui);
+		
+		host.addWaiter(waiter1);
+		host.addWaiter(waiter2);
+		host.addWaiter(waiter3);
+		host.addWaiter(waiter4);
+		waiter1.setHost(host);
+		waiter2.setHost(host);
+		waiter3.setHost(host);
+		waiter4.setHost(host);
+		waiter1.setCashier(cashier);
+		waiter2.setCashier(cashier);
+		waiter3.setCashier(cashier);
+		waiter4.setCashier(cashier);
+		waiter1.setCook(cook);
+		waiter2.setCook(cook);
+		waiter3.setCook(cook);
+		waiter4.setCook(cook);
+		
+		Map<String, Role> jobs = Collections.synchronizedMap(new HashMap<String, Role>());
+		jobs.put("cook", cook);
+		jobs.put("host", host);
+		jobs.put("cashier", cashier);
+		jobs.put("waiter1",(Role)waiter1);
+		jobs.put("waiter2", (Role)waiter2);
 		setJobRoles(jobs);
 	}
 	
@@ -130,19 +173,23 @@ public class Restaurant2 extends Restaurant {
 	}
 
 	@Override
-	public Role getCashier() {
+	public CashierRole getCashier() {
 		return (CashierRole)cashier;
 	}
+
+	
+	public CookRole getCook(){
+		return (CookRole) cook;
+	}
+	
+
 
 	@Override
 	public void setCook(Role cook) {
 		this.cook = (CookRole)cook;
 	}
 
-	@Override
-	public Role getCook() {
-		return (CookRole)cook;
-	}
+	
 
 	@Override
 	public String getCustomerName(){

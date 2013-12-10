@@ -301,8 +301,8 @@ public class CookRole extends Role implements Cook {
 
 	public void setGui(RoleGui g) {
 		super.setGui(g);
-		AlertLog.getInstance().logInfo(AlertTag.GUI, "CookROle",
-				"At this point: " + g.toString());
+/*		AlertLog.getInstance().logInfo(AlertTag.GUI, "CookROle",
+				"At this point: " + g.toString());*/
 		cookGui = (CookGui) g;
 	}
 

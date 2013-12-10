@@ -111,19 +111,19 @@ public class MarketWorkerGui extends RoleGui{
 		r4 = (Restaurant4) TheCity.getBuildingFromString("Restaurant 4");
 		r5 = (Restaurant5) TheCity.getBuildingFromString("Restaurant 5");
 		if (restaurant == r1){
-			loc = r1.getGuiLocation();
+			loc = r1.getEntranceLocation();
 		}
 		else if (restaurant == r2){
-			loc = r2.getGuiLocation();
+			loc = r2.getEntranceLocation();
 		}
 		else if (restaurant == r3){
-			loc = r3.getGuiLocation();
+			loc = r3.getEntranceLocation();
 		}
 		else if (restaurant == r4){
-			loc = r4.getGuiLocation();
+			loc = r4.getEntranceLocation();
 		}
 		else if (restaurant == r5){
-			loc = r5.getGuiLocation();
+			loc = r5.getEntranceLocation();
 		}
 		System.out.println("Going to truck");
 		//this.role = role;
@@ -137,8 +137,8 @@ public class MarketWorkerGui extends RoleGui{
 		yDestination = 250;
 		command = Command.truck;
 		Market m1  = (Market) TheCity.getBuildingFromString("Market");
-		Truck truck = new Truck(m1.getGuiLocation().getX(),m1.getGuiLocation().getY(), loc.getX(), loc.getY());
-		truck.setReturnCoordinates(m1.getGuiLocation().getX(), m1.getGuiLocation().getY());
+		Truck truck = new Truck(m1.getEntranceLocation().getX(),m1.getEntranceLocation().getY(), loc.getX(), loc.getY());
+		truck.setReturnCoordinates(m1.getEntranceLocation().getX(), m1.getEntranceLocation().getY());
 		truck.command = "delivering";
 		if (r == r1){
 			truck.setData(worker,  r1, delivery);

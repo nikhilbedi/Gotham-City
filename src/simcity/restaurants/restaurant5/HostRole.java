@@ -54,7 +54,7 @@ public class HostRole extends Role implements Host {
 
 	public HostRole(PersonAgent hostPerson) {
 		super(hostPerson);
-		
+
 		roundRobinPointer = 0;
 		avaliableWaiters = 0;
 		seatedCust = 0;
@@ -171,7 +171,7 @@ public class HostRole extends Role implements Host {
 
             ^note the above no longer applies
 		 */
-		
+
 		///**THIS IS HACKED FIX IT
 		//Two things I did: I made sure you gave a customer to a waiter who is available (on the job)
 		//Second, I added the below if statement
@@ -179,7 +179,7 @@ public class HostRole extends Role implements Host {
 			leaveWork();
 			return true;
 		}
-		
+
 		if(seatedCust == NTABLES){
 			synchronized(customers){
 				for(MyCustomer mycustomer: customers){
@@ -189,7 +189,7 @@ public class HostRole extends Role implements Host {
 				}
 			}
 		}
-		
+
 		synchronized(customers){
 			for(MyCustomer mycustomer: customers){
 				if(mycustomer.cs == CustomerState.left){
@@ -215,13 +215,16 @@ public class HostRole extends Role implements Host {
 							if(roundRobinPointer > waiters.size()-1)
 								roundRobinPointer = 0;
 						}
-					//print("Before! " + waiters.toString());
-						giveWaiterCustomer(waiters.get(roundRobinPointer), customers.get(0), table);
-						seatedCust++;
-						roundRobinPointer++;
-						if(roundRobinPointer > waiters.size()-1)
-							roundRobinPointer = 0;
-						//print("After! " + waiters.toString());
+						//print("Before! " + waiters.toString());
+						//Made this if statement so we wont get null pointer errors
+						if(((Role)waiters.get(roundRobinPointer).w).checkWorkStatus()){
+							giveWaiterCustomer(waiters.get(roundRobinPointer), customers.get(0), table);
+							seatedCust++;
+							roundRobinPointer++;
+							if(roundRobinPointer > waiters.size()-1)
+								roundRobinPointer = 0;
+							//print("After! " + waiters.toString());
+						}
 					}		
 					return true;
 				}

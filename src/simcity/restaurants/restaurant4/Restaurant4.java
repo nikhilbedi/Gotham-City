@@ -10,7 +10,14 @@ import java.util.Map;
 import Gui.ScreenFactory;
 import agent.Role;
 import simcity.Building;
+import simcity.Item;
+import simcity.Location;
+
+import Gui.ScreenFactory;
+import agent.Role;
+import simcity.Building;
 import simcity.CityClock;
+
 import simcity.TheCity;
 import simcity.Market.Market;
 import simcity.Market.MarketCashierRole;
@@ -23,6 +30,9 @@ import simcity.restaurants.restaurant4.interfaces.Restaurant4Cashier;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Cook;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Host;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Waiter;
+import simcity.restaurants.restaurant5.CookRole;
+import trace.AlertLog;
+import trace.AlertTag;
 
 public class Restaurant4 extends Restaurant {
 	Restaurant4HostRole host = new Restaurant4HostRole();
@@ -44,11 +54,52 @@ public class Restaurant4 extends Restaurant {
 	Restaurant4HostGui hostGui = new Restaurant4HostGui(host, ScreenFactory.getMeScreen(this.getName()));
 	Restaurant4CashierGui cashierGui = new Restaurant4CashierGui(cashier, ScreenFactory.getMeScreen(this.getName()));
 
-
+	Vector<Item> inventory = new Vector<Item>();
+	
 
 	public Restaurant4(String type, int entranceX, int entranceY, int guiX,
 			int guiY) {
 		super(type, entranceX, entranceY, guiX, guiY);
+		waiter.setGui(waiterGui1);
+		sharedDataWaiter.setGui(waiterGui2);
+		waiter2.setGui(waiterGui3);
+		sharedDataWaiter2.setGui(waiterGui4);
+		cook.setGui(cookGui);
+		host.setGui(hostGui);
+		cashier.setGui(cashierGui);
+		setWeekdayHours(1, 12);
+		setWeekendHours(12, 24);
+		Map<String, Role> jobs = Collections.synchronizedMap(new HashMap<String, Role>());
+		jobs.put("Host", host);
+		jobs.put("Cashier", cashier);
+		jobs.put("Cook", cook);
+		jobs.put("Waiter1", waiter);
+		jobs.put("Waiter2", sharedDataWaiter);
+		jobs.put("Waiter3", waiter2);
+		jobs.put("Waiter4", sharedDataWaiter2);
+		setJobRoles(jobs);
+		host.setWaiter((Restaurant4Waiter) waiter);
+		host.setWaiter((Restaurant4Waiter) sharedDataWaiter);
+		host.setWaiter((Restaurant4Waiter) waiter2);
+		host.setWaiter((Restaurant4Waiter) sharedDataWaiter2);
+		waiter.setHost(host);
+		sharedDataWaiter.setHost(host);
+		waiter2.setHost(host);
+		sharedDataWaiter2.setHost(host);
+		waiter.setCashier(cashier);
+		sharedDataWaiter.setCashier(cashier);
+		waiter2.setCashier(cashier);
+		sharedDataWaiter2.setCashier(cashier);
+		waiter.setCook(cook);
+		sharedDataWaiter.setCook(cook);
+		waiter2.setCook(cook);
+		sharedDataWaiter2.setCook(cook);
+		cook.setCashier(cashier);
+	}	
+	
+	public Restaurant4(String type, int entranceX, int entranceY, int guiX,
+			int guiY, int exitX, int exitY) {
+		super(type, entranceX, entranceY, guiX, guiY, exitX, exitY);
 		waiter.setGui(waiterGui1);
 		sharedDataWaiter.setGui(waiterGui2);
 		waiter2.setGui(waiterGui3);
@@ -85,7 +136,7 @@ public class Restaurant4 extends Restaurant {
 		sharedDataWaiter2.setCook(cook);
 		cook.setCashier(cashier);
 	}	
-
+	
 	@Override
 	public boolean isOpen() {
 		//Weekday
@@ -182,5 +233,20 @@ public class Restaurant4 extends Restaurant {
 		info.add("this is even more super class info");
 		return info;
 	}
+
+	
+	public Vector<Item> getStockItems(){
+		inventory = ((Restaurant4CookRole) cook).getInventory();
+		AlertLog.getInstance().logInfo(AlertTag.GUI, "Rest 5",
+				inventory.toString());
+		return inventory;
+	}
+	
+	public void updateItem(String s, int hashCode) {
+		// TODO Auto-generated method stub
+		//THIS MUST BE UPDATED BY YOUR BUILDING
+		((Restaurant4CookRole) cook).updateItem(s, hashCode);
+	}
+	 
 
 }

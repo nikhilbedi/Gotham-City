@@ -3,15 +3,24 @@ package simcity.restaurants.restaurant2;
 import agent.Agent;
 //import restaurant.WaiterAgent;
 import agent.Role;
+
+import simcity.Market.Market;
+import simcity.Market.MarketWorkerRole;
+import simcity.restaurants.Restaurant;
+
 import simcity.restaurants.restaurant2.Order;
 import simcity.restaurants.restaurant2.Order.CookingState;
+
 import simcity.restaurants.restaurant2.Restaurant2CustomerRole.AgentEvent;
 import simcity.restaurants.restaurant2.gui.CookGui;
 import simcity.restaurants.restaurant2.gui.HostGui;
 import simcity.restaurants.restaurant2.interfaces.Cook;
 import simcity.restaurants.restaurant2.interfaces.Waiter;
+
 import simcity.Item;
+
 import simcity.PersonAgent;
+import simcity.TheCity;
 
 import java.util.*;
 import java.util.concurrent.Semaphore;
@@ -23,7 +32,7 @@ public class CookRole extends Role implements Cook{
 	List<Order> orders = new LinkedList<Order>();
 	Map<String, Integer> deliveryOrder = new HashMap<String, Integer>();
 	List<Market> markets = new LinkedList<Market>();
-	
+	Restaurant r2;
 	Map <String, Food> foods = new HashMap<String, Food>();
 	CookGui cookGui;
 	
@@ -31,7 +40,9 @@ public class CookRole extends Role implements Cook{
 	private String name;
 	//Timer timer = new Timer();
 	public HostGui hostGui = null;
-
+	private boolean needFood = false;
+	private boolean order = false;
+	
 	public CookRole(PersonAgent person) {
 		super(person);
 		
@@ -109,6 +120,20 @@ public class CookRole extends Role implements Cook{
 		checkForLowInventory();
 	}
 	
+	public void HereIsYourFood(Map<String, Integer> m, MarketWorkerRole worker){ //from market
+		needFood = false;
+		order = false;
+		myPerson.Do("Sending market worker message that I got food");
+		worker.Delivered(r2);
+		for (Map.Entry<String, Integer> entry: m.entrySet()){
+			Food f = foods.get(entry.getKey());
+			f.amount = f.amount + entry.getValue();
+			foods.put(entry.getKey(), f);
+			myPerson.Do("Got order from market, now I have " + f.type + " " + f.amount);
+		}
+		
+	}
+	
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
@@ -118,10 +143,29 @@ public class CookRole extends Role implements Cook{
             so that table is unoccupied and customer is waiting.
             If so seat him at the table.
 		 */
+
+		for (Map.Entry<String, Food> entry: foods.entrySet()){
+			if (entry.getValue().amount<=2){
+				myPerson.Do("Need " + entry.getKey());
+				int needed = entry.getValue().capacity - entry.getValue().amount;
+				deliveryOrder.put(entry.getKey(), needed);
+				needFood = true;
+			}
+		}
+		if ((needFood == true)&&(order == false)){
+			order = true;
+			myPerson.Do("Ordering food");
+			orderFoodThatIsLow();
+			return true;
+		}
+		
+		
+
 		if(theManLeavingMe != null && orders.isEmpty()) {
 			leaveWork();
 			return true;
 		}
+
 		
 		synchronized(orders) {
 			for (int x = 0; x < orders.size(); x++) {
@@ -209,6 +253,15 @@ public class CookRole extends Role implements Cook{
 		stateChanged();
 	}
 	
+	
+	//This sends market order
+	public void orderFoodThatIsLow(){
+		Market m = (Market) TheCity.getBuildingFromString("Market"); // add one more market later
+    	r2 = (Restaurant2) TheCity.getBuildingFromString("Restaurant 2");
+		m.getCashier().INeedFood(deliveryOrder, r2);
+	}
+	
+	
 	public void CheckForDoneOrders() {
 		for (int x = 0; x < orders.size(); x++) {
 			if(orders.get(x).s == CookingState.Plated) {
@@ -218,7 +271,7 @@ public class CookRole extends Role implements Cook{
 	}
 	
 	public void checkForLowInventory() {
-		boolean needDelivery = false;
+		/*boolean needDelivery = false;
 		System.out.println(getName() + ": Checking for low inventory");
 		if(foods.get("Steak").amount <= foods.get("Steak").low) {
 			deliveryOrder.put("Steak", foods.get("Steak").capacity - foods.get("Steak").amount);
@@ -247,12 +300,12 @@ public class CookRole extends Role implements Cook{
 		}
 		else
 			deliveryOrder.put("Salad", 0);
-		
-		if(needDelivery && marketIterations < markets.size())
-			markets.get(marketIndex).msgNeedDelivery(deliveryOrder);
+		*/
+	/*	if(needDelivery && marketIterations < markets.size())
+		//	markets.get(marketIndex).msgNeedDelivery(deliveryOrder);
 		else {
 			deliveryOrder.clear();
-		}
+		}*/
 	}
 	
 	//utilities

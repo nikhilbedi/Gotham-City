@@ -39,6 +39,8 @@ public class RoleGui {
 	protected Color myColor;
 
 	protected Screen homeScreen;
+	
+	public Role role;
 
 
 	public RoleGui(){
@@ -56,6 +58,7 @@ public class RoleGui {
 
 	public RoleGui(Role r, Screen meScreen) {
 		// TODO Auto-generated constructor stub
+		role = r;
 		current = south1;
 		homeScreen = meScreen;
 	}

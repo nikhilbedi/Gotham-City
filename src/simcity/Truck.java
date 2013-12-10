@@ -105,11 +105,11 @@ public class Truck extends RoleGui{
 			
 			if (checkIfOpen()){
 				if (restaurant== r1){
-					//r1.getCook().hereIsYourFood();
+					//r1.getCook().HereIsYourFood(delivery, worker);
 				
 				}
 				else if (restaurant == r2){
-					//r2.getCook().hereIsYourFood();
+					r2.getCook().HereIsYourFood(delivery, worker);
 	
 				}
 				else if (restaurant == r3){

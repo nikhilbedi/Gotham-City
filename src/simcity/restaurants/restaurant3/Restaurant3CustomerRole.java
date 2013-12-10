@@ -31,7 +31,7 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 	private Restaurant3CashierRole cashier;
 	public int tableNum;
 	private double wallet;
-	public Order order;
+	public Order order;// = new Order(waiter, "Sa", hungerLevel);
 	public boolean leaveIfOutOfStock = false;
 	public Random random = new Random();
 	public boolean leaveRestaurant = random.nextBoolean();
