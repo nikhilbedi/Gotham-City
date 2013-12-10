@@ -146,6 +146,11 @@ public class CookRole extends Role implements Cook {
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
 	public boolean pickAndExecuteAnAction() {
+		if(theManLeavingMe != null && orders.isEmpty()) {
+			leaveWork();
+			return true;
+		}
+		
 		for(Food f : foods.values()) {
 			/* if(f.state == FoodState.needToOrderMore) {
 			orderFoodThatIsLow(f.type);
@@ -185,7 +190,7 @@ public class CookRole extends Role implements Cook {
 	}
 
 	// Actions
-
+	
 	private void goCheckStand() {
 		print("checking stand");
 		final Order o = RevolvingStand.removeOrder();

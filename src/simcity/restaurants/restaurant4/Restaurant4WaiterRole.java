@@ -273,6 +273,10 @@ public class Restaurant4WaiterRole extends Restaurant4WaiterAgent implements Res
 //	scheduler
 	@Override
 	public boolean pickAndExecuteAnAction() {
+		if(theManLeavingMe != null && customers.isEmpty()){
+			leaveWork();
+			return true;
+		}
 		try{
 		for (MyCustomer customer: customers){
 			if (customer.s == MyCustomer.CustomerState.DoneEating){

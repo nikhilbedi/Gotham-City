@@ -139,7 +139,8 @@ public class MarketCashierRole extends Role implements MarketCashier{
 		r4 = (Restaurant4) TheCity.getBuildingFromString("Restaurant 4");
 		r5 = (Restaurant5) TheCity.getBuildingFromString("Restaurant 5");
 		restaurantOrders.add(new RestaurantOrder(food, rest));
-		stateChanged();
+		if(myPerson != null) //adding this because it causes null pointer
+			stateChanged();
 	}
 	
 	public void setWorker(MarketWorker w){

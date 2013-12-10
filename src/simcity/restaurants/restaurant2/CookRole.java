@@ -10,6 +10,7 @@ import simcity.restaurants.restaurant2.gui.CookGui;
 import simcity.restaurants.restaurant2.gui.HostGui;
 import simcity.restaurants.restaurant2.interfaces.Cook;
 import simcity.restaurants.restaurant2.interfaces.Waiter;
+import simcity.Item;
 import simcity.PersonAgent;
 
 import java.util.*;
@@ -256,6 +257,18 @@ public class CookRole extends Role implements Cook{
 		cookGui = c;
 	}
 	
+	public Vector<Item> getInventory() {
+		Vector<Item> inventory = new Vector<Item>();
+		for(Map.Entry<String, Food> f : foods.entrySet()) {
+			inventory.add(new Item(f.getKey(), f.getValue().amount));
+		}
+		return inventory;
+	}
+	
+	public void updateItem(String s, int hashCode) {
+		foods.get(s).amount = hashCode;
+	}
+	
 	class Food {
 		String type;
 		int cookingTime, amount, capacity, low;
@@ -267,23 +280,23 @@ public class CookRole extends Role implements Cook{
 			switch(t) {
 				case "Steak": 
 					cookingTime = 11000;
-					amount = 500;
-					capacity = 500;
+					amount = 45;
+					capacity = 100;
 					low = 3; break;
 				case "Chicken": 
 					cookingTime = 9000;
-					amount = 500;
-					capacity = 500;
+					amount = 45;
+					capacity = 100;
 					low = 3; break;
 				case "Pizza": 
 					cookingTime = 6000;
-					amount = 500;
-					capacity = 500;
+					amount = 45;
+					capacity = 100;
 					low = 3; break;
 				case "Salad": 
 					cookingTime = 4000;
-					amount = 500;
-					capacity = 500;
+					amount = 45;
+					capacity = 100;
 					low = 4; break;
 			}
 			

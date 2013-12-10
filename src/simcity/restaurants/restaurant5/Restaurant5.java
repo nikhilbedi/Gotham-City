@@ -6,12 +6,14 @@ import Gui.RoleGui;
 import Gui.ScreenFactory;
 import agent.Role;
 import simcity.Building;
+import simcity.CityClock;
 import simcity.Item;
 import simcity.PersonAgent;
 import simcity.Robot;
 import simcity.bank.BankGreeterRole;
 import simcity.bank.BankTellerRole;
 import simcity.restaurants.Restaurant;
+import simcity.restaurants.restaurant5.CookRole;
 import simcity.restaurants.restaurant5.gui.*;
 //import simcity.restaurants.restaurant5.*;
 import simcity.restaurants.restaurant5.interfaces.*;
@@ -35,21 +37,21 @@ public class Restaurant5 extends Restaurant {
 	}
 
 	//create guis
-	HostGui hostGui = new HostGui(host, ScreenFactory.getMeScreen(this.getName()));
-	CashierGui cashierGui = new CashierGui(cashier, ScreenFactory.getMeScreen(this.getName()));
-	CookGui cookGui = new CookGui(cook, ScreenFactory.getMeScreen(this.getName()));
-	
+	HostGui hostGui = new HostGui(host, ScreenFactory.getMeScreen("Restaurant 5"));
+	CashierGui cashierGui = new CashierGui(cashier, ScreenFactory.getMeScreen("Restaurant 5"));
+	CookGui cookGui = new CookGui(cook, ScreenFactory.getMeScreen("Restaurant 5"));
+
 	WaiterGui waiterGui1 = new WaiterGui(waiter1, ScreenFactory.getMeScreen("Restaurant 5"));
 	WaiterGui waiterGui2 = new WaiterGui(waiter2, ScreenFactory.getMeScreen("Restaurant 5"));
 	//create 2 waiters and 2 sharedDataWaiter
-	
+
 
 
 	List<WaiterRole> waiters = new ArrayList<WaiterRole>();
 	//open and closing hours? hmmm..
 
 	Vector<Item> inventory;
-	
+
 	Menu menu;
 
 	public Restaurant5(String type, int entranceX, int entranceY, int guiX,
@@ -58,10 +60,10 @@ public class Restaurant5 extends Restaurant {
 
 		//waiters.add((WaiterRole)waiter1);//do i need this?
 		menu = new Menu();
-		
+
 		setWeekdayHours(9, 17);
 		setWeekendHours(0,0);
-		
+
 
 		((HostRole) host).setGui((RoleGui)hostGui);
 		((CashierRole) cashier).setGui((RoleGui)cashierGui);
@@ -77,29 +79,29 @@ public class Restaurant5 extends Restaurant {
 
 		jobRoles.put("Waiter1",(Role)waiter1);
 		jobRoles.put("Waiter2",(Role)waiter2);
-		
+
 		//jobRoles.put("Waiter1 Late", (Role)waiter1);
 
 		jobRoles.put("Cook",(Role)cook);
 		//jobRoles.put("Cook Late", (Role)cook);
-		
-		
+
+
 		/*PersonAgent waiterPerson = new Robot("waiter");
 		PersonAgent hostPerson = new Robot("host");
 		PersonAgent cookPerson = new Robot("cook");
 		PersonAgent cashierPerson = new Robot("cashier");*/
-		
-	/*	waiterPerson.addRole((WaiterRole)waiter1);
+
+		/*	waiterPerson.addRole((WaiterRole)waiter1);
 		hostPerson.addRole((HostRole)host);
 		cookPerson.addRole((CookRole)cook);
 		cashierPerson.addRole((CashierRole)cashier);*/
-		
+
 		((WaiterRole)waiter1).setHost(host);
 		((WaiterRole)waiter1).setCook(cook);
 		((WaiterRole)waiter1).setCashier(cashier);
 		((HostRole)host).addWaiter(waiter1);
-		
-/*		ScreenFactory.getMeScreen("Restaurant 5").addGui(hostGui);
+
+		/*		ScreenFactory.getMeScreen("Restaurant 5").addGui(hostGui);
 		ScreenFactory.getMeScreen("Restaurant 5").addGui(cookGui);
 		ScreenFactory.getMeScreen("Restaurant 5").addGui(waiterGui);
 		ScreenFactory.getMeScreen("Restaurant 5").addGui(cashierGui);*/
@@ -109,6 +111,33 @@ public class Restaurant5 extends Restaurant {
 
 	public String getCustomerName(){
 		return "restaurant5customer";
+	}
+
+	@Override
+	public boolean isOpen() {
+		//Weekday
+		if(CityClock.getDay() != 0 && CityClock.getDay() !=6) {
+			if(CityClock.getTime() > weekdayOpen && CityClock.getTime() < weekdayClose) {
+				if(((Role)host).checkWorkStatus() && ((Role)cashier).checkWorkStatus() && ((Role)cook).checkWorkStatus()) {
+					if(((Role)waiter1).checkWorkStatus() || ((Role)waiter2).checkWorkStatus())
+						//|| ((Role)waiter3).checkWorkStatus() || ((Role)waiter4).checkWorkStatus()) {
+						return true;
+				}
+			}
+		}
+
+		//weekend
+		else {
+			if(CityClock.getTime() > weekendOpen && CityClock.getTime() < weekendClose){
+				if(((Role)host).checkWorkStatus() && ((Role)cashier).checkWorkStatus() && ((Role)cook).checkWorkStatus()) {
+					if(((Role)waiter1).checkWorkStatus() || ((Role)waiter2).checkWorkStatus())
+						//|| ((Role)waiter3).checkWorkStatus() || ((Role)waiter4).checkWorkStatus()) {
+						return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	@Override
@@ -131,6 +160,16 @@ public class Restaurant5 extends Restaurant {
 		return (CashierRole)cashier;
 	}
 
+	@Override
+	public void setCook(Role cook) {
+		this.cook = (CookRole)cook;
+	}
+
+	/*	@Override
+	public Role getCook() {
+		return (CookRole)cook;
+	}
+	 */
 	public Vector<String> getBuildingInfo(){
 		Vector<String> info = new Vector<String>();
 		info.add("Restaurant 5");
@@ -145,7 +184,7 @@ public class Restaurant5 extends Restaurant {
 				inventory.toString());
 		return inventory;
 	}
-	
+
 	public void updateItem(String s, int hashCode) {
 		// TODO Auto-generated method stub
 		//THIS MUST BE UPDATED BY YOUR BUILDING

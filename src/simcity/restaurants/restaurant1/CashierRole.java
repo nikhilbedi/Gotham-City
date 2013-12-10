@@ -44,6 +44,7 @@ public class CashierRole extends Role implements Cashier {
 
     public CashierRole() {
 		// TODO Auto-generated constructor stub
+    	myMenu = new Menu();
 	}
 
 
@@ -59,7 +60,7 @@ public class CashierRole extends Role implements Cashier {
 
     @Override
     public void makeCheck(Waiter w, Customer c, String choice) {
-    	print("Creating bill for Waiter");
+    	print("Received message to make bill for Waiter");
     	log.add(new LoggedEvent("Creating bill for Waiter"));
     	checks.add(new Check(w, c, choice));
     	stateChanged();
@@ -111,7 +112,11 @@ public class CashierRole extends Role implements Cashier {
      * Scheduler.  Determine what action is called for, and do it.
      */
     public boolean pickAndExecuteAnAction() {
-	
+    	if(theManLeavingMe != null && checks.isEmpty()) {
+    		leaveWork();
+    		return true;
+    	}
+    	
 	    synchronized(billsToPay){
 	    	if(!billsToPay.isEmpty()) {
 	    		payBill();
@@ -138,7 +143,7 @@ public class CashierRole extends Role implements Cashier {
     }
 
     // Actions
-
+	
     private void createCheck(Check ch) {
     	print("creating check for waiter.");
 		//Match menu's choice to check's choice

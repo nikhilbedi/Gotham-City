@@ -161,7 +161,7 @@ public class CashierRole extends Role implements Cashier {
 		gui = (CashierGui)g;
 	}
 
-	public Restaurant2CashierGui getGui() {
+	public CashierGui getGui() {
 		return gui;
 	}
 

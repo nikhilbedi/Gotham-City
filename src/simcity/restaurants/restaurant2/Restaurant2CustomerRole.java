@@ -1,7 +1,5 @@
 package simcity.restaurants.restaurant2;
 
-import simcity.restaurants.restaurant1.CashierRole;
-import simcity.restaurants.restaurant1.HostRole;
 import simcity.restaurants.restaurant2.Menu;
 import simcity.restaurants.restaurant2.gui.Restaurant2CustomerGui;
 import simcity.restaurants.restaurant2.interfaces.Cashier;
@@ -9,6 +7,7 @@ import simcity.restaurants.restaurant2.interfaces.Customer;
 import simcity.restaurants.restaurant2.interfaces.Host;
 import simcity.restaurants.restaurant2.interfaces.Waiter;
 import simcity.PersonAgent;
+import simcity.TheCity;
 import Gui.RoleGui;
 import agent.Role;
 
@@ -97,9 +96,20 @@ public class Restaurant2CustomerRole extends Role implements Customer{
 	@Override
 	public void startBuildingMessaging(){
 		//Set host and cashier
-		host = (Host) myPerson.currentPreference.getHost();
+	/*	host = (Host) myPerson.currentPreference.getHost();
 		cashier =  (Cashier) myPerson.currentPreference.getCashier();
-		gotHungry();
+		gotHungry();*/
+		host = (HostRole) ((Restaurant2)TheCity.getBuildingFromString("Restaurant 2")).getHost();
+		cashier = (CashierRole) ((Restaurant2)TheCity.getBuildingFromString("Restaurant 2")).getCashier();
+		if(((HostRole) host).checkWorkStatus() && ((CashierRole) cashier).checkWorkStatus()) {
+			print("The host and cashier at rest 1 are here, so i will stay");
+			gotHungry();
+			
+		}
+		else {
+			print("The host or cashier at rest 1 is off work, so i will leave");
+			myPerson.leftBuilding(this);
+		}
 	}
 	
 	public void gotHungry() {//from animation

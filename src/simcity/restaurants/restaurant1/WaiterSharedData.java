@@ -237,6 +237,10 @@ public class WaiterSharedData extends Role implements Waiter {
 		/* Does there exist a customer in myCustomers such that its state is waiting. If so, seat the customer.
 		   Does there exist a customer in myCustomers such that its state is readyToOrder. If so, then move over there to take the order.
 		 */
+		if(theManLeavingMe != null && myCustomers.isEmpty()) {
+			leaveWork();
+			return true;
+		}
 		try{
 			if(!bills.isEmpty() && bills.get(0) != null) {
 				takeCheckToCustomer(bills.get(0));
@@ -320,7 +324,7 @@ public class WaiterSharedData extends Role implements Waiter {
 	}
 
 	// Actions
-
+	
 	/**
        Correctly seats customer and hands customer menu.
 	 */
