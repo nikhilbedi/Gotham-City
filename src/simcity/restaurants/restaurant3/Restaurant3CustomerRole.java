@@ -132,7 +132,7 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 	}
 
 	public void msgWhatWouldYouLike() {
-		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
 				" the waiter asks the customer what they would like to eat");
 		//System.out.println(this.getName() + " is asked by the waiter what he/she would like to eat.");
 		event = AgentEvent.AskedToOrder;
@@ -140,7 +140,7 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 	}
 
 	public void msgHereIsYourFood() {
-		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
 				"customer received his/her order from the waiter. ");
 		//System.out.println(this.getName() + " received his/her order from the waiter.");
 		//state = AgentState.Eating;
@@ -148,8 +148,9 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 		stateChanged();
 	}
 	public void msgHereIsYourCheck(Order o) {
-		
-		System.out.println(this.getName() + " received the check from the waiter.");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"received the check from the waiter ");
+		//System.out.println(this.getName() + " received the check from the waiter.");
 		this.order = o;
 		event = AgentEvent.checkDelivered;
 		stateChanged();
@@ -168,7 +169,8 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 
 	public void msgAnimationFinishedLeaveRestaurant() {
 		//from animation
-		System.out.println("Received msgFinishedLeaveRestaurant");
+		
+		//System.out.println("Received msgFinishedLeaveRestaurant");
 		myPerson.leftBuilding(this);
 		event = AgentEvent.doneLeaving;
 		stateChanged();
@@ -272,7 +274,9 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 	// Actions
 
 	private void goToRestaurant() {
-		System.out.println(this.getName() + " is going to the restaurant");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"going to restaurant");
+		//System.out.println(this.getName() + " is going to the restaurant");
 
 		host.msgIWantToEat(this);//send our instance, so he can respond to us
 	}
@@ -283,7 +287,9 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 	*/
 	private void SitDown() {
 //		Do("Being seated. Going to table");
-		System.out.println(this.getName() + " is being seated and going to a table.");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"being seated and going to a table");
+		//System.out.println(this.getName() + " is being seated and going to a table.");
 		customerGui.DoGoToSeat(tableNum);//hack; only one table
 		event = AgentEvent.seated;
 		stateChanged();
@@ -291,18 +297,24 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 
 	private void SayChoice() {
 //		Do("Customer orders food");
-		System.out.println("Customer says what type of food he/she wants.");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"Customer says what tpe of food he/she wants");
+		//System.out.println("Customer says what type of food he/she wants.");
 		if (myPerson.getMoney() < cheapestFood()) {
 			//Random random = new Random();
 			//boolean leaveRestaurant = random.nextBoolean();
 			if (leaveRestaurant) {
-				System.out.println("Customer " + getName() + " does not have enough money and chose to leave the restaurant.");
+				AlertLog.getInstance().logInfo(AlertTag.REST3,
+						this.getName(), "Customer does not have enough money and chose to leave the restaurant.");
+				//System.out.println("Customer " + getName() + " does not have enough money and chose to leave the restaurant.");
 				leaveTable();
 				//waiter.setCustomerStateLeaving(this);
 				return;
 			}
 			else if(!leaveRestaurant){
-				System.out.println("Customer " + getName() + " does not have enough money and chose to order anyway.");
+				AlertLog.getInstance().logInfo(AlertTag.REST3,
+						this.getName(), "Customer does not have enough money and chose to order anyway.");
+				//System.out.println("Customer " + getName() + " does not have enough money and chose to order anyway.");
 				//waiter.setCustomerStateReadyToOrder(this);
 			}
 				
@@ -310,7 +322,9 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 		
 		
 		String choice = randomizeFoodChoice();
-		System.out.println(this.getName() + " orders food.");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"customer orders food");
+		//System.out.println(this.getName() + " orders food.");
 		customerGui.order=choice;
 		customerGui.waitingForFood=true;
 		waiter.msgHereIsMyChoice(this, choice);
@@ -333,7 +347,9 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 	private void EatFood() {
 		customerGui.waitingForFood=false;
 		customerGui.receivedFood = true;
-		System.out.println(this.getName() + " is eating his/her food");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"customer is eating his/her food");
+		//System.out.println(this.getName() + " is eating his/her food");
 		//This next complicated line creates and starts a timer thread.
 		//We schedule a deadline of getHungerLevel()*1000 milliseconds.
 		//When that time elapses, it will call back to the run routine
@@ -352,7 +368,9 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 		timer.schedule(new TimerTask() {
 			public void run() {
 				myPerson.justAte();
-				System.out.println("Done eating");
+				//AlertLog.getInstance().logInfo(AlertTag.REST3,
+					//	this.getName(), "Done Eating");
+				//System.out.println("Done eating");
 				event = AgentEvent.doneEating;
 				stateChanged();
 			}
@@ -364,14 +382,18 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 	}
 	
 	private void PayCheck() {
-		System.out.println(this.getName() + " is going to the cashier and paying the check");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"customer is going to the cashier and paying the check");
+		//System.out.println(this.getName() + " is going to the cashier and paying the check");
 		customerGui.DoGoToCashier();
 		if (myPerson.getMoney() >= order.totalPrice) {
 			myPerson.setMoney(myPerson.getMoney() - order.totalPrice);
 			cashier.setRestaurantRevenue(order.totalPrice);
 		}
 		else {
-			System.out.println("Customer owes $" + order.totalPrice + " next time.");
+			AlertLog.getInstance().logInfo(AlertTag.REST3,
+					this.getName(), " Customer owes $" + order.totalPrice + " next time.");
+			//System.out.println("Customer owes $" + order.totalPrice + " next time.");
 			cashier.owed.put(this, order.totalPrice);
 		}
 			
@@ -381,7 +403,9 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 		stateChanged();
 	}
 	private void leaveTable() {
-		System.out.println(this.getName() + " is leaving the restaurant");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"is leaving the restaurant");
+		//System.out.println(this.getName() + " is leaving the restaurant");
 		waiter.msgDoneEatingAndLeavingTable(this);
 		//host.msgLeavingTable(this);
 		customerGui.DoExitRestaurant();

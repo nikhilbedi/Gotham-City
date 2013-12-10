@@ -2,6 +2,9 @@ package simcity.restaurants.restaurant3;
 
 import java.util.Vector;
 
+import trace.AlertLog;
+import trace.AlertTag;
+
 public class RevolvingStand {
 
 	public static Vector<Order> data = new Vector<Order>();
@@ -22,6 +25,8 @@ public class RevolvingStand {
 	}
 	
 	public static boolean checkStand() {
+		//AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+			//	"checking stand...");
 		System.out.println("Checking stand...");
 		if (!data.isEmpty()){
 			return true;
