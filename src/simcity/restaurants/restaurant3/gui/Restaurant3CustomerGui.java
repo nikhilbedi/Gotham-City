@@ -43,7 +43,7 @@ public class Restaurant3CustomerGui extends RoleGui{
 		Width = 20;
 		Height = 20;
 		xDestination = xPos;
-		yDestination = +20;
+		yDestination = yPos;
 		tableVariation = 85;
 		//maitreD = m;
 		
@@ -65,7 +65,7 @@ public class Restaurant3CustomerGui extends RoleGui{
 		Width = 20;
 		Height = 20;
 		xDestination = xPos;
-		yDestination = +20;
+		yDestination = yPos;
 		tableVariation = 85;
 	
 		
