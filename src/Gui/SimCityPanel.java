@@ -23,8 +23,8 @@ import java.awt.*;
 
       PersonSelectionPane selPane;
 	  BuildingInfoPanel buildingInfo;
-	  	
-	
+
+
 	  int clk = 0;
 	  boolean start;
 	  boolean always = true;
@@ -43,13 +43,14 @@ import java.awt.*;
       }
       
       public SimCityPanel(){
-         setPreferredSize(new Dimension(800, 800));
- 		//Building b = TheCity.getBank();
- 		currentScreen = ScreenFactory.getMainScreen();
- 		addMouseListener(this);
- 		addKeyListener(this);
- 		setFocusable(true);  
-         
+    	  
+  		setPreferredSize(new Dimension(1000, 800));
+  		setMaximumSize(new Dimension(1000, 800));
+  		//Building b = TheCity.getBank();
+  		currentScreen = ScreenFactory.getMainScreen();
+  		addMouseListener(this);
+  		addKeyListener(this);
+  		setFocusable(true);
          
          //Setup Transportation Grid
          
@@ -153,7 +154,7 @@ import java.awt.*;
           grid[i+2][j] = 'I';
           grid[i+3][j+1] = 'I';
           grid[i+3][j+2] = 'I';
-		
+
 	}
 	
 	private void updateGui() {
@@ -182,7 +183,7 @@ import java.awt.*;
 				
 				revalidate();
 				repaint();
-				//updateGui();
+				updateGui();//updates the gui every second
 				Thread.sleep(10);
 			}
 			catch(Exception e) {
@@ -191,29 +192,32 @@ import java.awt.*;
 
 		}
 	}
+
+
+
+	public void checkMapChange(int x, int y){
+		//Have map check coords
+		String swap = currentScreen.checkSwap(x,y);
+		//System.out.println("swap is " + swap);
+		//swap = "Restaurant";
+		Screen swapScreen = ScreenFactory.getMeScreen(swap);
+		if(!(swapScreen == null)){
+			currentScreen = swapScreen;
+			selPane.refresh();
+			if(swap.equalsIgnoreCase("city")){
+				//buildingInfo.setVisible(false);
+			}
+			else{
+				//buildingInfo.setVisible(true);
+				buildingInfo.setB(TheCity.getBuildingFromString(swap));
+				buildingInfo.update(TheCity.getBuildingFromString(swap).getBuildingInfo());
+				buildingInfo.getUpdators(TheCity.getBuildingFromString(swap));
+			}
+		} 
+	}
+
       
-      public void checkMapChange(int x, int y){
-  		//Have map check coords
-  		String swap = currentScreen.checkSwap(x,y);
-  		//System.out.println("swap is " + swap);
-  		//swap = "Restaurant";
-  		Screen swapScreen = ScreenFactory.getMeScreen(swap);
-  		if(!(swapScreen == null)){
-  			currentScreen = swapScreen;
-  			selPane.refresh();
-  			if(swap.equalsIgnoreCase("city")){
-  				buildingInfo.setVisible(false);
-  			}
-  			else{
-  				buildingInfo.setVisible(true);
-  				buildingInfo.setB(TheCity.getBuildingFromString(swap));
-  				buildingInfo.update(TheCity.getBuildingFromString(swap).getBuildingInfo());
-  				buildingInfo.getUpdators(TheCity.getBuildingFromString(swap));
-  			}
-  		} 
-  	}
-      
-      public BuildingInfoPanel getBuildingInfo() {
+    public BuildingInfoPanel getBuildingInfo() {
   		return buildingInfo;
   	}
 
