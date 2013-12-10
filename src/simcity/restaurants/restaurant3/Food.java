@@ -18,22 +18,22 @@ public class Food {
 		if (type.equals("Steak")){
 			cookingTime = 10;
 			price = 15.99;
-			amount = 3;
+			amount = 1;
 		}
 		else if (type.equals("Chicken")){
 			cookingTime = 8;
 			price = 10.99;
-			amount = 3;
+			amount = 1;
 		}
 		else if (type.equals("Pizza")) {
 			cookingTime = 6;
 			price = 8.99;
-			amount = 3;
+			amount = 1;
 		}
 		else if (type.equals("Salad")) {
 			cookingTime = 4;
 			price = 5.99;
-			amount = 3;
+			amount = 1;
 		}
 		
 		//this.amount = 0;//amount of each order the cook has
