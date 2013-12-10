@@ -264,11 +264,13 @@ public class ResidentRole extends Role implements Resident {
 //		}
 
 		//mailbox scheduling events
-//		if (myPerson.myJob.state == JobState.GoToWorkSoon ) {
-//			state = HomeState.LeavingHome;
-//			dropEverything();
-//			return true;
-//		}
+		if(myPerson.myJob != null){
+			if (myPerson.myJob.state == JobState.GoToWorkSoon ) {
+				state = HomeState.LeavingHome;
+				dropEverything();
+				return true;
+			}
+		}
 		
 		if (state == HomeState.DoingNothing && event == HomeEvent.checkMailbox) {
 			state = HomeState.GoingToMailbox;

@@ -63,13 +63,34 @@ public class ResidentTest  {
             assertEquals("Resident should have an empty event log before the Resident's messages are called. Instead, the Resident's event log reads: "
     				+ mockResident.log.toString(), 0, mockResident.log.size());
             
+            resident.msgCheckMailbox();
+            
+            assertTrue("The groceryBag should be empty at the resident's creation. It is not.", 
+                    resident.groceryBag.isEmpty());
+    
+            assertTrue("The resident's rentBills should be empty at the resident's creation. It is not.",
+            		resident.rentBills.isEmpty());
+    
+            assertTrue("There is no food in the fridge. The size of fridgeFoods should be 0."
+            		+ "It is not. ", fridgeFoods.isEmpty());
+    
+            assertTrue("There is nothing on the groceryList. GroceryList shoule be empty."
+            		+ " It is not. ", groceryList.isEmpty());
+
+            assertTrue("Resident state to begin with should be DoingNothing. It's currently not.", 
+                     resident.state == HomeState.DoingNothing);
+    
+            assertEquals("Resident should have an empty event log before the Resident's messages are called. Instead, the Resident's event log reads: "
+            		+ mockResident.log.toString(), 0, mockResident.log.size());
+    
+            
            //resident.person.myJob.state = JobState.GoToWorkSoon;
             
            // assertTrue("The resident scheduler should return true. it doesn't. ", resident.pickAndExecuteAnAction());
             
            // rent = 10;
             
-           // RentBill rb =  resident.person.new RentBill(resident.person, rent);
+            //RentBill rb =  resident.person.new RentBill(resident.person, rent);
             
 			//resident.rentBills.add(rb);
            
