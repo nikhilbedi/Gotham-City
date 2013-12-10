@@ -85,7 +85,53 @@ public class Restaurant1 extends Restaurant {
 		//Remove the guis until people come in to take those roles
 		//hostGui.getHomeScreen().removeGui(hostGui);
 	}
-
+	
+	public Restaurant1(String type, int entranceX, int entranceY, int guiX,
+			int guiY, int exitX, int exitY) {
+		super(type, entranceX, entranceY, guiX, guiY, exitX, exitY);
+		//Set the open and closing hours
+		setWeekdayHours(8, 22);
+		setWeekendHours(9, 21);
+		//Set guis
+		cook.setGui(cookGui);
+		waiter1.setGui(w1Gui);
+		waiter2.setGui(w2Gui);
+		waiter3.setGui(w1Gui);
+		waiter4.setGui(w2Gui);
+		host.setGui(hostGui);
+		cashier.setGui(cashierGui);
+		//Setting roles to each other
+		host.addWaiter(waiter1);
+		host.addWaiter(waiter2);
+		host.addWaiter(waiter3);
+		host.addWaiter(waiter4);
+		waiter1.setHost(host);
+		waiter2.setHost(host);
+		waiter3.setHost(host);
+		waiter4.setHost(host);
+		waiter1.setCashier(cashier);
+		waiter2.setCashier(cashier);
+		waiter3.setCashier(cashier);
+		waiter4.setCashier(cashier);
+		waiter1.setCook(cook);
+		waiter2.setCook(cook);
+		waiter3.setCook(cook);
+		waiter4.setCook(cook);
+		//Add the key: strings & value: roles
+		Map<String, Role> jobs = Collections.synchronizedMap(new HashMap<String, Role>());
+		jobs.put("host", host);
+		jobs.put("cashier", cashier);
+		jobs.put("cook", cook);
+		jobs.put("waiter1", waiter1);
+		jobs.put("waiter2", waiter2);
+		jobs.put("waiter3", waiter3);
+		jobs.put("waiter4", waiter4);
+		setJobRoles(jobs);
+		
+		//Remove the guis until people come in to take those roles
+		//hostGui.getHomeScreen().removeGui(hostGui);
+	}
+	
 	/**
 	 * Not only must a person check if the business is open between certain hours,
 	 * but the person must check if all the necessary roles are present within the building.

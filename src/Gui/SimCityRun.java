@@ -138,8 +138,8 @@ public class SimCityRun extends JFrame implements ActionListener
 	public static void main(String[] args)
 	{
 		//Sample reading an XML file
-		//XMLHelper.createPeople("sampleXML.xml");
-		XMLHelper.createPeople("Restaurant5.xml");
+		XMLHelper.createPeople("sampleXML.xml");
+		//XMLHelper.createPeople("Restaurant5.xml");
 
 		//THE BIG BANG
 		CityClock.startTime();
