@@ -156,7 +156,7 @@ public class CookRole extends Role implements Cook{
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
 	public boolean pickAndExecuteAnAction() {
-		print("Picking and excuting");
+		//print("Picking and excuting");
 		synchronized(orders){
 			for(Order o: orders){
 				if(o.s == OrderState.pending){
@@ -323,8 +323,8 @@ public class CookRole extends Role implements Cook{
 		for (Map.Entry<String, Food> f : foodMap.entrySet())//check food amount
 		{
 			inventory.add(new Item(f.getKey(), f.getValue().amount));
-			AlertLog.getInstance().logInfo(AlertTag.GUI, "CookRole",
-					"Key: " + f.getKey() + " Value: " + f.getValue());
+			/*AlertLog.getInstance().logInfo(AlertTag.GUI, "CookRole",
+					"Key: " + f.getKey() + " Value: " + f.getValue());*/
 		}
 		AlertLog.getInstance().logInfo(AlertTag.GUI, "CookRole",
 				inventory.toString());
@@ -374,6 +374,11 @@ public class CookRole extends Role implements Cook{
 				int low = 2;
 				FoodState fs = FoodState.stocked;
 
+			}
+			public void updateItem(String s, int hashCode) {
+				// TODO Auto-generated method stub
+				Food f = foodMap.get(s);
+				foodMap.get(s).amount = hashCode;
 			}
 }
 

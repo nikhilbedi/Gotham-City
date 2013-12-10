@@ -5,6 +5,7 @@ import java.util.*;
 import Gui.RoleGui;
 import Gui.ScreenFactory;
 import agent.Role;
+import simcity.Building;
 import simcity.Item;
 import simcity.PersonAgent;
 import simcity.Robot;
@@ -139,6 +140,12 @@ public class Restaurant5 extends Restaurant {
 		AlertLog.getInstance().logInfo(AlertTag.GUI, "Rest 5",
 				inventory.toString());
 		return inventory;
+	}
+	
+	public void updateItem(String s, int hashCode) {
+		// TODO Auto-generated method stub
+		//THIS MUST BE UPDATED BY YOUR BUILDING
+		((CookRole) cook).updateItem(s, hashCode);
 	}
 
 }

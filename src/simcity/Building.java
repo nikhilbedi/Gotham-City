@@ -183,5 +183,10 @@ public class Building {
 		info.add("this is even more super class info");
 		return info;
 	}
+
+	public void updateItem(String s, int hashCode) {
+		// TODO Auto-generated method stub
+		//THIS MUST BE UPDATED BY YOUR BUILDING
+	}
 	
 }

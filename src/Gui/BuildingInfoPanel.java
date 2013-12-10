@@ -19,10 +19,11 @@ import trace.AlertTag;
 
 public class BuildingInfoPanel extends JPanel implements ChangeListener{
 	List<JLabel> info;
-	List<JSpinner> updators;
-	JSpinner spinner;
+	List<LabeledSpinner> updators;
+	Building b;
 	
 	
+
 	public BuildingInfoPanel(){
 		setBackground(Color.orange);
 		
@@ -31,63 +32,109 @@ public class BuildingInfoPanel extends JPanel implements ChangeListener{
 		setMaximumSize(new Dimension(200,600));
 		
 		info = new ArrayList<JLabel>();
-		updators = new ArrayList<JSpinner>();
+		updators = new ArrayList<LabeledSpinner>();
 		
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		b = null;
+		
 
-		update();
+		updateInfo();
+	}
+	
+	public Building getB() {
+		return b;
+	}
+
+	public void setB(Building b) {
+		this.b = b;
 	}
 	
 	public void addField(String s, int num){
-		JPanel c = new JPanel();
-		c.setPreferredSize(new Dimension(200,40));
-		c.setMaximumSize(new Dimension(200,40));
-		c.setBackground(Color.orange);
-		c.setVisible(true);
-		JLabel l = new JLabel(s);
-		JSpinner spinner = new JSpinner(new SpinnerNumberModel(num, 0, 100, 1));
-		l.setLabelFor(spinner);
-		c.add(l);
-		c.add(spinner);
-		add(c);
+		LabeledSpinner newSpin = new LabeledSpinner(s, num);
+		newSpin.addChangeListener(this);
+		updators.add(newSpin);
+		add(newSpin);
 	}
 	
 	public void getUpdators(Building b){
 		Vector<Item> spinnerItems = b.getStockItems();
+		
+		//adds bank rob button probably should go somewhere else
 		if(b.getName().equalsIgnoreCase("Bank")){
 			AlertLog.getInstance().logInfo(AlertTag.GUI, "BuildingInfoPanel", "In bank check");
 			add(new JButton("Robbberyy"));
 		}
+		
+		//debug
 		if(spinnerItems == null){
 			AlertLog.getInstance().logInfo(AlertTag.GUI, "BuildingInfoPanel", "Getupdatators called on invalid instance of Building");
 			return;
 		}
+		
+		//parses building to create the spinner items list
 		for(int i=0; i < spinnerItems.size(); i++){
 			Item temp = spinnerItems.get(i);
 			addField(temp.getName(), temp.getAmount());
 		}
 		
+		for (LabeledSpinner updater : updators) {
+			//add(updater);
+		}
+		
 	}
 	
-	public void update(){
+	public void updateInfo(){
 		removeAll();
 		for(JLabel label: info){
 			label.setAlignmentX(CENTER_ALIGNMENT);
 			add(label);
 		}
 	}
+	
 	public void update(Vector<String> strings){
 		info.clear();
 		for(String s: strings){
 			info.add(new JLabel(s));
 		}
-		update();
+		updateInfo();
 	}
 
 	@Override
-	public void stateChanged(ChangeEvent arg0) {
+	public void stateChanged(ChangeEvent e) {
 		// TODO Auto-generated method stub
-		//here's where we detect a change?
+		System.out.println(""+ updators.get(0).spin);
+		System.out.println("" + e.getSource());
+		for(int i=0; i < updators.size(); i ++){
+			if(e.getSource() == updators.get(i).spin ){
+					JSpinner temp = updators.get(i).spin;
+				   //AlertLog.getInstance().logInfo(AlertTag.GUI, "BuildingInfoPanel",
+					//"Changing spinner" + i);
+				  // System.out.println("Value is" + temp.getValue().hashCode());
+				   b.updateItem(updators.get(i).l.getText(),temp.getValue().hashCode());
+			   }
+		}
+	   
 	}
-
+	class LabeledSpinner extends JPanel{
+		
+		JLabel l;
+		JSpinner spin;
+		LabeledSpinner(String s, int initial)
+		{
+			setPreferredSize(new Dimension(200,40));
+			setMaximumSize(new Dimension(200,40));
+			setBackground(Color.red);
+			setVisible(true);
+			l = new JLabel(s);
+			spin = new JSpinner(new SpinnerNumberModel(initial, 0, 100, 1));
+			l.setLabelFor(spin);
+			add(l);
+			add(spin);
+			
+		}
+		void addChangeListener(ChangeListener c)
+		{
+			spin.addChangeListener(c);
+		}
+	}
 }

@@ -118,6 +118,13 @@ public class WaiterRole extends Role implements Waiter {
 
 	public WaiterRole() {
 		super();
+		work = WorkState.working;
+		this.name = name;
+		// make some tables
+		tables = new ArrayList<Table>(NTABLES);
+		for (int ix = 0; ix < NTABLES; ix++) {
+			tables.add(new Table(ix));//how you add to a collections
+		}
 	}
 
 	public List getWaitingCustomers() {

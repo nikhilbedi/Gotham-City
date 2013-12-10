@@ -13,28 +13,30 @@ import simcity.restaurants.restaurant5.interfaces.Cashier;
 
 public class CashierGui extends RoleGui implements Gui {
 
-	private CashierRole agent = null;
+	private CashierRole role = null;
 
 
 
-	private int DEBUGX = 600;
+	private int DEBUGX = 400;
 	private int DEBUGY = 40;
 
 	static final int hostSize = 20;
 
-	public CashierGui(CashierRole agent) {
-		this.agent = agent;
+	public CashierGui(CashierRole role) {
+		this.role = role;
 		super.setColor(Color.CYAN);
 	}
 
-	public CashierGui(CashierRole agent, Screen s) {
-		super(agent, s);
+	public CashierGui(CashierRole role, Screen s) {
+		super(role, s);
 		super.setColor(Color.CYAN);
-		this.agent = agent;
+		this.role = role;
 	}
 
 	public CashierGui(Cashier cashier, Screen meScreen) {
 		super( (Role)cashier, meScreen);
+		super.setColor(Color.CYAN);
+		this.role = (CashierRole) cashier;
 	}
 
 	public void updatePosition() {
@@ -43,7 +45,7 @@ public class CashierGui extends RoleGui implements Gui {
 	public void draw(Graphics g) {
 		super.draw(g);
 		g.setColor(Color.BLACK);
-		//g.drawString("Cashier $: " + agent.getMoney(), DEBUGX, DEBUGY);
+		g.drawString("Cashier $: " + role.getMoney(), DEBUGX, DEBUGY);
 	}
 
 	public boolean isPresent() {

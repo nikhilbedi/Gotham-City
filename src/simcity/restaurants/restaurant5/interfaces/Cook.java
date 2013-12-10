@@ -11,4 +11,5 @@ public interface Cook {
 		public abstract void hereIsFood(Market m, String s, int amount);
 		
 		public abstract void hereIsSomeFood(Market m, String s, int amount);
+
 }

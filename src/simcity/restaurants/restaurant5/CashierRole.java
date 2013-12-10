@@ -61,6 +61,12 @@ public class CashierRole extends Role implements Cashier {
 
 	public CashierRole() {
 		super();
+		prices.put("Steak", 15.99);
+		prices.put("Chicken", 10.99);
+		prices.put("Salad", 5.99);
+		prices.put("Pizza", 8.99);
+
+		register = 50.00;
 	}
 
 

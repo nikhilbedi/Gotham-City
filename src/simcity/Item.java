@@ -2,8 +2,8 @@ package simcity;
 
 public class Item {
 	
-	String name;
-	int amount;
+	public String name;
+	public int amount;
 	public Item(String s, int i){
 		name = s;
 		amount = i;
