@@ -521,11 +521,11 @@ public class PersonAgent extends Agent implements Person {
 		// Person Scheduler
 
 		if (checkPersonScheduler) {
-			if(true){
+			/*if(true){
 				//currentPreference = restaurants.get(0);
 				goToWork();
 				return true;
-			}
+			}*/
 			//Time to leave, yo.
 			if (myJob != null) {
 				if (myJob.state == JobState.TimeToLeave) {
@@ -734,9 +734,6 @@ public class PersonAgent extends Agent implements Person {
 			if (currentBuilding != myHome) {
 				gui.DoGoToLocation(myHome.getEntranceLocation());
 				
-				System.out.println("What Brice needs to succeed: " + myHome.getEntranceLocation().getX());
-				System.out.println("What Brice needs to succeed: " + myHome.getEntranceLocation().getY());
-				
 				//gui.finalX = myHome.getEntranceLocation().getX()/20; //Brice - Code to get to next location via Grid
 				//gui.finalY = myHome.getEntranceLocation().getY()/20;
 				
@@ -787,10 +784,6 @@ public class PersonAgent extends Agent implements Person {
 
 		//if inside building and not in current restaurant preference
 		//animate outside building
-		//gui.DoGoToLocation(currentPreference.getEntranceLocation());
-		
-		//gui.finalX = (currentPreference.getEntranceLocation().getX() + 10)/20; //Brice - Code to get to next location via Grid
-		//gui.finalY = (currentPreference.getEntranceLocation().getY() + 10)/20;
 		gui.DoGoToLocation(currentPreference.getEntranceLocation());
 		
 		// if inside building and not in current restaurant preference
