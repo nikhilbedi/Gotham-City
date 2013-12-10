@@ -50,4 +50,36 @@
 		<!-- Transportation preference -->
 		<transportation>walk</transportation>
 	</person>
+	
+		<person name="BatmanCook">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 1</building>
+			<position>Cook</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+	
+		<person name="BatmanHost">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 1</building>
+			<position>Cashier</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
 </simcity>
