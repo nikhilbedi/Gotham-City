@@ -62,6 +62,14 @@ public class Restaurant1 extends Restaurant {
 		waiter2.setHost(host);
 		waiter3.setHost(host);
 		waiter4.setHost(host);
+		waiter1.setCashier(cashier);
+		waiter2.setCashier(cashier);
+		waiter3.setCashier(cashier);
+		waiter4.setCashier(cashier);
+		waiter1.setCook(cook);
+		waiter2.setCook(cook);
+		waiter3.setCook(cook);
+		waiter4.setCook(cook);
 		//Add the key: strings & value: roles
 		Map<String, Role> jobs = Collections.synchronizedMap(new HashMap<String, Role>());
 		jobs.put("host", host);

@@ -67,7 +67,7 @@
 		<transportation>walk</transportation>
 	</person>
 	
-		<person name="BatmanHost">
+		<person name="BatmanCashier">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
