@@ -176,7 +176,7 @@ public class Restaurant3CashierRole extends Role implements Cashier {
 	public void Pay(Payment p){
         double money = round(p.amountDue);
         restaurantRevenue = restaurantRevenue - money;
-        p.cashier.hereIsMoneyRestaurant(this, money);
+     //   p.cashier.hereIsMoneyRestaurant(this, money);
 	}
 	private void Remove(Payment payment) {
         payments.remove(payment);

@@ -10,6 +10,7 @@ import simcity.PersonAgent;
 import simcity.TheCity;
 import simcity.Market.Market;
 import simcity.Market.MarketCashierRole;
+import simcity.Market.MarketWorkerRole;
 import simcity.Market.MarketGui.MarketAnimationPanel;
 import simcity.Market.interfaces.MarketCashier;
 import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4CookGui;
@@ -33,7 +34,7 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 	private MarketCashier cashier;
 	private Restaurant4CashierRole restCashier;
 	private boolean order = false;
-	
+	Restaurant4 r4;
 	public Restaurant4CookRole(PersonAgent p){
 		super(p);
 		foods.put("Chicken",chicken);
@@ -99,12 +100,14 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 		salad.amount = 0;
 	}
 	
-	public void HereIsYourFood(Map<String, Integer> m){ //from market
+	public void HereIsYourFood(Map<String, Integer> m, MarketWorkerRole worker){ //from market
+		myPerson.Do("Sending market worker message that I got food");
+		worker.Delivered(r4);
 		for (Map.Entry<String, Integer> entry: m.entrySet()){
 			Food f = foods.get(entry.getKey());
 			f.amount = f.amount + entry.getValue();
 			foods.put(entry.getKey(), f);
-			System.out.println("Got order from market, now I have " + f.type + " " + f.amount);
+			myPerson.Do("Got order from market, now I have " + f.type + " " + f.amount);
 		}
 		
 	}
@@ -178,8 +181,8 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 		myPerson.Do("Ordering food from market");
 		Market m = (Market) TheCity.getBuildingFromString("Market"); // add one more market later
     	cashier = m.getCashier();
-    	Restaurant4 r4 = (Restaurant4) TheCity.getBuildingFromString("Restaurant 4");
-		cashier.INeedFood(neededFood, this, restCashier, r4);
+    	r4 = (Restaurant4) TheCity.getBuildingFromString("Restaurant 4");
+		cashier.INeedFood(neededFood, r4);
 	}
 
 	public void setMarketCashier(MarketCashier m){
@@ -266,4 +269,7 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	
 }

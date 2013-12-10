@@ -103,9 +103,9 @@ public class Restaurant4 extends Restaurant {
 		this.cashier = (Restaurant4CashierRole)cashier;
 	}
 	
-	@Override
-	public Role getCashier() {
-		return (Restaurant4CashierRole)cashier;
+	
+	public Restaurant4CashierRole getCashier() {
+		return cashier;
 	}
 	
 
@@ -113,15 +113,10 @@ public class Restaurant4 extends Restaurant {
 		return waiter;
 	}
 	
-	public  Restaurant4Cook getCook(){
+	public  Restaurant4CookRole getCook(){
 		return cook;
 	}
 	
-
-	  public void setCity(TheCity c){
-	    	cp = c;
-	    }
-
 	public void  setHost(Restaurant4HostRole h){
 		host = h;
 	}

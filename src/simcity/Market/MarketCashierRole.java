@@ -36,12 +36,18 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	private List<RestaurantOrder> restaurantOrders = new ArrayList<RestaurantOrder>();
 	public MarketCustomer currentCustomer;
 	public List<MarketCustomer> customersInMarket = new ArrayList<MarketCustomer>();
-	public Restaurant4CashierRole cashier4;
+/*	public Restaurant4CashierRole cashier4;
 //	public Restaurant1CashierRole cashier1;
 //	public Restaurant2CashierRole cashier2;
 //	public Restaurant3CashierRole cashier3;
 //	public Restaurant1CashierRole cashier1;
 //	public Restaurant5CashierRole cashier5;
+*/	
+	Restaurant1 r1;
+	Restaurant2 r2;
+	Restaurant3 r3;
+	Restaurant4 r4;
+	Restaurant5 r5;
 	
 	//private PersonAgent person;
 	public MarketCashierRole(PersonAgent p){
@@ -55,7 +61,7 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	}
 	
 	public void setRest4Cashier(Restaurant4CashierRole r){
-		cashier4 = r;
+		//cashier4 = r;
 	}
 
 	public List<RestaurantOrder> getRestaurantOrders(){
@@ -77,7 +83,7 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	
 	
 	public void setCashiers(){
-		Restaurant4 r4 = (Restaurant4)TheCity.getBuildingFromString("Restaurant 4");
+	/*	Restaurant4 r4 = (Restaurant4)TheCity.getBuildingFromString("Restaurant 4");
     	cashier4 = (Restaurant4CashierRole) r4.getCashier();
     	Restaurant1 r1 = (Restaurant1)TheCity.getBuildingFromString("Restaurant 1");
     	//cashier1 = (Restaurant1CashierRole) r1.getCashier();
@@ -87,7 +93,7 @@ public class MarketCashierRole extends Role implements MarketCashier{
     //	cashier3 = (Restaurant3CashierRole) r3.getCashier();
     	Restaurant5 r5 = (Restaurant5)TheCity.getBuildingFromString("Restaurant 5");
     //	cashier5 = (Restaurant5CashierRole) r5.getCashier();
-    	
+    	*/
 	}
 
 	
@@ -105,9 +111,9 @@ public class MarketCashierRole extends Role implements MarketCashier{
 		}
 	}
 	
-    public void hereIsMoneyRestaurant(Role role, double money){ //restaurant paying
+    public void hereIsMoneyRestaurant(Restaurant r, double money){ //restaurant paying
     	for(RestaurantOrder order: restaurantOrders){
-    		if (order.cashierRole== role){
+    		if (order.rest== r){
     			order.moneyGiven = money;
     			order.state = RestaurantOrder.State.paying;
     			stateChanged();
@@ -122,9 +128,14 @@ public class MarketCashierRole extends Role implements MarketCashier{
 		stateChanged();
 	}
 	
-	public void INeedFood(Map<String, Integer> food, Role role, Role cashier, Restaurant rest){ //order from restaurant
-		System.out.println("Got new order from restaurant cook" + role);
-		restaurantOrders.add(new RestaurantOrder(food, role, cashier, rest));
+	public void INeedFood(Map<String, Integer> food, Restaurant rest){ //order from restaurant
+		System.out.println("Got new order from restaurant cook" );
+		r1 = (Restaurant1) TheCity.getBuildingFromString("Restaurant 1");
+		r2 = (Restaurant2) TheCity.getBuildingFromString("Restaurant 2");
+		r3 = (Restaurant3) TheCity.getBuildingFromString("Restaurant 3");
+		r4 = (Restaurant4) TheCity.getBuildingFromString("Restaurant 4");
+		r5 = (Restaurant5) TheCity.getBuildingFromString("Restaurant 5");
+		restaurantOrders.add(new RestaurantOrder(food, rest));
 		stateChanged();
 	}
 	
@@ -147,13 +158,26 @@ public class MarketCashierRole extends Role implements MarketCashier{
 		}
 	}
 	
-	public void foodIsDelivered(Role role){  //who will send this? maybe truck will send it to the worker and worker will send it to the cashier
+	public void foodIsDelivered(Restaurant r){  //who will send this? maybe truck will send it to the worker and worker will send it to the cashier
+		myPerson.Do("food is delivered, sending check");
 		for (RestaurantOrder order: restaurantOrders){
-			if (order.cookRole == role){
-				myPerson.Do("Here!!!!!!!!!!!");
-				Restaurant4 r4 = (Restaurant4)TheCity.getBuildingFromString("Restaurant 4"); // just for now 
-		    	cashier4 =  (Restaurant4CashierRole) r4.getCashier();
-		    	((Restaurant4CashierRole) order.cashierRole).amountDue(order.amountDue, this);
+			if (order.rest == r){
+				if (order.rest == r1){
+					//r1.getCashier().amountDue(order.amountDue, this);
+				}
+				else if (order.rest == r2){
+					//r2.getCashier().amountDue(order.amountDue, this);
+				}
+				else if (order.rest == r3){
+					//r3.getCashier().amountDue(order.amountDue, this);
+				}
+				else if (order.rest == r4){
+					System.out.println(r4.getName() + " Here is amount due " + order.amountDue);
+					r4.getCashier().amountDue(order.amountDue, this);
+				}
+				else if (order.rest == r5){
+					//r1.getCashier().amountDue(order.amountDue, this);
+				}
 			}
 		}
 	} 
@@ -179,14 +203,15 @@ public class MarketCashierRole extends Role implements MarketCashier{
 			return true;
 		}
 		for (RestaurantOrder restaurantOrder: restaurantOrders){
-			if (restaurantOrder.state == RestaurantOrder.State.pending){
-				restaurantOrder.state = RestaurantOrder.State.processing;
-				ProcessRestaurantOrder(restaurantOrder);
-				return true;
-			}
+			
 			if (restaurantOrder.state == RestaurantOrder.State.paying){
 				restaurantOrder.state = RestaurantOrder.State.paid;
 				GiveChangeRestaurant(restaurantOrder);
+				return true;
+			}
+			if (restaurantOrder.state == RestaurantOrder.State.pending){
+				restaurantOrder.state = RestaurantOrder.State.processing;
+				ProcessRestaurantOrder(restaurantOrder);
 				return true;
 			}
 			
@@ -219,12 +244,6 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	}
 	
 	public void ProcessRestaurantOrder(RestaurantOrder o){
-		
-		/* Restaurant4 r4 = (Restaurant4)TheCity.getBuildingFromString("Restaurant 4");
-         cashier4 = (Restaurant4CashierRole) r4.getCashier();
-         myPerson.Do("cashier " + cashier4);*/
-         //Restaurant1 r1 = ((Restaurant)
-		 setCashiers();
              Map<String, Integer> temp = o.foodNeeded;
              for (Map.Entry<String, Integer> entry: temp.entrySet()){ //for now market has always enough
                      int quant = entry.getValue();
@@ -239,13 +258,36 @@ public class MarketCashierRole extends Role implements MarketCashier{
              if (o.cashierRole == cashier4){
                      ((Restaurant4CashierRole) o.cashierRole).amountDue(o.amountDue, this);
              }*/
-             worker.SendFood(temp, o.cookRole, o.rest);
+             worker.SendFood(temp, o.rest);
 	}
 	
-	public void GiveChangeRestaurant(RestaurantOrder order){
-		double i = order.moneyGiven - order.amountDue;
-		((Restaurant4CashierRole) order.cashierRole).HereIsYourChange(i, this);
-		restaurantOrders.remove(order);
+	public void GiveChangeRestaurant(RestaurantOrder o){
+		double i = o.moneyGiven - o.amountDue;
+		for (RestaurantOrder order: restaurantOrders){
+			if (order == o){
+				if (order.rest == r1){
+					System.out.println(r4.getName() + "Here is change");
+					r4.getCashier().HereIsYourChange(i, this);
+				}
+				else if (order.rest == r2){
+					System.out.println(r4.getName() + "Here is change");
+					r4.getCashier().HereIsYourChange(i, this);
+				}
+				else if (order.rest == r3){
+					System.out.println(r4.getName() + "Here is change");
+					r4.getCashier().HereIsYourChange(i, this);
+				}
+				else if (order.rest == r4){
+					System.out.println(r4.getName() + "Here is change");
+					r4.getCashier().HereIsYourChange(i, this);
+				}
+				else if (order.rest == r5){
+					System.out.println(r4.getName() + "Here is change");
+					r4.getCashier().HereIsYourChange(i, this);
+				}
+			}
+		}
+		restaurantOrders.remove(o);
 	}
 	
 	public void GiveChangeCustomer(Check check){
@@ -290,9 +332,9 @@ public class MarketCashierRole extends Role implements MarketCashier{
 		public enum State {pending, processing, gotMoney, paying, paid};
 		double amountDue;
 		private Restaurant rest;
-		public RestaurantOrder(Map<String,Integer> food, Role role, Role cashier, Restaurant r){
-			cashierRole = cashier;
-			cookRole = role;
+		public RestaurantOrder(Map<String,Integer> food, Restaurant r){
+		/*	cashierRole = cashier;
+			cookRole = role;*/
 			foodNeeded = food;
 			state = State.pending;
 			rest = r;
