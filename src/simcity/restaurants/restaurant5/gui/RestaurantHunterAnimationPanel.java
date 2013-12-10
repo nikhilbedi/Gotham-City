@@ -1,15 +1,14 @@
 package simcity.restaurants.restaurant5.gui;
 
 import javax.swing.*;
-import simcity.TheCity;
 
 import simcity.PersonAgent;
 import simcity.Robot;
+import simcity.TheCity;
 import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant5.CashierRole;
 import simcity.restaurants.restaurant5.CookRole;
 import simcity.restaurants.restaurant5.HostRole;
-import simcity.restaurants.restaurant5.MarketRole;
 import simcity.restaurants.restaurant5.Restaurant5CustomerRole;
 import simcity.restaurants.restaurant5.WaiterRole;
 
@@ -26,8 +25,6 @@ import java.util.Vector;
 public class RestaurantHunterAnimationPanel extends Screen{
 	
 	// = ScreenFactory.getMainScreen().getRestaurantList().get(4);
-	List<Restaurant> restaurants = TheCity.getRestaurantList();
-	Restaurant r5;
     private final int WINDOWX = 800;
     private final int WINDOWY = 360;
 
@@ -44,12 +41,8 @@ public class RestaurantHunterAnimationPanel extends Screen{
 
     public RestaurantHunterAnimationPanel() {
     	super();
-    	for(Restaurant r : restaurants) {
-			if(r.getName().equals("Restaurant 5")){
-				r5 = r;
-			}
-		}
-    	populate();
+    
+    	//populate();
     }
     
     public void populate(){
@@ -83,8 +76,8 @@ public class RestaurantHunterAnimationPanel extends Screen{
 		waiterRole.setCashier(cashierRole);
 		hostRole.addWaiter(waiterRole);
 		
-		r5.setCashier(cashierRole);
-		r5.setHost(hostRole);
+		//r5.setCashier(cashierRole);
+		//r5.setHost(hostRole);
 		
 		hostPerson.startThread();
 		cashierPerson.startThread();

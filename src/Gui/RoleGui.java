@@ -13,7 +13,7 @@ public class RoleGui {
 	protected int xPos, yPos;
 	protected int xDestination, yDestination;
 
-	protected static int speed = 1;
+	protected static int speed = 2;
 
 
 	private int repeat, repeatBuffer = 10;
@@ -56,6 +56,7 @@ public class RoleGui {
 
 	public RoleGui(Role r, Screen meScreen) {
 		// TODO Auto-generated constructor stub
+		current = south1;
 		homeScreen = meScreen;
 	}
 

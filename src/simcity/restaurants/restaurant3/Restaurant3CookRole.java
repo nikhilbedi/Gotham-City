@@ -7,6 +7,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import simcity.PersonAgent;
+import Gui.RoleGui;
 import Gui.ScreenFactory;
 import agent.Role;
 import simcity.Home.ResidentRole.HomeEvent;
@@ -29,10 +30,7 @@ public class Restaurant3CookRole extends Role implements Cook{
 	public Map<String, Food> foods = Collections.synchronizedMap(new HashMap<String, Food>());
 	public Map<String, Integer> neededFood = Collections.synchronizedMap(new HashMap<String, Integer>());
 	public List<MarketRole> markets = Collections.synchronizedList(new ArrayList<MarketRole>());
-	private int threshold;
 	private String name;
-	private Semaphore atTable = new Semaphore(0,true);
-	private Food f;
 	public HostGui hostGui = null;
 	private CookGui cookGui;
 	public Restaurant3CashierRole restCashier;
@@ -66,11 +64,7 @@ public class Restaurant3CookRole extends Role implements Cook{
 
 	}
 	public Restaurant3CookRole(){
-
-	}
-
-	public String getMaitreDName() {
-		return name;
+		//super();
 	}
 
 	public String getName() {
@@ -323,15 +317,16 @@ public class Restaurant3CookRole extends Role implements Cook{
 		//int cookingTime = o.choice.getCookingTime();
 
 	}
-	public void setGui(HostGui gui) {
+	/*public void setGui(HostGui gui) {
 		hostGui = gui;
-	}
-	public void setGui(CookGui gui) {
-		cookGui = gui;
+	}*/
+	public void setGui(RoleGui g) {
+		super.setGui(g);
+		cookGui = (CookGui)g;
 	}
 
-	public HostGui getGui() {
-		return hostGui;
+	public CookGui getGui() {
+		return cookGui;
 	}
 
 	public void setMarket(MarketRole market){

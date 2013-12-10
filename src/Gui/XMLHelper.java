@@ -17,6 +17,7 @@ import simcity.CityClock;
 import simcity.PersonAgent;
 import simcity.PersonGui;
 import simcity.TheCity;
+//import simcity.TheCity;
 import simcity.Home.Home;
 
 /**
@@ -69,6 +70,7 @@ public class XMLHelper {
 					personXML.setRestaurants(TheCity.getRestaurantList());
 					personXML.setMarkets(TheCity.getMarketList());
 					personXML.setBank(TheCity.getBank());
+					personXML.setGrid(TheCity.getGrid());
 					mainScreen.addGui(personGui);
 					CityClock.addPersonAgent(personXML);
 

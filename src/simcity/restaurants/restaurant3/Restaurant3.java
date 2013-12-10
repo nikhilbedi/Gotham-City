@@ -15,6 +15,7 @@ import agent.Role;
 import simcity.restaurants.*;
 import simcity.restaurants.restaurant3.*;
 import simcity.restaurants.restaurant3.Order.OrderState;
+import simcity.restaurants.restaurant3.gui.CashierGui;
 import simcity.restaurants.restaurant3.gui.CookGui;
 import simcity.restaurants.restaurant3.gui.HostGui;
 import simcity.restaurants.restaurant3.gui.WaiterGui;
@@ -41,11 +42,11 @@ public class Restaurant3 extends Restaurant {
 	
 	//create guis
 	HostGui hostGui = new HostGui(host, ScreenFactory.getMeScreen("Restaurant 3"));
-	//CashierGui cashierGui = new CashierGui(cashier, ScreenFactory.getMeScreen(this.getName()));
-	WaiterGui waiterGui1 = new WaiterGui(waiter1, 0,ScreenFactory.getMeScreen("Restaurant 3"));
-	WaiterGui waiterGui2 = new WaiterGui(waiter2, 0,ScreenFactory.getMeScreen("Restaurant 3"));
-	WaiterGui waiterGui3 = new WaiterGui(waiter3, 0,ScreenFactory.getMeScreen("Restaurant 3"));
-	WaiterGui waiterGui4 = new WaiterGui(waiter4, 0,ScreenFactory.getMeScreen("Restaurant 3"));
+	CashierGui cashierGui = new CashierGui(cashier, ScreenFactory.getMeScreen(this.getName()));
+	WaiterGui waiterGui1 = new WaiterGui(waiter1, ScreenFactory.getMeScreen("Restaurant 3"));
+	WaiterGui waiterGui2 = new WaiterGui(waiter2, ScreenFactory.getMeScreen("Restaurant 3"));
+	WaiterGui waiterGui3 = new WaiterGui(waiter3, ScreenFactory.getMeScreen("Restaurant 3"));
+	WaiterGui waiterGui4 = new WaiterGui(waiter4, ScreenFactory.getMeScreen("Restaurant 3"));
 	
 	CookGui cookGui = new CookGui(cook, ScreenFactory.getMeScreen("Restaurant 3"));
 	
@@ -83,84 +84,42 @@ public class Restaurant3 extends Restaurant {
 		
 
 		((HostRole) host).setGui((RoleGui)hostGui);
-		//((Restaurant3CashierRole) cashier).setGui((RoleGui)cashierGui);
+		((Restaurant3CashierRole) cashier).setGui((RoleGui)cashierGui);
 		((WaiterRole) waiter1).setGui((RoleGui)waiterGui1);
 		((WaiterSharedData) waiter2).setGui((RoleGui)waiterGui2);
 		((WaiterRole) waiter3).setGui((RoleGui)waiterGui3);
 		((WaiterSharedData) waiter4).setGui((RoleGui)waiterGui4);
 		((Restaurant3CookRole) cook).setGui((RoleGui)cookGui);
 		
-		jobRoles.put("Host Early", (Role)host);
-		jobRoles.put("Host Late",  (Role)host);
+		jobRoles.put("Host", (HostRole)host);
+		//jobRoles.put("Host Late",  (Role)host);
 
-		jobRoles.put("Cashier Early",(Role)cashier);
-		jobRoles.put("Cashier Late", (Role)cashier);
+		jobRoles.put("Cashier",(Role)cashier);
+		//jobRoles.put("Cashier Late", (Role)cashier);
 		
-		jobRoles.put("Waiter1 Early",(Role)waiter1);
-		jobRoles.put("Waiter1 Late", (Role)waiter1);
+		jobRoles.put("Waiter1",(Role)waiter1);
+		//jobRoles.put("Waiter1 Late", (Role)waiter1);
 		
-		jobRoles.put("Waiter2 Early",(Role)waiter2);
-		jobRoles.put("Waiter2 Late", (Role)waiter2);
+		jobRoles.put("Waiter2",(Role)waiter2);
+		//jobRoles.put("Waiter2 Late", (Role)waiter2);
 
-		jobRoles.put("Waiter3 Early",(Role)waiter3);
-		jobRoles.put("Waiter3 Late", (Role)waiter3);
+		jobRoles.put("Waiter3",(Role)waiter3);
+		//jobRoles.put("Waiter3 Late", (Role)waiter3);
 		
 
-		jobRoles.put("Waiter4 Early",(Role)waiter4);
-		jobRoles.put("Waiter4 Late", (Role)waiter4);
+		jobRoles.put("Waiter4",(Role)waiter4);
+		//jobRoles.put("Waiter4 Late", (Role)waiter4);
 		
 		
-		jobRoles.put("Cook Early",(Role)cook);
-		jobRoles.put("Cook Late", (Role)cook);
+		jobRoles.put("Cook",(Role)cook);
+		//jobRoles.put("Cook Late", (Role)cook);
 		
-		//Set the open and closing hours
-        //setWeekdayHours(6, 24);
-        //setWeekendHours(0, 0);
-        //Add the key: strings & value: roles
-        Map<String, Role> jobs = Collections.synchronizedMap(new HashMap<String, Role>());
-        jobs.put("host", (Role) host);
-        jobs.put("cashier", (Role) cashier);
-        jobs.put("cook", (Role) cook);
-        jobs.put("waiter1", (Role) waiter1);
-        jobs.put("waiter2", (Role) waiter2);
-        jobs.put("waiter3", (Role) waiter3);
-        jobs.put("waiter4", (Role) waiter4);
-        //setJobRoles(jobs);
-        
-		f = new Food ("Chicken");
-		foods.put("Chicken", f);
-		
-		f = new Food ("Steak");
-		foods.put("Steak", f);
-		
-		f = new Food ("Pizza");
-		foods.put("Pizza", f);
-		
-		f = new Food ("Salad");
-		foods.put("Salad", f);
+
 		
 	}
-
-	public String getMaitreDName() {
-		return name;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-
-
 	//utilities
 	
-	public void setGui(HostGui gui) {
-		hostGui = gui;
-	}
-
-	public HostGui getGui() {
-		return hostGui;
-	}
-
+	
 	public void setRestaurantRevenue(double totalPrice) {
 		this.restaurantRevenue += totalPrice;
 	}

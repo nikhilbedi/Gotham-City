@@ -11,12 +11,12 @@ import Gui.Screen;
 
 public class CookGui extends RoleGui implements Gui {
 
-	private CookRole agent = null;
+	private CookRole role = null;
 
 	private int defaultX = 202, defaultY = 76;
 	
 	private int cookingX = 232, cookingY = 70;
-	private int DEBUGX = 600;
+	private int DEBUGX = 400;
 	private int DEBUGY = 25;
 
 	static final int hostSize = 20;
@@ -24,27 +24,33 @@ public class CookGui extends RoleGui implements Gui {
 	private enum Command {getOrder, noCommand, cookOrder, cooking};
 	private Command command=Command.noCommand;
 
-	public CookGui(CookRole agent) {
+	public CookGui(CookRole role) {
 		super();
 		xDestination = defaultX;
 		yDestination = defaultY;
-		this.agent = agent;
+		this.role = role;
 		setColor(Color.CYAN);
 	}
 
 	public CookGui(Cook cook, Screen meScreen) {
 		super( (Role)cook, meScreen);
+		super.setColor(Color.CYAN);
+		xPos = defaultX;
+		yPos = defaultY;
+		xDestination = defaultX;
+		yDestination = defaultY;
+		this.role = (CookRole)cook;
 	}
 
 	public void updatePosition() {
 		super.updatePosition();
 		if (xPos == xDestination && yPos == yDestination) {
 			if (command==Command.getOrder){ 
-				agent.doneMoving();	
+				role.doneMoving();	
 				command = Command.noCommand;
 			}
 			else if(command == Command.cookOrder){
-				agent.doneMoving();
+				role.doneMoving();
 				command = Command.cooking;
 			}
 			else if(command == Command.noCommand){
@@ -57,7 +63,8 @@ public class CookGui extends RoleGui implements Gui {
 	public void draw(Graphics g) {
 		super.draw(g);
 		g.setColor(Color.BLACK);
-		g.drawString(agent.returnAmounts(), DEBUGX, DEBUGY);
+		//TODO we've got things to work on here
+		g.drawString(role.returnAmounts(), DEBUGX, DEBUGY);
 	}
 
 	public boolean isPresent() {
@@ -66,7 +73,7 @@ public class CookGui extends RoleGui implements Gui {
 
 
 	private String generateDebug(){
-		return agent.returnAmounts();
+		return role.returnAmounts();
 	}
 	public void DoGoToPlating(){
 		System.err.println("DoGoToPlating in cookGui called");

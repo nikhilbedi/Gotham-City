@@ -3,19 +3,33 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import simcity.Building;
 import simcity.TheCity;
 
+import java.awt.event.*;
+import java.awt.image.*;
+import java.io.File;
+import java.io.IOException;
+import java.net.URL;
+import java.util.*;
+//import simcity.TheCity;
 import java.awt.*;
    
-   public class SimCityPanel extends JPanel implements MouseListener
+   public class SimCityPanel extends JPanel implements MouseListener, KeyListener
    {
-      Player player;//this will soon be replaced by AgentGuis
-      //ScreenFactory loader;
+      //Player player;//this will soon be replaced by AgentGuis
+      
       Screen currentScreen;
-      BuildingInfoPanel buildingInfo;
-   
-      boolean start;
-      boolean always = true;
+
+      PersonSelectionPane selPane;
+	  BuildingInfoPanel buildingInfo;
+	  	
+	
+	  int clk = 0;
+	  boolean start;
+	  boolean always = true;
+      
+      
       
       // Grid Dimensions for transportation
       final int GRIDWIDTH = 40;
@@ -29,11 +43,12 @@ import java.awt.*;
       }
       
       public SimCityPanel(){
-    	 setPreferredSize(new Dimension(800, 800));
-         currentScreen = ScreenFactory.getMainScreen();
-         
-         addMouseListener(this);
-         setFocusable(true);
+         setPreferredSize(new Dimension(800, 800));
+ 		//Building b = TheCity.getBank();
+ 		currentScreen = ScreenFactory.getMainScreen();
+ 		addMouseListener(this);
+ 		addKeyListener(this);
+ 		setFocusable(true);  
          
          
          //Setup Transportation Grid
@@ -118,11 +133,11 @@ import java.awt.*;
          setupIntersectionFromPosition(18, 32);//Bottom Intersection
          setupIntersectionFromPosition(31, 32);//Bot-Right Intersection
          
-         for(int x = 0; x < GRIDWIDTH; x++) { //Test prints for layout
+        /* for(int x = 0; x < GRIDWIDTH; x++) { //Test prints for layout
         	 for(int y = 0; y < GRIDHEIGHT; y++)
         		 System.out.print(grid[x][y]);
         	 System.out.println();
-         }
+         }*/
          
          
          ScreenFactory.getMainScreen().setGrid(grid);
@@ -140,7 +155,17 @@ import java.awt.*;
           grid[i+3][j+2] = 'I';
 		
 	}
-
+	
+	private void updateGui() {
+		// TODO Auto-generated method stub
+		clk++;
+		if(clk == 100){
+		selPane.refresh();
+		buildingInfo.refresh();
+		clk = 0;
+		}
+	}
+	
 	public void paintComponent(Graphics g){//Here is where everything in the animation panel is generated
          ScreenFactory.updateScreens();
          //currentScreen.updateAgents();
@@ -150,19 +175,22 @@ import java.awt.*;
       }
       
       
-      public void go(){//intializes game always happens
-         while(always)
-         {
-            try{
-               repaint();
-               Thread.sleep(10);
-            }
-               catch(Exception e) {
-                  e.printStackTrace();
-            }
-         
-         }
-      }
+	public void go(){//intializes game always happens
+		while(always)
+		{
+			try{
+				
+				revalidate();
+				repaint();
+				//updateGui();
+				Thread.sleep(10);
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+
+		}
+	}
       
       public void checkMapChange(int x, int y){
   		//Have map check coords
@@ -178,6 +206,7 @@ import java.awt.*;
   			}
   			else{
   				buildingInfo.setVisible(true);
+  				buildingInfo.setB(TheCity.getBuildingFromString(swap));
   				buildingInfo.update(TheCity.getBuildingFromString(swap).getBuildingInfo());
   				buildingInfo.getUpdators(TheCity.getBuildingFromString(swap));
   			}
@@ -193,51 +222,74 @@ import java.awt.*;
   		this.buildingInfo = buildingInfo;
   	}
       
-        @Override
-        public void mouseClicked(MouseEvent e) {
-                // TODO Auto-generated method stub
-                int x = e.getX();
-                int y = e.getY();
-                System.out.println("Coords " + e.getX() + ", " + e.getY() );
-                checkMapChange(e.getX(), e.getY());
-        }
+  	@Override
+	public void mouseClicked(MouseEvent e) {
+		// TODO Auto-generated method stub
+		int x = e.getX();
+		int y = e.getY();
+		//System.out.println("Coords " + e.getX() + ", " + e.getY() );
+		checkMapChange(e.getX(), e.getY());
+	}
 
-        public void mousePressed(MouseEvent e){
+    public void mousePressed(MouseEvent e){
+        
+    }
+    
+    public MainScreen getCityScreen(){
+    	return ScreenFactory.getMainScreen();
+    }
+    
+    public PersonSelectionPane getSelPane() {
+		return selPane;
+	}
+
+
+	public void setSelPane(PersonSelectionPane selPane) {
+		this.selPane = selPane;
+	}
+
+
+
+
+    @Override        
+    public void mouseEntered(MouseEvent e) {
+            // TODO Auto-generated method stub
             
-        }
-        
-        public MainScreen getCityScreen(){
-        	return ScreenFactory.getMainScreen();
-        }
-        
-        public PersonSelectionPane getSelPane() {
-    		return selPane;
-    	}
-
-
-    	public void setSelPane(PersonSelectionPane selPane) {
-    		this.selPane = selPane;
-    	}
-
-    	PersonSelectionPane selPane;
+    }
     
+    @Override
+	public void keyPressed(KeyEvent e) {
+		// TODO Auto-generated method stub
+		 int key = e.getKeyCode();
+		  System.out.println("key is "+key);
+	         if (key == 27){
+	        	 checkMapChange(26, 51);
+	         }//&&player.lChange)
+	       
+	}
     
-        @Override        
-        public void mouseEntered(MouseEvent e) {
-                // TODO Auto-generated method stub
+    @Override
+    public void mouseExited(MouseEvent e) {
+            // TODO Auto-generated method stub
+            
+    }
+    
+    @Override
+    public void mouseReleased(MouseEvent e) {
+            // TODO Auto-generated method stub
                 
         }
-        
-        @Override
-        public void mouseExited(MouseEvent e) {
-                // TODO Auto-generated method stub
-                
-        }
-        
-        @Override
-        public void mouseReleased(MouseEvent e) {
-                // TODO Auto-generated method stub
-                
-        }
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
    }
 

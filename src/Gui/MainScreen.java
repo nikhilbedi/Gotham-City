@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import javax.swing.ImageIcon;
 
 import simcity.Building;
+import simcity.TheCity;
 
 import simcity.Home.Apartment;
 
 import simcity.Bus;
-import simcity.TheCity;
 
 import simcity.Home.Home;
 import simcity.Market.Market;
@@ -94,10 +94,14 @@ public class MainScreen extends Screen{
 	}
 
 	public void setGrid(Character[][] grid) {
-		this.grid = grid;
+		this.grid = TheCity.getGrid();
 		bus = new Bus("clockWise", grid);
-		bus.setGrid(grid);
+		bus.setGrid(TheCity.getGrid());
 		addGui(bus);
+	}
+	
+	public Character[][] getGrid() {
+		return grid;
 	}
 }
 

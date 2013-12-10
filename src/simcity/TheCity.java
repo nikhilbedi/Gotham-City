@@ -1,11 +1,11 @@
 package simcity;
+import simcity.*;
 
 import java.util.*;
 
-
 import simcity.Home.Apartment;
-
 import Gui.TimeBar;
+
 
 import simcity.Home.Home;
 import simcity.Market.Market;
@@ -36,11 +36,16 @@ public class TheCity {
 
 	static Building apart;
 	
-
+	static final int GRIDWIDTH = 40;
+    static final int GRIDHEIGHT = 40;
+	
+	static Character[][] grid  = new Character[GRIDWIDTH][GRIDHEIGHT];
+	
 	//Making timebar static so it can be updated by static city clock is this bad?
 	public static TimeBar bar;
 
-	static{//populate Buildings
+
+	public static void populate(){//populate Buildings
 		bar = new TimeBar();
 		bar.setVisible(true);
 
@@ -78,21 +83,122 @@ public class TheCity {
 		rest4.setImagePath("/resources/Buildings/RestaurantDark2.png");
 		rest5 = new Restaurant5("Restaurant 5", 680, 380, 700, 380);
 		rest5.setImagePath("/resources/Buildings/RestaurantDark2.png");
-
-
+		
+		//rest3 = new Restaurant3("Restaurant 3", 700, 180, 700, 180);
+		//rest3.setImagePath("/resources/Buildings/RestaurantDark2.png");
+	
+/*		rest2 = new Restaurant2("Restaurant 2", 50, 210, 50, 210);
+		rest2.setImagePath("/resources/Buildings/RestaurantDark2.png");
+		
+*/
 
 		buildings.add(home);
-		buildings.add(market);
 		buildings.add(bank);
 		buildings.add(rest1);
-		buildings.add(rest2);
-		buildings.add(rest3);
+		buildings.add(market);
 		buildings.add(rest4);
 		buildings.add(rest5);
 		buildings.add(apart);
+
+		buildings.add(rest3);
+/*		buildings.add(rest2);
+*/
+		
+		 //Setup Transportation Grid
+        
+        //Initially set grid to empty ('E') entirely
+     for(int x = 0; x < GRIDWIDTH; x++)
+    	 for(int y = 0; y < GRIDHEIGHT; y++) {
+    		 grid[x][y] = 'E';
+    	 }
+     
+     //Sidewalks ('S')
+     for(int x = 4; x < GRIDWIDTH - 4; x++) //Middle Horizontal Sidewalks
+		grid[x][19] = 'S';
+     
+     for(int x = 4; x < GRIDWIDTH - 4; x++)
+     	grid[x][22] = 'S';
+     
+
+    for(int y = 5; y < GRIDHEIGHT - 3; y++) //Middle Vertical Sidewalks
+    	grid[18][y] = 'S';
+    
+    for(int y = 5; y < GRIDHEIGHT - 3; y++)
+   	 	grid[21][y] = 'S';
+    
+     //Put in roads ('R')
+     for(int x = 4; x < GRIDWIDTH - 4; x++) //Top road
+    	 for(int y = 7; y < 9; y++)
+    		 grid[x][y] = 'R';
+     
+     for(int x = 4; x < GRIDWIDTH - 4; x++) //Top Sidewalks
+    	 grid[x][6] = 'S';
+     
+     for(int x = 4; x < GRIDWIDTH - 4; x++)
+    	 grid[x][9] = 'S';
+     
+     for(int x = 4; x < GRIDWIDTH - 4; x++) //Bottom road
+    	 for(int y = 33; y < 35; y++)
+    		 grid[x][y] = 'R';
+     
+     for(int x = 4; x < GRIDWIDTH - 4; x++) //Bottom Sidewalks
+    		 grid[x][35] = 'S';
+     
+     for(int x = 4; x < GRIDWIDTH - 4; x++)
+		 grid[x][32] = 'S';
+     
+     for(int x = 6; x < 8; x++) //Left road
+    	 for(int y = 5; y < GRIDHEIGHT - 3; y++)
+    		 grid[x][y] = 'R';
+     
+    for(int y = 5; y < GRIDHEIGHT - 3; y++) //Left Sidewalks
+    	grid[5][y] = 'S';
+    
+    for(int y = 5; y < GRIDHEIGHT - 3; y++)
+		 	grid[8][y] = 'S';
+     
+     for(int x = 32; x < 34; x++) //Right road
+    	 for(int y = 5; y < GRIDHEIGHT - 3; y++)
+    		 grid[x][y] = 'R';
+     
+    for(int y = 5; y < GRIDHEIGHT - 3; y++) //Right Sidewalks
+    	grid[34][y] = 'S';
+    	 
+    for(int y = 5; y < GRIDHEIGHT - 3; y++)
+    	grid[31][y] = 'S';
+     
+     for(int x = 4; x < GRIDWIDTH - 4; x++) //Middle roads
+    	 for(int y = 20; y < 22; y++)
+    		 grid[x][y] = 'R';
+     
+     for(int x = 19; x < 21; x++)
+    	 for(int y = 5; y < GRIDHEIGHT - 3; y++)
+    		 grid[x][y] = 'R';
+     
+     //Setup crosswalks for intersections
+     setupIntersectionFromPosition(5, 6);  //Top-Left Intersection
+     setupIntersectionFromPosition(18, 6); //Top-Middle Intersection
+     setupIntersectionFromPosition(31, 6); //Top-Right Intersection
+     setupIntersectionFromPosition(5, 19); //Mid-Left Intersection
+     setupIntersectionFromPosition(18, 19);//Middle Intersection
+     setupIntersectionFromPosition(31, 19);//Mid-Right Intersection
+     setupIntersectionFromPosition(5, 32); //Bot-Left Intersection
+     setupIntersectionFromPosition(18, 32);//Bottom Intersection
+     setupIntersectionFromPosition(31, 32);//Bot-Right Intersection
 		
 	}
-
+	
+	private static void setupIntersectionFromPosition(int i, int j) {
+  	  grid[i+1][j+3] = 'I';
+        grid[i+2][j+3] = 'I';
+        grid[i][j+1] = 'I';
+        grid[i][j+2] = 'I';
+        grid[i+1][j] = 'I';
+        grid[i+2][j] = 'I';
+        grid[i+3][j+1] = 'I';
+        grid[i+3][j+2] = 'I';
+	}
+	
 	static{//populate person-specific elements
 
 		
@@ -203,10 +309,10 @@ public class TheCity {
 		List<Restaurant> tempcast = new ArrayList<Restaurant>();
 		//maybe this populate should be done in the static constructor
 		tempcast.add((Restaurant)rest1);
-		tempcast.add((Restaurant)rest2);
+	/*	tempcast.add((Restaurant)rest2);
 		tempcast.add((Restaurant)rest3);
 		tempcast.add((Restaurant)rest4);
-		tempcast.add((Restaurant)rest5);
+		tempcast.add((Restaurant)rest5);*/
 		return tempcast;
 	}
 
@@ -221,6 +327,10 @@ public class TheCity {
 	}
 	public static ArrayList<Building> getBuildings(){
 		return buildings;
+	}
+
+	public static Character[][] getGrid() {
+		return grid;
 	}
 }
 

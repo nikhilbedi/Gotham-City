@@ -18,8 +18,8 @@ public class Bus extends RoleGui{
 	ImageIcon currentImage = new ImageIcon();
 	ImageIcon busLeft = new ImageIcon(this.getClass().getResource("/resources/mika/busleft.jpg"));
 	ImageIcon busRight = new ImageIcon(this.getClass().getResource("/resources/mika/busright.jpg"));
-	ImageIcon busUp = new ImageIcon(this.getClass().getResource("/resources/mika/busUp.jpg"));
-	ImageIcon busDown = new ImageIcon(this.getClass().getResource("/resources/mika/busDown.jpg"));
+	ImageIcon busUp = new ImageIcon(this.getClass().getResource("/resources/mika/busup.jpg"));
+	ImageIcon busDown = new ImageIcon(this.getClass().getResource("/resources/mika/busdown.jpg"));
 	public static List<PersonGui> passengers = new ArrayList<PersonGui>();
 
 
@@ -44,8 +44,8 @@ public class Bus extends RoleGui{
 	boolean reachedDest = false;
 	
 	public void setGrid(Character[][] grid) {
-		System.out.println("GRID SET");
-		this.grid = grid;
+		//this.grid = grid;
+		this.grid = TheCity.getGrid();
 	}
 	
 	//Locations for the bus stop locations and where the person is located when waiting for the bus
@@ -99,7 +99,6 @@ public class Bus extends RoleGui{
 	public void updatePosition(){
 		super.updatePosition();
 		if(reachedDest){
-			System.out.println("HERE");
 			reachedDest = false;
 				if (xPos == topRightCorner.getX() && yPos == topRightCorner.getY()){  //going south
 					currentImage = busDown;
@@ -201,9 +200,6 @@ public class Bus extends RoleGui{
 	 		moveTimer.schedule(new TimerTask() {
  				Object cookie = 1;
  				public void run() {
- 					
- 					System.out.println(finalX);
- 					System.out.println(finalY);
  					stoppedEastRight = false;
  					stoppedWestRight = false;
  					stoppedNorthRight = false;

@@ -68,6 +68,16 @@ public class HostRole extends Role implements Host {
 
 	public HostRole() {
 		super();
+		roundRobinPointer = 0;
+		avaliableWaiters = 0;
+		seatedCust = 0;
+
+		// make some tables
+		tables = new ArrayList<Table>(NTABLES);
+		for (int ix = 0; ix < NTABLES; ix++) {
+			tables.add(new Table(ix));//how you add to a collections
+		}
+
 	}
 
 	public String getMaitreDName() {
@@ -161,7 +171,11 @@ public class HostRole extends Role implements Host {
 
             ^note the above no longer applies
 		 */
-		if(seatedCust == NTABLES){
+		
+		/**THIS IS HACKED FIX IT
+		
+		
+		/*if(seatedCust == NTABLES){
 			synchronized(customers){
 				for(MyCustomer mycustomer: customers){
 					if(mycustomer.cs == CustomerState.newCust){
@@ -170,7 +184,7 @@ public class HostRole extends Role implements Host {
 				}
 			}
 		}
-
+		
 		synchronized(customers){
 			for(MyCustomer mycustomer: customers){
 				if(mycustomer.cs == CustomerState.left){
@@ -196,7 +210,7 @@ public class HostRole extends Role implements Host {
 							if(roundRobinPointer > waiters.size()-1)
 								roundRobinPointer = 0;
 						}
-						//print("Before! " + waiters.toString());
+					//print("Before! " + waiters.toString());
 						giveWaiterCustomer(waiters.get(roundRobinPointer), customers.get(0), table);
 						seatedCust++;
 						roundRobinPointer++;
@@ -210,7 +224,7 @@ public class HostRole extends Role implements Host {
 		}
 		if(!customers.isEmpty()){
 			return true;
-		}
+		}*/
 		return false;
 		//we have tried all our rules and found
 		//nothing to do. So return false to main loop of abstract agent

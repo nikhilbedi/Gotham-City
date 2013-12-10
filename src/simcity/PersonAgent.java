@@ -28,6 +28,8 @@ import simcity.Home.LandlordRole;
 import simcity.Home.ResidentRole;
 import simcity.Home.gui.ResidentGui;
 import simcity.bank.*;
+import trace.AlertLog;
+import trace.AlertTag;
 
 import java.util.*;
 import java.util.concurrent.Semaphore;
@@ -99,7 +101,7 @@ public class PersonAgent extends Agent implements Person {
 		Walking, Bus, Car
 	};
 
-	public TransportationState transportationState = TransportationState.Bus;
+	public TransportationState transportationState = TransportationState.Walking;
 
 	// Where to eat
 	public enum EatingState {
@@ -178,7 +180,8 @@ public class PersonAgent extends Agent implements Person {
 		 * /*if(rest.getName().equals("Restaurant 4")) { currentPreference =
 		 * rest; } }
 		 */
-		currentPreference = r.get(restaurantCounter);
+		//currentPreference = r.get(restaurantCounter);
+		//currentPreference = r.get(1);
 		restaurantCounter++;
 	}
 
@@ -206,7 +209,7 @@ public class PersonAgent extends Agent implements Person {
 	 */
 	public void setHome(Home h) {
 
-		if (h.getName().contains("shelter")) {
+/*		if (h.getName().contains("shelter")) {
 			shelter = true;
 		} else {
 			setMyHome(h);
@@ -215,11 +218,11 @@ public class PersonAgent extends Agent implements Person {
 			// Should I make a new one, or just make it equal to this one? There
 			// is only one resident for a home...
 			// activeRole = myHome.resident;
-		}
+		}*/
 	}
 
 	public void setGrid(Character[][] grid) { //Brice - setting grid for City Screen movement
-		gui.setGrid(grid);
+		gui.setGrid(TheCity.getGrid());
 	}
 
 	//functions so we can function
@@ -437,12 +440,15 @@ public class PersonAgent extends Agent implements Person {
 		roles.add(role);
 		role.setActive(true);
 		gui.getHomeScreen().removeGui(gui);
-		role.getGui();
-		//role.getGui().getHomeScreen();
+		role.getGui();//debug
+		/*AlertLog.getInstance().logInfo(AlertTag.PERSON, "PersonAgent",
+				"Role's Screen is " + role.getGui().getHomeScreen());*/
+		role.getGui().getHomeScreen();//debug
 		
 		role.getGui().getHomeScreen().addGui(role.getGui());
-		//ScreenFactory.getMeScreen("Home").addGui(role.getGui());
-		role.startBuildingMessaging();
+		
+		//TODO put this back in when ready to start messaging but for now leave out
+		//role.startBuildingMessaging();
 		stateChanged();
 	}
 
@@ -515,6 +521,11 @@ public class PersonAgent extends Agent implements Person {
 		// Person Scheduler
 
 		if (checkPersonScheduler) {
+			/*if(true){
+				//currentPreference = restaurants.get(0);
+				goToWork();
+				return true;
+			}*/
 			//Time to leave, yo.
 			if (myJob != null) {
 				if (myJob.state == JobState.TimeToLeave) {
@@ -651,6 +662,7 @@ public class PersonAgent extends Agent implements Person {
 	private void goToWork() {
 		print("Going to work.");
 		// animate to desired location
+		//System.out.println(myJob.getName());
 		gui.DoGoToLocation(myJob.workplace.getEntranceLocation());
 		try {
 			busyWithTask.acquire();
@@ -661,13 +673,13 @@ public class PersonAgent extends Agent implements Person {
 		myJob.state = JobState.AtWork;
 		checkPersonScheduler = false;
 		
-		if(myJob.role.checkWorkStatus()) {
+		//I hacked this to get stuff to work unhack it plz
+		/*if(myJob.role.checkWorkStatus()) {
 			waitToStartWork();
-		}
-		else {
-			enteringBuilding(myJob.role);
+		}*/
+		enteringBuilding(myJob.role);
 			myJob.role.setWorkStatus(true);
-		}
+		
 	}
 	
 	private void waitToStartWork() {
@@ -747,7 +759,7 @@ public class PersonAgent extends Agent implements Person {
 			currentBuilding = getMyHome();
 			homeGui = new ResidentGui((ResidentRole)homeTemp, ScreenFactory.getMeScreen(myHome.getName()));
 			homeGui.setHomeScreen(ScreenFactory.getMeScreen(myHome.getName()));
-	
+
 //			//Add role
 	
 			homeTemp.setGui(homeGui);
@@ -755,7 +767,7 @@ public class PersonAgent extends Agent implements Person {
 			homeTemp.setPerson(this);
 			enteringBuilding(homeTemp);
 			//hacking TODO
-			//enteringBuilding(myHome.getResident());
+			enteringBuilding(myHome.getResident());
 			checkPersonScheduler = false;
 		} else {
 			gui.DoGoToLocation(new Location(26, 580, "Default"));

@@ -49,7 +49,7 @@ public class MockMarketCashier extends Mock implements MarketCashier {
 
 	@Override
 	public void hereIsMoneyRestaurant(
-			Role r, double money) {
+			Restaurant r, double money) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -77,15 +77,17 @@ public class MockMarketCashier extends Mock implements MarketCashier {
 		
 	}
 
+
+
+
 	@Override
-	public void foodIsDelivered(Role cookRole) {
+	public void INeedFood(Map<String, Integer> food, Restaurant r) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void INeedFood(Map<String, Integer> food, Role role, Role cashier,
-			Restaurant r) {
+	public void foodIsDelivered(Restaurant rest) {
 		// TODO Auto-generated method stub
 		
 	}

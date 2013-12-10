@@ -20,8 +20,9 @@ import javax.swing.*;
 import simcity.CityClock;
 import simcity.PersonAgent;
 import simcity.PersonGui;
-import simcity.TheCity;
 import simcity.Home.Apartment;
+
+import simcity.TheCity;
 import simcity.Home.Home;
 import simcity.Market.MarketCustomerRole;
 import simcity.Market.MarketGui.MarketAnimationPanel;
@@ -190,7 +191,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			newPerson.setRestaurants(TheCity.getRestaurantList());
 			newPerson.setMarkets(TheCity.getMarketList());
 			newPerson.setBank(TheCity.getBank());
-			newPerson.setGrid(selPane.city.getGrid()); //Brice - setting grid for the new person to navigate City screen
+			newPerson.setGrid(TheCity.getGrid()); //Brice - setting grid for the new person to navigate City screen
 			
 			//Give him money
 			newPerson.addMoney(money.getValue()); 
@@ -212,7 +213,6 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			//newPerson.setPreferredTransportation(transportation.getSelectedItem().toString());
 			newPerson.setPreferredTransportation("Bus");
 
-
 			//set home
 
 			if(CityClock.getPeople().size() < 1)
@@ -229,7 +229,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 
 			//re-enable button
 			reference.setEnabled(true);
-			System.err.println("atGui" + newPerson.getMyHome().getName());
+			//System.err.println("atGui" + newPerson.getMyHome().getName());
 			selPane.refresh();
 			
 			AlertLog.getInstance().logInfo(AlertTag.GUI, "Window", "Adding New Person: " + newPerson.getName() );

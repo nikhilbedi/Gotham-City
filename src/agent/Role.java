@@ -112,4 +112,5 @@ public class Role {
 	public void startBuildingMessaging(){
 		System.err.println("Start messaging super call");
 	}
+
 }

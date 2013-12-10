@@ -1,7 +1,9 @@
 package simcity.restaurants.restaurant4;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+
 
 
 import simcity.restaurants.restaurant4.Restaurant4CookRole;
@@ -10,7 +12,7 @@ import simcity.restaurants.restaurant4.interfaces.Restaurant4Cook;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Waiter;
 
 public class RevolvingStand {
-	public static List<StandOrder> orders = new ArrayList<StandOrder>();
+	public static List<StandOrder> orders = Collections.synchronizedList(new ArrayList<StandOrder>());
 	
 	
 	public static void addOrder(Restaurant4Cook cook, Restaurant4Waiter waiter, String choice, int table){
@@ -19,10 +21,12 @@ public class RevolvingStand {
 	}
 	
 	public static void removeOrder(Restaurant4Cook cook, Restaurant4Waiter waiter, String choice, int table){
+		synchronized(orders){
 		for (StandOrder order: orders){
 			if (order.waiter == waiter && order.choice==choice && order.table == table){
 				orders.remove(order);
 			}
+		}
 		}
 	}
 	

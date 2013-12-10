@@ -24,9 +24,9 @@ import java.util.List;
  *
  */
 public class RestaurantNikhilAnimationPanel extends Screen  {
-	Restaurant r1;
+/*//	Restaurant r1;
 	//TODO WE NEED TO CHECK THE TYPE OF EACH RESTAURANT TO MAKE SURE WE MAKE IT EQUAL TO THE CORRECT REST.
-	List<Restaurant> restaurants = TheCity.getRestaurantList();
+//	List<Restaurant> restaurants = TheCity.getRestaurantList();
 	PersonAgent waiterPerson;
 	PersonAgent waiterSharedDataPerson;
 	PersonAgent hostPerson;
@@ -42,7 +42,7 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 	
 	WaiterGui waiterGui;
 	WaiterSharedDataGui waiterSharedDataGui;
-	CookGui cookGui;
+	CookGui cookGui;*/
 	
 	/*private final int WINDOWX = 350;
     private final int WINDOWY = 250;
@@ -54,12 +54,12 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 
 	public RestaurantNikhilAnimationPanel() { 
 		super();
-	 	for(Restaurant r : restaurants) {
+	 /*	for(Restaurant r : restaurants) {
 			if(r.getName().equals("Restaurant 1")){
 				r1 = r;
 			}
-		}
-		populate();
+		}*/
+		//populate();
 		//System.err.println(" "+temp);
 		//Timer timer = new Timer(20, this );
 		//timer.start();
@@ -123,7 +123,7 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 
 
 	public void populate(){
-		waiterPerson = new Robot("waiter");
+	/*	waiterPerson = new Robot("waiter");
 		waiterSharedDataPerson = new Robot("waiterShared");
 		hostPerson = new Robot("host");
 		cookPerson = new Robot("cook");
@@ -166,7 +166,7 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 		
 		r1.setCashier(cashierRole);
 		r1.setHost(hostRole);
-		
+		*/
 		
 		//The host doesnt think it has set it's person? I'm manually setting them
 		
@@ -175,12 +175,12 @@ public class RestaurantNikhilAnimationPanel extends Screen  {
 		cookRole.setPerson(cookPerson);
 		cashierRole.setPerson(cashierPerson);;
 		*/
-		hostPerson.startThread();
+	/*	hostPerson.startThread();
 		cashierPerson.startThread();
 		waiterPerson.startThread();
 		waiterSharedDataPerson.startThread();
 		cookPerson.startThread();
-		
+		*/
 		
 
 	}

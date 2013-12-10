@@ -34,10 +34,10 @@ public class MarketAnimationPanel extends Screen {
     private Image bufferImage;
     private Dimension bufferSize;
     private List<Gui> guis = new ArrayList<Gui>();
- /*   public PersonAgent cashier = new Robot("Cashier");
+    public PersonAgent cashier = new Robot("Cashier");
+    public PersonAgent agentWork = new Robot("Worker");
     public MarketCashierRole marketCashier = new MarketCashierRole(cashier);
     public  MarketCashierGui cashierGui = new MarketCashierGui(marketCashier);
-    public PersonAgent agentWork = new Robot("Worker");
     public MarketWorkerRole marketWorker = new MarketWorkerRole(agentWork);
     public MarketWorkerGui workerGui = new MarketWorkerGui(marketWorker);
     public PersonAgent customer = new PersonAgent("Customer");
@@ -48,22 +48,22 @@ public class MarketAnimationPanel extends Screen {
     public MarketCustomerGui customerGui2 = new MarketCustomerGui(marketCustomer2);
     public PersonAgent agentCust3 = new PersonAgent("Customer3");
     public MarketCustomerRole marketCustomer3 = new MarketCustomerRole(agentCust3);
-    public MarketCustomerGui customerGui3 = new MarketCustomerGui(marketCustomer3);*/
+    public MarketCustomerGui customerGui3 = new MarketCustomerGui(marketCustomer3);
     
-    List <Market> m = TheCity.getMarketList();
+  /*  List <Market> m = TheCity.getMarketList();
     
-    public Market market = m.get(0);
+    public Market market = m.get(0);*/
     
   //  private BufferedImage image = ImageIO.read("shop.png"); 
     public MarketAnimationPanel() {
     	super();
-    	populate();
+    	//populate();
     }
 
 
-    public Market  getMarket (){
+  /*  public Market  getMarket (){
     	return market;
-    }
+    }*/
     
 
     @Override
@@ -81,22 +81,15 @@ public class MarketAnimationPanel extends Screen {
     }
 
     public void populate(){
-    	
-    	
-    	
-    	
-    	
     	//THIS IS THE GREATEST COMMENT OF ALL TIME
-/*    	List<String> foods = new ArrayList<String>();
+   	List<String> foods = new ArrayList<String>();
     		marketCashier.setGui(cashierGui);
     		addGui(cashierGui);
+    		addGui(workerGui);
     		cashier.addRole(marketCashier);
     		marketWorker.setGui(workerGui);
-<<<<<<< HEAD
-=======
-    		//workerGui.setMainScreen(mainScreen);
->>>>>>> nikhil
-    		addGui(workerGui);
+    		marketCashier.setWorker(marketWorker);
+    		marketCustomer.setCashier(marketCashier);
     		agentWork.addRole(marketWorker);
     		marketCustomer.setGui(customerGui);
     		customer.addRole(marketCustomer);
@@ -108,15 +101,14 @@ public class MarketAnimationPanel extends Screen {
     		cashier.startThread();
     		agentWork.startThread();
 
-    		marketCashier.setWorker(marketWorker);
-    		marketCustomer.setCashier(marketCashier);
+    		
     		marketCustomer2.setCashier(marketCashier);
     		marketCustomer3.setCashier(marketCashier);
     		marketWorker.setCashier(marketCashier);
-    		market.setCashier(marketCashier);
-    		market.setWorker(marketWorker);*/
+    		//market.setCashier(marketCashier);
+    		//market.setWorker(marketWorker);
     		
-    		/*	Item beef = new Item("Beef", 10.99, 100);
+    			Item beef = new Item("Beef", 10.99, 100);
     			Item chicken = new Item("Chicken", 8.99, 100);
     			Item rice = new Item("Rice", 6.99, 100);
     			Item potato = new Item("Potato", 5.99, 100);
@@ -136,7 +128,7 @@ public class MarketAnimationPanel extends Screen {
     			marketWorker.getInventory().put("Potato", potato);
     			marketWorker.getInventory().put("Pizza", pizza);
     			marketWorker.getInventory().put("Salad", salad);
-    			marketWorker.getInventory().put("Steak", steak);*/
+    			marketWorker.getInventory().put("Steak", steak);
     			
     }
 
