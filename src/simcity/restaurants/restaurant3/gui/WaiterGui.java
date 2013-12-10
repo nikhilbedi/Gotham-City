@@ -42,10 +42,13 @@ public class WaiterGui extends RoleGui {
 				yPos = 40;
 				break;
 			}
+		
 		}
 		
     	//xDestination = xPos;
         this.agent = agent;
+        xDestination = xPos;
+		yDestination = yPos;
     }
     public WaiterGui(Waiter agent, Screen s) {
     	super((Role) agent, s);
@@ -67,6 +70,8 @@ public class WaiterGui extends RoleGui {
 		
     	//xDestination = xPos;
         this.agent = agent;
+        xDestination = xPos;
+		yDestination = yPos;
     }
 
 
