@@ -22,8 +22,6 @@ import trace.AlertTag;
 
 
 public class Restaurant5 extends Restaurant {
-
-
 	//create roles
 	Host host = new HostRole();
 	Cashier cashier = new CashierRole();
