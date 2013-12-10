@@ -21,6 +21,7 @@ import simcity.CityClock;
 import simcity.PersonAgent;
 import simcity.PersonGui;
 import simcity.TheCity;
+//import simcity.TheCity;
 import simcity.Home.Home;
 import simcity.Market.MarketCustomerRole;
 import simcity.Market.MarketGui.MarketAnimationPanel;
@@ -208,7 +209,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 				
 			//setting Transportation
 			//newPerson.setPreferredTransportation(transportation.getSelectedItem().toString());
-
+			
 
 			//set home
 			if(CityClock.getPeople().size() < 1)

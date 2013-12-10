@@ -1,11 +1,11 @@
 package simcity.restaurants.restaurant3.gui;
 
 import simcity.bank.Bank;
-import simcity.TheCity;
 import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant3.*;
 import simcity.PersonAgent;
 import simcity.Robot;
+import simcity.TheCity;
 import Gui.MainScreen;
 import Gui.RoleGui;
 import Gui.Screen;

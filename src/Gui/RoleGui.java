@@ -55,6 +55,7 @@ public class RoleGui {
 
 	public RoleGui(Role r, Screen meScreen) {
 		// TODO Auto-generated constructor stub
+		current = south1;
 		homeScreen = meScreen;
 	}
 

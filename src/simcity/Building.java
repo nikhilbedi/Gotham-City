@@ -172,7 +172,7 @@ public class Building {
 		}
 	}
 	
-	public Vector<String> getStockItems(){
+	public Vector<Item> getStockItems(){
 		return null;//menu.returnList();
 	}
 	

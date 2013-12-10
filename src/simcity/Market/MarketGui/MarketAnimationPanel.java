@@ -50,9 +50,9 @@ public class MarketAnimationPanel extends Screen {
     public MarketCustomerRole marketCustomer3 = new MarketCustomerRole(agentCust3);
     public MarketCustomerGui customerGui3 = new MarketCustomerGui(marketCustomer3);*/
     
-    List <Market> m = TheCity.getMarketList();
+  /*  List <Market> m = TheCity.getMarketList();
     
-    public Market market = m.get(0);
+    public Market market = m.get(0);*/
     
   //  private BufferedImage image = ImageIO.read("shop.png"); 
     public MarketAnimationPanel() {
@@ -61,9 +61,9 @@ public class MarketAnimationPanel extends Screen {
     }
 
 
-    public Market  getMarket (){
+  /*  public Market  getMarket (){
     	return market;
-    }
+    }*/
     
 
     @Override

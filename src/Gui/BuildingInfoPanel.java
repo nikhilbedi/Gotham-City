@@ -7,17 +7,22 @@ import java.util.List;
 import java.util.Vector;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import simcity.Building;
+import simcity.Item;
 import simcity.bank.Bank;
 import trace.AlertLog;
 import trace.AlertTag;
 
 
-public class BuildingInfoPanel extends JPanel{
+public class BuildingInfoPanel extends JPanel implements ChangeListener{
 	List<JLabel> info;
 	List<JSpinner> updators;
 	JSpinner spinner;
+	
+	
 	public BuildingInfoPanel(){
 		setBackground(Color.orange);
 		
@@ -33,14 +38,14 @@ public class BuildingInfoPanel extends JPanel{
 		update();
 	}
 	
-	public void addField(String s){
+	public void addField(String s, int num){
 		JPanel c = new JPanel();
 		c.setPreferredSize(new Dimension(200,40));
 		c.setMaximumSize(new Dimension(200,40));
 		c.setBackground(Color.orange);
 		c.setVisible(true);
 		JLabel l = new JLabel(s);
-		JSpinner spinner = new JSpinner(new SpinnerNumberModel(50, 0, 100, 1));
+		JSpinner spinner = new JSpinner(new SpinnerNumberModel(num, 0, 100, 1));
 		l.setLabelFor(spinner);
 		c.add(l);
 		c.add(spinner);
@@ -48,17 +53,18 @@ public class BuildingInfoPanel extends JPanel{
 	}
 	
 	public void getUpdators(Building b){
-		Vector<String> spinnerNames = b.getStockItems();
-		System.err.println("This is a test name is " + b.getName());
+		Vector<Item> spinnerItems = b.getStockItems();
 		if(b.getName().equalsIgnoreCase("Bank")){
 			AlertLog.getInstance().logInfo(AlertTag.GUI, "BuildingInfoPanel", "In bank check");
 			add(new JButton("Robbberyy"));
 		}
-		if(spinnerNames == null){
+		if(spinnerItems == null){
+			AlertLog.getInstance().logInfo(AlertTag.GUI, "BuildingInfoPanel", "Getupdatators called on invalid instance of Building");
 			return;
 		}
-		for(int i=0; i < spinnerNames.size(); i++){
-			addField(spinnerNames.get(i));
+		for(int i=0; i < spinnerItems.size(); i++){
+			Item temp = spinnerItems.get(i);
+			addField(temp.getName(), temp.getAmount());
 		}
 		
 	}
@@ -76,6 +82,12 @@ public class BuildingInfoPanel extends JPanel{
 			info.add(new JLabel(s));
 		}
 		update();
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent arg0) {
+		// TODO Auto-generated method stub
+		//here's where we detect a change?
 	}
 
 }

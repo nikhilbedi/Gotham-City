@@ -5,6 +5,9 @@ import java.awt.event.*;
 
 import javax.swing.*;
 
+import trace.AlertLog;
+import trace.AlertTag;
+
 import java.awt.event.*;
 import java.awt.image.*;
 import java.util.*;
@@ -29,8 +32,14 @@ public class Screen
 	}
 
 	public void addGui(RoleGui g1){
-		synchronized(guis){
-			guis.add(g1);
+		if(g1 == null){
+			AlertLog.getInstance().logInfo(AlertTag.GUI, "Screen",
+					"This gui is null");
+		}
+		else{
+			synchronized(guis){
+				guis.add(g1);
+			}
 		}
 	}
 
@@ -51,7 +60,11 @@ public class Screen
 	public void paintAgents(Graphics g){
 		synchronized(guis) {
 			for (RoleGui gui : guis) {
-				gui.draw(g);
+				if(gui == null){
+					AlertLog.getInstance().logInfo(AlertTag.GUI,
+							"Screen", "null element");
+				}
+				gui.draw(g);	
 			}
 		}
 	}
@@ -99,7 +112,7 @@ public class Screen
 		return "na";
 	}
 
-	
+
 	public List<RoleGui> getGuis(){
 		return guis;
 	}
