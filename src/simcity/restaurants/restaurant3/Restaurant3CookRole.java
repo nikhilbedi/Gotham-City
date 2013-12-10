@@ -21,6 +21,8 @@ import simcity.restaurants.restaurant3.Restaurant3CustomerRole.AgentEvent;
 import simcity.restaurants.restaurant3.gui.CookGui;
 import simcity.restaurants.restaurant3.gui.HostGui;
 import simcity.restaurants.restaurant3.interfaces.*;
+import trace.AlertLog;
+import trace.AlertTag;
 import agent.Agent;
 //import restaurant.WaiterAgent.myCustomer;
 
@@ -103,7 +105,9 @@ public class Restaurant3CookRole extends Role implements Cook{
 	}
 	
 	public void msgHereIsOrder(Order o) {
-		System.out.println("waiter gives " + this.getName() + " an order of from customer" );
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"waiter gives cook an order from customer");
+		//System.out.println("waiter gives " + this.getName() + " an order of from customer" );
 		orders.add(o);
 		o.os = OrderState.pending;
 		stateChanged();
@@ -112,7 +116,9 @@ public class Restaurant3CookRole extends Role implements Cook{
 	}
 
 	public void msgFoodDone(Order o) {
-		System.out.println("The food is done cooking");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				" The food is done cooking");
+		//System.out.println("The food is done cooking");
 		o.os = OrderState.doneCooking;
 		stateChanged();
 	}
@@ -145,7 +151,6 @@ public class Restaurant3CookRole extends Role implements Cook{
 				}
 			}
 			if((needFood == true) && (order == false)){
-				System.err.println("orderfoodthatislow ************");
 				order = true;
 				OrderFoodThatIsLow(neededFood);
 				return true;
@@ -153,7 +158,9 @@ public class Restaurant3CookRole extends Role implements Cook{
 			for (Order o: orders) {
 				if(o.os == OrderState.outOfInventory) {
 					messageWaiterOutOfInventory(o);
-					System.out.println("OUT OF INVENTORY");
+					AlertLog.getInstance().logInfo(AlertTag.REST3,
+							this.getName(), "OUT OF INVENTORY ");
+					//System.out.println("OUT OF INVENTORY");
 					return true;
 				}
 				//	}
@@ -174,7 +181,9 @@ public class Restaurant3CookRole extends Role implements Cook{
 				}
 			}
 			if(RevolvingStand.checkStand()) {
-				print("Order available on stand");
+				AlertLog.getInstance().logInfo(AlertTag.REST3,
+						this.getName(), "Order available on stand ");
+				//print("Order available on stand");
 				goCheckStand();
 				return true;
 			}
@@ -190,14 +199,16 @@ public class Restaurant3CookRole extends Role implements Cook{
 	// Actions
 
 	private void goCheckStand() {
-		print("Checking stand");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"Checking stand ");
+		//print("Checking stand");
 		try {
 			final Order o = RevolvingStand.popOrder();
 			if (o != null) {
 				// process order
 				cookingTimer.schedule(new TimerTask() {
 					public void run() {
-						print("Taking order of stand and preparing to cook");
+						print("Taking order off stand and preparing to cook");
 						orders.add(o);
 						//          cookGui.removeFromStand(temp);
 						//stateChanged();
@@ -212,15 +223,18 @@ public class Restaurant3CookRole extends Role implements Cook{
 	}
 
 	private void messageWaiterOutOfInventory(Order o) {
-		System.out.println("Out of inventory!!");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"Out of inventory!!");
+		//System.out.println("Out of inventory!!");
 		o.os = OrderState.reordering;
 		o.waiter.msgWaiterOutOfFood(o);
 
 	}
 
 	private void plateIt(final Order o) {
-		System.out.println(this.getName() + " is plating the food");
-
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				" cook is plating the food");
+		//System.out.println(this.getName() + " is plating the food");
 		CookGui.cooking = false;
 		CookGui.plating = true;
 		timer.schedule(new TimerTask() {
@@ -242,7 +256,9 @@ public class Restaurant3CookRole extends Role implements Cook{
 			int amount = f.getAmount() - 1;
 			f.setAmount (amount);			
 			//DoCooking(o);
-			System.out.println(this.getName() + " is cooking the food");
+			AlertLog.getInstance().logInfo(AlertTag.REST3,
+					this.getName(), "cook is cooking the food");
+			//System.out.println(this.getName() + " is cooking the food");
 			o.os = OrderState.cooking;
 			CookGui.order = o.choice.getType();
 			CookGui.tableNumber = o.tableNumber;
@@ -305,7 +321,9 @@ public class Restaurant3CookRole extends Role implements Cook{
 
 
 	private void OrderFoodThatIsLow(Map<String, Integer> neededFood) {
-		print("ordering food that is low");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"ordering food that is low");
+		//print("ordering food that is low");
 		//Market m = ((MarketAnimationPanel) ScreenFactory.getMeScreen("Market")).getMarket();
 		//Market m = (Market) ((MarketAnimationPanel) ScreenFactory.getMeScreen("Market")).getMarket();
 		//Market m = (Market) ScreenFactory.getMeScreen("Market")).getMarket();

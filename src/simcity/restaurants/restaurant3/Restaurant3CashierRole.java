@@ -12,6 +12,8 @@ import javax.print.attribute.standard.MediaSize.NA;
 
 import simcity.PersonAgent;
 import simcity.TheCity;
+import trace.AlertLog;
+import trace.AlertTag;
 import Gui.RoleGui;
 import agent.Role;
 import agent.Agent;
@@ -81,14 +83,15 @@ public class Restaurant3CashierRole extends Role implements Cashier {
 	}
 	
 	public void amountDue(double a, MarketCashier c){
-		System.err.println(" Amount Due: "+ a);
         payments.add(new Payment(c, a));
         stateChanged();
 }
 	
 	// Messages
 	public void msgRequestCheck(Customer cust, Order o) {
-		System.out.println("Waiter needs the check from the cashier for his/her customer");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"Waiter needs the check from the cashier for his/her customer ");
+		//System.out.println("Waiter needs the check from the cashier for his/her customer");
 		orders.add(o);
 		o.os = OrderState.requestCheck;
 		
@@ -96,8 +99,9 @@ public class Restaurant3CashierRole extends Role implements Cashier {
 	}
 	
 	public void msgCustomerPayingCheck(Order o) {
-		
-		System.out.println("The Customer is paying the check");
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"The Customer is paying the check");
+		//System.out.println("The Customer is paying the check");
 		o.os = OrderState.paying;
 		
 		stateChanged();
@@ -183,7 +187,9 @@ public class Restaurant3CashierRole extends Role implements Cashier {
         
 	}
 	private  void calculate(Order o) {
-		System.out.println("calculating order");
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"calculating order");
+		//System.out.println("calculating order");
 		
 		// check if in owed list
 		if (owed.get(o.customer) != null) {
