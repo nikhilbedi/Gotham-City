@@ -106,10 +106,15 @@ public class Restaurant1CustomerRole extends Role implements Customer {
 		//cashier = (CashierRole) myPerson.currentPreference.getCashier();
 		//host = (Role)((Restaurant1) TheCity.getBuildingFromString("Restaurant 1")).getHost());
 		host = (HostRole) ((Restaurant1)TheCity.getBuildingFromString("Restaurant 1")).getHost();
-		if(host.checkWorkStatus())
+		if(host.checkWorkStatus()) {
+			print("The host at rest 1 exists, so i will stay");
 			gotHungry();
-		else
+			
+		}
+		else {
+			print("The host at rest 1 is off work, so i will leave");
 			myPerson.leftBuilding(this);
+		}
 	}
 	
 	/**

@@ -344,14 +344,14 @@ public class PersonAgent extends Agent implements Person {
 			print("The day of the week is " + dayState.name());
 		}
 
-		if (hungerCount > 11 && hungerState != HungerState.Starving
+		if (hungerCount > 15 && hungerState != HungerState.Starving
 				&& hungerState != HungerState.FeedingHunger) {
 			hungerState = HungerState.Starving;
-		} else if (hungerCount > 7 && hungerState != HungerState.Hungry
+		} else if (hungerCount > 10 && hungerState != HungerState.Hungry
 				&& hungerState != HungerState.FeedingHunger
 				&& hungerState != HungerState.Starving) {
 			hungerState = HungerState.Hungry;
-		} else if (hungerCount > 3 && hungerState != HungerState.Famished
+		} else if (hungerCount > 5 && hungerState != HungerState.Famished
 				&& hungerState != HungerState.FeedingHunger
 				&& hungerState != HungerState.Starving
 				&& hungerState != HungerState.Hungry) {
@@ -429,6 +429,30 @@ public class PersonAgent extends Agent implements Person {
 		role.getGui().getHomeScreen().removeGui(role.getGui());
 		gui.getHomeScreen().addGui(gui);
 		roles.remove(role);
+		stateChanged();
+	}
+	
+	//TODO Might just make this a message 
+	public void leaveWork(Role role) {
+		// Upon leaving work, person gains set amount of money in his wallet
+		money += 100; //20 dollar wage * hours worked
+		print("leaving work now.");
+
+		checkPersonScheduler = true;
+		gui.getHomeScreen().addGui(gui);
+		roles.remove(role);
+		
+		// Going home is not a critical section
+		//gui.getHomeScreen().addGui(gui);
+	//	gui.DoGoToLocation(myHome.getEntranceLocation());
+
+		myJob.state = JobState.OffWork;
+
+		//checkPersonScheduler = true;
+		if(myJob.role.getPersonAgent() == this){
+			myJob.role.setActive(false);
+			myJob.role.getGui().getHomeScreen().removeGui(myJob.role.getGui());
+		}
 		stateChanged();
 	}
 
@@ -514,6 +538,7 @@ public class PersonAgent extends Agent implements Person {
 		// Person Scheduler
 
 		if (checkPersonScheduler) {
+			print("person sched");
 			//Time to leave, yo.
 			if (myJob != null) {
 				if (myJob.state == JobState.TimeToLeave) {
@@ -522,27 +547,21 @@ public class PersonAgent extends Agent implements Person {
 					return true;
 				}
 			//Clockin' out, yo.
-				if (myJob.state == JobState.LeaveWork) {
+		/*		if (myJob.state == JobState.LeaveWork) {
 					myJob.state = JobState.LeavingWork;
 					leaveWork();
 					return true;
-				}
+				}*/
 			}
 			
 			// if the man has groceries in his hand, let him take them home!
 
-			// print("person sched");
 			
 
-			if (marketState == MarketState.TakeGroceriesHome) {
-				marketState = MarketState.TakingGroceriesHome;
-				goToHome();
-				return true;
-			}
 
 			// If he's CRRAAAZZY hungry, then eat something first. Then do
 			// checks of eating at home versus the restaurant
-			if (hungerState == HungerState.Starving
+			/*if (hungerState == HungerState.Starving
 					&& marketState != MarketState.GetGroceries
 					&& marketState != MarketState.GettingGroceries) {
 				if (moneyState == MoneyState.Low) {
@@ -550,11 +569,12 @@ public class PersonAgent extends Agent implements Person {
 					goToHome();
 					return true;
 				} else {
+					print("checking to see if im going to the restaurant as a customer");
 					hungerState = HungerState.FeedingHunger;
 					goEatAtRestaurant();
 					return true;
 				}
-			}
+			}*/
 
 			// Work comes first--his family probably doesn't like this :/
 			if (myJob != null) {
@@ -563,6 +583,12 @@ public class PersonAgent extends Agent implements Person {
 					goToWork();
 					return true;
 				}
+			}
+			
+			if (marketState == MarketState.TakeGroceriesHome) {
+				marketState = MarketState.TakingGroceriesHome;
+				goToHome();
+				return true;
 			}
 
 			// if he's REALLY hungry, then eat something before paying bills.
@@ -573,6 +599,7 @@ public class PersonAgent extends Agent implements Person {
 					goToHome();
 					return true;
 				} else {
+					print("checking to see if im going to the restaurant as a customer");
 					hungerState = HungerState.FeedingHunger;
 					goEatAtRestaurant();
 					return true;
@@ -605,6 +632,7 @@ public class PersonAgent extends Agent implements Person {
 					goToHome();
 					return true;
 				} else {
+					print("checking to see if im going to the restaurant as a customer");
 					hungerState = HungerState.FeedingHunger;
 					goEatAtRestaurant();
 					return true;
@@ -687,29 +715,10 @@ public class PersonAgent extends Agent implements Person {
 	}
 	
 	private void tellRoleToLeaveWork() {
+		print("Telling role to leave work");
 		myJob.role.setWorkStatus(false);
 		myJob.role.getReadyToLeave(this);
 		checkPersonScheduler = false;
-	}
-
-	private void leaveWork() {
-		// Upon leaving work, person gains set amount of money in his wallet
-		money += 100; //20 dollar wage * hours worked
-		print("leaving work now.");
-
-		// Going home is not a critical section
-		gui.getHomeScreen().addGui(gui);
-		gui.DoGoToLocation(myHome.getEntranceLocation());
-
-		myJob.state = JobState.OffWork;
-
-		checkPersonScheduler = true;
-		if(myJob.role.getPersonAgent() == this){
-			myJob.role.setActive(false);
-			myJob.role.getGui().getHomeScreen().removeGui(myJob.role.getGui());
-		}
-
-		roles.remove(myJob.role);
 	}
 
 	private void goToHome() {
@@ -824,6 +833,11 @@ public class PersonAgent extends Agent implements Person {
 		currentBuilding = currentPreference;
 		enteringBuilding(restTemp);
 
+		//Need to check if the person was able to 
+		/*for(int i = 0; i < roles.size(); i++) {
+			if(roles.get(i).equals(restTemp));
+				
+		}*/
 		restaurantCounter++;
 		if (restaurantCounter > 4)
 			restaurantCounter = 0;

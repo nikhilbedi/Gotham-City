@@ -194,8 +194,10 @@ public class HostRole extends Role implements Host {
 		/**
 	a table becomes free and a waiter is known
 		 */
+		print("host sched");
 		//leave cuz work is over
 		if(theManLeavingMe != null) {
+			print("host wants to leave work");
 			leaveWork();
 			return true;
 		}
@@ -264,7 +266,8 @@ public class HostRole extends Role implements Host {
 
 	// Actions
 	private void leaveWork() {
-		theManLeavingMe.leftBuilding(this);
+		//theManLeavingMe.leftBuilding(this);
+		theManLeavingMe.leaveWork(this);
 		theManLeavingMe = null;
 	}
 	
