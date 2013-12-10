@@ -1,7 +1,9 @@
 package simcity.bank.test.mock;
 
+import simcity.bank.BankDatabase;
 import simcity.bank.BankTransaction;
 import simcity.bank.interfaces.BankCustomer;
+import simcity.bank.interfaces.BankGreeter;
 import simcity.bank.interfaces.BankRobber;
 import simcity.bank.interfaces.BankTeller;
 
@@ -50,6 +52,18 @@ public class MockBankTeller extends Mock implements BankTeller{
 
 	@Override
 	public void msgDoneAndLeaving(BankRobber bankRobber) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setGreeter(BankGreeter greeter) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setBankDatabase(BankDatabase db) {
 		// TODO Auto-generated method stub
 		
 	}

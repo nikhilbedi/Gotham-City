@@ -62,22 +62,31 @@ public class MainScreen extends Screen{
  				//	g.drawImage(currentIm2.getImage(), x*20, y*20, null);
  				//}
 
- 					if(grid[x][y] == 'E')
- 						g.setColor(Color.white);
- 					else if(grid[x][y] == 'R') {
- 						g.setColor(Color.red);
+ 					//if(grid[x][y] == 'E')
+ 						//g.setColor(Color.white);
+ 					if(grid[x][y] == 'R') {
+ 						g.setColor(Color.black);
+ 						g.fillRect(x*20, y*20, 20, 20);
  					}
  					//g.setColor(Color.red);
- 					else if(grid[x][y] == 'P')
- 						g.setColor(Color.green);
- 					else if(grid[x][y] == 'S')
+ 					//else if(grid[x][y] == 'P') {
+ 					//	g.setColor(Color.green);
+ 					//	g.fillRect(x*20, y*20, 20, 20);
+ 					//}
+ 					else if(grid[x][y] == 'S') {
  						g.setColor(Color.gray);
- 					else if(grid[x][y] == 'I')
- 						g.setColor(Color.magenta);
- 					else if(grid[x][y] == 'B')
+ 						g.fillRect(x*20, y*20, 20, 20);
+ 					}
+ 					else if(grid[x][y] == 'I') {
+ 						g.setColor(Color.white);
+ 						g.fillRect(x*20, y*20, 20, 20);
+ 					}
+ 					else if(grid[x][y] == 'B') {
  						g.setColor(Color.cyan);
+ 						g.fillRect(x*20, y*20, 20, 20);
+ 					}
 
- 					g.fillRect(x*20, y*20, 40, 40);
+ 					
  				}
 		
 		for(Building b : buildings){
