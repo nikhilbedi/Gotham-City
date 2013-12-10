@@ -523,11 +523,11 @@ public class PersonAgent extends Agent implements Person {
 		// Person Scheduler
 
 		if (checkPersonScheduler) {
-			/*if(true){
+			if(true){
 				//currentPreference = restaurants.get(0);
 				goToWork();
 				return true;
-			}*/
+			}
 			//Time to leave, yo.
 			if (myJob != null) {
 				if (myJob.state == JobState.TimeToLeave) {

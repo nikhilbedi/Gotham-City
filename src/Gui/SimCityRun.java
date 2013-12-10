@@ -1,6 +1,8 @@
 package Gui;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
@@ -39,84 +41,103 @@ public class SimCityRun extends JFrame implements ActionListener
 	SimCityPanel cityPanel;
 	PersonSelectionPane peopleList;
 	BuildingInfoPanel buildingPanel;
+	BuildingControlPanel buildingControl;
+	public TracePanel tracePanel;
+	CityTabbedPane tabs;
+
 
 	public JButton newPersonButton;
 
 	NewPersonWindow npWindow;
 
+	JPanel animation;
+	JPanel ui;
+
 	public SimCityRun()
 	{
 		super("Team 31 Sim City");
 		//This sets up the frame of the animation window
-		//setSize(1000, 800);
-		setSize(1400, 1000);
+		setSize(1400, 850);
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
+
+		//This creates and sets the menu bar
 		CityMenuBar demo = new CityMenuBar();
-        setJMenuBar(demo);
-        
-		
-		setLayout(new BoxLayout((Container)this.getContentPane(), BoxLayout.Y_AXIS));
+		setJMenuBar(demo);
 
-		dataPanel = new JPanel();
-		dataPanel.setLayout(new BoxLayout(dataPanel, BoxLayout.X_AXIS));
+		//
+		BoxLayout aniLayout = new BoxLayout( animation, BoxLayout.Y_AXIS);
+		//uiLayout = new (animation, BoxLayout.X_AXIS);
 
-		//Set information for dataPane, personSelectionPane, and buildingPanel
+		setLayout(new BoxLayout((Container)this.getContentPane(), BoxLayout.X_AXIS));
+
+		//Create animation components
+		animation = new JPanel();
+		animation.setPreferredSize(new Dimension(1000, 800));
+		//animation.setMaximumSize(new Dimension(800, 800));
+		animation.setMinimumSize(new Dimension(1000, 800));
+		//animation.setLayout(aniLayout);
+
+		animation.add(TheCity.bar);//Adds clock gui
+
+
 		cityPanel = new SimCityPanel();
-		buildingPanel  = new BuildingInfoPanel();
-		buildingPanel.setVisible(false);
-		peopleList = new PersonSelectionPane(cityPanel);
+		animation.add(cityPanel);
+		//add animation
+		add(animation);
 
+		//Create UI
+		tabs = new CityTabbedPane();
+
+		//Info tab
+		buildingPanel  = new BuildingInfoPanel();
+		tabs.addPanel(buildingPanel, "Info");
+
+		//Buildings tab
+		buildingControl = new BuildingControlPanel();
+		tabs.addPanel(buildingControl, "Buildings");
+
+		//People tab
+		JPanel infoControl = new JPanel();
+		infoControl.setLayout(new BoxLayout(infoControl, BoxLayout.Y_AXIS));
+		peopleList = new PersonSelectionPane(cityPanel);
+		InfoPanel info = new InfoPanel();
+		peopleList.setInfoPanel(info);
+		infoControl.add(peopleList);
+		infoControl.add(info);
+		tabs.addPanel(infoControl, "People");
+
+		//Debug tab
+		JPanel debugPanel = new JPanel();
+		debugPanel.setLayout(new BoxLayout(debugPanel, BoxLayout.Y_AXIS));
+		tracePanel = new TracePanel();
+		tracePanel.showAlertsForAllLevels();
+		tracePanel.showAlertsForAllTags();
+		debugPanel.add(tracePanel);
+		debugPanel.add(new CityControlPanel(this));
+		tabs.addPanel(debugPanel, "Debug");
+
+
+		//add UI
+		add(tabs);
+
+		//setting info for the panel
 		cityPanel.setBuildingInfo(buildingPanel);
 		cityPanel.setSelPane(peopleList);
 
-		dataPanel.add(new BuildingControlPanel());
-		dataPanel.add(buildingPanel);	
-		dataPanel.add(cityPanel);
-		dataPanel.add(peopleList);
 
-		//set information for infoPanel
-		InfoPanel info = new InfoPanel();
-		peopleList.setInfoPanel(info);
-		add(TheCity.bar);//Adds clock gui
-		add(dataPanel);
-		add(info);
-		
-		TracePanel tracePanel = new TracePanel();
-		tracePanel.showAlertsForAllLevels();
-		tracePanel.showAlertsForAllTags();
-		add(tracePanel);
 		setVisible(true);
-
 
 		cityPanel.go();//starts the animation in the panel
 
-
-		/*try {
-	         // Open an audio input stream.
-	         URL url = this.getClass().getClassLoader().getResource("gameover.wav");
-	         AudioInputStream audioIn = AudioSystem.getAudioInputStream(url);
-	         // Get a sound clip resource.
-	         Clip clip = AudioSystem.getClip();
-	         // Open audio clip and load samples from the audio input stream.
-	         clip.open(audioIn);
-	         clip.start();
-	      } catch (UnsupportedAudioFileException e) {
-	         e.printStackTrace();
-	      } catch (IOException e) {
-	         e.printStackTrace();
-	      } catch (LineUnavailableException e) {
-	         e.printStackTrace();
-	      } */
-
-
 	}
+
 
 	public static void main(String[] args)
 	{
 		//Sample reading an XML file
-		
-		//XMLHelper.createPeople("sampleXML.xml"); //Commented out until the xml positioning is fixed (Homeless shelter?)
+
+		XMLHelper.createPeople("sampleXML.xml");
 
 		//THE BIG BANG
 		CityClock.startTime();

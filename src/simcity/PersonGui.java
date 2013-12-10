@@ -271,10 +271,10 @@ public class PersonGui extends RoleGui {
 		else if (agent.transportationState == TransportationState.Walking){
 			System.out.println("Walking");
 			tempStill = true;
-			//finalX = destination.getX();
-			//finalY = destination.getY()
-			xDestination = destination.getX();
-			yDestination = destination.getY();
+			finalX = destination.getX()/20;
+			finalY = destination.getY()/20;
+			//xDestination = destination.getX();
+			//yDestination = destination.getY();
 			command = "GoingToLocation";
 			
 			guiMoveFromCurrentPositionTo(xPos/20, yPos/20);
@@ -325,6 +325,7 @@ public class PersonGui extends RoleGui {
 	
 	void guiMoveFromCurrentPositionTo(final int x, final int y){ // Brice - Method for traveling along the grid within the City Screen
 	 	if(finalX == x && finalY == y) {
+	 		reachedBuilding();
 	 		System.out.println("AT PLACE");
 	 		grid[x][y] = prevTile;
 	 		return;
