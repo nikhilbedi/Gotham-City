@@ -162,6 +162,10 @@ public class HostRole extends Role implements Host {
             so that table is unoccupied and customer is waiting.
             If so seat him at the table.
 		 */
+		if(theManLeavingMe != null && customers.isEmpty()) {
+			leaveWork();
+			return true;
+		}
 		
 		if (waiters.size() == 0){
 			return true;

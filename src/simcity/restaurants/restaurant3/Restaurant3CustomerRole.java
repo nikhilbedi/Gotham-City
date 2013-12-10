@@ -1,6 +1,7 @@
 package simcity.restaurants.restaurant3;
 
 import simcity.PersonAgent;
+import simcity.TheCity;
 import simcity.Home.ResidentRole.HomeEvent;
 import simcity.bank.test.mock.LoggedEvent;
 import simcity.restaurants.restaurant3.*;
@@ -108,9 +109,17 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 	
     public void startBuildingMessaging(){
             //Set host and cashier
-            host = (HostRole) myPerson.currentPreference.getHost();
+        /*    host = (HostRole) myPerson.currentPreference.getHost();
             cashier = (Restaurant3CashierRole) myPerson.currentPreference.getCashier();
-            gotHungry();
+            gotHungry();*/
+		host = (HostRole) ((Restaurant3)TheCity.getBuildingFromString("Restaurant 3")).getHost();
+		cashier = (Restaurant3CashierRole) ((Restaurant3)TheCity.getBuildingFromString("Restaurant 3")).getCashier();
+		if(((HostRole) host).checkWorkStatus() && ((Restaurant3CashierRole) cashier).checkWorkStatus()) {
+			gotHungry();
+		}
+		else {
+			myPerson.leftBuilding(this);
+		}
     }
 
 	public void gotHungry() {//from animation

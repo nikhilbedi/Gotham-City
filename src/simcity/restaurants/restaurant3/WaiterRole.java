@@ -224,6 +224,10 @@ public class WaiterRole extends Role implements Waiter{
 	  //if there is c in customers where c.state == waiting, then seatCustomer(c);
 	public boolean pickAndExecuteAnAction() {
 		
+		if(theManLeavingMe != null && customers.isEmpty()){
+			leaveWork();
+			return true;
+		}
 		//if (ws == waiterState.available) {
 		try {
 			

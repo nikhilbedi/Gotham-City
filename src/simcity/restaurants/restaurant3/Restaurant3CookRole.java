@@ -139,7 +139,10 @@ public class Restaurant3CookRole extends Role implements Cook{
 	 */
 
 	public boolean pickAndExecuteAnAction() {
-		
+		if(theManLeavingMe != null && orders.isEmpty()){
+			leaveWork();
+			return true;
+		}
 		
 		try {
 			for (Map.Entry<String, Food> entry: foods.entrySet()){
