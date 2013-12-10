@@ -126,7 +126,7 @@ public class SimCityRun extends JFrame implements ActionListener
 		//setting info for the panel
 		cityPanel.setBuildingInfo(buildingPanel);
 		cityPanel.setSelPane(peopleList);
-
+		cityPanel.setBCP(buildingControl);
 
 		setVisible(true);
 
@@ -140,7 +140,8 @@ public class SimCityRun extends JFrame implements ActionListener
 		//Sample reading an XML file
 		//XMLHelper.createPeople("sampleXML.xml");
 		//XMLHelper.createPeople("Restaurant2.xml");
-		XMLHelper.createPeople("bank.xml");
+		XMLHelper.createPeople("FullCity.xml");
+
 
 		//THE BIG BANG
 		CityClock.startTime();

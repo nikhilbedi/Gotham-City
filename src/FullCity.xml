@@ -500,7 +500,7 @@
 
 
 
-<!--Restaurant 4 -->
+	<!--Restaurant 4 -->
 	<person name="Rest4BatmanWaiter1">
 
 		<!-- Beginning amount of money -->
@@ -667,7 +667,7 @@
 
 
 
-<!--Restaurant 5 -->
+	<!--Restaurant 5 -->
 	<person name="Rest5BatmanWaiter1">
 
 		<!-- Beginning amount of money -->
@@ -822,6 +822,148 @@
 		<job>
 			<building>Restaurant 5</building>
 			<position>Cashier</position>
+			<shift>2</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+
+
+
+
+
+
+	<!--Bank -->
+	<person name="BatmanBankGreeter1">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Bank</building>
+			<position>bankGreeter</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="BatmanBankTeller1">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Bank</building>
+			<position>bankTeller</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="BatmanBankGreeter2">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Bank</building>
+			<position>bankGreeter</position>
+			<shift>2</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="BatmanBankTeller2">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Bank</building>
+			<position>bankTeller</position>
+			<shift>2</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+
+
+
+
+
+
+	<!--Market -->
+	<person name="BatmanMarketCashier1">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Market</building>
+			<position>marketCashier</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="BatmanMarketWorker1">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Market</building>
+			<position>marketWorker</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="BatmanMarketCashier2">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Market</building>
+			<position>marketCashier</position>
+			<shift>2</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="BatmanMarketWorker2">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Market</building>
+			<position>marketWorker</position>
 			<shift>2</shift>
 		</job>
 

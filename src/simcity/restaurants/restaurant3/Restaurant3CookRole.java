@@ -24,6 +24,7 @@ import simcity.restaurants.restaurant3.interfaces.*;
 import trace.AlertLog;
 import trace.AlertTag;
 import agent.Agent;
+import simcity.Item;
 //import restaurant.WaiterAgent.myCustomer;
 
 /**
@@ -100,6 +101,25 @@ public class Restaurant3CookRole extends Role implements Cook{
 
 
 	// Messages
+	 public Vector<Item> getInventory(){
+         Vector<Item> inventory = new Vector<Item>();
+         for (Map.Entry<String, Food> f : foods.entrySet())//check food amount
+         {
+                 inventory.add(new Item(f.getKey(), f.getValue().amount));
+                 /*AlertLog.getInstance().logInfo(AlertTag.GUI, "CookRole",
+                                 "Key: " + f.getKey() + " Value: " + f.getValue());*/
+         }
+         AlertLog.getInstance().logInfo(AlertTag.GUI, "CookRole",
+                         inventory.toString());
+         return inventory;
+	 }
+ 
+	public void updateItem(String s, int hashCode) {
+         // TODO Auto-generated method stub
+         Food f = foods.get(s);
+         foods.get(s).amount = hashCode;
+	}
+	
 	public void orderIsOnStand() {
 		stateChanged();
 	}

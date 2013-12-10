@@ -23,7 +23,7 @@ import java.awt.*;
 
       PersonSelectionPane selPane;
 	  BuildingInfoPanel buildingInfo;
-
+	  BuildingControlPanel bcp;
 
 	  int clk = 0;
 	  boolean start;
@@ -161,6 +161,7 @@ import java.awt.*;
 		// TODO Auto-generated method stub
 		clk++;
 		if(clk == 100){
+		bcp.refresh();
 		selPane.refresh();
 		buildingInfo.refresh();
 		clk = 0;
@@ -298,6 +299,11 @@ import java.awt.*;
 		if (key == 27){
 			checkMapChange(26, 51);
 		}//&&player.lChange)
+	}
+
+	public void setBCP(BuildingControlPanel buildingControl) {
+		bcp = buildingControl;
+		
 	}
    }
 

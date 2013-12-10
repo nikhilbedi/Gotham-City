@@ -10,12 +10,13 @@ import java.util.concurrent.Semaphore;
 import simcity.PersonAgent;
 import Gui.RoleGui;
 import agent.Role;
-
 import simcity.restaurants.restaurant3.Restaurant3CookRole;
 import simcity.restaurants.restaurant3.HostRole;
 import simcity.restaurants.restaurant3.Order.OrderState;
 import simcity.restaurants.restaurant3.gui.*;
 import simcity.restaurants.restaurant3.interfaces.*;
+import trace.AlertLog;
+import trace.AlertTag;
 import agent.Agent;
 
 /**
@@ -110,12 +111,17 @@ public class WaiterRole extends Role implements Waiter{
 	}*/
 	
 	public void msgSitAtTable(Customer c, int table) {
-		System.out.println("The host tells " + this.getName() + " to seat the customer at table " + table);
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"The host tells " + this.getName() + " to seat the customer at table " + table);
+		
+		//System.out.println("The host tells " + this.getName() + " to seat the customer at table " + table);
 		customers.add(new myCustomer(c, table, customerState.waiting, null));//potential null pointer
 		stateChanged();
 	}
 	public void msgReadyToOrder(Customer cust) {
-		System.out.println("customer tells " + this.getName() + " he/she is ready to order;");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"customer tells " + this.getName() + " he/she is ready to order");
+		//System.out.println("customer tells " + this.getName() + " he/she is ready to order;");
 		for (myCustomer c: customers) {
 			if(c.c.equals(cust)) {
 				c.cs = customerState.readyToOrder;
@@ -139,7 +145,9 @@ public class WaiterRole extends Role implements Waiter{
 		}
 	}
 	public void msgWaiterOutOfFood(Order o){
-		System.out.println("Waiter received message that it is out of that food");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"Waiter received message that it is out of that food");
+		//System.out.println("Waiter received message that it is out of that food");
 		for(myCustomer c: customers) {
 			if(c.order == o) {
 				c.cs = customerState.reordering;
@@ -149,7 +157,9 @@ public class WaiterRole extends Role implements Waiter{
 		}
 	}
 	public void msgOrderIsReady(Order order) { //message from cook
-		System.out.println(cook.getName() + " tells " + this.getName() + " that the food is ready for table " + order.tableNumber);
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				cook.getName() + " tells " + this.getName() + " that the food is ready for table " + order.tableNumber);
+		//System.out.println(cook.getName() + " tells " + this.getName() + " that the food is ready for table " + order.tableNumber);
 		CookGui.plating = false;
 		for(myCustomer c: customers) {
 			if(c.order == order) {
@@ -173,7 +183,9 @@ public class WaiterRole extends Role implements Waiter{
 		}
 	}
 	public void msgWaiterHereIsCheck(Order o){ //message from cashier
-		System.out.println("Here is your check");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"Here is your check");
+		//System.out.println("Here is your check");
 		for(myCustomer mc: customers) {
 			if(o.customer == mc.c){//
 				mc.cs = customerState.waitingForCheckToBeDelivered;
@@ -194,7 +206,7 @@ public class WaiterRole extends Role implements Waiter{
 	}
 
 	public void msgAtTable() {//from animation
-		System.out.println("msgAtTable() called");
+		//System.out.println("msgAtTable() called");
 		atTable.release();// = true;
 		stateChanged();
 	}
@@ -330,7 +342,9 @@ public class WaiterRole extends Role implements Waiter{
 	
 
 	private void seatCustomer(myCustomer c) {
-		System.out.println("seatCustomer action");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"seating customer");
+		//System.out.println("seatCustomer action");
 		waiterGui.DoGoToHost();
 		//customer.msgSitAtTable(table.tableNumber);
 		//DoSeatCustomer(customer, table);
@@ -342,7 +356,9 @@ public class WaiterRole extends Role implements Waiter{
 			e.printStackTrace();
 		}
 		c.c.msgFollowMeToTable(this.menu, c.table);//new Menu());
-		System.out.println("Follow Me to your table.");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"Follow me to your table");
+		//System.out.println("Follow Me to your table.");
 		DoSeatCustomer(this, c.c, c.table);
 	
 		//table.setOccupant(customer);
@@ -360,7 +376,9 @@ public class WaiterRole extends Role implements Waiter{
 	}
 	
 	private void takeOrder(myCustomer cust) {
-		System.out.println("Taking order");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"taking order");
+		//System.out.println("Taking order");
 		waiterGui.DoGoToTable(cust.table);
 		try {
 			atTable.acquire();
@@ -375,7 +393,9 @@ public class WaiterRole extends Role implements Waiter{
 
 	
 	private void deliverOrderToCook(myCustomer cust) {
-		System.out.println("Delivering order to cook");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"delivering order to cook");
+		//System.out.println("Delivering order to cook");
 		waiterGui.DoGoToCook();
 		Order myOrder = new Order(this, cust.choice, cust.table, OrderState.pending, cust.c);
 		//cust.c.order = myOrder;
@@ -392,7 +412,9 @@ public class WaiterRole extends Role implements Waiter{
 		cust.cs = customerState.waitingForFoodToCook;
 	}
 	private void deliverOrderToCustomer(myCustomer cust) {
-		System.out.println("Delivering order to customer");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"delivering order to customer");
+		//System.out.println("Delivering order to customer");
 		
 		waiterGui.DoGoToCook();
 		try {
@@ -419,7 +441,9 @@ public class WaiterRole extends Role implements Waiter{
 		//atTable.release();
 	}
 	private void obtainCheck(myCustomer mc) {
-		System.out.println("obtaining check from cashier");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"obtaining check from cashier");
+		//System.out.println("obtaining check from cashier");
 		waiterGui.DoGoToCashier();
 		try {
 			atCashier.acquire();
@@ -433,7 +457,9 @@ public class WaiterRole extends Role implements Waiter{
 	}
 		
 	private void deliverCheckToCustomer(myCustomer mc) {
-		System.out.println("delivering check to customer");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"delivering check to customer");
+		//System.out.println("delivering check to customer");
 		waiterGui.DoGoToCashier();
 		try {
 			atCashier.acquire();
@@ -450,13 +476,12 @@ public class WaiterRole extends Role implements Waiter{
 		//mc.c.msgHereIsYourCheck();
 		mc.cs = customerState.payingCheck;
 		waiterGui.DoLeaveCustomer();
-		
-		
-		
 	}
 	
 	public void alertHostTableIsFree(myCustomer mc) {
-		System.out.println("Alerting host table is free");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"Alerting host table is free");
+		//System.out.println("Alerting host table is free");
 		//waiterGui.doneEating(mc.choice);
 		//waiterGui.DoGoToHost();
 		host.msgTableIsFree(mc.c);
@@ -476,7 +501,9 @@ public class WaiterRole extends Role implements Waiter{
 		*/
 	}
 	private void goOnBreak(WaiterRole w) {
-		System.out.println(w.getName() + " is going on break.");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				w.getName() + " is going on break.");
+		//System.out.println(w.getName() + " is going on break.");
 		waiterGui.DoGoToBreakSpot();
 	}
 
@@ -484,7 +511,9 @@ public class WaiterRole extends Role implements Waiter{
 	private void DoSeatCustomer(WaiterRole w, Customer customer, int table) {
 		//Notice how we System.out.println "customer" directly. It's toString method will do it.
 		//Same with "table"
-		System.out.println(w.getName() + " is seating " + customer + " at " + table);
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"waiter is seating customer at table");
+		//System.out.println(w.getName() + " is seating " + customer + " at " + table);
 		waiterGui.DoGoToTable(table); 
 
 	}

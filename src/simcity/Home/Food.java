@@ -6,27 +6,27 @@ public class Food {
 	private int cookingTime;
 	private int capacity;
 	private int lowThreshold;
-	private int amount;
+	int amount;
 	//OrderState orderState;
 	
 	
 	public Food (String type) {
 		this.type = type;
-		/*
+		
 		if (type.equals("Steak")){
 			cookingTime = 10;
 			//amount = 5;
 			amount = 0;
 			capacity = 6;
 		}
-		*/
-		if (type.equals("Chicken")){
+		
+		else if (type.equals("Chicken")){
 			cookingTime = 8;
 			//amount = 4;
 			amount = 4;
 			capacity = 6;
 		}
-		/*
+		
 		else if (type.equals("Pizza")) {
 			cookingTime = 6;
 			//amount = 3;
@@ -39,7 +39,7 @@ public class Food {
 			amount = 0;
 			capacity = 6;
 		}
-		*/
+		
 		//else if (type.equals("Food")) {
 			
 		//}

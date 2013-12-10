@@ -4,7 +4,7 @@
 <simcity>
 
 	<!--Market -->
-	<person name="BatmanMarketCashier">
+	<person name="BatmanMarketCashier1">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -19,8 +19,8 @@
 		<!-- Transportation preference -->
 		<transportation>walk</transportation>
 	</person>
-	
-	<person name="BatmanMarketWorker">
+
+	<person name="BatmanMarketWorker1">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -30,6 +30,38 @@
 			<building>Market</building>
 			<position>marketWorker</position>
 			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="BatmanMarketCashier2">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Market</building>
+			<position>marketCashier</position>
+			<shift>2</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="BatmanMarketWorker2">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Market</building>
+			<position>marketWorker</position>
+			<shift>2</shift>
 		</job>
 
 		<!-- Transportation preference -->

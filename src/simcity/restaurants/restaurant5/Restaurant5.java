@@ -28,9 +28,9 @@ public class Restaurant5 extends Restaurant {
 	Host host = new HostRole();
 	Cashier cashier = new CashierRole();
 	Waiter waiter1 = new WaiterRole();
-	Waiter waiter2 = new WaiterRole();
+	Waiter waiter2 = new PCWaiterRole();
 	Waiter waiter3 = new WaiterRole();
-	Waiter waiter4 = new WaiterRole();
+	Waiter waiter4 = new PCWaiterRole();
 	Cook cook = new CookRole(); 
 
 
@@ -72,10 +72,11 @@ public class Restaurant5 extends Restaurant {
 
 		((HostRole) host).setGui((RoleGui)hostGui);
 		((CashierRole) cashier).setGui((RoleGui)cashierGui);
-		((WaiterRole) waiter1).setGui((RoleGui)waiterGui1);
-		((WaiterRole) waiter2).setGui((RoleGui)waiterGui2);
-		((WaiterRole) waiter3).setGui((RoleGui)waiterGui3);
-		((WaiterRole) waiter4).setGui((RoleGui)waiterGui4);
+
+		((AbstractWaiterRole) waiter1).setGui((RoleGui)waiterGui1);
+		((AbstractWaiterRole) waiter2).setGui((RoleGui)waiterGui2);
+		((AbstractWaiterRole) waiter3).setGui((RoleGui)waiterGui3);
+		((AbstractWaiterRole) waiter4).setGui((RoleGui)waiterGui4);
 		((CookRole) cook).setGui((RoleGui)cookGui);
 
 		jobRoles.put("Host", (Role)host);
@@ -105,14 +106,14 @@ public class Restaurant5 extends Restaurant {
 		cookPerson.addRole((CookRole)cook);
 		cashierPerson.addRole((CashierRole)cashier);*/
 
-		((WaiterRole)waiter1).setHost(host);
-		((WaiterRole)waiter1).setCook(cook);
-		((WaiterRole)waiter1).setCashier(cashier);
+		((AbstractWaiterRole)waiter1).setHost(host);
+		((AbstractWaiterRole)waiter1).setCook(cook);
+		((AbstractWaiterRole)waiter1).setCashier(cashier);
 		((HostRole)host).addWaiter(waiter1);
 
-		((WaiterRole)waiter2).setHost(host);
-		((WaiterRole)waiter2).setCook(cook);
-		((WaiterRole)waiter2).setCashier(cashier);
+		((PCWaiterRole)waiter2).setHost(host);
+		((PCWaiterRole)waiter2).setCook(cook);
+		((PCWaiterRole)waiter2).setCashier(cashier);
 		((HostRole)host).addWaiter(waiter2);
 		
 		((WaiterRole)waiter3).setHost(host);
@@ -120,9 +121,9 @@ public class Restaurant5 extends Restaurant {
 		((WaiterRole)waiter3).setCashier(cashier);
 		((HostRole)host).addWaiter(waiter3);
 		
-		((WaiterRole)waiter4).setHost(host);
-		((WaiterRole)waiter4).setCook(cook);
-		((WaiterRole)waiter4).setCashier(cashier);
+		((PCWaiterRole)waiter4).setHost(host);
+		((PCWaiterRole)waiter4).setCook(cook);
+		((PCWaiterRole)waiter4).setCashier(cashier);
 		((HostRole)host).addWaiter(waiter4);
 
 		/*		ScreenFactory.getMeScreen("Restaurant 5").addGui(hostGui);
