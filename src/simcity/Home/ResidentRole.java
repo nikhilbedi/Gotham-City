@@ -17,8 +17,10 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Vector;
 
 import simcity.Home.Food;
+import simcity.Item;
 import simcity.PersonAgent;
 import simcity.PersonAgent.HungerState;
 import simcity.PersonAgent.JobState;
@@ -168,6 +170,25 @@ public class ResidentRole extends Role implements Resident {
 	// Messages
 
 	//initial starting message
+	public Vector<Item> getInventory(){
+		 Vector<Item> inventory = new Vector<Item>();
+		 for (Map.Entry<String, Food> f : fridgeFoods.entrySet())//check food amount
+		 {
+			 inventory.add(new Item(f.getKey(), f.getValue().amount));
+		       /*AlertLog.getInstance().logInfo(AlertTag.GUI, "CookRole",
+		           "Key: " + f.getKey() + " Value: " + f.getValue());*/
+		     }
+		     AlertLog.getInstance().logInfo(AlertTag.GUI, "CookRole",
+		         inventory.toString());
+		     return inventory;
+		   }
+		   
+		   public void updateItem(String s, int hashCode) {
+		     // TODO Auto-generated method stub
+		     Food f = fridgeFoods.get(s);
+		     fridgeFoods.get(s).amount = hashCode;
+		   }
+		   
 	public void msgCheckMailbox() {
 		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
 				" check your mailbox for mail");
