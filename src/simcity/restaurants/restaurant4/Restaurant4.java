@@ -55,8 +55,8 @@ public class Restaurant4 extends Restaurant {
 		cook.setGui(cookGui);
 		host.setGui(hostGui);
 		cashier.setGui(cashierGui);
-		setWeekdayHours(6, 6);
-		setWeekendHours(6, 6);
+		setWeekdayHours(2, 24);
+		setWeekendHours(2, 24);
 		Map<String, Role> jobs = Collections.synchronizedMap(new HashMap<String, Role>());
 		jobs.put("Host", host);
 		jobs.put("Cashier", cashier);

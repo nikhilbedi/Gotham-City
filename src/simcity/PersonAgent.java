@@ -182,7 +182,7 @@ public class PersonAgent extends Agent implements Person {
 		//TODO uncomment this one and delete get(0)
 		//currentPreference = r.get(restaurantCounter);
 		currentPreference = r.get(0);
-		currentPreference = (Restaurant)TheCity.getBuildingFromString("Restaurant 5");
+		currentPreference = (Restaurant)TheCity.getBuildingFromString("Restaurant 4");
 		restaurantCounter++;
 	}
 

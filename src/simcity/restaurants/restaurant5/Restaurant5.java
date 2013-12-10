@@ -61,7 +61,7 @@ public class Restaurant5 extends Restaurant {
 		menu = new Menu();
 		
 		setWeekdayHours(9, 17);
-		setWeekendHours(3,24);
+		setWeekendHours(0,0);
 		
 
 		((HostRole) host).setGui((RoleGui)hostGui);
