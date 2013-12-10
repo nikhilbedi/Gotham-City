@@ -23,40 +23,59 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	JButton addRestaurant, addBank;
 
 	//For managing traces
-	JToggleButton enableInfoButton;		//You could (and probably should) substitute a JToggleButton to replace both
+	JButton enableInfoButton;		//You could (and probably should) substitute a JToggleButton to replace both
 	JButton disableInfoButton;		//of these, but I split it into enable and disable for clarity in the demo.
 	JButton enableRestaurantTagButton;		
 	JButton disableRestaurantTagButton;		
 	JButton enableBankTagButton;
 	JButton disableBankTagButton;
 	
+	Dimension size = new Dimension(30,10);
+	
 	String name = "Control Panel";
 
 	public CityControlPanel(SimCityRun city) {
 		this.city = city;
-		//this.setPreferredSize(new Dimension(CP_WIDTH, CP_HEIGHT));
+		this.setPreferredSize(new Dimension(400, 150));
+		this.setMaximumSize(new Dimension(400, 150));
 		this.setVisible(true);
 
 		this.setLayout(new GridLayout(3, 5));
-		
 		//Trace panel buttons
-		enableInfoButton = new JToggleButton("INFO");
+		enableInfoButton = new JButton("Show Field: INFO");
 		enableInfoButton.addActionListener(this);
+		enableInfoButton.setPreferredSize(size);
+		enableInfoButton.setMaximumSize(size);
+		
+		disableInfoButton = new JButton("Hide Field: INFO");
+		disableInfoButton.addActionListener(this);
+		disableInfoButton.setPreferredSize(size);
+		disableInfoButton.setMaximumSize(size);
+		
 		
 		enableRestaurantTagButton = new JButton("Show Tag: RESTAURANT");
 		enableRestaurantTagButton.addActionListener(this);
+		enableRestaurantTagButton.setPreferredSize(size);
+		enableRestaurantTagButton.setMaximumSize(size);
 		
 		disableRestaurantTagButton = new JButton("Hide Tag: RESTAURANT");
 		disableRestaurantTagButton.addActionListener(this);
+		disableRestaurantTagButton.setPreferredSize(size);
+		disableRestaurantTagButton.setMaximumSize(size);
+		
 		enableBankTagButton = new JButton("Show Tag: BANK");
 		enableBankTagButton.addActionListener(this);
+		enableBankTagButton.setPreferredSize(size);
+		enableBankTagButton.setMaximumSize(size);
+		
 		disableBankTagButton = new JButton("Hide Tag: BANK");
 		disableBankTagButton.addActionListener(this);
-		
+		disableBankTagButton.setPreferredSize(size);
+		disableBankTagButton.setMaximumSize(size);
 		//c.gridx = 1; c.gridy = 0;
 		this.add(enableInfoButton);
 		//c.gridx = 1; c.gridy = 1;
-	//	this.add(disableInfoButton);
+	 	this.add(disableInfoButton);
 		//c.gridx = 2; c.gridy = 0;
 		this.add(enableRestaurantTagButton);
 		//c.gridx = 2; c.gridy = 1;
@@ -69,6 +88,9 @@ public class CityControlPanel extends JPanel implements ActionListener{
 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource().equals(enableInfoButton)) {
+			city.tracePanel.showAlertsWithLevel(AlertLevel.INFO);
+		}
+		else if(e.getSource().equals(disableInfoButton)) {
 			city.tracePanel.showAlertsWithLevel(AlertLevel.INFO);
 		}
 		else if(e.getSource().equals(disableInfoButton)) {

@@ -68,7 +68,7 @@ public class BuildingInfoPanel extends JPanel implements ChangeListener{
 		//adds bank rob button probably should go somewhere else
 		if(b.getName().equalsIgnoreCase("Bank")){
 			//AlertLog.getInstance().logInfo(AlertTag.GUI, "BuildingInfoPanel", "In bank check");
-			add(new JButton("Robbberyy"));
+			//add(new JButton("Robbberyy"));
 		}
 		
 		//debug
