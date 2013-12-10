@@ -222,8 +222,8 @@ Apartment buildings house 6 different people
 
 #####Running Scenarios
 We included a File drop down menu on the top left of our gui.  This contains a list of XML files to load people into the city so you can run and test certain scenarios.
-+To run scenario A, use this XML:
-+To run scenario B, use this XML:
-+To run scenario J, use this XML:
+  + To run scenario A, use this XML:
+  + To run scenario B, use this XML:
+  + To run scenario J, use this XML:
 
 
