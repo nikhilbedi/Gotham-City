@@ -66,7 +66,7 @@ public class PersonAgent extends Agent implements Person {
 	public boolean checkPersonScheduler = true;
 	PersonGui gui;
 
-	private LandlordRole landlord;
+	private LandlordRole landlord = null;
 
 
 	// Locations
@@ -162,7 +162,7 @@ public class PersonAgent extends Agent implements Person {
 			amount = a;
 		}
 	}
-	
+
 	//constructors
 
 
@@ -218,16 +218,12 @@ public class PersonAgent extends Agent implements Person {
 	 */
 	public void setHome(Home h) {
 
-		if (h.getName().contains("shelter")) {
-			shelter = true;
-		} else {
-			setMyHome(h);
-			// currentBuilding = h;
-			currentDestination = h;
-			// Should I make a new one, or just make it equal to this one? There
-			// is only one resident for a home...
-			// activeRole = myHome.resident;
-		}
+		setMyHome(h);
+		// currentBuilding = h;
+		currentDestination = h;
+		// Should I make a new one, or just make it equal to this one? There
+		// is only one resident for a home...
+		// activeRole = myHome.resident;
 	}
 
 	public void setGrid(Character[][] grid) { //Brice - setting grid for City Screen movement
@@ -235,8 +231,9 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	//functions so we can function
-	public void setHomeOwnerRole() {
+	public void setHomeOwnerRole(LandlordRole role) {
 		// When Evan is done with homeowner role, I can add this
+		landlord = role;
 	}
 
 	public double getMoney() {
@@ -263,7 +260,7 @@ public class PersonAgent extends Agent implements Person {
 	public void setJob(Role role, Building building, int shift) {
 		myJob = new Job(role, building, shift);
 	}
-	
+
 	public void setJob(Role role, Building building) {
 		myJob = new Job(role, building);
 	}
@@ -271,7 +268,7 @@ public class PersonAgent extends Agent implements Person {
 	/*public void setJob(String type, Building building) {
 		myJob = new Job(RoleFactory.makeMeRole(type), type, building);
 	}
-*/
+	 */
 	public String getJob() {
 		if (myJob != null)
 			return myJob.type;
@@ -345,11 +342,10 @@ public class PersonAgent extends Agent implements Person {
 		// NEED TO CHECK IF THIS PERSON IS A HOMEOWNER. IF SO, MAKE THAT ROLE
 		// ACTIVE IF NO OTHER ROLE IS ACTIVE
 		if (landlord != null) {
-			// landlord.updateCurrentTime(time);
-			/*
-			 * if(landord.timeIsUp()) { landlord.setActive(true); } else
-			 * landlord.setActive(false);
-			 */
+			landlord.updateCurrentTime(time);
+			if(landlord.timeIsUp()) { landlord.setActive(true); } 
+			else
+				landlord.setActive(false);
 		}
 		print("hungerState: " + hungerState.name());
 
@@ -393,7 +389,6 @@ public class PersonAgent extends Agent implements Person {
 			else {
 				if (currentTime == myJob.weekEndOnWork &&
 						myJob.state == JobState.OffWork) {
-					print("Got to go to work manggg");
 					myJob.state = JobState.GoToWorkSoon;
 				}
 				// Maybe, also check if our current state is atWork
@@ -666,7 +661,6 @@ public class PersonAgent extends Agent implements Person {
 			}
 
 			// Let me even see if I got money..
-			//TODO uncomment this when ready
 			if (moneyState == MoneyState.Low || moneyState == MoneyState.High) {
 				if (currentBuilding != bank) {
 					goToBank();
@@ -676,7 +670,7 @@ public class PersonAgent extends Agent implements Person {
 			if(currentBuilding != getMyHome()) {
 				goToHome();
 				//TODO I think we can just remove "return true" here. It's currently causing problems since not everyone has a home
-				//return true;
+				return true;
 			}
 		}
 
@@ -753,14 +747,14 @@ public class PersonAgent extends Agent implements Person {
 			// if inside building and not in home, animate there
 			if (currentBuilding != myHome) {
 				gui.DoGoToLocation(myHome.getEntranceLocation());
-				
+
 				//gui.finalX = myHome.getEntranceLocation().getX()/20; //Brice - Code to get to next location via Grid
 				//gui.finalY = myHome.getEntranceLocation().getY()/20;
-				
+
 				//finalX = (myHome.getEntranceLocation().getX())/20; //Brice - Code to get to next location via Grid
 				//finalY = (myHome.getEntranceLocation().getY())/20;
 				//gui.DoGoToLocation(new Location(gui.getX()/20, gui.getY()/20));
-				
+
 				try {
 					// print("Available permits: " +
 					// busyWithTask.availablePermits());
@@ -804,7 +798,7 @@ public class PersonAgent extends Agent implements Person {
 		//if inside building and not in current restaurant preference
 		//animate outside building
 		gui.DoGoToLocation(currentPreference.getEntranceLocation());
-		
+
 		// if inside building and not in current restaurant preference
 		// animate outside building
 		//gui.DoGoToLocation(currentPreference.getEntranceLocation());
@@ -886,6 +880,7 @@ public class PersonAgent extends Agent implements Person {
 		}
 		else {
 			hungerState = HungerState.Famished;
+			print(currentPreference.getName() + "is not open");
 		}
 		restaurantCounter++;
 		if (restaurantCounter > 4)
@@ -901,7 +896,7 @@ public class PersonAgent extends Agent implements Person {
 		for (Market m : markets) {
 			temp = m;
 			gui.DoGoToLocation(m.getEntranceLocation());
-			
+
 			break;
 		}
 		try {
@@ -939,11 +934,11 @@ public class PersonAgent extends Agent implements Person {
 		// animate outside building to the bank
 		currentDestination = bank;
 		//gui.DoGoToLocation(bank.getEntranceLocation());
-		
+
 		//gui.finalX = (bank.getEntranceLocation().getX() + 10)/20; //Brice - Code to get to next location via Grid
 		//gui.finalY = (bank.getEntranceLocation().getY() + 10)/20;
 		gui.DoGoToLocation(bank.getEntranceLocation());
-		
+
 		try{
 			busyWithTask.acquire();
 		} catch (InterruptedException e) {
@@ -970,9 +965,9 @@ public class PersonAgent extends Agent implements Person {
 			goToHome();
 		}
 	}
-	
-	
-	
+
+
+
 	public void restart() {
 		// TODO Auto-generated method stub
 

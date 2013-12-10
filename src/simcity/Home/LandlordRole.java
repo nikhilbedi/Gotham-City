@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Timer;
 
+import simcity.Building;
 import simcity.PersonAgent;
 import simcity.Home.ResidentRole.HomeState;
 import simcity.Home.gui.ResidentGui;
@@ -116,6 +117,10 @@ public class LandlordRole extends Role implements Landlord {
 	
 	public void setApartmentsOwned(List<Apartment> apartmentsOwned) {
 		this.apartmentsOwned = apartmentsOwned;
+	}
+	public void addToHomeList(Home buildingFromString) {
+		// TODO Auto-generated method stub
+		homesOwned.add(buildingFromString);
 	}
 	
 }

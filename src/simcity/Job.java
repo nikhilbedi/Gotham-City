@@ -65,9 +65,9 @@ public class Job {
 		public Job(Role r, Building w) {
 			role = r;
 			workplace = w;
-			weekDayOnWork = 2; // 8am
+			weekDayOnWork = 3; // 8am
 			weekDayOffWork = 25; // military hours - 17 == 5pm
-			weekEndOnWork = 2;
+			weekEndOnWork = 3;
 			weekEndOffWork = 25;
 			/*weekDayOnWork = w.weekdayOpen;
 			weekDayOffWork = w.weekdayClose;

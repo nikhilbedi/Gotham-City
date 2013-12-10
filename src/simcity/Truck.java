@@ -121,6 +121,7 @@ public class Truck extends RoleGui{
 			reachedDest = false;
 			if (checkIfOpen()){
 				if (restaurant== r1){
+					System.err.println("Restaurant 1 geting food");
 					r1.getCook().HereIsYourFood(delivery, worker);
 				
 				}
