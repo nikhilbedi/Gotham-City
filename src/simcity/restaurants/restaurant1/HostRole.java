@@ -194,7 +194,6 @@ public class HostRole extends Role implements Host {
 		/**
 	a table becomes free and a waiter is known
 		 */
-		print("host sched");
 		//leave cuz work is over
 		if(theManLeavingMe != null && waitingCustomers.isEmpty()) {
 			leaveWork();
@@ -237,6 +236,7 @@ public class HostRole extends Role implements Host {
 						int i = 0;
 						MyWaiter leastCustomersHeld;
 						for(MyWaiter w : myWaiters) {
+							//NOTICE. IN SIMCITY, IM NOW CHECKING THE WORK STATUS
 							if(!w.onBreak && ((Role)w.waiter).checkWorkStatus()) {
 								leastCustomersHeld = w;
 								for(MyWaiter mw : myWaiters) {

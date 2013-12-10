@@ -112,7 +112,11 @@ public class CashierRole extends Role implements Cashier {
      * Scheduler.  Determine what action is called for, and do it.
      */
     public boolean pickAndExecuteAnAction() {
-	
+    	if(theManLeavingMe != null && checks.isEmpty()) {
+    		leaveWork();
+    		return true;
+    	}
+    	
 	    synchronized(billsToPay){
 	    	if(!billsToPay.isEmpty()) {
 	    		payBill();
@@ -139,7 +143,11 @@ public class CashierRole extends Role implements Cashier {
     }
 
     // Actions
-
+	private void leaveWork() {
+		theManLeavingMe.leaveWork(this);
+		theManLeavingMe = null;
+	}
+	
     private void createCheck(Check ch) {
     	print("creating check for waiter.");
 		//Match menu's choice to check's choice

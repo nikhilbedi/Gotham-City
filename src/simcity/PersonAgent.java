@@ -724,7 +724,6 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	private void goToHome() {
-
 		// Since there are not enough homes, some people will be left with a
 		// "null" home. Send them to a default location in the corner
 		if (myHome != null) {
