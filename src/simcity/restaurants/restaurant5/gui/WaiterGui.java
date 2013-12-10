@@ -16,12 +16,15 @@ import Gui.Screen;
 
 public class WaiterGui extends RoleGui implements Gui {
 
-    private WaiterRole agent = null;
+    private WaiterRole role = null;
     
     private int xHome = 20, yHome = 60;
     
     public static final int cookX = 162;
     public static final int cookY = 76;
+    
+    public static final int standX = 162;
+    public static final int standY = 50;
     
     private int defaultX = 30, defaultY = 60;
     
@@ -34,12 +37,12 @@ public class WaiterGui extends RoleGui implements Gui {
     private Icon holding = null;
     public List<Icon> icons = Collections.synchronizedList(new ArrayList<Icon>());
     
-    private enum Command { noCommand, SeatCustomer, GoToCusts, GoTakeOrder, GoToCook, GoToTable, WaitForOrder, GoToHome};
+    private enum Command { noCommand, SeatCustomer, GoToCusts, GoTakeOrder, GoToCook, GoToTable, WaitForOrder, GoToHome, GoToStand};
     private Command command=Command.noCommand;
 	
 	
     public WaiterGui(WaiterRole agent) {
-        this.agent = agent;
+        this.role = agent;
         tableMap = new HashMap<Integer, Dimension>();
         tableMap.put(new Integer(0), new Dimension(50,250));
         tableMap.put(new Integer(1), new Dimension(150,250));
@@ -51,7 +54,7 @@ public class WaiterGui extends RoleGui implements Gui {
     public WaiterGui(Waiter waiter1, Screen meScreen) {
 		 super( (Role)waiter1, meScreen);
 		 super.setColor(Color.BLUE);
-		 
+		 this.role = (WaiterRole) waiter1;
 		 tableMap = new HashMap<Integer, Dimension>();
 	     tableMap.put(new Integer(0), new Dimension(50,250));
 	     tableMap.put(new Integer(1), new Dimension(150,250));
@@ -69,28 +72,32 @@ public class WaiterGui extends RoleGui implements Gui {
         if (xPos == xDestination && yPos == yDestination){
         	if(command == Command.SeatCustomer){
         		command = Command.noCommand;
-        		agent.doneMoving();
+        		role.doneMoving();
         		
         	}
         	else if(command == Command.GoToHome){
         		command = Command.noCommand;
-        		agent.doneMoving();
+        		role.doneMoving();
+        	}
+        	else if(command == Command.GoToStand){
+        		command = Command.noCommand;
+        		role.doneMoving();
         	}
         	else if(command == Command.GoToCusts){
         		command = Command.noCommand;
-        		agent.doneMoving();
+        		role.doneMoving();
         	}
         	else if(command == Command.GoToCook){
         		command = Command.noCommand;
-        		agent.doneMoving();
+        		role.doneMoving();
         	}
         	else if(command == Command.GoToTable){
         		command = Command.noCommand;
-        		agent.doneMoving();
+        		role.doneMoving();
         	}
         	else if(command == Command.GoTakeOrder){
         		command = Command.noCommand;
-        		agent.doneMoving();
+        		role.doneMoving();
         	}
         	else if(command == Command.noCommand){//defaults waiter to home if he's not doing anything
         		xDestination = xHome;
@@ -190,7 +197,13 @@ public class WaiterGui extends RoleGui implements Gui {
     	yDestination = cookY;
     	command = Command.GoToCook;
     
-	}  		
+	}
+    
+	public void DoGoToStand() {
+		xDestination = standX;
+    	yDestination = standY;
+    	command = Command.GoToStand;
+	}
 
     
     public void setHome(int x, int y){
@@ -236,5 +249,6 @@ public class WaiterGui extends RoleGui implements Gui {
     		//System.out.println(choice);
     	}
     }
+
     
 }

@@ -12,6 +12,7 @@ import java.util.Map;
 import java.util.TimerTask;
 
 import simcity.PersonAgent;
+import simcity.restaurants.restaurant1.RevolvingStand;
 import simcity.restaurants.restaurant5.interfaces.*;
 import simcity.restaurants.restaurant5.gui.*;
 
@@ -22,7 +23,7 @@ import java.util.concurrent.Semaphore;
 /**
  * Restaurant Waiter Agent
  */
-public class WaiterRole extends AbstractWaiterRole implements Waiter {
+public class PCWaiterRole extends AbstractWaiterRole implements Waiter {
 	static final int NTABLES = 3;//a global for the number of tables.
 
 	//Notice that we implement waitingCustomers using ArrayList, but type it
@@ -81,7 +82,7 @@ public class WaiterRole extends AbstractWaiterRole implements Waiter {
 	private enum WorkState{
 		working, wantBreak, onBreak}
 
-	public WaiterRole(String name) {
+	public PCWaiterRole(String name) {
 		super();
 		work = WorkState.working;
 		this.name = super.getName();
@@ -93,7 +94,7 @@ public class WaiterRole extends AbstractWaiterRole implements Waiter {
 
 	}
 
-	public WaiterRole(String name, Host h, Cook c, Cashier ca)//constructor that includes agents (used to simplify things in the gui implementation)
+	public PCWaiterRole(String name, Host h, Cook c, Cashier ca)//constructor that includes agents (used to simplify things in the gui implementation)
 	{
 		this(name);
 		this.h = h;
@@ -101,7 +102,7 @@ public class WaiterRole extends AbstractWaiterRole implements Waiter {
 		this.cashier = ca;
 	}
 
-	public WaiterRole(PersonAgent waiterPerson) {
+	public PCWaiterRole(PersonAgent waiterPerson) {
 		super(waiterPerson);
 		work = WorkState.working;
 		this.name = name;
@@ -116,7 +117,7 @@ public class WaiterRole extends AbstractWaiterRole implements Waiter {
 
 
 
-	public WaiterRole() {
+	public PCWaiterRole() {
 		super();
 		work = WorkState.working;
 		this.name = name;
@@ -275,11 +276,6 @@ public class WaiterRole extends AbstractWaiterRole implements Waiter {
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
 	public boolean pickAndExecuteAnAction() {
-		if(theManLeavingMe != null && customers.isEmpty()) {
-			leaveWork();
-			return true;
-		}
-		
 		try{
 			for(MyCustomer mc: customers){
 					if(mc.s == CustomerState.givingOrder){
@@ -357,12 +353,13 @@ public class WaiterRole extends AbstractWaiterRole implements Waiter {
 		DoTakeOrder(mc.table, mc.choice);
 		//Add icon to take
 		waiterGui.addIcon(mc.table, mc.choice);
-		DoGoToCook();
-		cook.hereIsAnOrder(this, mc.choice, mc.table);
+		DoGoToStand();
+		Stand.pushOrder(this, mc.choice, mc.table, cook);
 		mc.s = CustomerState.waitingForFood;
 		mc.o = new Order(mc.choice, mc.table);
 		mc.o.os = OrderState.cooking;
 	}
+
 
 	public void serveCustomer(MyCustomer mc){
 		DoGoToCook();
@@ -437,6 +434,16 @@ public class WaiterRole extends AbstractWaiterRole implements Waiter {
 		}
 
 	}
+	
+	private void DoGoToStand() {
+		waiterGui.DoGoToStand();
+		try {
+			moving.acquire();
+		}
+		catch(InterruptedException e) {	
+		}
+	}
+
 
 	private void DoGoToCook(){
 		waiterGui.DoGoToCook();

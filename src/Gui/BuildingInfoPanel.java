@@ -62,13 +62,13 @@ public class BuildingInfoPanel extends JPanel implements ChangeListener{
 		
 		//adds bank rob button probably should go somewhere else
 		if(b.getName().equalsIgnoreCase("Bank")){
-			AlertLog.getInstance().logInfo(AlertTag.GUI, "BuildingInfoPanel", "In bank check");
+			//AlertLog.getInstance().logInfo(AlertTag.GUI, "BuildingInfoPanel", "In bank check");
 			add(new JButton("Robbberyy"));
 		}
 		
 		//debug
 		if(spinnerItems == null){
-			AlertLog.getInstance().logInfo(AlertTag.GUI, "BuildingInfoPanel", "Getupdatators called on invalid instance of Building");
+			//AlertLog.getInstance().logInfo(AlertTag.GUI, "BuildingInfoPanel", "Getupdatators called on invalid instance of Building");
 			return;
 		}
 		

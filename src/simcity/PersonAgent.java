@@ -186,9 +186,9 @@ public class PersonAgent extends Agent implements Person {
 		 */
 
 		//TODO uncomment this one and delete get(0)
-		currentPreference = r.get(restaurantCounter);
+		//currentPreference = r.get(restaurantCounter);
 		//currentPreference = r.get(0);
-		//currentPreference = (Restaurant)TheCity.getBuildingFromString("Restaurant 4");
+		currentPreference = (Restaurant)TheCity.getBuildingFromString("Restaurant 5");
 		restaurantCounter++;
 	}
 
@@ -613,7 +613,6 @@ public class PersonAgent extends Agent implements Person {
 					goToHome();
 					return true;
 				} else {
-					print("checking to see if im going to the restaurant as a customer");
 					hungerState = HungerState.FeedingHunger;
 					goEatAtRestaurant();
 					return true;
@@ -696,6 +695,7 @@ public class PersonAgent extends Agent implements Person {
 		// animate to desired location
 		//System.out.println(myJob.getName());
 		gui.DoGoToLocation(myJob.workplace.getEntranceLocation());
+		//gui.DoGoToLocation(currentPreference.getEntranceLocation());
 		try {
 			busyWithTask.acquire();
 		} catch (InterruptedException e) {
@@ -746,9 +746,6 @@ public class PersonAgent extends Agent implements Person {
 			// if inside building and not in home, animate there
 			if (currentBuilding != myHome) {
 				gui.DoGoToLocation(myHome.getEntranceLocation());
-				
-				System.out.println("What Brice needs to succeed: " + myHome.getEntranceLocation().getX());
-				System.out.println("What Brice needs to succeed: " + myHome.getEntranceLocation().getY());
 				
 				//gui.finalX = myHome.getEntranceLocation().getX()/20; //Brice - Code to get to next location via Grid
 				//gui.finalY = myHome.getEntranceLocation().getY()/20;
@@ -801,10 +798,6 @@ public class PersonAgent extends Agent implements Person {
 
 		//if inside building and not in current restaurant preference
 		//animate outside building
-		//gui.DoGoToLocation(currentPreference.getEntranceLocation());
-		
-		//gui.finalX = (currentPreference.getEntranceLocation().getX() + 10)/20; //Brice - Code to get to next location via Grid
-		//gui.finalY = (currentPreference.getEntranceLocation().getY() + 10)/20;
 		gui.DoGoToLocation(currentPreference.getEntranceLocation());
 		
 		// if inside building and not in current restaurant preference
@@ -887,14 +880,13 @@ public class PersonAgent extends Agent implements Person {
 			}
 		}
 		else {
-			print("Restaurant isn't open.");
 			hungerState = HungerState.Famished;
 		}
 		restaurantCounter++;
 		if (restaurantCounter > 2)
 			restaurantCounter = 0;
 		//TODO once all restaurants are back in, then uncomment below
-		currentPreference = restaurants.get(restaurantCounter);
+		//currentPreference = restaurants.get(restaurantCounter);
 	}
 
 	private void goGetGroceries() {

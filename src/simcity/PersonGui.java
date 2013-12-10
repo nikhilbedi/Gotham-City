@@ -255,8 +255,6 @@ public class PersonGui extends RoleGui {
 			finalY = (loc.getY())/20;
 			//xDestination = loc.getX();
 			//yDestination = loc.getY();
-			System.out.println(xDestination);
-			System.out.println(yDestination);
 			command = "GoingToBusStop";
 
 			guiMoveFromCurrentPositionTo(xPos/20, yPos/20);

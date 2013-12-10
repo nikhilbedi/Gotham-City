@@ -14,6 +14,7 @@ public class CookGui extends RoleGui implements Gui {
 	private CookRole role = null;
 
 	private int defaultX = 202, defaultY = 76;
+	private int standX =202, standY = 50;
 	
 	private int cookingX = 232, cookingY = 70;
 	private int DEBUGX = 400;
@@ -21,7 +22,7 @@ public class CookGui extends RoleGui implements Gui {
 
 	static final int hostSize = 20;
 
-	private enum Command {getOrder, noCommand, cookOrder, cooking};
+	private enum Command {getOrder, noCommand, cookOrder, cooking, checkStand};
 	private Command command=Command.noCommand;
 
 	public CookGui(CookRole role) {
@@ -49,10 +50,15 @@ public class CookGui extends RoleGui implements Gui {
 				role.doneMoving();	
 				command = Command.noCommand;
 			}
+			else if(command == Command.checkStand){
+				role.doneMoving();
+				command = Command.noCommand;
+			}
 			else if(command == Command.cookOrder){
 				role.doneMoving();
 				command = Command.cooking;
 			}
+			
 			else if(command == Command.noCommand){
 				xDestination = defaultX;
 				yDestination = defaultY;
@@ -63,7 +69,6 @@ public class CookGui extends RoleGui implements Gui {
 	public void draw(Graphics g) {
 		super.draw(g);
 		g.setColor(Color.BLACK);
-		//TODO we've got things to work on here
 		g.drawString(role.returnAmounts(), DEBUGX, DEBUGY);
 	}
 
@@ -87,6 +92,13 @@ public class CookGui extends RoleGui implements Gui {
 		xDestination = cookingX;
 		yDestination = cookingY;
 		command = command.cookOrder;
+		
+	}
+
+	public void DoGoToStand() {
+		xDestination = standX;
+		yDestination = standY;
+		command = command.checkStand;
 		
 	}
 
