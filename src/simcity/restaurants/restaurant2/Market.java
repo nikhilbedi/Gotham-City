@@ -52,8 +52,8 @@ List<DeliveryOrder> deliveries = Collections.synchronizedList(new LinkedList<Del
 	
 	// Messages
 	
-	public void msgNeedDelivery(List<Integer> order) {
-		deliveries.add(new DeliveryOrder(order));
+	public void msgNeedDelivery(Map<String, Integer> deliveryOrder) {
+		deliveries.add(new DeliveryOrder(deliveryOrder));
 		System.out.println(getName() + ": Recieved order for delivery.");
 		stateChanged();
 	}
@@ -172,8 +172,11 @@ List<DeliveryOrder> deliveries = Collections.synchronizedList(new LinkedList<Del
 		List<Integer> InventoryDifference = Collections.synchronizedList(new LinkedList<Integer>());
 		DeliveryState s;
 		
-		public DeliveryOrder(List<Integer> deliveryOrder) {
-			deliveryFoods = deliveryOrder;
+		public DeliveryOrder(Map<String, Integer> deliveryOrder) {
+			deliveryFoods.add(deliveryOrder.get("Steak"));
+			deliveryFoods.add(deliveryOrder.get("Pizza"));
+			deliveryFoods.add(deliveryOrder.get("Chicken"));
+			deliveryFoods.add(deliveryOrder.get("Salad"));
 			
 			s = DeliveryState.pending;
 		}
