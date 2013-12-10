@@ -2,8 +2,11 @@ package simcity;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.util.HashMap;
+import java.util.Map;
 
 import simcity.PersonAgent.TransportationState;
+import simcity.restaurants.restaurant4.Restaurant4CookRole.Food;
 import Gui.RoleGui;
 import Gui.ScreenFactory;
 
@@ -20,6 +23,7 @@ public class PersonGui extends RoleGui {
 	String command = "";
 	Location destination;
 	public String busStop = "";
+	static public Map<Location, Location> parkingLocation = new HashMap<Location, Location>();
 	
 	public PersonAgent getAgent() {
 		return agent;
@@ -216,5 +220,31 @@ public class PersonGui extends RoleGui {
 			yDestination = destination.getY();
 			command = "GoingToLocation";
 		}
+		else if (agent.transportationState == TransportationState.Car){
+			this.destination = destination;
+			for (Map.Entry<Location, Location> entry: parkingLocation.entrySet()){
+				if (entry.getKey()==destination){
+					Car car = new Car(xPos, yPos, entry.getValue().getX(), entry.getValue().getY());
+					car.command = "moving";
+					car.setOwner(this);
+					ScreenFactory.main.addGui(car);
+				}
+			}
+			System.out.println("Car");
+			tempStill = true;
+			getHomeScreen().removeGui(this);
+			
+			
+		}
 	}
+		public void arrived(int x, int y){
+			xPos = x;
+			yPos = y;
+			xDestination = destination.getX();
+			yDestination = destination.getY();
+			getHomeScreen().addGui(this);
+			tempStill = true;
+			command = "GoingToLocation";
+		}
+	
 }

@@ -99,7 +99,7 @@ public class PersonAgent extends Agent implements Person {
 		Walking, Bus, Car
 	};
 
-	public TransportationState transportationState = TransportationState.Bus;
+	public TransportationState transportationState = TransportationState.Car;
 
 	// Where to eat
 	public enum EatingState {

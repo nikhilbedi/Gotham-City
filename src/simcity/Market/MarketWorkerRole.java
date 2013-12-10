@@ -150,8 +150,10 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	
 	public void RestaurantIsClosed(Restaurant r){
 		myPerson.Do(r + " is closed");
+		//after some time send it again or check when it is open 
 		
-		//after some time send it again 
+		
+		
 	}
 	
 	public boolean pickAndExecuteAnAction(){

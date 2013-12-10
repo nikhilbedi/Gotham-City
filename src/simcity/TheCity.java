@@ -58,32 +58,43 @@ public class TheCity {
 
 		home = new Home("Home", 390, 590, 400, 600);
 		home.setImagePath("/resources/Buildings/HouseDark2.png");
-
+		home.setParkingLocation(450, 500);
+		PersonGui.parkingLocation.put(home.getEntranceLocation(), home.getParkingLocation());
 		
 		apart = new Apartment("Apartment 1", 590, 590, 600, 600);
 		apart.setImagePath("/resources/Buildings/HouseDark.png");
-	
-		
-	
-
-
+		apart.setParkingLocation(620,500);
+		PersonGui.parkingLocation.put(apart.getEntranceLocation(), apart.getParkingLocation());
 		market = new Market("Market", 600, 100, 600, 100);
 
 		market.setImagePath("/resources/Buildings/MarketDark2.png");
+		market.setParkingLocation(550, 220);
+		PersonGui.parkingLocation.put(market.getEntranceLocation(), market.getParkingLocation());
+		
 		bank = new Bank("Bank", 400, 100, 400, 100);
 		bank.setImagePath("/resources/Buildings/BankDark2.png");
-
+		bank.setParkingLocation(450, 220);
+		PersonGui.parkingLocation.put(bank.getEntranceLocation(), bank.getParkingLocation());
 		rest1 = new Restaurant1("Restaurant 1", 200, 100, 200, 100);
 		rest1.setImagePath("/resources/Buildings/RestaurantDark2.png");
+		rest1.setParkingLocation(210, 220);
+		PersonGui.parkingLocation.put(rest1.getEntranceLocation(), rest1.getParkingLocation());
 		rest2 = new Restaurant2("Restaurant 2", 50, 210, 50, 210);
 		rest2.setImagePath("/resources/Buildings/RestaurantDark2.png");
+		rest2.setParkingLocation(100, 210);
+		PersonGui.parkingLocation.put(rest2.getEntranceLocation(), rest2.getParkingLocation());
 		rest3 = new Restaurant3("Restaurant 3", 730, 210, 730, 210);
 		rest3.setImagePath("/resources/Buildings/RestaurantDark2.png");
+		rest3.setParkingLocation(500, 220);
+		PersonGui.parkingLocation.put(rest3.getEntranceLocation(), rest3.getParkingLocation());
 		rest4 = new Restaurant4("Restaurant 4", 50, 410, 50, 410);
 		rest4.setImagePath("/resources/Buildings/RestaurantDark2.png");
+		rest4.setParkingLocation(100, 410);
+		PersonGui.parkingLocation.put(rest4.getEntranceLocation(), rest4.getParkingLocation());
 		rest5 = new Restaurant5("Restaurant 5", 730, 410, 730, 410);
 		rest5.setImagePath("/resources/Buildings/RestaurantDark2.png");
-
+		rest5.setParkingLocation(500, 420);
+		PersonGui.parkingLocation.put(rest5.getEntranceLocation(), rest5.getParkingLocation());
 
 
 		buildings.add(home);
