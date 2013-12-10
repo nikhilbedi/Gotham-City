@@ -45,7 +45,7 @@ public class Restaurant2 extends Restaurant {
 		
 		//set opening and closing hours
 		setWeekdayHours(12, 24);
-		//setWeekendHours(12, 22);
+		//setWeekendHours(2, 24);
 		setWeekendHours(2, 10);
 		
 		//set guis
@@ -91,7 +91,7 @@ public class Restaurant2 extends Restaurant {
 		
 		//set opening and closing hours
 		setWeekdayHours(12, 24);
-		setWeekendHours(12, 22);
+		setWeekendHours(2, 10);
 		
 		//set guis
 		cook.setGui((RoleGui)cookGui);
