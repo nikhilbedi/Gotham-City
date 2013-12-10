@@ -65,19 +65,24 @@ public class TheCity {
 
 		bank = new Bank("Bank", 400, 100, 400, 100);
 		bank.setImagePath("/resources/Buildings/BankDark2.png");
-		rest1 = new Restaurant1("Restaurant 1", 200, 100, 200, 100);
-		rest1.setImagePath("/resources/Buildings/RestaurantDark2.png");
+
 		market = new Market("Market", 600, 100, 600, 100);
 		market.setImagePath("/resources/Buildings/MarketDark2.png");
+		
+		rest1 = new Restaurant1("Restaurant 1", 200, 100, 200, 100);
+		rest1.setImagePath("/resources/Buildings/RestaurantDark2.png");
 		rest4 = new Restaurant4("Restaurant 4", 50, 410, 50, 410);
 		rest4.setImagePath("/resources/Buildings/RestaurantDark2.png");
+		
+		
+		rest5 = new Restaurant5("Restaurant 5", 730, 410, 730, 410);
+		rest5.setImagePath("/resources/Buildings/RestaurantDark2.png");
 	
 /*		rest2 = new Restaurant2("Restaurant 2", 50, 210, 50, 210);
 		rest2.setImagePath("/resources/Buildings/RestaurantDark2.png");
 		rest3 = new Restaurant3("Restaurant 3", 730, 210, 730, 210);
 		rest3.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest5 = new Restaurant5("Restaurant 5", 730, 410, 730, 410);
-		rest5.setImagePath("/resources/Buildings/RestaurantDark2.png");*/
+*/
 
 
 
@@ -89,7 +94,7 @@ public class TheCity {
 		buildings.add(rest1);
 		buildings.add(market);
 		buildings.add(rest4);
-		//buildings.add(rest5);
+		buildings.add(rest5);
 		//buildings.add(apart);
 /*		buildings.add(rest2);
 		buildings.add(rest3);

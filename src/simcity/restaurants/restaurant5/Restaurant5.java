@@ -61,38 +61,38 @@ public class Restaurant5 extends Restaurant {
 		((WaiterRole) waiter1).setGui((RoleGui)waiterGui);
 		((CookRole) cook).setGui((RoleGui)cookGui);
 
-		jobRoles.put("Host Early", (Role)host);
-		jobRoles.put("Host Late",  (Role)host);
+		jobRoles.put("Host", (Role)host);
+		//jobRoles.put("Host Late",  (Role)host);
 
-		jobRoles.put("Cashier Early",(Role)cashier);
-		jobRoles.put("Cashier Late", (Role)cashier);
+		jobRoles.put("Cashier",(Role)cashier);
+		//jobRoles.put("Cashier Late", (Role)cashier);
 
-		jobRoles.put("Waiter1 Early",(Role)waiter1);
-		jobRoles.put("Waiter1 Late", (Role)waiter1);
+		jobRoles.put("Waiter1",(Role)waiter1);
+		//jobRoles.put("Waiter1 Late", (Role)waiter1);
 
-		jobRoles.put("Cook Early",(Role)cook);
-		jobRoles.put("Cook Late", (Role)cook);
+		jobRoles.put("Cook",(Role)cook);
+		//jobRoles.put("Cook Late", (Role)cook);
 		
 		
-		PersonAgent waiterPerson = new Robot("waiter");
+		/*PersonAgent waiterPerson = new Robot("waiter");
 		PersonAgent hostPerson = new Robot("host");
 		PersonAgent cookPerson = new Robot("cook");
-		PersonAgent cashierPerson = new Robot("cashier");
+		PersonAgent cashierPerson = new Robot("cashier");*/
 		
-		waiterPerson.addRole((WaiterRole)waiter1);
+	/*	waiterPerson.addRole((WaiterRole)waiter1);
 		hostPerson.addRole((HostRole)host);
 		cookPerson.addRole((CookRole)cook);
-		cashierPerson.addRole((CashierRole)cashier);
+		cashierPerson.addRole((CashierRole)cashier);*/
 		
 		((WaiterRole)waiter1).setHost(host);
 		((WaiterRole)waiter1).setCook(cook);
 		((WaiterRole)waiter1).setCashier(cashier);
 		((HostRole)host).addWaiter(waiter1);
 		
-		ScreenFactory.getMeScreen("Restaurant 5").addGui(hostGui);
+/*		ScreenFactory.getMeScreen("Restaurant 5").addGui(hostGui);
 		ScreenFactory.getMeScreen("Restaurant 5").addGui(cookGui);
 		ScreenFactory.getMeScreen("Restaurant 5").addGui(waiterGui);
-		ScreenFactory.getMeScreen("Restaurant 5").addGui(cashierGui);
+		ScreenFactory.getMeScreen("Restaurant 5").addGui(cashierGui);*/
 
 	}
 

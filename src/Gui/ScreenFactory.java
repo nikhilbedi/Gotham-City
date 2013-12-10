@@ -42,7 +42,7 @@ public class ScreenFactory {
 		rest1 = new RestaurantNikhilAnimationPanel();
  		market = new MarketAnimationPanel();
  		rest4 = new Restaurant4AnimationPanel();
- 		
+ 		rest5 = new RestaurantHunterAnimationPanel();
  		
  		//rest2 = new Restaurant2AnimationPanel();
  		
@@ -55,7 +55,7 @@ public class ScreenFactory {
 /*		
 		rest3 = new RestaurantEvanAnimationPanel();
 		
-		rest5 = new RestaurantHunterAnimationPanel();*/
+		*/
 
 		
 		
