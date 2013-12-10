@@ -134,6 +134,11 @@ public class Restaurant4HostRole extends Role implements Restaurant4Host{
             so that table is unoccupied and customer is waiting.
             If so seat him at the table.
 		 */
+		if(theManLeavingMe != null && waitingCustomers.isEmpty()) {
+			leaveWork();
+			return true;
+		}
+		
 		for (Table table : tables) {
 			if (!table.isOccupied()) {
 					if (!availableWaiters.isEmpty()){

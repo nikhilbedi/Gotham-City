@@ -13,8 +13,8 @@ import simcity.Building;
  */
 public class Restaurant extends Building {
 
-	protected Role host;
-	protected Role cashier;
+	//protected Role host;
+//	protected Role cashier;
 	
 	public Restaurant(String type, int entranceX, int entranceY, int guiX, int guiY) {
 		super(type, entranceX, entranceY, guiX, guiY);
@@ -27,19 +27,30 @@ public class Restaurant extends Building {
 	//Everything below should be overridden by restaurants
 	
 	public void setHost(Role role) {
-		this.host = host;
+	//	this.host = host;
 	}
 	
 	public Role getHost() {
-		return host;
+		//return host;
+		return null;
 	}
 	
 	public void setCashier(Role role) {
-		this.cashier = cashier;
+		//this.cashier = cashier;
 	}
 	
 	public Role getCashier() {
-		return cashier;
+		//return cashier;
+		return null;
+	}
+	
+	public void setCook(Role role) {
+		//this.cashier = cashier;
+	}
+	
+	public Role getCook() {
+		//return cashier;
+		return null;
 	}
 	
 	//This must be overidden

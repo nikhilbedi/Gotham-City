@@ -35,7 +35,7 @@ public class Restaurant1CustomerRole extends Role implements Customer {
 	// agent correspondents
 	private Waiter myWaiter;
 	private HostRole host;
-	private Cashier cashier;
+	private CashierRole cashier;
 
 	// private boolean isHungry = false; //hack for gui
 	public enum AgentState
@@ -102,10 +102,17 @@ public class Restaurant1CustomerRole extends Role implements Customer {
 	@Override
 	public void startBuildingMessaging(){
 		//Set host and cashier
-		//host = (HostRole) myPerson.currentPreference.getHost();
-		//cashier = (CashierRole) myPerson.currentPreference.getCashier();
-		//host = (Role)((Restaurant1) TheCity.getBuildingFromString("Restaurant 1")).getHost());
-		gotHungry();
+		host = (HostRole) ((Restaurant1)TheCity.getBuildingFromString("Restaurant 1")).getHost();
+		cashier = (CashierRole) ((Restaurant1)TheCity.getBuildingFromString("Restaurant 1")).getCashier();
+		if(host.checkWorkStatus() && cashier.checkWorkStatus()) {
+			print("The host and cashier at rest 1 are here, so i will stay");
+			gotHungry();
+			
+		}
+		else {
+			print("The host or cashier at rest 1 is off work, so i will leave");
+			myPerson.leftBuilding(this);
+		}
 	}
 	
 	/**

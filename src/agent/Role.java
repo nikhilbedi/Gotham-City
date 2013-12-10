@@ -35,8 +35,14 @@ public class Role {
 	
 	public void getReadyToLeave(PersonAgent whoTurnedMeOff) {
 		theManLeavingMe = whoTurnedMeOff;
+		stateChanged();
 	}
 
+	protected void leaveWork() {
+		theManLeavingMe.leaveWork(this);
+		theManLeavingMe = null;
+	}
+	
 	/**
 	 * Base class for simple roles
 	 */
@@ -70,7 +76,10 @@ public class Role {
 	 * name.
 	 */
 	public String getName() {
-		return StringUtil.shortName(myPerson.getName());
+		if(myPerson != null)
+			return StringUtil.shortName(myPerson.getName());
+		else
+			return "";
 	}
 
 	public void setPerson(PersonAgent a){

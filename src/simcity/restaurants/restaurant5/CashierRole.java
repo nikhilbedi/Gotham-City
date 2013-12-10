@@ -120,6 +120,10 @@ public class CashierRole extends Role implements Cashier {
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
 	public boolean pickAndExecuteAnAction() {
+		if(theManLeavingMe != null && customers.isEmpty()){
+			leaveWork();
+			return true;
+		}
 		synchronized(customers){
 			for(MyCustomer mc: customers){
 				if(mc.cs == CustomerState.calculating){

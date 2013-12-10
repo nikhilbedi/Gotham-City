@@ -184,6 +184,10 @@ public class CookRole extends Role implements Cook{
 	 */
 	public boolean pickAndExecuteAnAction() {
 		//print("Picking and excuting");
+		if(theManLeavingMe != null && orders.isEmpty()) {
+			leaveWork();
+			return true;
+		}
 		synchronized(orders){
 			for(Order o: orders){
 				if(o.s == OrderState.pending){
@@ -255,6 +259,8 @@ public class CookRole extends Role implements Cook{
 		DoGoToPlating();
 		o.waiter.hereIsAnOrder(this, o.choice, o.table);
 		o.s = OrderState.sent;
+		//TODO I'm going to remove the order from the list for you - Nikhil
+		orders.remove(o);
 	}
 
 	private void DoGoToPlating() {

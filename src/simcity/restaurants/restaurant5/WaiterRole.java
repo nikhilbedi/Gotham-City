@@ -275,6 +275,11 @@ public class WaiterRole extends AbstractWaiterRole implements Waiter {
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
 	public boolean pickAndExecuteAnAction() {
+		if(theManLeavingMe != null && customers.isEmpty()) {
+			leaveWork();
+			return true;
+		}
+		
 		try{
 			for(MyCustomer mc: customers){
 					if(mc.s == CustomerState.givingOrder){
