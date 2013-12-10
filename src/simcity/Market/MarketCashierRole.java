@@ -132,7 +132,7 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	}
 	
 	public void INeedFood(Map<String, Integer> food, Restaurant rest){ //order from restaurant
-		System.out.println("Got new order from restaurant cook" );
+		System.out.println("Got new order from restaurant cook" + rest);
 		r1 = (Restaurant1) TheCity.getBuildingFromString("Restaurant 1");
 		r2 = (Restaurant2) TheCity.getBuildingFromString("Restaurant 2");
 		r3 = (Restaurant3) TheCity.getBuildingFromString("Restaurant 3");
@@ -172,7 +172,7 @@ public class MarketCashierRole extends Role implements MarketCashier{
 					//r2.getCashier().amountDue(order.amountDue, this);
 				}
 				else if (order.rest == r3){
-					//r3.getCashier().amountDue(order.amountDue, this);
+					r3.getCashier().amountDue(order.amountDue, this);
 				}
 				else if (order.rest == r4){
 					System.out.println(r4.getName() + " Here is amount due " + order.amountDue);
@@ -277,8 +277,8 @@ public class MarketCashierRole extends Role implements MarketCashier{
 					r4.getCashier().HereIsYourChange(i, this);
 				}
 				else if (order.rest == r3){
-					System.out.println(r4.getName() + "Here is change");
-					r4.getCashier().HereIsYourChange(i, this);
+					System.out.println(r3.getName() + "Here is change");
+					r3.getCashier().HereIsYourChange(i, this);
 				}
 				else if (order.rest == r4){
 					System.out.println(r4.getName() + "Here is change");

@@ -6,4 +6,6 @@ public interface BankGreeter {
 
 	void msgReadyForCustomer(BankTeller bankTellerRole);
 
+	void msgGiveMeATeller(BankRobber bankRobber);
+
 }

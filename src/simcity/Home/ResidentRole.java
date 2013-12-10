@@ -21,6 +21,7 @@ import java.util.TimerTask;
 import simcity.Home.Food;
 import simcity.PersonAgent;
 import simcity.PersonAgent.HungerState;
+import simcity.PersonAgent.JobState;
 import simcity.PersonAgent.MoneyState;
 import simcity.PersonAgent.RentBill;
 import simcity.PersonAgent.RentState;
@@ -46,10 +47,11 @@ public class ResidentRole extends Role implements Resident {
 	public int roomNumber;
 	private double wallet;
 	public Map<String, Food> fridgeFoods = new HashMap<String, Food>();
+	public List<Map<String, Food>> fridges = new ArrayList<Map<String, Food>>();
 	public Map<String, Food> foods = new HashMap<String, Food>();
 	public Map<String, Integer> groceryList = new HashMap<String, Integer>();
 	public Map<String, Integer> groceryBag = new HashMap<String, Integer>();
-	private List<RentBill> rentBills = new ArrayList<RentBill>();
+	public List<RentBill> rentBills = new ArrayList<RentBill>();
 
 	// public List<FoodChoice> cookingList;
 
@@ -102,6 +104,9 @@ public class ResidentRole extends Role implements Resident {
 
 		f = new Food("Salad");
 		fridgeFoods.put("Salad", f);
+		
+	
+		
 		
 		//roomNumber = (int)Math.random() % 6 + 1;
 		//roomNumber = 3;
@@ -238,7 +243,11 @@ public class ResidentRole extends Role implements Resident {
 //		}
 
 		//mailbox scheduling events
-		
+		if (myPerson.myJob.state == JobState.GoToWorkSoon && hungry == false) {
+			state = HomeState.LeavingHome;
+			dropEverything();
+			return true;
+		}
 		
 		if (state == HomeState.DoingNothing && event == HomeEvent.checkMailbox) {
 			state = HomeState.GoingToMailbox;
@@ -331,7 +340,7 @@ public class ResidentRole extends Role implements Resident {
 		}
 		if (state == HomeState.CheckingFoodSupply && event == HomeEvent.EmptyFridge) {
 			//System.out.println("NOTHING 2 msg in sch *HI***++++");
-			state = HomeState.LeavingHome; // LeavingRestaurant
+			state = HomeState.LeavingHome; 
 			if(this.myPerson.getMyHome().getName().contains("Apartment")){
 				
 			exitRoom();
@@ -433,6 +442,14 @@ public class ResidentRole extends Role implements Resident {
 
 
 
+	private void dropEverything() {
+		if(this.myPerson.getMyHome().getName().contains("Apartment")){
+			exitRoom();
+			}
+			else
+			exitHome();
+	}
+
 	//checking mailbox when walking in and paying rent bills
 	public void goToMailbox() {
 		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
@@ -510,6 +527,10 @@ public class ResidentRole extends Role implements Resident {
 						groceryBag.get("Steak") + " Pizza: " + groceryBag.get("Pizza") + " Salad: " + groceryBag.get("Salad") );
 		groceryBag = myPerson.groceryBag;
 		int temp = groceryBag.get("Chicken");
+		
+		//if(this.myPerson.getMyHome().getName().contains("Apartment")){
+			//roomNumber
+		//}
 		fridgeFoods.get("Chicken").setAmount(fridgeFoods.get("Chicken").getAmount() + groceryBag.get("Chicken"));
 		fridgeFoods.get("Steak").setAmount(fridgeFoods.get("Steak").getAmount() + groceryBag.get("Steak"));
 		fridgeFoods.get("Pizza").setAmount(fridgeFoods.get("Pizza").getAmount() + groceryBag.get("Pizza"));

@@ -15,14 +15,16 @@ import agent.Role;
 public class LandlordRole extends Role implements Landlord {
 	public PersonAgent person;
 	public float rent;
-	private List<RentBill> rentBills = new ArrayList<RentBill>();
-	private List<Home> homesOwned = new ArrayList<Home>();
-	int currentTime;
-	int timeToSendBills;
+	public List<RentBill> rentBills = new ArrayList<RentBill>();
+	public List<Home> homesOwned = new ArrayList<Home>();
+	public List<Apartment> apartmentsOwned = new ArrayList<Apartment>();
+	public int currentTime;
+	public int timeToSendBills;
+	public List<ResidentRole> residents;
 	Random random = new Random();
 	
 	public enum HomeOwnerState {none, sendBills, sendingBills, billsSent}
-	private HomeOwnerState hOwnerState = HomeOwnerState.none;//The start state
+	public HomeOwnerState hOwnerState = HomeOwnerState.none;//The start state
 	
 	
 	public LandlordRole (PersonAgent p) {
@@ -51,6 +53,10 @@ public class LandlordRole extends Role implements Landlord {
 			sendRentBills();
 			return true;
 		}
+		if(hOwnerState == HomeOwnerState.billsSent){
+			hOwnerState = HomeOwnerState.none;
+			return true;
+		}
 		return false;
 	}
 	
@@ -63,6 +69,15 @@ public class LandlordRole extends Role implements Landlord {
 			rentBills.add(rb);
 			h.setRentBills(rentBills);
 		}
+		for(Apartment a: apartmentsOwned) {
+			for(ResidentRole r: residents){
+				RentBill rb;
+				rb = myPerson.new RentBill(myPerson, rent);
+				rentBills.add(rb);
+				a.setRentBills(rentBills);
+			}
+		}
+		//hOwnerState = HomeOwnerState.billsSent;
 	}
 
 	private float getRent() {
@@ -97,6 +112,10 @@ public class LandlordRole extends Role implements Landlord {
 
 	public void setHomesOwned(List<Home> homesOwned) {
 		this.homesOwned = homesOwned;
+	}
+	
+	public void setApartmentsOwned(List<Apartment> apartmentsOwned) {
+		this.apartmentsOwned = apartmentsOwned;
 	}
 	
 }

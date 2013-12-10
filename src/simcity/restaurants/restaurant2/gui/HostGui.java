@@ -3,11 +3,15 @@ package simcity.restaurants.restaurant2.gui;
 
 import simcity.restaurants.restaurant2.Restaurant2CustomerRole;
 import simcity.restaurants.restaurant2.HostRole;
+import simcity.restaurants.restaurant2.interfaces.Cook;
 import simcity.restaurants.restaurant2.interfaces.Customer;
+import simcity.restaurants.restaurant2.interfaces.Host;
 
 import java.awt.*;
 
+import agent.Role;
 import Gui.RoleGui;
+import Gui.Screen;
 
 public class HostGui extends RoleGui {
 
@@ -28,7 +32,7 @@ public class HostGui extends RoleGui {
     public HostGui(HostRole agent) {
         this.agent = agent;
     }
-
+    
     public void updatePosition() {
         if (xPos < xDestination)
             xPos+= speed;

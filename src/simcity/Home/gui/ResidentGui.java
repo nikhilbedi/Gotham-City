@@ -64,27 +64,27 @@ public class ResidentGui extends RoleGui {
 		
 	}
 
-	public void draw(Graphics g) {
-		super.draw(g);
-		g.setColor(Color.GREEN);
-		//g.fillRect(xPos, yPos, Width, Height);
-		if (cooking){
-			g.drawString("cooking food", getXPos(), getYPos());
-		}
-		else if (plating) {
-			g.drawString("plating food", getXPos(), getYPos());
-		}
-		else if (eating) {
-			g.drawString("eating ", getXPos(), getYPos());
-		}
-		else if (clearing) {
-			g.drawString("cleaning dishes", getXPos(), getYPos());
-		}
-		else if (checkingMail) {
-			g.drawString("checking mail", getXPos(), getYPos());
-		}
-		
-	}
+//	public void draw(Graphics g) {
+//		super.draw(g);
+//		g.setColor(Color.GREEN);
+//		//g.fillRect(xPos, yPos, Width, Height);
+//		if (cooking){
+//			g.drawString("cooking food", getXPos(), getYPos());
+//		}
+//		else if (plating) {
+//			g.drawString("plating food", getXPos(), getYPos());
+//		}
+//		else if (eating) {
+//			g.drawString("eating ", getXPos(), getYPos());
+//		}
+//		else if (clearing) {
+//			g.drawString("cleaning dishes", getXPos(), getYPos());
+//		}
+//		else if (checkingMail) {
+//			g.drawString("checking mail", getXPos(), getYPos());
+//		}
+//		
+//	}
 	
 	// @Override
 	public void updatePosition() {

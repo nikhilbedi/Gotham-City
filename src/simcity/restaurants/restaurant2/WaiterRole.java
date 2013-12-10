@@ -52,6 +52,10 @@ public class WaiterRole extends Role implements Waiter{
 		name = person.getName();
 	}
 	
+	public WaiterRole() {
+		super();
+	}
+	
 	public String getName() {
 		return name;
 	}

@@ -10,6 +10,9 @@ import java.util.concurrent.Semaphore;
 import simcity.PersonAgent;
 import Gui.RoleGui;
 import agent.Role;
+
+import simcity.restaurants.restaurant3.Restaurant3CookRole;
+import simcity.restaurants.restaurant3.HostRole;
 import simcity.restaurants.restaurant3.Order.OrderState;
 import simcity.restaurants.restaurant3.gui.*;
 import simcity.restaurants.restaurant3.interfaces.*;
@@ -33,7 +36,7 @@ public class WaiterRole extends Role implements Waiter{
 	private Semaphore atHost = new Semaphore(0, true);
 	private Semaphore atCook = new Semaphore(1, true);
 	private Semaphore atCashier = new Semaphore(1, true);
-	private Semaphore atStand = new Semaphore (1, true);
+	//private Semaphore atStand = new Semaphore (1, true);
 	
 
 	public HostRole host = null;
@@ -81,15 +84,10 @@ public class WaiterRole extends Role implements Waiter{
 	
 	public WaiterRole(PersonAgent p) {
 		super(p);
-		this.name = name;
+		
 	}
 	public WaiterRole() {
 		super();
-	}
-	
-
-	public String getMaitreDName() {
-		return name;
 	}
 
 	public String getName() {
@@ -510,9 +508,8 @@ public class WaiterRole extends Role implements Waiter{
 		}
 	}
 	
-
-	public HostGui getGui() {
-		return hostGui;
+	public WaiterGui getGui() {
+		return waiterGui;
 	}
 	public int getCustomersCount() {
 		return customers.size();

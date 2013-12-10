@@ -57,7 +57,8 @@ public class SimCityRun extends JFrame implements ActionListener
 	{
 		super("Team 31 Sim City");
 		//This sets up the frame of the animation window
-		setSize(1200, 820);
+		setSize(1400, 850);
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		//This creates and sets the menu bar
@@ -130,6 +131,7 @@ public class SimCityRun extends JFrame implements ActionListener
 		cityPanel.go();//starts the animation in the panel
 
 	}
+
 
 
 		public static void main(String[] args)

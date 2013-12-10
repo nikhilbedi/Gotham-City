@@ -67,8 +67,8 @@ public class ScreenFactory {
 		
 		*/
 		
-		TheCity.populate();//this ensures that all the buildings are allocataed before the mainScren is created
-
+		TheCity.populate();//this ensures that all the buildings are allocataed before the mainScreen is created
+		
 		main = new MainScreen();		
 		screenList.add(main);
 
