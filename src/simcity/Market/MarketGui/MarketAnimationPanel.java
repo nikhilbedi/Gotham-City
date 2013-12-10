@@ -34,7 +34,7 @@ public class MarketAnimationPanel extends Screen {
     private Image bufferImage;
     private Dimension bufferSize;
     private List<Gui> guis = new ArrayList<Gui>();
-    public PersonAgent cashier = new Robot("Cashier");
+ /*   public PersonAgent cashier = new Robot("Cashier");
     public MarketCashierRole marketCashier = new MarketCashierRole(cashier);
     public  MarketCashierGui cashierGui = new MarketCashierGui(marketCashier);
     public PersonAgent agentWork = new Robot("Worker");
@@ -48,7 +48,7 @@ public class MarketAnimationPanel extends Screen {
     public MarketCustomerGui customerGui2 = new MarketCustomerGui(marketCustomer2);
     public PersonAgent agentCust3 = new PersonAgent("Customer3");
     public MarketCustomerRole marketCustomer3 = new MarketCustomerRole(agentCust3);
-    public MarketCustomerGui customerGui3 = new MarketCustomerGui(marketCustomer3);
+    public MarketCustomerGui customerGui3 = new MarketCustomerGui(marketCustomer3);*/
     
     List <Market> m = TheCity.getMarketList();
     
@@ -92,6 +92,10 @@ public class MarketAnimationPanel extends Screen {
     		addGui(cashierGui);
     		cashier.addRole(marketCashier);
     		marketWorker.setGui(workerGui);
+<<<<<<< HEAD
+=======
+    		//workerGui.setMainScreen(mainScreen);
+>>>>>>> nikhil
     		addGui(workerGui);
     		agentWork.addRole(marketWorker);
     		marketCustomer.setGui(customerGui);

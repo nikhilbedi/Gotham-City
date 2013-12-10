@@ -4,8 +4,11 @@ package simcity.restaurants.restaurant5.gui;
 
 import java.util.*;
 import java.awt.*;
+
+import simcity.restaurants.restaurant5.HostRole;
 import simcity.restaurants.restaurant5.*;
 import simcity.restaurants.restaurant5.interfaces.Host;
+
 
 import java.awt.*;
 
@@ -26,6 +29,14 @@ public class HostGui extends RoleGui implements Gui {
     static final int hostSize = 20;
 
     public HostGui(HostRole agent) {
+        this.agent = agent;
+        for (int i = 0; i < agent.getNumTables(); i++) {
+			tables.add(new Table(i));
+		}
+    }
+    
+    public HostGui(HostRole agent, Screen s) {
+    	super(agent, s);
         this.agent = agent;
         for (int i = 0; i < agent.getNumTables(); i++) {
 			tables.add(new Table(i));

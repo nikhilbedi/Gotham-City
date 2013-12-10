@@ -3,6 +3,7 @@ package simcity.restaurants.restaurant3;
 import java.util.*;
 
 import simcity.Market.interfaces.MarketCashier;
+import simcity.restaurants.restaurant3.gui.Restaurant3CashierGui;
 import simcity.restaurants.restaurant3.Order.OrderState;
 import simcity.restaurants.restaurant3.gui.HostGui;
 import simcity.restaurants.restaurant3.interfaces.*;
@@ -10,6 +11,7 @@ import simcity.restaurants.restaurant3.interfaces.*;
 import javax.print.attribute.standard.MediaSize.NA;
 
 import simcity.PersonAgent;
+import Gui.RoleGui;
 import agent.Role;
 import agent.Agent;
 
@@ -25,7 +27,7 @@ import java.util.TimerTask;
 //does all the rest. Rather than calling the other agent a waiter, we called him
 //the HostAgent. A Host is the manager of a restaurant who sees that all
 //is proceeded as he wishes.
-public class CashierRole extends Role implements Cashier {
+public class Restaurant3CashierRole extends Role implements Cashier {
 	
 	public List<Order> orders = Collections.synchronizedList(new Vector<Order>()); 
 	public Map<String, Food> foods = Collections.synchronizedMap(new HashMap<String, Food>());
@@ -34,8 +36,13 @@ public class CashierRole extends Role implements Cashier {
 	private String name;
 	private Semaphore atTable = new Semaphore(0,true);
 	private Food f;
+
 	public HostGui hostGui = null;
-	public CookRole cook;
+	public Restaurant3CookRole cook;
+
+	public Restaurant3CashierGui gui = null;
+	
+
 	//private WaiterAgent waiter;
 	//CashierState cashState;
 	public enum CashierState {idle, calculating}
@@ -45,7 +52,7 @@ public class CashierRole extends Role implements Cashier {
 	
 	private int inventory = 5;
 	 
-	public CashierRole(PersonAgent p) {
+	public Restaurant3CashierRole(PersonAgent p) {
 		super(p);
 
 		this.name = name;
@@ -65,7 +72,7 @@ public class CashierRole extends Role implements Cashier {
 		foods.put("Salad", f);
 		
 	}
-	public CashierRole() {
+	public Restaurant3CashierRole() {
 		super();
 	}
 
@@ -198,14 +205,6 @@ public class CashierRole extends Role implements Cashier {
 
 	//utilities
 
-	public void setGui(HostGui gui) {
-		hostGui = gui;
-	}
-
-	public HostGui getGui() {
-		return hostGui;
-	}
-
 	public void setRestaurantRevenue(double totalPrice) {
 		this.restaurantRevenue += totalPrice;
 	}
@@ -214,7 +213,7 @@ public class CashierRole extends Role implements Cashier {
 		return restaurantRevenue;
 	}
 	
-	public void setCook(CookRole cook) {
+	public void setCook(Restaurant3CookRole cook) {
 		this.cook = cook;
 		
 	}
@@ -242,6 +241,16 @@ public class CashierRole extends Role implements Cashier {
             return money<0 ? -(i+1) : i+1;          
         }
     }
+	
+	public void setGui(RoleGui g) {
+		super.setGui(g);
+		gui = (Restaurant3CashierGui)g;
+	}
+
+	public Restaurant3CashierGui getGui() {
+		return gui;
+	}
+
 	
 }
 

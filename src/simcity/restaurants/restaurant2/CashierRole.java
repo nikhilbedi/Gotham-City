@@ -1,7 +1,9 @@
 package simcity.restaurants.restaurant2;
 
+import Gui.RoleGui;
 import agent.Agent;
 import agent.Role;
+import simcity.restaurants.restaurant2.gui.Restaurant2CashierGui;
 //import restaurant.Customer.AgentEvent;
 //import restaurant.WaiterAgent;
 import simcity.restaurants.restaurant2.CookRole.CookingState;
@@ -28,7 +30,7 @@ public class CashierRole extends Role implements Cashier {
 	public double restaurantCash;
 	private String name;
 	//Timer timer = new Timer();
-	public HostGui hostGui = null;
+	public Restaurant2CashierGui gui = null;
 
 	public CashierRole(PersonAgent person) {
 		super(person);
@@ -156,6 +158,13 @@ public class CashierRole extends Role implements Cashier {
 	
 	public enum checkOrderState {Pending, checkMade, withCustomer, customerPaying}
 
-	
+	public void setGui(RoleGui g) {
+		super.setGui(g);
+		gui = (Restaurant2CashierGui)g;
+	}
+
+	public Restaurant2CashierGui getGui() {
+		return gui;
+	}
 
 }

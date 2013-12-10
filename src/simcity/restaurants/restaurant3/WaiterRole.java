@@ -23,7 +23,7 @@ public class WaiterRole extends Role implements Waiter{
 	
 	public List<myCustomer> customers= Collections.synchronizedList(new CopyOnWriteArrayList<myCustomer>());
 	public Collection<Table> tables;
-	public boolean isOnBreak = false;
+	//public boolean isOnBreak = false;
 	//note that tables is typed with Collection semantics.
 	//Later we will see how it is implemented
 	//private boolean waiterBusy= false;
@@ -32,11 +32,12 @@ public class WaiterRole extends Role implements Waiter{
 	private Semaphore atHost = new Semaphore(0, true);
 	private Semaphore atCook = new Semaphore(1, true);
 	private Semaphore atCashier = new Semaphore(1, true);
+	private Semaphore atStand = new Semaphore (1, true);
 	
 
 	public HostRole host = null;
-	private CookRole cook = null;
-	private CashierRole cashier = null;
+	private Restaurant3CookRole cook = null;
+	private Restaurant3CashierRole cashier = null;
 	public WaiterGui waiterGui = null;
 	public HostGui hostGui = null;
 	public Restaurant3CustomerGui customerGui = null;
@@ -80,6 +81,9 @@ public class WaiterRole extends Role implements Waiter{
 	public WaiterRole(PersonAgent p) {
 		super(p);
 		this.name = name;
+	}
+	public WaiterRole() {
+		super();
 	}
 	
 
@@ -202,6 +206,10 @@ public class WaiterRole extends Role implements Waiter{
 	}
 	public void msgAtCook() {
 		atCook.release();
+		stateChanged();
+	}
+	public void msgAtStand() {
+		atTable.release();
 		stateChanged();
 	}
 	
@@ -512,10 +520,10 @@ public class WaiterRole extends Role implements Waiter{
 		this.host = host;
 	}
 	
-	public void setCook(CookRole cook) {
+	public void setCook(Restaurant3CookRole cook) {
 		this.cook = cook;
 	}
-	public void setCashier(CashierRole cashier) {
+	public void setCashier(Restaurant3CashierRole cashier) {
 		this.cashier = cashier;
 	}
 
@@ -548,6 +556,8 @@ public class WaiterRole extends Role implements Waiter{
 		}
 		
 	}
+
+	
 
 	
 }

@@ -1,6 +1,7 @@
 package simcity.restaurants.restaurant1.gui;
 
 import Gui.RoleGui;
+import Gui.Screen;
 import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
 import simcity.restaurants.restaurant1.CookRole;
 import simcity.restaurants.restaurant1.RevolvingStand;
@@ -38,6 +39,16 @@ public class CookGui extends RoleGui {
 		foodTypes.put("", false);
 		foodTypes.put("", false);
 		foodTypes.put("", false);*/
+	}
+	
+	public CookGui(CookRole agent, Screen s) {
+		super(agent, s);
+		super.setColor(Color.BLUE);
+		this.agent = agent;
+		xPos = 850;
+		yPos = 130;//default waiter position
+		xDestination = 850;
+		yDestination = 130;//default waiter position 
 	}
 
 	public void updatePosition() {

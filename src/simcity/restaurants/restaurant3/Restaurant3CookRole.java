@@ -23,7 +23,7 @@ import agent.Agent;
 /**
  * Restaurant Host Agent
  */
-public class CookRole extends Role implements Cook{
+public class Restaurant3CookRole extends Role implements Cook{
 
 	public List<Order> orders = Collections.synchronizedList(new Vector<Order>()); 
 	public Map<String, Food> foods = Collections.synchronizedMap(new HashMap<String, Food>());
@@ -35,13 +35,14 @@ public class CookRole extends Role implements Cook{
 	private Food f;
 	public HostGui hostGui = null;
 	private CookGui cookGui;
-	public CashierRole restCashier;
+	public Restaurant3CashierRole restCashier;
 	public MarketCashier cashier;
 	Timer timer = new Timer();
+	private Timer cookingTimer = new Timer();
 	//private WaiterAgent waiter;
 
 
-	public CookRole(PersonAgent p) {
+	public Restaurant3CookRole(PersonAgent p) {
 		super(p);
 
 		Food f = new Food ("Chicken");
@@ -64,7 +65,7 @@ public class CookRole extends Role implements Cook{
 		markets.add(market);
 
 	}
-	public CookRole(){
+	public Restaurant3CookRole(){
 
 	}
 
@@ -78,9 +79,11 @@ public class CookRole extends Role implements Cook{
 
 
 	// Messages
-
+	public void orderIsOnStand() {
+		stateChanged();
+	}
+	
 	public void msgHereIsOrder(Order o) {
-
 		System.out.println("waiter gives " + this.getName() + " an order of from customer" );
 		orders.add(o);
 		o.os = OrderState.pending;
@@ -94,15 +97,15 @@ public class CookRole extends Role implements Cook{
 		o.os = OrderState.doneCooking;
 		stateChanged();
 	}
-	
+
 	public void HereIsYourFood(Map<String, Integer> m){ 	 //from market
-		 for (Map.Entry<String, Integer> entry: m.entrySet()){
-             Food f = foods.get(entry.getKey());
-             f.amount =  entry.getValue();
-             foods.put(entry.getKey(), f);
-             System.out.println("Got order from market, now I have " + f.type + " " + f.amount);
-     }
+		for (Map.Entry<String, Integer> entry: m.entrySet()){
+			Food f = foods.get(entry.getKey());
+			f.amount =  entry.getValue();
+			foods.put(entry.getKey(), f);
+			System.out.println("Got order from market, now I have " + f.type + " " + f.amount);
 		}
+	}
 
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
@@ -110,6 +113,12 @@ public class CookRole extends Role implements Cook{
 
 	public boolean pickAndExecuteAnAction() {
 		//	synchronized(orders) {
+		if(RevolvingStand.checkStand()) {
+			print("Order available on stand");
+			goCheckStand();
+			return true;
+		}
+		
 		try {
 			for (Order o: orders) {
 				if(o.os == OrderState.outOfInventory) {
@@ -134,6 +143,9 @@ public class CookRole extends Role implements Cook{
 					return true;
 				}
 			}
+
+		
+
 			//	}
 		} catch (ConcurrentModificationException e) {
 			e.printStackTrace();
@@ -142,6 +154,28 @@ public class CookRole extends Role implements Cook{
 
 	}
 	// Actions
+
+	private void goCheckStand() {
+		print("Checking stand");
+		try {
+			final Order o = RevolvingStand.popOrder();
+			if (o != null) {
+				// process order
+				cookingTimer.schedule(new TimerTask() {
+					public void run() {
+						print("Taking order of stand and preparing to cook");
+						orders.add(o);
+						//          cookGui.removeFromStand(temp);
+						stateChanged();
+					}
+				},
+				1200);
+			}	
+
+		}catch(Exception e){
+
+		}
+	}
 
 	private void messageWaiterOutOfInventory(Order o) {
 		System.out.println("Out of inventory!!");
@@ -152,7 +186,7 @@ public class CookRole extends Role implements Cook{
 
 	private void plateIt(final Order o) {
 		System.out.println(this.getName() + " is plating the food");
-		
+
 		CookGui.cooking = false;
 		CookGui.plating = true;
 		timer.schedule(new TimerTask() {
@@ -187,7 +221,7 @@ public class CookRole extends Role implements Cook{
 				}
 			}, cookingTime * 250);
 			//DoCooking(o); 
-			
+
 
 			// check low threshold
 			for (Map.Entry<String, Food> entry: foods.entrySet()){
@@ -227,19 +261,19 @@ public class CookRole extends Role implements Cook{
 		} catch(Exception e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 	}
-	*/
+	 */
 
 
 	private void OrderFoodThatIsLow(Map<String, Integer> neededFood) {
-			print("ordering food that is low");
-			//Market m = ((MarketAnimationPanel) ScreenFactory.getMeScreen("Market")).getMarket();
-			//Market m = (Market) ((MarketAnimationPanel) ScreenFactory.getMeScreen("Market")).getMarket();
-			//Market m = (Market) ScreenFactory.getMeScreen("Market")).getMarket();
-			
-			//cashier =  ((simcity.Market.Market) m).getCashier();
-			//cashier.INeedFood(neededFood, this, restCashier);
+		print("ordering food that is low");
+		//Market m = ((MarketAnimationPanel) ScreenFactory.getMeScreen("Market")).getMarket();
+		//Market m = (Market) ((MarketAnimationPanel) ScreenFactory.getMeScreen("Market")).getMarket();
+		//Market m = (Market) ScreenFactory.getMeScreen("Market")).getMarket();
+
+		//cashier =  ((simcity.Market.Market) m).getCashier();
+		//cashier.INeedFood(neededFood, this, restCashier);
 		/*
 		System.out.println(this.getName() + " is ordering from the market.");
 		int amountNeeded = f.getCapacity() - f.getAmount();
@@ -269,7 +303,7 @@ public class CookRole extends Role implements Cook{
 			}
 		}
 		restCashier.msgPayMarketBill(bill);
-		*/
+		 */
 	}
 
 	private boolean checkInventory(Food f) {
@@ -284,10 +318,10 @@ public class CookRole extends Role implements Cook{
 
 	//utilities
 
-	
+
 	private void DoPlating(Order o) {
 		//int cookingTime = o.choice.getCookingTime();
-		
+
 	}
 	public void setGui(HostGui gui) {
 		hostGui = gui;
@@ -304,7 +338,7 @@ public class CookRole extends Role implements Cook{
 		//this.market = market;
 	}
 
-	public void setCashier(CashierRole cashier) {
+	public void setCashier(Restaurant3CashierRole cashier) {
 		restCashier = cashier;
 
 	}

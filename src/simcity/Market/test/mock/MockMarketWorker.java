@@ -10,6 +10,7 @@ import simcity.Market.MarketWorkerRole.RestaurantDelivery;
 import simcity.Market.Order;
 import simcity.Market.interfaces.MarketCustomer;
 import simcity.Market.interfaces.MarketWorker;
+import simcity.restaurants.Restaurant;
 
 public class MockMarketWorker extends Mock implements MarketWorker{
 
@@ -37,13 +38,6 @@ public class MockMarketWorker extends Mock implements MarketWorker{
 	}
 
 	@Override
-	public void SendFood(Map<String, Integer> temp, Role cookRole) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
 	public void Sent(Role role) {
 		// TODO Auto-generated method stub
 		
@@ -59,6 +53,12 @@ public class MockMarketWorker extends Mock implements MarketWorker{
 	public List<RestaurantDelivery> getRestaurantDeliveries() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void SendFood(Map<String, Integer> temp, Role cookRole, Restaurant r) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

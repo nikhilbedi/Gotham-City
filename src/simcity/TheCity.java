@@ -2,6 +2,9 @@ package simcity;
 
 import java.util.*;
 
+
+import simcity.Home.Apartment;
+
 import Gui.TimeBar;
 
 import simcity.Home.Home;
@@ -31,9 +34,11 @@ public class TheCity {
 	static Building market;
 	static Building bank;
 
+	static Building apart;
+	
+
 	//Making timebar static so it can be updated by static city clock is this bad?
 	public static TimeBar bar;
-
 
 	static{//populate Buildings
 		bar = new TimeBar();
@@ -51,13 +56,16 @@ public class TheCity {
            house6 = new Home("Home6", 590, 590, 600, 600);
            house6.setImagePath("/resources/Buildings/HouseDark2.png");*/ 
 
-		home = new Home("Home", 360, 700, 360, 720);
+		home = new Home("Home", 360, 700, 350, 720);
 		home.setImagePath("/resources/Buildings/HouseDark2.png");
+
 		
-		
-		market = new Market("Market", 620, 120, 620, 60);
+		apart = new Apartment("Apartment 1", 620, 700, 610, 720);
+		apart.setImagePath("/resources/Buildings/HouseDark.png");
+	
+		market = new Market("Market", 620, 120, 610, 60);
 		market.setImagePath("/resources/Buildings/MarketDark2.png");
-		bank = new Bank("Bank", 360, 80, 360, 60, 380, 80);
+		bank = new Bank("Bank", 360, 120, 360, 60, 380, 80);
 		bank.setImagePath("/resources/Buildings/BankDark2.png");
 
 		rest1 = new Restaurant1("Restaurant 1", 100, 120, 100, 40);
@@ -81,9 +89,31 @@ public class TheCity {
 		buildings.add(rest3);
 		buildings.add(rest4);
 		buildings.add(rest5);
+		buildings.add(apart);
+		
 	}
 
 	static{//populate person-specific elements
+
+		
+	homeList.add("None (Homeless Shelter)");
+	homeList.add("Home 1");
+	homeList.add("Apartment 1");
+	
+	
+	//populate lists
+	jobLocationList.add("No job");
+	for(Building b: buildings){
+		jobLocationList.add(b.getName());
+	}
+	//populate building jobs map
+	for(Building b: buildings){
+		jobPositionList.add(b.getJobCollec());
+		buildingJobsMap.put(b.getName(), b.getJobCollec());
+	}
+	
+	/*jobLocationList.add("Market");
+=======
 		homeList.add("None (Homeless Shelter)");
 		homeList.add("Home 1");
 
@@ -100,6 +130,7 @@ public class TheCity {
 		}
 
 		/*jobLocationList.add("Market");
+>>>>>>> master
 	jobLocationList.add("Bank");
 	jobLocationList.add("Restaurant 1");*/
 
@@ -148,8 +179,11 @@ public class TheCity {
 		if(s.equalsIgnoreCase("Bank")){
 			return bank;
 		}
-		if(s.equalsIgnoreCase("Home 1")){
+		if(s.equalsIgnoreCase("Home")){
 			return home;
+		}
+		if(s.equalsIgnoreCase("Apartment 1")){
+			return apart;
 		}
 
 		return null;

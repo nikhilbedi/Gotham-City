@@ -2,6 +2,9 @@ package Gui;
 import java.awt.event.*;
 
 import javax.swing.*;
+
+import simcity.TheCity;
+
 import java.awt.*;
    
    public class SimCityPanel extends JPanel implements MouseListener
@@ -9,6 +12,7 @@ import java.awt.*;
       Player player;//this will soon be replaced by AgentGuis
       //ScreenFactory loader;
       Screen currentScreen;
+      BuildingInfoPanel buildingInfo;
    
       boolean start;
       boolean always = true;
@@ -160,20 +164,34 @@ import java.awt.*;
          }
       }
       
-    public void checkMapChange(int x, int y){
-
-            //Have map check coords
-            String swap = currentScreen.checkSwap(x,y);
-            //System.out.println("swap is " + swap);
-    		//swap = "Restaurant";
-            Screen swapScreen = ScreenFactory.getMeScreen(swap);
-            if(!(swapScreen == null)){
-                    currentScreen = swapScreen;
-                    selPane.refresh();
-                    //currentScreen.generate();
-            } 
-    }
+      public void checkMapChange(int x, int y){
+  		//Have map check coords
+  		String swap = currentScreen.checkSwap(x,y);
+  		//System.out.println("swap is " + swap);
+  		//swap = "Restaurant";
+  		Screen swapScreen = ScreenFactory.getMeScreen(swap);
+  		if(!(swapScreen == null)){
+  			currentScreen = swapScreen;
+  			selPane.refresh();
+  			if(swap.equalsIgnoreCase("city")){
+  				buildingInfo.setVisible(false);
+  			}
+  			else{
+  				buildingInfo.setVisible(true);
+  				buildingInfo.update(TheCity.getBuildingFromString(swap).getBuildingInfo());
+  				buildingInfo.getUpdators(TheCity.getBuildingFromString(swap));
+  			}
+  		} 
+  	}
       
+      public BuildingInfoPanel getBuildingInfo() {
+  		return buildingInfo;
+  	}
+
+
+  	public void setBuildingInfo(BuildingInfoPanel buildingInfo) {
+  		this.buildingInfo = buildingInfo;
+  	}
       
         @Override
         public void mouseClicked(MouseEvent e) {

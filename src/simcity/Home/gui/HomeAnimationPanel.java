@@ -22,7 +22,8 @@ public class HomeAnimationPanel extends Screen {
 	static final int HEIGHT = 50;
 	private Image bufferImage;
 	private Dimension bufferSize;
-	private ResidentGui gui;
+	public ResidentGui gui;
+	public Home home;
 
 	public HomeAnimationPanel() {
 		// setSize(WINDOWX, WINDOWY);

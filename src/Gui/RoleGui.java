@@ -12,7 +12,8 @@ public class RoleGui {
 
 	protected int xPos, yPos;
 	protected int xDestination, yDestination;
-	protected static int speed = 2;
+
+	protected static int speed = 1;
 
 
 	private int repeat, repeatBuffer = 10;
@@ -166,6 +167,9 @@ public class RoleGui {
 	}
 	public Screen getHomeScreen() {
 		//System.out.println("Here is home Screen: " + homeScreen);
+		if(homeScreen == null){
+			System.out.println("Sup bro");
+		}
 		return homeScreen;
 	}
 	public void setHomeScreen(Screen s){

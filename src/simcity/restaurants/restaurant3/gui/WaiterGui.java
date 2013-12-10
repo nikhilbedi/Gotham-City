@@ -1,16 +1,19 @@
 package simcity.restaurants.restaurant3.gui;
 
 import Gui.RoleGui;
+import Gui.Screen;
 import Gui.ScreenFactory;
 
 import java.awt.*;
 import java.util.*;
 
+import agent.Role;
 import simcity.restaurants.restaurant3.*;
+import simcity.restaurants.restaurant3.interfaces.Waiter;
 
 public class WaiterGui extends RoleGui {
 
-    private WaiterRole agent = null;
+    private Waiter agent = null;
 
     //public int xPos = +40, yPos = +40;//default waiter position
     private static int Width = 20, Height = 20;
@@ -26,7 +29,9 @@ public class WaiterGui extends RoleGui {
     private static int waitingCustomers[] = new int[]{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
     private int posInWaitArea = -1;
 
-    public WaiterGui(WaiterRole agent, int home) {
+    public WaiterGui(Waiter agent, int home) {
+    	super.setColor(Color.pink);
+    	
     	for (int i = 0; i < waitingCustomers.length; ++i){
 			if (waitingCustomers[i] == -1) { //empty position
 				waitingCustomers[i] = 1;
@@ -36,11 +41,29 @@ public class WaiterGui extends RoleGui {
 				break;
 			}
 		}
-    	xDestination = xPos;
-    	
+		
+    	//xDestination = xPos;
         this.agent = agent;
-
     }
+    public WaiterGui(Waiter agent, int home, Screen s) {
+    	super((Role) agent, s);
+   
+    	//super.setColor(Color.pink);
+    	
+    	for (int i = 0; i < waitingCustomers.length; ++i){
+			if (waitingCustomers[i] == -1) { //empty position
+				waitingCustomers[i] = 1;
+				posInWaitArea = i;
+				xPos = 100 + 20 * (i+1) + 5*i;
+				yPos = 40;
+				break;
+			}
+		}
+		
+    	//xDestination = xPos;
+        this.agent = agent;
+    }
+
 
     public void updatePosition() {
     	super.updatePosition();
@@ -100,7 +123,16 @@ public class WaiterGui extends RoleGui {
         }
         
         if(xPos == xDestination && yPos == yDestination & (xPos == +40) & (yPos == 200)) {
+        	if(!atDestination) {
         	agent.msgAtCook();
+        	atDestination = true;
+        	}
+        }
+        if(xPos == xDestination && yPos == yDestination & (xPos == +40) & (yPos == 100)) {
+        	if(!atDestination) {
+            	agent.msgAtStand();
+            	atDestination = true;
+            	}
         }
         if(xPos == +40 && yPos == +40 && returningToDoor) {
         	if(!atDestination) {
@@ -110,59 +142,8 @@ public class WaiterGui extends RoleGui {
         	returningToDoor = false;
         }
     }
-   /* 
-    public void OrderGoToCook(String type) {
-    	for(OrderGui icon: orderGuis){
-    		if(icon.type.equals(type)){
-    			icon.DoGoToCook();
-    		}
-    	}
-    }
-    */
-    /*
-    public void createOrderGui(String type) {
-    	OrderGui oGui = new OrderGui(type, gui, xPos, yPos);
-    	orderGuis.add(oGui);
-    	gui.animationPanel.addGui(oGui);
-    }
-    */
-    /*
-    public void OrderGoToCustomer(String choice, int tableNumber) {
-    	for(OrderGui icon: orderGuis){
-    		if(icon.type.equals(choice)){
-    			icon.DoGoToTable(tableNumber);
-    		}
-    	}
-    }
-    */
-    /*
-    public synchronized void foodOrdered(String choice) {
-    	for(OrderGui oGui: orderGuis) {
-    		if(oGui.type.equals(choice)) {
-    			oGui.foodOrdered();
-    		}
-    	}
-    }
-    */
-    /*
-    public synchronized void doneCooking(String choice) {
-    	for(OrderGui oGui: orderGuis){
-    		if(oGui.type.equals(choice)){
-    			oGui.doneCooking();
-    		}
-    	}
-    }
-    */
-    /*
-    public synchronized void doneEating(String choice) {
-    	for(OrderGui oGui: orderGuis) {
-    		if(oGui.type.equals(choice)) {
-    			oGui.doneEating();
-    		}
-    	}
-    }
+   
     
-    */
     public void draw(Graphics g) {
         super.draw(g);
     	g.setColor(Color.MAGENTA);
@@ -206,6 +187,11 @@ public class WaiterGui extends RoleGui {
     public void DoGoToCook() {
 		xDestination = +40;
 		yDestination = 200;//location of cook
+		atDestination = false;
+	}
+    public void DoGoToStand() {
+    	xDestination = +40;
+		yDestination = 100;//location of revolving stand
 		atDestination = false;
 	}
     

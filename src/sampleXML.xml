@@ -2,7 +2,7 @@
 
 <!-- Attributes of a person within an XML file -->
 <simcity>
-	<person name="Batman">
+	<person name="Batman1">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -28,7 +28,7 @@
 		<transportation>walk</transportation>
 	</person>
 	
-	<person name="Batman">
+	<person name="Batman2">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -36,19 +36,19 @@
 		<!-- The Person's job -->
 		<job>
 			<building>Restaurant 1</building>
-			<position>Host</position>
+			<position>Waiter1</position>
 			<shift>1</shift>
 		</job>
 
+		<!-- The specific home Person resides -->
+		
 		<!-- Properties owned by person -->
-		<property>
-			<address>Home 1</address>
-		</property>
 
 		<!-- Transportation preference -->
 		<transportation>walk</transportation>
 	</person>
-	<person name="Batman">
+
+<person name="Batman3">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -56,57 +56,17 @@
 		<!-- The Person's job -->
 		<job>
 			<building>Restaurant 1</building>
-			<position>Host</position>
+			<position>Waiter2</position>
 			<shift>1</shift>
 		</job>
 
+		<!-- The specific home Person resides -->
+		
 		<!-- Properties owned by person -->
-		<property>
-			<address>Home 1</address>
-		</property>
-
-		<!-- Transportation preference -->
-		<transportation>walk</transportation>
-	</person>
-	<person name="Batman">
-
-		<!-- Beginning amount of money -->
-		<money>100000</money>
-
-		<!-- The Person's job -->
-		<job>
-			<building>Restaurant 1</building>
-			<position>Host</position>
-			<shift>1</shift>
-		</job>
-
-		<!-- Properties owned by person -->
-		<property>
-			<address>Home 1</address>
-		</property>
-
-		<!-- Transportation preference -->
-		<transportation>walk</transportation>
-	</person>
-	<person name="Batman">
-
-		<!-- Beginning amount of money -->
-		<money>100000</money>
-
-		<!-- The Person's job -->
-		<job>
-			<building>Restaurant 1</building>
-			<position>Host</position>
-			<shift>1</shift>
-		</job>
-
-		<!-- Properties owned by person -->
-		<property>
-			<address>Home 1</address>
-		</property>
 
 		<!-- Transportation preference -->
 		<transportation>walk</transportation>
 	</person>
 
+	
 </simcity>

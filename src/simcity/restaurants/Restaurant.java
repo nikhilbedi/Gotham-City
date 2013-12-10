@@ -1,5 +1,7 @@
 package simcity.restaurants;
 
+import java.util.Vector;
+
 import agent.Role;
 import simcity.Building;
 
@@ -45,5 +47,11 @@ public class Restaurant extends Building {
 		return "This should not be called";
 	}
 	
-
+	public Vector<String> getBuildingInfo(){
+		Vector<String> info = new Vector<String>();
+		info.add("this is some test info");
+		info.add("this is some more test info");
+		info.add("this is even more test info");
+		return info;
+	}
 }

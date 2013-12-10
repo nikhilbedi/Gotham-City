@@ -1,26 +1,33 @@
 package simcity;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
+
 import Gui.RoleGui;
 
 public class Bus extends RoleGui{
 	Timer timer = new Timer(), moveTimer = new Timer();
 	private String type;
 	String destination;
-	ImageIcon currentImage;
+	ImageIcon currentImage = new ImageIcon();
 	ImageIcon busLeft = new ImageIcon(this.getClass().getResource("/resources/mika/busleft.jpg"));
 	ImageIcon busRight = new ImageIcon(this.getClass().getResource("/resources/mika/busright.jpg"));
 	ImageIcon busUp = new ImageIcon(this.getClass().getResource("/resources/mika/busUp.jpg"));
 	ImageIcon busDown = new ImageIcon(this.getClass().getResource("/resources/mika/busDown.jpg"));
+	public static List<PersonGui> passengers = new ArrayList<PersonGui>();
+
+
 	int currentDestinationX;
 	int currentDestinationY;
 	int counterX = 0;
 	int counterY = 0;
+
 	int finalX, finalY;
 	
 	Character[][] grid;
@@ -31,14 +38,14 @@ public class Bus extends RoleGui{
 	Location botLeftCorner = new Location(140, 660);
 	Location botRightCorner = new Location(640, 660);
 	
-	public boolean stoppedNorthRight = false; 
-	public boolean stoppedNorthLeft  = false;
-	public boolean stoppedSouthRight = false;
-	public boolean stoppedSouthLeft  = false;
-	public boolean stoppedEastRight = false; 
-	public boolean stoppedEastLeft  = false;
-	public boolean stoppedWestRight = false;
-	public boolean stoppedWestLeft  = false;
+	public static boolean stoppedNorthRight = false; 
+	public static boolean stoppedNorthLeft  = false;
+	public static boolean stoppedSouthRight = false;
+	public static boolean stoppedSouthLeft  = false;
+	public static boolean stoppedEastRight = false; 
+	public static boolean stoppedEastLeft  = false;
+	public static boolean stoppedWestRight = false;
+	public static boolean stoppedWestLeft  = false;
 	
 	boolean reachedDest = false;
 	
@@ -47,11 +54,18 @@ public class Bus extends RoleGui{
 		this.grid = grid;
 	}
 	
+	public static Location northBusStop = new Location(400, 216, "North busstop");
+	public static Location southBusStop = new Location(400, 566, "South busstop");
+	public static Location eastBusStop = new Location(656, 352, "East busstop");
+	public static Location westBusStop = new Location(210, 352, "West busstop");
+	
+	
 	public Bus(String type){ //goes east
 		this.type = type;
 		if (this.type == "clockWise"){
 			xPos = topLeftCorner.getX();
 			yPos = topLeftCorner.getY();
+			currentImage = busRight;
 			//xDestination = 610;
 			//yDestination = 215;
 			
@@ -208,14 +222,26 @@ public class Bus extends RoleGui{
 		}
 		/*if (xPos == 401 || xPos == 400){
 				++counterX;
-				if (xPos == 400 && yPos == 215){
-				 stoppedNorthRight = true;
+				if (xPos == 400 && yPos == 216){  //north bus stop locations 
+					stoppedNorthRight = true;
+					for (int i= 0; i<passengers.size(); i++){
+						if (passengers.get(i).busStop == "north"){
+							passengers.get(i).getOut();
+							passengers.remove(i);
+						}
+					}
 				}
 				else if (xPos == 400 && yPos == 255){
 					stoppedNorthLeft = true;
 				}
-				else if (xPos == 400 && yPos == 565){
+				else if (xPos == 400 && yPos == 566){ //south bus stop locations
 					stoppedSouthRight = true;
+					for (int i= 0; i<passengers.size(); i++){
+						if (passengers.get(i).busStop == "south"){
+							passengers.get(i).getOut();
+							passengers.remove(i);
+						}
+					}
 				}
 				else if (xPos == 401 && yPos == 525){
 					stoppedSouthLeft = true;
@@ -228,16 +254,28 @@ public class Bus extends RoleGui{
 			}
 		
 		
-		if (yPos == 351 || yPos == 350){
+		if ( yPos == 352){
 			++counterY;
-			if (yPos == 351 && xPos == 655){
+			if (yPos == 352 && xPos == 656){   //east bus stop location
 				stoppedEastRight = true;
+				for (int i= 0; i<passengers.size(); i++){
+					if (passengers.get(i).busStop == "east"){
+						passengers.get(i).getOut();
+						passengers.remove(i);
+					}
+				}
 			}
 			else if (yPos == 351 && xPos ==615){
 				stoppedEastLeft = true;
 			}
-			else if (yPos == 351 && xPos == 210){
+			else if (yPos == 352 && xPos == 210){   //west bus stop location
 				stoppedWestRight = true;
+				for (int i= 0; i<passengers.size(); i++){
+					if (passengers.get(i).busStop == "west"){
+						passengers.get(i).getOut();
+						passengers.remove(i);
+					}
+				}
 			}
 			else if (yPos == 350 && xPos == 255){
 				stoppedWestLeft =true;
@@ -256,13 +294,13 @@ public class Bus extends RoleGui{
 	public void busStopX(){
 		timer.schedule(new TimerTask() { public void run() {
 			xDestination = currentDestinationX;
-			if (yPos == 215){
+			if (yPos == 216){
 				stoppedNorthRight = false;
 			}
 			else if (yPos == 255){
 				stoppedNorthLeft = false;
 			}
-			else if (yPos == 565){
+			else if (yPos == 566){
 				stoppedSouthRight = false;
 			}
 			else if (yPos == 525){
@@ -277,10 +315,10 @@ public class Bus extends RoleGui{
 	public void busStopY(){
 		timer.schedule(new TimerTask() { public void run() {
 			yDestination = currentDestinationY;
-			if (yPos == 655){
+			if (xPos == 655){
 				stoppedEastLeft = false;
 			}
-			if (yPos == 615){
+			if (xPos == 656){
 				stoppedEastRight = false;
 			}
 			if (xPos ==210){
@@ -295,7 +333,13 @@ public class Bus extends RoleGui{
 	2000);//how long to wait before running task
 		
 }	
+	public int getXPos(){
+		return xPos;
+	}
 	
+	public int getYPos(){
+		return yPos;
+	}
 	
 	@Override
 	public void draw(Graphics g){

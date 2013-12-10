@@ -138,4 +138,16 @@ public class MockResident extends Mock implements Resident {
 		log.add(new LoggedEvent("at home"));
 	}
 
+	@Override
+	public void atRoomEntrance() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void atRoomExit() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

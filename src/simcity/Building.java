@@ -179,4 +179,17 @@ public class Building {
 			return null;
 		}
 	}
+	
+	public Vector<String> getStockItems(){
+		return null;//menu.returnList();
+	}
+	
+	public Vector<String> getBuildingInfo(){
+		Vector<String> info = new Vector<String>();
+		info.add("this is super class info");
+		info.add("this is some more super class info");
+		info.add("this is even more super class info");
+		return info;
+	}
+	
 }

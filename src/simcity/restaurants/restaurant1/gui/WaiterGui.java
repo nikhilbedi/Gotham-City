@@ -6,13 +6,14 @@ import simcity.restaurants.restaurant1.HostRole;
 import simcity.restaurants.restaurant1.WaiterRole;
 import simcity.restaurants.restaurant1.interfaces.Waiter;
 import Gui.RoleGui;
+import Gui.Screen;
 
 import java.awt.*;
 import java.util.*;
 
 public class WaiterGui extends RoleGui {
 
-	private Waiter agent = null;
+	private WaiterRole agent = null;
 
 	private int xHome = 100;
 
@@ -29,7 +30,30 @@ public class WaiterGui extends RoleGui {
 	private Map<Integer, Dimension> tableCoords = new HashMap<Integer, Dimension>();
 
 
-	public WaiterGui(Waiter agent, int home) {
+	public WaiterGui(WaiterRole agent, int home) {
+		super.setColor(Color.RED);
+		this.agent = agent;
+		xPos = 100;
+		yPos = 20;
+		//Setting coordinates
+		tableCoords.put(1, new Dimension(100, 150));
+		tableCoords.put(2, new Dimension(300, 150));
+		tableCoords.put(3, new Dimension(500, 150));
+		tableCoords.put(4, new Dimension(700, 150));
+		
+		//WHY IS THIS CRASHING THE PROGRAM. IT DOESN'T MAKE SENSE.
+		/*xHome += home*25;
+		xPos = xHome;
+		xDestination = xHome;*/
+	}
+	
+	public WaiterGui(WaiterRole agent, int home, Screen s) {
+		/*
+		 * if there's something messing up with the waiter,
+		 * check this super. the agent is cast as a WaiterRole,
+		 * but WaiterSharedData shares this gui... so yeah. 
+		*/
+		super(agent, s);
 		super.setColor(Color.RED);
 		this.agent = agent;
 		xPos = 100;

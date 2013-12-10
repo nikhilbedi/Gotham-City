@@ -20,7 +20,7 @@ import junit.framework.*;
 public class CashierTest extends TestCase
 {
 	//these are instantiated for each test separately via the setUp() method.
-	CashierRole cashier;
+	Restaurant3CashierRole cashier;
 	MockWaiter waiter;
 	MockCustomer customer;
 	MockMarket market1;
@@ -33,7 +33,7 @@ public class CashierTest extends TestCase
 	 */
 	public void setUp() throws Exception{
 		super.setUp();		
-		cashier = new CashierRole();		
+		cashier = new Restaurant3CashierRole();		
 		customer = new MockCustomer("mockcustomer");		
 		waiter = new MockWaiter("mockwaiter");
 		market1 = new MockMarket("mockmarket1");

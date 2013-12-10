@@ -22,9 +22,9 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 	//List<AgentEvent> events;
 	// agent correspondents
 	private HostRole host;
-	private WaiterRole waiter;
+	private Waiter waiter;
 	public Menu menu;
-	private CashierRole cashier;
+	private Restaurant3CashierRole cashier;
 	public int tableNum;
 	private double wallet;
 	public Order order;
@@ -85,7 +85,7 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 	public void setHost(HostRole host) {
 		this.host = host;
 	}
-	public void setCashier(CashierRole cashier) {
+	public void setCashier(Restaurant3CashierRole cashier) {
 		this.cashier = cashier;
 	}
 
@@ -108,7 +108,7 @@ public class Restaurant3CustomerRole extends Role implements Customer {
     public void startBuildingMessaging(){
             //Set host and cashier
             host = (HostRole) myPerson.currentPreference.getHost();
-            cashier = (CashierRole) myPerson.currentPreference.getCashier();
+            cashier = (Restaurant3CashierRole) myPerson.currentPreference.getCashier();
             gotHungry();
     }
 
@@ -322,7 +322,7 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 
 	private void EatFood() {
 		customerGui.waitingForFood=false;
-		customerGui.receivedFood=true;
+		customerGui.receivedFood = true;
 		System.out.println(this.getName() + " is eating his/her food");
 		//This next complicated line creates and starts a timer thread.
 		//We schedule a deadline of getHungerLevel()*1000 milliseconds.
@@ -449,7 +449,7 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 		customerGui = (Restaurant3CustomerGui)g;
 	}
 
-	public void setWaiter(WaiterRole waiter) {
+	public void setWaiter(Waiter waiter) {
 		this.waiter = waiter;
 	}
 

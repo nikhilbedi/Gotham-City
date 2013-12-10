@@ -1,8 +1,17 @@
 package simcity.Market;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Vector;
+import java.util.Map;
 
+
+
+
+import Gui.ScreenFactory;
+import agent.Role;
 import simcity.Building;
 import simcity.Market.MarketGui.MarketCashierGui;
 import simcity.Market.MarketGui.MarketWorkerGui;
@@ -13,13 +22,13 @@ public class Market extends Building {
 		private String CustomerRole;
 	private List <Item> items = new ArrayList<Item>();
 	MarketCashierRole marketCashier = new MarketCashierRole();
-    MarketWorkerRole marketWorker = new MarketWorkerRole(); //later will be a list
+    MarketWorkerRole marketWorker = new MarketWorkerRole(); 
 	    Item beef = new Item("Beef", 10.99, 10);
 		Item chicken = new Item("Chicken", 8.99, 10);
 		Item rice = new Item("Rice", 6.99, 10);
 		Item potato = new Item("Potato", 5.99, 10);
-	MarketCashierGui cashierGui = new MarketCashierGui(marketCashier);
-	MarketWorkerGui workerGui = new MarketWorkerGui(marketWorker);
+	MarketCashierGui cashierGui = new MarketCashierGui(marketCashier,ScreenFactory.getMeScreen(this.getName()));
+	MarketWorkerGui workerGui = new MarketWorkerGui(marketWorker,ScreenFactory.getMeScreen(this.getName()));
 	
 	
 		public Market(String type, int entranceX, int entranceY, int guiX,
@@ -36,19 +45,19 @@ public class Market extends Building {
 			super(type, entranceX, entranceY, guiX, guiY);
 			marketCashier.setWorker(marketWorker);
 			marketWorker.setCashier(marketCashier);
-			/*setWeekdayHours(8, 24);
+			setWeekdayHours(8, 24);
 			setWeekendHours(0, 0);
 			marketCashier.setGui(cashierGui);
-			marketWorker.setGui(workerGui);*/
+			marketWorker.setGui(workerGui);
 			// TODO Auto-generated constructor stub
 			items.add(beef);
 			items.add(chicken);
 			items.add(rice);
 			items.add(potato);
-			/*Map<String, Role> jobs = Collections.synchronizedMap(new HashMap<String, Role>());
+			Map<String, Role> jobs = Collections.synchronizedMap(new HashMap<String, Role>());
 			jobs.put("marketCashier", marketCashier);
 			jobs.put("marketWorker", marketWorker);
-			setJobRoles(jobs);*/
+			setJobRoles(jobs);
 			Item beef = new Item("Beef", 10.99, 100);
 			Item chicken = new Item("Chicken", 8.99, 100);
 			Item rice = new Item("Rice", 6.99, 100);
@@ -112,6 +121,14 @@ public class Market extends Building {
 		marketWorker.getInventory().put("Salad", salad);
 		marketWorker.getInventory().put("Steak", steak);
 
+	}
+	
+	public Vector<String> getBuildingInfo(){
+		Vector<String> info = new Vector<String>();
+		info.add("Market");
+		info.add("Created by: Miiiiiiikkkkkkaaaa!");
+		info.add("this is even more info");
+		return info;
 	}
 	
 }

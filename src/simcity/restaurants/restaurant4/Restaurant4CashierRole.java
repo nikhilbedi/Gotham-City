@@ -1,4 +1,5 @@
 package simcity.restaurants.restaurant4;
+import Gui.RoleGui;
 import agent.Agent;
 import agent.Role;
 
@@ -18,8 +19,8 @@ public class Restaurant4CashierRole extends Role implements Restaurant4Cashier {
 	private Timer timer = new Timer();
 	public List<Check> checks= new ArrayList<Check>();
 	public List<Payment> payments = new ArrayList<Payment>();
+	private Restaurant4CashierGui gui = null;
 	//public List<MarketAgent> markets= new ArrayList<MarketAgent>();
-	private Restaurant4CashierGui gui;
 	
 	public Restaurant4CashierRole(PersonAgent person){
 		super(person);
@@ -41,6 +42,15 @@ public class Restaurant4CashierRole extends Role implements Restaurant4Cashier {
 	
 	public String getName(){
 		return name;
+	}
+	
+	public void setGui(RoleGui g) {
+		super.setGui(g);
+		gui = (Restaurant4CashierGui)g;
+	}
+
+	public Restaurant4CashierGui getGui() {
+		return gui;
 	}
 	
 	
