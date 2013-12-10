@@ -6,6 +6,7 @@ import Gui.RoleGui;
 import Gui.ScreenFactory;
 import agent.Role;
 import simcity.Building;
+import simcity.CityClock;
 import simcity.bank.interfaces.BankGreeter;
 import simcity.bank.interfaces.BankTeller;
 import trace.AlertLog;
@@ -103,7 +104,17 @@ public class Bank extends Building {
 	
 	@Override
 	public boolean isOpen() {
-		
+		if(CityClock.getDay() != 0 && CityClock.getDay() !=6) {
+			if(CityClock.getTime() > weekdayOpen && CityClock.getTime() < weekdayClose) {
+				if(((Role) greeter).checkWorkStatus() && ((Role) teller).checkWorkStatus())
+					return true;
+			}
+		}
+		else {
+			if(CityClock.getTime() > weekendOpen && CityClock.getTime() < weekendClose)
+				if(((Role) greeter).checkWorkStatus() && ((Role) teller).checkWorkStatus())
+					return true;
+		}
 		return false;
 	}
 	
