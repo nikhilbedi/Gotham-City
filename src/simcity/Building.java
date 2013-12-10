@@ -24,7 +24,7 @@ public class Building {
 	private Location entranceLocation;
 	private Location exitLocation;
 	private Location guiLocation;
-	private Location parkingLocation;
+	protected Location parkingLocation;
 	protected int weekdayOpen;
 	protected int weekdayClose;
 	protected int weekendOpen;

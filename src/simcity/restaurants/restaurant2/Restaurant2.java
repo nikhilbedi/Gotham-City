@@ -66,8 +66,12 @@ public class Restaurant2 extends Restaurant {
 	}
 	
 	@Override
-	public Role getCashier() {
+	public CashierRole getCashier() {
 		return (CashierRole)cashier;
+	}
+	
+	public CookRole getCook(){
+		return (CookRole) cook;
 	}
 	
 	@Override

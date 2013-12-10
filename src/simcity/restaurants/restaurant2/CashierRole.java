@@ -3,6 +3,8 @@ package simcity.restaurants.restaurant2;
 import Gui.RoleGui;
 import agent.Agent;
 import agent.Role;
+import simcity.Market.interfaces.MarketCashier;
+import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant2.gui.Restaurant2CashierGui;
 //import restaurant.Customer.AgentEvent;
 //import restaurant.WaiterAgent;
@@ -11,7 +13,9 @@ import simcity.restaurants.restaurant2.gui.HostGui;
 import simcity.restaurants.restaurant2.interfaces.Cashier;
 import simcity.restaurants.restaurant2.interfaces.Customer;
 import simcity.restaurants.restaurant2.interfaces.Waiter;
+import simcity.restaurants.restaurant4.Restaurant4CashierRole.Payment;
 import simcity.PersonAgent;
+import simcity.TheCity;
 
 import java.util.*;
 import java.util.concurrent.Semaphore;
@@ -90,6 +94,19 @@ public class CashierRole extends Role implements Cashier {
 			restaurantCash -= ch.moneyOwed;
 		}
 	}
+	
+	public void amountDue(double a, MarketCashier c){  // from market Cashier 
+		myPerson.Do("Got check, about to pay " + a);
+		restaurantCash = restaurantCash-a;
+		Restaurant r2 = (Restaurant) TheCity.getBuildingFromString("Restaurant 2");
+		c.hereIsMoneyRestaurant(r2, a);
+	}
+	
+	public void HereIsYourChange(double d, MarketCashier c ){
+		restaurantCash = restaurantCash+ d ;
+		myPerson.Do("Got change from market cashier " + d);
+	}
+	
 	
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
