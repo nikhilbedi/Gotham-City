@@ -10,9 +10,12 @@ import java.util.Timer;
 import java.util.Map;
 import java.util.TimerTask;
 
+import simcity.Item;
 import simcity.PersonAgent;
 import simcity.restaurants.restaurant5.interfaces.*;
 import simcity.restaurants.restaurant5.gui.*;
+import trace.AlertLog;
+import trace.AlertTag;
 
 /**
  * Restaurant Cook Agent
@@ -259,6 +262,8 @@ public class CookRole extends Role implements Cook{
 		String result = "Cook: ";
 		for (Map.Entry<String, Food> f : foodMap.entrySet())//check food amount
 		{
+			AlertLog.getInstance().logInfo(AlertTag.GUI, "CookRole",
+					"Key: " + f.getKey() + " Value: " + f.getValue());
 			String temp = "error";
 			if(f.getKey().equalsIgnoreCase("Steak")){
 				temp = "ST";
@@ -296,6 +301,19 @@ public class CookRole extends Role implements Cook{
 
 	public String getName(){
 		return name;
+	}
+	
+	public Vector<Item> getInventory(){
+		Vector<Item> inventory = new Vector<Item>();
+		for (Map.Entry<String, Food> f : foodMap.entrySet())//check food amount
+		{
+			inventory.add(new Item(f.getKey(), f.getValue().amount));
+			AlertLog.getInstance().logInfo(AlertTag.GUI, "CookRole",
+					"Key: " + f.getKey() + " Value: " + f.getValue());
+		}
+		AlertLog.getInstance().logInfo(AlertTag.GUI, "CookRole",
+				inventory.toString());
+		return inventory;
 	}
 
 	private enum MarketState

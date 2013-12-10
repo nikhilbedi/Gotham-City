@@ -4,10 +4,11 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 import simcity.Building;
+import simcity.TheCity;
 
 import java.awt.Dimension;
 import java.util.*;
-import simcity.TheCity;
+//import simcity.TheCity;
 
 public class BuildingControlPanel extends JPanel {
 	List<Building> buildings = TheCity.getBuildings();

@@ -12,6 +12,8 @@ import simcity.restaurants.restaurant1.gui.CookGui;
 import simcity.restaurants.restaurant1.gui.HostGui;
 import simcity.restaurants.restaurant1.gui.WaiterGui;
 import simcity.restaurants.restaurant1.gui.WaiterSharedDataGui;
+import trace.AlertLog;
+import trace.AlertTag;
 
 /**
  * Nikhil's restaurant - original
@@ -42,7 +44,7 @@ public class Restaurant1 extends Restaurant {
 		super(type, entranceX, entranceY, guiX, guiY);
 		//Set the open and closing hours
 		setWeekdayHours(8, 22);
-		setWeekendHours(9, 21);
+		setWeekendHours(2, 21);
 		//Set guis
 		cook.setGui(cookGui);
 		waiter1.setGui(w1Gui);
@@ -51,6 +53,8 @@ public class Restaurant1 extends Restaurant {
 		waiter4.setGui(w2Gui);
 		host.setGui(hostGui);
 		cashier.setGui(cashierGui);
+		AlertLog.getInstance().logInfo(AlertTag.GUI, "Restaurant 1",
+				"Does the Rest exist" + ScreenFactory.getMeScreen("Restaurant 1"));
 		//Add the key: strings & value: roles
 		Map<String, Role> jobs = Collections.synchronizedMap(new HashMap<String, Role>());
 		jobs.put("host", host);

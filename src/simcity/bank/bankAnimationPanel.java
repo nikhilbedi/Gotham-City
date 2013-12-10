@@ -3,10 +3,10 @@ package simcity.bank;
 import java.awt.Graphics;
 
 import simcity.PersonAgent;
+import simcity.TheCity;
 import simcity.PersonAgent.MoneyState;
 import simcity.PersonAgent.RentBill;
 import simcity.Robot;
-import simcity.TheCity;
 import Gui.MainScreen;
 import Gui.Screen;
 import Gui.ScreenFactory;
@@ -15,7 +15,8 @@ public class bankAnimationPanel extends Screen{
 	Bank b = TheCity.getBank();
 	
 	public bankAnimationPanel() {
-		populate();
+		super();
+		//populate();
 	}
 	
 	public void paintBackground(Graphics g){

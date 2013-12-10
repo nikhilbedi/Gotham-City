@@ -16,7 +16,7 @@ public class CookGui extends RoleGui implements Gui {
 	private int defaultX = 202, defaultY = 76;
 	
 	private int cookingX = 232, cookingY = 70;
-	private int DEBUGX = 600;
+	private int DEBUGX = 400;
 	private int DEBUGY = 25;
 
 	static final int hostSize = 20;
