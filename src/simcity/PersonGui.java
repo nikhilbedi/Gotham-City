@@ -90,7 +90,7 @@ public class PersonGui extends RoleGui {
 		if(xPos == xDestination && yPos == yDestination && tempStill && command.equalsIgnoreCase("GoingToLocation")&&finalX == xDestination/20 && finalY == yDestination/20) {
 			//System.out.println("REACHED BUILDING");
 			//agent.reachedBuilding();
-			reachedBuilding();
+			//reachedBuilding();
 			tempStill = false;
 		}
 	/*	System.out.println(xPos);
@@ -255,8 +255,6 @@ public class PersonGui extends RoleGui {
 			finalY = (loc.getY())/20;
 			//xDestination = loc.getX();
 			//yDestination = loc.getY();
-			System.out.println(xDestination);
-			System.out.println(yDestination);
 			command = "GoingToBusStop";
 			
 			guiMoveFromCurrentPositionTo(xPos/20, yPos/20);
@@ -264,6 +262,7 @@ public class PersonGui extends RoleGui {
 		else if (agent.transportationState == TransportationState.Walking){
 			System.out.println("Walking");
 			tempStill = true;
+			this.destination = destination;
 			finalX = destination.getX()/20;
 			finalY = destination.getY()/20;
 			//xDestination = destination.getX();
@@ -279,7 +278,6 @@ public class PersonGui extends RoleGui {
 	public int getY() { return yPos;}
 
 	public void reachedBuilding() {
-		System.out.println("REACHED BUILDING");
 		agent.reachedBuilding();
 		tempStill = false;
 	}
@@ -291,8 +289,11 @@ public class PersonGui extends RoleGui {
 	
 	void guiMoveFromCurrentPositionTo(final int x, final int y){ // Brice - Method for traveling along the grid within the City Screen
 	 	if(finalX == x && finalY == y) {
-	 		reachedBuilding();
-	 		System.out.println("AT PLACE");
+	 		//if(finalX == destination.getX() && finalY == destination.getY()) {
+	 			System.out.println("reached building");
+	 			reachedBuilding();
+	 		//}
+	 		//System.out.println("REACHED HERE");
 	 		grid[x][y] = prevTile;
 	 		return;
 	 	}
@@ -302,8 +303,8 @@ public class PersonGui extends RoleGui {
 	 		//System.out.println("MOVING RIGHT");
 	 		try {
 	 			char temp = grid[x+1][y];
-	 			grid[x+1][y] = 'P';
-	 			grid[x][y] = prevTile;
+	 			//grid[x+1][y] = 'P';
+	 			//grid[x][y] = prevTile;
 	 			prevTile = temp;
 	 			moveTo(new Location((x+1)*20, y*20)); //Temporary timer or semaphore?
 	 			moveTimer.schedule(new TimerTask() {
@@ -326,8 +327,8 @@ public class PersonGui extends RoleGui {
 	 		//System.out.println("MOVING LEFT");
 	 		try {
 	 			char temp = grid[x-1][y];
-	 			grid[x-1][y] = 'P';
-	 			grid[x][y] = prevTile;
+	 			//grid[x-1][y] = 'P';
+	 			//grid[x][y] = prevTile;
 	 			prevTile = temp;
 	 			moveTo(new Location((x-1)*20, y*20)); //Temporary timer or semaphore?
 	 			moveTimer.schedule(new TimerTask() {
@@ -348,8 +349,8 @@ public class PersonGui extends RoleGui {
 	 		//System.out.println("MOVING UP");
 	 		try {
 	 			char temp = grid[x][y-1];
-	 			grid[x][y-1] = 'P';
-	 			grid[x][y] = prevTile;
+	 			//grid[x][y-1] = 'P';
+	 			//grid[x][y] = prevTile;
 	 			prevTile = temp;
 	 			moveTo(new Location(x*20, (y-1)*20)); //Temporary timer or semaphore?
 	 			moveTimer.schedule(new TimerTask() {
@@ -370,8 +371,8 @@ public class PersonGui extends RoleGui {
 	 		//System.out.println("MOVING DOWN");
 	 		try {
 	 			char temp = grid[x][y+1];
-	 			grid[x][y+1] = 'P';
-	 			grid[x][y] = prevTile;
+	 			//grid[x][y+1] = 'P';
+	 			//grid[x][y] = prevTile;
 	 			prevTile = temp;
 	 			moveTo(new Location(x*20, (y+1)*20)); //Temporary timer or semaphore?
 	 			moveTimer.schedule(new TimerTask() {

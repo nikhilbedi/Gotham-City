@@ -664,6 +664,7 @@ public class PersonAgent extends Agent implements Person {
 		// animate to desired location
 		//System.out.println(myJob.getName());
 		gui.DoGoToLocation(myJob.workplace.getEntranceLocation());
+		//gui.DoGoToLocation(currentPreference.getEntranceLocation());
 		try {
 			busyWithTask.acquire();
 		} catch (InterruptedException e) {
@@ -770,7 +771,7 @@ public class PersonAgent extends Agent implements Person {
 			enteringBuilding(myHome.getResident());
 			checkPersonScheduler = false;
 		} else {
-			gui.DoGoToLocation(new Location(26, 580, "Default"));
+			gui.DoGoToLocation(new Location(100, 580, "Default"));
 			try {
 				// print("Available permits: " +
 				// busyWithTask.availablePermits());
