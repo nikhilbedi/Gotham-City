@@ -62,7 +62,8 @@ public class Restaurant5 extends Restaurant {
 		menu = new Menu();
 
 		setWeekdayHours(9, 17);
-		setWeekendHours(0,0);
+		//TODO change to 0 0 
+		setWeekendHours(4,24);
 
 
 		((HostRole) host).setGui((RoleGui)hostGui);
@@ -180,8 +181,8 @@ public class Restaurant5 extends Restaurant {
 
 	public Vector<Item> getStockItems(){
 		inventory = ((CookRole) cook).getInventory();
-		AlertLog.getInstance().logInfo(AlertTag.GUI, "Rest 5",
-				inventory.toString());
+	/*	AlertLog.getInstance().logInfo(AlertTag.GUI, "Rest 5",
+				inventory.toString());*/
 		return inventory;
 	}
 
