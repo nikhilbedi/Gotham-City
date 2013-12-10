@@ -3,11 +3,15 @@ package simcity.restaurants.restaurant2.gui;
 
 import simcity.restaurants.restaurant2.Restaurant2CustomerRole;
 import simcity.restaurants.restaurant2.WaiterRole;
+import simcity.restaurants.restaurant2.interfaces.Cook;
 import simcity.restaurants.restaurant2.interfaces.Customer;
+import simcity.restaurants.restaurant2.interfaces.Waiter;
 
 import java.awt.*;
 
+import agent.Role;
 import Gui.RoleGui;
+import Gui.Screen;
 
 
 public class WaiterGui extends RoleGui {
@@ -35,7 +39,16 @@ public class WaiterGui extends RoleGui {
         xDestination = waiterDefaultX;
         yPos = 20;
     }
-
+    
+    public WaiterGui(Waiter waiter, Screen meScreen) {
+		super((Role) waiter, meScreen);
+		
+		waiterDefaultX = 100;
+        xPos = waiterDefaultX;
+        xDestination = waiterDefaultX;
+        yPos = 20;
+	}	
+    
     public void updatePosition() {
     	prevXPos = xPos;
     	prevYPos = yPos;

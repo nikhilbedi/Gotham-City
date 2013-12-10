@@ -3,14 +3,17 @@ package simcity.restaurants.restaurant3;
 import java.util.*;
 
 import simcity.Market.interfaces.MarketCashier;
-import simcity.restaurants.restaurant3.gui.Restaurant3CashierGui;
+import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant3.Order.OrderState;
-import simcity.restaurants.restaurant3.gui.HostGui;
+import simcity.restaurants.restaurant3.gui.*;
 import simcity.restaurants.restaurant3.interfaces.*;
 
 import javax.print.attribute.standard.MediaSize.NA;
 
 import simcity.PersonAgent;
+import simcity.TheCity;
+import trace.AlertLog;
+import trace.AlertTag;
 import Gui.RoleGui;
 import agent.Role;
 import agent.Agent;
@@ -32,15 +35,13 @@ public class Restaurant3CashierRole extends Role implements Cashier {
 	public List<Order> orders = Collections.synchronizedList(new Vector<Order>()); 
 	public Map<String, Food> foods = Collections.synchronizedMap(new HashMap<String, Food>());
 	public List<Payment> payments = new ArrayList<Payment>();
-	private int threshold;
 	private String name;
-	private Semaphore atTable = new Semaphore(0,true);
 	private Food f;
 
 	public HostGui hostGui = null;
 	public Restaurant3CookRole cook;
 
-	public Restaurant3CashierGui gui = null;
+	public CashierGui gui = null;
 	
 
 	//private WaiterAgent waiter;
@@ -49,13 +50,10 @@ public class Restaurant3CashierRole extends Role implements Cashier {
 	CashierState cashState;
 	public Map<Customer, Double> owed = Collections.synchronizedMap(new HashMap<Customer, Double>());
 	private double restaurantRevenue = 1000;
-	
-	private int inventory = 5;
 	 
 	public Restaurant3CashierRole(PersonAgent p) {
 		super(p);
 
-		this.name = name;
 		cashState = CashierState.idle;
 	
 		
@@ -91,7 +89,9 @@ public class Restaurant3CashierRole extends Role implements Cashier {
 	
 	// Messages
 	public void msgRequestCheck(Customer cust, Order o) {
-		System.out.println("Waiter needs the check from the cashier for his/her customer");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"Waiter needs the check from the cashier for his/her customer ");
+		//System.out.println("Waiter needs the check from the cashier for his/her customer");
 		orders.add(o);
 		o.os = OrderState.requestCheck;
 		
@@ -99,8 +99,9 @@ public class Restaurant3CashierRole extends Role implements Cashier {
 	}
 	
 	public void msgCustomerPayingCheck(Order o) {
-		
-		System.out.println("The Customer is paying the check");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"The Customer is paying the check");
+		//System.out.println("The Customer is paying the check");
 		o.os = OrderState.paying;
 		
 		stateChanged();
@@ -108,6 +109,7 @@ public class Restaurant3CashierRole extends Role implements Cashier {
 	}
 	public void HereIsYourChange(double d, MarketCashier c ){
         restaurantRevenue = restaurantRevenue + d;
+        
         myPerson.Do("Got change from market cashier " + d);
         for (Payment payment: payments){
                 if (payment.cashier == c){
@@ -174,9 +176,10 @@ public class Restaurant3CashierRole extends Role implements Cashier {
 	
 	// Actions
 	public void Pay(Payment p){
-        double money = round(p.amountDue);
+        double money = p.amountDue;
         restaurantRevenue = restaurantRevenue - money;
-     //   p.cashier.hereIsMoneyRestaurant(this, money);
+        Restaurant restaurant3 = (Restaurant) TheCity.getBuildingFromString("Restaurant 3");
+        p.cashier.hereIsMoneyRestaurant(restaurant3, money);
 	}
 	private void Remove(Payment payment) {
         payments.remove(payment);
@@ -184,7 +187,9 @@ public class Restaurant3CashierRole extends Role implements Cashier {
         
 	}
 	private  void calculate(Order o) {
-		System.out.println("calculating order");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"calculating order");
+		//System.out.println("calculating order");
 		
 		// check if in owed list
 		if (owed.get(o.customer) != null) {
@@ -231,23 +236,23 @@ public class Restaurant3CashierRole extends Role implements Cashier {
         }
         
 }
-	private int round(double money){
-        double d = Math.abs(money);
-        int i = (int) d;
-        double result = d - (double) i;
-        if(result<0.5){
-            return money<0 ? -i : i;            
-        }else{
-            return money<0 ? -(i+1) : i+1;          
-        }
-    }
-	
+//	private int round(double money){
+//        double d = Math.abs(money);
+//        int i = (int) d;
+//        double result = d - (double) i;
+//        if(result<0.5){
+//            return money<0 ? -i : i;            
+//        }else{
+//            return money<0 ? -(i+1) : i+1;          
+//        }
+//    }
+//	
 	public void setGui(RoleGui g) {
 		super.setGui(g);
-		gui = (Restaurant3CashierGui)g;
+		gui = (CashierGui)g;
 	}
 
-	public Restaurant3CashierGui getGui() {
+	public CashierGui getGui() {
 		return gui;
 	}
 

@@ -191,7 +191,8 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			newPerson.setRestaurants(TheCity.getRestaurantList());
 			newPerson.setMarkets(TheCity.getMarketList());
 			newPerson.setBank(TheCity.getBank());
-
+			newPerson.setGrid(TheCity.getGrid()); //Brice - setting grid for the new person to navigate City screen
+			
 			//Give him money
 			newPerson.addMoney(money.getValue()); 
 
@@ -210,7 +211,9 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 				
 			//setting Transportation
 			//newPerson.setPreferredTransportation(transportation.getSelectedItem().toString());
-			newPerson.setPreferredTransportation("Car");
+
+			newPerson.setPreferredTransportation("Bus");
+
 
 			//set home
 
@@ -228,7 +231,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 
 			//re-enable button
 			reference.setEnabled(true);
-			System.err.println("atGui" + newPerson.getMyHome().getName());
+			//System.err.println("atGui" + newPerson.getMyHome().getName());
 			selPane.refresh();
 			
 			AlertLog.getInstance().logInfo(AlertTag.GUI, "Window", "Adding New Person: " + newPerson.getName() );

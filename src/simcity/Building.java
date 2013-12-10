@@ -22,6 +22,7 @@ public class Building {
 	private String name;
 	private String imagePath = "";
 	private Location entranceLocation;
+	private Location exitLocation;
 	private Location guiLocation;
 	private Location parkingLocation;
 	protected int weekdayOpen;
@@ -55,6 +56,13 @@ public class Building {
 		jobRoles.put("Test2", new Role());
 		jobRoles.put("Test3", new Role());*/
 		
+	}
+	
+	public Building(String name, int entranceX, int entranceY, int guiX, int guiY, int exitX, int exitY) {
+		entranceLocation = new Location (entranceX, entranceY);
+		exitLocation = new Location(exitX, exitY);
+		guiLocation = new Location(guiX, guiY);
+		this.name = name;
 	}
 	
 	/**

@@ -57,18 +57,18 @@ public class ScreenFactory {
 		//screenList.add(rest2);
 		screenList.add(rest4);
 		//screenList.add(home);
-		/*
-		screenList.add(rest3);
-		screenList.add(rest4);
 		screenList.add(rest5);
+		screenList.add(rest3);
+		/*screenList.add(rest4);
+		
 		screenList.add(apart);//can only be accessed statically for now
 
 		
 		
 		*/
 		
-		TheCity.populate();//this ensures that all the buildings are allocataed before the mainScren is created
-
+		TheCity.populate();//this ensures that all the buildings are allocataed before the mainScreen is created
+		
 		main = new MainScreen();		
 		screenList.add(main);
 

@@ -2,20 +2,20 @@ package simcity;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 
-import simcity.restaurants.restaurant4.Restaurant4CustomerRole.AgentEvent;
 import Gui.RoleGui;
 
 public class Bus extends RoleGui{
-	Timer timer = new Timer();
+	Timer timer = new Timer(), moveTimer = new Timer();
 	private String type;
 	String destination;
-	ImageIcon currentImage;
+	ImageIcon currentImage = new ImageIcon();
 	ImageIcon busLeft = new ImageIcon(this.getClass().getResource("/resources/mika/busleft.jpg"));
 	ImageIcon busRight = new ImageIcon(this.getClass().getResource("/resources/mika/busright.jpg"));
 	ImageIcon busUp = new ImageIcon(this.getClass().getResource("/resources/mika/busup.jpg"));
@@ -25,119 +25,111 @@ public class Bus extends RoleGui{
 
 	int currentDestinationX;
 	int currentDestinationY;
-	int counterX = 0;
-	int counterY = 0;
+
+	int finalX, finalY;
+	
+	Character[][] grid;
+	char prevTile = 'R';
+	
+	static Location topLeftCorner = new Location(140, 160);
+	static Location topRightCorner = new Location(640, 160);
+	static Location botLeftCorner = new Location(140, 660);
+	static Location botRightCorner = new Location(640, 660);
+	
 	public static boolean stoppedNorthRight = false; 
-	public static boolean stoppedNorthLeft  = false;
 	public static boolean stoppedSouthRight = false;
-	public static boolean stoppedSouthLeft  = false;
 	public static boolean stoppedEastRight = false; 
-	public static boolean stoppedEastLeft  = false;
 	public static boolean stoppedWestRight = false;
-	public static boolean stoppedWestLeft  = false;
 	
-	public static Location northBusStop = new Location(400, 216, "North busstop");
-	public static Location southBusStop = new Location(400, 566, "South busstop");
-	public static Location eastBusStop = new Location(656, 352, "East busstop");
-	public static Location westBusStop = new Location(210, 352, "West busstop");
+	boolean reachedDest = false;
 	
+	public void setGrid(Character[][] grid) {
+		//this.grid = grid;
+		this.grid = TheCity.getGrid();
+	}
+	
+	//Locations for the bus stop locations and where the person is located when waiting for the bus
+	public static Location northBusStop = new Location((topRightCorner.getX() + topLeftCorner.getX())/2 - 30, topRightCorner.getY(), "North busstop");
+	public static Location southBusStop = new Location((topRightCorner.getX() + topLeftCorner.getX())/2 - 30, botRightCorner.getY(), "South busstop");
+	public static Location eastBusStop = new Location(botRightCorner.getX(), (botRightCorner.getY() + topRightCorner.getY())/2 - 30, "East busstop");
+	public static Location westBusStop = new Location(botLeftCorner.getX(), (botRightCorner.getY() + topRightCorner.getY())/2 - 30, "West busstop");
+	
+	public static Location northPickupStop = new Location((topRightCorner.getX() + topLeftCorner.getX())/2 - 30, topRightCorner.getY() + 20);
+	public static Location southPickupStop = new Location((topRightCorner.getX() + topLeftCorner.getX())/2 - 30, botRightCorner.getY() - 20);
+	public static Location eastPickupStop = new Location(botRightCorner.getX() - 20, (botRightCorner.getY() + topRightCorner.getY())/2 - 30);
+	public static Location westPickupStop = new Location(botLeftCorner.getX() + 20, (botRightCorner.getY() + topRightCorner.getY())/2 - 30);
 	
 	public Bus(String type){ //goes east
 		this.type = type;
-		if (this.type == "clockWise"){
-			xPos = 210;
-			yPos = 216;
-			xDestination = 610;
-			yDestination = 216;
+		
+		if (this.type == "clockWise"){ //In case of adding second bus other direction (Not implemented)
+			xPos = topLeftCorner.getX();
+			yPos = topLeftCorner.getY();
 			currentImage = busRight;
+			
+			finalX = topRightCorner.getX()/20;
+			finalY = topRightCorner.getY()/20;
+			
+			guiMoveFromCurrentPositionTo(topLeftCorner.getX()/20, topLeftCorner.getY()/20);
 		}
 		
-		else if (this.type == "counterClockWise"){
-			xPos = 245;
-			yPos = 525;
-			currentImage = busRight;
-			xDestination = 575;
-			yDestination = 525;
-		}
+		prevTile = 'I';
 	}
 	
 	
 	
+	public Bus(String type, Character[][] grid2) {
+		this.type = type;
+		grid = grid2;
+		
+		if (this.type == "clockWise"){ //In case of adding second bus other direction (Not implemented)
+			xPos = topLeftCorner.getX();
+			yPos = topLeftCorner.getY();
+			currentImage = busRight;
+			finalX = topRightCorner.getX()/20;
+			finalY = topRightCorner.getY()/20;
+			
+			guiMoveFromCurrentPositionTo(topLeftCorner.getX()/20, topLeftCorner.getY()/20);
+		}
+		
+		prevTile = 'I';
+	}
+
 	@Override
 	public void updatePosition(){
 		super.updatePosition();
-		if (type == "clockWise"){
-			if (xPos == 610 && yPos == 216){  //going south
-				currentImage = busDown;
-				xPos = 656;
-				yPos = 216;
-				xDestination = 656;
-				yDestination = 532;
+		if(reachedDest){
+			reachedDest = false;
+				if (xPos == topRightCorner.getX() && yPos == topRightCorner.getY()){  //going south
+					currentImage = busDown;
+					finalX = botRightCorner.getX()/20;
+					finalY = botRightCorner.getY()/20;
+				}
+				
+				if (xPos == botRightCorner.getX() && yPos == botRightCorner.getY()){ //going west
+					currentImage = busLeft;
+					finalX = botLeftCorner.getX()/20;
+					finalY = botLeftCorner.getY()/20;
+				}
+				
+				if (xPos == botLeftCorner.getX() && yPos == botLeftCorner.getY()){//going north 
+					currentImage = busUp;
+					finalX = topLeftCorner.getX()/20;
+					finalY = topLeftCorner.getY()/20;
+				}
+				
+				if (xPos == topLeftCorner.getX() && yPos == topLeftCorner.getY()){ //going east
+					currentImage = busRight;
+					finalX = topRightCorner.getX()/20;
+					finalY = topRightCorner.getY()/20;
 			}
-			
-			if (xPos == 656 && yPos == 532){ //going west
-				currentImage = busLeft;
-				xPos = 610;
-				yPos = 566;
-				xDestination = 210;
-				yDestination = 566;
-			}
-			
-			if (xPos == 210 && yPos == 566){//going north 
-				currentImage = busUp;
-				xPos = 210;
-				yPos = 508;
-				xDestination = 210;
-				yDestination = 216;
-			}
-			
-			if (xPos == 210 && yPos == 216){ //going east
-				xPos = 210;
-				yPos = 216;
-				xDestination = 610;
-				yDestination = 216;
-				currentImage = busRight;
-			}
+				
+			guiMoveFromCurrentPositionTo(xPos/20, yPos/20);
 		}
 		
-		else if (type == "counterClockWise"){
-			if (xPos ==575 && yPos == 525){ //going north
-				currentImage = busUp;
-				xPos = 615;
-				yPos = 475;
-				xDestination = 615;
-				yDestination = 255;
-			}
-			if (xPos ==615 && yPos == 255){ //going west
-				currentImage = busLeft;
-				xPos = 580;
-				yPos = 255;
-				xDestination = 260;
-				yDestination = 255;
-			}
-			
-			if (xPos ==260 && yPos == 255){ //going south
-				currentImage = busDown;
-				xPos = 255;
-				yPos = 256;
-				xDestination = 255;
-				yDestination = 496;
-			}
-			
-			if (xPos ==255 && yPos == 496){ //going east
-				currentImage = busRight;
-				xPos = 245;
-				yPos = 525;
-				xDestination = 575;
-				yDestination = 525;
-			}		
-			
-			
-		}
 		
-		if (xPos == 400){
-				++counterX;
-				if (xPos == 400 && yPos == 216){  //north bus stop locations 
+		if (xPos == northBusStop.getX()){
+				if (yPos == northBusStop.getY()){  //north bus stop locations 
 					stoppedNorthRight = true;
 					for (int i= 0; i<passengers.size(); i++){
 						if (passengers.get(i).busStop == "north"){
@@ -146,10 +138,7 @@ public class Bus extends RoleGui{
 						}
 					}
 				}
-				else if (xPos == 400 && yPos == 255){
-					stoppedNorthLeft = true;
-				}
-				else if (xPos == 400 && yPos == 566){ //south bus stop locations
+				else if (yPos == southBusStop.getY()){ //south bus stop locations
 					stoppedSouthRight = true;
 					for (int i= 0; i<passengers.size(); i++){
 						if (passengers.get(i).busStop == "south"){
@@ -158,20 +147,11 @@ public class Bus extends RoleGui{
 						}
 					}
 				}
-				else if (xPos == 401 && yPos == 525){
-					stoppedSouthLeft = true;
-				}
-				if (counterX == 1){
-					currentDestinationX = xDestination;
-					xDestination = xPos;
-					busStopX();
-				}
 			}
 		
 		
-		if ( yPos == 352){
-			++counterY;
-			if (yPos == 352 && xPos == 656){   //east bus stop location
+		if ( yPos == eastBusStop.getY()){
+			if (xPos == eastBusStop.getX()){   //east bus stop location
 				stoppedEastRight = true;
 				for (int i= 0; i<passengers.size(); i++){
 					if (passengers.get(i).busStop == "east"){
@@ -180,10 +160,8 @@ public class Bus extends RoleGui{
 					}
 				}
 			}
-			else if (yPos == 351 && xPos ==615){
-				stoppedEastLeft = true;
-			}
-			else if (yPos == 352 && xPos == 210){   //west bus stop location
+
+			else if (xPos == westBusStop.getX()){   //west bus stop location
 				stoppedWestRight = true;
 				for (int i= 0; i<passengers.size(); i++){
 					if (passengers.get(i).busStop == "west"){
@@ -192,62 +170,10 @@ public class Bus extends RoleGui{
 					}
 				}
 			}
-			else if (yPos == 350 && xPos == 255){
-				stoppedWestLeft =true;
-			}
-			if (counterY == 1){
-				currentDestinationY = yDestination;
-				yDestination = yPos;
-				busStopY();
-			}
 			
 		}
 	}
 	
-	
-	
-	public void busStopX(){
-		timer.schedule(new TimerTask() { public void run() {
-			xDestination = currentDestinationX;
-			if (yPos == 216){
-				stoppedNorthRight = false;
-			}
-			else if (yPos == 255){
-				stoppedNorthLeft = false;
-			}
-			else if (yPos == 566){
-				stoppedSouthRight = false;
-			}
-			else if (yPos == 525){
-				stoppedSouthLeft = false;
-			}
-			counterX = 0;
-		}
-	},
-	2000);//how long to wait before running task
-		
-}
-	public void busStopY(){
-		timer.schedule(new TimerTask() { public void run() {
-			yDestination = currentDestinationY;
-			if (xPos == 655){
-				stoppedEastLeft = false;
-			}
-			if (xPos == 656){
-				stoppedEastRight = false;
-			}
-			if (xPos ==210){
-				stoppedWestRight = false;
-			}
-			if (xPos == 255){
-				stoppedWestLeft = false;
-			}
-			counterY = 0;
-		}
-	},
-	2000);//how long to wait before running task
-		
-}	
 	public int getXPos(){
 		return xPos;
 	}
@@ -259,5 +185,131 @@ public class Bus extends RoleGui{
 	@Override
 	public void draw(Graphics g){
 		g.drawImage(currentImage.getImage(), xPos, yPos, null);
+	}
+	
+	void guiMoveFromCurrentPositionTo(final int x, final int y){ // Brice - Method for traveling along the grid within the City Screen
+	 	if(Math.abs(finalX - x) < 1 && Math.abs(finalY - y) < 1) {
+	 		reachedDest = true;
+	 		return;
+	 	}
+	 	
+	 	if(stoppedEastRight ||
+	 		stoppedNorthRight ||
+	 		stoppedSouthRight ||
+	 		stoppedWestRight) {
+	 		moveTimer.schedule(new TimerTask() {
+ 				Object cookie = 1;
+ 				public void run() {
+ 					stoppedEastRight = false;
+ 					stoppedWestRight = false;
+ 					stoppedNorthRight = false;
+ 					stoppedSouthRight = false;
+ 					guiMoveFromCurrentPositionTo(x, y);
+ 				}
+ 			},
+ 			2000);
+	 		return;
+	 	}
+	 	
+	 	//Move RIGHT
+	 	if(finalX - (x + 1)  >= 0 /*<= deltaX*/ && (grid[x+1][y] == 'R' || grid[x+1][y] == 'I')) {
+	 		try {
+	 			char temp = grid[x+1][y];
+	 			grid[x+1][y] = 'B';
+	 			grid[x][y] = prevTile;
+	 			prevTile = temp;
+	 			DoGoToLocation(new Location((x+1)*20, y*20)); //Temporary timer or semaphore?
+	 			moveTimer.schedule(new TimerTask() {
+	 				Object cookie = 1;
+	 				public void run() {
+	 					guiMoveFromCurrentPositionTo(x+1, y);
+	 				}
+	 			},
+	 			240);
+	 			
+	 		}
+	 		catch(ConcurrentModificationException e) {
+	 			System.err.println("Concurrent Modification Exception");
+	 		}
+	 	}
+	 	
+	 	//Move LEFT
+	 	else if((x - 1) - finalX >= 0 && (grid[x-1][y] == 'R' || grid[x-1][y] == 'I')) {
+	 		try {
+	 			char temp = grid[x-1][y];
+	 			grid[x-1][y] = 'B';
+	 			grid[x][y] = prevTile;
+	 			prevTile = temp;
+	 			DoGoToLocation(new Location((x-1)*20, y*20)); //Temporary timer or semaphore?
+	 			moveTimer.schedule(new TimerTask() {
+	 				Object cookie = 1;
+	 				public void run() {
+	 					guiMoveFromCurrentPositionTo(x-1, y);
+	 				}
+	 			},
+	 			240);
+	 		}
+	 		catch(ConcurrentModificationException e) {
+	 			System.err.println("Concurrent Modification Exception");
+	 		}
+	 	}
+	 	
+	 	//Move UP
+	 	else if((y - 1) - finalY  >= 0 && (grid[x][y-1] == 'R' || grid[x][y-1] == 'I')) {
+	 		try {
+	 			char temp = grid[x][y-1];
+	 			grid[x][y-1] = 'B';
+	 			grid[x][y] = prevTile;
+	 			prevTile = temp;
+	 			DoGoToLocation(new Location(x*20, (y-1)*20)); //Temporary timer or semaphore?
+	 			moveTimer.schedule(new TimerTask() {
+	 				Object cookie = 1;
+	 				public void run() {
+	 					guiMoveFromCurrentPositionTo(x, y-1);
+	 				}
+	 			},
+	 			240);
+	 		}
+	 		catch(ConcurrentModificationException e) {
+	 			System.err.println("Concurrent Modification Exception");
+	 		}
+	 	}
+	 	
+	 	//Move DOWN
+	 	else if(finalY - (y + 1) >= 0 && (grid[x][y+1] == 'R' || grid[x][y+1] == 'I')) {
+	 		try {
+	 			char temp = grid[x][y+1];
+	 			grid[x][y+1] = 'B';
+	 			grid[x][y] = prevTile;
+	 			prevTile = temp;
+	 			DoGoToLocation(new Location(x*20, (y+1)*20)); //Temporary timer or semaphore?
+	 			moveTimer.schedule(new TimerTask() {
+	 				Object cookie = 1;
+	 				public void run() {
+	 					guiMoveFromCurrentPositionTo(x, y+1);
+	 				}
+	 			},
+	 			240);
+	 			
+	 		}
+	 		catch(ConcurrentModificationException e) {
+	 			System.err.println("Concurrent Modification Exception");
+	 		}
+	 	}
+	 	
+	 	else {
+	 		moveTimer.schedule(new TimerTask() {
+ 				Object cookie = 1;
+ 				public void run() {
+ 					guiMoveFromCurrentPositionTo(x, y);
+ 				}
+ 			},
+ 			500);
+	 	}
+    }
+	
+	public void DoGoToLocation(Location destination) {
+		xDestination = destination.getX();
+		yDestination = destination.getY();
 	}
 }

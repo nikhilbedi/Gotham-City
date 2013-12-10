@@ -8,7 +8,10 @@ import simcity.PersonAgent;
 import agent.Role;
 import simcity.restaurants.restaurant3.Order.OrderState;
 import simcity.restaurants.restaurant3.interfaces.*;
+import trace.AlertLog;
+import trace.AlertTag;
 import agent.Agent;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -19,7 +22,6 @@ public class MarketRole extends Role implements Market{
 	public List<Order> orders = Collections.synchronizedList(new Vector<Order>()); 
 	public Map<String, MarketFood> foods = Collections.synchronizedMap(new HashMap<String, MarketFood>());
 	private Map<String,Integer> inventory = Collections.synchronizedMap(new HashMap<String,Integer>());
-	private int threshold;
 	private String name;
 	
 
@@ -28,8 +30,6 @@ public class MarketRole extends Role implements Market{
 	
 	//Restaurant restaurant;
 	//private WaiterAgent waiter;
-	
-	 private int Inventory = 5;
 	 
 	public MarketRole(String name) {
 		super();
@@ -60,10 +60,6 @@ public class MarketRole extends Role implements Market{
 		
 	}
 
-	public String getMaitreDName() {
-		return name;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -73,7 +69,9 @@ public class MarketRole extends Role implements Market{
 
 	public MarketOrder msgOrderRestock(MarketOrder mo) {
 		//System.out.println("msgOrderRestock received");
-		System.out.println("Order Food from Market: " + this.name);
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"Order Food from Market: " + this.name);
+		//System.out.println("Order Food from Market: " + this.name);
 		
 		int stock = inventory.get(mo.foodType);
 		
@@ -90,7 +88,9 @@ public class MarketRole extends Role implements Market{
 		
 		// no food at all
 		else if (stock == 0) {
-			System.out.println("Market is out of Inventory for " + mo.foodType);
+			AlertLog.getInstance().logInfo(AlertTag.REST3,
+					this.getName(), "Market is out of Inventory for " + mo.foodType);
+			//System.out.println("Market is out of Inventory for " + mo.foodType);
 			return null;
 		}
 		
@@ -134,7 +134,9 @@ public class MarketRole extends Role implements Market{
 	// Actions
 
 	private void messageWaiterOutOfInventory(Order o) {
-		System.out.println("Tells the waiter they are out of inventory");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"Tells the waiter they are out of inventory ");
+		//System.out.println("Tells the waiter they are out of inventory");
 		o.os = OrderState.reordering;
 		o.waiter.msgWaiterOutOfFood(o);
 		
@@ -145,7 +147,9 @@ public class MarketRole extends Role implements Market{
 	//}
 
 	private boolean checkInventory(Food f) {
-		System.out.println("checking Inventory");
+		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
+				"checking Inventory ");
+		//System.out.println("checking Inventory");
 		
 		int capacity = f.getAmount(); 
 		if (capacity > 0) {

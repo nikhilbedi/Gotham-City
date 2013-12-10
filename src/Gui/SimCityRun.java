@@ -48,7 +48,8 @@ public class SimCityRun extends JFrame implements ActionListener
 	{
 		super("Team 31 Sim City");
 		//This sets up the frame of the animation window
-		setSize(1200, 800);
+		//setSize(1000, 800);
+		setSize(1400, 1000);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		CityMenuBar demo = new CityMenuBar();
@@ -115,7 +116,7 @@ public class SimCityRun extends JFrame implements ActionListener
 	{
 		//Sample reading an XML file
 		
-		XMLHelper.createPeople("sampleXML.xml");
+		//XMLHelper.createPeople("sampleXML.xml"); //Commented out until the xml positioning is fixed (Homeless shelter?)
 
 		//THE BIG BANG
 		CityClock.startTime();

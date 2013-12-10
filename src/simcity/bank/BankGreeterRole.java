@@ -4,6 +4,7 @@ import agent.Role;
 import simcity.PersonAgent;
 import simcity.bank.interfaces.BankCustomer;
 import simcity.bank.interfaces.BankGreeter;
+import simcity.bank.interfaces.BankRobber;
 import simcity.bank.interfaces.BankTeller;
 
 import java.util.*;
@@ -77,6 +78,17 @@ public class BankGreeterRole extends Role implements BankGreeter{
 		stateChanged();
 	}
 	
+	@Override //Non-norm for bank robber
+	public void msgGiveMeATeller(BankRobber bankRobber) {
+		System.out.println(getName() + ": Please don't hurt me, " + bankRobber.getName() + "! Go to teller " + tellers.get(0));
+		for (BankTeller teller: tellers) {
+			if (teller.isAvailable()) {
+				bankRobber.msgGoToTeller(teller);
+				return;
+			}
+		}
+		bankRobber.msgGoToTeller(tellers.get(0));
+	}
 	
 	// Scheduler
 	

@@ -23,5 +23,6 @@ public enum AlertTag {
 	BANK,			
 	GENERAL_CITY, 
 	RESIDENT_ROLE,
-	LANDLORD_ROLE
+	LANDLORD_ROLE, 
+	REST3
 }

@@ -2,9 +2,7 @@ package Gui;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Rectangle;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.ImageIcon;
 
@@ -14,8 +12,6 @@ import simcity.TheCity;
 import simcity.Home.Apartment;
 
 import simcity.Bus;
-
-//import simcity.TheCity;
 
 import simcity.Home.Home;
 import simcity.Market.Market;
@@ -31,36 +27,53 @@ import simcity.restaurants.restaurant4.Restaurant4;
 public class MainScreen extends Screen{
 
 	ArrayList<Building> buildings = new ArrayList<Building>();
-
-	public Bus bus = new Bus("clockWise");
-
+	Character[][] grid;
+	public Bus bus = new Bus("Clockwise");
 	
-
-
 	public MainScreen()
 	{
 
 		addGui(bus);
 		//so much cleaner
 		buildings = TheCity.getBuildings();
-		addGui(bus);
-
+		//grid = TheCity.getGrid();
+		
+		//addGui(bus2);
 	}
 
-	public  void paintBackground(Graphics g)
+	public void paintBackground(Graphics g)
 	{
 		g.setColor(Color.white);
 		//g.fillRect(0,0,1000, 800);
 		java.net.URL image1 = this.getClass().getResource("/resources/Backgrounds/SimCityBackground.png");
 		ImageIcon current1 = new ImageIcon(image1);
 		g.drawImage(current1.getImage(), 0, 0, null);
-
+		
+		for(int x = 0; x < grid.length; x++)
+ 			for(int y = 0; y < grid[0].length; y++) {
+ 				if(grid[x][y] == 'E')
+ 					g.setColor(Color.white);
+ 				else if(grid[x][y] == 'R')
+ 					g.setColor(Color.red);
+ 				else if(grid[x][y] == 'P')
+ 					g.setColor(Color.green);
+ 				else if(grid[x][y] == 'S')
+ 					g.setColor(Color.gray);
+ 				else if(grid[x][y] == 'I')
+ 					g.setColor(Color.magenta);
+ 				else if(grid[x][y] == 'B')
+ 					g.setColor(Color.cyan);
+ 				
+ 				g.fillRect(x*20, y*20, 40, 40);
+ 			}
+		
 		for(Building b : buildings){
 			java.net.URL image = this.getClass().getResource(b.getImagePath());
 			b.icon = new ImageIcon(image);
 			g.drawImage(b.icon.getImage(), b.getGuiLocation().getX(), b.getGuiLocation().getY(), null);
 		}
-
+		
+		
 	}
 
 
@@ -78,6 +91,17 @@ public class MainScreen extends Screen{
 
 		return "This is not a building";
 
+	}
+
+	public void setGrid(Character[][] grid) {
+		this.grid = TheCity.getGrid();
+		bus = new Bus("clockWise", grid);
+		bus.setGrid(TheCity.getGrid());
+		addGui(bus);
+	}
+	
+	public Character[][] getGrid() {
+		return grid;
 	}
 }
 

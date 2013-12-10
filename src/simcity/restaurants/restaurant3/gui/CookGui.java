@@ -7,6 +7,8 @@ import java.awt.*;
 import java.util.List;
 import java.util.*;
 
+import agent.Role;
+
 import simcity.restaurants.restaurant3.*;
 import simcity.restaurants.restaurant3.interfaces.Cook;
 
@@ -30,7 +32,7 @@ public class CookGui extends RoleGui {
         this.agent = (Restaurant3CookRole) agent;
     }
     public CookGui(Cook agent, Screen s) {
-    	super((Restaurant3CookRole)agent, s);
+    	super((Role)agent, s);
         this.agent = (Restaurant3CookRole) agent;
        
         
