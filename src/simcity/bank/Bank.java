@@ -18,7 +18,7 @@ import trace.AlertTag;
  */
 
 public class Bank extends Building {
-	
+
 	/**
 	 * Note: instructions will vary slightly if you're not using interfaces (but you should be for unit testing)
 	 * 
@@ -37,7 +37,7 @@ public class Bank extends Building {
 	//uncomment below when ready to do away with Robots
 	BankGreeter greeter = new BankGreeterRole();
 	BankTeller teller = new BankTellerRole();
-	
+
 	/**
 	 * 2.
 	 * Create Guis for the roles
@@ -54,7 +54,7 @@ public class Bank extends Building {
 	 */
 	BankGreeterGui greeterGui; 
 	BankTellerGui tellerGui;
-	
+
 	String bankCustomer = "bankCustomer", bankTeller = "bankTeller", bankGreeter = "bankGreeter";
 	//Location location = new Location(xCoor, yCoor);
 	int openTime, closeTime;
@@ -62,14 +62,29 @@ public class Bank extends Building {
 			int guiY) {
 		super(type, entranceX, entranceY, guiX, guiY);
 		//this is the hours for Bank1
-				setWeekdayHours(9, 17);
-				setWeekendHours(0,0);
+		setWeekdayHours(9, 17);
+		//setWeekendHours(0,0);
+		setWeekendHours(2, 10);
+		greeterGui = new BankGreeterGui(greeter, ScreenFactory.getMeScreen("Bank"));
+		tellerGui = new BankTellerGui(teller, ScreenFactory.getMeScreen("Bank"));
+		//this is the hours for Bank1
+
+		((BankGreeterRole) greeter).setGui((RoleGui)greeterGui);
+		((BankTellerRole) teller).setGui((RoleGui)tellerGui);
+		
+		((BankGreeterRole) greeter).addTeller(teller);
+		((BankTellerRole) teller).setGreeter(greeter);
+
+		jobRoles.put("BankGreeter", (Role)greeter);
+		//	jobRoles.put("BankGreeter Late",  (Role)greeter);
+
+		jobRoles.put("BankTeller",(Role)teller);
 	}
-	
+
 	public Bank(String type, int entranceX, int entranceY, int guiX,
 			int guiY, int exitX, int exitY) {
 		super(type, entranceX, entranceY, guiX, guiY, exitX, exitY);
-		
+
 		/**
 		 * 3.
 		 * Set Guis for the roles
@@ -82,17 +97,25 @@ public class Bank extends Building {
 		 * 
 		 * 
 		 */
-		greeterGui = new BankGreeterGui(greeter, ScreenFactory.getMeScreen("Bank"));
-		tellerGui = new BankTellerGui(teller, ScreenFactory.getMeScreen("Bank"));
-		AlertLog.getInstance().logInfo(AlertTag.GUI, "Bank",
-				"Your message here" + ScreenFactory.getMeScreen("bank"));
 		//this is the hours for Bank1
 		setWeekdayHours(9, 17);
-		setWeekendHours(0,0);
-		
+		//setWeekendHours(0,0);
+		setWeekendHours(2, 10);
+		greeterGui = new BankGreeterGui(greeter, ScreenFactory.getMeScreen("Bank"));
+		tellerGui = new BankTellerGui(teller, ScreenFactory.getMeScreen("Bank"));
+		//this is the hours for Bank1
+
 		((BankGreeterRole) greeter).setGui((RoleGui)greeterGui);
 		((BankTellerRole) teller).setGui((RoleGui)tellerGui);
-	
+		
+		((BankGreeterRole) greeter).addTeller(teller);
+		((BankTellerRole) teller).setGreeter(greeter);
+
+		jobRoles.put("BankGreeter", (Role)greeter);
+		//	jobRoles.put("BankGreeter Late",  (Role)greeter);
+
+		jobRoles.put("BankTeller",(Role)teller);
+
 		/**
 		 * 4.
 		 * add the roles to the jobRoles map of the Building class
@@ -101,15 +124,10 @@ public class Bank extends Building {
 		 * 
 		 * We concluded it's better to just hard code the reference Strings instead of getting them for the Role for readability
 		 */
-	
-		jobRoles.put("BankGreeter", (Role)greeter);
-	//	jobRoles.put("BankGreeter Late",  (Role)greeter);
 
-		jobRoles.put("BankTeller",(Role)teller);
-		//jobRoles.put("BankTeller Late", (Role)teller);
-		
+
 	}
-	
+
 	@Override
 	public boolean isOpen() {
 		if(CityClock.getDay() != 0 && CityClock.getDay() !=6) {
@@ -125,15 +143,15 @@ public class Bank extends Building {
 		}
 		return false;
 	}
-	
+
 	public void setGreeter(BankGreeter g) {
 		greeter = g;
 	}
-	
+
 	public BankGreeter getGreeter() {
 		return greeter;
 	}
-	
+
 	public Vector<String> getBuildingInfo(){
 		Vector<String> info = new Vector<String>();
 		info.add("Bank");
@@ -142,10 +160,10 @@ public class Bank extends Building {
 		return info;
 	}
 
-	
+
 	public int getOpenTime() { return openTime;}
 	public int getCloseTime() { return closeTime;}
-	
+
 	public void setOpenTime(int oT) { openTime = oT;}
 	public void setCloseTime(int cT) { closeTime = cT;}
 }

@@ -5,6 +5,7 @@ import agent.Role;
 import simcity.PersonAgent;
 import simcity.PersonAgent.MoneyState;
 import simcity.PersonAgent.RentBill;
+import simcity.TheCity;
 import simcity.bank.BankReceipt;
 import simcity.bank.interfaces.BankCustomer;
 import simcity.bank.interfaces.BankGreeter;
@@ -141,6 +142,8 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	@Override
 	public void startBuildingMessaging(){
 		setTransactions();
+		//greeter = myPerson.bank.getGreeter();
+		greeter = ((Bank)TheCity.getBuildingFromString("Bank")).getGreeter();
 		msgEnteredBank();
 	}
 
@@ -167,7 +170,6 @@ public class BankCustomerRole extends Role implements BankCustomer{
 	
 	public void msgEnteredBank() {
 		System.out.println("Entered Bank");
-		greeter = myPerson.bank.getGreeter();
 		state = CustomerState.entered;
 		stateChanged();
 	}

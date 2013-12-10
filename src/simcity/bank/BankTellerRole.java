@@ -155,6 +155,11 @@ public class BankTellerRole extends Role implements BankTeller{
 	// Scheduler
 	
 	public boolean pickAndExecuteAnAction() {
+		if(theManLeavingMe != null && myCustomers.isEmpty()) {
+			leaveWork();
+			return true;
+		}
+		
 		if(robber != null) {
 			giveRobberMoney();
 		}

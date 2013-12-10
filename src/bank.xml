@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<!-- Attributes of a person within an XML file -->
+<simcity>
+
+	<!--Bank -->
+	<person name="BatmanBankGreeter">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Bank</building>
+			<position>bankGreeter</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+	
+	<person name="BatmanBankTeller">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Bank</building>
+			<position>bankTeller</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+</simcity>

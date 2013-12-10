@@ -386,6 +386,7 @@ public class PersonAgent extends Agent implements Person {
 			else {
 				if (currentTime == myJob.weekEndOnWork &&
 						myJob.state == JobState.OffWork) {
+					print("Got to go to work manggg");
 					myJob.state = JobState.GoToWorkSoon;
 				}
 				// Maybe, also check if our current state is atWork
@@ -548,7 +549,6 @@ public class PersonAgent extends Agent implements Person {
 		// Person Scheduler
 
 		if (checkPersonScheduler) {
-			//print("person sched");
 			/*if(true) {
 				goToWork();
 				return true;
