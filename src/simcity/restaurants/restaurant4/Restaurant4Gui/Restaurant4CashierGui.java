@@ -10,10 +10,10 @@ import Gui.Screen;
 public class Restaurant4CashierGui extends RoleGui{
 	public Restaurant4CashierGui(Restaurant4CashierRole c, Screen s){
 		super(c,s);
-		 xPos = 500;
-		 yPos = 200;
-		 xDestination = 500;
-		 yDestination = 200;
+		 xPos = 270;
+		 yPos = 10;
+		 xDestination = 270;
+		 yDestination = 10;
 		 
 	}
 	

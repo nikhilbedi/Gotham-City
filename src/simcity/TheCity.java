@@ -35,18 +35,18 @@ public class TheCity {
 	static Building bank;
 
 	static Building apart;
-	
+
 	static final int GRIDWIDTH = 40;
-    static final int GRIDHEIGHT = 40;
-	
+	static final int GRIDHEIGHT = 40;
+
 	static Character[][] grid  = new Character[GRIDWIDTH][GRIDHEIGHT];
-	
+
 	//Making timebar static so it can be updated by static city clock is this bad?
 	public static TimeBar bar;
 
 
 	public static void populate(){//populate Buildings
-	
+
 		//These are just added to make Evan happy
 		//For reference, not putting them in anymore
 		/*house3 = new Home("Home3", 190, 590, 200, 600);
@@ -61,10 +61,10 @@ public class TheCity {
 		home = new Home("Home", 360, 700, 350, 720);
 		home.setImagePath("/resources/Buildings/HouseDark2.png");
 
-		
+
 		apart = new Apartment("Apartment 1", 620, 700, 610, 720);
 		apart.setImagePath("/resources/Buildings/HouseDark.png");
-	
+
 		market = new Market("Market", 620, 120, 610, 60);
 		market.setImagePath("/resources/Buildings/MarketDark2.png");
 		bank = new Bank("Bank", 360, 120, 360, 60, 380, 80);
@@ -91,12 +91,12 @@ public class TheCity {
 
 		buildings.add(rest3);
 		buildings.add(rest2);
-		
-		
+
+
 		jobLocationList.add("No job");
 		for(Building b: buildings){
 			if(!(b.getName().contains("ome")||b.getName().contains("artment"))){
-			jobLocationList.add(b.getName());
+				jobLocationList.add(b.getName());
 			}
 		}
 		//populate building jobs map
@@ -104,128 +104,135 @@ public class TheCity {
 			jobPositionList.add(b.getJobCollec());
 			buildingJobsMap.put(b.getName(), b.getJobCollec());
 		}
-		
-		 //Setup Transportation Grid
-        
-        //Initially set grid to empty ('E') entirely
-     for(int x = 0; x < GRIDWIDTH; x++)
-    	 for(int y = 0; y < GRIDHEIGHT; y++) {
-    		 grid[x][y] = 'E';
-    	 }
-     
-     //Sidewalks ('S')
-     for(int x = 4; x < GRIDWIDTH - 4; x++) //Middle Horizontal Sidewalks
-		grid[x][19] = 'S';
-     
-     for(int x = 4; x < GRIDWIDTH - 4; x++)
-     	grid[x][22] = 'S';
-     
 
-    for(int y = 5; y < GRIDHEIGHT - 3; y++) //Middle Vertical Sidewalks
-    	grid[18][y] = 'S';
-    
-    for(int y = 5; y < GRIDHEIGHT - 3; y++)
-   	 	grid[21][y] = 'S';
-    
-     //Put in roads ('R')
-     for(int x = 4; x < GRIDWIDTH - 4; x++) //Top road
-    	 for(int y = 7; y < 9; y++)
-    		 grid[x][y] = 'R';
-     
-     for(int x = 4; x < GRIDWIDTH - 4; x++) //Top Sidewalks
-    	 grid[x][6] = 'S';
-     
-     for(int x = 4; x < GRIDWIDTH - 4; x++)
-    	 grid[x][9] = 'S';
-     
-     for(int x = 4; x < GRIDWIDTH - 4; x++) //Bottom road
-    	 for(int y = 33; y < 35; y++)
-    		 grid[x][y] = 'R';
-     
-     for(int x = 4; x < GRIDWIDTH - 4; x++) //Bottom Sidewalks
-    		 grid[x][35] = 'S';
-     
-     for(int x = 4; x < GRIDWIDTH - 4; x++)
-		 grid[x][32] = 'S';
-     
-     for(int x = 6; x < 8; x++) //Left road
-    	 for(int y = 5; y < GRIDHEIGHT - 3; y++)
-    		 grid[x][y] = 'R';
-     
-    for(int y = 5; y < GRIDHEIGHT - 3; y++) //Left Sidewalks
-    	grid[5][y] = 'S';
-    
-    for(int y = 5; y < GRIDHEIGHT - 3; y++)
-		 	grid[8][y] = 'S';
-     
-     for(int x = 32; x < 34; x++) //Right road
-    	 for(int y = 5; y < GRIDHEIGHT - 3; y++)
-    		 grid[x][y] = 'R';
-     
-    for(int y = 5; y < GRIDHEIGHT - 3; y++) //Right Sidewalks
-    	grid[34][y] = 'S';
-    	 
-    for(int y = 5; y < GRIDHEIGHT - 3; y++)
-    	grid[31][y] = 'S';
-     
-     for(int x = 4; x < GRIDWIDTH - 4; x++) //Middle roads
-    	 for(int y = 20; y < 22; y++)
-    		 grid[x][y] = 'R';
-     
-     for(int x = 19; x < 21; x++)
-    	 for(int y = 5; y < GRIDHEIGHT - 3; y++)
-    		 grid[x][y] = 'R';
-     
-     //Setup crosswalks for intersections
-     setupIntersectionFromPosition(5, 6);  //Top-Left Intersection
-     setupIntersectionFromPosition(18, 6); //Top-Middle Intersection
-     setupIntersectionFromPosition(31, 6); //Top-Right Intersection
-     setupIntersectionFromPosition(5, 19); //Mid-Left Intersection
-     setupIntersectionFromPosition(18, 19);//Middle Intersection
-     setupIntersectionFromPosition(31, 19);//Mid-Right Intersection
-     setupIntersectionFromPosition(5, 32); //Bot-Left Intersection
-     setupIntersectionFromPosition(18, 32);//Bottom Intersection
-     setupIntersectionFromPosition(31, 32);//Bot-Right Intersection
-		
+		//Setup Transportation Grid
+
+		//Initially set grid to empty ('E') entirely
+		for(int x = 0; x < GRIDWIDTH; x++)
+			for(int y = 0; y < GRIDHEIGHT; y++) {
+				grid[x][y] = 'E';
+			}
+
+		//Sidewalks ('S')
+		for(int x = 4; x < GRIDWIDTH - 4; x++) //Middle Horizontal Sidewalks
+			grid[x][19] = 'S';
+
+		for(int x = 4; x < GRIDWIDTH - 4; x++)
+			grid[x][22] = 'S';
+
+
+		for(int y = 5; y < GRIDHEIGHT - 3; y++) //Middle Vertical Sidewalks
+			grid[18][y] = 'S';
+
+		for(int y = 5; y < GRIDHEIGHT - 3; y++)
+			grid[21][y] = 'S';
+
+		//Put in roads ('R')
+		for(int x = 4; x < GRIDWIDTH - 4; x++) //Top road
+			for(int y = 7; y < 9; y++)
+				grid[x][y] = 'R';
+
+		for(int x = 4; x < GRIDWIDTH - 4; x++) //Top Sidewalks
+			grid[x][6] = 'S';
+
+		for(int x = 4; x < GRIDWIDTH - 4; x++)
+			grid[x][9] = 'S';
+
+		for(int x = 4; x < GRIDWIDTH - 4; x++) //Bottom road
+			for(int y = 33; y < 35; y++)
+				grid[x][y] = 'R';
+
+		for(int x = 4; x < GRIDWIDTH - 4; x++) //Bottom Sidewalks
+			grid[x][35] = 'S';
+
+		for(int x = 4; x < GRIDWIDTH - 4; x++)
+			grid[x][32] = 'S';
+
+		for(int x = 6; x < 8; x++) //Left road
+			for(int y = 5; y < GRIDHEIGHT - 3; y++)
+				grid[x][y] = 'R';
+
+		for(int y = 5; y < GRIDHEIGHT - 3; y++) //Left Sidewalks
+			grid[5][y] = 'S';
+
+		for(int y = 5; y < GRIDHEIGHT - 3; y++)
+			grid[8][y] = 'S';
+
+		for(int x = 32; x < 34; x++) //Right road
+			for(int y = 5; y < GRIDHEIGHT - 3; y++)
+				grid[x][y] = 'R';
+
+		for(int y = 5; y < GRIDHEIGHT - 3; y++) //Right Sidewalks
+			grid[34][y] = 'S';
+
+		for(int y = 5; y < GRIDHEIGHT - 3; y++)
+			grid[31][y] = 'S';
+
+		for(int x = 4; x < GRIDWIDTH - 4; x++) //Middle roads
+			for(int y = 20; y < 22; y++)
+				grid[x][y] = 'R';
+
+		for(int x = 19; x < 21; x++)
+			for(int y = 5; y < GRIDHEIGHT - 3; y++)
+				grid[x][y] = 'R';
+
+		//Setup crosswalks for intersections
+		setupIntersectionFromPosition(5, 6);  //Top-Left Intersection
+		setupIntersectionFromPosition(18, 6); //Top-Middle Intersection
+		setupIntersectionFromPosition(31, 6); //Top-Right Intersection
+		setupIntersectionFromPosition(5, 19); //Mid-Left Intersection
+		setupIntersectionFromPosition(18, 19);//Middle Intersection
+		setupIntersectionFromPosition(31, 19);//Mid-Right Intersection
+		setupIntersectionFromPosition(5, 32); //Bot-Left Intersection
+		setupIntersectionFromPosition(18, 32);//Bottom Intersection
+		setupIntersectionFromPosition(31, 32);//Bot-Right Intersection
+
 	}
-	
+
 	private static void setupIntersectionFromPosition(int i, int j) {
-  	  grid[i+1][j+3] = 'I';
-        grid[i+2][j+3] = 'I';
-        grid[i][j+1] = 'I';
-        grid[i][j+2] = 'I';
-        grid[i+1][j] = 'I';
-        grid[i+2][j] = 'I';
-        grid[i+3][j+1] = 'I';
-        grid[i+3][j+2] = 'I';
+		grid[i+1][j+3] = 'I';
+		grid[i+2][j+3] = 'I';
+		grid[i][j+1] = 'I';
+		grid[i][j+2] = 'I';
+		grid[i+1][j] = 'I';
+		grid[i+2][j] = 'I';
+		grid[i+3][j+1] = 'I';
+		grid[i+3][j+2] = 'I';
 	}
-	
+
 	static{//populate person-specific elements
-	bar = new TimeBar();
-	bar.setVisible(true);
+		bar = new TimeBar();
+		bar.setVisible(true);
 
 
-		
-	homeList.add("None (Homeless Shelter)");
-	homeList.add("Home 1");
-	homeList.add("Apartment 1");
-	
-	
-	//populate lists
-	/*jobLocationList.add("No job");
+
+		homeList.add("None (Homeless Shelter)");
+		homeList.add("Home 1");
+		homeList.add("Apartment 1");
+
+
+		//populate lists
+		/*jobLocationList.add("No job");
 	for(Building b: buildings){
 		jobLocationList.add(b.getName());
 	}*/
-	//populate building jobs map
-	for(Building b: buildings){
-		jobPositionList.add(b.getJobCollec());
-		buildingJobsMap.put(b.getName(), b.getJobCollec());
+		//populate building jobs map
+		for(Building b: buildings){
+			jobPositionList.add(b.getJobCollec());
+			buildingJobsMap.put(b.getName(), b.getJobCollec());
+		}
+
 	}
-	
-	/*jobLocationList.add("Market");
-=======
+
+	static{//populate person-specific elements
+		bar = new TimeBar();
+		bar.setVisible(true);
+
+
+
 		homeList.add("None (Homeless Shelter)");
 		homeList.add("Home 1");
+		homeList.add("Apartment 1");
 
 
 		//populate lists
@@ -239,17 +246,15 @@ public class TheCity {
 			buildingJobsMap.put(b.getName(), b.getJobCollec());
 		}
 
-		/*jobLocationList.add("Market");
->>>>>>> master
-	jobLocationList.add("Bank");
-	jobLocationList.add("Restaurant 1");*/
+		jobLocationList.add("Bank");
+		jobLocationList.add("Restaurant 1");
 
 		//jobPositionList.add("This is a temp variable I still need to figure out how to make this list dynamic");
 
 		transportationList.add("Walker");
 		transportationList.add("Car");
 		transportationList.add("Bus");
-		
+
 		homeOwnerList.add("none");
 		homeOwnerList.add("Home 1");
 	}

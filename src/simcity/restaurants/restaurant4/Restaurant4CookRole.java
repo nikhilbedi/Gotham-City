@@ -1,4 +1,5 @@
 package simcity.restaurants.restaurant4;
+import Gui.RoleGui;
 import Gui.Screen;
 import Gui.ScreenFactory;
 import agent.Agent;
@@ -6,6 +7,7 @@ import agent.Role;
 
 import java.util.*;
 
+import simcity.Item;
 import simcity.PersonAgent;
 import simcity.TheCity;
 import simcity.Market.Market;
@@ -17,17 +19,19 @@ import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4CookGui;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Cashier;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Cook;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Waiter;
+import trace.AlertLog;
+import trace.AlertTag;
 
 
 public class Restaurant4CookRole extends Role implements Restaurant4Cook{
-	private String name;
-	private List<Order> orders = new ArrayList<Order>();
-	private Timer timer = new Timer();
-	public Map<String, Food> foods = new HashMap<String, Food>();
-	Food chicken = new Food("Chicken", 2);
-	Food steak = new Food("Steak", 2);
-	Food pizza = new Food("Pizza", 2);
-	Food salad = new Food("Salad", 2);
+        private String name;
+        private List<Order> orders = new ArrayList<Order>();
+        private Timer timer = new Timer();
+        public Map<String, Food> foods = new HashMap<String, Food>();
+        Food chicken = new Food("Chicken", 3);
+        Food steak = new Food("Steak", 3);
+        Food pizza = new Food("Pizza", 3);
+        Food salad = new Food("Salad", 3);
 
 	private Restaurant4CookGui cg;
 	public Map<String, Integer> neededFood = new HashMap<String, Integer>();
@@ -63,9 +67,13 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 		cg.DoRemoveFood(s);
 	}
 	
-	/*public void setGui(Restaurant4CookGui c){ This is messing things up
+	/*public void setGui(Restaurant4CookGui c){ //This is messing things up
 		cg = c;
-	} */
+*/
+	public void setGui(RoleGui g) {
+		super.setGui(g);
+		cg = (Restaurant4CookGui) g;
+	}
 	
 	public void resetInventory(){
 		chicken.amount = 0;
@@ -79,6 +87,25 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 		stateChanged();
 	}
 	//messages
+	
+	public Vector<Item> getInventory(){
+		Vector<Item> inventory = new Vector<Item>();
+		for (Map.Entry<String, Food> f : foods.entrySet())//check food amount
+		{
+			inventory.add(new Item(f.getKey(), f.getValue().amount));
+			/*AlertLog.getInstance().logInfo(AlertTag.GUI, "CookRole",
+					"Key: " + f.getKey() + " Value: " + f.getValue());*/
+		}
+		AlertLog.getInstance().logInfo(AlertTag.GUI, "CookRole",
+				inventory.toString());
+		return inventory;
+	}
+	
+	public void updateItem(String s, int hashCode) {
+		// TODO Auto-generated method stub
+		Food f = foods.get(s);
+		foods.get(s).amount = hashCode;
+	}
 	
 	public void HereIsOrder(Restaurant4Waiter waiter, String choice, int table){
 		myPerson.Do("Got your order " + choice);
@@ -103,6 +130,7 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 	
 	public void HereIsYourFood(Map<String, Integer> m, MarketWorkerRole worker){ //from market
 		needFood = false;
+		order = false;
 		myPerson.Do("Sending market worker message that I got food");
 		worker.Delivered(r4);
 		for (Map.Entry<String, Integer> entry: m.entrySet()){
@@ -136,6 +164,7 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 			}
 		}	
 		
+		if (order == false){
 		for (Map.Entry<String, Food> entry: foods.entrySet()){
 			if (entry.getValue().amount<=2){
 				myPerson.Do("Need " + entry.getKey());
@@ -143,6 +172,7 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 				neededFood.put(entry.getKey(), needed);
 				needFood = true;
 			}
+		}
 		}
 		if ((needFood == true)&&(order == false)){
 			order = true;
@@ -169,6 +199,7 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 		}
 		else{
 			myPerson.Do("Cooking " + o.choice);
+			System.out.println(cg);
 			cg.DoCookFood(o.choice);
 			o.s = Order.OrderState.cooking;
 			
@@ -193,91 +224,90 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 		cashier.INeedFood(neededFood, r4);
 	}
 
-	public void setMarketCashier(MarketCashier m){
-		
-		cashier = m;
-	}
-	
-	private class DoTask extends TimerTask{
-		Order order;
-		public DoTask(Order o){
-			order = o;
-		}
-		public void run() {
-			// TODO Auto-generated method stub
-			TimerDone(order);
-		}
-	}
-	
-	public void TimerDone(Order o){
-		myPerson.Do("Done cooking " + o.choice);
-		o.s = Order.OrderState.done;
-		cg.DoPlateOrder(o.choice);
-		stateChanged();
-	}
-	public void NotifyWaiter(Order o){
-		orders.remove(o);
-		//cg.DoRemoveFood(o.choice);
-		o.waiter.OrderDone(o.choice, o.table);
-	}
-	
-	
-	static class Order{
-		private Restaurant4Waiter waiter;
-		private String choice;
-		private int table;
-		private OrderState s;
-		public enum OrderState {pending, cooking, done, finished};
-		
-		public Order(Restaurant4Waiter waiter2, String c, int t){
-			waiter = waiter2;
-			choice = c;
-			table = t;
-			s = OrderState.pending;
-			
-		}
 
-	}
-	
-	public static class Food{
-		public String type;
-		public int amount;
-		public int low=2;
-		public int capacity=6;
-		public FoodState state;
-		public enum FoodState {enough, ordering, low};
-		public Map<String, Integer> cookTime = new HashMap<String,Integer>();
-		
-		
-		public Food(String type, int amount){
-			this.type = type;
-			this.amount = amount;
-			cookTime.put("Steak", new Integer(6000));
-			cookTime.put("Chicken", new Integer(5000));
-			cookTime.put("Pizza", new Integer(4500));
-			cookTime.put("Salad", new Integer(4000));
-			if (amount <= low){
-				state = FoodState.low;
-						}
-			else{
-				state = FoodState.enough;
-			}
-		}
-		
-	}
+        public void setMarketCashier(MarketCashier m){
+                
+                cashier = m;
+        }
+        
+        private class DoTask extends TimerTask{
+                Order order;
+                public DoTask(Order o){
+                        order = o;
+                }
+                public void run() {
+                        // TODO Auto-generated method stub
+                        TimerDone(order);
+                }
+        }
+        
+        public void TimerDone(Order o){
+                myPerson.Do("Done cooking " + o.choice);
+                o.s = Order.OrderState.done;
+                cg.DoPlateOrder(o.choice);
+                stateChanged();
+        }
+        public void NotifyWaiter(Order o){
+                orders.remove(o);
+                //cg.DoRemoveFood(o.choice);
+                o.waiter.OrderDone(o.choice, o.table);
+        }
+        
+        
+        static class Order{
+                private Restaurant4Waiter waiter;
+                private String choice;
+                private int table;
+                private OrderState s;
+                public enum OrderState {pending, cooking, done, finished};
+                
+                public Order(Restaurant4Waiter waiter2, String c, int t){
+                        waiter = waiter2;
+                        choice = c;
+                        table = t;
+                        s = OrderState.pending;
+                }
+        }
+        
+        public static class Food{
+                public String type;
+                public int amount;
+                public int low=2;
+                public int capacity=6;
+                public FoodState state;
+                public enum FoodState {enough, ordering, low};
+                public Map<String, Integer> cookTime = new HashMap<String,Integer>();
+                
+                
+                public Food(String type, int amount){
+                        this.type = type;
+                        this.amount = amount;
+                        cookTime.put("Steak", new Integer(6000));
+                        cookTime.put("Chicken", new Integer(5000));
+                        cookTime.put("Pizza", new Integer(4500));
+                        cookTime.put("Salad", new Integer(4000));
+                        if (amount <= low){
+                                state = FoodState.low;
+                                                }
+                        else{
+                                state = FoodState.enough;
+                        }
+                }
+                
+        }
 
-	@Override
-	public boolean getPause() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+        @Override
+        public boolean getPause() {
+                // TODO Auto-generated method stub
+                return false;
+        }
 
-	@Override
-	public void Ready(String string) {
-		// TODO Auto-generated method stub
-		
-	}
+        @Override
+        public void Ready(String string) {
+                // TODO Auto-generated method stub
+                
+        }
 
 
-	
+        
 }
