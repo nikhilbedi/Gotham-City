@@ -4,6 +4,7 @@ import java.util.*;
 
 import Gui.ScreenFactory;
 import agent.Role;
+import simcity.CityClock;
 import simcity.Market.MarketCustomerRole;
 import simcity.Market.MarketGui.MarketCustomerGui;
 import simcity.restaurants.Restaurant;
@@ -85,9 +86,34 @@ public class Restaurant1 extends Restaurant {
 		//hostGui.getHomeScreen().removeGui(hostGui);
 	}
 
+	/**
+	 * Not only must a person check if the business is open between certain hours,
+	 * but the person must check if all the necessary roles are present within the building.
+	 */
 	@Override
 	public boolean isOpen() {
-		
+		//Weekday
+		if(CityClock.getDay() != 0 && CityClock.getDay() !=6) {
+			if(CityClock.getTime() > weekdayOpen && CityClock.getTime() < weekdayClose) {
+				if(host.checkWorkStatus() && cashier.checkWorkStatus() && cook.checkWorkStatus()) {
+					if(waiter1.checkWorkStatus() || waiter2.checkWorkStatus()
+						|| waiter3.checkWorkStatus() || waiter4.checkWorkStatus()) {
+						return true;
+					}
+				}
+			}
+		}
+		//weekend
+		else {
+			if(CityClock.getTime() > weekendOpen && CityClock.getTime() < weekendClose){
+				if(host.checkWorkStatus() && cashier.checkWorkStatus() && cook.checkWorkStatus()) {
+					if(waiter1.checkWorkStatus() || waiter2.checkWorkStatus()
+						|| waiter3.checkWorkStatus() || waiter4.checkWorkStatus()) {
+						return true;
+					}
+				}
+			}
+		}
 		return false;
 	}
 	

@@ -8,9 +8,13 @@ import Gui.ScreenFactory;
 import simcity.interfaces.Person;
 import simcity.RoleFactory;
 import simcity.restaurants.*;
+import simcity.restaurants.restaurant1.Restaurant1;
+import simcity.restaurants.restaurant2.Restaurant2;
+import simcity.restaurants.restaurant3.Restaurant3;
+import simcity.restaurants.restaurant4.Restaurant4;
+import simcity.restaurants.restaurant5.Restaurant5;
 import simcity.restaurants.restaurant3.Restaurant3CustomerRole;
 import simcity.restaurants.restaurant3.gui.Restaurant3CustomerGui;
-import simcity.restaurants.restaurant4.Restaurant4;
 import simcity.restaurants.restaurant4.Restaurant4CustomerRole;
 import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4CustomerGui;
 import simcity.restaurants.restaurant5.Restaurant5CustomerRole;
@@ -647,12 +651,12 @@ public class PersonAgent extends Agent implements Person {
 
 			// Let me even see if I got money..
 			//TODO uncomment this when ready
-			/*if (moneyState == MoneyState.Low || moneyState == MoneyState.High) {
+			if (moneyState == MoneyState.Low || moneyState == MoneyState.High) {
 				if (currentBuilding != bank) {
 					goToBank();
 					return true;
 				}
-			}*/
+			}
 			if(currentBuilding != getMyHome()) {
 				goToHome();
 				//TODO I think we can just remove "return true" here. It's currently causing problems since not everyone has a home
@@ -784,65 +788,74 @@ public class PersonAgent extends Agent implements Person {
 
 		// 5 if statements, to check which restaurant customer needs to be cast
 		// :)
+		boolean restIsOpen = false;
 		if (currentPreference.getName().equalsIgnoreCase("Restaurant 1")) {
 			restTemp = RoleFactory.makeMeRole(currentPreference
 					.getCustomerName());
 			restGui = new Restaurant1CustomerGui(
 					(Restaurant1CustomerRole) restTemp,
 					ScreenFactory.getMeScreen(currentPreference.getName()));
-		} else if (currentPreference.getName().equalsIgnoreCase("Restaurant 3")) {
+			if(((Restaurant1)currentPreference).isOpen())
+				restIsOpen = true;
+		} 
+		else if (currentPreference.getName().equalsIgnoreCase("Restaurant 3")) {
 			print("currentPreference = restaurant 3");
 			restTemp = RoleFactory.makeMeRole(currentPreference
 					.getCustomerName());
 			restGui = new Restaurant3CustomerGui(
 					(Restaurant3CustomerRole) restTemp,
 					ScreenFactory.getMeScreen(currentPreference.getName()));
-		} else if (currentPreference.getName().equalsIgnoreCase("Restaurant 2")) {
+			if(((Restaurant3)currentPreference).isOpen())
+				restIsOpen = true;
+		} 
+		else if (currentPreference.getName().equalsIgnoreCase("Restaurant 2")) {
 			restTemp = RoleFactory.makeMeRole(currentPreference
 					.getCustomerName());
 			restGui = new Restaurant2CustomerGui(
 					(Restaurant2CustomerRole) restTemp,
 					ScreenFactory.getMeScreen(currentPreference.getName()));
-			// restGui = new Restaurant2CustomerGui(restTemp,
-			// ScreenFactory.getMeScreen(currentPreference.getName()));
-		} else if (currentPreference.getName().equalsIgnoreCase("Restaurant 4")) {
+			if(((Restaurant2)currentPreference).isOpen())
+				restIsOpen = true;
+		} 
+		else if (currentPreference.getName().equalsIgnoreCase("Restaurant 4")) {
 			restTemp = RoleFactory.makeMeRole(currentPreference
 					.getCustomerName());
 			restGui = new Restaurant4CustomerGui(
 					(Restaurant4CustomerRole) restTemp,
 					ScreenFactory.getMeScreen(currentPreference.getName()));
-		} else if (currentPreference.getName().equalsIgnoreCase("Restaurant 5")) {
+			if(((Restaurant4)currentPreference).isOpen())
+				restIsOpen = true;
+		} 
+		else if (currentPreference.getName().equalsIgnoreCase("Restaurant 5")) {
 			restTemp = RoleFactory.makeMeRole(currentPreference
 					.getCustomerName());
 			restGui = new Restaurant5CustomerGui(
 					(Restaurant5CustomerRole) restTemp,
 					ScreenFactory.getMeScreen(currentPreference.getName()));
-		} else {
-
+			if(((Restaurant5)currentPreference).isOpen())
+				restIsOpen = true;
 		}
 
-		// rest1Temp = RoleFactory.makeMeRole("Restaurant4Customer");
-		// //currentPreference.getCustomerName()
+		if(restIsOpen) {
+			checkPersonScheduler = false;
+			restTemp.setGui(restGui);
+			// Enter building
+			currentBuilding = currentPreference;
+			enteringBuilding(restTemp);
 
-		//restTemp.setPerson(this);
-		//restGui.setHomeScreen(ScreenFactory.getMeScreen(currentPreference
-		//	.getName()));
-		// print("here:"+ currentPreference.getName());
-
-		checkPersonScheduler = false;
-		restTemp.setGui(restGui);
-		// Enter building
-		currentBuilding = currentPreference;
-		enteringBuilding(restTemp);
-
-		//Need to check if the person was able to actually go into the restaurant
-		boolean madeItIn = false;
-		for(int i = 0; i < roles.size(); i++) {
-			if(roles.get(i).equals(restTemp));
-			madeItIn = true;
+			//Need to check if the person was able to actually go into the restaurant
+			boolean madeItIn = false;
+			for(int i = 0; i < roles.size(); i++) {
+				if(roles.get(i).equals(restTemp));
+				madeItIn = true;
+			}
+			//If the person hasn't made it into the restaurant. You're still hungry
+			if(!madeItIn){
+				hungerState = HungerState.Famished;
+			}
 		}
-		//If the person hasn't made it into the restaurant. You're still hungry
-		if(!madeItIn){
+		else {
+			print("Restaurant isn't open.");
 			hungerState = HungerState.Famished;
 		}
 		restaurantCounter++;
@@ -853,10 +866,11 @@ public class PersonAgent extends Agent implements Person {
 	}
 
 	private void goGetGroceries() {
-		marketState = MarketState.GettingGroceries;
 		// if inside building and not in current restaurant preference
 		// animate outside building
+		Market temp = markets.get(0);
 		for (Market m : markets) {
+			temp = m;
 			gui.DoGoToLocation(m.getEntranceLocation());
 			break;
 		}
@@ -866,34 +880,33 @@ public class PersonAgent extends Agent implements Person {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		if(temp.isOpen()) {
+			marketState = MarketState.GettingGroceries;
 
-		marketRoleTemp = RoleFactory.makeMeRole("marketCustomer");
-		currentBuilding = markets.get(0);
-		MarketCustomerRole tempMarketCustomerRole = (MarketCustomerRole) marketRoleTemp;
-		marketGui = new MarketCustomerGui((MarketCustomerRole) marketRoleTemp,
-				ScreenFactory.getMeScreen("Market"));
-		marketRoleTemp.setPerson(this);
-		marketGui.setHomeScreen(ScreenFactory.getMeScreen("Market"));
-		activeRole = marketRoleTemp;
+			marketRoleTemp = RoleFactory.makeMeRole("marketCustomer");
+			currentBuilding = markets.get(0);
+			MarketCustomerRole tempMarketCustomerRole = (MarketCustomerRole) marketRoleTemp;
+			marketGui = new MarketCustomerGui((MarketCustomerRole) marketRoleTemp,
+					ScreenFactory.getMeScreen("Market"));
+			marketRoleTemp.setPerson(this);
+			marketGui.setHomeScreen(ScreenFactory.getMeScreen("Market"));
+			activeRole = marketRoleTemp;
 
-		checkPersonScheduler = false;
-		// Add role
-		roles.add(marketRoleTemp);
-		marketRoleTemp.setGui(marketGui);
-		// Enter building
-		enteringBuilding(marketRoleTemp);
-
-		// initial message to marketCashier
+			checkPersonScheduler = false;
+			// Add role
+			roles.add(marketRoleTemp);
+			marketRoleTemp.setGui(marketGui);
+			// Enter building
+			enteringBuilding(marketRoleTemp);
+		}
+		else {
+			goToHome();
+		}
 	}
 
 	private void goToBank() {
 		// if inside building and not in bank
 		// animate outside building to the bank
-
-		System.out.println("X: " + bank.getEntranceLocation().getX());
-		System.out.println("Y: " + bank.getEntranceLocation().getY());
-		// print("Current permits when going to bank are: " +
-		// busyWithTask.availablePermits());
 		currentDestination = bank;
 		gui.DoGoToLocation(bank.getEntranceLocation());
 		try {
@@ -901,21 +914,25 @@ public class PersonAgent extends Agent implements Person {
 		} catch (InterruptedException e) {
 
 		}
-		currentBuilding = bank;
+		if(bank.isOpen()) {
+			currentBuilding = bank;
 
-		bankRoleTemp = RoleFactory.makeMeRole("bankCustomer");
-		// currentBuilding = bank;
-		bankGui = new bankCustomerGui((BankCustomerRole) bankRoleTemp,
-				ScreenFactory.getMeScreen("Bank"));
-		bankRoleTemp.setPerson(this);
-		bankGui.setHomeScreen(ScreenFactory.getMeScreen("Bank"));
+			bankRoleTemp = RoleFactory.makeMeRole("bankCustomer");
+			// currentBuilding = bank;
+			bankGui = new bankCustomerGui((BankCustomerRole) bankRoleTemp,
+					ScreenFactory.getMeScreen("Bank"));
+			bankRoleTemp.setPerson(this);
+			bankGui.setHomeScreen(ScreenFactory.getMeScreen("Bank"));
 
-		bankRoleTemp.setGui(bankGui);
-		// Enter building
-		enteringBuilding(bankRoleTemp);
+			bankRoleTemp.setGui(bankGui);
+			// Enter building
+			enteringBuilding(bankRoleTemp);
 
-		checkPersonScheduler = false;
-
+			checkPersonScheduler = false;
+		}
+		else {
+			goToHome();
+		}
 	}
 
 	public void restart() {
