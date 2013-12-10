@@ -106,8 +106,8 @@ public class MarketWorkerGui extends RoleGui{
 		r = restaurant;//restaurant
 		delivery = m;
 		r1 = (Restaurant1) TheCity.getBuildingFromString("Restaurant 1");
-		r2 = (Restaurant2) TheCity.getBuildingFromString("Restaurant 2");
-		r3 = (Restaurant3) TheCity.getBuildingFromString("Restaurant 3");
+		/*r2 = (Restaurant2) TheCity.getBuildingFromString("Restaurant 2");
+		r3 = (Restaurant3) TheCity.getBuildingFromString("Restaurant 3");*/
 		r4 = (Restaurant4) TheCity.getBuildingFromString("Restaurant 4");
 		r5 = (Restaurant5) TheCity.getBuildingFromString("Restaurant 5");
 		if (restaurant == r1){

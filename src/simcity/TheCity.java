@@ -1,4 +1,5 @@
 package simcity;
+import simcity.*;
 
 import java.util.*;
 
@@ -6,6 +7,7 @@ import java.util.*;
 import simcity.Home.Apartment;
 
 import Gui.TimeBar;
+
 
 import simcity.Home.Home;
 import simcity.Market.Market;
@@ -40,7 +42,8 @@ public class TheCity {
 	//Making timebar static so it can be updated by static city clock is this bad?
 	public static TimeBar bar;
 
-	static{//populate Buildings
+
+	public static void populate(){//populate Buildings
 		bar = new TimeBar();
 		bar.setVisible(true);
 
@@ -55,9 +58,9 @@ public class TheCity {
            house5.setImagePath("/resources/Buildings/HouseDark2.png");
            house6 = new Home("Home6", 590, 590, 600, 600);
            house6.setImagePath("/resources/Buildings/HouseDark2.png");*/ 
-
 		home = new Home("Home", 390, 590, 400, 600);
 		home.setImagePath("/resources/Buildings/HouseDark2.png");
+
 		home.setParkingLocation(450, 500);
 		PersonGui.parkingLocation.put(home.getEntranceLocation(), home.getParkingLocation());
 		
@@ -97,16 +100,19 @@ public class TheCity {
 		PersonGui.parkingLocation.put(rest5.getEntranceLocation(), rest5.getParkingLocation());
 
 
+
 		buildings.add(home);
-		buildings.add(market);
 		buildings.add(bank);
 		buildings.add(rest1);
-		buildings.add(rest2);
-		buildings.add(rest3);
+		buildings.add(market);
 		buildings.add(rest4);
 		buildings.add(rest5);
 		buildings.add(apart);
-		
+
+		buildings.add(rest3);
+/*		buildings.add(rest2);
+*/
+
 	}
 
 	static{//populate person-specific elements
@@ -219,10 +225,10 @@ public class TheCity {
 		List<Restaurant> tempcast = new ArrayList<Restaurant>();
 		//maybe this populate should be done in the static constructor
 		tempcast.add((Restaurant)rest1);
-		tempcast.add((Restaurant)rest2);
+	/*	tempcast.add((Restaurant)rest2);
 		tempcast.add((Restaurant)rest3);
 		tempcast.add((Restaurant)rest4);
-		tempcast.add((Restaurant)rest5);
+		tempcast.add((Restaurant)rest5);*/
 		return tempcast;
 	}
 

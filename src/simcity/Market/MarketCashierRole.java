@@ -13,6 +13,7 @@ import simcity.Market.interfaces.MarketWorker;
 import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant1.CashierRole;
 import simcity.restaurants.restaurant1.Restaurant1;
+import simcity.restaurants.restaurant1.gui.HostGui;
 import simcity.restaurants.restaurant2.Restaurant2;
 import simcity.restaurants.restaurant3.Restaurant3;
 import simcity.restaurants.restaurant4.Restaurant4;
@@ -22,6 +23,7 @@ import simcity.restaurants.restaurant4.interfaces.Restaurant4Cashier;
 import simcity.restaurants.restaurant5.Restaurant5;
 import simcity.PersonAgent;
 import simcity.TheCity;
+import Gui.RoleGui;
 import Gui.ScreenFactory;
 import agent.Role;
 
@@ -97,8 +99,9 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	}
 
 	
-	public void setGui(MarketCashierGui gui){
-		cashierGui = gui;
+	public void setGui(RoleGui gui){
+		super.setGui(gui);
+		cashierGui = (MarketCashierGui)gui;
 	}
 
 	public void needFood(MarketCustomer mcr){ //when customer just arrives to the market and in a wating line 
@@ -176,7 +179,7 @@ public class MarketCashierRole extends Role implements MarketCashier{
 					r4.getCashier().amountDue(order.amountDue, this);
 				}
 				else if (order.rest == r5){
-					//r1.getCashier().amountDue(order.amountDue, this);
+					r5.getCashier().amountDue(order.amountDue, this);
 				}
 			}
 		}
@@ -282,8 +285,8 @@ public class MarketCashierRole extends Role implements MarketCashier{
 					r4.getCashier().HereIsYourChange(i, this);
 				}
 				else if (order.rest == r5){
-					System.out.println(r4.getName() + "Here is change");
-					r4.getCashier().HereIsYourChange(i, this);
+					System.out.println(r5.getName() + "Here is change");
+					r5.getCashier().HereIsYourChange(i, this);
 				}
 			}
 		}

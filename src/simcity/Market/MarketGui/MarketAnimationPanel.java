@@ -50,20 +50,20 @@ public class MarketAnimationPanel extends Screen {
     public MarketCustomerRole marketCustomer3 = new MarketCustomerRole(agentCust3);
     public MarketCustomerGui customerGui3 = new MarketCustomerGui(marketCustomer3);
     
-    List <Market> m = TheCity.getMarketList();
+  /*  List <Market> m = TheCity.getMarketList();
     
-    public Market market = m.get(0);
+    public Market market = m.get(0);*/
     
   //  private BufferedImage image = ImageIO.read("shop.png"); 
     public MarketAnimationPanel() {
     	super();
-    	populate();
+    	//populate();
     }
 
 
-    public Market  getMarket (){
+  /*  public Market  getMarket (){
     	return market;
-    }
+    }*/
     
 
     @Override
@@ -105,8 +105,8 @@ public class MarketAnimationPanel extends Screen {
     		marketCustomer2.setCashier(marketCashier);
     		marketCustomer3.setCashier(marketCashier);
     		marketWorker.setCashier(marketCashier);
-    		market.setCashier(marketCashier);
-    		market.setWorker(marketWorker);
+    		//market.setCashier(marketCashier);
+    		//market.setWorker(marketWorker);
     		
     			Item beef = new Item("Beef", 10.99, 100);
     			Item chicken = new Item("Chicken", 8.99, 100);

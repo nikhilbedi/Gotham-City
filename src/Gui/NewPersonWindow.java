@@ -20,8 +20,9 @@ import javax.swing.*;
 import simcity.CityClock;
 import simcity.PersonAgent;
 import simcity.PersonGui;
-import simcity.TheCity;
 import simcity.Home.Apartment;
+
+import simcity.TheCity;
 import simcity.Home.Home;
 import simcity.Market.MarketCustomerRole;
 import simcity.Market.MarketGui.MarketAnimationPanel;
@@ -210,7 +211,6 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			//setting Transportation
 			//newPerson.setPreferredTransportation(transportation.getSelectedItem().toString());
 			newPerson.setPreferredTransportation("Car");
-
 
 			//set home
 

@@ -9,6 +9,7 @@ import java.util.concurrent.Semaphore;
 
 import simcity.PersonAgent;
 import simcity.TheCity;
+import simcity.Market.MarketGui.MarketCashierGui;
 import simcity.Market.MarketGui.MarketWorkerGui;
 import simcity.Market.interfaces.MarketCashier;
 import simcity.Market.interfaces.MarketCustomer;
@@ -20,6 +21,7 @@ import simcity.restaurants.restaurant3.Restaurant3;
 import simcity.restaurants.restaurant4.*;
 import simcity.restaurants.restaurant4.test.mock.Restaurant4CashierMock;
 import simcity.restaurants.restaurant4.test.mock.Restaurant4CookMock;
+import Gui.RoleGui;
 import simcity.restaurants.restaurant5.Restaurant5;
 import agent.Role;
 
@@ -243,8 +245,9 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 		}	
 	}
 
-	public void setGui(MarketWorkerGui Gui) {
-		workerGui = Gui;
+	public void setGui(RoleGui gui){
+		super.setGui(gui);
+		workerGui = (MarketWorkerGui)gui;
 	}
 
 

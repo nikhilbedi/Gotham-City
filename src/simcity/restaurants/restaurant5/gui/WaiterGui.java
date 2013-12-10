@@ -23,6 +23,8 @@ public class WaiterGui extends RoleGui implements Gui {
     public static final int cookX = 162;
     public static final int cookY = 76;
     
+    private int defaultX = 30, defaultY = 60;
+    
 	public static int waitX = 70;
 	public static int waitY = 36;
     
@@ -47,7 +49,17 @@ public class WaiterGui extends RoleGui implements Gui {
 
 
     public WaiterGui(Waiter waiter1, Screen meScreen) {
-		super( (Role)waiter1, meScreen);
+		 super( (Role)waiter1, meScreen);
+		 super.setColor(Color.BLUE);
+		 
+		 tableMap = new HashMap<Integer, Dimension>();
+	     tableMap.put(new Integer(0), new Dimension(50,250));
+	     tableMap.put(new Integer(1), new Dimension(150,250));
+	     tableMap.put(new Integer(2), new Dimension(250,250));
+	     
+	     
+			xPos = defaultX;
+			yPos = defaultY;
 	}
 
 

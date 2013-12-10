@@ -59,12 +59,6 @@ public class Restaurant4AnimationPanel extends Screen {
 
     public Restaurant4AnimationPanel() {
     	super();
-    	for(Restaurant r : restaurants) {
-			if(r.getName().equals("Restaurant 4")){
-				r4 = r;
-			}
-		}
-    	populate();
     	
     }
     

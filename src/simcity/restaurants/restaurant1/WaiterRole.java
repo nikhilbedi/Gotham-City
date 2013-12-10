@@ -10,6 +10,8 @@ import simcity.restaurants.restaurant1.Menu;
 import simcity.restaurants.restaurant1.gui.WaiterGui;
 import simcity.restaurants.restaurant1.interfaces.*;
 import simcity.restaurants.restaurant1.CashierRole.Check;
+import trace.AlertLog;
+import trace.AlertTag;
 import agent.Role;
 
 import java.util.*;
@@ -508,6 +510,8 @@ public class WaiterRole extends Role implements Waiter {
 
 	public void setGui(RoleGui gui) {
 		super.setGui(gui);
+		AlertLog.getInstance().logInfo(AlertTag.GUI, "WaiterROle",
+				"At this point: " + gui.toString());
 		waiterGui = (WaiterGui)gui;
 	}
 

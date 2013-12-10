@@ -9,12 +9,13 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 import simcity.Building;
+import simcity.TheCity;
 
 import simcity.Home.Apartment;
 
 import simcity.Bus;
 
-import simcity.TheCity;
+//import simcity.TheCity;
 
 import simcity.Home.Home;
 import simcity.Market.Market;

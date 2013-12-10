@@ -11,10 +11,10 @@ public class Restaurant4HostGui extends RoleGui{
 	
 	public Restaurant4HostGui(Restaurant4HostRole c, Screen s){
 		super(c,s);
-		 xPos = 300;
-		 yPos = 100;
-		 xDestination = 300;
-		 yDestination = 100;
+		 xPos = 170;
+		 yPos = 10;
+		 xDestination = 170;
+		 yDestination = 10;
 		 
 	}
 	

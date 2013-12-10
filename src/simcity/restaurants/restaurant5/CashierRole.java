@@ -13,6 +13,9 @@ import java.util.Map;
 import java.util.TimerTask;
 
 import simcity.PersonAgent;
+import simcity.TheCity;
+import simcity.Market.MarketCashierRole;
+import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant5.gui.CashierGui;
 import simcity.restaurants.restaurant5.interfaces.Cashier;
 import simcity.restaurants.restaurant5.interfaces.Customer;
@@ -61,6 +64,12 @@ public class CashierRole extends Role implements Cashier {
 
 	public CashierRole() {
 		super();
+		prices.put("Steak", 15.99);
+		prices.put("Chicken", 10.99);
+		prices.put("Salad", 5.99);
+		prices.put("Pizza", 8.99);
+
+		register = 50.00;
 	}
 
 
@@ -236,6 +245,20 @@ public class CashierRole extends Role implements Cashier {
 		int amount = 2;//Hacked for testing
 		int low = 1;
 
+	}
+
+
+	public void HereIsYourChange(double i, MarketCashierRole marketCashierRole) {
+		// TODO Auto-generated method stub
+		register += i;
+		
+	}
+
+
+	public void amountDue(double amountDue, MarketCashierRole marketCashierRole) {
+		// TODO Auto-generated method stub
+		register -= amountDue;
+		marketCashierRole.hereIsMoneyRestaurant((Restaurant)TheCity.getBuildingFromString("Restaurant 5"), amountDue);
 	}
 
 
