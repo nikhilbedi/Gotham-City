@@ -29,6 +29,8 @@ public class Restaurant5 extends Restaurant {
 	Cashier cashier = new CashierRole();
 	Waiter waiter1 = new WaiterRole();
 	Waiter waiter2 = new WaiterRole();
+	Waiter waiter3 = new WaiterRole();
+	Waiter waiter4 = new WaiterRole();
 	Cook cook = new CookRole(); 
 
 
@@ -43,6 +45,8 @@ public class Restaurant5 extends Restaurant {
 
 	WaiterGui waiterGui1 = new WaiterGui(waiter1, ScreenFactory.getMeScreen("Restaurant 5"));
 	WaiterGui waiterGui2 = new WaiterGui(waiter2, ScreenFactory.getMeScreen("Restaurant 5"));
+	WaiterGui waiterGui3 = new WaiterGui(waiter3, ScreenFactory.getMeScreen("Restaurant 5"));
+	WaiterGui waiterGui4 = new WaiterGui(waiter4, ScreenFactory.getMeScreen("Restaurant 5"));
 	//create 2 waiters and 2 sharedDataWaiter
 
 
@@ -70,6 +74,8 @@ public class Restaurant5 extends Restaurant {
 		((CashierRole) cashier).setGui((RoleGui)cashierGui);
 		((WaiterRole) waiter1).setGui((RoleGui)waiterGui1);
 		((WaiterRole) waiter2).setGui((RoleGui)waiterGui2);
+		((WaiterRole) waiter3).setGui((RoleGui)waiterGui3);
+		((WaiterRole) waiter4).setGui((RoleGui)waiterGui4);
 		((CookRole) cook).setGui((RoleGui)cookGui);
 
 		jobRoles.put("Host", (Role)host);
@@ -80,6 +86,8 @@ public class Restaurant5 extends Restaurant {
 
 		jobRoles.put("Waiter1",(Role)waiter1);
 		jobRoles.put("Waiter2",(Role)waiter2);
+		jobRoles.put("Waiter3",(Role)waiter3);
+		jobRoles.put("Waiter4",(Role)waiter4);
 
 		//jobRoles.put("Waiter1 Late", (Role)waiter1);
 
@@ -101,6 +109,21 @@ public class Restaurant5 extends Restaurant {
 		((WaiterRole)waiter1).setCook(cook);
 		((WaiterRole)waiter1).setCashier(cashier);
 		((HostRole)host).addWaiter(waiter1);
+
+		((WaiterRole)waiter2).setHost(host);
+		((WaiterRole)waiter2).setCook(cook);
+		((WaiterRole)waiter2).setCashier(cashier);
+		((HostRole)host).addWaiter(waiter2);
+		
+		((WaiterRole)waiter3).setHost(host);
+		((WaiterRole)waiter3).setCook(cook);
+		((WaiterRole)waiter3).setCashier(cashier);
+		((HostRole)host).addWaiter(waiter3);
+		
+		((WaiterRole)waiter4).setHost(host);
+		((WaiterRole)waiter4).setCook(cook);
+		((WaiterRole)waiter4).setCashier(cashier);
+		((HostRole)host).addWaiter(waiter4);
 
 		/*		ScreenFactory.getMeScreen("Restaurant 5").addGui(hostGui);
 		ScreenFactory.getMeScreen("Restaurant 5").addGui(cookGui);

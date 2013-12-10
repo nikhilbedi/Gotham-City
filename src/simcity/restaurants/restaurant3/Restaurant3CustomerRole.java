@@ -260,11 +260,12 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 			PayCheck();
 			return true;
 		}
-		if (state == AgentState.Paying && customerGui.getXPos() == 600 && customerGui.getYPos() == 200 && event != AgentEvent.donePaying){
-			//System.out.println("*************inside if");
-			cashier.msgCustomerPayingCheck(order);
-			return true;
-		}
+//		if (state == AgentState.Paying && customerGui.getXPos() == 600 && customerGui.getYPos() == 200 && event != AgentEvent.donePaying){
+//			//System.out.println("*************inside if");
+//			
+//			cashier.msgCustomerPayingCheck(order);
+//			return true;
+//		}
 		if (state == AgentState.Paying && event == AgentEvent.donePaying){
 			state = AgentState.Leaving;
 			leaveTable();
@@ -383,11 +384,12 @@ public class Restaurant3CustomerRole extends Role implements Customer {
 			System.out.println("Customer owes $" + order.totalPrice + " next time.");
 			cashier.owed.put(this, order.totalPrice);
 		}
+		cashier.msgCustomerPayingCheck(order);
 			
 		
 		//event = AgentEvent.donePaying;
 		
-		stateChanged();
+		//stateChanged();
 	}
 	private void leaveTable() {
 		System.out.println(this.getName() + " is leaving the restaurant");

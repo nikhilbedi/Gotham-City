@@ -358,11 +358,11 @@ public class PersonAgent extends Agent implements Person {
 		/*	if (hungerCount > 15 && hungerState != HungerState.Starving
 				&& hungerState != HungerState.FeedingHunger) {
 			hungerState = HungerState.Starving;
-		} else*/ if (hungerCount > 10 && hungerState != HungerState.Hungry
+		} else if (hungerCount > 10 && hungerState != HungerState.Hungry
 				&& hungerState != HungerState.FeedingHunger
 				&& hungerState != HungerState.Starving) {
 			hungerState = HungerState.Hungry;
-		} else if (hungerCount > 5 && hungerState != HungerState.Famished
+		} else */if (hungerCount > 5 && hungerState != HungerState.Famished
 				&& hungerState != HungerState.FeedingHunger
 				&& hungerState != HungerState.Starving
 				&& hungerState != HungerState.Hungry) {
@@ -645,7 +645,7 @@ public class PersonAgent extends Agent implements Person {
 					goToHome();
 					return true;
 				} else {
-					print("checking to see if im going to the restaurant as a customer");
+					//print("checking to see if im going to the restaurant as a customer");
 					hungerState = HungerState.FeedingHunger;
 					goEatAtRestaurant();
 					return true;
