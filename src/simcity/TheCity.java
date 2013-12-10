@@ -59,7 +59,7 @@ public class TheCity {
            house6.setImagePath("/resources/Buildings/HouseDark2.png");*/ 
 
 		home = new Home("Home", 360, 700, 350, 720);
-		home.setImagePath("/resources/Buildings/HouseDark2.png");
+		home.setImagePath("/resources/Buildings/HouseDark2_small.png");
 
 
 		apart = new Apartment("Apartment 1", 620, 700, 610, 720);
