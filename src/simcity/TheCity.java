@@ -44,10 +44,7 @@ public class TheCity {
 
 
 	public static void populate(){//populate Buildings
-		bar = new TimeBar();
-		bar.setVisible(true);
-
-
+	
 		//These are just added to make Evan happy
 		//For reference, not putting them in anymore
 		/*house3 = new Home("Home3", 190, 590, 200, 600);
@@ -101,6 +98,9 @@ public class TheCity {
 	}
 
 	static{//populate person-specific elements
+		bar = new TimeBar();
+		bar.setVisible(true);
+
 
 		
 	homeList.add("None (Homeless Shelter)");

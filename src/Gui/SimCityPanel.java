@@ -36,7 +36,8 @@ public class SimCityPanel extends JPanel implements MouseListener, KeyListener
 		setPreferredSize(new Dimension(200,600));
 		setMinimumSize(new Dimension(800,600));
 		setMaximumSize(new Dimension(800,600));*/
-		setPreferredSize(new Dimension(800, 800));
+		setPreferredSize(new Dimension(1000, 800));
+		setMaximumSize(new Dimension(1000, 800));
 		//Building b = TheCity.getBank();
 		currentScreen = ScreenFactory.getMainScreen();
 		addMouseListener(this);
@@ -71,7 +72,7 @@ public class SimCityPanel extends JPanel implements MouseListener, KeyListener
 				
 				revalidate();
 				repaint();
-				//updateGui();
+				updateGui();//updates the gui every second
 				Thread.sleep(10);
 			}
 			catch(Exception e) {
@@ -104,10 +105,10 @@ public class SimCityPanel extends JPanel implements MouseListener, KeyListener
 			currentScreen = swapScreen;
 			selPane.refresh();
 			if(swap.equalsIgnoreCase("city")){
-				buildingInfo.setVisible(false);
+				//buildingInfo.setVisible(false);
 			}
 			else{
-				buildingInfo.setVisible(true);
+				//buildingInfo.setVisible(true);
 				buildingInfo.setB(TheCity.getBuildingFromString(swap));
 				buildingInfo.update(TheCity.getBuildingFromString(swap).getBuildingInfo());
 				buildingInfo.getUpdators(TheCity.getBuildingFromString(swap));

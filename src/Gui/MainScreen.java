@@ -49,8 +49,8 @@ public class MainScreen extends Screen{
 
 	public  void paintBackground(Graphics g)
 	{
-		g.setColor(Color.white);
-		//g.fillRect(0,0,1000, 800);
+		g.setColor(Color.orange);
+		g.fillRect(0,0,1200, 1000);
 		java.net.URL image1 = this.getClass().getResource("/resources/Backgrounds/SimCityBackground.png");
 		ImageIcon current1 = new ImageIcon(image1);
 		g.drawImage(current1.getImage(), 0, 0, null);
