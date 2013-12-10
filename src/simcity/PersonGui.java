@@ -327,9 +327,9 @@ public class PersonGui extends RoleGui {
 	
 	void guiMoveFromCurrentPositionTo(final int x, final int y){ // Brice - Method for traveling along the grid within the City Screen
 	 	if(finalX == x && finalY == y) {
-	 		System.out.println("AT PLACE");
 	 		grid[x][y] = prevTile;
-	 		reachedBuilding();
+	 		//if(finalX == xDestination && finalY == yDestination)
+	 			reachedBuilding();
 	 		return;
 	 	}
 	 	

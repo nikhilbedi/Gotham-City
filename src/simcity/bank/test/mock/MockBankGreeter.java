@@ -29,4 +29,10 @@ public class MockBankGreeter extends Mock implements BankGreeter{
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void addTeller(BankTeller teller) {
+		// TODO Auto-generated method stub
+		
+	}
 }
