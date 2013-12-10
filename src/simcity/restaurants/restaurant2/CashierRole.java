@@ -1,15 +1,17 @@
 package simcity.restaurants.restaurant2;
 
 import Gui.RoleGui;
-import agent.Agent;
 import agent.Role;
+
 import simcity.Market.interfaces.MarketCashier;
 import simcity.restaurants.Restaurant;
+
+import simcity.restaurants.restaurant2.gui.CashierGui;
+
 import simcity.restaurants.restaurant2.gui.Restaurant2CashierGui;
 //import restaurant.Customer.AgentEvent;
 //import restaurant.WaiterAgent;
-import simcity.restaurants.restaurant2.CookRole.CookingState;
-import simcity.restaurants.restaurant2.gui.HostGui;
+
 import simcity.restaurants.restaurant2.interfaces.Cashier;
 import simcity.restaurants.restaurant2.interfaces.Customer;
 import simcity.restaurants.restaurant2.interfaces.Waiter;
@@ -18,7 +20,6 @@ import simcity.PersonAgent;
 import simcity.TheCity;
 
 import java.util.*;
-import java.util.concurrent.Semaphore;
 
 /**
  * Restaurant Cashier Agent
@@ -34,7 +35,7 @@ public class CashierRole extends Role implements Cashier {
 	public double restaurantCash;
 	private String name;
 	//Timer timer = new Timer();
-	public Restaurant2CashierGui gui = null;
+	public CashierGui gui = null;
 
 	public CashierRole(PersonAgent person) {
 		super(person);
@@ -177,10 +178,10 @@ public class CashierRole extends Role implements Cashier {
 
 	public void setGui(RoleGui g) {
 		super.setGui(g);
-		gui = (Restaurant2CashierGui)g;
+		gui = (CashierGui)g;
 	}
 
-	public Restaurant2CashierGui getGui() {
+	public CashierGui getGui() {
 		return gui;
 	}
 

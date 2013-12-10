@@ -11,13 +11,12 @@ import java.util.Timer;
 import java.util.Map;
 import java.util.TimerTask;
 
+import simcity.TheCity;
 import simcity.restaurants.restaurant4.Restaurant4CashierRole;
 import simcity.restaurants.restaurant4.Restaurant4HostRole;
 import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4CustomerGui;
 import simcity.restaurants.restaurant5.interfaces.*;
 import simcity.restaurants.restaurant5.gui.*;
-
-
 import agent.Agent;
 
 import java.util.Timer;
@@ -93,9 +92,18 @@ public class Restaurant5CustomerRole extends Role implements Customer {
 		// Messages
 		@Override
 		public void startBuildingMessaging(){
-			host =  (HostRole) myPerson.currentPreference.getHost();
+/*			host =  (HostRole) myPerson.currentPreference.getHost();
 			cashier = (CashierRole) myPerson.currentPreference.getCashier();
-			becomesHungry();
+			becomesHungry();*/
+			
+			host = (HostRole) ((Restaurant5)TheCity.getBuildingFromString("Restaurant 5")).getHost();
+			cashier = (CashierRole) ((Restaurant5)TheCity.getBuildingFromString("Restaurant 5")).getCashier();
+			if(((HostRole) host).checkWorkStatus() && ((CashierRole) cashier).checkWorkStatus()) {
+				becomesHungry();
+			}
+			else {
+				myPerson.leftBuilding(this);
+			}
 		}
 		public void becomesHungry() {//from animation
 			print( getName() + " is hungry");
@@ -174,6 +182,7 @@ public class Restaurant5CustomerRole extends Role implements Customer {
 		 */
 		public boolean pickAndExecuteAnAction() {
 			//	CustomerAgent is a finite state machine
+			print("Checking the customer scheduler");
 			if(s == CustomerState.Hungry){
 				if( e == AgentEvent.followWaiter){
 					s = CustomerState.GoingToTable;

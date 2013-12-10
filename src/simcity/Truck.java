@@ -14,6 +14,7 @@ import simcity.restaurants.restaurant1.Restaurant1;
 import simcity.restaurants.restaurant2.Restaurant2;
 import simcity.restaurants.restaurant3.Restaurant3;
 import simcity.restaurants.restaurant4.Restaurant4;
+import simcity.restaurants.restaurant5.CookRole;
 import simcity.restaurants.restaurant5.Restaurant5;
 import Gui.RoleGui;
 import Gui.ScreenFactory;

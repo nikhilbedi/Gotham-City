@@ -77,7 +77,6 @@ public class CookRole extends Role implements Cook{
 	// Messages
 
 	public CookRole(PersonAgent cookPerson) {
-		// TODO Auto-generated constructor stub
 		super(cookPerson);
 		Food steak = new Food("Steak", 5);
 		Food chicken = new Food("Chicken", 4);
@@ -185,6 +184,10 @@ public class CookRole extends Role implements Cook{
 	 */
 	public boolean pickAndExecuteAnAction() {
 		//print("Picking and excuting");
+		if(theManLeavingMe != null && orders.isEmpty()) {
+			leaveWork();
+			return true;
+		}
 		synchronized(orders){
 			for(Order o: orders){
 				if(o.s == OrderState.pending){
@@ -212,10 +215,21 @@ public class CookRole extends Role implements Cook{
 			orderFood();
 			ds = DeliveryState.ordered;
 		}
+		if(Stand.hasOrders()){
+			checkStand();
+			return true;
+		}
 		return false;
 	}
 
 	// Actions
+
+	private void checkStand() {
+		DoGoToStand();
+		orders.add(Stand.popOrder());
+	}
+
+	
 
 	private void tryCookIt(final Order o){//final hack allows timer to accesss order
 		//DoCooking(o);
@@ -245,6 +259,8 @@ public class CookRole extends Role implements Cook{
 		DoGoToPlating();
 		o.waiter.hereIsAnOrder(this, o.choice, o.table);
 		o.s = OrderState.sent;
+		//TODO I'm going to remove the order from the list for you - Nikhil
+		orders.remove(o);
 	}
 
 	private void DoGoToPlating() {
@@ -265,6 +281,16 @@ public class CookRole extends Role implements Cook{
 		}
 		catch(InterruptedException e) {	
 		}
+	}
+	
+	private void DoGoToStand() {
+		cookGui.DoGoToStand();
+		try{
+			moving.acquire();
+		}
+		catch(InterruptedException e) {	
+		}
+		
 	}
 
 	private void handleOutOfFood(Order o){
@@ -349,8 +375,8 @@ public class CookRole extends Role implements Cook{
 			/*AlertLog.getInstance().logInfo(AlertTag.GUI, "CookRole",
 					"Key: " + f.getKey() + " Value: " + f.getValue());*/
 		}
-		AlertLog.getInstance().logInfo(AlertTag.GUI, "CookRole",
-				inventory.toString());
+	/*	AlertLog.getInstance().logInfo(AlertTag.GUI, "CookRole",
+				inventory.toString());*/
 		return inventory;
 	}
 
@@ -371,7 +397,7 @@ public class CookRole extends Role implements Cook{
 				}
 
 			}
-			private class Order{
+			public class Order{
 				Waiter waiter;
 				String choice;
 				int table;
@@ -399,9 +425,12 @@ public class CookRole extends Role implements Cook{
 
 			}
 			public void updateItem(String s, int hashCode) {
-				// TODO Auto-generated method stub
-				Food f = foodMap.get(s);
 				foodMap.get(s).amount = hashCode;
+			}
+
+			public void notifyOrderAvailable() {
+				// TODO Auto-generated method stub
+				
 			}
 }
 

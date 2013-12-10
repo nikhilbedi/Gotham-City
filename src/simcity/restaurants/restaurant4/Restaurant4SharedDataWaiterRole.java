@@ -288,6 +288,10 @@ public class Restaurant4SharedDataWaiterRole extends Restaurant4WaiterAgent impl
 //	scheduler
 	@Override
 	public boolean pickAndExecuteAnAction() {
+		if(theManLeavingMe != null && customers.isEmpty()){
+			leaveWork();
+			return true;
+		}
 		try{
 		for (MyCustomer customer: customers){
 			if (customer.s == MyCustomer.CustomerState.DoneEating){

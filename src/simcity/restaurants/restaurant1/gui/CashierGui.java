@@ -16,5 +16,9 @@ public class CashierGui extends RoleGui {
     public CashierGui(CashierRole agent, Screen s) {
     	super(agent, s);
         this.agent = agent;
+        xDestination = -100;
+        yDestination = -100;
+        xPos = xDestination;
+        yPos = yDestination;
     }
 }

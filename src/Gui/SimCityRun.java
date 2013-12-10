@@ -81,6 +81,7 @@ public class SimCityRun extends JFrame implements ActionListener
 		animation.add(TheCity.bar);//Adds clock gui
 
 
+
 		cityPanel = new SimCityPanel();
 		animation.add(cityPanel);
 		//add animation
@@ -111,6 +112,7 @@ public class SimCityRun extends JFrame implements ActionListener
 		JPanel debugPanel = new JPanel();
 		debugPanel.setLayout(new BoxLayout(debugPanel, BoxLayout.Y_AXIS));
 		tracePanel = new TracePanel();
+
 		tracePanel.showAlertsForAllLevels();
 		tracePanel.showAlertsForAllTags();
 		debugPanel.add(tracePanel);
@@ -136,8 +138,8 @@ public class SimCityRun extends JFrame implements ActionListener
 	public static void main(String[] args)
 	{
 		//Sample reading an XML file
-
 		XMLHelper.createPeople("sampleXML.xml");
+		//XMLHelper.createPeople("Restaurant5.xml");
 
 		//THE BIG BANG
 		CityClock.startTime();
@@ -164,7 +166,6 @@ public class SimCityRun extends JFrame implements ActionListener
 		{
 			exc.printStackTrace(System.out);
 		}
-
 		SimCityRun runCity = new SimCityRun();
 		runCity.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}

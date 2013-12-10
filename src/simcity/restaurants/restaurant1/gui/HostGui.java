@@ -16,7 +16,9 @@ public class HostGui extends RoleGui {
     public HostGui(HostRole agent, Screen s) {
     	super(agent, s);
         this.agent = agent;
-        xPos = -10;
-        yPos = -10;
+        xPos = -100;
+        yPos = -100;
+        xDestination = -100;
+        yDestination = -100;
     }
 }

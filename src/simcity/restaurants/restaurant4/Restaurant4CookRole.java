@@ -146,7 +146,11 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 	//scheduler
 	
 	public boolean pickAndExecuteAnAction(){
-	
+		if(theManLeavingMe != null && orders.isEmpty()) {
+			leaveWork();
+			return true;
+		}
+		
 		for (Order order:orders){
 			if (order.s == Order.OrderState.done){
 				order.s = Order.OrderState.finished;

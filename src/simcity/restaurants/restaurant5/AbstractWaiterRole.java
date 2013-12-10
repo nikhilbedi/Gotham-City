@@ -1,20 +1,16 @@
 package simcity.restaurants.restaurant5;
 
+import simcity.PersonAgent;
+import simcity.tests.mock.*;
 import Gui.RoleGui;
 import agent.Agent;
-import agent.Role;
 
-import java.util.*;
-import java.util.concurrent.Semaphore;
-import java.util.Collections;
-import java.util.Timer;
-import java.util.Map;
-import java.util.TimerTask;
-
-import simcity.PersonAgent;
+import simcity.restaurants.restaurant5.gui.Restaurant5CustomerGui;
+import simcity.restaurants.restaurant5.gui.WaiterGui;
 import simcity.restaurants.restaurant5.interfaces.*;
-import simcity.restaurants.restaurant5.gui.*;
-
+import trace.AlertLog;
+import trace.AlertTag;
+import agent.Role;
 
 import java.util.*;
 import java.util.concurrent.Semaphore;
@@ -22,7 +18,7 @@ import java.util.concurrent.Semaphore;
 /**
  * Restaurant Waiter Agent
  */
-public class WaiterRole extends AbstractWaiterRole implements Waiter {
+public abstract class AbstractWaiterRole extends Role implements Waiter {
 	static final int NTABLES = 3;//a global for the number of tables.
 
 	//Notice that we implement waitingCustomers using ArrayList, but type it
@@ -81,7 +77,7 @@ public class WaiterRole extends AbstractWaiterRole implements Waiter {
 	private enum WorkState{
 		working, wantBreak, onBreak}
 
-	public WaiterRole(String name) {
+	public AbstractWaiterRole(String name) {
 		super();
 		work = WorkState.working;
 		this.name = super.getName();
@@ -93,7 +89,7 @@ public class WaiterRole extends AbstractWaiterRole implements Waiter {
 
 	}
 
-	public WaiterRole(String name, Host h, Cook c, Cashier ca)//constructor that includes agents (used to simplify things in the gui implementation)
+	public AbstractWaiterRole(String name, Host h, Cook c, Cashier ca)//constructor that includes agents (used to simplify things in the gui implementation)
 	{
 		this(name);
 		this.h = h;
@@ -101,7 +97,7 @@ public class WaiterRole extends AbstractWaiterRole implements Waiter {
 		this.cashier = ca;
 	}
 
-	public WaiterRole(PersonAgent waiterPerson) {
+	public AbstractWaiterRole(PersonAgent waiterPerson) {
 		super(waiterPerson);
 		work = WorkState.working;
 		this.name = name;
@@ -116,7 +112,7 @@ public class WaiterRole extends AbstractWaiterRole implements Waiter {
 
 
 
-	public WaiterRole() {
+	public AbstractWaiterRole() {
 		super();
 		work = WorkState.working;
 		this.name = name;
@@ -160,12 +156,12 @@ public class WaiterRole extends AbstractWaiterRole implements Waiter {
 	public void hereIsMyChoice(Customer c, String choice){
 		print("Received message that " + c.getName() + " has given choice " + choice + ".");
 		synchronized(customers){
-		for(MyCustomer mycustomer: customers){
-			if(mycustomer.c == c){
-				mycustomer.s = CustomerState.givingOrder;
-				mycustomer.choice = choice;
+			for(MyCustomer mycustomer: customers){
+				if(mycustomer.c == c){
+					mycustomer.s = CustomerState.givingOrder;
+					mycustomer.choice = choice;
+				}
 			}
-		}
 		}
 		stateChanged();
 	}
@@ -173,11 +169,11 @@ public class WaiterRole extends AbstractWaiterRole implements Waiter {
 	public void hereIsAnOrder(Cook ck, String choice, int table){//(order o)
 		print("Received message that cook " + ck.getName() + " has finished " + choice + " for table " + table + ".");
 		synchronized(customers){
-		for(MyCustomer mycustomer: customers){
-			if(mycustomer.table == table){
-				mycustomer.o.os = OrderState.done;
+			for(MyCustomer mycustomer: customers){
+				if(mycustomer.table == table){
+					mycustomer.o.os = OrderState.done;
+				}
 			}
-		}
 		}
 		stateChanged();
 	}
@@ -185,11 +181,11 @@ public class WaiterRole extends AbstractWaiterRole implements Waiter {
 	public void doneEatingAndLeaving(Customer c){
 		print("Received message that customer " + c.getName() + " has finished eating.");
 		synchronized(customers){
-		for(MyCustomer mycustomer: customers){
-			if(mycustomer.c.equals(c)){
-				mycustomer.s = CustomerState.leaving;
+			for(MyCustomer mycustomer: customers){
+				if(mycustomer.c.equals(c)){
+					mycustomer.s = CustomerState.leaving;
+				}
 			}
-		}
 		}
 		stateChanged();
 
@@ -199,13 +195,13 @@ public class WaiterRole extends AbstractWaiterRole implements Waiter {
 	public void outOfOrder(String choice, int i, Menu m){
 		print("Received message that we are out of " + choice);
 		synchronized(customers){
-		for(MyCustomer mycustomer: customers){
-			if(mycustomer.choice.equals(choice) && mycustomer.table == i){
-				mycustomer.o.os = OrderState.invalid;
-				mycustomer.myMenu = m;
-				 ((WaiterGui) waiterGui).removeIcon(mycustomer.table, mycustomer.choice);			
+			for(MyCustomer mycustomer: customers){
+				if(mycustomer.choice.equals(choice) && mycustomer.table == i){
+					mycustomer.o.os = OrderState.invalid;
+					mycustomer.myMenu = m;
+					((WaiterGui) waiterGui).removeIcon(mycustomer.table, mycustomer.choice);			
+				}
 			}
-		}
 		}
 		stateChanged();
 
@@ -214,11 +210,11 @@ public class WaiterRole extends AbstractWaiterRole implements Waiter {
 	public void doneEating(Customer c) {
 		print("Received message that " + c.getName() + " is done eating");
 		synchronized(customers){
-		for(MyCustomer mycustomer: customers){
-			if(mycustomer.c == c){
-				mycustomer.s = CustomerState.needCheck;
+			for(MyCustomer mycustomer: customers){
+				if(mycustomer.c == c){
+					mycustomer.s = CustomerState.needCheck;
+				}
 			}
-		}
 		}
 		stateChanged();
 
@@ -227,11 +223,11 @@ public class WaiterRole extends AbstractWaiterRole implements Waiter {
 	public void gotCheckAndLeaving(Customer c) {
 		print("Received message that customer " + c.getName() + " has received check and is leaving.");
 		synchronized(customers){
-		for(MyCustomer mycustomer: customers){
-			if(mycustomer.c == c){
-				mycustomer.s = CustomerState.leaving;
+			for(MyCustomer mycustomer: customers){
+				if(mycustomer.c == c){
+					mycustomer.s = CustomerState.leaving;
+				}
 			}
-		}
 		}
 		stateChanged();
 
@@ -253,11 +249,11 @@ public class WaiterRole extends AbstractWaiterRole implements Waiter {
 	public void hereIsCheck(Cashier ch, Customer c, Double bill) {
 		print("Received bill for customer " + c.getName() + " from cashier.");
 		synchronized(customers){
-		for(MyCustomer mycustomer: customers){
-			if(mycustomer.c == c){
-				mycustomer.cost = bill;
+			for(MyCustomer mycustomer: customers){
+				if(mycustomer.c == c){
+					mycustomer.cost = bill;
+				}
 			}
-		}
 		}
 		stateChanged();
 
@@ -275,45 +271,40 @@ public class WaiterRole extends AbstractWaiterRole implements Waiter {
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
 	public boolean pickAndExecuteAnAction() {
-		if(theManLeavingMe != null && customers.isEmpty()) {
-			leaveWork();
-			return true;
-		}
-		
 		try{
 			for(MyCustomer mc: customers){
-					if(mc.s == CustomerState.givingOrder){
-						takeOrder(mc);
+				if(mc.s == CustomerState.givingOrder){
+					takeOrder(mc);
+					return true;
+				}
+				if(mc.s == CustomerState.waitingForFood){
+					if(mc.o.os == OrderState.invalid){
+						notifyCustomerInvalid(mc);
 						return true;
 					}
-					if(mc.s == CustomerState.waitingForFood){
-						if(mc.o.os == OrderState.invalid){
-							notifyCustomerInvalid(mc);
-							return true;
-						}
 
-						else if(mc.o.os == OrderState.done){
-							serveCustomer(mc);
-							return true;
-						}
-					}	
-					if(mc.s == CustomerState.readyToOrder){
-						askOrder(mc);
-						return true;
-					}
-					if(mc.s == CustomerState.leaving){
-						processLeavingCustomer(mc);
-						return true;
-					}
-					if(mc.s == CustomerState.needCheck){
-						giveCheck(mc);
-						return true;
-					}
-					if(mc.s == CustomerState.waiting){
-						seatCustomer(mc);
+					else if(mc.o.os == OrderState.done){
+						serveCustomer(mc);
 						return true;
 					}
 				}	
+				if(mc.s == CustomerState.readyToOrder){
+					askOrder(mc);
+					return true;
+				}
+				if(mc.s == CustomerState.leaving){
+					processLeavingCustomer(mc);
+					return true;
+				}
+				if(mc.s == CustomerState.needCheck){
+					giveCheck(mc);
+					return true;
+				}
+				if(mc.s == CustomerState.waiting){
+					seatCustomer(mc);
+					return true;
+				}
+			}	
 			if(!customers.isEmpty()){
 				return true;
 			}
@@ -557,4 +548,3 @@ public class WaiterRole extends AbstractWaiterRole implements Waiter {
 
 
 }
-

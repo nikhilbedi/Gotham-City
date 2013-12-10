@@ -89,6 +89,11 @@ public class Restaurant4CashierRole extends Role implements Restaurant4Cashier {
 	
 
 	public boolean pickAndExecuteAnAction(){
+		if(theManLeavingMe != null && payments.isEmpty() && checks.isEmpty()) {
+			leaveWork();
+			return true;
+		}
+		
 		for (Payment payment: payments){
 			if (payment.state == Payment.OrderState.pending){
 				payment.state = Payment.OrderState.paying;
@@ -99,10 +104,8 @@ public class Restaurant4CashierRole extends Role implements Restaurant4Cashier {
 				payment.state = Payment.OrderState.delete;
 				Remove(payment);
 				return true;
-			}
-			
+			}		
 		}
-		
 		
 		for (Check check: checks){
 			if (check.state == Check.OrderState.pending){
