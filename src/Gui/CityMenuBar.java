@@ -16,6 +16,9 @@ public class CityMenuBar extends JMenuBar implements ActionListener{
 	public CityMenuBar(){
 		menu = new JMenu("File");
 		fc = new JFileChooser();
+		
+		//this is machine dependant
+		fc.setCurrentDirectory(new File("C:/Users/Hunter/github"));
 
 
 		xml = new JMenuItem("Open XML");
@@ -24,7 +27,7 @@ public class CityMenuBar extends JMenuBar implements ActionListener{
 		clear.addActionListener(this);
 
 		menu.add(xml);
-		menu.add(clear);
+		//menu.add(clear);
 
 		add(menu);
 	}

@@ -23,7 +23,7 @@ public class TheCity {
 
 	static List<String> homeList = new ArrayList<String>();
 	static List<String> jobLocationList = new ArrayList<String>();
-	static HashMap<String, Collection<String>> buildingJobsMap = new HashMap<String,Collection<String>>();
+	static HashMap<String, Vector<String>> buildingJobsMap = new HashMap<String,Vector<String>>();
 	static Vector<Vector<String>> jobPositionList = new Vector<Vector<String>>();
 	static List<String> transportationList = new ArrayList<String>();
 	static List<String> homeOwnerList = new ArrayList<String>();
@@ -80,14 +80,6 @@ public class TheCity {
 		rest4.setImagePath("/resources/Buildings/RestaurantDark2.png");
 		rest5 = new Restaurant5("Restaurant 5", 680, 380, 700, 380);
 		rest5.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		
-		//rest3 = new Restaurant3("Restaurant 3", 700, 180, 700, 180);
-		//rest3.setImagePath("/resources/Buildings/RestaurantDark2.png");
-	
-/*		rest2 = new Restaurant2("Restaurant 2", 50, 210, 50, 210);
-		rest2.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		
-*/
 
 		buildings.add(home);
 		buildings.add(bank);
@@ -99,7 +91,19 @@ public class TheCity {
 
 		buildings.add(rest3);
 		buildings.add(rest2);
-
+		
+		
+		jobLocationList.add("No job");
+		for(Building b: buildings){
+			if(!(b.getName().contains("ome")||b.getName().contains("artment"))){
+			jobLocationList.add(b.getName());
+			}
+		}
+		//populate building jobs map
+		for(Building b: buildings){
+			jobPositionList.add(b.getJobCollec());
+			buildingJobsMap.put(b.getName(), b.getJobCollec());
+		}
 		
 		 //Setup Transportation Grid
         
@@ -197,8 +201,8 @@ public class TheCity {
 	}
 	
 	static{//populate person-specific elements
-		bar = new TimeBar();
-		bar.setVisible(true);
+	bar = new TimeBar();
+	bar.setVisible(true);
 
 
 		
@@ -208,10 +212,10 @@ public class TheCity {
 	
 	
 	//populate lists
-	jobLocationList.add("No job");
+	/*jobLocationList.add("No job");
 	for(Building b: buildings){
 		jobLocationList.add(b.getName());
-	}
+	}*/
 	//populate building jobs map
 	for(Building b: buildings){
 		jobPositionList.add(b.getJobCollec());
@@ -243,7 +247,9 @@ public class TheCity {
 		//jobPositionList.add("This is a temp variable I still need to figure out how to make this list dynamic");
 
 		transportationList.add("Walker");
-
+		transportationList.add("Car");
+		transportationList.add("Bus");
+		
 		homeOwnerList.add("none");
 		homeOwnerList.add("Home 1");
 	}
@@ -331,6 +337,9 @@ public class TheCity {
 
 	public static Character[][] getGrid() {
 		return grid;
+	}
+	public static HashMap<String, Vector<String>> getJobMap(){
+		return buildingJobsMap;
 	}
 }
 

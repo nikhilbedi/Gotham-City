@@ -163,6 +163,7 @@ import java.awt.*;
 		if(clk == 100){
 		bcp.refresh();
 		selPane.refresh();
+		//selPane.refresh(currentScreen.guis);
 		buildingInfo.refresh();
 		clk = 0;
 		}
