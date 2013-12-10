@@ -58,7 +58,7 @@ public class PersonAgent extends Agent implements Person {
 	// we're removing that role
 	Semaphore busyWithTask = new Semaphore(0, false);
 	double money = 0.0;
-	int restaurantCounter = (int)(Math.random()*3);
+	int restaurantCounter = (int)(Math.random()*5);
 	protected List<Role> roles = new ArrayList<Role>();
 	public Map<String, Integer> groceryList = new HashMap<String, Integer>();
 	public Map<String, Integer> groceryBag = new HashMap<String, Integer>();
@@ -186,9 +186,9 @@ public class PersonAgent extends Agent implements Person {
 		 */
 
 		//TODO uncomment this one and delete get(0)
-		//currentPreference = r.get(restaurantCounter);
+		currentPreference = r.get(restaurantCounter);
 		//currentPreference = r.get(0);
-		currentPreference = (Restaurant)TheCity.getBuildingFromString("Restaurant 5");
+		//currentPreference = (Restaurant)TheCity.getBuildingFromString("Restaurant 5");
 		restaurantCounter++;
 	}
 
@@ -358,11 +358,11 @@ public class PersonAgent extends Agent implements Person {
 		/*	if (hungerCount > 15 && hungerState != HungerState.Starving
 				&& hungerState != HungerState.FeedingHunger) {
 			hungerState = HungerState.Starving;
-		} else*/ if (hungerCount > 10 && hungerState != HungerState.Hungry
+		} else if (hungerCount > 10 && hungerState != HungerState.Hungry
 				&& hungerState != HungerState.FeedingHunger
 				&& hungerState != HungerState.Starving) {
 			hungerState = HungerState.Hungry;
-		} else if (hungerCount > 5 && hungerState != HungerState.Famished
+		} else */if (hungerCount > 5 && hungerState != HungerState.Famished
 				&& hungerState != HungerState.FeedingHunger
 				&& hungerState != HungerState.Starving
 				&& hungerState != HungerState.Hungry) {
@@ -386,6 +386,7 @@ public class PersonAgent extends Agent implements Person {
 			else {
 				if (currentTime == myJob.weekEndOnWork &&
 						myJob.state == JobState.OffWork) {
+					print("Got to go to work manggg");
 					myJob.state = JobState.GoToWorkSoon;
 				}
 				// Maybe, also check if our current state is atWork
@@ -548,7 +549,6 @@ public class PersonAgent extends Agent implements Person {
 		// Person Scheduler
 
 		if (checkPersonScheduler) {
-			//print("person sched");
 			/*if(true) {
 				goToWork();
 				return true;
@@ -645,7 +645,7 @@ public class PersonAgent extends Agent implements Person {
 					goToHome();
 					return true;
 				} else {
-					print("checking to see if im going to the restaurant as a customer");
+					//print("checking to see if im going to the restaurant as a customer");
 					hungerState = HungerState.FeedingHunger;
 					goEatAtRestaurant();
 					return true;
@@ -883,10 +883,10 @@ public class PersonAgent extends Agent implements Person {
 			hungerState = HungerState.Famished;
 		}
 		restaurantCounter++;
-		if (restaurantCounter > 2)
+		if (restaurantCounter > 4)
 			restaurantCounter = 0;
 		//TODO once all restaurants are back in, then uncomment below
-		//currentPreference = restaurants.get(restaurantCounter);
+		currentPreference = restaurants.get(restaurantCounter);
 	}
 
 	private void goGetGroceries() {

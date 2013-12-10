@@ -123,6 +123,11 @@ public class HostRole extends Role implements Host{
 	//Scheduler 
 	
 	public boolean pickAndExecuteAnAction() {
+		if(theManLeavingMe != null && waitingCustomers.isEmpty()){
+			leaveWork();
+			return true;
+		}
+		
 		for (Table table : tables) {
 			if (!table.isOccupied()) {
 				if (!waitingCustomers.isEmpty()) {
