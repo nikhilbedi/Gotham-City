@@ -199,22 +199,7 @@
 		<transportation>walk</transportation>
 	</person>
 	
-	<person name="Batman13">
-
-		<!-- Beginning amount of money -->
-		<money>100000</money>
-
-		<!-- The Person's job -->
-		<job>
-			<building>Restaurant 4</building>
-			<position>Cook</position>
-			<shift>1</shift>
-		</job>
-
-		<!-- Transportation preference -->
-		<transportation>walk</transportation>
-	</person>
-	
+		
 	<person name="Batman14">
 
 		<!-- Beginning amount of money -->

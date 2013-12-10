@@ -124,7 +124,7 @@ public class SimCityRun extends JFrame implements ActionListener
 		//setting info for the panel
 		cityPanel.setBuildingInfo(buildingPanel);
 		cityPanel.setSelPane(peopleList);
-
+		cityPanel.setBCP(buildingControl);
 
 		setVisible(true);
 
