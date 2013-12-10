@@ -161,7 +161,7 @@ public class CookRole extends Role implements Cook {
 			Food f = foods.get(entry.getKey());
 			f.amount = f.amount + entry.getValue();
 			foods.put(entry.getKey(), f);
-			myPerson.Do("Got order from market, now I have " + f.type + " " + f.amount);
+			System.err.println("Got order from market, now I have " + f.type + " " + f.amount);
 		}
 		
 	}
