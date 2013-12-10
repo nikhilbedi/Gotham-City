@@ -33,7 +33,7 @@ public class Restaurant1 extends Restaurant {
 	WaiterSharedDataGui w2Gui = new WaiterSharedDataGui(waiter2, 0, ScreenFactory.getMeScreen("Restaurant 1"));
 	WaiterGui w3Gui = new WaiterGui(waiter3, 0, ScreenFactory.getMeScreen("Restaurant 1"));
 	WaiterSharedDataGui w4Gui = new WaiterSharedDataGui(waiter4, 0, ScreenFactory.getMeScreen("Restaurant 1"));
-	HostGui hostGui = new HostGui(host, ScreenFactory.getMeScreen("Restaurant 1"));
+	HostGui hostGui;// = new HostGui(host, ScreenFactory.getMeScreen("Restaurant 1"));
 	CashierGui cashierGui = new CashierGui(cashier, ScreenFactory.getMeScreen("Restaurant 1"));
 
 	
@@ -43,6 +43,10 @@ public class Restaurant1 extends Restaurant {
 		//Set the open and closing hours
 		setWeekdayHours(8, 22);
 		setWeekendHours(9, 21);
+		
+		hostGui = new HostGui(host, ScreenFactory.getMeScreen("Restaurant 1"));
+		//System.out.println("The host gui has a screen: " + hostGui.getHomeScreen().toString());
+		//System.out.println("The screen has a screen: " + ScreenFactory.getMeScreen("Restaurant 1").toString());
 		//Set guis
 		cook.setGui(cookGui);
 		waiter1.setGui(w1Gui);
@@ -51,6 +55,8 @@ public class Restaurant1 extends Restaurant {
 		waiter4.setGui(w2Gui);
 		host.setGui(hostGui);
 		cashier.setGui(cashierGui);
+		
+		
 		//Add the key: strings & value: roles
 		Map<String, Role> jobs = Collections.synchronizedMap(new HashMap<String, Role>());
 		jobs.put("host", host);
@@ -58,6 +64,8 @@ public class Restaurant1 extends Restaurant {
 		jobs.put("cook", cook);
 		jobs.put("waiter1", waiter1);
 		jobs.put("waiter2", waiter2);
+		jobs.put("waiter3", waiter3);
+		jobs.put("waiter4", waiter4);
 		setJobRoles(jobs);
 		
 		//Remove the guis until people come in to take those roles
@@ -82,6 +90,16 @@ public class Restaurant1 extends Restaurant {
 	@Override
 	public Role getCashier() {
 		return (CashierRole)cashier;
+	}
+	
+	@Override
+	public void setCook(Role cook) {
+		this.cook = (CookRole)cook;
+	}
+
+	@Override
+	public Role getCook() {
+		return (CookRole)cook;
 	}
 
 	@Override

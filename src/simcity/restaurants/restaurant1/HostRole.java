@@ -70,11 +70,13 @@ public class HostRole extends Role implements Host {
 		//This check is meant resolve an issue where the host's thread is asleep despite adding his first waiter to handle all of the waiting customers
 		if(myWaiters.isEmpty()) {
 			myWaiters.add(new MyWaiter(waiter));
-			stateChanged();
+			if (myPerson != null)
+				stateChanged();
 		}
 		else {
 			myWaiters.add(new MyWaiter(waiter));
-			stateChanged();
+			if (myPerson != null)
+				stateChanged();
 		}
 
 	}
@@ -192,6 +194,12 @@ public class HostRole extends Role implements Host {
 		/**
 	a table becomes free and a waiter is known
 		 */
+		//leave cuz work is over
+		if(theManLeavingMe != null) {
+			leaveWork();
+			return true;
+		}
+		
 		//Checks if a waiter wants to go on break
 		for(MyWaiter w : myWaiters) {
 			if(w.askedToGoOnBreak) {
@@ -228,7 +236,7 @@ public class HostRole extends Role implements Host {
 						int i = 0;
 						MyWaiter leastCustomersHeld;
 						for(MyWaiter w : myWaiters) {
-							if(!w.onBreak) {
+							if(!w.onBreak && ((Role)w.waiter).checkWorkStatus()) {
 								leastCustomersHeld = w;
 								for(MyWaiter mw : myWaiters) {
 									if(mw.amtOfCustomers < leastCustomersHeld.amtOfCustomers && !mw.onBreak) {
@@ -255,7 +263,11 @@ public class HostRole extends Role implements Host {
 	}
 
 	// Actions
-
+	private void leaveWork() {
+		theManLeavingMe.leftBuilding(this);
+		theManLeavingMe = null;
+	}
+	
 	private void waiterWantsBreak(MyWaiter mw) {
 		//compare how many waiters to customers there are. 
 		//if waiters >= customers, then let him go on break after he's finished with his customer

@@ -157,12 +157,11 @@ public class SimCityPanel extends JPanel implements MouseListener, KeyListener
 	@Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		 int key = e.getKeyCode();
-		  System.out.println("key is "+key);
-	         if (key == 27){
-	        	 checkMapChange(26, 51);
-	         }//&&player.lChange)
-	       
+		int key = e.getKeyCode();
+		System.out.println("key is "+key);
+		if (key == 27){
+			checkMapChange(26, 51);
+		}//&&player.lChange)
 	}
 
 
@@ -176,6 +175,11 @@ public class SimCityPanel extends JPanel implements MouseListener, KeyListener
 	@Override
 	public void keyTyped(KeyEvent e) {
 		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub
+		int key = e.getKeyCode();
+		System.out.println("key is "+key);
+		if (key == 27){
+			checkMapChange(26, 51);
+		}//&&player.lChange)
 	}
 }

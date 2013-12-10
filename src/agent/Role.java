@@ -35,6 +35,7 @@ public class Role {
 	
 	public void getReadyToLeave(PersonAgent whoTurnedMeOff) {
 		theManLeavingMe = whoTurnedMeOff;
+		stateChanged();
 	}
 
 	/**
@@ -70,7 +71,10 @@ public class Role {
 	 * name.
 	 */
 	public String getName() {
-		return StringUtil.shortName(myPerson.getName());
+		if(myPerson != null)
+			return StringUtil.shortName(myPerson.getName());
+		else
+			return "";
 	}
 
 	public void setPerson(PersonAgent a){

@@ -117,6 +117,8 @@ public class Restaurant3 extends Restaurant {
 		return (CashierRole)cashier;
 	}
 	
+	
+	
 	@Override
 	public String getCustomerName(){
 		return "restaurant3customer";

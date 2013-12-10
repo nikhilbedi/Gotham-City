@@ -4,6 +4,7 @@ import java.util.*;
 
 import agent.Role;
 import simcity.restaurants.Restaurant;
+import simcity.restaurants.restaurant2.CookRole;
 
 /**
  * Brice's restaurant
@@ -41,6 +42,16 @@ public class Restaurant2 extends Restaurant {
 	@Override
 	public Role getCashier() {
 		return (CashierRole)cashier;
+	}
+	
+	@Override
+	public void setCook(Role cook) {
+		this.cook = (CookRole)cook;
+	}
+
+	@Override
+	public Role getCook() {
+		return (CookRole)cook;
 	}
 	
 	@Override

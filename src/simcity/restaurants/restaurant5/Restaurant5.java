@@ -8,6 +8,7 @@ import agent.Role;
 import simcity.bank.BankGreeterRole;
 import simcity.bank.BankTellerRole;
 import simcity.restaurants.Restaurant;
+import simcity.restaurants.restaurant5.CookRole;
 import simcity.restaurants.restaurant5.gui.*;
 //import simcity.restaurants.restaurant5.*;
 import simcity.restaurants.restaurant5.interfaces.*;
@@ -90,6 +91,16 @@ public class Restaurant5 extends Restaurant {
 	@Override
 	public Role getCashier() {
 		return (CashierRole)cashier;
+	}
+	
+	@Override
+	public void setCook(Role cook) {
+		this.cook = (CookRole)cook;
+	}
+
+	@Override
+	public Role getCook() {
+		return (CookRole)cook;
 	}
 
 	public Vector<String> getBuildingInfo(){

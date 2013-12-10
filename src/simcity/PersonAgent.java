@@ -326,6 +326,7 @@ public class PersonAgent extends Agent implements Person {
 			 * landlord.setActive(false);
 			 */
 		}
+		
 
 		// Next Day
 		if (currentTime == 1) {
@@ -368,7 +369,8 @@ public class PersonAgent extends Agent implements Person {
 					myJob.state = JobState.GoToWorkSoon;
 				}
 				// Maybe, also check if our current state is atWork
-				else if (currentTime == myJob.weekEndOffWork) {
+				else if (currentTime == myJob.weekEndOffWork &&
+						myJob.state == JobState.AtWork) {
 					myJob.state = JobState.TimeToLeave;
 					// Need to now check the person scheduler so we leave work
 					checkPersonScheduler = true;
@@ -428,6 +430,8 @@ public class PersonAgent extends Agent implements Person {
 		roles.add(role);
 		role.setActive(true);
 		gui.getHomeScreen().removeGui(gui);
+		System.out.println("Checking the role gui" + role.getGui());
+		System.out.println("Checking the home screen" + role.getGui().getHomeScreen());
 		role.getGui().getHomeScreen().addGui(role.getGui());
 		role.startBuildingMessaging();
 		stateChanged();

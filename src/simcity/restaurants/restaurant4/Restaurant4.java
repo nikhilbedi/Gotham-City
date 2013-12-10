@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Vector;
 import java.util.Map;
 
-
 import Gui.ScreenFactory;
 import agent.Role;
 import simcity.Building;
@@ -15,8 +14,6 @@ import simcity.TheCity;
 import simcity.Market.Market;
 import simcity.Market.MarketCashierRole;
 import simcity.restaurants.Restaurant;
-import simcity.restaurants.restaurant1.CashierRole;
-import simcity.restaurants.restaurant1.HostRole;
 import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4CashierGui;
 import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4CookGui;
 import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4HostGui;
@@ -91,14 +88,23 @@ public class Restaurant4 extends Restaurant {
 		return (Restaurant4CashierRole)cashier;
 	}
 	
+	@Override
+	public void setCook(Role cook) {
+		this.cook = (Restaurant4CookRole)cook;
+	}
+
+	@Override
+	public Role getCook() {
+		return (Restaurant4CookRole)cook;
+	}
 
 	public Restaurant4WaiterRole  getWaiter(){
 		return waiter;
 	}
 	
-	public  Restaurant4Cook getCook(){
+/*	public  Restaurant4Cook getCook(){
 		return cook;
-	}
+	}*/
 	
 
 	  public void setCity(TheCity c){
