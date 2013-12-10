@@ -435,9 +435,10 @@ public class PersonAgent extends Agent implements Person {
 		role.setActive(true);
 		gui.getHomeScreen().removeGui(gui);
 		role.getGui();//debug
+		AlertLog.getInstance().logInfo(AlertTag.PERSON, "PersonAgent",
+				"Role's Screen is " + role.getGui().getHomeScreen());
 		role.getGui().getHomeScreen();//debug
-		/*AlertLog.getInstance().logInfo(AlertTag.PERSON, "PersonAgent",
-				"Role's Screen is " + role.getGui().getHomeScreen());*/
+		
 		role.getGui().getHomeScreen().addGui(role.getGui());
 		
 		//TODO put this back in when ready to start messaging but for now leave out
@@ -665,13 +666,13 @@ public class PersonAgent extends Agent implements Person {
 		myJob.state = JobState.AtWork;
 		checkPersonScheduler = false;
 		
-		if(myJob.role.checkWorkStatus()) {
+		//I hacked this to get stuff to work unhack it plz
+		/*if(myJob.role.checkWorkStatus()) {
 			waitToStartWork();
-		}
-		else {
-			enteringBuilding(myJob.role);
+		}*/
+		enteringBuilding(myJob.role);
 			myJob.role.setWorkStatus(true);
-		}
+		
 	}
 	
 	private void waitToStartWork() {

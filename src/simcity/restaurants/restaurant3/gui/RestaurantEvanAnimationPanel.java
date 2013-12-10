@@ -19,8 +19,8 @@ import java.util.*;
 
 public class RestaurantEvanAnimationPanel extends Screen  {
 	//TODO WE NEED TO CHECK THE TYPE OF EACH RESTAURANT TO MAKE SURE WE MAKE IT EQUAL TO THE CORRECT REST.
-	Restaurant r3;
-	List<Restaurant> restaurants = TheCity.getRestaurantList();
+	//Restaurant r3;
+	//List<Restaurant> restaurants = TheCity.getRestaurantList();
 	/*private final int WINDOWX = 350;
 	private final int WINDOWY = 250;
 	private Image bufferImage;
@@ -34,12 +34,8 @@ public class RestaurantEvanAnimationPanel extends Screen  {
 
 	public RestaurantEvanAnimationPanel() { 
 		super();
-	 	for(Restaurant r : restaurants) {
-			if(r.getName().equals("Restaurant 3")){
-				r3 = r;
-			}
-		}
-		populate();
+	 	
+		//populate();
 		//System.err.println(" "+temp);
 		//Timer timer = new Timer(20, this );
 		//timer.start();
@@ -195,8 +191,8 @@ public class RestaurantEvanAnimationPanel extends Screen  {
         waiterSharedDataRole.setCashier(cashierRole);
         hostRole.setWaiter(waiterSharedDataRole);
 
-		r3.setCashier(cashierRole);
-		r3.setHost(hostRole);
+		//r3.setCashier(cashierRole);
+		//r3.setHost(hostRole);
 
 		hostPerson.startThread();
 		cashierPerson.startThread();
