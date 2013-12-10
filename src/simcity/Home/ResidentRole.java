@@ -47,10 +47,11 @@ public class ResidentRole extends Role implements Resident {
 	public int roomNumber;
 	private double wallet;
 	public Map<String, Food> fridgeFoods = new HashMap<String, Food>();
+	public List<Map<String, Food>> fridges = new ArrayList<Map<String, Food>>();
 	public Map<String, Food> foods = new HashMap<String, Food>();
 	public Map<String, Integer> groceryList = new HashMap<String, Integer>();
 	public Map<String, Integer> groceryBag = new HashMap<String, Integer>();
-	private List<RentBill> rentBills = new ArrayList<RentBill>();
+	public List<RentBill> rentBills = new ArrayList<RentBill>();
 
 	// public List<FoodChoice> cookingList;
 
@@ -103,6 +104,9 @@ public class ResidentRole extends Role implements Resident {
 
 		f = new Food("Salad");
 		fridgeFoods.put("Salad", f);
+		
+	
+		
 		
 		//roomNumber = (int)Math.random() % 6 + 1;
 		//roomNumber = 3;
@@ -242,6 +246,7 @@ public class ResidentRole extends Role implements Resident {
 		if (myPerson.myJob.state == JobState.GoToWorkSoon && hungry == false) {
 			state = HomeState.LeavingHome;
 			dropEverything();
+			return true;
 		}
 		
 		if (state == HomeState.DoingNothing && event == HomeEvent.checkMailbox) {
@@ -522,6 +527,10 @@ public class ResidentRole extends Role implements Resident {
 						groceryBag.get("Steak") + " Pizza: " + groceryBag.get("Pizza") + " Salad: " + groceryBag.get("Salad") );
 		groceryBag = myPerson.groceryBag;
 		int temp = groceryBag.get("Chicken");
+		
+		//if(this.myPerson.getMyHome().getName().contains("Apartment")){
+			//roomNumber
+		//}
 		fridgeFoods.get("Chicken").setAmount(fridgeFoods.get("Chicken").getAmount() + groceryBag.get("Chicken"));
 		fridgeFoods.get("Steak").setAmount(fridgeFoods.get("Steak").getAmount() + groceryBag.get("Steak"));
 		fridgeFoods.get("Pizza").setAmount(fridgeFoods.get("Pizza").getAmount() + groceryBag.get("Pizza"));

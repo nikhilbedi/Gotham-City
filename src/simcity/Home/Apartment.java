@@ -21,7 +21,7 @@ public class Apartment extends Home {
 	int size;
 	int roomNumber;
 	public List<Integer> roomNumbers;
-	public List<Home> rooms;
+	public List<Apartment> rooms;
 	public List<String> groceryList;
 	//public List<String> groceryBag;
 	public List<RentBill> rentBills;
@@ -50,7 +50,7 @@ public class Apartment extends Home {
 		res1.setGui(res1gui);
 		//res1.setApartmentResidentGui(res1gui);
 		residents.add(res1);
-		rooms = new ArrayList<Home>();
+		rooms = new ArrayList<Apartment>();
 		roomNumbers = new ArrayList<Integer>();
 		
 		//You'll notice for this particular role, resident needs a Person as a parameter. 
@@ -67,15 +67,16 @@ public class Apartment extends Home {
 	public void setRentBills(List<RentBill> rentBills) {
 		this.rentBills = rentBills;
 	}
-	public List<Home> getRooms() {
+	public List<Apartment> getRooms() {
 		return rooms;
 	}
-	public void setRooms(List<Home> homes) {
+	public void setRooms(List<Apartment> rooms) {
 		this.rooms = rooms;
 	}
 	@Override
 	public ResidentRole getResident() {
 		return residents.get(0);
+		//return residents.get(roomNumber-1);
 	}
 }	
 
