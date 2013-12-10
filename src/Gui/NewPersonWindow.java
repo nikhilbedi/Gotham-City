@@ -216,7 +216,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			System.out.println("Preferred Transportation: " + transportation.getSelectedItem().toString());
 			//newPerson.setPreferredTransportation(transportation.getSelectedItem().toString());
 
-			newPerson.setPreferredTransportation("Bus");
+		//	newPerson.setPreferredTransportation("Bus");
 
 
 

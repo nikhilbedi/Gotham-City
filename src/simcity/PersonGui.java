@@ -313,7 +313,6 @@ public class PersonGui extends RoleGui {
 	public int getY() { return yPos;}
 
 	public void reachedBuilding() {
-		System.out.println("REACHED BUILDING");
 		agent.reachedBuilding();
 		tempStill = false;
 	}
