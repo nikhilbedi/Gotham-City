@@ -2,7 +2,9 @@ package simcity.restaurants.restaurant4.test.mock;
 
 import java.util.Map;
 
+import agent.Role;
 import simcity.Market.MarketCashierRole;
+import simcity.Market.MarketWorkerRole;
 import simcity.Market.interfaces.MarketCashier;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Cook;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Waiter;
@@ -38,11 +40,7 @@ public class Restaurant4CookMock extends Mock implements Restaurant4Cook{
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public void HereIsYourFood(Map<String, Integer> k){
-		// TODO Auto-generated method stub
-	}
-
+	
 	@Override
 	public void gotFood(String food) {
 		// TODO Auto-generated method stub
@@ -59,6 +57,12 @@ public class Restaurant4CookMock extends Mock implements Restaurant4Cook{
 
 	@Override
 	public void OrderOnTheStand() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void HereIsYourFood(Map<String, Integer> k, MarketWorkerRole role) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -1,5 +1,6 @@
 package simcity.restaurants.restaurant1;
 
+import Gui.RoleGui;
 import agent.Agent;
 import simcity.PersonAgent;
 import simcity.tests.mock.*;
@@ -8,8 +9,11 @@ import simcity.restaurants.restaurant1.WaiterRole;
 import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
 import simcity.restaurants.restaurant1.Menu;
 import simcity.restaurants.restaurant1.gui.CookGui;
+import simcity.restaurants.restaurant1.gui.WaiterGui;
 import simcity.restaurants.restaurant1.gui.CookGui.FoodGui;
 import simcity.restaurants.restaurant1.interfaces.*;
+import trace.AlertLog;
+import trace.AlertTag;
 import agent.Role;
 
 import java.util.*;
@@ -290,9 +294,13 @@ public class CookRole extends Role implements Cook {
 		return "cook " + getName();
 	}
 
-	public void setGui(CookGui g) {
-		cookGui = g;
+	public void setGui(RoleGui g) {
+		super.setGui(g);
+		AlertLog.getInstance().logInfo(AlertTag.GUI, "CookROle",
+				"At this point: " + g.toString());
+		cookGui = (CookGui) g;
 	}
+
 
 	public CookGui getGui() {
 		return cookGui;

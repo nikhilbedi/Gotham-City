@@ -9,6 +9,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Semaphore;
 
 import simcity.PersonAgent;
+import Gui.RoleGui;
 import agent.Role;
 import simcity.restaurants.restaurant3.Order.OrderState;
 import simcity.restaurants.restaurant3.gui.*;
@@ -500,12 +501,13 @@ public class WaiterSharedData extends Role implements Waiter{
 
 	//utilities
 
-	public void setGui(WaiterGui gui) {
-		waiterGui = gui;
+	public void setGui(RoleGui gui) {
+		super.setGui(gui);
+		waiterGui = (WaiterGui)gui;
 	}
-	public void setGui(Restaurant3CustomerGui gui) {
+/*	public void setGui(Restaurant3CustomerGui gui) {
 		customerGui = gui;
-	}
+	}*/
 	public void setCustomerStateLeaving(Restaurant3CustomerRole cust) {
 		for (myCustomer mc: customers) {
 			mc.cs = customerState.leaving;
@@ -520,8 +522,8 @@ public class WaiterSharedData extends Role implements Waiter{
 	}
 	
 
-	public HostGui getGui() {
-		return hostGui;
+	public WaiterGui getGui() {
+		return waiterGui;
 	}
 	public int getCustomersCount() {
 		return customers.size();

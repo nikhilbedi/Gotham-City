@@ -56,7 +56,7 @@ public class PersonGui extends RoleGui {
 	public void updatePosition() {
 		super.updatePosition();
 		if(xPos == xDestination && yPos == yDestination && tempStill && command.equalsIgnoreCase("GoingToLocation")) {
-			System.out.println("Arrived at the building");
+			//System.out.println("Arrived at the building");
 			agent.reachedBuilding();
 			tempStill = false;
 		}

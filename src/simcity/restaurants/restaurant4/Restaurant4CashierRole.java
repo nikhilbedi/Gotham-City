@@ -6,8 +6,10 @@ import agent.Role;
 import java.util.*;
 
 import simcity.PersonAgent;
+import simcity.TheCity;
 import simcity.Market.MarketCashierRole;
 import simcity.Market.interfaces.MarketCashier;
+import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4CashierGui;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Cashier;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Customer;
@@ -59,7 +61,8 @@ public class Restaurant4CashierRole extends Role implements Restaurant4Cashier {
 		stateChanged();
 	}
 	
-	public void amountDue(double a, MarketCashier c){
+	public void amountDue(double a, MarketCashier c){  // from market Cashier 
+		myPerson.Do("Got check, about to pay");
 		payments.add(new Payment(c, a));
 		stateChanged();
 	}
@@ -141,7 +144,9 @@ public class Restaurant4CashierRole extends Role implements Restaurant4Cashier {
 	public void Pay(Payment p){
 		double money = round(p.amountDue);
 		restaurantMoney = restaurantMoney - money;
-		p.cashier.hereIsMoneyRestaurant(this, money);
+		myPerson.Do("Here is money " + money);
+		Restaurant r4  = (Restaurant) TheCity.getBuildingFromString("Restaurant 4");
+		p.cashier.hereIsMoneyRestaurant(r4, money);
 	}
 	
 	public void doGetPayment(Check o){

@@ -3,6 +3,7 @@ package Gui;
 
 import java.util.*;
 
+import simcity.TheCity;
 import simcity.bank.bankAnimationPanel;
 import simcity.Home.gui.ApartmentAnimationPanel;
 import simcity.Home.gui.HomeAnimationPanel;
@@ -20,52 +21,57 @@ public class ScreenFactory {
 
 	static List<Screen> screenList = Collections.synchronizedList(new ArrayList<Screen>());
 
-	public static MainScreen main = new MainScreen();
-	public static Screen rest1 = new RestaurantNikhilAnimationPanel();
-	public static Screen rest2 = new Restaurant2AnimationPanel();
-	public static Screen rest3 = new RestaurantEvanAnimationPanel();
-	public static Screen rest4 = new Restaurant4AnimationPanel();
-	public static Screen rest5 = new RestaurantHunterAnimationPanel();
-	public static Screen apart = new ApartmentAnimationPanel();
-	
 
-	public static Screen market = new MarketAnimationPanel();
-	public static Screen bank = new bankAnimationPanel();
-	public static Screen home = new HomeAnimationPanel();
+	public static MainScreen main;
+	public static Screen market;
+
+	
+	public static Screen rest1; 
+	public static Screen rest2; 
+	public static Screen rest3; 
+	public static Screen rest4; 
+	public static Screen rest5; 
+
+	public static Screen bank;
+	public static Screen home;
+	public static Screen apart;
+
 
 
 
 	static{
-		screenList.add(main);
-
+		bank = new bankAnimationPanel();
+		rest1 = new RestaurantNikhilAnimationPanel();
+ 		market = new MarketAnimationPanel();
+ 		rest4 = new Restaurant4AnimationPanel();
+ 		rest5 = new RestaurantHunterAnimationPanel();		
+ 		//rest2 = new Restaurant2AnimationPanel();
+		home = new HomeAnimationPanel();
+ 		apart = new ApartmentAnimationPanel();	
+		rest3 = new RestaurantEvanAnimationPanel();
+	
+	
 		screenList.add(rest1);
-		screenList.add(rest2);
-		screenList.add(rest3);
-		screenList.add(rest4);
-		screenList.add(rest5);
-		screenList.add(apart);//can only be accessed statically for now
-
 		screenList.add(market);
 		screenList.add(bank);
-		screenList.add(home);
-	}
+		//screenList.add(rest2);
+		screenList.add(rest4);
+		//screenList.add(home);
+		screenList.add(rest5);
+		screenList.add(rest3);
+		/*screenList.add(rest4);
+		
+		screenList.add(apart);//can only be accessed statically for now
 
-	public ScreenFactory(){
-		synchronized(screenList) {
-			screenList.add(main);
-			
+		
+		
+		*/
+		
+		TheCity.populate();//this ensures that all the buildings are allocataed before the mainScren is created
 
-			screenList.add(rest1);
-			screenList.add(rest2);
-			screenList.add(rest3);
-			screenList.add(rest4);
-			screenList.add(rest5);
+		main = new MainScreen();		
+		screenList.add(main);
 
-			screenList.add(market);
-			screenList.add(bank);
-			screenList.add(home);
-
-		}
 	}
 
 	public static MainScreen getMainScreen(){

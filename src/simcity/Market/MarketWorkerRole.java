@@ -9,14 +9,20 @@ import java.util.concurrent.Semaphore;
 
 import simcity.PersonAgent;
 import simcity.TheCity;
+import simcity.Market.MarketGui.MarketCashierGui;
 import simcity.Market.MarketGui.MarketWorkerGui;
 import simcity.Market.interfaces.MarketCashier;
 import simcity.Market.interfaces.MarketCustomer;
 import simcity.Market.interfaces.MarketWorker;
 import simcity.restaurants.Restaurant;
+import simcity.restaurants.restaurant1.Restaurant1;
+import simcity.restaurants.restaurant2.Restaurant2;
+import simcity.restaurants.restaurant3.Restaurant3;
 import simcity.restaurants.restaurant4.*;
 import simcity.restaurants.restaurant4.test.mock.Restaurant4CashierMock;
 import simcity.restaurants.restaurant4.test.mock.Restaurant4CookMock;
+import Gui.RoleGui;
+import simcity.restaurants.restaurant5.Restaurant5;
 import agent.Role;
 
 public class MarketWorkerRole extends Role implements MarketWorker{
@@ -30,11 +36,11 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	public Semaphore delivering = new Semaphore(0,true);
 	private List<MarketCustomer> waitingCustomers  = Collections.synchronizedList(new ArrayList<MarketCustomer>());
 	String restaurantType;
-	private Restaurant4CookRole restaurant4Cook;
-//	private Restaurant1CookRole restaurant1Cook;
-//	private Restaurant2CookRole restaurant2Cook;
-//	private Restaurant3CookRole restaurant3Cook;
-//	private Restaurant5CookRole restaurant5Cook;
+	Restaurant1 r1;
+	Restaurant2 r2;
+	Restaurant3 r3;
+	Restaurant4 r4;
+	Restaurant5 r5;
 	public MarketWorkerRole(PersonAgent p){
 		super(p);
 		name = p.name;
@@ -51,19 +57,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	public List<MarketCustomer> getWaitingCustomers(){
 		return waitingCustomers;	
 	}
-	
-	public void setCooks(){
-		Restaurant4 r4 = (Restaurant4) TheCity.getBuildingFromString("Restaurant 4");
-		restaurant4Cook = (Restaurant4CookRole) r4.getCook();
-		/*Restaurant4 r1 = (Restaurant1) TheCity.getBuildingFromString("Restaurant 1");
-		restaurant4Cook = (Restaurant1CookRole) r1.getCook();
-		Restaurant4 r2 = (Restaurant2) TheCity.getBuildingFromString("Restaurant 2");
-		restaurant4Cook = (Restaurant2CookRole) r2.getCook();
-		Restaurant4 r3 = (Restaurant3) TheCity.getBuildingFromString("Restaurant 3");
-		restaurant4Cook = (Restaurant4CookRole) r3.getCook();
-		Restaurant4 r5 = (Restaurant5) TheCity.getBuildingFromString("Restaurant 5");
-		restaurant4Cook = (Restaurant5CookRole) r5.getCook();*/
-	}
+
 	
 	public void Bring(List<Order> o){ //for customers
 		System.out.println(myPerson.name+ " " +"Got new order from " + o.get(0).customer.getName());
@@ -94,9 +88,9 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 		return inventory;
 	}
 	
-	public void SendFood(Map<String, Integer> things, Role role, Restaurant r){
+	public void SendFood(Map<String, Integer> things, Restaurant r){
 		myPerson.Do("Got new order from restaurant");
-		restDeliveries.add(new RestaurantDelivery(things, role, r));
+		restDeliveries.add(new RestaurantDelivery(things, r));
 		stateChanged();
 	}
 	
@@ -116,20 +110,50 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	}
 	
 	//food is delivered
-	public void Sent(Role role){
-		setCooks();
+	public void Sent(Role role){  //gui sends this
 		delivering.release();
 		myPerson.Do("sent things to restaurant");
+	}
+	
+	public void Delivered(Restaurant r){ //truck sends this
+		r1 = (Restaurant1) TheCity.getBuildingFromString("Restaurant 1");
+		r2 = (Restaurant2) TheCity.getBuildingFromString("Restaurant 2");
+		r3 = (Restaurant3) TheCity.getBuildingFromString("Restaurant 3");
+		r4 = (Restaurant4) TheCity.getBuildingFromString("Restaurant 4");
+		r5 = (Restaurant5) TheCity.getBuildingFromString("Restaurant 5");
 		for (int i=0; i<restDeliveries.size(); i++){
-			if (restDeliveries.get(i).cookRole == role){
-				//if else block with checking if the cook role equal to any of set restaurantcookroles
-				   ((Restaurant4CookRole) restDeliveries.get(0).cookRole).HereIsYourFood(restDeliveries.get(i).foods);
-				   
-				   cashier.foodIsDelivered(restDeliveries.get(i).cookRole);
-				restDeliveries.remove(restDeliveries.get(i));
-				stateChanged();
+		if (restDeliveries.get(i).rest == r){
+			myPerson.Do("Telling cashier that truck delivered food");
+			if (r4 == r){
+				 cashier.foodIsDelivered(r4);
+			     restDeliveries.remove(restDeliveries.get(i));
 			}
+			else if (r1 == r){
+				 cashier.foodIsDelivered(r1);
+			     restDeliveries.remove(restDeliveries.get(i));
+			}
+			else if (r2 == r){
+				 cashier.foodIsDelivered(r2);
+			     restDeliveries.remove(restDeliveries.get(i));
+			}
+			else if (r3 == r){
+				 cashier.foodIsDelivered(r3);
+			     restDeliveries.remove(restDeliveries.get(i));
+			}
+			else if (r5 == r){
+				 cashier.foodIsDelivered(r5);
+			     restDeliveries.remove(restDeliveries.get(i));
+			}
+			  
+			stateChanged();
 		}
+	}
+	}
+	
+	public void RestaurantIsClosed(Restaurant r){
+		myPerson.Do(r + " is closed");
+		
+		//after some time send it again 
 	}
 	
 	public boolean pickAndExecuteAnAction(){
@@ -176,9 +200,8 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	}
 	//restaurant
 	public void Send(RestaurantDelivery d){
-		
 		myPerson.Do("Sending food to restaurant");
-		workerGui.DoSend(d.foods, d.cookRole, d.rest);
+		workerGui.DoSend(d.foods, d.rest);
 		try {
 			delivering.acquire();
 		} catch (InterruptedException e) {
@@ -212,17 +235,20 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 		public DeliveryState state;
 		public enum DeliveryState {pending, getting, delivering, delivered};
 		
-		public RestaurantDelivery(Map<String, Integer> f, Role role, Restaurant r){
-			cookRole = role;
+		public RestaurantDelivery(Map<String, Integer> f,  Restaurant r){
+			//cookRole = role;
 			foods = f;
 			rest = r;
 			state = DeliveryState.pending;
 		}	
 	}
 
-	public void setGui(MarketWorkerGui Gui) {
-		workerGui = Gui;
+	public void setGui(RoleGui gui){
+		super.setGui(gui);
+		workerGui = (MarketWorkerGui)gui;
 	}
 
+
+	
 
 }

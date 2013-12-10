@@ -8,8 +8,9 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
+import simcity.Building;
 import simcity.TheCity;
-
+//import simcity.TheCity;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.*;
@@ -25,9 +26,9 @@ public class SimCityPanel extends JPanel implements MouseListener, KeyListener
 
 	PersonSelectionPane selPane;
 	BuildingInfoPanel buildingInfo;
+	
 
-
-
+	int clk = 0;
 	boolean start;
 	boolean always = true;
 
@@ -36,6 +37,7 @@ public class SimCityPanel extends JPanel implements MouseListener, KeyListener
 		setMinimumSize(new Dimension(800,600));
 		setMaximumSize(new Dimension(800,600));*/
 		setPreferredSize(new Dimension(800, 800));
+		//Building b = TheCity.getBank();
 		currentScreen = ScreenFactory.getMainScreen();
 		addMouseListener(this);
 		addKeyListener(this);
@@ -66,7 +68,10 @@ public class SimCityPanel extends JPanel implements MouseListener, KeyListener
 		while(always)
 		{
 			try{
+				
+				revalidate();
 				repaint();
+				//updateGui();
 				Thread.sleep(10);
 			}
 			catch(Exception e) {
@@ -76,6 +81,17 @@ public class SimCityPanel extends JPanel implements MouseListener, KeyListener
 		}
 	}
 
+
+
+	private void updateGui() {
+		// TODO Auto-generated method stub
+		clk++;
+		if(clk == 100){
+		selPane.refresh();
+		buildingInfo.refresh();
+		clk = 0;
+		}
+	}
 
 
 	public void checkMapChange(int x, int y){
@@ -92,6 +108,7 @@ public class SimCityPanel extends JPanel implements MouseListener, KeyListener
 			}
 			else{
 				buildingInfo.setVisible(true);
+				buildingInfo.setB(TheCity.getBuildingFromString(swap));
 				buildingInfo.update(TheCity.getBuildingFromString(swap).getBuildingInfo());
 				buildingInfo.getUpdators(TheCity.getBuildingFromString(swap));
 			}

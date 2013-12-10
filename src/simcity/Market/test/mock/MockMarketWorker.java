@@ -55,8 +55,16 @@ public class MockMarketWorker extends Mock implements MarketWorker{
 		return null;
 	}
 
+	
+
 	@Override
-	public void SendFood(Map<String, Integer> temp, Role cookRole, Restaurant r) {
+	public void SendFood(Map<String, Integer> temp, Restaurant r) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void Delivered(Restaurant r) {
 		// TODO Auto-generated method stub
 		
 	}

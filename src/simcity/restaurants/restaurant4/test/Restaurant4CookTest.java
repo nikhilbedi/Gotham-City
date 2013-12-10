@@ -31,7 +31,7 @@ public class Restaurant4CookTest {
 		map.put("Steak", 4);
 		map.put("Pizza", 4);
 		map.put("Salad", 4);
-		cook.HereIsYourFood(map);
+		//cook.HereIsYourFood(map);
 		Food chicken = cook.foods.get("Chicken");
 		Food steak = cook.foods.get("Steak");
 		Food pizza = cook.foods.get("Pizza");
