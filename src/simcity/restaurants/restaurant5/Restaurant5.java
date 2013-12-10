@@ -124,7 +124,7 @@ public class Restaurant5 extends Restaurant {
 		((HostRole) host).setGui((RoleGui)hostGui);
 		((CashierRole) cashier).setGui((RoleGui)cashierGui);
 		((WaiterRole) waiter1).setGui((RoleGui)waiterGui1);
-		((WaiterRole) waiter2).setGui((RoleGui)waiterGui2);
+		((PCWaiterRole) waiter2).setGui((RoleGui)waiterGui2);
 		((CookRole) cook).setGui((RoleGui)cookGui);
 
 		jobRoles.put("Host", (Role)host);
