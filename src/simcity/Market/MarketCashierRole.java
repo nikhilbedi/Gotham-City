@@ -161,7 +161,7 @@ public class MarketCashierRole extends Role implements MarketCashier{
 		for (RestaurantOrder order: restaurantOrders){
 			if (order.rest == r){
 				if (order.rest == r1){
-					//r1.getCashier().amountDue(order.amountDue, this);
+					r1.getCashier().amountDue(order.amountDue, this);
 				}
 				else if (order.rest == r2){
 					System.out.println(r2.getName() + " Here is amount due " + order.amountDue);
@@ -270,7 +270,7 @@ public class MarketCashierRole extends Role implements MarketCashier{
 			if (order == o){
 				if (order.rest == r1){
 					System.out.println(r1.getName() + "Here is change");
-					r4.getCashier().HereIsYourChange(i, this);
+					r1.getCashier().HereIsYourChange(i, this);
 				}
 				else if (order.rest == r2){
 					System.out.println(r2.getName() + "Here is change");

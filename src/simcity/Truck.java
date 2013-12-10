@@ -121,7 +121,7 @@ public class Truck extends RoleGui{
 			reachedDest = false;
 			if (checkIfOpen()){
 				if (restaurant== r1){
-					//r1.getCook().HereIsYourFood(delivery, worker);
+					r1.getCook().HereIsYourFood(delivery, worker);
 				
 				}
 				else if (restaurant == r2){

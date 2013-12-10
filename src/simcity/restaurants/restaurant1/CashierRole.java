@@ -1,16 +1,20 @@
 package simcity.restaurants.restaurant1;
 
 import simcity.PersonAgent;
+import simcity.TheCity;
 import simcity.tests.mock.*;
 import Gui.RoleGui;
 import agent.Agent;
 import simcity.Market.MarketCashierRole;
+import simcity.Market.interfaces.MarketCashier;
+import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant1.WaiterRole;
 import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
 import simcity.restaurants.restaurant1.Menu;
 import simcity.restaurants.restaurant1.gui.CashierGui;
 import simcity.restaurants.restaurant1.gui.HostGui;
 import simcity.restaurants.restaurant1.interfaces.*;
+import simcity.restaurants.restaurant4.Restaurant4CashierRole.Payment;
 import agent.Role;
 
 import java.util.*;
@@ -94,13 +98,13 @@ public class CashierRole extends Role implements Cashier {
     }
     
     //TODO
-    public void amountDue(double a, MarketCashierRole m) {
+ /*   public void amountDue(double a, MarketCashierRole m) {
      	print("Received bill to pay market: " + a);
     	log.add(new LoggedEvent("Received bill to pay market: " + a));
-    	/*billsToPay.add(new DeliveryBill(m, a));*/
+    	billsToPay.add(new DeliveryBill(m, a));
     	//stateChanged();
     }
-    
+    */
     //TODO
 /*    public void HereIsYourChange(double d, marketCashierRole m) {
     	registerAmt += d;
@@ -111,6 +115,21 @@ public class CashierRole extends Role implements Cashier {
     /**
      * Scheduler.  Determine what action is called for, and do it.
      */
+    public void amountDue(double a, MarketCashier c){  // from market Cashier 
+		print("Received bill to pay market: " + a);
+		registerAmt -= a;
+		Restaurant r1 = (Restaurant) TheCity.getBuildingFromString("Restaurant 1");
+		c.hereIsMoneyRestaurant(r1, a);
+		stateChanged();
+	}
+	
+	public void HereIsYourChange(double d, MarketCashier c ){
+		registerAmt =  registerAmt+ d;
+		myPerson.Do("Got change from market cashier " + d);
+	
+	}
+    
+    
     public boolean pickAndExecuteAnAction() {
     	if(theManLeavingMe != null && checks.isEmpty()) {
     		leaveWork();
