@@ -42,7 +42,7 @@ public class HostRole extends Role implements Host {
 
 	public HostRole(PersonAgent p) {
 		super(p);
-	
+
 		// make some tables
 		tables = new ArrayList<Table>(NTABLES);
 		for (int ix = 1; ix <= NTABLES; ix++) {
@@ -51,7 +51,7 @@ public class HostRole extends Role implements Host {
 	}
 	public HostRole() {
 		super();
-	
+
 		// make some tables
 		tables = new ArrayList<Table>(NTABLES);
 		for (int ix = 1; ix <= NTABLES; ix++) {
@@ -81,15 +81,15 @@ public class HostRole extends Role implements Host {
 				"tells the host that he/she is ready to eat. ");
 		//System.out.println(cust.getName() + " tells the host that he/she is ready to eat.");
 		int customerCapacity = tables.size();
-		
+
 		if (customerCapacity  <= customers.size()) 
 			customers.add(new MyCustomer(cust, customerState.restaurantFull));
 		else 
 			customers.add(new MyCustomer(cust, customerState.waitingToBeSeated));
-		
+
 		stateChanged();
 	}
-	
+
 	public void msgTableIsFree(Customer cust) {
 		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
 				"Waiter tells the host that the table is free. ");
@@ -120,14 +120,14 @@ public class HostRole extends Role implements Host {
 			}
 		}
 	}
-	*/
+	 */
 
 	public void msgAtTable() {//from animation
 		//System.out.println("msgAtTable() called");
 		atTable.release();// = true;
 		stateChanged();
 	}
-	
+
 	public boolean msgAskToGoOnBreak(Waiter w) {
 		AlertLog.getInstance().logInfo(AlertTag.REST3, this.getName(),
 				" asks the host if he/she can go on a break. ");
@@ -154,9 +154,9 @@ public class HostRole extends Role implements Host {
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
-	  //If there exists c in Customers such that c.cs = waitingToBeSeated and if there exists t in table
+	//If there exists c in Customers such that c.cs = waitingToBeSeated and if there exists t in table
 	public boolean pickAndExecuteAnAction() {
-		
+
 		/* Think of this next rule as:
             Does there exist a table and customer,
             so that table is unoccupied and customer is waiting.
@@ -166,61 +166,61 @@ public class HostRole extends Role implements Host {
 			leaveWork();
 			return true;
 		}
-		
+
 		if (waiters.size() == 0){
 			return true;
 		}
 		synchronized(tables) {
-		for (Table table : tables) {
-			if (!table.isOccupied()) {
-				synchronized(customers) {
-				for (MyCustomer mc: customers ) {
-					if(mc.cs == customerState.waitingToBeSeated) {
-						Waiter waiter = hostChooseWaiter();
-						tellWaiterToSeatCustomer(mc, table, waiter);//the action
-					
-					
-					return true;//return true to the abstract agent to reinvoke the scheduler.
-				
-					}
+			for (Table table : tables) {
+				if (!table.isOccupied()) {
+					synchronized(customers) {
+						for (MyCustomer mc: customers ) {
+							if(mc.cs == customerState.waitingToBeSeated) {
+								Waiter waiter = hostChooseWaiter();
+								//Adding this extra if for you - Nikhil
+								if(((Role)waiter).checkWorkStatus())
+									tellWaiterToSeatCustomer(mc, table, waiter);//the action
+								return true;//return true to the abstract agent to reinvoke the scheduler.
+
+							}
+						}
+					}	
 				}
-				}	
 			}
 		}
-		}
-		
+
 		synchronized(customers) {
-		for (MyCustomer mc: customers ) {
-			if(mc.cs == customerState.restaurantFull) {
-				Random r = new Random();
-				boolean leaveRestaurantIfFull = r.nextBoolean();
-				if (leaveRestaurantIfFull) {
-					AlertLog.getInstance().logInfo(AlertTag.REST3,
-							this.getName(), "Restaurant is full. Customer chose to leave the restaurant ");
-					//System.out.println("Restaurant is full. Customer chose to leave the restaurant");
-					//mc.
-					customers.remove(mc);
+			for (MyCustomer mc: customers ) {
+				if(mc.cs == customerState.restaurantFull) {
+					Random r = new Random();
+					boolean leaveRestaurantIfFull = r.nextBoolean();
+					if (leaveRestaurantIfFull) {
+						AlertLog.getInstance().logInfo(AlertTag.REST3,
+								this.getName(), "Restaurant is full. Customer chose to leave the restaurant ");
+						//System.out.println("Restaurant is full. Customer chose to leave the restaurant");
+						//mc.
+						customers.remove(mc);
+					}
+					else {
+						AlertLog.getInstance().logInfo(AlertTag.REST3,
+								this.getName(), "Restaurant is full. Customer chose to stay in the restaurant ");
+						//System.out.println("Restaurant is full. Customer chose to stay in the restaurant");
+						mc.cs = customerState.waitingToBeSeated;
+						stateChanged();
+					}
+
+					return true;
 				}
-				else {
-					AlertLog.getInstance().logInfo(AlertTag.REST3,
-							this.getName(), "Restaurant is full. Customer chose to stay in the restaurant ");
-					//System.out.println("Restaurant is full. Customer chose to stay in the restaurant");
-					mc.cs = customerState.waitingToBeSeated;
-					stateChanged();
-				}
-				
-				return true;
 			}
 		}
-		}
-		
+
 		return false;
 		//we have tried all our rules and found
 		//nothing to do. So return false to main loop of abstract agent
 		//and wait.
 	}
-		
-	
+
+
 
 	// Actions
 
@@ -228,7 +228,7 @@ public class HostRole extends Role implements Host {
 		//System.out.println("The host tells " + waiter.getName()+ " to seat " + mc.cust.getName() + " at " + table);
 		mc.cust.setWaiter(waiter); //TO DO
 		waiter.msgSitAtTable(mc.cust, table.tableNumber);
-		
+
 		table.setOccupant(mc.cust);
 		customers.remove(mc);
 		mc.cs = customerState.seated;
@@ -239,12 +239,12 @@ public class HostRole extends Role implements Host {
 			// TODO Auto-generated catch block
 			e.System.out.printlnStackTrace();
 		}
-		*/
+		 */
 	}
 
-	
+
 	//utilities
-/*
+	/*
 	public void setGui(WaiterGui gui) {
 		waiterGui = gui;
 	}
@@ -252,21 +252,21 @@ public class HostRole extends Role implements Host {
 	public WaiterGui getGui() {
 		return waiterGui;
 	}*/
-	
+
 	public void setGui(RoleGui g) {
 		super.setGui(g);
 		hostGui = (HostGui)g;
 	}
-	
+
 	public HostGui getGui() {
 		return hostGui;
 	}
-	
+
 	public void setWaiter(Waiter  waiter) { //CHANGED TO SINGLE WAITER AND ADDED THAT WAITER TO WAITER VECTOR
 		waiters.add(waiter);
 		//this.waiters = waiters;
 	}
-	
+
 	private Waiter hostChooseWaiter() {
 		//WaiterAgent result = null;
 		if(customers.size() == 0 || waiters.size() == 0) {
@@ -316,12 +316,12 @@ public class HostRole extends Role implements Host {
 	public class MyCustomer {
 		Customer cust;
 		customerState cs;
-		
+
 		MyCustomer(Customer cust, customerState cs) {
 			this.cust = cust;
 			this.cs = cs;
 		}
 	}
-	
+
 }
 

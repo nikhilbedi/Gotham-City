@@ -22,7 +22,6 @@ import simcity.restaurants.restaurant3.gui.CookGui;
 import simcity.restaurants.restaurant3.gui.HostGui;
 import simcity.restaurants.restaurant3.gui.WaiterGui;
 import simcity.restaurants.restaurant3.interfaces.*;
-import simcity.restaurants.restaurant5.CookRole;
 import trace.AlertLog;
 import trace.AlertTag;
 import agent.Agent;
@@ -85,8 +84,8 @@ public class Restaurant3 extends Restaurant {
 		this.name = type;
 		cashState = CashierState.idle;
 
-		setWeekdayHours(6,24);
-		setWeekendHours(2,10);
+		setWeekdayHours(1,12);
+		setWeekendHours(12,24);
 
 
 		((HostRole) host).setGui((RoleGui)hostGui);
@@ -264,16 +263,16 @@ public class Restaurant3 extends Restaurant {
 		return info;
 	}
 	public Vector<Item> getStockItems(){
-		inventory = ((CookRole) cook).getInventory();
-		AlertLog.getInstance().logInfo(AlertTag.GUI, "Rest 3",
-				inventory.toString());
+		inventory = ((Restaurant3CookRole) cook).getInventory();
+		/*AlertLog.getInstance().logInfo(AlertTag.GUI, "Rest 3",
+				inventory.toString());*/
 		return inventory;
 	}
 
 	public void updateItem(String s, int hashCode) {
 		// TODO Auto-generated method stub
 		//THIS MUST BE UPDATED BY YOUR BUILDING
-		((CookRole) cook).updateItem(s, hashCode);
+		((Restaurant3CookRole) cook).updateItem(s, hashCode);
 	}
 
 }

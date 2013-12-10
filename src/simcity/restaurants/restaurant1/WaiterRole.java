@@ -514,9 +514,9 @@ public class WaiterRole extends Role implements Waiter {
 
 	public void setGui(RoleGui gui) {
 		super.setGui(gui);
-		AlertLog.getInstance().logInfo(AlertTag.GUI, "WaiterROle",
+/*		AlertLog.getInstance().logInfo(AlertTag.GUI, "WaiterROle",
 				"At this point: " + gui.toString());
-		waiterGui = (WaiterGui)gui;
+*/		waiterGui = (WaiterGui)gui;
 	}
 
 	public WaiterGui getGui() {

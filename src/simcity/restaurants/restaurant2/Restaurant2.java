@@ -45,8 +45,8 @@ public class Restaurant2 extends Restaurant {
 		
 		//set opening and closing hours
 		setWeekdayHours(12, 24);
-		//setWeekendHours(2, 24);
-		setWeekendHours(2, 10);
+		//setWeekendHours(12, 22);
+		setWeekendHours(1, 12);
 		
 		//set guis
 		cook.setGui((RoleGui)cookGui);
@@ -173,19 +173,23 @@ public class Restaurant2 extends Restaurant {
 	}
 
 	@Override
-	public Role getCashier() {
+	public CashierRole getCashier() {
 		return (CashierRole)cashier;
 	}
+
+	
+	public CookRole getCook(){
+		return (CookRole) cook;
+	}
+	
+
 
 	@Override
 	public void setCook(Role cook) {
 		this.cook = (CookRole)cook;
 	}
 
-	@Override
-	public Role getCook() {
-		return (CookRole)cook;
-	}
+	
 
 	@Override
 	public String getCustomerName(){

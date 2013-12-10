@@ -109,8 +109,8 @@ public class Restaurant3CookRole extends Role implements Cook{
                  /*AlertLog.getInstance().logInfo(AlertTag.GUI, "CookRole",
                                  "Key: " + f.getKey() + " Value: " + f.getValue());*/
          }
-         AlertLog.getInstance().logInfo(AlertTag.GUI, "CookRole",
-                         inventory.toString());
+        /* AlertLog.getInstance().logInfo(AlertTag.GUI, "CookRole",
+                         inventory.toString());*/
          return inventory;
 	 }
  

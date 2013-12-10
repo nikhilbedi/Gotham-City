@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.Vector;
@@ -39,6 +40,8 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 
 	Vector<String> homeList;
 	Vector<String> jobLocationList;
+	HashMap<String, Vector<String>> buildingJobsMap;
+	
 	Vector<Vector<String>> jobPositionList;
 	Vector<String> transportationList;
 	Vector<String> homeOwnerList;
@@ -90,6 +93,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 		jobPositionList = new Vector<Vector<String>>(TheCity.getPos());
 		transportationList = new Vector<String>(TheCity.getTransportation());
 		homeOwnerList = new Vector<String>(TheCity.getProperty());
+		buildingJobsMap = new HashMap<String,Vector<String>>(TheCity.getJobMap());
 
 		home = new JComboBox(homeList);
 		jobLocation = new JComboBox(jobLocationList);
@@ -182,9 +186,7 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			newPersonGui.setAgent(newPerson);
 			//newPersonGui.setColor(Color.green);
 			mainScreen.addGui(newPersonGui);
-			/*newPersonGui.xDestination = 500;
-			newPersonGui.yDestination = 500;*/
-
+			
 			//setJob
 
 			newPerson.setGui(newPersonGui);	
@@ -210,8 +212,13 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			}
 				
 			//setting Transportation
+
+			System.out.println("Preferred Transportation: " + transportation.getSelectedItem().toString());
 			//newPerson.setPreferredTransportation(transportation.getSelectedItem().toString());
+
 			newPerson.setPreferredTransportation("Walking");
+
+
 
 			//set home
 
@@ -248,9 +255,11 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 				JComboBox box;
 				box = (JComboBox) labeledPosition.component;
 				box.removeAllItems();
+				
 				//the -1 is because the initial value in the box is no Job and is not in the jobLocation data structure
-				for(int i=0; i < jobPositionList.get(jobLocation.getSelectedIndex()-1).size(); i++){
-					box.addItem(jobPositionList.get(jobLocation.getSelectedIndex()-1).get(i));
+				for(int i=0; i < jobPositionList.get(jobLocation.getSelectedIndex()).size(); i++){
+					//box.addItem(buildingJobsMap.get(box.getSelectedItem().toString()).get(i));
+					box.addItem(jobPositionList.get(jobLocation.getSelectedIndex()).get(i));
 				}
 			}
 		}

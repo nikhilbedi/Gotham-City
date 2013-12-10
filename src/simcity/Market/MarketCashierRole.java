@@ -38,13 +38,7 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	private List<RestaurantOrder> restaurantOrders = new ArrayList<RestaurantOrder>();
 	public MarketCustomer currentCustomer;
 	public List<MarketCustomer> customersInMarket = new ArrayList<MarketCustomer>();
-/*	public Restaurant4CashierRole cashier4;
-//	public Restaurant1CashierRole cashier1;
-//	public Restaurant2CashierRole cashier2;
-//	public Restaurant3CashierRole cashier3;
-//	public Restaurant1CashierRole cashier1;
-//	public Restaurant5CashierRole cashier5;
-*/	
+
 	Restaurant1 r1;
 	Restaurant2 r2;
 	Restaurant3 r3;
@@ -170,7 +164,8 @@ public class MarketCashierRole extends Role implements MarketCashier{
 					//r1.getCashier().amountDue(order.amountDue, this);
 				}
 				else if (order.rest == r2){
-					//r2.getCashier().amountDue(order.amountDue, this);
+					System.out.println(r2.getName() + " Here is amount due " + order.amountDue);
+					r2.getCashier().amountDue(order.amountDue, this);
 				}
 				else if (order.rest == r3){
 					r3.getCashier().amountDue(order.amountDue, this);
@@ -274,12 +269,12 @@ public class MarketCashierRole extends Role implements MarketCashier{
 		for (RestaurantOrder order: restaurantOrders){
 			if (order == o){
 				if (order.rest == r1){
-					System.out.println(r4.getName() + "Here is change");
+					System.out.println(r1.getName() + "Here is change");
 					r4.getCashier().HereIsYourChange(i, this);
 				}
 				else if (order.rest == r2){
-					System.out.println(r4.getName() + "Here is change");
-					r4.getCashier().HereIsYourChange(i, this);
+					System.out.println(r2.getName() + "Here is change");
+					r2.getCashier().HereIsYourChange(i, this);
 				}
 				else if (order.rest == r3){
 					System.out.println(r3.getName() + "Here is change");

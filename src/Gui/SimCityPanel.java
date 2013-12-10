@@ -163,6 +163,7 @@ import java.awt.*;
 		if(clk == 100){
 		bcp.refresh();
 		selPane.refresh();
+		//selPane.refresh(currentScreen.guis);
 		buildingInfo.refresh();
 		clk = 0;
 		}
@@ -205,15 +206,7 @@ import java.awt.*;
 		if(!(swapScreen == null)){
 			currentScreen = swapScreen;
 			selPane.refresh();
-			if(swap.equalsIgnoreCase("city")){
-				//buildingInfo.setVisible(false);
-			}
-			else{
-				//buildingInfo.setVisible(true);
-				buildingInfo.setB(TheCity.getBuildingFromString(swap));
-				buildingInfo.update(TheCity.getBuildingFromString(swap).getBuildingInfo());
-				buildingInfo.getUpdators(TheCity.getBuildingFromString(swap));
-			}
+			buildingInfo.setBuildingAndUpdate(TheCity.getBuildingFromString(swap));
 		} 
 	}
 

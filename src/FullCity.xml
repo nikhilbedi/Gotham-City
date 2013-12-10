@@ -3,7 +3,7 @@
 <!-- Attributes of a person within an XML file -->
 <simcity>
 	<!--Restaurant 1 -->
-	<person name="Rest1BatmanWaiter1">
+	<person name="Rest1Batmanwaiter1">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -11,7 +11,7 @@
 		<!-- The Person's job -->
 		<job>
 			<building>Restaurant 1</building>
-			<position>Waiter1</position>
+			<position>waiter1</position>
 			<shift>1</shift>
 		</job>
 
@@ -19,7 +19,7 @@
 		<transportation>walk</transportation>
 	</person>
 
-	<person name="Rest1BatmanWaiter2">
+	<person name="Rest1Batmanwaiter2">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -27,7 +27,7 @@
 		<!-- The Person's job -->
 		<job>
 			<building>Restaurant 1</building>
-			<position>Waiter2</position>
+			<position>waiter2</position>
 			<shift>1</shift>
 		</job>
 
@@ -84,7 +84,7 @@
 	</person>
 
 	<!-- Shift two -->
-	<person name="Rest1BatmanWaiter3">
+	<person name="Rest1Batmanwaiter3">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -92,7 +92,7 @@
 		<!-- The Person's job -->
 		<job>
 			<building>Restaurant 1</building>
-			<position>Waiter3</position>
+			<position>waiter3</position>
 			<shift>2</shift>
 		</job>
 
@@ -100,7 +100,7 @@
 		<transportation>walk</transportation>
 	</person>
 
-	<person name="Rest1BatmanWaiter4">
+	<person name="Rest1Batmanwaiter4">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -108,7 +108,7 @@
 		<!-- The Person's job -->
 		<job>
 			<building>Restaurant 1</building>
-			<position>Waiter4</position>
+			<position>waiter4</position>
 			<shift>2</shift>
 		</job>
 
@@ -168,7 +168,7 @@
 
 
 	<!--Restaurant 2 -->
-	<person name="Rest2BatmanWaiter1">
+	<person name="Rest2Batmanwaiter1">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -176,7 +176,7 @@
 		<!-- The Person's job -->
 		<job>
 			<building>Restaurant 2</building>
-			<position>Waiter1</position>
+			<position>waiter1</position>
 			<shift>1</shift>
 		</job>
 
@@ -184,7 +184,7 @@
 		<transportation>walk</transportation>
 	</person>
 
-	<person name="Rest2BatmanWaiter2">
+	<person name="Rest2Batmanwaiter2">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -192,7 +192,7 @@
 		<!-- The Person's job -->
 		<job>
 			<building>Restaurant 2</building>
-			<position>Waiter2</position>
+			<position>waiter2</position>
 			<shift>1</shift>
 		</job>
 
@@ -249,7 +249,7 @@
 	</person>
 
 	<!-- Shift two -->
-	<person name="Rest2BatmanWaiter3">
+	<person name="Rest2Batmanwaiter3">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -257,7 +257,7 @@
 		<!-- The Person's job -->
 		<job>
 			<building>Restaurant 2</building>
-			<position>Waiter3</position>
+			<position>waiter3</position>
 			<shift>2</shift>
 		</job>
 
@@ -265,7 +265,7 @@
 		<transportation>walk</transportation>
 	</person>
 
-	<person name="Rest2BatmanWaiter4">
+	<person name="Rest2Batmanwaiter4">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -273,7 +273,7 @@
 		<!-- The Person's job -->
 		<job>
 			<building>Restaurant 2</building>
-			<position>Waiter4</position>
+			<position>waiter4</position>
 			<shift>2</shift>
 		</job>
 
@@ -334,7 +334,7 @@
 
 
 	<!--Restaurant 3 -->
-	<person name="Rest3BatmanWaiter1">
+	<person name="Rest3Batmanwaiter1">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -342,7 +342,7 @@
 		<!-- The Person's job -->
 		<job>
 			<building>Restaurant 3</building>
-			<position>Waiter1</position>
+			<position>waiter1</position>
 			<shift>1</shift>
 		</job>
 
@@ -350,7 +350,7 @@
 		<transportation>walk</transportation>
 	</person>
 
-	<person name="Rest3BatmanWaiter2">
+	<person name="Rest3Batmanwaiter2">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -358,7 +358,7 @@
 		<!-- The Person's job -->
 		<job>
 			<building>Restaurant 3</building>
-			<position>Waiter2</position>
+			<position>waiter2</position>
 			<shift>1</shift>
 		</job>
 
@@ -415,7 +415,7 @@
 	</person>
 
 	<!-- Shift two -->
-	<person name="Rest3BatmanWaiter3">
+	<person name="Rest3Batmanwaiter3">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -423,7 +423,7 @@
 		<!-- The Person's job -->
 		<job>
 			<building>Restaurant 3</building>
-			<position>Waiter3</position>
+			<position>waiter3</position>
 			<shift>2</shift>
 		</job>
 
@@ -431,7 +431,7 @@
 		<transportation>walk</transportation>
 	</person>
 
-	<person name="Rest3BatmanWaiter4">
+	<person name="Rest3Batmanwaiter4">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -439,7 +439,7 @@
 		<!-- The Person's job -->
 		<job>
 			<building>Restaurant 3</building>
-			<position>Waiter4</position>
+			<position>waiter4</position>
 			<shift>2</shift>
 		</job>
 
@@ -501,7 +501,7 @@
 
 
 	<!--Restaurant 4 -->
-	<person name="Rest4BatmanWaiter1">
+	<person name="Rest4Batmanwaiter1">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -509,7 +509,7 @@
 		<!-- The Person's job -->
 		<job>
 			<building>Restaurant 4</building>
-			<position>Waiter1</position>
+			<position>waiter1</position>
 			<shift>1</shift>
 		</job>
 
@@ -517,7 +517,7 @@
 		<transportation>walk</transportation>
 	</person>
 
-	<person name="Rest4BatmanWaiter2">
+	<person name="Rest4Batmanwaiter2">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -525,7 +525,7 @@
 		<!-- The Person's job -->
 		<job>
 			<building>Restaurant 4</building>
-			<position>Waiter2</position>
+			<position>waiter2</position>
 			<shift>1</shift>
 		</job>
 
@@ -582,7 +582,7 @@
 	</person>
 
 	<!-- Shift two -->
-	<person name="Rest4BatmanWaiter3">
+	<person name="Rest4Batmanwaiter3">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -590,7 +590,7 @@
 		<!-- The Person's job -->
 		<job>
 			<building>Restaurant 4</building>
-			<position>Waiter3</position>
+			<position>waiter3</position>
 			<shift>2</shift>
 		</job>
 
@@ -598,7 +598,7 @@
 		<transportation>walk</transportation>
 	</person>
 
-	<person name="Rest4BatmanWaiter4">
+	<person name="Rest4Batmanwaiter4">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -606,7 +606,7 @@
 		<!-- The Person's job -->
 		<job>
 			<building>Restaurant 4</building>
-			<position>Waiter4</position>
+			<position>waiter4</position>
 			<shift>2</shift>
 		</job>
 
@@ -668,7 +668,7 @@
 
 
 	<!--Restaurant 5 -->
-	<person name="Rest5BatmanWaiter1">
+	<person name="Rest5Batmanwaiter1">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -676,7 +676,7 @@
 		<!-- The Person's job -->
 		<job>
 			<building>Restaurant 5</building>
-			<position>Waiter1</position>
+			<position>waiter1</position>
 			<shift>1</shift>
 		</job>
 
@@ -684,7 +684,7 @@
 		<transportation>walk</transportation>
 	</person>
 
-	<person name="Rest5BatmanWaiter2">
+	<person name="Rest5Batmanwaiter2">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -692,7 +692,7 @@
 		<!-- The Person's job -->
 		<job>
 			<building>Restaurant 5</building>
-			<position>Waiter2</position>
+			<position>waiter2</position>
 			<shift>1</shift>
 		</job>
 
@@ -749,7 +749,7 @@
 	</person>
 
 	<!-- Shift two -->
-	<person name="Rest5BatmanWaiter3">
+	<person name="Rest5Batmanwaiter3">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -757,7 +757,7 @@
 		<!-- The Person's job -->
 		<job>
 			<building>Restaurant 5</building>
-			<position>Waiter3</position>
+			<position>waiter3</position>
 			<shift>2</shift>
 		</job>
 
@@ -765,7 +765,7 @@
 		<transportation>walk</transportation>
 	</person>
 
-	<person name="Rest5BatmanWaiter4">
+	<person name="Rest5Batmanwaiter4">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -773,7 +773,7 @@
 		<!-- The Person's job -->
 		<job>
 			<building>Restaurant 5</building>
-			<position>Waiter4</position>
+			<position>waiter4</position>
 			<shift>2</shift>
 		</job>
 

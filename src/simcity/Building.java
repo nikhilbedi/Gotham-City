@@ -28,6 +28,7 @@ public class Building {
 	private Location entranceLocation;
 	private Location exitLocation;
 	private Location guiLocation;
+	protected Location parkingLocation;
 	protected int weekdayOpen;
 	protected int weekdayClose;
 	protected int weekendOpen;
@@ -115,12 +116,21 @@ public class Building {
 	 * PedestrianRole's GUI will always need to know which location he/she is headed to.
 	 * @return the location, containing x- and y-coordinates, for this building
 	 */
+	public void setParkingLocation(int x, int y){
+		parkingLocation = new Location(x, y);
+	}
+	
+	
 	public Location getEntranceLocation() {
 		return entranceLocation;
 	}
 	
 	public Location getGuiLocation() {
 		return guiLocation;
+	}
+	
+	public Location getParkingLocation(){
+		return parkingLocation;
 	}
 
 	public String getName() {

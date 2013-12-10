@@ -10,7 +10,14 @@ import java.util.Map;
 import Gui.ScreenFactory;
 import agent.Role;
 import simcity.Building;
+import simcity.Item;
+import simcity.Location;
+
+import Gui.ScreenFactory;
+import agent.Role;
+import simcity.Building;
 import simcity.CityClock;
+
 import simcity.TheCity;
 import simcity.Market.Market;
 import simcity.Market.MarketCashierRole;
@@ -23,6 +30,9 @@ import simcity.restaurants.restaurant4.interfaces.Restaurant4Cashier;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Cook;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Host;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Waiter;
+import simcity.restaurants.restaurant5.CookRole;
+import trace.AlertLog;
+import trace.AlertTag;
 
 public class Restaurant4 extends Restaurant {
 	Restaurant4HostRole host = new Restaurant4HostRole();
@@ -44,7 +54,8 @@ public class Restaurant4 extends Restaurant {
 	Restaurant4HostGui hostGui = new Restaurant4HostGui(host, ScreenFactory.getMeScreen(this.getName()));
 	Restaurant4CashierGui cashierGui = new Restaurant4CashierGui(cashier, ScreenFactory.getMeScreen(this.getName()));
 
-
+	Vector<Item> inventory = new Vector<Item>();
+	
 
 	public Restaurant4(String type, int entranceX, int entranceY, int guiX,
 			int guiY) {
@@ -56,8 +67,8 @@ public class Restaurant4 extends Restaurant {
 		cook.setGui(cookGui);
 		host.setGui(hostGui);
 		cashier.setGui(cashierGui);
-		setWeekdayHours(2, 24);
-		setWeekendHours(2, 24);
+		setWeekdayHours(1, 12);
+		setWeekendHours(12, 24);
 		Map<String, Role> jobs = Collections.synchronizedMap(new HashMap<String, Role>());
 		jobs.put("Host", host);
 		jobs.put("Cashier", cashier);
@@ -222,5 +233,20 @@ public class Restaurant4 extends Restaurant {
 		info.add("this is even more super class info");
 		return info;
 	}
+
+	
+	public Vector<Item> getStockItems(){
+		inventory = ((Restaurant4CookRole) cook).getInventory();
+		AlertLog.getInstance().logInfo(AlertTag.GUI, "Rest 5",
+				inventory.toString());
+		return inventory;
+	}
+	
+	public void updateItem(String s, int hashCode) {
+		// TODO Auto-generated method stub
+		//THIS MUST BE UPDATED BY YOUR BUILDING
+		((Restaurant4CookRole) cook).updateItem(s, hashCode);
+	}
+	 
 
 }

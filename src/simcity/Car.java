@@ -5,15 +5,16 @@ import java.awt.Graphics;
 import javax.swing.ImageIcon;
 
 import Gui.RoleGui;
+import Gui.ScreenFactory;
 
 public class Car extends RoleGui{
 	ImageIcon currentImage;
-	ImageIcon carLeft = new ImageIcon(this.getClass().getResource("/resources/mika/carLeft.jpg"));
-	ImageIcon carRight = new ImageIcon(this.getClass().getResource("/resources/mika/carRight.jpg"));
-	ImageIcon carUp = new ImageIcon(this.getClass().getResource("/resources/mika/carUp.jpg"));
-	ImageIcon carDown = new ImageIcon(this.getClass().getResource("/resources/mika/carDown.jpg"));
-	
-	
+	ImageIcon carLeft = new ImageIcon(this.getClass().getResource("/resources/mika/carLeft.png"));
+	ImageIcon carRight = new ImageIcon(this.getClass().getResource("/resources/mika/carRight.png"));
+	ImageIcon carUp = new ImageIcon(this.getClass().getResource("/resources/mika/carUp.png"));
+	ImageIcon carDown = new ImageIcon(this.getClass().getResource("/resources/mika/carDown.png"));
+	public String command = "";
+	private PersonGui owner;
 	
 	public Car(int x, int y, int destX, int destY){
 		xPos = x;
@@ -42,9 +43,15 @@ public class Car extends RoleGui{
 			currentImage = carUp;
 		}
 		
-		if (xPos == xDestination && yPos == yDestination){ 
-			
+		if (xPos == xDestination && yPos == yDestination && command == "moving"){ 
+			command = "";
+			ScreenFactory.main.removeGui(this);
+			owner.arrived(xDestination, yDestination);
 		}
+	}
+	
+	public void setOwner(PersonGui p){
+		owner = p;
 	}
 	
 	@Override
