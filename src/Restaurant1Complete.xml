@@ -11,7 +11,23 @@
 		<!-- The Person's job -->
 		<job>
 			<building>Restaurant 1</building>
-			<position>Host</position>
+			<position>Waiter1</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="Batman2">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 1</building>
+			<position>Waiter2</position>
 			<shift>1</shift>
 		</job>
 

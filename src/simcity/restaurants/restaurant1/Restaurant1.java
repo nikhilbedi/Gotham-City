@@ -32,9 +32,9 @@ public class Restaurant1 extends Restaurant {
 	//The GUIs
 	CookGui cookGui = new CookGui(cook, ScreenFactory.getMeScreen("Restaurant 1"));
 	WaiterGui w1Gui = new WaiterGui(waiter1, 0, ScreenFactory.getMeScreen("Restaurant 1"));
-	WaiterSharedDataGui w2Gui = new WaiterSharedDataGui(waiter2, 0, ScreenFactory.getMeScreen("Restaurant 1"));
-	WaiterGui w3Gui = new WaiterGui(waiter3, 0, ScreenFactory.getMeScreen("Restaurant 1"));
-	WaiterSharedDataGui w4Gui = new WaiterSharedDataGui(waiter4, 0, ScreenFactory.getMeScreen("Restaurant 1"));
+	WaiterSharedDataGui w2Gui = new WaiterSharedDataGui(waiter2, 2, ScreenFactory.getMeScreen("Restaurant 1"));
+	WaiterGui w3Gui = new WaiterGui(waiter3, 3, ScreenFactory.getMeScreen("Restaurant 1"));
+	WaiterSharedDataGui w4Gui = new WaiterSharedDataGui(waiter4, 4, ScreenFactory.getMeScreen("Restaurant 1"));
 	HostGui hostGui = new HostGui(host, ScreenFactory.getMeScreen("Restaurant 1"));
 	CashierGui cashierGui = new CashierGui(cashier, ScreenFactory.getMeScreen("Restaurant 1"));
 

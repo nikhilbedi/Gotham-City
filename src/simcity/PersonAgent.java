@@ -344,10 +344,10 @@ public class PersonAgent extends Agent implements Person {
 			print("The day of the week is " + dayState.name());
 		}
 
-		if (hungerCount > 15 && hungerState != HungerState.Starving
+	/*	if (hungerCount > 15 && hungerState != HungerState.Starving
 				&& hungerState != HungerState.FeedingHunger) {
 			hungerState = HungerState.Starving;
-		} else if (hungerCount > 10 && hungerState != HungerState.Hungry
+		} else*/ if (hungerCount > 10 && hungerState != HungerState.Hungry
 				&& hungerState != HungerState.FeedingHunger
 				&& hungerState != HungerState.Starving) {
 			hungerState = HungerState.Hungry;
@@ -373,7 +373,8 @@ public class PersonAgent extends Agent implements Person {
 				}
 			}
 			else {
-				if (currentTime == myJob.weekEndOnWork) {
+				if (currentTime == myJob.weekEndOnWork &&
+						myJob.state == JobState.OffWork) {
 					myJob.state = JobState.GoToWorkSoon;
 				}
 				// Maybe, also check if our current state is atWork

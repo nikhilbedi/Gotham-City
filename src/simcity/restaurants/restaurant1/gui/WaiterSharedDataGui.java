@@ -61,9 +61,10 @@ public class WaiterSharedDataGui extends RoleGui {
 		tableCoords.put(4, new Dimension(700, 150));
 		
 		//WHY IS THIS CRASHING THE PROGRAM. IT DOESN'T MAKE SENSE.
-		/*xHome += home*25;
+		xHome += home*25;
 		xPos = xHome;
-		xDestination = xHome;*/
+		xDestination = xHome;
+		yDestination = yPos;
 	}
 
 	public void updatePosition() {
