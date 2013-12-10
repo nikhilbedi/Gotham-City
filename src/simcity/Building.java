@@ -181,6 +181,7 @@ public class Building {
 	}
 	
 	public Vector<Item> getStockItems(){
+		//THIS MUST BE UPDATED BY YOUR BUILDING
 		return null;//menu.returnList();
 	}
 	

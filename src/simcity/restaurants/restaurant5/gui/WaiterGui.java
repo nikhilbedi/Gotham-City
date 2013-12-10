@@ -23,6 +23,9 @@ public class WaiterGui extends RoleGui implements Gui {
     public static final int cookX = 162;
     public static final int cookY = 76;
     
+    public static final int standX = 162;
+    public static final int standY = 50;
+    
     private int defaultX = 30, defaultY = 60;
     
 	public static int waitX = 70;
@@ -34,7 +37,7 @@ public class WaiterGui extends RoleGui implements Gui {
     private Icon holding = null;
     public List<Icon> icons = Collections.synchronizedList(new ArrayList<Icon>());
     
-    private enum Command { noCommand, SeatCustomer, GoToCusts, GoTakeOrder, GoToCook, GoToTable, WaitForOrder, GoToHome};
+    private enum Command { noCommand, SeatCustomer, GoToCusts, GoTakeOrder, GoToCook, GoToTable, WaitForOrder, GoToHome, GoToStand};
     private Command command=Command.noCommand;
 	
 	
@@ -73,6 +76,10 @@ public class WaiterGui extends RoleGui implements Gui {
         		
         	}
         	else if(command == Command.GoToHome){
+        		command = Command.noCommand;
+        		agent.doneMoving();
+        	}
+        	else if(command == Command.GoToStand){
         		command = Command.noCommand;
         		agent.doneMoving();
         	}
@@ -190,7 +197,13 @@ public class WaiterGui extends RoleGui implements Gui {
     	yDestination = cookY;
     	command = Command.GoToCook;
     
-	}  		
+	}
+    
+	public void DoGoToStand() {
+		xDestination = standX;
+    	yDestination = standY;
+    	command = Command.GoToStand;
+	}
 
     
     public void setHome(int x, int y){
@@ -236,5 +249,6 @@ public class WaiterGui extends RoleGui implements Gui {
     		//System.out.println(choice);
     	}
     }
+
     
 }
