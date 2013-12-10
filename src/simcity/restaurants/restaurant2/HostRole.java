@@ -132,9 +132,12 @@ public class HostRole extends Role implements Host{
 			if (!table.isOccupied()) {
 				if (!waitingCustomers.isEmpty()) {
 					if(getLeastBusyWaiter() > -1) {
+						//Adding this extra if for you - Nikhil
+						if(((Role)waiters.get(getLeastBusyWaiter())).checkWorkStatus()) {
 							waiters.get(getLeastBusyWaiter()).msgPleaseSeatCustomer(waitingCustomers.get(0), table.tableNumber);//the action
 							table.setOccupant(waitingCustomers.get(0));
 							waitingCustomers.remove(0);
+						}
 					}
 					return true;//return true to the abstract agent to reinvoke the scheduler.
 				}

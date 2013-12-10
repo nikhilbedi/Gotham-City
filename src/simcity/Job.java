@@ -28,17 +28,37 @@ public class Job {
 			int endClose = workplace.getWeekendClose();
 			
 			if(shift == 1) {
-				weekDayOnWork = dayOpen;
+				/*weekDayOnWork = dayOpen;
 				weekDayOffWork = (dayClose-dayOpen)/2 + dayOpen;
 				weekEndOnWork = endOpen;
-				weekEndOffWork = (endClose-endOpen)/2 + endOpen;
+				weekEndOffWork = (endClose-endOpen)/2 + endOpen;*/
+				weekDayOnWork = 2; // 8am
+				weekDayOffWork = 25; // military hours - 17 == 5pm
+				weekEndOnWork = 2;
+				weekEndOffWork = 25;
 			}
+			//Never goes to work
 			else if(shift == 2) {
-				weekDayOnWork = (dayClose-dayOpen)/2 + dayOpen;
+				weekDayOnWork = 25; // 8am
+				weekDayOffWork = 25; // military hours - 17 == 5pm
+				weekEndOnWork = 25;
+				weekEndOffWork = 25;
+				/*weekDayOnWork = (dayClose-dayOpen)/2 + dayOpen;
 				weekDayOffWork = dayClose;
 				weekEndOnWork = (endClose-endOpen)/2 + endOpen;
-				weekEndOffWork = endClose;
+				weekEndOffWork = endClose;*/
 			}
+		}
+		
+		//Job Constructor without shifts
+		//People who will spawn work all day every day
+		public Job(Role r, Building w) {
+			role = r;
+			workplace = w;
+			weekDayOnWork = 2; // 8am
+			weekDayOffWork = 25; // military hours - 17 == 5pm
+			weekEndOnWork = 2;
+			weekEndOffWork = 25;
 		}
 
 		//TODO this needs to be deleted

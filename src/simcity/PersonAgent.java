@@ -945,6 +945,7 @@ public class PersonAgent extends Agent implements Person {
 
 		}
 		if(bank.isOpen()) {
+			print("Bank is open!");
 			currentBuilding = bank;
 
 			bankRoleTemp = RoleFactory.makeMeRole("bankCustomer");
