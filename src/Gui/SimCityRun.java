@@ -27,6 +27,7 @@ import Gui.SoundClip;
 import simcity.CityClock;
 import simcity.PersonAgent;
 import simcity.TheCity;
+//import simcity.TheCity;
 import simcity.Home.gui.HomePanel;
 import simcity.restaurants.restaurant5.Restaurant5;
 import trace.TracePanel;
@@ -113,7 +114,8 @@ public class SimCityRun extends JFrame implements ActionListener
 	public static void main(String[] args)
 	{
 		//Sample reading an XML file
-		XMLHelper.createPeople("sampleXML.xml");
+		//XMLHelper.createPeople("sampleXML.xml");
+		XMLHelper.createPeople("Restaurant1Complete.xml");
 
 		//THE BIG BANG
 		CityClock.startTime();

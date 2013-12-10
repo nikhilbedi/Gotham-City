@@ -28,6 +28,8 @@ import simcity.Home.LandlordRole;
 import simcity.Home.ResidentRole;
 import simcity.Home.gui.ResidentGui;
 import simcity.bank.*;
+import trace.AlertLog;
+import trace.AlertTag;
 
 import java.util.*;
 import java.util.concurrent.Semaphore;
@@ -43,6 +45,7 @@ public class PersonAgent extends Agent implements Person {
 	RoleGui homeGui;
 	Role restTemp;
 	RoleGui restGui;
+	
 
 	public String name;
 	int currentTime; // (ranges from 1-24)
@@ -51,6 +54,7 @@ public class PersonAgent extends Agent implements Person {
 	// we're removing that role
 	Semaphore busyWithTask = new Semaphore(0, false);
 	double money = 0.0;
+    int restaurantCounter = (int)(Math.random()*5);
 	protected List<Role> roles = new ArrayList<Role>();
 	public Map<String, Integer> groceryList = new HashMap<String, Integer>();
 	public Map<String, Integer> groceryBag = new HashMap<String, Integer>();
@@ -60,14 +64,11 @@ public class PersonAgent extends Agent implements Person {
 
 	private LandlordRole landlord;
 
-	// Saves time from having to loop all the time to find the active role
 
 	// Locations
 	// These buildings will be set when any person is added
 	public List<Restaurant> restaurants;
 	public Restaurant currentPreference;
-	private int restaurantCounter = (int) (Math.random() * 5);
-	public List<Market> markets;
 
 	Role activeRole;
 
@@ -77,7 +78,8 @@ public class PersonAgent extends Agent implements Person {
 	// "Homeless Shelter" spawnpoint
 	private boolean shelter = false;
 	private Building spawnPoint = new Building("bat cave");
-	private Home myHome;
+	public Home myHome;
+	private List<Market> markets;
 	public Building currentBuilding = spawnPoint;
 	public Building currentDestination = spawnPoint;
 
@@ -177,7 +179,9 @@ public class PersonAgent extends Agent implements Person {
 		 * /*if(rest.getName().equals("Restaurant 4")) { currentPreference =
 		 * rest; } }
 		 */
-		currentPreference = r.get(restaurantCounter);
+		//TODO uncomment this one and delete get(0)
+		//currentPreference = r.get(restaurantCounter);
+		currentPreference = r.get(0);
 		restaurantCounter++;
 	}
 
@@ -188,6 +192,10 @@ public class PersonAgent extends Agent implements Person {
 
 	public void setMarkets(List<Market> m) {
 		markets = m;
+	}
+	
+	public List<Market> getMarkets(){
+		return markets;
 	}
 
 	public void setBank(Bank b) {
@@ -204,8 +212,8 @@ public class PersonAgent extends Agent implements Person {
 		if (h.getName().contains("shelter")) {
 			shelter = true;
 		} else {
-			myHome = h;
-			// currentBuilding = h;
+			setMyHome(h);
+            // currentBuilding = h;
 			currentDestination = h;
 			// Should I make a new one, or just make it equal to this one? There
 			// is only one resident for a home...
@@ -430,8 +438,8 @@ public class PersonAgent extends Agent implements Person {
 		roles.add(role);
 		role.setActive(true);
 		gui.getHomeScreen().removeGui(gui);
-		System.out.println("Checking the role gui" + role.getGui());
-		System.out.println("Checking the home screen" + role.getGui().getHomeScreen());
+		/*AlertLog.getInstance().logInfo(AlertTag.PERSON, "PersonAgent",
+				"Role's Screen is " + role.getGui().getHomeScreen());*/
 		role.getGui().getHomeScreen().addGui(role.getGui());
 		role.startBuildingMessaging();
 		stateChanged();
@@ -522,7 +530,10 @@ public class PersonAgent extends Agent implements Person {
 			}
 			
 			// if the man has groceries in his hand, let him take them home!
-			//print("person sched");
+
+			// print("person sched");
+			
+
 			if (marketState == MarketState.TakeGroceriesHome) {
 				marketState = MarketState.TakingGroceriesHome;
 				goToHome();
@@ -607,13 +618,14 @@ public class PersonAgent extends Agent implements Person {
 			}
 
 			// Let me even see if I got money..
-			if (moneyState == MoneyState.Low || moneyState == MoneyState.High) {
+			//TODO uncomment this when ready
+			/*if (moneyState == MoneyState.Low || moneyState == MoneyState.High) {
 				if (currentBuilding != bank) {
 					goToBank();
 					return true;
 				}
-			}
-			if (currentBuilding != myHome) {
+			}*/
+			if(currentBuilding != getMyHome()) {
 				goToHome();
 				return true;
 			}
@@ -717,21 +729,22 @@ public class PersonAgent extends Agent implements Person {
 					e.printStackTrace();
 				}
 			}
-
-			// homeTemp = RoleFactory.makeMeRole("residentRole");
-			homeTemp = myHome.resident;
+	
+			homeTemp = RoleFactory.makeMeRole("residentRole");
+			homeTemp = getMyHome().getResident();
 			homeTemp.setActive(true);
-			currentBuilding = myHome;
-			homeGui = new ResidentGui((ResidentRole) homeTemp,
-					ScreenFactory.getMeScreen("Home"));
-			homeGui.setHomeScreen(ScreenFactory.getMeScreen("Home"));
+			currentBuilding = getMyHome();
+			homeGui = new ResidentGui((ResidentRole)homeTemp, ScreenFactory.getMeScreen(myHome.getName()));
+			homeGui.setHomeScreen(ScreenFactory.getMeScreen(myHome.getName()));
 
-			// Add role
-
+//			//Add role
+	
 			homeTemp.setGui(homeGui);
 			// Enter building
 			homeTemp.setPerson(this);
 			enteringBuilding(homeTemp);
+			//hacking TODO
+			enteringBuilding(myHome.getResident());
 			checkPersonScheduler = false;
 		} else {
 			gui.DoGoToLocation(new Location(26, 580, "Default"));
@@ -814,7 +827,8 @@ public class PersonAgent extends Agent implements Person {
 		restaurantCounter++;
 		if (restaurantCounter > 4)
 			restaurantCounter = 0;
-		currentPreference = restaurants.get(restaurantCounter);
+		//TODO once all restaurants are back in, then uncomment below
+		//currentPreference = restaurants.get(restaurantCounter);
 	}
 
 	private void goGetGroceries() {
@@ -901,4 +915,11 @@ public class PersonAgent extends Agent implements Person {
 		this.currentBuilding = currentBuilding;
 	}
 
+	public Home getMyHome() {
+		return myHome;
+	}
+
+	public void setMyHome(Home myHome) {
+		this.myHome = myHome;
+	}
 }

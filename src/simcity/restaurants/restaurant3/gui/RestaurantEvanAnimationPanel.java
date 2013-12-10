@@ -1,11 +1,11 @@
 package simcity.restaurants.restaurant3.gui;
 
 import simcity.bank.Bank;
-import simcity.TheCity;
 import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant3.*;
 import simcity.PersonAgent;
 import simcity.Robot;
+import simcity.TheCity;
 import Gui.MainScreen;
 import Gui.RoleGui;
 import Gui.Screen;
@@ -53,6 +53,7 @@ public class RestaurantEvanAnimationPanel extends Screen  {
 		Graphics cookingArea = (Graphics)g;
 		Graphics platingArea = (Graphics)g;
 		Graphics cashierArea = (Graphics)g;
+		Graphics revolvingStand = (Graphics)g;
 		super.paintBackground(g);
 
 
@@ -64,6 +65,9 @@ public class RestaurantEvanAnimationPanel extends Screen  {
 
 		platingArea.setColor(Color.PINK);
 		platingArea.fillRect(0, 210, 40, 80);
+		
+		revolvingStand.setColor(Color.LIGHT_GRAY);
+		revolvingStand.fillRect(15, 110, 20, 20);
 
 		//Here is the table
 		g2.setColor(Color.ORANGE);
@@ -151,34 +155,45 @@ public class RestaurantEvanAnimationPanel extends Screen  {
 	public void populate(){
 
 		PersonAgent waiterPerson = new Robot("waiter");
+		PersonAgent waiterSharedDataPerson = new Robot("waiterSharedData");
 		PersonAgent hostPerson = new Robot("host");
 		PersonAgent cookPerson = new Robot("cook");
 		PersonAgent cashierPerson = new Robot("cashier");
 		//PersonAgent custPerson = new PersonAgent("customer");
 
 		WaiterRole waiterRole = new WaiterRole(waiterPerson);
+		WaiterSharedData waiterSharedDataRole = new WaiterSharedData(waiterSharedDataPerson);
 		HostRole hostRole = new HostRole(hostPerson);
-		CookRole cookRole = new CookRole(cookPerson);
-		CashierRole cashierRole = new CashierRole(cashierPerson);
+		Restaurant3CookRole cookRole = new Restaurant3CookRole(cookPerson);
+		Restaurant3CashierRole cashierRole = new Restaurant3CashierRole(cashierPerson);
 
 		WaiterGui waiterGui = new WaiterGui(waiterRole,0);
+		WaiterGui waiterSharedDataGui = new WaiterGui(waiterSharedDataRole, 0);
 		CookGui cookGui = new CookGui(cookRole);
 
 		waiterRole.setGui(waiterGui);
+		waiterSharedDataRole.setGui(waiterSharedDataGui);
 		cookRole.setGui(cookGui);
 
 		waiterPerson.addRole(waiterRole);
+		waiterSharedDataPerson.addRole(waiterSharedDataRole);
 		hostPerson.addRole(hostRole);
 		cookPerson.addRole(cookRole);
 		cashierPerson.addRole(cashierRole);
 
 		addGui(waiterGui);
+		addGui(waiterSharedDataGui);
 		addGui(cookGui);
 
 		waiterRole.setHost(hostRole);
 		waiterRole.setCook(cookRole);
 		waiterRole.setCashier(cashierRole);
 		hostRole.setWaiter(waiterRole);
+		
+		waiterSharedDataRole.setHost(hostRole);
+        waiterSharedDataRole.setCook(cookRole);
+        waiterSharedDataRole.setCashier(cashierRole);
+        hostRole.setWaiter(waiterSharedDataRole);
 
 		r3.setCashier(cashierRole);
 		r3.setHost(hostRole);
@@ -186,6 +201,7 @@ public class RestaurantEvanAnimationPanel extends Screen  {
 		hostPerson.startThread();
 		cashierPerson.startThread();
 		waiterPerson.startThread();
+		waiterSharedDataPerson.startThread();
 		cookPerson.startThread();
 	}
 }

@@ -1,9 +1,11 @@
 package simcity.Home;
 
 //import restaurant.WaiterAgent.Menu;
+import simcity.Home.gui.ApartmentResidentGui;
 import simcity.Home.gui.ResidentGui;
 import simcity.Home.interfaces.Resident;
 import Gui.RoleGui;
+import Gui.ScreenFactory;
 import agent.Agent;
 import agent.Role;
 
@@ -22,6 +24,8 @@ import simcity.PersonAgent.HungerState;
 import simcity.PersonAgent.MoneyState;
 import simcity.PersonAgent.RentBill;
 import simcity.PersonAgent.RentState;
+import trace.AlertLog;
+import trace.AlertTag;
 
 /**
  * Home Resident Role
@@ -30,12 +34,16 @@ public class ResidentRole extends Role implements Resident {
 	private String name;
 	Timer timer = new Timer();
 
-	private ResidentGui residentGui;
+	//private ResidentGui residentGui;
+	ResidentGui residentGui;
+	ApartmentResidentGui apartmentResidentGui;
 	// public Food foodChoice;
 	String type;
 	public PersonAgent person;
 	// public PersonAgent accountHolder;
 	private Home home;
+	public Apartment apartment;
+	public int roomNumber;
 	private double wallet;
 	public Map<String, Food> fridgeFoods = new HashMap<String, Food>();
 	public Map<String, Food> foods = new HashMap<String, Food>();
@@ -62,7 +70,7 @@ public class ResidentRole extends Role implements Resident {
 
 	public enum HomeEvent {
 		none, gotHungry, collectedIngredients, EmptyFridge, doneCooking, donePlating, doneEating,
-		doneClearing, gotSleepy, doneSleeping, payRent, atFridge, checkMailbox, atMailbox, checkGroceryBag, putGroceriesInFridge, leaveHome, LeftHouse
+		doneClearing, gotSleepy, doneSleeping, payRent, atFridge, checkMailbox, atMailbox, checkGroceryBag, putGroceriesInFridge, leaveHome, LeftHouse, goingToEntrance
 	};
 
 	public HomeEvent event = HomeEvent.none;
@@ -94,6 +102,9 @@ public class ResidentRole extends Role implements Resident {
 
 		f = new Food("Salad");
 		fridgeFoods.put("Salad", f);
+		
+		//roomNumber = (int)Math.random() % 6 + 1;
+		//roomNumber = 3;
 
 	}
 
@@ -111,19 +122,38 @@ public class ResidentRole extends Role implements Resident {
 		fridgeFoods.put("Salad", f);
 
 		residentGui = (ResidentGui)super.gui;
-
+		
+		//roomNumber = (int)Math.random() % 6 + 1;
+		//sroomNumber = 3;
 	}
+	//public ResidentRole() {
+		
+//	}
 	@Override
 	public void startBuildingMessaging(){
 		state = HomeState.DoingNothing;
 		event = HomeEvent.none;
+		if(this.myPerson.getMyHome().getName().contains("Apartment")){
+			//System.err.println("INSIDE IF STATEMENT**************");
+			((ApartmentResidentGui) residentGui).DoGoToRoomEntrance();
+			event = HomeEvent.goingToEntrance;
+		}
+		else if(!(this.myPerson.getMyHome().getName().contains("Apartment"))){
 		msgCheckMailbox(); //message to start Home gui
 		//gotHungry();
 		//gotSleepy();
 		//wakeUp();
 		//msgCheckGroceryBag();
+		}
 	}
-
+	public void atRoomEntrance() {
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"at apartment room");
+		//print("reached room entrance");
+		event = HomeEvent.none;
+		msgCheckMailbox();
+		
+	}
 
 	/**
 	 * hack to establish connection to Host agent.
@@ -134,44 +164,53 @@ public class ResidentRole extends Role implements Resident {
 
 	//initial starting message
 	public void msgCheckMailbox() {
-		System.out.println("check your mailbox for mail");
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				" check your mailbox for mail");
+		//System.out.println("check your mailbox for mail");
 		state = HomeState.DoingNothing;
 
 		if(state == HomeState.DoingNothing){
-			System.err.println("State is doing nothing and event is check MailBox");
+			//System.err.println("State is doing nothing and event is check MailBox");
 		}
 		else{
-			System.err.println("State is NOT doing nothing and event is check MailBox");
+			//System.err.println("State is NOT doing nothing and event is check MailBox");
 		}
 		event = HomeEvent.checkMailbox;
-		print("check mailbox statechanged");
+		//print("check mailbox statechanged");
 		stateChanged();
 
 	}
 
 	public void atMailbox() {
 		event = HomeEvent.atMailbox;
-		print("reached mailbox statechanged");
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"at mailbox");
 		stateChanged();
 	}
 
 	public void atFridge() {
-		System.out.println("atfridge********************");
-		print("Size of fridge = " + fridgeFoods.get("Salad").getAmount());
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"at fridge ");
+		//System.out.println("atfridge********************");
+		//print("Size of fridge = " + fridgeFoods.get("Chicken").getAmount());
 		event = HomeEvent.atFridge;
-		print("reached fridge statechanged");
+		//print("reached fridge statechanged");
 		stateChanged();
 	}
 
 	public void gotSleepy() {
-		System.out.println("I'm sleepy");
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"I'm sleepy. Time for bed. ");
+		//System.out.println("I'm sleepy");
 		event = HomeEvent.gotSleepy;
-		//stateChanged();
+		stateChanged();
 	}
 	public void wakeUp() {
-		System.out.println("Good morning");
-		//event = HomeEvent.;
-		//stateChanged();
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"Good morning ");
+		//System.out.println("Good morning");
+		event = HomeEvent.doneSleeping;
+		stateChanged();
 	}
 	/*
 	public void msgCheckGroceryBag() {
@@ -192,8 +231,15 @@ public class ResidentRole extends Role implements Resident {
 		// returnToHomePosition();
 		// return true;
 		// }
+//		if (state == HomeState.DoingNothing && event == HomeEvent.goingToEntrance) {
+//			state = HomeState.goingToEntrance;
+//			goToMailbox();
+//			return true;
+//		}
 
 		//mailbox scheduling events
+		
+		
 		if (state == HomeState.DoingNothing && event == HomeEvent.checkMailbox) {
 			state = HomeState.GoingToMailbox;
 			goToMailbox();
@@ -201,6 +247,7 @@ public class ResidentRole extends Role implements Resident {
 		}
 		if (state == HomeState.GoingToMailbox && event == HomeEvent.atMailbox) {
 			state = HomeState.checkingMailbox;
+			//System.err.println("checking mail");
 			checkMail();
 			return true;
 		}
@@ -232,23 +279,23 @@ public class ResidentRole extends Role implements Resident {
 			checkGroceryBag();
 			checkedGroceryBag = true;
 			state = HomeState.DoingNothing;
-			print("Checked the grocery bag");
+			//print("Checked the grocery bag");
 			return true;
 		}
 		if (state == HomeState.DoingNothing && event == HomeEvent.putGroceriesInFridge) {
-			System.out.println("Groceries Fridge msg in sch *HI***");
+			//System.out.println("Groceries Fridge msg in sch *HI***");
 			state = HomeState.GoingToPutGroceriesInFridge;
 			goToFridge();
 			return true;
 		}
 		if (state == HomeState.GoingToPutGroceriesInFridge && event == HomeEvent.atFridge) {
-			System.out.println("Groceries Fridge DONE msg in sch *HI***");
+			//System.out.println("Groceries Fridge DONE msg in sch *HI***");
 			state = HomeState.PuttingGroceriesInFridge;
 			putGroceriesInFridge(myPerson.getGroceryBag());
 			return true;
 		}
 		if (state == HomeState.PuttingGroceriesInFridge && event == HomeEvent.none) {
-			System.out.println("Groceries Fridge DONE msg in sch *HI***");
+			//System.out.println("Groceries Fridge DONE msg in sch *HI***");
 			state = HomeState.DoingNothing;
 			returnToHomePosition();
 			return true;
@@ -270,27 +317,33 @@ public class ResidentRole extends Role implements Resident {
 		if (state == HomeState.DoingNothing  && event == HomeEvent.gotHungry) {
 			// System.out.println("CHECking food supply");
 			//System.out.println("Check Fridge msg in sch *HI***");
-			print("Im hungry, so i will check the fridge");
+			//print("Im hungry, so i will check the fridge");
 			state = HomeState.GoingToFridgeToCheckFood;
 			goToFridge();
 			//checkFridge();
 			return true;
 		}
 		if (state == HomeState.GoingToFridgeToCheckFood && event == HomeEvent.atFridge) {
-			System.out.println("Check Food Supply msg in sch *HI****************");
+			//System.out.println("Check Food Supply msg in sch *HI****************");
 			state = HomeState.CheckingFoodSupply;
 			type = checkFoodSupply();
 			return true;
 		}
 		if (state == HomeState.CheckingFoodSupply && event == HomeEvent.EmptyFridge) {
-			//System.out.println("NOTHING 2 msg in sch *HI***");
+			//System.out.println("NOTHING 2 msg in sch *HI***++++");
 			state = HomeState.LeavingHome; // LeavingRestaurant
+			if(this.myPerson.getMyHome().getName().contains("Apartment")){
+				
+			exitRoom();
+		
+			}
+			else
 			exitHome();
 			return true;
 		}
 
 		if (state == HomeState.CheckingFoodSupply && event == HomeEvent.collectedIngredients) {
-			System.out.println("Check cook food msg in sch *HI***");
+			//System.out.println("Check cook food msg in sch *HI***");
 			state = HomeState.Cooking;
 			goToStove(type);
 			return true;
@@ -334,7 +387,7 @@ public class ResidentRole extends Role implements Resident {
 				myPerson.hungerState == HungerState.Hungry ||
 				myPerson.hungerState == HungerState.Starving) && event == HomeEvent.none){// && !hungry) {
 			hungry = true;
-			print("make person get some food");
+			//print("make person get some food");
 			state = HomeState.DoingNothing;
 			gotHungry();
 			return true;
@@ -349,6 +402,12 @@ public class ResidentRole extends Role implements Resident {
 			//System.out.println("SLEEPING ***");
 			state = HomeState.Sleeping;
 			goToBed();
+			return true;
+		}
+		if (state == HomeState.Sleeping && event == HomeEvent.doneSleeping) {
+			//System.out.println("SLEEPING ***");
+			state = HomeState.DoingNothing;
+			returnToHomePosition();
 			return true;
 		}
 
@@ -376,29 +435,41 @@ public class ResidentRole extends Role implements Resident {
 
 	//checking mailbox when walking in and paying rent bills
 	public void goToMailbox() {
-		print("go to mailbox");
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"going to mailbox");
+		residentGui.checkingMail = true;
+		//print("go to mailbox");
 		residentGui.DoGoToMailbox();
 
 	}
 
 	public void checkMail() {
 		//rentBills.clear(); //CHANGE THIS ****************************
-		print("Inside checkMail function **********");
+		//print("Inside checkMail function **********");
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"going to check mail");
 		if (rentBills.size() > 0) {
-			print("rent bills is greater than 0");
+			AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE,
+					this.getName(), "has rent bills to pay");
+			//print("rent bills is greater than 0");
 			event = HomeEvent.payRent;
 			//stateChanged();
 		}
 
 		else {
-			print("rent bills is 0");
+			AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE,
+					this.getName(), "no rent bills to pay");
+			//print("rent bills is 0");
 			event = HomeEvent.none;
 			//stateChanged();
 		}
 		//event = HomeEvent.none;
 		//state = HomeState.DoingNothing;
+		residentGui.checkingMail = false;
 	}
 	public void payRent(List<RentBill> rentBills) {
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"paying rent");
 		for (RentBill rb : rentBills) {
 			if (rb.state == RentState.NotPaid) {
 				myPerson.goPayBill(rb);
@@ -413,6 +484,8 @@ public class ResidentRole extends Role implements Resident {
 
 	//checking grocery bag when walking in and putting groceries in fridge
 	public void checkGroceryBag() {
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"checking Grocery Bag ");
 		checkedGroceryBag= true;
 
 		if (groceryBag.size() > 0) {
@@ -424,15 +497,23 @@ public class ResidentRole extends Role implements Resident {
 		//stateChanged();
 	}
 	public void goToFridge() {
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"going to fridge ");
 		residentGui.DoGoToFridge();
 	}
 
 	public void putGroceriesInFridge(Map<String, Integer> groceryBag) {
 		//residentGui.DoGoToFridge();
-		print("putting item Steak into fridge. My grocery bag is filled with " + groceryBag.get("Steak"));
+		//print("putting item Steak into fridge. My grocery bag is filled with " + groceryBag.get("Steak"));
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"Putting groceries in the fridge. My grocery bag contains: Chicken: " + groceryBag.get("Chicken") + " Steak: " + 
+						groceryBag.get("Steak") + " Pizza: " + groceryBag.get("Pizza") + " Salad: " + groceryBag.get("Salad") );
 		groceryBag = myPerson.groceryBag;
 		int temp = groceryBag.get("Chicken");
-		fridgeFoods.get("Chicken").setAmount(groceryBag.get("Chicken"));
+		fridgeFoods.get("Chicken").setAmount(fridgeFoods.get("Chicken").getAmount() + groceryBag.get("Chicken"));
+		fridgeFoods.get("Steak").setAmount(fridgeFoods.get("Steak").getAmount() + groceryBag.get("Steak"));
+		fridgeFoods.get("Pizza").setAmount(fridgeFoods.get("Pizza").getAmount() + groceryBag.get("Pizza"));
+		fridgeFoods.get("Salad").setAmount(fridgeFoods.get("Salad").getAmount() + groceryBag.get("Salad"));
 		//print("Grocery bag ")
 		//fridgeFoods.get("Steak").setAmount(fridgeFoods.get("Steak").getAmount() + groceryBag.get("Steak"));
 		
@@ -460,18 +541,21 @@ public class ResidentRole extends Role implements Resident {
 
 	//got hungry events
 	public void gotHungry() {
-		System.out.println("I'm hungry");
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"I'm hungry");
+		//System.out.println("I'm hungry");
 		event = HomeEvent.gotHungry;
-		print("got hungry statechanged");
 		stateChanged();
 	}
 
 	public String checkFoodSupply() {
-		System.out.println("check food supply **********");
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"checking food supply");
+		//System.out.println("check food supply **********");
 		if(!myPerson.groceryBag.isEmpty())
 			putGroceriesInFridge(myPerson.groceryBag);
 		//String choice = randomizeFoodChoice();
-		String choice = "Chicken";
+		String choice = "Chicken"; //hard coded in chicken as only choice TODO
 		Food f = fridgeFoods.get(choice);
 
 		if (checkInventory(f)) {
@@ -483,9 +567,11 @@ public class ResidentRole extends Role implements Resident {
 			if (amount <= f.getLowThreshold()) {
 				addToGroceryList(f);
 			}
-			System.out.println("Collected Food");
+			AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE,
+					this.getName(), "collected ingredients ");
+			//System.out.println("Collected Food");
 			event = HomeEvent.collectedIngredients;
-			//stateChanged();
+			stateChanged();
 			//person.hungerState = HungerState.FeedingHunger;
 			//stateChanged();
 			// CookGui.order = o.choice.getType();
@@ -495,60 +581,77 @@ public class ResidentRole extends Role implements Resident {
 			// check low threshold
 		} else {
 			// o.outOfStock = true;
-			System.out.println( "no more " + choice + "in fridge.");
+			AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE,
+					this.getName(), "no more " + choice + "in fridge.");
+			//System.out.println( "no more " + choice + "in fridge.");
 			addToGroceryList(f);
-			print("about to change state to check empty fridge");
+			//print("about to change state to check empty fridge");
 			event = HomeEvent.EmptyFridge;
 			//stateChanged();
 		}
 		
-		if(myPerson.moneyState != MoneyState.Low){
-			event = HomeEvent.EmptyFridge;
-		}
+//		if(myPerson.moneyState != MoneyState.Low){
+//			event = HomeEvent.EmptyFridge;
+//		}
 		return choice;
 	}
 
 	public void goToStove(String type) {
-		System.out.println("resident cooking Food");
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"going to stove to cook food ");
+		//System.out.println("resident cooking Food");
 		residentGui.DoGoToStove();
 	}
 
 	public void atStove() {
-		//residentGui.cooking = true;
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"at Stove");
+		residentGui.cooking = true;
 		Food myChoice = new Food(type);
 		DoCooking(myChoice); // cooking timer
 	}
 
 	private void DoCooking(Food f) {
-		System.out.println("Do Cooking");
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"cooking food");
+		//System.out.println("Cooking food");
 
 		int cookingTime = f.getCookingTime();
 		timer.schedule(new TimerTask() {
 			public void run() {
 				event = HomeEvent.doneCooking;
-				print("done cooking statechanged");
+				//print("done cooking statechanged");
 				stateChanged();
 			}
 		}, cookingTime * 150);
-		//residentGui.cooking = false;
+		residentGui.cooking = false;
 	}
 
 	public void goToPlatingArea() {
-		System.out.println("resident plating Food");
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"going to plating area ");
+		//System.out.println("resident plating Food");
 		residentGui.DoGoToPlatingArea();
+		
+		//ApartmentResidentGui.DoGoToPlatingArea();
+		
 	}
 
 	public void atPlatingArea() {
-		//residentGui.plating = true;
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(), "at plating area ");
+		residentGui.plating = true;
 		DoPlating();
 		//stateChanged();
 	}
 
 	private void DoPlating() {
-		System.out.println("Do plating");
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"plating food ");
+		//System.out.println("Plating food");
 		timer.schedule(new TimerTask() {
 			public void run() {
-				print("done plating statechanged");
+				//print("done plating statechanged");
+				residentGui.plating = false;
 				event = HomeEvent.donePlating;
 				stateChanged();
 			}
@@ -557,7 +660,9 @@ public class ResidentRole extends Role implements Resident {
 	}
 
 	public void goToTable() {
-		System.out.println("resident eating Food");
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"going to table ");
+		//System.out.println("resident eating Food");
 		// residentGui.waitingForFood=false;
 		// residentGui.receivedFood=true;
 		residentGui.DoGoToTable();
@@ -568,16 +673,23 @@ public class ResidentRole extends Role implements Resident {
 	}
 
 	public void AtTable() {
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"at table ");
 		//residentGui.eating = true;
 		DoEatFood();
 	}
 
 	public void DoEatFood(){
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"Eating food ");
+			residentGui.eating = true;
 		timer.schedule(new TimerTask() {
 			public void run() {
 				// residentGui.eating = true;
-				System.out.println("resident done eating");
-				//residentGui.eating = false;
+				//AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE,
+				//		this.getName(), "finished eating");
+				//System.out.println("resident done eating");
+				residentGui.eating = false;
 				event = HomeEvent.doneEating;
 				hungry = false;
 				myPerson.justAte();
@@ -586,33 +698,51 @@ public class ResidentRole extends Role implements Resident {
 	}
 
 	public void goToSink() {
-		System.out.println("resident cleaning plates");
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"going to sink");
+		//System.out.println("resident cleaning plates");
+		
 		residentGui.DoClearFood();
 	}
 
 	public void atSink() {
-		//residentGui.clearing = true;
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"at sink");
+		residentGui.clearing = true;
 		clearFood();
 	}
 
 	public void clearFood() {
-		System.out.println("resident cleaning plates");
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"cleaning plates ");
+		//System.out.println("resident cleaning plates");
 
 		stateChanged();
 		timer.schedule(new TimerTask() {
 			public void run() {
-				System.out.println("resident done cleaning");
+				//System.out.println("resident done cleaning");
 				event = HomeEvent.doneClearing;
-				print("done clearing statechanged");
-				//residentGui.clearing = false;
+				//print("done clearing statechanged");
+				residentGui.clearing = false;
 				stateChanged();
 			}
 		}, 1500);
 	}
-
-
+	public void exitRoom(){
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"leaving apartment room ");
+		((ApartmentResidentGui)residentGui).DoExitRoom();
+	}
+	public void atRoomExit(){
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"left apartment room ");
+		exitHome();
+		
+	}
 	//leaving home
 	public void exitHome() {
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"leaving home");
 		//myPerson.homeNeedsGroceries(groceryList);
 		residentGui.DoExitHome();
 		//event = HomeEvent.none;
@@ -639,7 +769,7 @@ public class ResidentRole extends Role implements Resident {
 
 	public void atBed() {
 		residentGui.sleeping = true;
-		event = HomeEvent.doneSleeping;
+		//event = HomeEvent.doneSleeping;
 		//stateChanged();
 	}
 
@@ -654,7 +784,6 @@ public class ResidentRole extends Role implements Resident {
 	}
 
 
-	// TODO Fix this Evan
 	// Accessors, etc.
 	private void DoSleeping() {
 		int bedTime = 6; // 8am
@@ -668,7 +797,13 @@ public class ResidentRole extends Role implements Resident {
 
 
 	private boolean checkInventory(Food f) {
-		System.out.println("checking Fridge Inventory");
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"Checking fridge inventory. Fridge contains: Chicken: " + fridgeFoods.get("Chicken").getAmount() + " Steak: " +
+						fridgeFoods.get("Steak").getAmount() + " Pizza: "+ fridgeFoods.get("Pizza").getAmount() + " Salad: " + 
+						fridgeFoods.get("Salad").getAmount());
+		//System.out.println("checking Fridge Inventory");
+		//System.err.println("amount of chicken = " + fridgeFoods.get("Chicken").getAmount());
+		
 		int amount = f.getAmount();
 		if (amount > 0) {
 			return true;
@@ -677,7 +812,9 @@ public class ResidentRole extends Role implements Resident {
 	}
 
 	private void addToGroceryList(Food f) {
-		System.err.println("add to grocery list and go get groceries");
+		AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
+				"Adding groceries to grocery list ");
+		//System.err.println("add to grocery list and go get groceries");
 		groceryList.put(f.getType(), f.getCapacity());
 		myPerson.homeNeedsGroceries(groceryList);
 	}
@@ -696,19 +833,27 @@ public class ResidentRole extends Role implements Resident {
 
 		if (x == 1) {
 			choice = "Salad";
-			System.out.println("choice = Salad");
+			AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE,
+					this.getName(), "wants to eat Salad ");
+			//System.out.println("choice = Salad");
 		}
 		if (x == 2) {
 			choice = "Pizza";
-			System.out.println("choice = pizza");
+			AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE,
+					this.getName(), "wants to eat Pizza ");
+			//System.out.println("choice = pizza");
 		}
 		if (x == 3) {
 			choice = "Chicken";
-			System.out.println("choice = Chicken");
+			AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE,
+					this.getName(), "wants to eat Chicken");
+			//System.out.println("choice = Chicken");
 		}
 		if (x == 4) {
 			choice = "Steak";
-			System.out.println("choice = Steak");
+			AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE,
+					this.getName(), "wants to eat Steak ");
+			//System.out.println("choice = Steak");
 		}
 
 		return choice;

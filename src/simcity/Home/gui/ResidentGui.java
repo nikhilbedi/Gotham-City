@@ -1,12 +1,14 @@
 package simcity.Home.gui;
 
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import javax.swing.text.StyledEditorKit.ForegroundAction;
 
 import Gui.RoleGui;
 import Gui.Screen;
+import simcity.Home.Apartment;
 import simcity.Home.ResidentRole;
 import simcity.Home.interfaces.Resident;
 import simcity.PersonAgent;
@@ -46,6 +48,7 @@ public class ResidentGui extends RoleGui {
 		yDestination = -40;
 	}
 	public ResidentGui(ResidentRole role, Screen s) {
+		super(role, s);
 		myColor = Color.red;
 		// System.err.println("Here we are 2");
 		resident = role;
@@ -56,6 +59,33 @@ public class ResidentGui extends RoleGui {
 		yDestination = -40;
 	}
 
+	public ResidentGui() {
+		super();
+		
+	}
+
+	public void draw(Graphics g) {
+		super.draw(g);
+		g.setColor(Color.GREEN);
+		//g.fillRect(xPos, yPos, Width, Height);
+		if (cooking){
+			g.drawString("cooking food", getXPos(), getYPos());
+		}
+		else if (plating) {
+			g.drawString("plating food", getXPos(), getYPos());
+		}
+		else if (eating) {
+			g.drawString("eating ", getXPos(), getYPos());
+		}
+		else if (clearing) {
+			g.drawString("cleaning dishes", getXPos(), getYPos());
+		}
+		else if (checkingMail) {
+			g.drawString("checking mail", getXPos(), getYPos());
+		}
+		
+	}
+	
 	// @Override
 	public void updatePosition() {
 		super.updatePosition();
@@ -117,7 +147,7 @@ public class ResidentGui extends RoleGui {
 	 * 
 	 * }
 	 */
-
+	
 	public void DoGoToTable() {// 260, 350, 110, 110
 		System.out.println("At Table");
 		xDestination = 300;

@@ -12,6 +12,8 @@ import simcity.restaurants.restaurant1.gui.CookGui;
 import simcity.restaurants.restaurant1.gui.HostGui;
 import simcity.restaurants.restaurant1.gui.WaiterGui;
 import simcity.restaurants.restaurant1.gui.WaiterSharedDataGui;
+import trace.AlertLog;
+import trace.AlertTag;
 
 /**
  * Nikhil's restaurant - original
@@ -33,7 +35,7 @@ public class Restaurant1 extends Restaurant {
 	WaiterSharedDataGui w2Gui = new WaiterSharedDataGui(waiter2, 0, ScreenFactory.getMeScreen("Restaurant 1"));
 	WaiterGui w3Gui = new WaiterGui(waiter3, 0, ScreenFactory.getMeScreen("Restaurant 1"));
 	WaiterSharedDataGui w4Gui = new WaiterSharedDataGui(waiter4, 0, ScreenFactory.getMeScreen("Restaurant 1"));
-	HostGui hostGui;// = new HostGui(host, ScreenFactory.getMeScreen("Restaurant 1"));
+	HostGui hostGui = new HostGui(host, ScreenFactory.getMeScreen("Restaurant 1"));
 	CashierGui cashierGui = new CashierGui(cashier, ScreenFactory.getMeScreen("Restaurant 1"));
 
 	
@@ -43,10 +45,6 @@ public class Restaurant1 extends Restaurant {
 		//Set the open and closing hours
 		setWeekdayHours(8, 22);
 		setWeekendHours(9, 21);
-		
-		hostGui = new HostGui(host, ScreenFactory.getMeScreen("Restaurant 1"));
-		//System.out.println("The host gui has a screen: " + hostGui.getHomeScreen().toString());
-		//System.out.println("The screen has a screen: " + ScreenFactory.getMeScreen("Restaurant 1").toString());
 		//Set guis
 		cook.setGui(cookGui);
 		waiter1.setGui(w1Gui);
@@ -55,8 +53,6 @@ public class Restaurant1 extends Restaurant {
 		waiter4.setGui(w2Gui);
 		host.setGui(hostGui);
 		cashier.setGui(cashierGui);
-		
-		
 		//Add the key: strings & value: roles
 		Map<String, Role> jobs = Collections.synchronizedMap(new HashMap<String, Role>());
 		jobs.put("host", host);
@@ -111,7 +107,8 @@ public class Restaurant1 extends Restaurant {
 		Vector<String> info = new Vector<String>();
 		info.add("Restaurant 1");
 		info.add("Created by: Nikhil Bedi");
-		info.add("this is even more super class info");
+		info.add("The window might not be large enough to see my kitchen.\n"
+				+ "Please resize on the right side to see it.");
 		return info;
 	}
 }

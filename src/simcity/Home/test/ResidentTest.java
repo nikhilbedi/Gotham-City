@@ -20,7 +20,7 @@ import org.junit.* ;
 import static org.junit.Assert.* ;
 
 public class ResidentTest  {
-		PersonAgent myPerson = new PersonAgent("person");
+		public PersonAgent myPerson = new PersonAgent("person");
 		public ResidentRole resident = new ResidentRole(myPerson);
 		public MockLandlord landlord = new MockLandlord("landord");
 		Home h = new Home("Home", 0, 0, 0, 0);
@@ -42,12 +42,12 @@ public class ResidentTest  {
                              resident.state == HomeState.DoingNothing);
             
             //landlord.rent = 10;
-            RentBill rb =  resident.myPerson.new RentBill(resident.myPerson, 10);
+            RentBill rb =  resident.person.new RentBill(resident.person, 10);
             
-			resident.myPerson.rentBills.add(rb);
+			resident.person.rentBills.add(rb);
            
             assertFalse("The resident's rentBills should NOT be empty at the resident's creation. It is .",
-            		resident.myPerson.rentBills.size() == 0);
+            		resident.person.rentBills.size() == 0);
             assertTrue("Scheduler should return true", resident.pickAndExecuteAnAction());
             assertTrue("The resident event should be payRent. It's currently not.",
             		resident.event == HomeEvent.payRent);

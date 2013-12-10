@@ -1,8 +1,13 @@
 package simcity;
+import simcity.*;
 
 import java.util.*;
 
+
+import simcity.Home.Apartment;
+
 import Gui.TimeBar;
+
 
 import simcity.Home.Home;
 import simcity.Market.Market;
@@ -31,11 +36,14 @@ public class TheCity {
 	static Building market;
 	static Building bank;
 
+	static Building apart;
+	
+
 	//Making timebar static so it can be updated by static city clock is this bad?
 	public static TimeBar bar;
 
 
-	static{//populate Buildings
+	public static void populate(){//populate Buildings
 		bar = new TimeBar();
 		bar.setVisible(true);
 
@@ -50,43 +58,66 @@ public class TheCity {
            house5.setImagePath("/resources/Buildings/HouseDark2.png");
            house6 = new Home("Home6", 590, 590, 600, 600);
            house6.setImagePath("/resources/Buildings/HouseDark2.png");*/ 
-
-		home = new Home("Home", 390, 590, 400, 600);
+	/*	home = new Home("Home", 390, 590, 400, 600);
 		home.setImagePath("/resources/Buildings/HouseDark2.png");
+		apart = new Apartment("Apartment 1", 590, 590, 600, 600);
+		apart.setImagePath("/resources/Buildings/HouseDark.png");*/
 
-
-		market = new Market("Market", 600, 100, 600, 100);
-		market.setImagePath("/resources/Buildings/MarketDark2.png");
 		bank = new Bank("Bank", 400, 100, 400, 100);
 		bank.setImagePath("/resources/Buildings/BankDark2.png");
-
 		rest1 = new Restaurant1("Restaurant 1", 200, 100, 200, 100);
 		rest1.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest2 = new Restaurant2("Restaurant 2", 50, 210, 50, 210);
+		market = new Market("Market", 600, 100, 600, 100);
+		market.setImagePath("/resources/Buildings/MarketDark2.png");
+		rest4 = new Restaurant4("Restaurant 4", 50, 410, 50, 410);
+		rest4.setImagePath("/resources/Buildings/RestaurantDark2.png");
+	
+/*		rest2 = new Restaurant2("Restaurant 2", 50, 210, 50, 210);
 		rest2.setImagePath("/resources/Buildings/RestaurantDark2.png");
 		rest3 = new Restaurant3("Restaurant 3", 730, 210, 730, 210);
 		rest3.setImagePath("/resources/Buildings/RestaurantDark2.png");
-		rest4 = new Restaurant4("Restaurant 4", 50, 410, 50, 410);
-		rest4.setImagePath("/resources/Buildings/RestaurantDark2.png");
 		rest5 = new Restaurant5("Restaurant 5", 730, 410, 730, 410);
-		rest5.setImagePath("/resources/Buildings/RestaurantDark2.png");
+		rest5.setImagePath("/resources/Buildings/RestaurantDark2.png");*/
 
 
 
-		buildings.add(home);
-		buildings.add(market);
+/*		
+
+		*/
+	//	buildings.add(home);
 		buildings.add(bank);
 		buildings.add(rest1);
-		buildings.add(rest2);
-		buildings.add(rest3);
+		buildings.add(market);
 		buildings.add(rest4);
-		buildings.add(rest5);
-
-
+		//buildings.add(rest5);
+		//buildings.add(apart);
+/*		buildings.add(rest2);
+		buildings.add(rest3);
+		buildings.add(rest5);*/
 
 	}
 
 	static{//populate person-specific elements
+
+		
+	homeList.add("None (Homeless Shelter)");
+	homeList.add("Home 1");
+	homeList.add("Apartment 1");
+	
+	
+	//populate lists
+	jobLocationList.add("No job");
+	for(Building b: buildings){
+		jobLocationList.add(b.getName());
+	}
+	//populate building jobs map
+	for(Building b: buildings){
+		jobPositionList.add(b.getJobCollec());
+		buildingJobsMap.put(b.getName(), b.getJobCollec());
+	}
+	
+	/*jobLocationList.add("Market");
+=======
 		homeList.add("None (Homeless Shelter)");
 		homeList.add("Home 1");
 
@@ -103,6 +134,7 @@ public class TheCity {
 		}
 
 		/*jobLocationList.add("Market");
+>>>>>>> master
 	jobLocationList.add("Bank");
 	jobLocationList.add("Restaurant 1");*/
 
@@ -154,6 +186,9 @@ public class TheCity {
 		if(s.equalsIgnoreCase("Home")){
 			return home;
 		}
+		if(s.equalsIgnoreCase("Apartment 1")){
+			return apart;
+		}
 
 		return null;
 	}
@@ -172,10 +207,10 @@ public class TheCity {
 		List<Restaurant> tempcast = new ArrayList<Restaurant>();
 		//maybe this populate should be done in the static constructor
 		tempcast.add((Restaurant)rest1);
-		tempcast.add((Restaurant)rest2);
+	/*	tempcast.add((Restaurant)rest2);
 		tempcast.add((Restaurant)rest3);
 		tempcast.add((Restaurant)rest4);
-		tempcast.add((Restaurant)rest5);
+		tempcast.add((Restaurant)rest5);*/
 		return tempcast;
 	}
 

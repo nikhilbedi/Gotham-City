@@ -1,10 +1,10 @@
 package simcity.restaurants.restaurant5.gui;
 
 import javax.swing.*;
-import simcity.TheCity;
 
 import simcity.PersonAgent;
 import simcity.Robot;
+import simcity.TheCity;
 import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant5.CashierRole;
 import simcity.restaurants.restaurant5.CookRole;
@@ -49,7 +49,7 @@ public class RestaurantHunterAnimationPanel extends Screen{
 				r5 = r;
 			}
 		}
-    	populate();
+    	//populate();
     }
     
     public void populate(){

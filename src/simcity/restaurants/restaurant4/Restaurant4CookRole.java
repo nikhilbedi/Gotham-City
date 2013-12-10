@@ -23,10 +23,10 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 	private List<Order> orders = new ArrayList<Order>();
 	private Timer timer = new Timer();
 	public Map<String, Food> foods = new HashMap<String, Food>();
-	Food chicken = new Food("Chicken", 2);
-	Food steak = new Food("Steak", 2);
-	Food pizza = new Food("Pizza", 2);
-	Food salad = new Food("Salad", 2);
+	Food chicken = new Food("Chicken", 10);
+	Food steak = new Food("Steak", 10);
+	Food pizza = new Food("Pizza", 10);
+	Food salad = new Food("Salad", 10);
 
 	private Restaurant4CookGui cg;
 	public Map<String, Integer> neededFood = new HashMap<String, Integer>();
@@ -61,9 +61,9 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 		cg.DoRemoveFood(s);
 	}
 	
-	public void setGui(Restaurant4CookGui c){
+	/*public void setGui(Restaurant4CookGui c){ This is messing things up
 		cg = c;
-	} 
+	} */
 	
 	public void resetInventory(){
 		chicken.amount = 0;
@@ -175,10 +175,10 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 	
 	public void orderFoodThatIsLow(){
 		myPerson.Do("Ordering food from market");
-		Market m = (Market) TheCity.getBuildingFromString("Market");
-		
+		Market m = (Market) TheCity.getBuildingFromString("Market"); // add one more market later
     	cashier = m.getCashier();
-		cashier.INeedFood(neededFood, this, restCashier);
+    	Restaurant4 r4 = (Restaurant4) TheCity.getBuildingFromString("Restaurant 4");
+		cashier.INeedFood(neededFood, this, restCashier, r4);
 	}
 
 	public void setMarketCashier(MarketCashier m){

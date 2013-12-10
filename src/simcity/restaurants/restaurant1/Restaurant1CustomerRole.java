@@ -1,6 +1,7 @@
 package simcity.restaurants.restaurant1;
 
 import simcity.PersonAgent;
+import simcity.TheCity;
 import simcity.restaurants.restaurant1.CashierRole.Check;
 import simcity.restaurants.restaurant1.WaiterRole;
 import simcity.restaurants.restaurant1.HostRole;
@@ -101,9 +102,14 @@ public class Restaurant1CustomerRole extends Role implements Customer {
 	@Override
 	public void startBuildingMessaging(){
 		//Set host and cashier
-		host = (HostRole) myPerson.currentPreference.getHost();
-		cashier = (CashierRole) myPerson.currentPreference.getCashier();
-		gotHungry();
+		//host = (HostRole) myPerson.currentPreference.getHost();
+		//cashier = (CashierRole) myPerson.currentPreference.getCashier();
+		//host = (Role)((Restaurant1) TheCity.getBuildingFromString("Restaurant 1")).getHost());
+		host = (HostRole) ((Restaurant1)TheCity.getBuildingFromString("Restaurant 1")).getHost();
+		if(host.checkWorkStatus())
+			gotHungry();
+		else
+			myPerson.leftBuilding(this);
 	}
 	
 	/**

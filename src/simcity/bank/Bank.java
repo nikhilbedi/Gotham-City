@@ -8,6 +8,8 @@ import agent.Role;
 import simcity.Building;
 import simcity.bank.interfaces.BankGreeter;
 import simcity.bank.interfaces.BankTeller;
+import trace.AlertLog;
+import trace.AlertTag;
 
 /**
  * Bank Class
@@ -32,9 +34,8 @@ public class Bank extends Building {
 	 * easy right?
 	 */
 	//uncomment below when ready to do away with Robots
-	BankGreeter greeter;
-/*	greeter = new BankGreeterRole();
-	BankTeller teller = new BankTellerRole();*/
+	BankGreeter greeter = new BankGreeterRole();
+	BankTeller teller = new BankTellerRole();
 	
 	/**
 	 * 2.
@@ -50,8 +51,8 @@ public class Bank extends Building {
 	 * 
 	 * badda bing
 	 */
-	/*BankGreeterGui greeterGui = new BankGreeterGui(greeter, ScreenFactory.getMeScreen(this.getName()));
-	BankTellerGui tellerGui = new BankTellerGui(teller, ScreenFactory.getMeScreen(this.getName()));*/
+	BankGreeterGui greeterGui; 
+	BankTellerGui tellerGui;
 	
 	String bankCustomer = "bankCustomer", bankTeller = "bankTeller", bankGreeter = "bankGreeter";
 	//Location location = new Location(xCoor, yCoor);
@@ -72,13 +73,16 @@ public class Bank extends Building {
 		 * 
 		 * 
 		 */
-		
+		greeterGui = new BankGreeterGui(greeter, ScreenFactory.getMeScreen("Bank"));
+		tellerGui = new BankTellerGui(teller, ScreenFactory.getMeScreen("Bank"));
+		AlertLog.getInstance().logInfo(AlertTag.GUI, "Bank",
+				"Your message here" + ScreenFactory.getMeScreen("bank"));
 		//this is the hours for Bank1
 		setWeekdayHours(9, 17);
 		setWeekendHours(0,0);
-	/*	
+		
 		((BankGreeterRole) greeter).setGui((RoleGui)greeterGui);
-		((BankTellerRole) teller).setGui((RoleGui)tellerGui);*/
+		((BankTellerRole) teller).setGui((RoleGui)tellerGui);
 	
 		/**
 		 * 4.
@@ -88,12 +92,12 @@ public class Bank extends Building {
 		 * 
 		 * We concluded it's better to just hard code the reference Strings instead of getting them for the Role for readability
 		 */
-	/*	
-		jobRoles.put("BankGreeter Early", (Role)greeter);
-		jobRoles.put("BankGreeter Late",  (Role)greeter);
+	
+		jobRoles.put("BankGreeter", (Role)greeter);
+	//	jobRoles.put("BankGreeter Late",  (Role)greeter);
 
-		jobRoles.put("BankTeller Early",(Role)teller);
-		jobRoles.put("BankTeller Late", (Role)teller);*/
+		jobRoles.put("BankTeller",(Role)teller);
+		//jobRoles.put("BankTeller Late", (Role)teller);
 		
 	}
 	

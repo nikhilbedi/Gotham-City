@@ -9,18 +9,19 @@ import java.util.List;
 import javax.swing.ImageIcon;
 
 import simcity.Building;
+import simcity.TheCity;
+
+import simcity.Home.Apartment;
 
 import simcity.Bus;
 
-import simcity.TheCity;
+//import simcity.TheCity;
 
 import simcity.Home.Home;
 import simcity.Market.Market;
 import simcity.bank.Bank;
 import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant1.Restaurant1;
-
-
 import simcity.restaurants.restaurant5.Restaurant5;
 import simcity.restaurants.restaurant3.Restaurant3;
 import simcity.restaurants.restaurant2.Restaurant2;
@@ -30,15 +31,20 @@ import simcity.restaurants.restaurant4.Restaurant4;
 public class MainScreen extends Screen{
 
 	ArrayList<Building> buildings = new ArrayList<Building>();
-	Bus bus = new Bus("clockWise");
+
+	public Bus bus = new Bus("clockWise");
+
 	
 
 
 	public MainScreen()
 	{
+
 		addGui(bus);
 		//so much cleaner
 		buildings = TheCity.getBuildings();
+		addGui(bus);
+
 	}
 
 	public  void paintBackground(Graphics g)
@@ -64,7 +70,9 @@ public class MainScreen extends Screen{
 			int tempX = b.getGuiLocation().getX();
 			int tempY = b.getGuiLocation().getY();
 			if( (x>tempX) && (x<tempX + b.icon.getIconWidth()) && (y>tempY) && (y<tempY+b.icon.getIconHeight())){
+				System.err.println(b.getName());
 				return b.getName();
+				
 			}
 		}
 

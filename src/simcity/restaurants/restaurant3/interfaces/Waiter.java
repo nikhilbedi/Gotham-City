@@ -4,6 +4,8 @@ import simcity.restaurants.restaurant3.*;
 
 public interface Waiter {
 	
+	public abstract String getName();
+	
 	public abstract void msgSitAtTable(Customer c, int table);
 	
 	public abstract void msgReadyToOrder(Customer cust);
@@ -19,5 +21,18 @@ public interface Waiter {
 	public abstract void msgWaiterHereIsCheck(Order o);
 	
 	public abstract void msgDoneEatingAndLeavingTable(Customer cust);
+	
+	public abstract int getCustomersCount();
 
+	public boolean isOnBreak = false;
+
+	public abstract void msgAtTable();
+
+	public abstract void msgAtHost();
+
+	public abstract void msgAtCashier();
+
+	public abstract void msgAtCook();
+
+	public abstract void msgAtStand();
 }

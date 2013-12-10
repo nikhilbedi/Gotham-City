@@ -47,12 +47,8 @@ public class Restaurant2AnimationPanel extends Screen {
 
 	public Restaurant2AnimationPanel() {
 		super();
-		for(Restaurant r : restaurants) {
-			if(r.getName().equals("Restaurant 2")){
-				r2 = r;
-			}
-		}
-		populate();
+	
+		//populate();
 		//setSize(WINDOWX, WINDOWY);
 		//setVisible(true);
 

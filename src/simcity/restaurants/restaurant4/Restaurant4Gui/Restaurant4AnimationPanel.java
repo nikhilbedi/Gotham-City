@@ -56,25 +56,15 @@ public class Restaurant4AnimationPanel extends Screen {
  // public Restaurant4CustomerGui customerGui = new Restaurant4CustomerGui(customerRole);
 //  public Restaurant4CashierRole cashierRole = new Restaurant4CashierRole(cashier);
  // public TheCity cp;
-  private List<Gui> guis = new ArrayList<Gui>();
 
     public Restaurant4AnimationPanel() {
     	super();
-    	for(Restaurant r : restaurants) {
-			if(r.getName().equals("Restaurant 4")){
-				r4 = r;
-			}
-		}
-    	populate();
     	
     }
     
     public Restaurant getRestaurant(){
     	return r4;
     }
-    
-    
-    
     
     public void paintBackground(Graphics g2){
     	super.paintBackground(g2);

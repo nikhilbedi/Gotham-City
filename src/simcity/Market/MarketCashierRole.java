@@ -10,8 +10,10 @@ import simcity.Market.MarketGui.MarketCashierGui;
 import simcity.Market.interfaces.MarketCashier;
 import simcity.Market.interfaces.MarketCustomer;
 import simcity.Market.interfaces.MarketWorker;
+import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant1.CashierRole;
 import simcity.restaurants.restaurant1.Restaurant1;
+import simcity.restaurants.restaurant1.gui.HostGui;
 import simcity.restaurants.restaurant2.Restaurant2;
 import simcity.restaurants.restaurant3.Restaurant3;
 import simcity.restaurants.restaurant4.Restaurant4;
@@ -21,6 +23,7 @@ import simcity.restaurants.restaurant4.interfaces.Restaurant4Cashier;
 import simcity.restaurants.restaurant5.Restaurant5;
 import simcity.PersonAgent;
 import simcity.TheCity;
+import Gui.RoleGui;
 import Gui.ScreenFactory;
 import agent.Role;
 
@@ -37,10 +40,10 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	public List<MarketCustomer> customersInMarket = new ArrayList<MarketCustomer>();
 	public Restaurant4CashierRole cashier4;
 //	public Restaurant1CashierRole cashier1;
-//	cashier2;
-//	cashier3;
-//	cashier1;
-//	cashier5;
+//	public Restaurant2CashierRole cashier2;
+//	public Restaurant3CashierRole cashier3;
+//	public Restaurant1CashierRole cashier1;
+//	public Restaurant5CashierRole cashier5;
 	
 	//private PersonAgent person;
 	public MarketCashierRole(PersonAgent p){
@@ -90,8 +93,9 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	}
 
 	
-	public void setGui(MarketCashierGui gui){
-		cashierGui = gui;
+	public void setGui(RoleGui gui){
+		super.setGui(gui);
+		cashierGui = (MarketCashierGui)gui;
 	}
 
 	public void needFood(MarketCustomer mcr){ //when customer just arrives to the market and in a wating line 
@@ -121,9 +125,9 @@ public class MarketCashierRole extends Role implements MarketCashier{
 		stateChanged();
 	}
 	
-	public void INeedFood(Map<String, Integer> food, Role role, Role cashier){ //order from restaurant
+	public void INeedFood(Map<String, Integer> food, Role role, Role cashier, Restaurant rest){ //order from restaurant
 		System.out.println(myPerson.name + ": " + "Got new order from restaurant cook" + role);
-		restaurantOrders.add(new RestaurantOrder(food, role, cashier));
+		restaurantOrders.add(new RestaurantOrder(food, role, cashier, rest));
 		stateChanged();
 	}
 	
@@ -146,7 +150,7 @@ public class MarketCashierRole extends Role implements MarketCashier{
 		}
 	}
 	
-	public void foodIsDelivered(Role role){
+	public void foodIsDelivered(Role role){  //who will send this? maybe truck will send it to the worker and worker will send it to the cashier
 		for (RestaurantOrder order: restaurantOrders){
 			if (order.cookRole == role){
 				myPerson.Do("Here!!!!!!!!!!!");
@@ -223,7 +227,7 @@ public class MarketCashierRole extends Role implements MarketCashier{
          cashier4 = (Restaurant4CashierRole) r4.getCashier();
          myPerson.Do("cashier " + cashier4);*/
          //Restaurant1 r1 = ((Restaurant)
-             
+		 setCashiers();
              Map<String, Integer> temp = o.foodNeeded;
              for (Map.Entry<String, Integer> entry: temp.entrySet()){ //for now market has always enough
                      int quant = entry.getValue();
@@ -238,7 +242,7 @@ public class MarketCashierRole extends Role implements MarketCashier{
              if (o.cashierRole == cashier4){
                      ((Restaurant4CashierRole) o.cashierRole).amountDue(o.amountDue, this);
              }*/
-             worker.SendFood(temp, o.cookRole);
+             worker.SendFood(temp, o.cookRole, o.rest);
 	}
 	
 	public void GiveChangeRestaurant(RestaurantOrder order){
@@ -288,12 +292,13 @@ public class MarketCashierRole extends Role implements MarketCashier{
 		public State state;
 		public enum State {pending, processing, gotMoney, paying, paid};
 		double amountDue;
-		
-		public RestaurantOrder(Map<String,Integer> food, Role role, Role cashier){
+		private Restaurant rest;
+		public RestaurantOrder(Map<String,Integer> food, Role role, Role cashier, Restaurant r){
 			cashierRole = cashier;
 			cookRole = role;
 			foodNeeded = food;
 			state = State.pending;
+			rest = r;
 		}
 	}
 

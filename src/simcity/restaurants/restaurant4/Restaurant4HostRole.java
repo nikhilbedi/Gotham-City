@@ -107,7 +107,7 @@ public class Restaurant4HostRole extends Role implements Restaurant4Host{
 	public void setWaiter(Restaurant4Waiter waiter){
 		availableWaiters.add(waiter);
 		System.out.println(availableWaiters.size());
-		stateChanged();
+	//	stateChanged();
 	}
 	
 	public void wantABreak(Restaurant4Waiter w){

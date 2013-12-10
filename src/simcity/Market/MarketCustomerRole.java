@@ -63,7 +63,7 @@ public class MarketCustomerRole extends Role implements MarketCustomer{
 		System.out.println("start build");
 		//System.out.println(person);
 		//print("maket" +myperson.markets.size());
-		cashier = myPerson.markets.get(0).getCashier();
+		cashier = myPerson.getMarkets().get(0).getCashier();
 	}
 	
 	public void AtCashier(){//from gui
