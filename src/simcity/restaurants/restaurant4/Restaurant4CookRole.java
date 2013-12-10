@@ -133,13 +133,14 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 		order = false;
 		myPerson.Do("Sending market worker message that I got food");
 		worker.Delivered(r4);
+		
 		for (Map.Entry<String, Integer> entry: m.entrySet()){
 			Food f = foods.get(entry.getKey());
 			f.amount = f.amount + entry.getValue();
 			foods.put(entry.getKey(), f);
-			myPerson.Do("Got order from market, now I have " + f.type + " " + f.amount);
+			System.err.println("Got order from market, now I have " + f.type + " " + f.amount);
 		}
-		
+		neededFood.clear();
 	}
 	//scheduler
 	
@@ -273,7 +274,7 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
                 public String type;
                 public int amount;
                 public int low=2;
-                public int capacity=6;
+                public int capacity=15;
                 public FoodState state;
                 public enum FoodState {enough, ordering, low};
                 public Map<String, Integer> cookTime = new HashMap<String,Integer>();
