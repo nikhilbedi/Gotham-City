@@ -264,11 +264,6 @@ public class HostRole extends Role implements Host {
 	}
 
 	// Actions
-	private void leaveWork() {
-		//theManLeavingMe.leftBuilding(this);
-		theManLeavingMe.leaveWork(this);
-		theManLeavingMe = null;
-	}
 	
 	private void waiterWantsBreak(MyWaiter mw) {
 		//compare how many waiters to customers there are. 

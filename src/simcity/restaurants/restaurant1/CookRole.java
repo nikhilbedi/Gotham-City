@@ -190,10 +190,6 @@ public class CookRole extends Role implements Cook {
 	}
 
 	// Actions
-	private void leaveWork() {
-		theManLeavingMe.leaveWork(this);
-		theManLeavingMe = null;
-	}
 	
 	private void goCheckStand() {
 		print("checking stand");

@@ -324,10 +324,6 @@ public class WaiterSharedData extends Role implements Waiter {
 	}
 
 	// Actions
-	private void leaveWork() {
-		theManLeavingMe.leaveWork(this);
-		theManLeavingMe = null;
-	}
 	
 	/**
        Correctly seats customer and hands customer menu.

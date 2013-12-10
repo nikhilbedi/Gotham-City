@@ -38,6 +38,11 @@ public class Role {
 		stateChanged();
 	}
 
+	protected void leaveWork() {
+		theManLeavingMe.leaveWork(this);
+		theManLeavingMe = null;
+	}
+	
 	/**
 	 * Base class for simple roles
 	 */
