@@ -130,7 +130,61 @@ public class Restaurant5 extends Restaurant {
 		ScreenFactory.getMeScreen("Restaurant 5").addGui(cashierGui);*/
 
 	}
+	
+	public Restaurant5(String type, int entranceX, int entranceY, int guiX,
+			int guiY, int exitX, int exitY) {
+		super(type, entranceX, entranceY, guiX, guiY, exitX, exitY);
 
+		//waiters.add((WaiterRole)waiter1);//do i need this?
+		menu = new Menu();
+
+		setWeekdayHours(9, 17);
+		//TODO change to 0 0 
+		setWeekendHours(4,24);
+
+
+		((HostRole) host).setGui((RoleGui)hostGui);
+		((CashierRole) cashier).setGui((RoleGui)cashierGui);
+		((WaiterRole) waiter1).setGui((RoleGui)waiterGui1);
+		((PCWaiterRole) waiter2).setGui((RoleGui)waiterGui2);
+		((CookRole) cook).setGui((RoleGui)cookGui);
+
+		jobRoles.put("Host", (Role)host);
+		//jobRoles.put("Host Late",  (Role)host);
+
+		jobRoles.put("Cashier",(Role)cashier);
+		//jobRoles.put("Cashier Late", (Role)cashier);
+
+		jobRoles.put("Waiter1",(Role)waiter1);
+		jobRoles.put("Waiter2",(Role)waiter2);
+
+		//jobRoles.put("Waiter1 Late", (Role)waiter1);
+
+		jobRoles.put("Cook",(Role)cook);
+		//jobRoles.put("Cook Late", (Role)cook);
+
+
+		/*PersonAgent waiterPerson = new Robot("waiter");
+		PersonAgent hostPerson = new Robot("host");
+		PersonAgent cookPerson = new Robot("cook");
+		PersonAgent cashierPerson = new Robot("cashier");*/
+
+		/*	waiterPerson.addRole((WaiterRole)waiter1);
+		hostPerson.addRole((HostRole)host);
+		cookPerson.addRole((CookRole)cook);
+		cashierPerson.addRole((CashierRole)cashier);*/
+
+		((WaiterRole)waiter1).setHost(host);
+		((WaiterRole)waiter1).setCook(cook);
+		((WaiterRole)waiter1).setCashier(cashier);
+		((HostRole)host).addWaiter(waiter1);
+
+		/*		ScreenFactory.getMeScreen("Restaurant 5").addGui(hostGui);
+		ScreenFactory.getMeScreen("Restaurant 5").addGui(cookGui);
+		ScreenFactory.getMeScreen("Restaurant 5").addGui(waiterGui);
+		ScreenFactory.getMeScreen("Restaurant 5").addGui(cashierGui);*/
+
+	}
 
 	public String getCustomerName(){
 		return "restaurant5customer";

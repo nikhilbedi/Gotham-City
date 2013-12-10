@@ -5,6 +5,7 @@ import java.util.*;
 import Gui.ScreenFactory;
 import agent.Role;
 import simcity.CityClock;
+import simcity.Item;
 import simcity.Market.MarketCustomerRole;
 import simcity.Market.MarketGui.MarketCustomerGui;
 import simcity.restaurants.Restaurant;
@@ -13,6 +14,7 @@ import simcity.restaurants.restaurant1.gui.CookGui;
 import simcity.restaurants.restaurant1.gui.HostGui;
 import simcity.restaurants.restaurant1.gui.WaiterGui;
 import simcity.restaurants.restaurant1.gui.WaiterSharedDataGui;
+import simcity.restaurants.restaurant4.Restaurant4CookRole;
 import trace.AlertLog;
 import trace.AlertTag;
 
@@ -29,7 +31,7 @@ public class Restaurant1 extends Restaurant {
 	WaiterSharedData waiter2 = new WaiterSharedData();
 	WaiterRole waiter3 = new WaiterRole();
 	WaiterSharedData waiter4 = new WaiterSharedData();
-	
+	Vector<Item> inventory = new Vector<Item>();
 	//The GUIs
 	CookGui cookGui = new CookGui(cook, ScreenFactory.getMeScreen("Restaurant 1"));
 	WaiterGui w1Gui = new WaiterGui(waiter1, 0, ScreenFactory.getMeScreen("Restaurant 1"));
@@ -85,7 +87,53 @@ public class Restaurant1 extends Restaurant {
 		//Remove the guis until people come in to take those roles
 		//hostGui.getHomeScreen().removeGui(hostGui);
 	}
-
+	
+	public Restaurant1(String type, int entranceX, int entranceY, int guiX,
+			int guiY, int exitX, int exitY) {
+		super(type, entranceX, entranceY, guiX, guiY, exitX, exitY);
+		//Set the open and closing hours
+		setWeekdayHours(8, 22);
+		setWeekendHours(9, 21);
+		//Set guis
+		cook.setGui(cookGui);
+		waiter1.setGui(w1Gui);
+		waiter2.setGui(w2Gui);
+		waiter3.setGui(w1Gui);
+		waiter4.setGui(w2Gui);
+		host.setGui(hostGui);
+		cashier.setGui(cashierGui);
+		//Setting roles to each other
+		host.addWaiter(waiter1);
+		host.addWaiter(waiter2);
+		host.addWaiter(waiter3);
+		host.addWaiter(waiter4);
+		waiter1.setHost(host);
+		waiter2.setHost(host);
+		waiter3.setHost(host);
+		waiter4.setHost(host);
+		waiter1.setCashier(cashier);
+		waiter2.setCashier(cashier);
+		waiter3.setCashier(cashier);
+		waiter4.setCashier(cashier);
+		waiter1.setCook(cook);
+		waiter2.setCook(cook);
+		waiter3.setCook(cook);
+		waiter4.setCook(cook);
+		//Add the key: strings & value: roles
+		Map<String, Role> jobs = Collections.synchronizedMap(new HashMap<String, Role>());
+		jobs.put("host", host);
+		jobs.put("cashier", cashier);
+		jobs.put("cook", cook);
+		jobs.put("waiter1", waiter1);
+		jobs.put("waiter2", waiter2);
+		jobs.put("waiter3", waiter3);
+		jobs.put("waiter4", waiter4);
+		setJobRoles(jobs);
+		
+		//Remove the guis until people come in to take those roles
+		//hostGui.getHomeScreen().removeGui(hostGui);
+	}
+	
 	/**
 	 * Not only must a person check if the business is open between certain hours,
 	 * but the person must check if all the necessary roles are present within the building.
@@ -133,7 +181,7 @@ public class Restaurant1 extends Restaurant {
 	}
 
 	@Override
-	public Role getCashier() {
+	public CashierRole getCashier() {
 		return (CashierRole)cashier;
 	}
 	
@@ -143,7 +191,7 @@ public class Restaurant1 extends Restaurant {
 	}
 
 	@Override
-	public Role getCook() {
+	public CookRole getCook() {
 		return (CookRole)cook;
 	}
 
@@ -160,4 +208,17 @@ public class Restaurant1 extends Restaurant {
 				+ "Please resize on the right side to see it.");
 		return info;
 	}
+	public Vector<Item> getStockItems(){
+		inventory = cook.getInventory();
+		AlertLog.getInstance().logInfo(AlertTag.GUI, "Rest 5",
+				inventory.toString());
+		return inventory;
+	}
+	
+	public void updateItem(String s, int hashCode) {
+		// TODO Auto-generated method stub
+		//THIS MUST BE UPDATED BY YOUR BUILDING
+		cook.updateItem(s, hashCode);
+	}
+	 
 }

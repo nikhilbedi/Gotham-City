@@ -26,7 +26,7 @@ public class BuildingInfoPanel extends JPanel implements ChangeListener{
 	
 
 	public BuildingInfoPanel(){
-		setBackground(Color.orange);
+		setBackground(Color.white);
 		
 		setPreferredSize(new Dimension(200,600));
 		setMinimumSize(new Dimension(200,600));
@@ -49,7 +49,12 @@ public class BuildingInfoPanel extends JPanel implements ChangeListener{
 	public void setB(Building b) {
 		this.b = b;
 	}
-	
+
+	public void setBuildingAndUpdate(Building b){
+		this.b = b;
+		refresh();
+		
+	}
 	public void addField(String s, int num){
 		LabeledSpinner newSpin = new LabeledSpinner(s, num);
 		newSpin.addChangeListener(this);
@@ -63,7 +68,7 @@ public class BuildingInfoPanel extends JPanel implements ChangeListener{
 		//adds bank rob button probably should go somewhere else
 		if(b.getName().equalsIgnoreCase("Bank")){
 			//AlertLog.getInstance().logInfo(AlertTag.GUI, "BuildingInfoPanel", "In bank check");
-			add(new JButton("Robbberyy"));
+			//add(new JButton("Robbberyy"));
 		}
 		
 		//debug
@@ -92,14 +97,11 @@ public class BuildingInfoPanel extends JPanel implements ChangeListener{
 		}
 	}
 	
-	public void update(Vector<String> strings){
+	public void inputInfo(Vector<String> strings){
 		info.clear();
 		for(String s: strings){
 			info.add(new JLabel(s));
 		}
-		
-		//this is named so badly lol
-		updateInfo();
 	}
 
 	@Override
@@ -142,9 +144,15 @@ public class BuildingInfoPanel extends JPanel implements ChangeListener{
 	}
 	public void refresh(){
 		if(b == null){
+			info.clear();
+			info.add(new JLabel("Select a building to see info"));
+			updateInfo();
+			repaint();
 			return;
 		}
-		update(b.getBuildingInfo());
+		inputInfo(b.getBuildingInfo());
+		updateInfo();
 		getUpdators(b);
+		repaint();
 	}
 }

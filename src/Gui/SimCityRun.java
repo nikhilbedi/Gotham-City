@@ -90,9 +90,7 @@ public class SimCityRun extends JFrame implements ActionListener
 		//Create UI
 		tabs = new CityTabbedPane();
 
-		//Info tab
-		buildingPanel  = new BuildingInfoPanel();
-		tabs.addPanel(buildingPanel, "Info");
+		
 
 		//Buildings tab
 		buildingControl = new BuildingControlPanel();
@@ -107,6 +105,10 @@ public class SimCityRun extends JFrame implements ActionListener
 		infoControl.add(peopleList);
 		infoControl.add(info);
 		tabs.addPanel(infoControl, "People");
+		
+		//Info tab
+		buildingPanel  = new BuildingInfoPanel();
+		tabs.addPanel(buildingPanel, "Info");
 
 		//Debug tab
 		JPanel debugPanel = new JPanel();
@@ -140,6 +142,8 @@ public class SimCityRun extends JFrame implements ActionListener
 		//Sample reading an XML file
 
 		//XMLHelper.createPeople("sampleXML.xml");
+		//XMLHelper.createPeople("Restaurant5.xml");
+		//XMLHelper.createPeople("Restaurant2.xml");
 		//XMLHelper.createPeople("Restaurant1Complete.xml");
 		XMLHelper.createPeople("DedicatedWorkers.xml");
 

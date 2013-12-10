@@ -2,8 +2,11 @@ package simcity.restaurants.restaurant1;
 
 import Gui.RoleGui;
 import agent.Agent;
+import simcity.Item;
 import simcity.PersonAgent;
+import simcity.TheCity;
 import simcity.tests.mock.*;
+import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant1.RevolvingStand;
 import simcity.restaurants.restaurant1.WaiterRole;
 import simcity.restaurants.restaurant1.Restaurant1CustomerRole;
@@ -12,15 +15,20 @@ import simcity.restaurants.restaurant1.gui.CookGui;
 import simcity.restaurants.restaurant1.gui.WaiterGui;
 import simcity.restaurants.restaurant1.gui.CookGui.FoodGui;
 import simcity.restaurants.restaurant1.interfaces.*;
+import simcity.restaurants.restaurant4.Restaurant4CookRole.Food;
 import trace.AlertLog;
 import trace.AlertTag;
 import agent.Role;
+import simcity.Market.Market;
+import simcity.Market.MarketWorkerRole;
 
 import java.util.*;
 import java.util.concurrent.Semaphore;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Vector;
 
 /**
  * Restaurant Cook Agent
@@ -41,18 +49,22 @@ public class CookRole extends Role implements Cook {
 	private CookGui cookGui;
 	private int nextMarket = 1;
 	private Timer cookingTimer = new Timer();
-
+	private Map<String, Integer> neededFood = new HashMap<String, Integer>();
 	private Map<String,Food> foods = new HashMap<String, Food>() {{
 		//the parameters for each food are (String type, int time [in seconds], int amount, int capacity) 
-		put("Pizza", new Food("Pizza", 5, 100, 4));
-		put("Steak", new Food("Steak", 7, 100, 4));
-		put("Salad", new Food("Salad", 3, 100, 4));
+		put("Pizza", new Food("Pizza", 5, 2, 4));
+		put("Steak", new Food("Steak", 7, 2, 4));
+		put("Salad", new Food("Salad", 3, 2, 4));
 	}};
-
+	Restaurant r1;
 	//creating states outside the Order class
 	public enum OrderState {pending, cooking, done, plated, pickedUp, finished};
 	public enum FoodState {haveEnough, needToOrderMore, waitingForDeliveries};
-
+	private boolean order = false;
+	private boolean needFood = false;
+	
+	
+	
 	public CookRole(PersonAgent p) {
 		super(p);
 	}
@@ -138,10 +150,23 @@ public class CookRole extends Role implements Cook {
 		//message waiter to add food to menu
 	}
 
-	public void HereIsYourFood(Map<String,Integer> m) {
-		//Add items to my inventory TODO
+	
+	public void HereIsYourFood(Map<String, Integer> m, MarketWorkerRole worker){ //from market
+		needFood = false;
+		order = false;
+		myPerson.Do("Sending market worker message that I got food");
+		worker.Delivered(r1);
+		neededFood.clear();
+		for (Map.Entry<String, Integer> entry: m.entrySet()){
+			Food f = foods.get(entry.getKey());
+			f.amount = f.amount + entry.getValue();
+			foods.put(entry.getKey(), f);
+			System.err.println("Got order from market, now I have " + f.type + " " + f.amount);
+		}
+		
 	}
-
+	
+	
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
@@ -156,10 +181,21 @@ public class CookRole extends Role implements Cook {
 			orderFoodThatIsLow(f.type);
 			}*/
 			if(f.pendingAmt <= f.low && f.state == FoodState.needToOrderMore) {
-				orderFoodThatIsLow(f.type);
-				return true;
+				neededFood.put(f.type, f.capacity-f.amount);
+				needFood = true;
+				System.err.println("Restaurant 1 Ordering food " + f.type);
+				//orderFoodThatIsLow(f.type);
 			}
 		}
+		
+		if (needFood == true && order == false){
+			order = true;
+			System.err.println("Restaurant 1  about to order food !!!!!!!!!!!!!!!!!!!!!!!!1");
+			orderFoodThatIsLow();
+			return true;
+		}
+		
+		
 
 		synchronized(orders) {
 			for (Order o : orders) {
@@ -274,10 +310,14 @@ public class CookRole extends Role implements Cook {
 		}
 	}
 
-	private void orderFoodThatIsLow(String item) {
+	private void orderFoodThatIsLow() {
+		Market m = (Market) TheCity.getBuildingFromString("Market");
+		r1 = (Restaurant) TheCity.getBuildingFromString("Restaurant 1");
+		System.out.println("Retsauarnt 1 in order food that is low Ordering food from market");
+		m.getCashier().INeedFood(neededFood, r1);
 		//the parameter below is a way of cycling through different markets
 		//MarketRole m = markets.get(nextMarket % markets.size());
-		MarketRole m = new MarketRole("market");
+	/*	MarketRole m = new MarketRole("market");
 		Food f = foods.get(item);
 		Map<String, Integer> mapToSend = new HashMap<String, Integer>();
 		for(Food f1: foods.values()) {
@@ -291,7 +331,7 @@ public class CookRole extends Role implements Cook {
 		}
 		if(!mapToSend.isEmpty()) {
 			//marketCashier.INeedFood(mapToSend, this, cashier);
-		}
+		}*/
 		//nextMarket++;
 	}
 
@@ -301,8 +341,8 @@ public class CookRole extends Role implements Cook {
 
 	public void setGui(RoleGui g) {
 		super.setGui(g);
-		AlertLog.getInstance().logInfo(AlertTag.GUI, "CookROle",
-				"At this point: " + g.toString());
+/*		AlertLog.getInstance().logInfo(AlertTag.GUI, "CookROle",
+				"At this point: " + g.toString());*/
 		cookGui = (CookGui) g;
 	}
 
@@ -341,7 +381,7 @@ public class CookRole extends Role implements Cook {
 		public Food(int time, double cost) {
 			cookingTime = time;
 			price = cost;
-			amount = 3;
+			amount = 2;
 		}
 
 		public Food(String t, int time, int amt, int fill) {
@@ -356,5 +396,24 @@ public class CookRole extends Role implements Cook {
 			cookingTime = food.cookingTime;
 			price = food.price;
 		}
+	}
+	
+	public Vector<Item> getInventory(){
+		Vector<Item> inventory = new Vector<Item>();
+		for (Map.Entry<String, Food> f : foods.entrySet())//check food amount
+		{
+			inventory.add(new Item(f.getKey(), f.getValue().amount));
+			/*AlertLog.getInstance().logInfo(AlertTag.GUI, "CookRole",
+					"Key: " + f.getKey() + " Value: " + f.getValue());*/
+		}
+		AlertLog.getInstance().logInfo(AlertTag.GUI, "CookRole",
+				inventory.toString());
+		return inventory;
+	}
+	
+	public void updateItem(String s, int hashCode) {
+		// TODO Auto-generated method stub
+		Food f = foods.get(s);
+		foods.get(s).amount = hashCode;
 	}
 }

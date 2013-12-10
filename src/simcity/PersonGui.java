@@ -282,19 +282,17 @@ public class PersonGui extends RoleGui {
 		}
 		else if (agent.transportationState == TransportationState.Car){
 			this.destination = destination;
-			for (Map.Entry<Location, Location> entry: parkingLocation.entrySet()){
-				if (entry.getKey()==destination){
-					Car car = new Car(xPos, yPos, entry.getValue().getX(), entry.getValue().getY());
+			/*for (Map.Entry<Location, Location> entry: parkingLocation.entrySet()){
+				if (entry.getKey()==destination){*/
+					Car car = new Car(xPos, yPos, destination.getX(), destination.getY());
 					car.command = "moving";
 					car.setOwner(this);
 					ScreenFactory.main.addGui(car);
-				}
-			}
+				/*}
+			}*/
 			System.out.println("Car");
 			tempStill = true;
 			getHomeScreen().removeGui(this);
-			
-			
 		}
 	}
 
@@ -327,9 +325,9 @@ public class PersonGui extends RoleGui {
 	
 	void guiMoveFromCurrentPositionTo(final int x, final int y){ // Brice - Method for traveling along the grid within the City Screen
 	 	if(finalX == x && finalY == y) {
-	 		System.out.println("AT PLACE");
 	 		grid[x][y] = prevTile;
-	 		reachedBuilding();
+	 		//if(finalX == xDestination && finalY == yDestination)
+	 			reachedBuilding();
 	 		return;
 	 	}
 	 	
