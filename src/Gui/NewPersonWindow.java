@@ -18,10 +18,13 @@ import java.util.Vector;
 
 import javax.swing.*;
 
+import simcity.Building;
 import simcity.CityClock;
 import simcity.PersonAgent;
 import simcity.PersonGui;
+import simcity.RoleFactory;
 import simcity.Home.Apartment;
+import simcity.Home.LandlordRole;
 
 import simcity.TheCity;
 import simcity.Home.Home;
@@ -187,7 +190,6 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 			//newPersonGui.setColor(Color.green);
 			mainScreen.addGui(newPersonGui);
 			
-			//setJob
 
 			newPerson.setGui(newPersonGui);	
 			newPerson.setRestaurants(TheCity.getRestaurantList());
@@ -207,26 +209,44 @@ public class NewPersonWindow extends JFrame implements ActionListener {
 
 			//setJob
 			if(!jobLocation.getSelectedItem().toString().equalsIgnoreCase("no job")){ //Not sure how your code works, but this might do the trick - Nikhil
-				newPerson.setJob(jobLocation.getSelectedItem().toString(), TheCity.getBuildingFromString(jobLocation.getSelectedItem().toString()));//will this work?
+				Building workplace = TheCity.getBuildingFromString(jobLocation.getSelectedItem().toString());
+				newPerson.setJob(workplace.getRoleFromString(jobPosition.getSelectedItem().toString()), workplace);//will this work?
+				jobPositionList.get(jobLocation.getSelectedIndex()).remove(jobPosition.getSelectedIndex());
 				//I had to change instance names and add this if statement, but yes, it will work
 			}
 				
 			//setting Transportation
 
 			System.out.println("Preferred Transportation: " + transportation.getSelectedItem().toString());
-			//newPerson.setPreferredTransportation(transportation.getSelectedItem().toString());
+			newPerson.setPreferredTransportation(transportation.getSelectedItem().toString());
 
-			newPerson.setPreferredTransportation("Bus");
+
+			//newPerson.setPreferredTransportation("Walking");
+			//newPerson.setPreferredTransportation("Bus");
 
 
 
 			//set home
+			String homeString = home.getSelectedItem().toString();
+			System.out.println(homeString);
+			if(homeString.contains("None")){
+				
+			}
+			else if(homeString.contains("ome")){
+			newPerson.setHome((Home)TheCity.getBuildingFromString(homeString));
+		
+			}
+			else if(homeString.contains("part")){
+			newPerson.setHome((Apartment)TheCity.getBuildingFromString(homeString));
+			}
 
-			if(CityClock.getPeople().size() < 1)
-				newPerson.setHome((Home)TheCity.getBuildingFromString("Home"));
-				//newPerson.setHome((Apartment)TheCity.getBuildingFromString("Apartment 1"));
-
-			
+			//setting properties
+			LandlordRole landlord = (LandlordRole) RoleFactory.makeMeRole("landlord");
+			newPerson.setHomeOwnerRole(landlord);
+			if( homeOwned.getSelectedItem().toString().contains("ome") ){
+				landlord.addToHomeList((Home) TheCity.getBuildingFromString(homeOwned.getSelectedItem().toString()));
+				homeOwnerList.remove(homeOwned.getSelectedIndex());
+			}
 			
 			newPerson.startThread();
 

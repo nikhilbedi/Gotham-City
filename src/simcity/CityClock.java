@@ -14,7 +14,7 @@ public final class CityClock {
 	private static Vector<PersonAgent> people = new Vector<PersonAgent>();
 	private static Timer timer = new Timer();
 	private static int currentTime = 1;
-	private static long hourLength = 4000;//here is where you set the length of an hour in milliseconds
+	private static long hourLength = 7000;//here is where you set the length of an hour in milliseconds
 	private static int day = 0;
 
 

@@ -7,6 +7,7 @@ import simcity.Building;
 import simcity.Location;
 import simcity.PersonGui;
 import simcity.Home.Home;
+import simcity.Home.LandlordRole;
 import simcity.Market.Market;
 import simcity.PersonAgent.RentBill;
 import simcity.bank.Bank;
@@ -33,7 +34,7 @@ public interface Person {
 
 
 	//functions so we can function
-	public abstract void setHomeOwnerRole();
+	public abstract void setHomeOwnerRole(LandlordRole role);
 	
 	public void addMoney(double amount);
 

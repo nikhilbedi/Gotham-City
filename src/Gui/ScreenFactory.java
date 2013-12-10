@@ -34,6 +34,11 @@ public class ScreenFactory {
 
 	public static Screen bank;
 	public static Screen home;
+	public static Screen home1;
+	public static Screen home2;
+	public static Screen home3;
+	public static Screen home4;
+	public static Screen home5;
 	public static Screen apart;
 
 
@@ -47,6 +52,10 @@ public class ScreenFactory {
  		rest5 = new RestaurantHunterAnimationPanel();		
  		rest2 = new Restaurant2AnimationPanel();
 		home = new HomeAnimationPanel();
+		home1 = new HomeAnimationPanel();
+		home2 = new HomeAnimationPanel();
+		home3 = new HomeAnimationPanel();
+		home4 = new HomeAnimationPanel();
  		apart = new ApartmentAnimationPanel();	
 		rest3 = new RestaurantEvanAnimationPanel();
 	
@@ -57,6 +66,10 @@ public class ScreenFactory {
 		screenList.add(rest2);
 		screenList.add(rest4);
 		screenList.add(home);
+		screenList.add(home1);
+		screenList.add(home2);
+		screenList.add(home3);
+		screenList.add(home4);
 		screenList.add(rest5);
 		screenList.add(rest3);
 		screenList.add(rest4);
@@ -133,6 +146,18 @@ public class ScreenFactory {
 		}
 		if(s.equalsIgnoreCase("Home")){
 			return home;
+		}
+		if(s.equalsIgnoreCase("Home1")){
+			return home1;
+		}
+		if(s.equalsIgnoreCase("Home2")){
+			return home2;
+		}
+		if(s.equalsIgnoreCase("Home3")){
+			return home3;
+		}
+		if(s.equalsIgnoreCase("Home4")){
+			return home4;
 		}
 		return null;
 	}
