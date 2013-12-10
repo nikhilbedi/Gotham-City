@@ -27,17 +27,21 @@ public class Job {
 		int endOpen = workplace.getWeekendOpen();
 		int endClose = workplace.getWeekendClose();
 
+		weekDayOnWork = 2; // 8am
+		weekDayOffWork = 25; // military hours - 17 == 5pm
+		weekEndOnWork = 2;
+		weekEndOffWork = 25;
 		if(shift == 1) {
-			/*weekDayOnWork = dayOpen;
+		/*	weekDayOnWork = dayOpen;
 			weekDayOffWork = (dayClose-dayOpen)/2 + dayOpen;
 			weekEndOnWork = endOpen;
-			weekEndOffWork = (endClose-endOpen)/2 + endOpen;*/
+			weekEndOffWork = (endClose-endOpen)/2 + endOpen;
 			weekDayOnWork = 2; // 8am
 			weekDayOffWork = 13; // military hours - 17 == 5pm
 			weekEndOnWork = 13;
 			weekEndOffWork = 2;
 
-			/*
+			
 			weekDayOnWork = w.weekdayOpen;
 			weekDayOffWork = w.weekdayClose;
 			weekEndOnWork = w.weekendOpen;
@@ -45,10 +49,10 @@ public class Job {
 		}
 			//Never goes to work
 			else if(shift == 2) {
-				weekDayOnWork = 13; // 8am
+			/*	weekDayOnWork = 13; // 8am
 				weekDayOffWork = 1; // military hours - 17 == 5pm
 				weekEndOnWork = 1;
-				weekEndOffWork = 13;
+				weekEndOffWork = 13;*/
 			/*	weekDayOnWork = (dayClose-dayOpen)/2 + dayOpen;
 				weekDayOffWork = dayClose;
 				weekEndOnWork = (endClose-endOpen)/2 + endOpen;
