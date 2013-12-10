@@ -10,6 +10,7 @@ import java.util.Vector;
 import javax.print.attribute.standard.MediaSize.NA;
 
 import simcity.CityClock;
+import simcity.Item;
 import simcity.PersonAgent;
 import Gui.RoleGui;
 import agent.Role;
@@ -21,6 +22,9 @@ import simcity.restaurants.restaurant3.gui.CookGui;
 import simcity.restaurants.restaurant3.gui.HostGui;
 import simcity.restaurants.restaurant3.gui.WaiterGui;
 import simcity.restaurants.restaurant3.interfaces.*;
+import simcity.restaurants.restaurant5.CookRole;
+import trace.AlertLog;
+import trace.AlertTag;
 import agent.Agent;
 import Gui.ScreenFactory;
 
@@ -72,6 +76,7 @@ public class Restaurant3 extends Restaurant {
 	public Map<Customer, Double> owed = Collections.synchronizedMap(new HashMap<Customer, Double>());
 	private double restaurantRevenue = 100;
 
+	Vector<Item> inventory = new Vector<Item>();
 
 	public Restaurant3(String type, int entranceX, int entranceY, int guiX,
 			int guiY) {
@@ -239,6 +244,18 @@ public class Restaurant3 extends Restaurant {
 		info.add("Created by: Evan Coutre");
 		info.add("this is even more super class info");
 		return info;
+	}
+	public Vector<Item> getStockItems(){
+		inventory = ((CookRole) cook).getInventory();
+		AlertLog.getInstance().logInfo(AlertTag.GUI, "Rest 3",
+				inventory.toString());
+		return inventory;
+	}
+
+	public void updateItem(String s, int hashCode) {
+		// TODO Auto-generated method stub
+		//THIS MUST BE UPDATED BY YOUR BUILDING
+		((CookRole) cook).updateItem(s, hashCode);
 	}
 
 }

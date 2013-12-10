@@ -92,7 +92,8 @@ public class Restaurant3CustomerGui extends RoleGui{
 				//gui.setCustomerEnabled(agent);
 				command=Command.noCommand;
 			}
-			else if(command==Command.GoToCashier) agent.msgAnimationFinishedGoToCashier();
+			else if(command==Command.GoToCashier) 
+				agent.msgAnimationFinishedGoToCashier();
 			else
 			command=Command.noCommand;
 		}
@@ -160,6 +161,7 @@ public class Restaurant3CustomerGui extends RoleGui{
 	public void DoGoToCashier() {
     	xDestination = 600;
     	yDestination = 200;
+    	command = Command.GoToCashier;
     }
 	
 	 public int getXPos() {
