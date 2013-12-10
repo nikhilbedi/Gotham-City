@@ -43,6 +43,11 @@ public class CookRole extends Role implements Cook{
 	private List<Integer> neededAmounts = new ArrayList<Integer>();
 
 	Restaurant5 r5;
+	private enum DeliveryState{
+		none, ordered, needOrder
+	}
+	
+	DeliveryState ds = DeliveryState.none;
 	//boolean orderFood = false;
 	//MarketState order = MarketState.free;
 
@@ -163,6 +168,7 @@ public class CookRole extends Role implements Cook{
 	
 	public void HereIsYourFood(Map<String, Integer> m, MarketWorkerRole worker){ //from market
 		//needFood = false;
+		ds = DeliveryState.none;
 		myPerson.Do("Sending market worker message that I got food");
 		worker.Delivered(r5);
 		for (Map.Entry<String, Integer> entry: m.entrySet()){
@@ -194,16 +200,17 @@ public class CookRole extends Role implements Cook{
 		for (Map.Entry<String, Food> f : foodMap.entrySet())//check food amount
 		{
 
-			if((f.getValue().amount <= f.getValue().low ) || (f.getValue().fs == FoodState.partialStock)){
-				if(f.getValue().fs != FoodState.ordering){
+			if(f.getValue().amount <= f.getValue().low ){
+				if(ds != DeliveryState.ordered){
 					int needed = 5;
 					neededFood.put(f.getKey(), needed);
-					f.getValue().fs = FoodState.ordering;
+					ds = DeliveryState.needOrder;
 				}
 			}
 		}
-		if(neededFood.size()>0){
+		if(ds == DeliveryState.needOrder){
 			orderFood();
+			ds = DeliveryState.ordered;
 		}
 		return false;
 	}

@@ -12,6 +12,7 @@ import javax.swing.event.ChangeListener;
 
 import simcity.Building;
 import simcity.Item;
+import simcity.TheCity;
 import simcity.bank.Bank;
 import trace.AlertLog;
 import trace.AlertTag;
@@ -96,6 +97,8 @@ public class BuildingInfoPanel extends JPanel implements ChangeListener{
 		for(String s: strings){
 			info.add(new JLabel(s));
 		}
+		
+		//this is named so badly lol
 		updateInfo();
 	}
 
@@ -136,5 +139,12 @@ public class BuildingInfoPanel extends JPanel implements ChangeListener{
 		{
 			spin.addChangeListener(c);
 		}
+	}
+	public void refresh(){
+		if(b == null){
+			return;
+		}
+		update(b.getBuildingInfo());
+		getUpdators(b);
 	}
 }

@@ -68,6 +68,9 @@ public class SimCityPanel extends JPanel implements MouseListener, KeyListener
 		while(always)
 		{
 			try{
+				
+				//selPane.refresh();
+				//buildingInfo.refresh();
 				revalidate();
 				repaint();
 				Thread.sleep(10);
