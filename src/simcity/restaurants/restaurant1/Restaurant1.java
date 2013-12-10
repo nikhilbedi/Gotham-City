@@ -53,6 +53,15 @@ public class Restaurant1 extends Restaurant {
 		waiter4.setGui(w2Gui);
 		host.setGui(hostGui);
 		cashier.setGui(cashierGui);
+		//Setting roles to each other
+		host.addWaiter(waiter1);
+		host.addWaiter(waiter2);
+		host.addWaiter(waiter3);
+		host.addWaiter(waiter4);
+		waiter1.setHost(host);
+		waiter2.setHost(host);
+		waiter3.setHost(host);
+		waiter4.setHost(host);
 		//Add the key: strings & value: roles
 		Map<String, Role> jobs = Collections.synchronizedMap(new HashMap<String, Role>());
 		jobs.put("host", host);
