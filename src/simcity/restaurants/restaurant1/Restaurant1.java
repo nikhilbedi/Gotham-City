@@ -86,6 +86,12 @@ public class Restaurant1 extends Restaurant {
 	}
 
 	@Override
+	public boolean isOpen() {
+		
+		return false;
+	}
+	
+	@Override
 	public void setHost(Role host) {
 		this.host = (HostRole) host;
 	}

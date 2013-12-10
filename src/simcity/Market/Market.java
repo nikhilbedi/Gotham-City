@@ -7,9 +7,7 @@ import java.util.List;
 import java.util.Vector;
 import java.util.Map;
 
-
 import Gui.ScreenFactory;
-
 import agent.Role;
 import simcity.Building;
 import simcity.Market.MarketGui.MarketCashierGui;
@@ -70,6 +68,12 @@ public class Market extends Building {
 			marketWorker.getInventory().put("Salad", salad);
 			marketWorker.getInventory().put("Steak", steak);
 		}	
+	
+	@Override
+	public boolean isOpen() {
+		
+		return false;
+	}
 	
 	public void setCashier(MarketCashierRole c){
 		System.out.println("setting cashier");

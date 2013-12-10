@@ -150,6 +150,11 @@ public class Restaurant3 extends Restaurant {
 	}
 
 
+	@Override
+	public boolean isOpen() {
+		
+		return false;
+	}
 
 	//utilities
 	

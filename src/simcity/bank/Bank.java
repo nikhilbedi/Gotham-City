@@ -101,6 +101,11 @@ public class Bank extends Building {
 		
 	}
 	
+	@Override
+	public boolean isOpen() {
+		
+		return false;
+	}
 	
 	public void setGreeter(BankGreeter g) {
 		greeter = g;

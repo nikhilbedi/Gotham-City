@@ -25,6 +25,12 @@ public class Restaurant2 extends Restaurant {
 	//open and closing hours? hmmm..
 	
 	@Override
+	public boolean isOpen() {
+		
+		return false;
+	}
+	
+	@Override
 	public void setHost(Role host) {
 		this.host = (HostRole) host;
 	}
