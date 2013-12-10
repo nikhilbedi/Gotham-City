@@ -61,6 +61,14 @@ public class Bank extends Building {
 	public Bank(String type, int entranceX, int entranceY, int guiX,
 			int guiY) {
 		super(type, entranceX, entranceY, guiX, guiY);
+		//this is the hours for Bank1
+				setWeekdayHours(9, 17);
+				setWeekendHours(0,0);
+	}
+	
+	public Bank(String type, int entranceX, int entranceY, int guiX,
+			int guiY, int exitX, int exitY) {
+		super(type, entranceX, entranceY, guiX, guiY, exitX, exitY);
 		
 		/**
 		 * 3.

@@ -58,7 +58,7 @@ public class CookRole extends Role implements Cook {
 	}
 
 	public CookRole() {
-
+		super();
 	}
 
 	public String getName() {

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Vector;
 import java.util.Map;
 
+
 import Gui.ScreenFactory;
 import agent.Role;
 import simcity.Building;
@@ -28,6 +29,14 @@ public class Market extends Building {
 	MarketCashierGui cashierGui = new MarketCashierGui(marketCashier,ScreenFactory.getMeScreen(this.getName()));
 	MarketWorkerGui workerGui = new MarketWorkerGui(marketWorker,ScreenFactory.getMeScreen(this.getName()));
 
+	public Market(String type, int entranceX, int entranceY, int guiX,
+			int guiY, int exitX, int exitY) {
+		super(type, entranceX, entranceY, guiX, guiY, exitX, exitY);
+		items.add(beef);
+		items.add(chicken);
+		items.add(rice);
+		items.add(potato);
+	}
 
 	public Market(String type, int entranceX, int entranceY, int guiX,
 			int guiY) {

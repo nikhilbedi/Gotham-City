@@ -495,9 +495,7 @@ public class WaiterSharedData extends Role implements Waiter{
 		//Same with "table"
 		System.out.println(w.getName() + " is seating " + customer + " at " + table);
 		waiterGui.DoGoToTable(table); 
-
 	}
-
 
 	//utilities
 
@@ -522,8 +520,8 @@ public class WaiterSharedData extends Role implements Waiter{
 	}
 	
 
-	public HostGui getGui() {
-		return hostGui;
+	public WaiterGui getGui() {
+		return waiterGui;
 	}
 	public int getCustomersCount() {
 		return customers.size();

@@ -2,6 +2,7 @@ package simcity.bank.test.mock;
 
 import simcity.bank.BankTransaction;
 import simcity.bank.interfaces.BankCustomer;
+import simcity.bank.interfaces.BankRobber;
 import simcity.bank.interfaces.BankTeller;
 
 public class MockBankTeller extends Mock implements BankTeller{
@@ -38,6 +39,18 @@ public class MockBankTeller extends Mock implements BankTeller{
 
 	@Override
 	public void setIndex(int i) {
+		
+	}
+
+	@Override
+	public void msgGiveMeMoney(BankRobber robber) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void msgDoneAndLeaving(BankRobber bankRobber) {
+		// TODO Auto-generated method stub
 		
 	}
 

@@ -137,7 +137,7 @@ public class PersonAgent extends Agent implements Person {
 	public MoneyState moneyState = MoneyState.Neutral;
 
 	// Job
-	private Job myJob = null;
+	public Job myJob = null;
 	public enum JobState {
 		OffWork, GoToWorkSoon, HeadedToWork, AtWork, TimeToLeave, 
 		PreparingToLeave, LeaveWork, LeavingWork, 
@@ -160,8 +160,9 @@ public class PersonAgent extends Agent implements Person {
 			amount = a;
 		}
 	}
+	
+	//constructors
 
-	// constructors
 
 	public PersonAgent(String name) {
 		super();
@@ -183,6 +184,7 @@ public class PersonAgent extends Agent implements Person {
 		 * /*if(rest.getName().equals("Restaurant 4")) { currentPreference =
 		 * rest; } }
 		 */
+
 		//TODO uncomment this one and delete get(0)
 		currentPreference = r.get(restaurantCounter);
 		//currentPreference = r.get(0);
@@ -226,7 +228,11 @@ public class PersonAgent extends Agent implements Person {
 		}
 	}
 
-	// functions so we can function
+	public void setGrid(Character[][] grid) { //Brice - setting grid for City Screen movement
+		gui.setGrid(TheCity.getGrid());
+	}
+
+	//functions so we can function
 	public void setHomeOwnerRole() {
 		// When Evan is done with homeowner role, I can add this
 	}
@@ -543,6 +549,10 @@ public class PersonAgent extends Agent implements Person {
 
 		if (checkPersonScheduler) {
 			//print("person sched");
+			/*if(true) {
+				goToWork();
+				return true;
+			}*/
 			//Time to leave, yo.
 			if (myJob != null) {
 				if (myJob.state == JobState.TimeToLeave) {
@@ -684,6 +694,7 @@ public class PersonAgent extends Agent implements Person {
 	private void goToWork() {
 		print("Going to work.");
 		// animate to desired location
+		//System.out.println(myJob.getName());
 		gui.DoGoToLocation(myJob.workplace.getEntranceLocation());
 		try {
 			busyWithTask.acquire();
@@ -735,6 +746,17 @@ public class PersonAgent extends Agent implements Person {
 			// if inside building and not in home, animate there
 			if (currentBuilding != myHome) {
 				gui.DoGoToLocation(myHome.getEntranceLocation());
+				
+				System.out.println("What Brice needs to succeed: " + myHome.getEntranceLocation().getX());
+				System.out.println("What Brice needs to succeed: " + myHome.getEntranceLocation().getY());
+				
+				//gui.finalX = myHome.getEntranceLocation().getX()/20; //Brice - Code to get to next location via Grid
+				//gui.finalY = myHome.getEntranceLocation().getY()/20;
+				
+				//finalX = (myHome.getEntranceLocation().getX())/20; //Brice - Code to get to next location via Grid
+				//finalY = (myHome.getEntranceLocation().getY())/20;
+				//gui.DoGoToLocation(new Location(gui.getX()/20, gui.getY()/20));
+				
 				try {
 					// print("Available permits: " +
 					// busyWithTask.availablePermits());
@@ -762,22 +784,32 @@ public class PersonAgent extends Agent implements Person {
 			enteringBuilding(myHome.getResident());
 			checkPersonScheduler = false;
 		} else {
-			gui.DoGoToLocation(new Location(26, 580, "Default"));
-			try {
+			//gui.DoGoToLocation(new Location(100, 120, "Default"));
+			//gui.DoGoToLocation(bank.getEntranceLocation());
+			/*try {
 				// print("Available permits: " +
 				// busyWithTask.availablePermits());
 				busyWithTask.acquire();
 				// busyWithTask.acquire();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}
+			}*/
 		}
 	}
 
 	private void goEatAtRestaurant() {
+
+		//if inside building and not in current restaurant preference
+		//animate outside building
+		//gui.DoGoToLocation(currentPreference.getEntranceLocation());
+		
+		//gui.finalX = (currentPreference.getEntranceLocation().getX() + 10)/20; //Brice - Code to get to next location via Grid
+		//gui.finalY = (currentPreference.getEntranceLocation().getY() + 10)/20;
+		gui.DoGoToLocation(currentPreference.getEntranceLocation());
+		
 		// if inside building and not in current restaurant preference
 		// animate outside building
-		gui.DoGoToLocation(currentPreference.getEntranceLocation());
+		//gui.DoGoToLocation(currentPreference.getEntranceLocation());
 		eatingState = EatingState.HeadedtoRestaurant;
 		try {
 			busyWithTask.acquire();
@@ -872,6 +904,7 @@ public class PersonAgent extends Agent implements Person {
 		for (Market m : markets) {
 			temp = m;
 			gui.DoGoToLocation(m.getEntranceLocation());
+			
 			break;
 		}
 		try {
@@ -908,8 +941,13 @@ public class PersonAgent extends Agent implements Person {
 		// if inside building and not in bank
 		// animate outside building to the bank
 		currentDestination = bank;
+		//gui.DoGoToLocation(bank.getEntranceLocation());
+		
+		//gui.finalX = (bank.getEntranceLocation().getX() + 10)/20; //Brice - Code to get to next location via Grid
+		//gui.finalY = (bank.getEntranceLocation().getY() + 10)/20;
 		gui.DoGoToLocation(bank.getEntranceLocation());
-		try {
+		
+		try{
 			busyWithTask.acquire();
 		} catch (InterruptedException e) {
 
@@ -934,7 +972,9 @@ public class PersonAgent extends Agent implements Person {
 			goToHome();
 		}
 	}
-
+	
+	
+	
 	public void restart() {
 		// TODO Auto-generated method stub
 
