@@ -89,7 +89,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	}
 
 	public void SendFood(Map<String, Integer> things, Restaurant r){
-		myPerson.Do("Got new order from restaurant");
+		//myPerson.Do("Got new order from restaurant");
 		restDeliveries.add(new RestaurantDelivery(things, r));
 		stateChanged();
 	}
@@ -109,7 +109,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	//food is delivered
 	public void Sent(Role role){  //gui sends this
 		delivering.release();
-		myPerson.Do("sent things to restaurant");
+		//myPerson.Do("sent things to restaurant");
 	}
 
 	public void Delivered(Restaurant r){ //truck sends this
@@ -120,7 +120,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 		r5 = (Restaurant5) TheCity.getBuildingFromString("Restaurant 5");
 		for (int i=0; i<restDeliveries.size(); i++){
 			if (restDeliveries.get(i).rest == r){
-				myPerson.Do("Telling cashier that truck delivered food");
+				//myPerson.Do("Telling cashier that truck delivered food");
 				if (r4 == r){
 					cashier.foodIsDelivered(r4);
 					restDeliveries.remove(restDeliveries.get(i));
@@ -148,7 +148,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	}
 
 	public void RestaurantIsClosed(Restaurant r){
-		myPerson.Do(r + " is closed");
+		//myPerson.Do(r + " is closed");
 
 		//after some time send it again or check when it is open 
 		
@@ -210,7 +210,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	}
 	//restaurant
 	public void Send(RestaurantDelivery d){
-		myPerson.Do("Sending food to restaurant");
+		//myPerson.Do("Sending food to restaurant");
 		workerGui.DoSend(d.foods, d.rest);
 		try {
 			delivering.acquire();

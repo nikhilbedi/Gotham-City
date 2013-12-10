@@ -24,5 +24,12 @@ public class BankGreeterGui extends RoleGui {
 
 	public BankGreeterGui(BankGreeter greeter, Screen meScreen) {
 		super((Role) greeter, meScreen);
+		this.bankGreeter = bankGreeter;
+		myColor = Color.magenta;
+		super.setColor(myColor);
+		xPos = 350;
+		yPos = 300;
+		xDestination = 350;
+		yDestination = 300;
 	}	
 }

@@ -61,7 +61,7 @@ public class XMLHelper {
 					//Get the name
 					System.out.println("Person Name: " + personElement.getAttribute("name"));
 					String name = personElement.getAttribute("name");
-					
+
 					// Creating a person agent using data from XML
 					PersonGui personGui = new PersonGui();
 					PersonAgent personXML = new PersonAgent(name, personGui, mainScreen);
@@ -78,7 +78,7 @@ public class XMLHelper {
 					System.out.println("Money: "+ personElement.getElementsByTagName("money").item(0).getTextContent());
 					double money = Double.parseDouble(personElement.getElementsByTagName("money").item(0).getTextContent());
 					personXML.addMoney(money); 
-					
+
 					//Get what kind of job (or 'no job')
 					Element jobElement = (Element) personElement.getElementsByTagName("job").item(0);
 					if(jobElement != null){
@@ -86,12 +86,18 @@ public class XMLHelper {
 						Building workplace = TheCity.getBuildingFromString(jobElement.getElementsByTagName("building").item(0).getTextContent());
 						System.out.println("Job position: " + jobElement.getElementsByTagName("position").item(0).getTextContent());
 						Role jobRole = workplace.getRoleFromString(jobElement.getElementsByTagName("position").item(0).getTextContent());
-						System.out.println("Job shift: " + jobElement.getElementsByTagName("shift").item(0).getTextContent());
-						int shift = Integer.parseInt(jobElement.getElementsByTagName("shift").item(0).getTextContent());
-						//Set the job here
-						personXML.setJob(jobRole, workplace, shift);
+
+						Element shiftElement = (Element) jobElement.getElementsByTagName("shift").item(0);
+						if(shiftElement != null && jobElement.getElementsByTagName("position").item(0).getTextContent().startsWith("waiter")){
+							System.out.println("Job shift: " + jobElement.getElementsByTagName("shift").item(0).getTextContent());
+							int shift = Integer.parseInt(jobElement.getElementsByTagName("shift").item(0).getTextContent());
+							//Set the job here
+							personXML.setJob(jobRole, workplace, shift);
+						}
+						else
+							personXML.setJob(jobRole, workplace);
 					}
-					
+
 					//Get what home he lives in (or 'no home')
 					Element homeElement = (Element) personElement.getElementsByTagName("residency").item(0);
 					Building home;
@@ -115,7 +121,7 @@ public class XMLHelper {
 					//If it is a car, the person is spawned owning a car
 					System.out.println("Transportation preference: "+ personElement.getElementsByTagName("transportation").item(0).getTextContent());
 
-					
+
 					personXML.startThread();
 				}
 			}
@@ -129,6 +135,6 @@ public class XMLHelper {
 	 * this function creates an XML that fulfills every need
 	 */
 	public static void generateFullCityFile() {
-		
+
 	}
 }

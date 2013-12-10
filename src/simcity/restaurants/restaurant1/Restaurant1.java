@@ -44,8 +44,8 @@ public class Restaurant1 extends Restaurant {
 			int guiY) {
 		super(type, entranceX, entranceY, guiX, guiY);
 		//Set the open and closing hours
-		setWeekdayHours(8, 22);
-		setWeekendHours(9, 21);
+		setWeekdayHours(1, 12);
+		setWeekendHours(12, 24);
 		//Set guis
 		cook.setGui(cookGui);
 		waiter1.setGui(w1Gui);
