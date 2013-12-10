@@ -15,6 +15,7 @@ public class BankTellerGui extends RoleGui {
 	
 	public BankTellerGui(BankTellerRole bankTeller) {
 		this.bankTeller = bankTeller;
+		super.setColor(Color.blue);
 		myColor = Color.blue;
 		xPos = 550;
 		yPos = 330;
@@ -24,5 +25,11 @@ public class BankTellerGui extends RoleGui {
 
 	public BankTellerGui(BankTeller teller, Screen meScreen) {
 		super((Role) teller, meScreen);
+		super.setColor(Color.blue);
+		myColor = Color.blue;
+		xPos = 550;
+		yPos = 330;
+		xDestination = 550;
+		yDestination = 330;
 	}	
 }

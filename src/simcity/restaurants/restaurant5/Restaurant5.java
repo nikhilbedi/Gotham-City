@@ -65,9 +65,9 @@ public class Restaurant5 extends Restaurant {
 		//waiters.add((WaiterRole)waiter1);//do i need this?
 		menu = new Menu();
 
-		setWeekdayHours(9, 17);
+		setWeekdayHours(12, 24);
 		//TODO change to 0 0 
-		setWeekendHours(4,24);
+		setWeekendHours(1,12);
 
 
 		((HostRole) host).setGui((RoleGui)hostGui);

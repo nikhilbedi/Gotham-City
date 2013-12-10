@@ -84,8 +84,8 @@ public class Restaurant3 extends Restaurant {
 		this.name = type;
 		cashState = CashierState.idle;
 
-		setWeekdayHours(6,24);
-		setWeekendHours(2,10);
+		setWeekdayHours(1,12);
+		setWeekendHours(12,24);
 
 
 		((HostRole) host).setGui((RoleGui)hostGui);
