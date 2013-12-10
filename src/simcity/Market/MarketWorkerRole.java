@@ -100,10 +100,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 		for (int i=0; i<deliveries.size(); i++){
 			if (deliveries.get(i).customer == c){
 				HandIn(deliveries.get(i));
-				waitingCustomers.remove(c); 
-				if (!waitingCustomers.isEmpty()){
-					updateCustomerPositions(); //hope will work
-				}
+				
 				stateChanged();
 			}
 		}
@@ -197,6 +194,10 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 			f.put(d.orders.get(i).getChoice(), d.orders.get(i).getQuantity());
 		}
 		d.customer.HereIsYourStuff(f);
+		waitingCustomers.remove(d.customer); 
+		if (!waitingCustomers.isEmpty()){
+			updateCustomerPositions(); //hope will work
+		}
 		deliveries.remove(d);
 		stateChanged();
 	}

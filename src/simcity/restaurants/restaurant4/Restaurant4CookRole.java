@@ -1,4 +1,5 @@
 package simcity.restaurants.restaurant4;
+import Gui.RoleGui;
 import Gui.Screen;
 import Gui.ScreenFactory;
 import agent.Agent;
@@ -63,9 +64,15 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 		cg.DoRemoveFood(s);
 	}
 	
-	/*public void setGui(Restaurant4CookGui c){ This is messing things up
+	/*public void setGui(Restaurant4CookGui c){ //This is messing things up
 		cg = c;
-	} */
+	} 
+	*/
+	
+	public void setGui(RoleGui gui) {
+		super.setGui(gui);
+		cg = (Restaurant4CookGui) gui;
+	}
 	
 	public void resetInventory(){
 		chicken.amount = 0;
@@ -232,7 +239,6 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
                         table = t;
                         s = OrderState.pending;
                 }
-
         }
         
         public static class Food{

@@ -17,7 +17,7 @@ import simcity.restaurants.restaurant4.interfaces.Restaurant4Waiter;
 
 public class Restaurant4CashierRole extends Role implements Restaurant4Cashier {
 	private String name;
-	private double restaurantMoney = 1000;
+	private double restaurantMoney = 10000;
 	private Timer timer = new Timer();
 	public List<Check> checks= new ArrayList<Check>();
 	public List<Payment> payments = new ArrayList<Payment>();
@@ -68,7 +68,7 @@ public class Restaurant4CashierRole extends Role implements Restaurant4Cashier {
 	}
 	
 	public void HereIsYourChange(double d, MarketCashier c ){
-		restaurantMoney = restaurantMoney + d;
+		restaurantMoney =  d;
 		myPerson.Do("Got change from market cashier " + d);
 		for (Payment payment: payments){
 			if (payment.cashier == c){
@@ -142,11 +142,10 @@ public class Restaurant4CashierRole extends Role implements Restaurant4Cashier {
 	}
 	
 	public void Pay(Payment p){
-		double money = round(p.amountDue);
-		restaurantMoney = restaurantMoney - money;
-		myPerson.Do("Here is money " + money);
+		
+		myPerson.Do("Here is money " + p.amountDue);
 		Restaurant r4  = (Restaurant) TheCity.getBuildingFromString("Restaurant 4");
-		p.cashier.hereIsMoneyRestaurant(r4, money);
+		p.cashier.hereIsMoneyRestaurant(r4, restaurantMoney);
 	}
 	
 	public void doGetPayment(Check o){
@@ -230,16 +229,7 @@ public class Restaurant4CashierRole extends Role implements Restaurant4Cashier {
 		}
 	}
 	
-	private int round(double money){
-	    double d = Math.abs(money);
-	    int i = (int) d;
-	    double result = d - (double) i;
-	    if(result<0.5){
-	        return money<0 ? -i : i;            
-	    }else{
-	        return money<0 ? -(i+1) : i+1;          
-	    }
-	}
+	
 
 	
 }
