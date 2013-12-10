@@ -80,6 +80,24 @@ public class Building {
 		guiLocation = new Location(500, 500);
 	}
 	
+	//This should be overridden 
+	public boolean isOpen() {
+		if(CityClock.getDay() != 0 && CityClock.getDay() !=6) {
+			if(CityClock.getTime() > weekdayOpen && CityClock.getTime() < weekdayClose) {
+				/*for(int i = 0; i < jobRoles.values().size(); i++) {
+					
+				}*/
+				//The above actually won't work because what about multiple waiters? You only need one
+				return true;
+			}
+		}
+		else {
+			if(CityClock.getTime() > weekendOpen && CityClock.getTime() < weekendClose)
+				return true;
+		}
+		return false;
+	}
+	
 	/**
 	 * PedestrianRole's GUI will always need to know which location he/she is headed to.
 	 * @return the location, containing x- and y-coordinates, for this building
