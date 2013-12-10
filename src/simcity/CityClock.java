@@ -55,7 +55,9 @@ public final class CityClock {
 	public static int getDay() {
 		return day;
 	}
+	
 	public static int getTime() {
-        return currentTime;
-}
+		return currentTime;
+	}
+
 }

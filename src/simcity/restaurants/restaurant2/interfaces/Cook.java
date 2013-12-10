@@ -14,4 +14,6 @@ public interface Cook {
 
 	public abstract void msgPickedUpOrder(int currentOrderTableNumber);
 
+	public abstract void orderReady();
+
 }

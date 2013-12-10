@@ -243,11 +243,11 @@ public class ResidentRole extends Role implements Resident {
 //		}
 
 		//mailbox scheduling events
-		if (myPerson.myJob.state == JobState.GoToWorkSoon && hungry == false) {
-			state = HomeState.LeavingHome;
-			dropEverything();
-			return true;
-		}
+//		if (myPerson.myJob.state == JobState.GoToWorkSoon ) {
+//			state = HomeState.LeavingHome;
+//			dropEverything();
+//			return true;
+//		}
 		
 		if (state == HomeState.DoingNothing && event == HomeEvent.checkMailbox) {
 			state = HomeState.GoingToMailbox;
@@ -575,8 +575,8 @@ public class ResidentRole extends Role implements Resident {
 		//System.out.println("check food supply **********");
 		if(!myPerson.groceryBag.isEmpty())
 			putGroceriesInFridge(myPerson.groceryBag);
-		//String choice = randomizeFoodChoice();
-		String choice = "Chicken"; //hard coded in chicken as only choice TODO
+		String choice = randomizeFoodChoice();
+		//String choice = "Chicken"; //hard coded in chicken as only choice TODO
 		Food f = fridgeFoods.get(choice);
 
 		if (checkInventory(f)) {

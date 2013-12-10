@@ -265,12 +265,11 @@ import java.awt.*;
     @Override
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
-		 int key = e.getKeyCode();
-		  System.out.println("key is "+key);
-	         if (key == 27){
-	        	 checkMapChange(26, 51);
-	         }//&&player.lChange)
-	       
+		int key = e.getKeyCode();
+		System.out.println("key is "+key);
+		if (key == 27){
+			checkMapChange(26, 51);
+		}//&&player.lChange)
 	}
     
     @Override
@@ -294,7 +293,12 @@ import java.awt.*;
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub
+		int key = arg0.getKeyCode();
+		System.out.println("key is "+key);
+		if (key == 27){
+			checkMapChange(26, 51);
+		}//&&player.lChange)
 	}
 
 	public void setBCP(BuildingControlPanel buildingControl) {

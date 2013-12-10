@@ -12,9 +12,8 @@ import java.util.concurrent.Semaphore;
 import java.lang.Math;
 
 import simcity.PersonAgent;
+import simcity.TheCity;
 import simcity.Market.MarketGui.MarketCustomerGui;
-import simcity.restaurants.restaurant1.CashierRole;
-import simcity.restaurants.restaurant1.HostRole;
 import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4CustomerGui;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Cashier;
 import simcity.restaurants.restaurant4.interfaces.Restaurant4Customer;
@@ -65,9 +64,18 @@ public class Restaurant4CustomerRole extends Role implements Restaurant4Customer
 	}
 	@Override
 	public void startBuildingMessaging(){
-		host = (Restaurant4HostRole) myPerson.currentPreference.getHost();
+/*		host = (Restaurant4HostRole) myPerson.currentPreference.getHost();
 		cashier = (Restaurant4CashierRole) myPerson.currentPreference.getCashier();
-		gotHungry();
+		gotHungry();*/
+		host = (Restaurant4HostRole) ((Restaurant4)TheCity.getBuildingFromString("Restaurant 4")).getHost();
+		cashier = (Restaurant4CashierRole) ((Restaurant4)TheCity.getBuildingFromString("Restaurant 4")).getCashier();
+		if(((Role) host).checkWorkStatus() && ((Role) cashier).checkWorkStatus()) {
+			gotHungry();
+			
+		}
+		else {
+			myPerson.leftBuilding(this);
+		}
 	}
 	
 	public Restaurant4Host getHost(){

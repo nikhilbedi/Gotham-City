@@ -9,6 +9,7 @@ import java.util.Vector;
 
 import javax.print.attribute.standard.MediaSize.NA;
 
+import simcity.CityClock;
 import simcity.PersonAgent;
 import Gui.RoleGui;
 import agent.Role;
@@ -38,8 +39,8 @@ public class Restaurant3 extends Restaurant {
 	Waiter waiter3 = new WaiterRole();
 	Waiter waiter4 = new WaiterSharedData();
 	Cook cook = new Restaurant3CookRole(); 
-	
-	
+
+
 	//create guis
 	HostGui hostGui = new HostGui(host, ScreenFactory.getMeScreen("Restaurant 3"));
 	CashierGui cashierGui = new CashierGui(cashier, ScreenFactory.getMeScreen(this.getName()));
@@ -47,18 +48,18 @@ public class Restaurant3 extends Restaurant {
 	WaiterGui waiterGui2 = new WaiterGui(waiter2, ScreenFactory.getMeScreen("Restaurant 3"));
 	WaiterGui waiterGui3 = new WaiterGui(waiter3, ScreenFactory.getMeScreen("Restaurant 3"));
 	WaiterGui waiterGui4 = new WaiterGui(waiter4, ScreenFactory.getMeScreen("Restaurant 3"));
-	
+
 	CookGui cookGui = new CookGui(cook, ScreenFactory.getMeScreen("Restaurant 3"));
-	
+
 	//public HostRole host = new HostRole();
 	//public Restaurant3CashierRole cashier = new Restaurant3CashierRole();
 	//public Restaurant3CookRole cook = new Restaurant3CookRole();
-   
-    //List<WaiterRole> waiters = new ArrayList<WaiterRole>();
-    //public WaiterRole waiter1 = new WaiterRole();
-    //public WaiterSharedData waiter2 = new WaiterSharedData();
-  
-	
+
+	//List<WaiterRole> waiters = new ArrayList<WaiterRole>();
+	//public WaiterRole waiter1 = new WaiterRole();
+	//public WaiterSharedData waiter2 = new WaiterSharedData();
+
+
 	public List<Order> orders = Collections.synchronizedList(new Vector<Order>()); 
 	public Map<String, Food> foods = Collections.synchronizedMap(new HashMap<String, Food>());
 	private String name;
@@ -71,17 +72,17 @@ public class Restaurant3 extends Restaurant {
 	public Map<Customer, Double> owed = Collections.synchronizedMap(new HashMap<Customer, Double>());
 	private double restaurantRevenue = 100;
 
-	 
+
 	public Restaurant3(String type, int entranceX, int entranceY, int guiX,
-            int guiY) {
+			int guiY) {
 		super(type, entranceX, entranceY, guiX, guiY);
 
 		this.name = type;
 		cashState = CashierState.idle;
-		
+
 		setWeekdayHours(6,24);
 		setWeekendHours(0, 0);
-		
+
 
 		((HostRole) host).setGui((RoleGui)hostGui);
 		((Restaurant3CashierRole) cashier).setGui((RoleGui)cashierGui);
@@ -90,63 +91,89 @@ public class Restaurant3 extends Restaurant {
 		((WaiterRole) waiter3).setGui((RoleGui)waiterGui3);
 		((WaiterSharedData) waiter4).setGui((RoleGui)waiterGui4);
 		((Restaurant3CookRole) cook).setGui((RoleGui)cookGui);
-		
+
 		jobRoles.put("Host", (HostRole)host);
+
 		//jobRoles.put("Host Late",  (Role)host);
 
 		jobRoles.put("Cashier",(Role)cashier);
 		//jobRoles.put("Cashier Late", (Role)cashier);
-		
+
 		jobRoles.put("Waiter1",(Role)waiter1);
 		//jobRoles.put("Waiter1 Late", (Role)waiter1);
-		
+
 		jobRoles.put("Waiter2",(Role)waiter2);
 		//jobRoles.put("Waiter2 Late", (Role)waiter2);
 
 		jobRoles.put("Waiter3",(Role)waiter3);
 		//jobRoles.put("Waiter3 Late", (Role)waiter3);
-		
+
 
 		jobRoles.put("Waiter4",(Role)waiter4);
 		//jobRoles.put("Waiter4 Late", (Role)waiter4);
-		
-		
+
+
 		jobRoles.put("Cook",(Role)cook);
 		//jobRoles.put("Cook Late", (Role)cook);
 		
-
-		
 	}
+
+	@Override
+	public boolean isOpen() {
+		//Weekday
+		if(CityClock.getDay() != 0 && CityClock.getDay() !=6) {
+			if(CityClock.getTime() > weekdayOpen && CityClock.getTime() < weekdayClose) {
+				if(((Role)host).checkWorkStatus() && ((Role)cashier).checkWorkStatus() && ((Role)cook).checkWorkStatus()) {
+					if(((Role)waiter1).checkWorkStatus() || ((Role)waiter2).checkWorkStatus()
+							|| ((Role)waiter3).checkWorkStatus() || ((Role)waiter4).checkWorkStatus()) {
+						return true;
+					}
+				}
+			}
+		}
+		//weekend
+		else {
+			if(CityClock.getTime() > weekendOpen && CityClock.getTime() < weekendClose){
+				if(((Role)host).checkWorkStatus() && ((Role)cashier).checkWorkStatus() && ((Role)cook).checkWorkStatus()) {
+					if(((Role)waiter1).checkWorkStatus() || ((Role)waiter2).checkWorkStatus()
+							|| ((Role)waiter3).checkWorkStatus() || ((Role)waiter4).checkWorkStatus()) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
+	}
+
 	//utilities
-	
-	
+
 	public void setRestaurantRevenue(double totalPrice) {
 		this.restaurantRevenue += totalPrice;
 	}
-	
+
 	public double getRestaurantRevenue() {
 		return restaurantRevenue;
 	}
 	//@Override
 	public void setCook(Restaurant3CookRole cook) {
 		this.cook = cook;
-		
+
 	}
 	@Override
 	public void setHost(Role host) {
 		this.host = (HostRole) host;
 	}
-	
+
 	@Override
 	public Role getHost() {
 		return (HostRole)host;
 	}
-	
+
 	@Override
 	public void setCashier(Role cashier) {
 		this.cashier = (Restaurant3CashierRole)cashier;
 	}
-	
+
 	@Override
 	public Restaurant3CashierRole getCashier() {
 		return (Restaurant3CashierRole)cashier;
@@ -155,12 +182,12 @@ public class Restaurant3 extends Restaurant {
 	public Restaurant3CookRole getCook() {
 		return (Restaurant3CookRole)cook;
 	}
-	
+
 	@Override
 	public String getCustomerName(){
 		return "restaurant3customer";
 	}
-	
+
 	public Vector<String> getBuildingInfo(){
 		Vector<String> info = new Vector<String>();
 		info.add("Restaurant 3");
@@ -168,6 +195,6 @@ public class Restaurant3 extends Restaurant {
 		info.add("this is even more super class info");
 		return info;
 	}
-	
+
 }
 

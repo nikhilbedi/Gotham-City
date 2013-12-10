@@ -69,17 +69,17 @@ public class BuildingControlPanel extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.err.println("" + e.getSource());
-		System.err.println("" + buttons.get(0).t);
+		//System.err.println("" + e.getSource());
+		//System.err.println("" + buttons.get(0).t);
 		//if(e.getStateChange() == ItemEvent.SELECTED)
 			
         	
 			for(int i = 0; i < buttons.size(); i++){
 				if(e.getSource() == buttons.get(i).t){
 						TheCity.getBuildingFromString(buttons.get(i).building).toggleLock();
-						AlertLog.getInstance().logInfo(AlertTag.GUI,
-								"BCP", " buttons" + i);
-						System.err.println("Value is:" + buttons.get(i).building);
+						//AlertLog.getInstance().logInfo(AlertTag.GUI,
+						//		"BCP", " buttons" + i);
+						//System.err.println("Value is:" + buttons.get(i).building);
 				}
 			}
         	
@@ -96,8 +96,8 @@ public class BuildingControlPanel extends JPanel implements ActionListener {
 
 public void refresh() {
 	//removeAll();
-	AlertLog.getInstance().logError(AlertTag.RESIDENT_ROLE,
-			"BCP", "We logging");
+	//AlertLog.getInstance().logError(AlertTag.RESIDENT_ROLE,
+		//	"BCP", "We logging");
 	
 	for (LabeledToggleButton ltb : buttons) {
 		//AlertLog.getInstance().logError(AlertTag.RESIDENT_ROLE,
@@ -109,8 +109,8 @@ public void refresh() {
 				ltb.l.setText( ": OPEN");
 			}
 			else{
-				AlertLog.getInstance().logError(AlertTag.RESIDENT_ROLE,
-						this.getName(), "We logging in");
+				//AlertLog.getInstance().logError(AlertTag.RESIDENT_ROLE,
+					//	this.getName(), "We logging in");
 				ltb.oc.setText(ltb.building);
 				ltb.l.setText( ": CLOSED");
 			}

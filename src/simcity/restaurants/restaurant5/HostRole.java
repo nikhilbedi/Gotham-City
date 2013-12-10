@@ -172,10 +172,15 @@ public class HostRole extends Role implements Host {
             ^note the above no longer applies
 		 */
 		
-		/**THIS IS HACKED FIX IT
+		///**THIS IS HACKED FIX IT
+		//Two things I did: I made sure you gave a customer to a waiter who is available (on the job)
+		//Second, I added the below if statement
+		if(theManLeavingMe != null && customers.isEmpty()){
+			leaveWork();
+			return true;
+		}
 		
-		
-		/*if(seatedCust == NTABLES){
+		if(seatedCust == NTABLES){
 			synchronized(customers){
 				for(MyCustomer mycustomer: customers){
 					if(mycustomer.cs == CustomerState.newCust){
@@ -224,7 +229,7 @@ public class HostRole extends Role implements Host {
 		}
 		if(!customers.isEmpty()){
 			return true;
-		}*/
+		}
 		return false;
 		//we have tried all our rules and found
 		//nothing to do. So return false to main loop of abstract agent

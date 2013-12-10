@@ -139,32 +139,6 @@ public class HostRole extends Role implements Host{
 		return false;
 	}
 
-	
-	// Actions
-
-	private void seatCustomer(Customer customer, Table table) {
-		customer.msgSitAtTable(table.tableNumber);
-		DoSeatCustomer(customer, table);
-		try {
-			atTable.acquire();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		table.setOccupant(customer);
-		waitingCustomers.remove(customer);
-		hostGui.DoLeaveCustomer();
-	}
-
-	// The animation DoXYZ() routines
-	private void DoSeatCustomer(Customer customer, Table table) {
-		//Notice how we print "customer" directly. It's toString method will do it.
-		//Same with "table"
-		System.out.println(getName() + ": Seating " + customer + " at " + table);
-		hostGui.DoBringToTable(customer, table.tableNumber); 
-
-	}
-
 	//utilities
 
 	public void setGui(RoleGui g) {

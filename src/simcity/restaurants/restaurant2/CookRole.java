@@ -2,17 +2,15 @@ package simcity.restaurants.restaurant2;
 
 import agent.Agent;
 //import restaurant.WaiterAgent;
-
-
-
-
-
 import agent.Role;
+import simcity.restaurants.restaurant2.Order;
+import simcity.restaurants.restaurant2.Order.CookingState;
 import simcity.restaurants.restaurant2.Restaurant2CustomerRole.AgentEvent;
 import simcity.restaurants.restaurant2.gui.CookGui;
 import simcity.restaurants.restaurant2.gui.HostGui;
 import simcity.restaurants.restaurant2.interfaces.Cook;
 import simcity.restaurants.restaurant2.interfaces.Waiter;
+import simcity.Item;
 import simcity.PersonAgent;
 
 import java.util.*;
@@ -65,6 +63,15 @@ public class CookRole extends Role implements Cook{
 	public void msgHereIsOrder(Waiter w, String choice, int table) {
 		orders.add(new Order(w, choice, table));
 		stateChanged();
+	}
+	
+	public void msgHereIsOrder(Order o) {
+		orders.add(o);
+		stateChanged();
+	}
+	
+	public void orderReady() {
+		orders.add(RevolvingStand.getNextOrder());
 	}
 	
 	public void msgPickedUpOrder(int table) {
@@ -250,23 +257,17 @@ public class CookRole extends Role implements Cook{
 		cookGui = c;
 	}
 	
-	class Order {
-		Waiter waiter;
-		String choice;
-		int table;
-		Timer timer = new Timer();
-		CookingState s;
-		
-		public Order(Waiter w, String c, int t) {
-			waiter = w;
-			choice = c;
-			table = t;
-			
-			s = CookingState.Pending;
+	public Vector<Item> getInventory() {
+		Vector<Item> inventory = new Vector<Item>();
+		for(Map.Entry<String, Food> f : foods.entrySet()) {
+			inventory.add(new Item(f.getKey(), f.getValue().amount));
 		}
+		return inventory;
 	}
 	
-	public enum CookingState {Pending, Cooking, DoneCooking, Plated}; 
+	public void updateItem(String s, int hashCode) {
+		foods.get(s).amount = hashCode;
+	}
 	
 	class Food {
 		String type;
@@ -279,23 +280,23 @@ public class CookRole extends Role implements Cook{
 			switch(t) {
 				case "Steak": 
 					cookingTime = 11000;
-					amount = 500;
-					capacity = 500;
+					amount = 45;
+					capacity = 100;
 					low = 3; break;
 				case "Chicken": 
 					cookingTime = 9000;
-					amount = 500;
-					capacity = 500;
+					amount = 45;
+					capacity = 100;
 					low = 3; break;
 				case "Pizza": 
 					cookingTime = 6000;
-					amount = 500;
-					capacity = 500;
+					amount = 45;
+					capacity = 100;
 					low = 3; break;
 				case "Salad": 
 					cookingTime = 4000;
-					amount = 500;
-					capacity = 500;
+					amount = 45;
+					capacity = 100;
 					low = 4; break;
 			}
 			
@@ -309,6 +310,7 @@ public class CookRole extends Role implements Cook{
 		}
 	}
 	public enum FoodState {notOrdered, ordered}
+	
 	
 	
 }
