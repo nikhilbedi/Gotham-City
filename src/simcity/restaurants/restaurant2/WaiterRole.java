@@ -1,5 +1,6 @@
 package simcity.restaurants.restaurant2;
 
+import Gui.RoleGui;
 import agent.Agent;
 import agent.Role;
 //import restaurant.HostAgent.Table;
@@ -174,6 +175,10 @@ public class WaiterRole extends Role implements Waiter{
 	// Scheduler
 	
 	public boolean pickAndExecuteAnAction() {
+		if(theManLeavingMe != null && myCustomers.isEmpty()) {
+			leaveWork();
+			return true;
+		}
 		try {
 			for (int b = 0; b < myCustomers.size(); b++) { 
 				if (myCustomers.get(b).s == customerState.waiting /*&& waiterGui.isAtEntrance()*/) {
@@ -448,8 +453,9 @@ public class WaiterRole extends Role implements Waiter{
 
 	//utilities
 
-	public void setGui(WaiterGui gui) {
-		waiterGui = gui;
+	public void setGui(RoleGui gui) {
+		super.setGui(gui);
+		waiterGui = (WaiterGui)gui;
 	}
 
 	public WaiterGui getGui() {

@@ -217,119 +217,101 @@ public class TheCity {
                 jobPositionList.add(b.getJobCollec());
                 buildingJobsMap.put(b.getName(), b.getJobCollec());
         }
-        
-        /*jobLocationList.add("Market");
-=======
-                homeList.add("None (Homeless Shelter)");
-                homeList.add("Home 1");
 
+	jobLocationList.add("Bank");
+	jobLocationList.add("Restaurant 1");
 
-                //populate lists
-                jobLocationList.add("No job");
-                for(Building b: buildings){
-                        jobLocationList.add(b.getName());
-                }
-                //populate building jobs map
-                for(Building b: buildings){
-                        jobPositionList.add(b.getJobCollec());
-                        buildingJobsMap.put(b.getName(), b.getJobCollec());
-                }
+		//jobPositionList.add("This is a temp variable I still need to figure out how to make this list dynamic");
 
-                /*jobLocationList.add("Market");
->>>>>>> master
-        jobLocationList.add("Bank");
-        jobLocationList.add("Restaurant 1");*/
+		transportationList.add("Walker");
 
-                //jobPositionList.add("This is a temp variable I still need to figure out how to make this list dynamic");
+		homeOwnerList.add("none");
+		homeOwnerList.add("Home 1");
+	}
+	public static List<String> getJobLocs(){
+		return jobLocationList;
+	}
+	public static Vector<Vector<String>> getPos(){
+		return jobPositionList;
+	}
+	public static List<String> getTransportation(){
+		return transportationList;
+	}
+	public static List<String> getHomes(){
+		return homeList;
+	}
+	public static List<String> getProperty(){
+		return homeOwnerList;
+	}
 
-                transportationList.add("Walker");
+	public static Building getBuildingFromString(String s){
+		if(s.equalsIgnoreCase("Restaurant 1")){
+			return rest1;
+		}
+		if(s.equalsIgnoreCase("Restaurant 2")){
+			return rest2;
+		}
+		if(s.equalsIgnoreCase("Restaurant 3")){
+			return rest3;
+		}
+		if(s.equalsIgnoreCase("Restaurant 4")){
+			return rest4;
+		}
+		if(s.equalsIgnoreCase("Restaurant 5")){
+			return rest5;
+		}
+		if(s.equalsIgnoreCase("Market")){
+			return market;
+		}
+		if(s.equalsIgnoreCase("Bank")){
+			return bank;
+		}
+		if(s.equalsIgnoreCase("Home")){
+			return home;
+		}
+		if(s.equalsIgnoreCase("Apartment 1")){
+			return apart;
+		}
 
-                homeOwnerList.add("none");
-                homeOwnerList.add("Home 1");
-        }
-        public static List<String> getJobLocs(){
-                return jobLocationList;
-        }
-        public static Vector<Vector<String>> getPos(){
-                return jobPositionList;
-        }
-        public static List<String> getTransportation(){
-                return transportationList;
-        }
-        public static List<String> getHomes(){
-                return homeList;
-        }
-        public static List<String> getProperty(){
-                return homeOwnerList;
-        }
-
-        public static Building getBuildingFromString(String s){
-                if(s.equalsIgnoreCase("Restaurant 1")){
-                        return rest1;
-                }
-                if(s.equalsIgnoreCase("Restaurant 2")){
-                        return rest2;
-                }
-                if(s.equalsIgnoreCase("Restaurant 3")){
-                        return rest3;
-                }
-                if(s.equalsIgnoreCase("Restaurant 4")){
-                        return rest4;
-                }
-                if(s.equalsIgnoreCase("Restaurant 5")){
-                        return rest5;
-                }
-                if(s.equalsIgnoreCase("Market")){
-                        return market;
-                }
-                if(s.equalsIgnoreCase("Bank")){
-                        return bank;
-                }
-                if(s.equalsIgnoreCase("Home")){
-                        return home;
-                }
-                if(s.equalsIgnoreCase("Apartment 1")){
-                        return apart;
-                }
-
-                return null;
-        }
+		return null;
+	}
 
 
 
-        public static List<Market> getMarketList(){
-                List<Market> tempcast = new ArrayList<Market>();
-                tempcast.add((Market)market);
+	public static List<Market> getMarketList(){
+		List<Market> tempcast = new ArrayList<Market>();
+		tempcast.add((Market)market);
 
-                return tempcast;
-        }
-
-
-        public static List<Restaurant> getRestaurantList(){
-                List<Restaurant> tempcast = new ArrayList<Restaurant>();
-                //maybe this populate should be done in the static constructor
-                tempcast.add((Restaurant)rest1);
-                //tempcast.add((Restaurant)rest2);
-                //tempcast.add((Restaurant)rest3);
-                tempcast.add((Restaurant)rest4);
-                tempcast.add((Restaurant)rest5);
-                return tempcast;
-        }
+		return tempcast;
+	}
 
 
-        public static Bank getBank(){
-                return (Bank)bank;
-        }
+	public static List<Restaurant> getRestaurantList(){
+		List<Restaurant> tempcast = new ArrayList<Restaurant>();
+		//maybe this populate should be done in the static constructor
+		tempcast.add((Restaurant)rest1);
+		tempcast.add((Restaurant)rest2);
+		tempcast.add((Restaurant)rest3);
+		tempcast.add((Restaurant)rest4);
+		tempcast.add((Restaurant)rest5);
+		return tempcast;
+	}
 
-        public static Home getHomeHack(){
-                //this is labeled as a Hack because technically there should be multiple homes
-                return (Home)home;
-        }
-        public static ArrayList<Building> getBuildings(){
-                return buildings;
-        }
 
-        public static Character[][] getGrid() {
-                return grid;
-        }
+	public static Bank getBank(){
+		return (Bank)bank;
+	}
+
+	public static Home getHomeHack(){
+		//this is labeled as a Hack because technically there should be multiple homes
+		return (Home)home;
+	}
+	public static ArrayList<Building> getBuildings(){
+		return buildings;
+	}
+
+	public static Character[][] getGrid() {
+		return grid;
+	}
 }
+

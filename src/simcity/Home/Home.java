@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import Gui.ScreenFactory;
 import simcity.Building;
+import simcity.Item;
 import simcity.PersonAgent.RentBill;
 import simcity.Home.gui.ApartmentResidentGui;
 import simcity.Home.gui.ResidentGui;
@@ -25,6 +26,8 @@ public class Home extends Building{
 	//int openTime, closeTime;
 	//Location location = new Location(xCoor, yCoor);
 	ResidentGui residentGui = new ResidentGui(resident, ScreenFactory.getMeScreen(this.getName()));
+	
+	Vector<Item> inventory = new Vector<Item>();
 	
 	
 	public Home(String type, int entranceX, int entranceY, int guiX,
@@ -79,5 +82,13 @@ public class Home extends Building{
 	public void setResident(ResidentRole resident) {
 		this.resident = resident;
 	}
+	public Vector<Item> getStockItems(){
+        inventory = ((ResidentRole) resident).getInventory();
+        return inventory;
+    }
+
+    public void updateItem(String s, int hashCode) {
+        ((ResidentRole) resident).updateItem(s, hashCode);
+    }
 }	
 

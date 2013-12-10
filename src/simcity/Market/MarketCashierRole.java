@@ -182,6 +182,10 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	} 
 	
 	public boolean pickAndExecuteAnAction(){
+		if(theManLeavingMe != null && waitingCustomers.isEmpty()) {
+			leaveWork();
+			return true;
+		}
 		
 		for (Check check: checks){
 			if (check.state == Check.CheckState.gotMoney && check.c == currentCustomer){

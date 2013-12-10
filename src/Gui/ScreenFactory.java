@@ -59,8 +59,8 @@ public class ScreenFactory {
 		screenList.add(home);
 		screenList.add(rest5);
 		screenList.add(rest3);
-		/*screenList.add(rest4);
-		
+		screenList.add(rest4);
+		/*
 		screenList.add(apart);//can only be accessed statically for now
 
 		

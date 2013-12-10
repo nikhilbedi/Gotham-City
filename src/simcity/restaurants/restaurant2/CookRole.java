@@ -143,6 +143,7 @@ public class CookRole extends Role implements Cook{
             so that table is unoccupied and customer is waiting.
             If so seat him at the table.
 		 */
+
 		for (Map.Entry<String, Food> entry: foods.entrySet()){
 			if (entry.getValue().amount<=2){
 				myPerson.Do("Need " + entry.getKey());
@@ -159,6 +160,12 @@ public class CookRole extends Role implements Cook{
 		}
 		
 		
+
+		if(theManLeavingMe != null && orders.isEmpty()) {
+			leaveWork();
+			return true;
+		}
+
 		
 		synchronized(orders) {
 			for (int x = 0; x < orders.size(); x++) {

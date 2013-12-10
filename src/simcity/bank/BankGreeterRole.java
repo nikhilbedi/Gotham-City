@@ -92,7 +92,11 @@ public class BankGreeterRole extends Role implements BankGreeter{
 	
 	// Scheduler
 	
-	public boolean pickAndExecuteAnAction() {		
+	public boolean pickAndExecuteAnAction() {	
+		if(theManLeavingMe != null && waitingCustomers.isEmpty()){
+			leaveWork();
+			return true;
+		}
 		for (BankTeller teller: tellers) { //Determines if a teller is available and if a customer can be sent to them
 			if (teller.isAvailable()) {
 				if (!waitingCustomers.isEmpty())  {

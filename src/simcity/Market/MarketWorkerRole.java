@@ -31,7 +31,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	public Map<String, Item> inventory = new HashMap<String, Item>();
 	private MarketCashier cashier;
 	private MarketWorkerGui workerGui;
-//	private PersonAgent person;
+	//	private PersonAgent person;
 	public String name;
 	public Semaphore delivering = new Semaphore(0,true);
 	private List<MarketCustomer> waitingCustomers  = Collections.synchronizedList(new ArrayList<MarketCustomer>());
@@ -45,55 +45,55 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 		super(p);
 		name = p.name;
 	}
-	
+
 	public MarketWorkerRole(){
 		super();
 	}
-	
+
 	public void setCashier(MarketCashier c){
 		cashier = c;
 	}
-	
+
 	public List<MarketCustomer> getWaitingCustomers(){
 		return waitingCustomers;	
 	}
 
-	
+
 	public void Bring(List<Order> o){ //for customers
 		System.out.println(myPerson.name+ " " +"Got new order from " + o.get(0).customer.getName());
 		deliveries.add(new CustomerDelivery(o));
 		waitingCustomers.add(o.get(0).customer); //hope will work, not tested
 		stateChanged();
 	}
-	
+
 	public void updateCustomerPositions(){
 		synchronized(waitingCustomers){
-		for(int i=0; i<waitingCustomers.size(); i++){
-			int destination = 580;
-			waitingCustomers.get(i).getCustomerGui().setDestination(destination);
-			destination = destination - 30;
-		}
+			for(int i=0; i<waitingCustomers.size(); i++){
+				int destination = 580;
+				waitingCustomers.get(i).getCustomerGui().setDestination(destination);
+				destination = destination - 30;
+			}
 		}
 	}
-	
+
 	public List<CustomerDelivery> getCustomerDeliveries(){
 		return deliveries;
 	}
-	
+
 	public List<RestaurantDelivery> getRestaurantDeliveries(){
 		return restDeliveries;
 	}
-	
+
 	public Map<String, Item> getInventory(){
 		return inventory;
 	}
-	
+
 	public void SendFood(Map<String, Integer> things, Restaurant r){
 		myPerson.Do("Got new order from restaurant");
 		restDeliveries.add(new RestaurantDelivery(things, r));
 		stateChanged();
 	}
-	
+
 	public void Brought(MarketCustomer c){
 		delivering.release();
 		System.out.println("Delivered for " );
@@ -105,13 +105,13 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 			}
 		}
 	}
-	
+
 	//food is delivered
 	public void Sent(Role role){  //gui sends this
 		delivering.release();
 		myPerson.Do("sent things to restaurant");
 	}
-	
+
 	public void Delivered(Restaurant r){ //truck sends this
 		r1 = (Restaurant1) TheCity.getBuildingFromString("Restaurant 1");
 		r2 = (Restaurant2) TheCity.getBuildingFromString("Restaurant 2");
@@ -119,59 +119,66 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 		r4 = (Restaurant4) TheCity.getBuildingFromString("Restaurant 4");
 		r5 = (Restaurant5) TheCity.getBuildingFromString("Restaurant 5");
 		for (int i=0; i<restDeliveries.size(); i++){
-		if (restDeliveries.get(i).rest == r){
-			myPerson.Do("Telling cashier that truck delivered food");
-			if (r4 == r){
-				 cashier.foodIsDelivered(r4);
-			     restDeliveries.remove(restDeliveries.get(i));
+			if (restDeliveries.get(i).rest == r){
+				myPerson.Do("Telling cashier that truck delivered food");
+				if (r4 == r){
+					cashier.foodIsDelivered(r4);
+					restDeliveries.remove(restDeliveries.get(i));
+				}
+				else if (r1 == r){
+					cashier.foodIsDelivered(r1);
+					restDeliveries.remove(restDeliveries.get(i));
+				}
+				else if (r2 == r){
+					cashier.foodIsDelivered(r2);
+					restDeliveries.remove(restDeliveries.get(i));
+				}
+				else if (r3 == r){
+					cashier.foodIsDelivered(r3);
+					restDeliveries.remove(restDeliveries.get(i));
+				}
+				else if (r5 == r){
+					cashier.foodIsDelivered(r5);
+					restDeliveries.remove(restDeliveries.get(i));
+				}
+
+				stateChanged();
 			}
-			else if (r1 == r){
-				 cashier.foodIsDelivered(r1);
-			     restDeliveries.remove(restDeliveries.get(i));
-			}
-			else if (r2 == r){
-				 cashier.foodIsDelivered(r2);
-			     restDeliveries.remove(restDeliveries.get(i));
-			}
-			else if (r3 == r){
-				 cashier.foodIsDelivered(r3);
-			     restDeliveries.remove(restDeliveries.get(i));
-			}
-			else if (r5 == r){
-				 cashier.foodIsDelivered(r5);
-			     restDeliveries.remove(restDeliveries.get(i));
-			}
-			  
-			stateChanged();
 		}
 	}
-	}
-	
+
 	public void RestaurantIsClosed(Restaurant r){
 		myPerson.Do(r + " is closed");
+
 		//after some time send it again or check when it is open 
 		
 		
 		
+
 	}
-	
+
 	public boolean pickAndExecuteAnAction(){
-			for (CustomerDelivery delivery: deliveries){	
-			 if (delivery.state == CustomerDelivery.DeliveryState.pending){
+		if(theManLeavingMe != null && deliveries.isEmpty() && restDeliveries.isEmpty()) {
+			leaveWork();
+			return true;
+		}
+
+		for (CustomerDelivery delivery: deliveries){	
+			if (delivery.state == CustomerDelivery.DeliveryState.pending){
 				delivery.state = CustomerDelivery.DeliveryState.getting;
 				System.out.println(myPerson.name + ": " +"pending state " + delivery.customer.getName());
-					Bring(delivery);
-					return true;
+				Bring(delivery);
+				return true;
 			}	
 		}
-			
-			for (RestaurantDelivery delivery: restDeliveries){
-				if (delivery.state == RestaurantDelivery.DeliveryState.pending){
-					delivery.state = RestaurantDelivery.DeliveryState.getting;
-					Send(delivery);
-					return true;
-				}
+
+		for (RestaurantDelivery delivery: restDeliveries){
+			if (delivery.state == RestaurantDelivery.DeliveryState.pending){
+				delivery.state = RestaurantDelivery.DeliveryState.getting;
+				Send(delivery);
+				return true;
 			}
+		}
 		workerGui.DefaultPos();
 		return false;
 	}
@@ -186,7 +193,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 			e.printStackTrace();
 		}
 	}
-	
+
 	public void HandIn(CustomerDelivery d){
 		System.out.println(myPerson.name+ " " +"Giving stuff to " + d.customer.getName());
 		Map<String, Integer> f= new HashMap<String, Integer>();
@@ -212,16 +219,16 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+
 	public static class CustomerDelivery{
 		List<Order> orders = new ArrayList<Order>();
 		MarketCustomer customer;
 		public DeliveryState state;
 		boolean d;
 		public enum DeliveryState {pending, getting, delivering, delivered};
-		
-		
+
+
 		public CustomerDelivery(List<Order> o){
 			d = o.get(0).delivery;
 			customer = o.get(0).customer;
@@ -237,7 +244,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 		//Location
 		public DeliveryState state;
 		public enum DeliveryState {pending, getting, delivering, delivered};
-		
+
 		public RestaurantDelivery(Map<String, Integer> f,  Restaurant r){
 			//cookRole = role;
 			foods = f;
@@ -252,6 +259,6 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	}
 
 
-	
+
 
 }

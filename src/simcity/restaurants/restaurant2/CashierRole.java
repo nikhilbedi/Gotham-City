@@ -118,6 +118,10 @@ public class CashierRole extends Role implements Cashier {
             so that table is unoccupied and customer is waiting.
             If so seat him at the table.
 		 */
+		if(theManLeavingMe != null && checks.isEmpty() && checkOrders.isEmpty()) {
+			leaveWork();
+			return true;
+		}
 		
 		synchronized(checkOrders) {
 			for (int x = 0; x < checkOrders.size(); x++) {
@@ -148,7 +152,7 @@ public class CashierRole extends Role implements Cashier {
 				System.out.println(getName() + ": Done making check for " + checkOrders.get(ind).waiter.getName() + " at table " + checkOrders.get(ind).table + ", cookie=" + cookie);
 				
 				checkOrders.get(ind).waiter.msgCheckReady(checks.get(ind));
-				//checkOrders.remove(ind);
+				checkOrders.remove(ind);
 				//stateChanged();
 			}
 		},
