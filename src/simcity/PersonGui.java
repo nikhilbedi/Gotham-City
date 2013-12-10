@@ -3,6 +3,7 @@ package simcity;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ConcurrentModificationException;
+import java.util.Timer;
 import java.util.TimerTask;
 
 import simcity.PersonAgent.TransportationState;
@@ -23,6 +24,11 @@ public class PersonGui extends RoleGui {
 	Location destination;
 	public String busStop = "";
 	
+	int finalX, finalY; //Brice - Grid stuff
+	Character[][] grid;
+	Character prevTile = ' ';
+	Timer moveTimer = new Timer();
+	
 	public PersonAgent getAgent() {
 		return agent;
 	}
@@ -30,7 +36,12 @@ public class PersonGui extends RoleGui {
 	public void setAgent(PersonAgent agent) {
 		this.agent = agent;
 	}
-
+	
+	public void setGrid(Character[][] grid) {
+		this.grid = grid;
+		prevTile = grid[xPos/20][yPos/20];
+	}
+	
 	boolean reachedBuildingLocation;
 	
 	public PersonGui(PersonAgent c){ 
@@ -76,14 +87,16 @@ public class PersonGui extends RoleGui {
 
 	public void updatePosition() {
 		super.updatePosition();
-		if(xPos == xDestination && yPos == yDestination && tempStill && command.equalsIgnoreCase("GoingToLocation")&&agent.finalX == xDestination && agent.finalY == yDestination) {
+		if(xPos == xDestination && yPos == yDestination && tempStill && command.equalsIgnoreCase("GoingToLocation")&&finalX == xDestination/20 && finalY == yDestination/20) {
 			System.out.println("REACHED BUILDING");
-			agent.reachedBuilding();
+			//agent.reachedBuilding();
+			reachedBuilding();
 			tempStill = false;
 		}
 	/*	System.out.println(xPos);
 		System.out.println(yPos);*/
 		if (xPos == xDestination  && yPos == yDestination && tempStill && command.equalsIgnoreCase("GoingToBusStop")){
+			//tempStill = false;
 			if (busAtBusStop(busStop)){
 				System.out.println("Got to bus");
 				getHomeScreen().removeGui(this);
@@ -104,11 +117,21 @@ public class PersonGui extends RoleGui {
 	public void getOut(){
 		xPos = ScreenFactory.main.bus.getXPos();
 		yPos = ScreenFactory.main.bus.getYPos();
+		Location l = findNearestBusStop();
+		xPos = l.getX();
+		yPos = l.getY();
+		
+		System.out.println("DESTX: " + destination.getX());
+		System.out.println("DESTY: " + destination.getY());
+		
 		getHomeScreen().addGui(this);
+		finalX = destination.getX()/20;
+		finalY = destination.getY()/20;
 		xDestination = destination.getX();
 		yDestination = destination.getY();
 		tempStill = true;
 		command = "GoingToLocation";
+		guiMoveFromCurrentPositionTo(xPos/20, yPos/20);
 	} 
 	
 	public int findSmallestNumber(int a, int b, int c, int d){
@@ -164,19 +187,19 @@ public class PersonGui extends RoleGui {
 		System.out.println("south " +southBusStop);
 		int shortestDist = findSmallestNumber(eastBusStop, westBusStop, northBusStop, southBusStop);
 		if (shortestDist == eastBusStop){
-			 l =  Bus.eastBusStop;
+			 l =  Bus.eastPickupStop;//new Location(Bus.eastBusStop.getX()-20, Bus.eastBusStop.getY());
 			 busStop = "east";
 		}
 		else if (shortestDist == westBusStop){
-			l =  Bus.westBusStop;
+			l =  Bus.westPickupStop;//new Location(Bus.westBusStop.getX()+20, Bus.westBusStop.getY()+10);
 			busStop = "west";
 		}
 		else if (shortestDist == northBusStop){
-			l =  Bus.northBusStop;
+			l =  Bus.northPickupStop;//new Location(Bus.northBusStop.getX(), Bus.northBusStop.getY()+20);
 			busStop = "north";
 		}
 		else if (shortestDist == southBusStop){
-			l =  Bus.southBusStop;
+			l =  Bus.southPickupStop;//new Location(Bus.southBusStop.getX()-10, Bus.southBusStop.getY());
 			busStop = "south";
 		}
 		System.out.println("Nearest busstop " + busStop);
@@ -189,29 +212,29 @@ public class PersonGui extends RoleGui {
 		int northBusStop =(int) Math.sqrt(Math.pow(Math.abs((Bus.northBusStop.getX() - destination.getX())),2) + Math.pow(Math.abs((Bus.northBusStop.getY() - destination.getY())), 2));
 		int southBusStop =(int) Math.sqrt(Math.pow(Math.abs((Bus.southBusStop.getX() - destination.getX())),2) + Math.pow(Math.abs((Bus.southBusStop.getY() - destination.getY())), 2));
 		System.out.println("east "+ eastBusStop);
-		System.out.println("west " +westBusStop);
+		System.out.println("west " + westBusStop);
 		System.out.println("north " +northBusStop);
 		System.out.println("south " + southBusStop);
 		Location l = null;
 		int shortestDist = findSmallestNumber(eastBusStop, westBusStop, northBusStop, southBusStop);
 		if (shortestDist == eastBusStop){
 			System.out.println("Closest east");
-			 l =  Bus.eastBusStop;
+			 l =  Bus.eastPickupStop;
 			 busStop = "east";
 		}
 		else if (shortestDist == westBusStop){
 			System.out.println("Closest west");
-			l =  Bus.westBusStop;
+			l =  Bus.westPickupStop;
 			busStop = "west";
 		}
 		else if (shortestDist == northBusStop){
 			System.out.println("Closest north");
-			l =  Bus.northBusStop;
+			l =  Bus.northPickupStop;
 			busStop = "north";
 		}
 		else if (shortestDist == southBusStop){
 			System.out.println("Closest south");
-			l =  Bus.southBusStop;
+			l =  Bus.southPickupStop;
 			busStop = "south";
 		}
 		
@@ -223,19 +246,31 @@ public class PersonGui extends RoleGui {
 			this.destination = destination;
 			System.out.println("going to bus stop");
 			Location loc = findNearestBusStop();
+			System.out.println("X BUS: " + loc.getX());
+			System.out.println("Y BUS: " + loc.getY());
+			System.out.println("X: " + xPos);
+			System.out.println("Y: " + yPos);
 			tempStill = true;
-			xDestination = loc.getX();
-			yDestination = loc.getY();
+			finalX = loc.getX()/20;
+			finalY = (loc.getY())/20;
+			//xDestination = loc.getX();
+			//yDestination = loc.getY();
 			System.out.println(xDestination);
 			System.out.println(yDestination);
 			command = "GoingToBusStop";
+			
+			guiMoveFromCurrentPositionTo(xPos/20, yPos/20);
 		}
 		else if (agent.transportationState == TransportationState.Walking){
 			System.out.println("Walking");
 			tempStill = true;
+			//finalX = destination.getX();
+			//finalY = destination.getY()
 			xDestination = destination.getX();
 			yDestination = destination.getY();
 			command = "GoingToLocation";
+			
+			guiMoveFromCurrentPositionTo(xPos/20, yPos/20);
 		}
 	}
 	
@@ -248,4 +283,123 @@ public class PersonGui extends RoleGui {
 		agent.reachedBuilding();
 		tempStill = false;
 	}
+	
+	public void moveTo(Location destination) {
+		xDestination = destination.getX();
+		yDestination = destination.getY();
+	}
+	
+	void guiMoveFromCurrentPositionTo(final int x, final int y){ // Brice - Method for traveling along the grid within the City Screen
+	 	if(finalX == x && finalY == y) {
+	 		System.out.println("AT PLACE");
+	 		//reachedBuilding();
+	 		grid[x][y] = prevTile;
+	 		return;
+	 	}
+	 	
+	 	//System.out.println(x);
+	 	//System.out.println("1st condition: " + (x));
+	 	//System.out.println(grid[x+1][y]);
+	 	//System.out.println("2nd condition: " + (grid[x+1][y]));
+		//Move RIGHT
+	 	if(finalX - (x + 1)  >= 0 /*<= deltaX*/ && (grid[x+1][y] == 'S' || grid[x+1][y] == 'I')) {
+	 		//System.out.println("MOVING RIGHT");
+	 		try {
+	 			char temp = grid[x+1][y];
+	 			grid[x+1][y] = 'P';
+	 			grid[x][y] = prevTile;
+	 			prevTile = temp;
+	 			moveTo(new Location((x+1)*20, y*20)); //Temporary timer or semaphore?
+	 			moveTimer.schedule(new TimerTask() {
+	 				Object cookie = 1;
+	 				public void run() {
+	 					guiMoveFromCurrentPositionTo(x+1, y);
+	 				}
+	 			},
+	 			200);
+	 			
+	 		}
+	 		catch(ConcurrentModificationException e) {
+	 			System.err.println("Concurrent Modification Exception");
+	 		}
+	 	}
+	 	
+	 	//Move LEFT
+	 	
+	 	else if((x - 1) - finalX >= 0 && (grid[x-1][y] == 'S' || grid[x-1][y] == 'I')) {
+	 		//System.out.println("MOVING LEFT");
+	 		try {
+	 			char temp = grid[x-1][y];
+	 			grid[x-1][y] = 'P';
+	 			grid[x][y] = prevTile;
+	 			prevTile = temp;
+	 			moveTo(new Location((x-1)*20, y*20)); //Temporary timer or semaphore?
+	 			moveTimer.schedule(new TimerTask() {
+	 				Object cookie = 1;
+	 				public void run() {
+	 					guiMoveFromCurrentPositionTo(x-1, y);
+	 				}
+	 			},
+	 			200);
+	 		}
+	 		catch(ConcurrentModificationException e) {
+	 			System.err.println("Concurrent Modification Exception");
+	 		}
+	 	}
+	 	
+	 	//Move UP
+	 	else if((y - 1) - finalY  >= 0 && (grid[x][y-1] == 'S' || grid[x][y-1] == 'I')) {
+	 		//System.out.println("MOVING UP");
+	 		try {
+	 			char temp = grid[x][y-1];
+	 			grid[x][y-1] = 'P';
+	 			grid[x][y] = prevTile;
+	 			prevTile = temp;
+	 			moveTo(new Location(x*20, (y-1)*20)); //Temporary timer or semaphore?
+	 			moveTimer.schedule(new TimerTask() {
+	 				Object cookie = 1;
+	 				public void run() {
+	 					guiMoveFromCurrentPositionTo(x, y-1);
+	 				}
+	 			},
+	 			200);
+	 		}
+	 		catch(ConcurrentModificationException e) {
+	 			System.err.println("Concurrent Modification Exception");
+	 		}
+	 	}
+	 	
+	 	//Move DOWN
+	 	else if(finalY - (y + 1) >= 0 && (grid[x][y+1] == 'S' || grid[x][y+1] == 'I')) {
+	 		//System.out.println("MOVING DOWN");
+	 		try {
+	 			char temp = grid[x][y+1];
+	 			grid[x][y+1] = 'P';
+	 			grid[x][y] = prevTile;
+	 			prevTile = temp;
+	 			moveTo(new Location(x*20, (y+1)*20)); //Temporary timer or semaphore?
+	 			moveTimer.schedule(new TimerTask() {
+	 				Object cookie = 1;
+	 				public void run() {
+	 					guiMoveFromCurrentPositionTo(x, y+1);
+	 				}
+	 			},
+	 			200);
+	 			
+	 		}
+	 		catch(ConcurrentModificationException e) {
+	 			System.err.println("Concurrent Modification Exception");
+	 		}
+	 	}
+	 	
+	 	else {
+	 		moveTimer.schedule(new TimerTask() {
+ 				Object cookie = 1;
+ 				public void run() {
+ 					guiMoveFromCurrentPositionTo(x, y);
+ 				}
+ 			},
+ 			500);
+	 	}
+    }
 }

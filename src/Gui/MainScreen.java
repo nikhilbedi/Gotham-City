@@ -96,6 +96,7 @@ public class MainScreen extends Screen{
 	public void setGrid(Character[][] grid) {
 		this.grid = grid;
 		bus = new Bus("clockWise", grid);
+		bus.setGrid(grid);
 		addGui(bus);
 	}
 }

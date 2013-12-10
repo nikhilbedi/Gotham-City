@@ -24,23 +24,22 @@ public class Restaurant2 extends Restaurant {
 		setWeekendHours(12, 22);
 		
 		((CookRole) cook).setGui((RoleGui)cookGui);
-		//((BankTellerRole) teller).setGui((RoleGui)waiterGui);
 		((WaiterRole) waiter1).setGui((RoleGui)waiterGui1);
 		((WaiterRole) waiter2).setGui((RoleGui)waiterGui2);
 		
-		jobRoles.put("Cook Early", (Role)cook);
-		jobRoles.put("Cook Late",  (Role)cook);
+		jobRoles.put("Cook", (Role)cook);
+		jobRoles.put("Cook", (Role)cook);
 
-		jobRoles.put("Waiter1 Early",(Role)waiter1);
-		jobRoles.put("Waiter1 Late", (Role)waiter1);
+		jobRoles.put("Waiter1",(Role)waiter1);
+		jobRoles.put("Waiter2", (Role)waiter2);
 		
-		jobRoles.put("Waiter2 Early",(Role)waiter2);
-		jobRoles.put("Waiter2 Late", (Role)waiter2);
+		jobRoles.put("Waiter3",(Role)waiter3);
+		jobRoles.put("Waiter4", (Role)waiter4);
 	}
 	
 	HostRole host = new HostRole();
 	CashierRole cashier = new CashierRole();
-	WaiterRole waiter1 = new WaiterRole(), waiter2 = new WaiterRole();
+	WaiterRole waiter1 = new WaiterRole(), waiter2 = new WaiterRole(), waiter3 = new WaiterRole(), waiter4 = new WaiterRole();
 	List<WaiterRole> waiters = new ArrayList<WaiterRole>();
 	CookRole cook = new CookRole();
 	
