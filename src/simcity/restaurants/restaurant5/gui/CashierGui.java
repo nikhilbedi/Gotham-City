@@ -43,7 +43,7 @@ public class CashierGui extends RoleGui implements Gui {
 	public void draw(Graphics g) {
 		super.draw(g);
 		g.setColor(Color.BLACK);
-		g.drawString("Cashier $: " + agent.getMoney(), DEBUGX, DEBUGY);
+		//g.drawString("Cashier $: " + agent.getMoney(), DEBUGX, DEBUGY);
 	}
 
 	public boolean isPresent() {

@@ -25,15 +25,17 @@ public class Restaurant5 extends Restaurant {
 	Host host = new HostRole();
 	Cashier cashier = new CashierRole();
 	Waiter waiter1 = new WaiterRole();
+	Waiter waiter2 = new WaiterRole();
 	Cook cook = new CookRole(); 
 
 
 	//create guis
 	HostGui hostGui = new HostGui(host, ScreenFactory.getMeScreen(this.getName()));
 	CashierGui cashierGui = new CashierGui(cashier, ScreenFactory.getMeScreen(this.getName()));
-	WaiterGui waiterGui = new WaiterGui(waiter1, ScreenFactory.getMeScreen(this.getName()));
 	CookGui cookGui = new CookGui(cook, ScreenFactory.getMeScreen(this.getName()));
-
+	
+	WaiterGui waiterGui1 = new WaiterGui(waiter1, ScreenFactory.getMeScreen("Restaurant 5"));
+	WaiterGui waiterGui2 = new WaiterGui(waiter2, ScreenFactory.getMeScreen("Restaurant 5"));
 	//create 2 waiters and 2 sharedDataWaiter
 	
 
@@ -58,7 +60,8 @@ public class Restaurant5 extends Restaurant {
 
 		((HostRole) host).setGui((RoleGui)hostGui);
 		((CashierRole) cashier).setGui((RoleGui)cashierGui);
-		((WaiterRole) waiter1).setGui((RoleGui)waiterGui);
+		((WaiterRole) waiter1).setGui((RoleGui)waiterGui1);
+		((WaiterRole) waiter2).setGui((RoleGui)waiterGui2);
 		((CookRole) cook).setGui((RoleGui)cookGui);
 
 		jobRoles.put("Host", (Role)host);
@@ -68,6 +71,8 @@ public class Restaurant5 extends Restaurant {
 		//jobRoles.put("Cashier Late", (Role)cashier);
 
 		jobRoles.put("Waiter1",(Role)waiter1);
+		jobRoles.put("Waiter2",(Role)waiter2);
+		
 		//jobRoles.put("Waiter1 Late", (Role)waiter1);
 
 		jobRoles.put("Cook",(Role)cook);

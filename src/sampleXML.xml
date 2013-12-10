@@ -3,7 +3,7 @@
 <!-- Attributes of a person within an XML file -->
 <simcity>
 		<!--Restaurant 1 -->
-		<person name="Batman1">
+	<person name="Batman1">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -35,7 +35,7 @@
 		<transportation>walk</transportation>
 	</person>
 	
-		<person name="Batman3">
+	<person name="Batman3">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -51,7 +51,7 @@
 		<transportation>walk</transportation>
 	</person>
 	
-		<person name="Batman4">
+	<person name="Batman4">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -151,7 +151,7 @@
 	</person>
 	
 	<!--Restaurant 4 -->
-		<person name="Batman10">
+	<person name="Batman10">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -183,7 +183,7 @@
 		<transportation>walk</transportation>
 	</person>
 	
-		<person name="Batman12">
+	<person name="Batman12">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -199,7 +199,7 @@
 		<transportation>walk</transportation>
 	</person>
 	
-		<person name="Batman13">
+	<person name="Batman13">
 
 		<!-- Beginning amount of money -->
 		<money>100000</money>
@@ -230,7 +230,87 @@
 		<!-- Transportation preference -->
 		<transportation>walk</transportation>
 	</person>
+
+	<!--Restaurant 5 -->
+	<person name="Batman15">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 5</building>
+			<position>Waiter1</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
 	
+	<person name="Batman16">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 5</building>
+			<position>Waiter2</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+	
+	<person name="Batman17">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 5</building>
+			<position>Host</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+	
+	<person name="Batman18">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 5</building>
+			<position>Cook</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+	
+	<person name="Batman19">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 5</building>
+			<position>Cashier</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>	
 
 	
 </simcity>

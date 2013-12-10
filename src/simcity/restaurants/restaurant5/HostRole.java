@@ -196,7 +196,7 @@ public class HostRole extends Role implements Host {
 							if(roundRobinPointer > waiters.size()-1)
 								roundRobinPointer = 0;
 						}
-						//print("Before! " + waiters.toString());
+					//print("Before! " + waiters.toString());
 						giveWaiterCustomer(waiters.get(roundRobinPointer), customers.get(0), table);
 						seatedCust++;
 						roundRobinPointer++;

@@ -1,5 +1,6 @@
 package simcity.restaurants.restaurant5;
 
+import Gui.RoleGui;
 import agent.Agent;
 import agent.Role;
 
@@ -84,6 +85,21 @@ public class CookRole extends Role implements Cook{
 
 	public CookRole() {
 		super();
+		Food steak = new Food("Steak", 5);
+		Food chicken = new Food("Chicken", 4);
+		Food salad = new Food("Salad", 2);
+		Food pizza = new Food("Pizza", 3);
+
+		/*stock.add(steak);
+		stock.add(chicken);
+		stock.add(salad);
+		stock.add(pizza);
+		 */
+
+		foodMap.put("Steak", new Food("Steak", 5));
+		foodMap.put("Chicken", new Food("Chicken", 4));
+		foodMap.put("Salad", new Food("Salad", 2));
+		foodMap.put("Pizza", new Food("Pizza", 3));
 	}
 
 	//v2
@@ -262,8 +278,6 @@ public class CookRole extends Role implements Cook{
 		String result = "Cook: ";
 		for (Map.Entry<String, Food> f : foodMap.entrySet())//check food amount
 		{
-			AlertLog.getInstance().logInfo(AlertTag.GUI, "CookRole",
-					"Key: " + f.getKey() + " Value: " + f.getValue());
 			String temp = "error";
 			if(f.getKey().equalsIgnoreCase("Steak")){
 				temp = "ST";
@@ -291,8 +305,9 @@ public class CookRole extends Role implements Cook{
 		markets.add(temp);
 	}
 
-	public void setGui(CookGui gui) {
-		cookGui = gui;
+	public void setGui(RoleGui gui) {
+		super.setGui(gui);
+		cookGui = (CookGui) gui;
 	}
 
 	public CookGui getGui() {
