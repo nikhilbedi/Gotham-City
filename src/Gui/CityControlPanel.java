@@ -3,11 +3,13 @@ package Gui;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.JToggleButton;
 
  
 import trace.AlertLevel;
@@ -21,7 +23,7 @@ public class CityControlPanel extends JPanel implements ActionListener{
 	JButton addRestaurant, addBank;
 
 	//For managing traces
-	JButton enableInfoButton;		//You could (and probably should) substitute a JToggleButton to replace both
+	JToggleButton enableInfoButton;		//You could (and probably should) substitute a JToggleButton to replace both
 	JButton disableInfoButton;		//of these, but I split it into enable and disable for clarity in the demo.
 	JButton enableRestaurantTagButton;		
 	JButton disableRestaurantTagButton;		
@@ -32,20 +34,18 @@ public class CityControlPanel extends JPanel implements ActionListener{
 
 	public CityControlPanel(SimCityRun city) {
 		this.city = city;
-		this.setPreferredSize(new Dimension(CP_WIDTH, CP_HEIGHT));
+		//this.setPreferredSize(new Dimension(CP_WIDTH, CP_HEIGHT));
 		this.setVisible(true);
 
-		this.setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
-
+		this.setLayout(new GridLayout(3, 5));
+		
 		//Trace panel buttons
-		enableInfoButton = new JButton("Show Level: INFO");
+		enableInfoButton = new JToggleButton("INFO");
 		enableInfoButton.addActionListener(this);
-		disableInfoButton = new JButton("Hide Level: INFO");
-		disableInfoButton.addActionListener(this);
+		
 		enableRestaurantTagButton = new JButton("Show Tag: RESTAURANT");
 		enableRestaurantTagButton.addActionListener(this);
+		
 		disableRestaurantTagButton = new JButton("Hide Tag: RESTAURANT");
 		disableRestaurantTagButton.addActionListener(this);
 		enableBankTagButton = new JButton("Show Tag: BANK");
@@ -53,18 +53,18 @@ public class CityControlPanel extends JPanel implements ActionListener{
 		disableBankTagButton = new JButton("Hide Tag: BANK");
 		disableBankTagButton.addActionListener(this);
 		
-		c.gridx = 1; c.gridy = 0;
-		this.add(enableInfoButton, c);
-		c.gridx = 1; c.gridy = 1;
-		this.add(disableInfoButton, c);
-		c.gridx = 2; c.gridy = 0;
-		this.add(enableRestaurantTagButton, c);
-		c.gridx = 2; c.gridy = 1;
-		this.add(disableRestaurantTagButton, c);
-		c.gridx = 3; c.gridy = 0;
-		this.add(enableBankTagButton, c);
-		c.gridx = 3; c.gridy = 1;
-		this.add(disableBankTagButton, c);
+		//c.gridx = 1; c.gridy = 0;
+		this.add(enableInfoButton);
+		//c.gridx = 1; c.gridy = 1;
+	//	this.add(disableInfoButton);
+		//c.gridx = 2; c.gridy = 0;
+		this.add(enableRestaurantTagButton);
+		//c.gridx = 2; c.gridy = 1;
+		this.add(disableRestaurantTagButton);
+		//c.gridx = 3; c.gridy = 0;
+		this.add(enableBankTagButton);
+		//c.gridx = 3; c.gridy = 1;
+		this.add(disableBankTagButton);
 	}
 
 	public void actionPerformed(ActionEvent e) {

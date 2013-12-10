@@ -59,4 +59,13 @@ public final class CityClock {
 	public static int getTime() {
 		return currentTime;
 	}
+	public static void clearCity(){
+		//don't call this unless you know what you're doing
+		for(PersonAgent p : people) {
+			
+			//p.updateTime(currentTime);
+		}
+		people.clear();
+	}
+	
 }
