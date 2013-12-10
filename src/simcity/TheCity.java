@@ -101,8 +101,8 @@ public class TheCity {
 		buildings.add(apart);
 
 		buildings.add(rest3);
-/*		buildings.add(rest2);
-*/
+		buildings.add(rest2);
+
 		
 		 //Setup Transportation Grid
         

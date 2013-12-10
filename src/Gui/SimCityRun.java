@@ -54,7 +54,6 @@ public class SimCityRun extends JFrame implements ActionListener
 		
 		CityMenuBar demo = new CityMenuBar();
         setJMenuBar(demo);
-        
 		
 		setLayout(new BoxLayout((Container)this.getContentPane(), BoxLayout.Y_AXIS));
 
@@ -116,7 +115,7 @@ public class SimCityRun extends JFrame implements ActionListener
 	{
 		//Sample reading an XML file
 		
-		//XMLHelper.createPeople("sampleXML.xml"); //Commented out until the xml positioning is fixed (Homeless shelter?)
+		XMLHelper.createPeople("sampleXML.xml"); //Commented out until the xml positioning is fixed (Homeless shelter?)
 
 		//THE BIG BANG
 		CityClock.startTime();

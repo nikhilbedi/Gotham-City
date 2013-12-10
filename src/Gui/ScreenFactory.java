@@ -45,7 +45,7 @@ public class ScreenFactory {
  		market = new MarketAnimationPanel();
  		rest4 = new Restaurant4AnimationPanel();
  		rest5 = new RestaurantHunterAnimationPanel();		
- 		//rest2 = new Restaurant2AnimationPanel();
+ 		rest2 = new Restaurant2AnimationPanel();
 		home = new HomeAnimationPanel();
  		apart = new ApartmentAnimationPanel();	
 		rest3 = new RestaurantEvanAnimationPanel();
@@ -54,9 +54,9 @@ public class ScreenFactory {
 		screenList.add(rest1);
 		screenList.add(market);
 		screenList.add(bank);
-		//screenList.add(rest2);
+		screenList.add(rest2);
 		screenList.add(rest4);
-		//screenList.add(home);
+		screenList.add(home);
 		screenList.add(rest5);
 		screenList.add(rest3);
 		/*screenList.add(rest4);
