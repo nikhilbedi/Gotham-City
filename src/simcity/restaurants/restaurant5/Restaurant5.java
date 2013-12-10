@@ -30,6 +30,10 @@ public class Restaurant5 extends Restaurant {
 	Cook cook = new CookRole(); 
 
 
+	public CookRole getCook() {
+		return (CookRole)cook;
+	}
+
 	//create guis
 	HostGui hostGui = new HostGui(host, ScreenFactory.getMeScreen(this.getName()));
 	CashierGui cashierGui = new CashierGui(cashier, ScreenFactory.getMeScreen(this.getName()));
@@ -123,7 +127,7 @@ public class Restaurant5 extends Restaurant {
 	}
 
 	@Override
-	public Role getCashier() {
+	public CashierRole getCashier() {
 		return (CashierRole)cashier;
 	}
 

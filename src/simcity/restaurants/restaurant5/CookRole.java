@@ -7,12 +7,18 @@ import agent.Role;
 import java.util.*;
 import java.util.concurrent.Semaphore;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.Map;
 import java.util.TimerTask;
 
 import simcity.Item;
 import simcity.PersonAgent;
+import simcity.TheCity;
+import simcity.Market.Market;
+import simcity.Market.MarketWorkerRole;
+import simcity.restaurants.restaurant4.Restaurant4;
+import simcity.restaurants.restaurant4.Restaurant4CookRole.Food;
 import simcity.restaurants.restaurant5.interfaces.*;
 import simcity.restaurants.restaurant5.gui.*;
 import trace.AlertLog;
@@ -26,15 +32,17 @@ public class CookRole extends Role implements Cook{
 	public List<Order> orders =  Collections.synchronizedList(new ArrayList<Order>());
 	Timer timer = new Timer();
 	private Semaphore moving = new Semaphore(0,true);
-	
+
 	//private List<Food> stock = new ArrayList<Food>();
 	private List<MyMarket> markets = Collections.synchronizedList(new ArrayList<MyMarket>());
 	public Map<String, Food> foodMap = new HashMap<String, Food>();
+	public Map<String, Integer> neededFood = new HashMap<String, Integer>();
 	private String name;
-	
-	private List<String> neededFoods = new ArrayList<String>();
+
+	//private List<String> neededFoods = new ArrayList<String>();
 	private List<Integer> neededAmounts = new ArrayList<Integer>();
 
+	Restaurant5 r5;
 	//boolean orderFood = false;
 	//MarketState order = MarketState.free;
 
@@ -152,6 +160,20 @@ public class CookRole extends Role implements Cook{
 
 		stateChanged();
 	}
+	
+	public void HereIsYourFood(Map<String, Integer> m, MarketWorkerRole worker){ //from market
+		//needFood = false;
+		myPerson.Do("Sending market worker message that I got food");
+		worker.Delivered(r5);
+		for (Map.Entry<String, Integer> entry: m.entrySet()){
+			Food f = foodMap.get(entry.getKey());
+			f.amount = f.amount + entry.getValue();
+			foodMap.put(entry.getKey(), f);
+			myPerson.Do("Got order from market, now I have " + f.type + " " + f.amount);
+		}
+		
+	}
+	
 	/**
 	 * Scheduler.  Determine what action is called for, and do it.
 	 */
@@ -174,16 +196,16 @@ public class CookRole extends Role implements Cook{
 
 			if((f.getValue().amount <= f.getValue().low ) || (f.getValue().fs == FoodState.partialStock)){
 				if(f.getValue().fs != FoodState.ordering){
-					orderFood(f.getValue());
+					int needed = 5;
+					neededFood.put(f.getKey(), needed);
 					f.getValue().fs = FoodState.ordering;
 				}
 			}
 		}
+		if(neededFood.size()>0){
+			orderFood();
+		}
 		return false;
-
-		//we have tried all our rules and found
-		//nothing to do. So return false to main loop of abstract agent
-		//and wait.
 	}
 
 	// Actions
@@ -226,7 +248,7 @@ public class CookRole extends Role implements Cook{
 		catch(InterruptedException e) {	
 		}
 	}
-	
+
 	private void DoGoToGrill(){
 		print("this far");
 		cookGui.DoGoToGrill();
@@ -256,18 +278,12 @@ public class CookRole extends Role implements Cook{
 		orders.remove(o);
 	}
 
-	private void orderFood(Food f){
-		synchronized(markets){
-			for(MyMarket mm : markets){
-				if( mm.ms == MarketState.idle){
-					mm.m.iNeedFood(this, f.type, 5);
-					mm.ms = MarketState.ordered;
-					return;
-				}
-			}
-		}
+	private void orderFood(){
+		Market m = (Market) TheCity.getBuildingFromString("Market"); // add one more market late
+		r5 = (Restaurant5) TheCity.getBuildingFromString("Restaurant 5");
+		m.getCashier().INeedFood(neededFood, r5);
 	}
-    //animation stuff
+	//animation stuff
 	public void doneMoving(){
 		moving.release();
 	}
@@ -317,7 +333,7 @@ public class CookRole extends Role implements Cook{
 	public String getName(){
 		return name;
 	}
-	
+
 	public Vector<Item> getInventory(){
 		Vector<Item> inventory = new Vector<Item>();
 		for (Map.Entry<String, Food> f : foodMap.entrySet())//check food amount

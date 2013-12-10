@@ -9,6 +9,7 @@ import simcity.Market.Order;
 import simcity.Market.MarketWorkerRole.CustomerDelivery;
 import simcity.Market.MarketWorkerRole.RestaurantDelivery;
 import simcity.restaurants.Restaurant;
+import simcity.restaurants.restaurant4.Restaurant4CookRole;
 
 public interface MarketWorker {
 
@@ -18,11 +19,13 @@ public interface MarketWorker {
 
 	abstract void Brought(MarketCustomer customer);
 
-	abstract void SendFood(Map<String, Integer> temp, Role cookRole, Restaurant r);
+	abstract void SendFood(Map<String, Integer> temp,  Restaurant r);
 
 	abstract void Sent(Role role);
 
 	abstract List<CustomerDelivery> getCustomerDeliveries();
 	
 	abstract List<RestaurantDelivery> getRestaurantDeliveries();
+
+	abstract void Delivered(Restaurant r);
 }

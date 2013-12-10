@@ -10,6 +10,7 @@ import simcity.PersonAgent;
 import simcity.TheCity;
 import simcity.Market.Market;
 import simcity.Market.MarketCashierRole;
+import simcity.Market.MarketWorkerRole;
 import simcity.Market.MarketGui.MarketAnimationPanel;
 import simcity.Market.interfaces.MarketCashier;
 import simcity.restaurants.restaurant4.Restaurant4Gui.Restaurant4CookGui;
@@ -23,17 +24,18 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 	private List<Order> orders = new ArrayList<Order>();
 	private Timer timer = new Timer();
 	public Map<String, Food> foods = new HashMap<String, Food>();
-	Food chicken = new Food("Chicken", 10);
-	Food steak = new Food("Steak", 10);
-	Food pizza = new Food("Pizza", 10);
-	Food salad = new Food("Salad", 10);
+	Food chicken = new Food("Chicken", 2);
+	Food steak = new Food("Steak", 2);
+	Food pizza = new Food("Pizza", 2);
+	Food salad = new Food("Salad", 2);
 
 	private Restaurant4CookGui cg;
 	public Map<String, Integer> neededFood = new HashMap<String, Integer>();
 	private MarketCashier cashier;
 	private Restaurant4CashierRole restCashier;
 	private boolean order = false;
-	
+	private boolean needFood = false;
+	Restaurant4 r4;
 	public Restaurant4CookRole(PersonAgent p){
 		super(p);
 		foods.put("Chicken",chicken);
@@ -89,7 +91,8 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 		myPerson.Do("There is something on the stand");
 		int index = orders.size()-1;
 		Order o = orders.get(index);
-		RevolvingStand.removeOrder(this, o.waiter, o.choice, o.table);
+		//RevolvingStand.removeOrder(this, o.waiter, o.choice, o.table);
+		RevolvingStand.orders.remove(0);
 		stateChanged();
 	}
 
@@ -98,12 +101,15 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 		salad.amount = 0;
 	}
 	
-	public void HereIsYourFood(Map<String, Integer> m){ //from market
+	public void HereIsYourFood(Map<String, Integer> m, MarketWorkerRole worker){ //from market
+		needFood = false;
+		myPerson.Do("Sending market worker message that I got food");
+		worker.Delivered(r4);
 		for (Map.Entry<String, Integer> entry: m.entrySet()){
 			Food f = foods.get(entry.getKey());
 			f.amount = f.amount + entry.getValue();
 			foods.put(entry.getKey(), f);
-			System.out.println("Got order from market, now I have " + f.type + " " + f.amount);
+			myPerson.Do("Got order from market, now I have " + f.type + " " + f.amount);
 		}
 		
 	}
@@ -131,11 +137,11 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 				myPerson.Do("Need " + entry.getKey());
 				int needed = entry.getValue().capacity - entry.getValue().amount;
 				neededFood.put(entry.getKey(), needed);
-				order = true;
+				needFood = true;
 			}
 		}
-		if (order == true){
-			order = false;
+		if ((needFood == true)&&(order == false)){
+			order = true;
 			myPerson.Do("Ordering food");
 			orderFoodThatIsLow();
 			return true;
@@ -173,12 +179,14 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 	}
 	
 	
+	
 	public void orderFoodThatIsLow(){
+		//order = false;
 		myPerson.Do("Ordering food from market");
 		Market m = (Market) TheCity.getBuildingFromString("Market"); // add one more market later
     	cashier = m.getCashier();
-    	Restaurant4 r4 = (Restaurant4) TheCity.getBuildingFromString("Restaurant 4");
-		cashier.INeedFood(neededFood, this, restCashier, r4);
+    	r4 = (Restaurant4) TheCity.getBuildingFromString("Restaurant 4");
+		cashier.INeedFood(neededFood, r4);
 	}
 
 	public void setMarketCashier(MarketCashier m){
@@ -265,4 +273,7 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	
 }

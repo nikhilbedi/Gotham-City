@@ -24,6 +24,7 @@ public class ScreenFactory {
 
 	public static MainScreen main;
 	public static Screen market;
+
 	
 	public static Screen rest1; 
 	public static Screen rest2; 
@@ -34,6 +35,7 @@ public class ScreenFactory {
 	public static Screen bank;
 	public static Screen home;
 	public static Screen apart;
+
 
 
 

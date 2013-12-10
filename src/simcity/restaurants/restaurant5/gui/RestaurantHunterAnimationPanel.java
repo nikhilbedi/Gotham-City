@@ -9,7 +9,6 @@ import simcity.restaurants.Restaurant;
 import simcity.restaurants.restaurant5.CashierRole;
 import simcity.restaurants.restaurant5.CookRole;
 import simcity.restaurants.restaurant5.HostRole;
-import simcity.restaurants.restaurant5.MarketRole;
 import simcity.restaurants.restaurant5.Restaurant5CustomerRole;
 import simcity.restaurants.restaurant5.WaiterRole;
 

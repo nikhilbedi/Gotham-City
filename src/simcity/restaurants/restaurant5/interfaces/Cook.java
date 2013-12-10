@@ -8,8 +8,8 @@ public interface Cook {
 		public abstract void hereIsAnOrder(Waiter w, String choice, int table);
 		
 		//v2.1
-		public abstract void hereIsFood(Market m, String s, int amount);
+		//public abstract void hereIsFood(Market m, String s, int amount);
 		
-		public abstract void hereIsSomeFood(Market m, String s, int amount);
+		//public abstract void hereIsSomeFood(Market m, String s, int amount);
 
 }

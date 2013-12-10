@@ -81,7 +81,6 @@ public class Market extends Building {
 	}
 	
 	public MarketCashier getCashier(){
-		
 		return marketCashier ;
 	}
 	
