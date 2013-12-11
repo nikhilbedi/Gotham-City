@@ -1,0 +1,668 @@
+<?xml version="1.0"?>
+
+<!-- Attributes of a person within an XML file -->
+<simcity>
+	<!--Restaurant 1 -->
+	<person name="Rest1Batmanwaiter1">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 1</building>
+			<position>waiter1</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="Rest1Batmanwaiter2">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 1</building>
+			<position>waiter2</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="Rest1BatmanHost">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 1</building>
+			<position>host</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="Rest1BatmanCook">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 1</building>
+			<position>Cook</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="Rest1BatmanCashier">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 1</building>
+			<position>Cashier</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+
+
+
+
+	<!--Restaurant 2 -->
+	<person name="Rest2Batmanwaiter1">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 2</building>
+			<position>waiter1</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="Rest2Batmanwaiter2">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 2</building>
+			<position>waiter2</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="Rest2BatmanHost">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 2</building>
+			<position>host</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="Rest2BatmanCook">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 2</building>
+			<position>Cook</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="Rest2BatmanCashier">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 2</building>
+			<position>Cashier</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+
+
+
+
+
+	<!--Restaurant 3 -->
+	<person name="Rest3Batmanwaiter1">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 3</building>
+			<position>waiter1</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="Rest3Batmanwaiter2">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 3</building>
+			<position>waiter2</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="Rest3BatmanHost">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 3</building>
+			<position>host</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="Rest3BatmanCook">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 3</building>
+			<position>Cook</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="Rest3BatmanCashier">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 3</building>
+			<position>Cashier</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+
+
+
+
+
+
+	<!--Restaurant 4 -->
+	<person name="Rest4Batmanwaiter1">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 4</building>
+			<position>waiter1</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="Rest4Batmanwaiter2">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 4</building>
+			<position>waiter2</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="Rest4BatmanHost">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 4</building>
+			<position>host</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="Rest4BatmanCook">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 4</building>
+			<position>Cook</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="Rest4BatmanCashier">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 4</building>
+			<position>Cashier</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+
+
+
+
+	<!--Restaurant 5 -->
+	<person name="Rest5Batmanwaiter1">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 5</building>
+			<position>waiter1</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="Rest5Batmanwaiter2">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 5</building>
+			<position>waiter2</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="Rest5BatmanHost">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 5</building>
+			<position>host</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="Rest5BatmanCook">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 5</building>
+			<position>Cook</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="Rest5BatmanCashier">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 5</building>
+			<position>Cashier</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+
+
+
+
+
+	<!--Bank -->
+	<person name="BatmanBankGreeter1">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Bank</building>
+			<position>bankGreeter</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="BatmanBankTeller1">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Bank</building>
+			<position>bankTeller</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+
+
+
+
+
+
+	<!--Market -->
+	<person name="BatmanMarketCashier1">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Market</building>
+			<position>marketCashier</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="BatmanMarketWorker1">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Market</building>
+			<position>marketWorker</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+
+	<!-- Extra People -->
+	<person name="Sim1">
+
+		<!-- Beginning amount of money -->
+		<money>1000</money>
+
+		<!-- The specific home Person resides -->
+		<residency>
+			<home>Home</home>
+		</residency>
+
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+
+	</person>
+	<person name="Sim2">
+
+		<!-- Beginning amount of money -->
+		<money>1000</money>
+		<!-- The specific home Person resides -->
+		<residency>
+			<home>Home1</home>
+		</residency>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="Sim3">
+
+		<!-- Beginning amount of money -->
+		<money>1000</money>
+
+		<!-- The specific home Person resides -->
+		<residency>
+			<home>Home2</home>
+		</residency>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="Sim4">
+
+		<!-- Beginning amount of money -->
+		<money>1000</money>
+
+		<!-- The specific home Person resides -->
+		<residency>
+			<home>Home3</home>
+		</residency>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+	<person name="Sim5">
+
+		<!-- Beginning amount of money -->
+		<money>1000</money>
+
+		<!-- The specific home Person resides -->
+		<residency>
+			<home>Home4</home>
+		</residency>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+	<person name="Sim6">
+
+		<!-- Beginning amount of money -->
+		<money>1000</money>
+
+		<!-- The specific home Person resides -->
+		<residency>
+			<home>Home12</home>
+		</residency>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+	<person name="Sim7">
+
+		<!-- Beginning amount of money -->
+		<money>1000</money>
+
+		<!-- The specific home Person resides -->
+		<residency>
+			<home>Home13</home>
+		</residency>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+	<person name="Sim8">
+
+		<!-- Beginning amount of money -->
+		<money>1000</money>
+
+		<!-- The specific home Person resides -->
+		<residency>
+			<home>Home7</home>
+		</residency>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+	<person name="Sim9">
+
+		<!-- Beginning amount of money -->
+		<money>1000</money>
+
+		<!-- The specific home Person resides -->
+		<residency>
+			<home>Home8</home>
+		</residency>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+	<person name="Sim10">
+
+		<!-- Beginning amount of money -->
+		<money>1000</money>
+
+		<!-- The specific home Person resides -->
+		<residency>
+			<home>Home9</home>
+		</residency>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+	<person name="Sim11">
+
+		<!-- Beginning amount of money -->
+		<money>1000</money>
+
+		<!-- The specific home Person resides -->
+		<residency>
+			<home>Home10</home>
+		</residency>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+	<person name="Sim12">
+
+		<!-- Beginning amount of money -->
+		<money>1000</money>
+
+		<!-- The specific home Person resides -->
+		<residency>
+			<home>Home11</home>
+		</residency>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+</simcity>
