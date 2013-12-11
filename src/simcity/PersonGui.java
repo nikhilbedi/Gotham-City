@@ -81,8 +81,8 @@ public class PersonGui extends RoleGui {
 		yPos = 220;
 		yDestination = 220;
 		
-		xPos = 140; //Possibly remove this
-		xDestination = 140;
+		xPos = 160; //Possibly remove this
+		xDestination = 160;
 		yPos = 180;
 		yDestination = 180;
 		/*
