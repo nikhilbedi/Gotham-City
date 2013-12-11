@@ -238,7 +238,7 @@ public class Car extends RoleGui{
 				guiMoveFromCurrentPositionTo(x, y+1);
 			}
 		},
-		250);
+		300);
 	}
 
 
@@ -255,7 +255,7 @@ public class Car extends RoleGui{
 				guiMoveFromCurrentPositionTo(x, y-1);
 			}
 		},
-		250);
+		300);
 	}
 
 
@@ -271,7 +271,7 @@ public class Car extends RoleGui{
 				guiMoveFromCurrentPositionTo(x-1, y);
 			}
 		},
-		250);
+		300);
 	}
 
 
@@ -288,7 +288,7 @@ public class Car extends RoleGui{
 				guiMoveFromCurrentPositionTo(x+1, y);
 			}
 		},
-		250);
+		300);
 	}
 	
 	public void DoGoToLocation(Location destination) {
