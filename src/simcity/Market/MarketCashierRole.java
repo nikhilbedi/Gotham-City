@@ -224,7 +224,8 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	}
 	
 	public void Ask(MarketCustomer c){
-		System.out.println("What Do You Want " + currentCustomer.getName());
+		//System.out.println("What Do You Want " + currentCustomer.getName());
+		currentCustomer = null;
 		c.NextCustomerPlease();
 	}
 	
@@ -296,7 +297,7 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	public void GiveChangeCustomer(Check check){
 		System.out.println(myPerson.name+ ": "+"Giving change " + check.c.getName());
 		check.c.HereIsChange(check.moneyGiven - check.amountDue);
-		waitingCustomers.remove(currentCustomer);
+		waitingCustomers.remove(check.c);
 		if (waitingCustomers.size()!=0){
 			currentCustomer = waitingCustomers.get(0);
 			stateChanged();

@@ -549,15 +549,17 @@ public class ResidentRole extends Role implements Resident {
 				"Putting groceries in the fridge. My grocery bag contains: Chicken: " + groceryBag.get("Chicken") + " Steak: " + 
 						groceryBag.get("Steak") + " Pizza: " + groceryBag.get("Pizza") + " Salad: " + groceryBag.get("Salad") );
 		groceryBag = myPerson.groceryBag;
-		int temp = groceryBag.get("Chicken");
-		
-		//if(this.myPerson.getMyHome().getName().contains("Apartment")){
-			//roomNumber
-		//}
-		fridgeFoods.get("Chicken").setAmount(fridgeFoods.get("Chicken").getAmount() + groceryBag.get("Chicken"));
-		fridgeFoods.get("Steak").setAmount(fridgeFoods.get("Steak").getAmount() + groceryBag.get("Steak"));
-		fridgeFoods.get("Pizza").setAmount(fridgeFoods.get("Pizza").getAmount() + groceryBag.get("Pizza"));
-		fridgeFoods.get("Salad").setAmount(fridgeFoods.get("Salad").getAmount() + groceryBag.get("Salad"));
+		if(groceryBag != null){
+			int temp = groceryBag.get("Chicken");
+			
+			//if(this.myPerson.getMyHome().getName().contains("Apartment")){
+				//roomNumber
+			//}
+			fridgeFoods.get("Chicken").setAmount(fridgeFoods.get("Chicken").getAmount() + groceryBag.get("Chicken"));
+			fridgeFoods.get("Steak").setAmount(fridgeFoods.get("Steak").getAmount() + groceryBag.get("Steak"));
+			fridgeFoods.get("Pizza").setAmount(fridgeFoods.get("Pizza").getAmount() + groceryBag.get("Pizza"));
+			fridgeFoods.get("Salad").setAmount(fridgeFoods.get("Salad").getAmount() + groceryBag.get("Salad"));
+		}
 		//print("Grocery bag ")
 		//fridgeFoods.get("Steak").setAmount(fridgeFoods.get("Steak").getAmount() + groceryBag.get("Steak"));
 		

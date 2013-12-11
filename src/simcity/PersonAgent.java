@@ -84,6 +84,8 @@ public class PersonAgent extends Agent implements Person {
 	private Building spawnPoint = new Building("bat cave");
 	public Home myHome;
 	private List<Market> markets;
+	public Market marketPreference;
+	private int marketCounter = (int)(Math.random()*2);
 	public Building currentBuilding = spawnPoint;
 	public Building currentDestination = spawnPoint;
 
@@ -201,6 +203,7 @@ public class PersonAgent extends Agent implements Person {
 
 	public void setMarkets(List<Market> m) {
 		markets = m;
+		marketPreference = markets.get(marketCounter);
 	}
 
 	public List<Market> getMarkets(){
@@ -551,8 +554,10 @@ public class PersonAgent extends Agent implements Person {
 		// Person Scheduler
 
 		if (checkPersonScheduler) {
-			/*if(true) {
-				goToWork();
+			/*if(true){
+				groceryList = new HashMap<String, Integer>();
+				groceryList.put("Chicken", 5);
+				goGetGroceries();
 				return true;
 			}*/
 			//Time to leave, yo.
@@ -892,20 +897,21 @@ public class PersonAgent extends Agent implements Person {
 	private void goGetGroceries() {
 		// if inside building and not in current restaurant preference
 		// animate outside building
-		Market temp = markets.get(0);
+	/*	Market temp = markets.get(0);
 		for (Market m : markets) {
 			temp = m;
 			gui.DoGoToLocation(m.getEntranceLocation());
 
 			break;
-		}
+		}*/
+		gui.DoGoToLocation(marketPreference.getEntranceLocation());
 		try {
 			busyWithTask.acquire();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(temp.isOpen()) {
+		if(marketPreference.isOpen()) {
 			marketState = MarketState.GettingGroceries;
 
 			marketRoleTemp = RoleFactory.makeMeRole("marketCustomer");
@@ -927,6 +933,10 @@ public class PersonAgent extends Agent implements Person {
 		else {
 			goToHome();
 		}
+		marketCounter++;
+		if(marketCounter >1)
+			marketCounter = 0;
+		marketPreference = markets.get(marketCounter);
 	}
 
 	private void goToBank() {

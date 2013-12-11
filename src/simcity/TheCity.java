@@ -607,7 +607,7 @@ public class TheCity {
 	public static List<Market> getMarketList(){
 		List<Market> tempcast = new ArrayList<Market>();
 		tempcast.add((Market)market);
-
+		tempcast.add((Market)market1);
 		return tempcast;
 	}
 

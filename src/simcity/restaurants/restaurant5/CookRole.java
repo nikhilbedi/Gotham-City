@@ -312,7 +312,7 @@ public class CookRole extends Role implements Cook{
 	}
 
 	private void orderFood(){
-		Market m = (Market) TheCity.getBuildingFromString("Market"); // add one more market late
+		Market m = (Market) TheCity.getBuildingFromString("Market1"); // add one more market late
 		r5 = (Restaurant5) TheCity.getBuildingFromString("Restaurant 5");
 		m.getCashier().INeedFood(neededFood, r5);
 	}
