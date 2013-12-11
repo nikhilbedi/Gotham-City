@@ -22,6 +22,7 @@ public class BankRobberGui extends RoleGui {
 		yDestination = 20;
 	}
 	public BankRobberGui(BankRobberRole bankRobber, Screen s) {
+		super(bankRobber, s);
 		this.bankRobber = bankRobber;
 		myColor = Color.black;
 		atTeller = false;

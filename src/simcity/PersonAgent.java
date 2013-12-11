@@ -204,7 +204,7 @@ public class PersonAgent extends Agent implements Person {
 	public void setMarkets(List<Market> m) {
 		markets = m;
 		marketPreference = markets.get(marketCounter);
-	//	marketPreference = markets.get(1);
+		//	marketPreference = markets.get(1);
 	}
 
 	public List<Market> getMarkets(){
@@ -356,7 +356,7 @@ public class PersonAgent extends Agent implements Person {
 		// Next Day
 		if (currentTime == 1) {
 			//I would just get rid of the day variable, but I already use it in so many places, so I'll just set it.
-		
+
 			day = CityClock.getDay();
 			dayState = DayOfTheWeek.values()[day];
 			print("The day of the week is " + dayState.name());
@@ -606,7 +606,7 @@ public class PersonAgent extends Agent implements Person {
 					return true;
 				}
 			}
-			
+
 			// Let me even see if I got money..
 			if (moneyState == MoneyState.Low || moneyState == MoneyState.High) {
 				if (currentBuilding != bank) {
@@ -674,7 +674,7 @@ public class PersonAgent extends Agent implements Person {
 				return true;
 			}
 
-		
+
 			if(currentBuilding != getMyHome()) {
 				goToHome();
 				//TODO I think we can just remove "return true" here. It's currently causing problems since not everyone has a home
@@ -900,7 +900,7 @@ public class PersonAgent extends Agent implements Person {
 	private void goGetGroceries() {
 		// if inside building and not in current restaurant preference
 		// animate outside building
-	/*	Market temp = markets.get(0);
+		/*	Market temp = markets.get(0);
 		for (Market m : markets) {
 			temp = m;
 			gui.DoGoToLocation(m.getEntranceLocation());
@@ -960,19 +960,34 @@ public class PersonAgent extends Agent implements Person {
 		if(bank.isOpen()) {
 			print("Bank is open!");
 			currentBuilding = bank;
+			if(name.equalsIgnoreCase("Joker")) {
+				bankRoleTemp = RoleFactory.makeMeRole("bankRobber");
+				// currentBuilding = bank;
+				bankGui = new BankRobberGui((BankRobberRole) bankRoleTemp,
+						ScreenFactory.getMeScreen("Bank"));
+				bankRoleTemp.setPerson(this);
+				bankGui.setHomeScreen(ScreenFactory.getMeScreen("Bank"));
 
-			bankRoleTemp = RoleFactory.makeMeRole("bankCustomer");
-			// currentBuilding = bank;
-			bankGui = new bankCustomerGui((BankCustomerRole) bankRoleTemp,
-					ScreenFactory.getMeScreen("Bank"));
-			bankRoleTemp.setPerson(this);
-			bankGui.setHomeScreen(ScreenFactory.getMeScreen("Bank"));
+				bankRoleTemp.setGui(bankGui);
+				// Enter building
+				enteringBuilding(bankRoleTemp);
 
-			bankRoleTemp.setGui(bankGui);
-			// Enter building
-			enteringBuilding(bankRoleTemp);
+				checkPersonScheduler = false;
+			}
+			else {
+				bankRoleTemp = RoleFactory.makeMeRole("bankCustomer");
+				// currentBuilding = bank;
+				bankGui = new bankCustomerGui((BankCustomerRole) bankRoleTemp,
+						ScreenFactory.getMeScreen("Bank"));
+				bankRoleTemp.setPerson(this);
+				bankGui.setHomeScreen(ScreenFactory.getMeScreen("Bank"));
 
-			checkPersonScheduler = false;
+				bankRoleTemp.setGui(bankGui);
+				// Enter building
+				enteringBuilding(bankRoleTemp);
+
+				checkPersonScheduler = false;
+			}
 		}
 		else {
 			print("BANK IS NOT OPEN");

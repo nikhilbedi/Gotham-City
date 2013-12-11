@@ -19,7 +19,10 @@ public class RoleFactory {
 	Screen bank;
 
 	public static Role makeMeRole(String type) {
-		if(type.equalsIgnoreCase("landlord")) {
+		if(type.equalsIgnoreCase("bankRobber")){
+			return new BankRobberRole();
+		}
+		else if(type.equalsIgnoreCase("landlord")) {
 			return new LandlordRole();
 		}
 		//home resident
