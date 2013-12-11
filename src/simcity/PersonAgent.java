@@ -347,7 +347,7 @@ public class PersonAgent extends Agent implements Person {
 			else
 				landlord.setActive(false);
 		}
-		print("hungerState: " + hungerState.name());
+		//print("hungerState: " + hungerState.name());
 
 		// Next Day
 		if (currentTime == 1) {
