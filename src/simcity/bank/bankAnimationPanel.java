@@ -12,7 +12,7 @@ import Gui.Screen;
 import Gui.ScreenFactory;
 
 public class bankAnimationPanel extends Screen{
-	Bank b = TheCity.getBank();
+	//Bank b = TheCity.getBank();
 	
 	public bankAnimationPanel() {
 		super();
@@ -55,14 +55,14 @@ public class bankAnimationPanel extends Screen{
 		bankCustomerGui customerGui = new bankCustomerGui(bankCustomer);
 		BankGreeterGui greeterGui = new BankGreeterGui(bankGreeter);
 		bankCustomerGui customerGui2 = new bankCustomerGui(bankCustomer2);
-		BankTellerGui tellerGui = new BankTellerGui(bankTeller);
+		BankTellerGui tellerGui = new BankTellerGui(bankTeller);*/
 		
-		//bankCustomer.setGui(customerGui, 50, 50);
-		//bankCustomer2.setGui(customerGui2, 10, 10);
-		bankGreeter.setGui(greeterGui);
+		/*bankCustomer.setGui(customerGui, 50, 50);
+		bankCustomer2.setGui(customerGui2, 10, 10);*/
+		/*bankGreeter.setGui(greeterGui);
 		bankTeller.setGui(tellerGui);
 		
-		b.setGreeter(bankGreeter);
+		//b.setGreeter(bankGreeter);
 		
 		person.addRole(bankCustomer);
 		person.startThread();
@@ -74,12 +74,8 @@ public class bankAnimationPanel extends Screen{
 		person3.startThread();
 		
 		person4.addRole(bankCustomer2);
-		person4.startThread();
+		person4.startThread();*/
 		
-		addGui(customerGui);
-		addGui(customerGui2);*/
-		//addGui(greeterGui);
-		//addGui(tellerGui);
 		//bankCustomer.msgGoToTeller(bankTeller);
 	}
 }

@@ -36,7 +36,7 @@ public class BankGreeterTest extends TestCase
 		super.setUp();
 		bankGreeter = new BankGreeterRole(new PersonAgent("testGreeter"));	
 		Bank b = new Bank("Bank", 0, 0, 0, 0);
-		bankGreeter.getPersonAgent().setBank(b);
+		//bankGreeter.getPersonAgent().setBank(b);
 		bankGreeter.setGui(new BankGreeterGui(bankGreeter));
 		mockCustomer = new MockBankCustomer("mockCustomer");		
 		mockTeller = new MockBankTeller("mockTeller");

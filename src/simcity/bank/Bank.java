@@ -65,8 +65,8 @@ public class Bank extends Building {
 		setWeekdayHours(1, 25);
 		//setWeekendHours(0,0);
 		setWeekendHours(1, 25);
-		greeterGui = new BankGreeterGui(greeter, ScreenFactory.getMeScreen("Bank"));
-		tellerGui = new BankTellerGui(teller, ScreenFactory.getMeScreen("Bank"));
+		greeterGui = new BankGreeterGui(greeter, ScreenFactory.getMeScreen(this.getName()));
+		tellerGui = new BankTellerGui(teller, ScreenFactory.getMeScreen(this.getName()));
 		//this is the hours for Bank1
 
 		((BankGreeterRole) greeter).setGui((RoleGui)greeterGui);
@@ -101,8 +101,8 @@ public class Bank extends Building {
 		setWeekdayHours(1, 25);
 		//setWeekendHours(0,0);
 		setWeekendHours(1, 25);
-		greeterGui = new BankGreeterGui(greeter, ScreenFactory.getMeScreen("Bank"));
-		tellerGui = new BankTellerGui(teller, ScreenFactory.getMeScreen("Bank"));
+		greeterGui = new BankGreeterGui(greeter, ScreenFactory.getMeScreen(this.getName()));
+		tellerGui = new BankTellerGui(teller, ScreenFactory.getMeScreen(this.getName()));
 		//this is the hours for Bank1
 
 		((BankGreeterRole) greeter).setGui((RoleGui)greeterGui);

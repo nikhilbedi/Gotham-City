@@ -34,6 +34,38 @@
 		<!-- Transportation preference -->
 		<transportation>walk</transportation>
 	</person>
+	
+	<person name="Rest1Batmanwaiter3">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 1</building>
+			<position>waiter3</position>
+			<shift>2</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="Rest1Batmanwaiter4">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Restaurant 1</building>
+			<position>waiter4</position>
+			<shift>2</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
 
 	<person name="Rest1BatmanHost">
 

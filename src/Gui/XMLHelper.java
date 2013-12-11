@@ -88,11 +88,13 @@ public class XMLHelper {
 						Role jobRole = workplace.getRoleFromString(jobElement.getElementsByTagName("position").item(0).getTextContent());
 
 						Element shiftElement = (Element) jobElement.getElementsByTagName("shift").item(0);
-						if(shiftElement != null && jobElement.getElementsByTagName("position").item(0).getTextContent().startsWith("waiter")){
-							System.out.println("Job shift: " + jobElement.getElementsByTagName("shift").item(0).getTextContent());
-							int shift = Integer.parseInt(jobElement.getElementsByTagName("shift").item(0).getTextContent());
-							//Set the job here
-							personXML.setJob(jobRole, workplace, shift);
+						if(workplace.getName().equalsIgnoreCase("Restaurant 1")){
+							if(shiftElement != null && jobElement.getElementsByTagName("position").item(0).getTextContent().startsWith("waiter")){
+								System.out.println("Job shift: " + jobElement.getElementsByTagName("shift").item(0).getTextContent());
+								int shift = Integer.parseInt(jobElement.getElementsByTagName("shift").item(0).getTextContent());
+								//Set the job here
+								personXML.setJob(jobRole, workplace, shift);
+							}
 						}
 						else
 							personXML.setJob(jobRole, workplace);

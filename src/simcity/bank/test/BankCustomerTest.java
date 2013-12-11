@@ -33,7 +33,7 @@ public class BankCustomerTest extends TestCase
 		super.setUp();
 		bankCustomer = new BankCustomerRole(new PersonAgent("testTeller"));
 		Bank b = new Bank("Bank", 0, 0, 0, 0);
-		bankCustomer.getPersonAgent().setBank(b);
+		//bankCustomer.getPersonAgent().setBank(b);
 		bankCustomer.setGui(new bankCustomerGui((BankCustomerRole)bankCustomer, ScreenFactory.getMeScreen("Bank")));
 		mockGreeter = new MockBankGreeter("mockGreeter");		
 		mockTeller = new MockBankTeller("mockTeller");

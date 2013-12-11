@@ -28,10 +28,10 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
         private List<Order> orders = new ArrayList<Order>();
         private Timer timer = new Timer();
         public Map<String, Food> foods = new HashMap<String, Food>();
-        Food chicken = new Food("Chicken", 3);
-        Food steak = new Food("Steak", 3);
-        Food pizza = new Food("Pizza", 3);
-        Food salad = new Food("Salad", 3);
+        Food chicken = new Food("Chicken", 15);
+        Food steak = new Food("Steak", 15);
+        Food pizza = new Food("Pizza", 15);
+        Food salad = new Food("Salad", 15);
 
 	private Restaurant4CookGui cg;
 	public Map<String, Integer> neededFood = new HashMap<String, Integer>();
@@ -193,7 +193,7 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 		if (f.amount == 0){
 			myPerson.Do("No " + o.choice);
 			o.waiter.outOf(o.table, o.choice);
-			neededFood.put(f.type, 6);
+			neededFood.put(f.type, 15);
 			orderFoodThatIsLow();
 			orders.remove(o);
 			return;

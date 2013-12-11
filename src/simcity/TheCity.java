@@ -5,8 +5,6 @@ import java.util.*;
 
 import simcity.Home.Apartment;
 import Gui.TimeBar;
-
-
 import simcity.Home.Home;
 import simcity.Market.Market;
 import simcity.bank.Bank;
@@ -141,7 +139,7 @@ public class TheCity {
 		bank.setImagePath("/resources/Buildings/BankDark2.png");
 		market1 = new Market("Market1", 620, 380, 520, 310);//520 310
 		market1.setImagePath("/resources/Buildings/MarketDark2.png");
-		bank1 = new Bank("Bank1", 360, 380, 260, 310, 420, 80);
+		bank1 = new Bank("Bank1", 360, 380, 260, 310, 360, 380);
 		bank1.setImagePath("/resources/Buildings/BankDark2.png");
 
 		rest1 = new Restaurant1("Restaurant 1", 100, 120, 100, 40, 100, 120);
@@ -207,6 +205,99 @@ public class TheCity {
 
 		buildings.add(rest3);
 		buildings.add(rest2);
+		
+
+
+
+		homeList.add("None (Homeless Shelter)");
+		homeList.add("Home");
+		homeList.add("Home1");
+		homeList.add("Home2");
+		homeList.add("Home3");
+		homeList.add("Home4");
+		homeList.add("Home5");
+		homeList.add("Home6");
+		homeList.add("Home7");
+		homeList.add("Home8");
+		homeList.add("Home9");
+		homeList.add("Home10");
+		homeList.add("Home11");
+		homeList.add("Home12");
+		homeList.add("Home13");
+		homeList.add("Home14");
+		homeList.add("Home15");
+//		homeList.add("Home16");
+		homeList.add("Home17");
+		homeList.add("Home18");
+		homeList.add("Home19");
+		homeList.add("Home20");
+		homeList.add("Home21");
+//		homeList.add("Home22");
+//		homeList.add("Home23");
+		homeList.add("Home24");
+		homeList.add("Home25");
+		homeList.add("Home26");
+		homeList.add("Home27");
+		homeList.add("Home28");
+		homeList.add("Home29");
+		homeList.add("Home30");
+		homeList.add("Home31");
+		homeList.add("Home32");
+		//homeList.add("Home33");
+		//homeList.add("Home34");
+		
+		homeList.add("Apartment 1");
+		homeList.add("Apartment 2");
+		homeList.add("Apartment 3");
+//		homeList.add("Apartment 4");
+
+
+		//jobPositionList.add("This is a temp variable I still need to figure out how to make this list dynamic");
+
+		transportationList.add("Walker");
+		transportationList.add("Car");
+		transportationList.add("Bus");
+
+		homeOwnerList.add("none");
+		homeOwnerList.add("Home");
+		homeOwnerList.add("Home1");
+		homeOwnerList.add("Home2");
+		homeOwnerList.add("Home3");
+		homeOwnerList.add("Home4");
+		homeOwnerList.add("Home5");
+		homeOwnerList.add("Home6");
+		homeOwnerList.add("Home7");
+		homeOwnerList.add("Home8");
+		homeOwnerList.add("Home9");
+		homeOwnerList.add("Home10");
+		homeOwnerList.add("Home11");
+		homeOwnerList.add("Home12");
+		homeOwnerList.add("Home13");
+		homeOwnerList.add("Home14");
+		homeOwnerList.add("Home15");
+//		homeOwnerList.add("Home16");
+		homeOwnerList.add("Home17");
+		homeOwnerList.add("Home18");
+		homeOwnerList.add("Home19");
+		homeOwnerList.add("Home20");
+		homeOwnerList.add("Home21");
+//		homeOwnerList.add("Home22");
+//		homeOwnerList.add("Home23");
+		homeOwnerList.add("Home24");
+		homeOwnerList.add("Home25");
+		homeOwnerList.add("Home26");
+		homeOwnerList.add("Home27");
+		homeOwnerList.add("Home28");
+		homeOwnerList.add("Home29");
+		homeOwnerList.add("Home30");
+		homeOwnerList.add("Home31");
+		homeOwnerList.add("Home32");
+		//homeOwnerList.add("Home33");
+		//homeOwnerList.add("Home34");
+		homeOwnerList.add("Apartment 1");
+		homeOwnerList.add("Apartment 2");
+		homeOwnerList.add("Apartment 3");
+//		homeOwnerList.add("Apartment 4");
 
 
 		jobLocationList.add("No job");
@@ -326,113 +417,6 @@ public class TheCity {
 		bar = new TimeBar();
 		bar.setVisible(true);
 
-
-
-		homeList.add("None (Homeless Shelter)");
-		homeList.add("Home");
-		homeList.add("Home1");
-		homeList.add("Home2");
-		homeList.add("Home3");
-		homeList.add("Home4");
-		homeList.add("Home5");
-		homeList.add("Home6");
-		homeList.add("Home7");
-		homeList.add("Home8");
-		homeList.add("Home9");
-		homeList.add("Home10");
-		homeList.add("Home11");
-		homeList.add("Home12");
-		homeList.add("Home13");
-		homeList.add("Home14");
-		homeList.add("Home15");
-//		homeList.add("Home16");
-		homeList.add("Home17");
-		homeList.add("Home18");
-		homeList.add("Home19");
-		homeList.add("Home20");
-		homeList.add("Home21");
-//		homeList.add("Home22");
-//		homeList.add("Home23");
-		homeList.add("Home24");
-		homeList.add("Home25");
-		homeList.add("Home26");
-		homeList.add("Home27");
-		homeList.add("Home28");
-		homeList.add("Home29");
-		homeList.add("Home30");
-		homeList.add("Home31");
-		homeList.add("Home32");
-		//homeList.add("Home33");
-		//homeList.add("Home34");
-		
-		homeList.add("Apartment 1");
-		homeList.add("Apartment 2");
-		homeList.add("Apartment 3");
-//		homeList.add("Apartment 4");
-
-
-		//populate lists
-		jobLocationList.add("No job");
-		for(Building b: buildings){
-			jobLocationList.add(b.getName());
-		}
-		//populate building jobs map
-		for(Building b: buildings){
-			jobPositionList.add(b.getJobCollec());
-			buildingJobsMap.put(b.getName(), b.getJobCollec());
-		}
-		jobLocationList.add("Market");
-		jobLocationList.add("Market1");
-		jobLocationList.add("Bank");
-		jobLocationList.add("Bank1");
-		jobLocationList.add("Restaurant 1");
-
-		//jobPositionList.add("This is a temp variable I still need to figure out how to make this list dynamic");
-
-		transportationList.add("Walker");
-		transportationList.add("Car");
-		transportationList.add("Bus");
-
-		homeOwnerList.add("none");
-		homeOwnerList.add("Home");
-		homeOwnerList.add("Home1");
-		homeOwnerList.add("Home2");
-		homeOwnerList.add("Home3");
-		homeOwnerList.add("Home4");
-		homeOwnerList.add("Home5");
-		homeOwnerList.add("Home6");
-		homeOwnerList.add("Home7");
-		homeOwnerList.add("Home8");
-		homeOwnerList.add("Home9");
-		homeOwnerList.add("Home10");
-		homeOwnerList.add("Home11");
-		homeOwnerList.add("Home12");
-		homeOwnerList.add("Home13");
-		homeOwnerList.add("Home14");
-		homeOwnerList.add("Home15");
-//		homeOwnerList.add("Home16");
-		homeOwnerList.add("Home17");
-		homeOwnerList.add("Home18");
-		homeOwnerList.add("Home19");
-		homeOwnerList.add("Home20");
-		homeOwnerList.add("Home21");
-//		homeOwnerList.add("Home22");
-//		homeOwnerList.add("Home23");
-		homeOwnerList.add("Home24");
-		homeOwnerList.add("Home25");
-		homeOwnerList.add("Home26");
-		homeOwnerList.add("Home27");
-		homeOwnerList.add("Home28");
-		homeOwnerList.add("Home29");
-		homeOwnerList.add("Home30");
-		homeOwnerList.add("Home31");
-		homeOwnerList.add("Home32");
-		//homeOwnerList.add("Home33");
-		//homeOwnerList.add("Home34");
-		homeOwnerList.add("Apartment 1");
-		homeOwnerList.add("Apartment 2");
-		homeOwnerList.add("Apartment 3");
-//		homeOwnerList.add("Apartment 4");
 		
 		
 	}
@@ -607,7 +591,7 @@ public class TheCity {
 	public static List<Market> getMarketList(){
 		List<Market> tempcast = new ArrayList<Market>();
 		tempcast.add((Market)market);
-
+		tempcast.add((Market)market1);
 		return tempcast;
 	}
 
@@ -623,9 +607,13 @@ public class TheCity {
 		return tempcast;
 	}
 
-
-	public static Bank getBank(){
-		return (Bank)bank;
+	//Kinda hacky 
+	public static List<Bank> getBank(){
+		List<Bank> tempcast = new ArrayList<Bank>();
+		//maybe this populate should be done in the static constructor
+		tempcast.add((Bank)bank);
+		tempcast.add((Bank)bank1);
+		return tempcast;
 	}
 
 	public static Home getHomeHack(){

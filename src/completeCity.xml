@@ -470,6 +470,46 @@
 
 
 
+	<!--Bank 2-->
+	<person name="BatmanBank2Greeter">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Bank1</building>
+			<position>bankGreeter</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="BatmanBank2Teller">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Bank1</building>
+			<position>bankTeller</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+
+
+
+
+
+
+
 	<!--Market -->
 	<person name="BatmanMarketCashier1">
 

@@ -224,7 +224,8 @@ public class MarketCashierRole extends Role implements MarketCashier{
 	}
 	
 	public void Ask(MarketCustomer c){
-		System.out.println("What Do You Want " + currentCustomer.getName());
+		//System.out.println("What Do You Want " + currentCustomer.getName());
+		//currentCustomer = null;
 		c.NextCustomerPlease();
 	}
 	

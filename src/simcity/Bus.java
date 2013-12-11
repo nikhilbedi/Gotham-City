@@ -225,7 +225,7 @@ public class Bus extends RoleGui{
 	 					guiMoveFromCurrentPositionTo(x+1, y);
 	 				}
 	 			},
-	 			240);
+	 			300);
 	 			
 	 		}
 	 		catch(ConcurrentModificationException e) {
@@ -247,7 +247,7 @@ public class Bus extends RoleGui{
 	 					guiMoveFromCurrentPositionTo(x-1, y);
 	 				}
 	 			},
-	 			240);
+	 			300);
 	 		}
 	 		catch(ConcurrentModificationException e) {
 	 			System.err.println("Concurrent Modification Exception");
@@ -268,7 +268,7 @@ public class Bus extends RoleGui{
 	 					guiMoveFromCurrentPositionTo(x, y-1);
 	 				}
 	 			},
-	 			240);
+	 			300);
 	 		}
 	 		catch(ConcurrentModificationException e) {
 	 			System.err.println("Concurrent Modification Exception");
@@ -289,7 +289,7 @@ public class Bus extends RoleGui{
 	 					guiMoveFromCurrentPositionTo(x, y+1);
 	 				}
 	 			},
-	 			240);
+	 			300);
 	 			
 	 		}
 	 		catch(ConcurrentModificationException e) {
