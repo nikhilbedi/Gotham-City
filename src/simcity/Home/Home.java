@@ -21,7 +21,7 @@ public class Home extends Building{
 	public List<RentBill> rentBills;
 	public List<Food> fridgeFoods;
 
-	public ResidentRole resident; //When the PersonAgent reaches thehome, he needs to be able to look at this class and add this role to his list
+	public ResidentRole resident = new ResidentRole(); //When the PersonAgent reaches thehome, he needs to be able to look at this class and add this role to his list
 	public String HomeResident = "resident";
 	//int openTime, closeTime;
 	//Location location = new Location(xCoor, yCoor);
@@ -37,7 +37,9 @@ public class Home extends Building{
 		groceryList = new ArrayList<String>();
 		rentBills = new ArrayList<RentBill>();
 		fridgeFoods = new ArrayList<Food>();	
-		resident = new ResidentRole();  
+		//resident = new ResidentRole();  
+		resident.setGui(residentGui);
+		//residentGui.
 		//You'll notice for this particular role, resident needs a Person as a parameter. 
 		//But, we don't necessarily immediately know who this Person is.
 		//Please add ANOTHER constructor that doesnt need a Person parameter

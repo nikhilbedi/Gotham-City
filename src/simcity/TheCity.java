@@ -111,8 +111,8 @@ public class TheCity {
         home26 = new Home("Home26", 680, 660, 700, 660);
         home26.setImagePath("/resources/Buildings/HouseDark2_small.png");
         
-        apart4 = new Home("Apartment 4", 680, 700, 700, 700);
-		apart4.setImagePath("/resources/Buildings/HouseDark_small.png");
+//        apart4 = new Home("Apartment 4", 680, 700, 700, 700);
+//        apart4.setImagePath("/resources/Buildings/HouseDark_small.png");
 		
 		home28 = new Home("Home28", 620, 700, 580, 700);
         home28.setImagePath("/resources/Buildings/HouseDark2_small.png");
@@ -203,7 +203,7 @@ public class TheCity {
 		buildings.add(apart);
 		buildings.add(apart2);
 		buildings.add(apart3);
-		buildings.add(apart4);
+//		buildings.add(apart4);
 
 		buildings.add(rest3);
 		buildings.add(rest2);
@@ -368,7 +368,7 @@ public class TheCity {
 		homeList.add("Apartment 1");
 		homeList.add("Apartment 2");
 		homeList.add("Apartment 3");
-		homeList.add("Apartment 4");
+//		homeList.add("Apartment 4");
 
 
 		//populate lists
@@ -432,7 +432,7 @@ public class TheCity {
 		homeOwnerList.add("Apartment 1");
 		homeOwnerList.add("Apartment 2");
 		homeOwnerList.add("Apartment 3");
-		homeOwnerList.add("Apartment 4");
+//		homeOwnerList.add("Apartment 4");
 		
 		
 	}
@@ -595,9 +595,9 @@ public class TheCity {
 		if(s.equalsIgnoreCase("Apartment 3")){
 			return apart3;
 		}
-		if(s.equalsIgnoreCase("Apartment 4")){
-			return apart4;
-		}
+//		if(s.equalsIgnoreCase("Apartment 4")){
+//			return apart4;
+//		}
 
 		return null;
 	}

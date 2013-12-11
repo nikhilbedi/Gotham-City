@@ -765,21 +765,21 @@ public class PersonAgent extends Agent implements Person {
 				}
 			}
 
-			homeTemp = RoleFactory.makeMeRole("residentRole");
+			//homeTemp = RoleFactory.makeMeRole("residentRole");
 			homeTemp = getMyHome().getResident();
 			homeTemp.setActive(true);
 			currentBuilding = getMyHome();
-			homeGui = new ResidentGui((ResidentRole)homeTemp, ScreenFactory.getMeScreen(myHome.getName()));
-			homeGui.setHomeScreen(ScreenFactory.getMeScreen(myHome.getName()));
+			//homeGui = new ResidentGui((ResidentRole)homeTemp, ScreenFactory.getMeScreen(myHome.getName()));
+			//homeGui.setHomeScreen(ScreenFactory.getMeScreen(myHome.getName()));
 
 			//			//Add role
 
-			homeTemp.setGui(homeGui);
+			//homeTemp.setGui(homeGui);
 			// Enter building
 			homeTemp.setPerson(this);
 			enteringBuilding(homeTemp);
 			//hacking TODO
-			enteringBuilding(myHome.getResident());
+			//enteringBuilding(myHome.getResident());
 			checkPersonScheduler = false;
 		} else {
 			gui.DoGoToLocation(new Location(360, 500, "Default"));

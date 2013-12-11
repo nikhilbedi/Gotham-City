@@ -31,7 +31,7 @@ public class Apartment extends Home {
 	//public String resident = "resident";
 	public List<ResidentGui> residentGui;
 	ResidentRole res1 = new ResidentRole();
-	ApartmentResidentGui res1gui = new ApartmentResidentGui(res1, ScreenFactory.getMeScreen("Apartment 1"));
+	ApartmentResidentGui res1gui = new ApartmentResidentGui(res1, ScreenFactory.getMeScreen(this.getName()));
 	public ResidentRole resident; //When the PersonAgent reaches thehome, he needs to be able to look at this class and add this role to his list
 	public String HomeResident = "resident";
 	

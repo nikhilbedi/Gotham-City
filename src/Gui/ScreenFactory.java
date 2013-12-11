@@ -72,7 +72,7 @@ public class ScreenFactory {
 	public static Screen apart1;
 	public static Screen apart2;
 	public static Screen apart3;
-	public static Screen apart4;
+//	public static Screen apart4;
 
 
 
@@ -123,7 +123,7 @@ public class ScreenFactory {
  		apart1 = new ApartmentAnimationPanel();
  		apart2 = new ApartmentAnimationPanel();
  		apart3 = new ApartmentAnimationPanel();
- 		apart4 = new ApartmentAnimationPanel();
+// 		apart4 = new ApartmentAnimationPanel();
 		rest3 = new RestaurantEvanAnimationPanel();
 	
 	
@@ -171,6 +171,11 @@ public class ScreenFactory {
 		screenList.add(rest5);
 		screenList.add(rest3);
 		screenList.add(rest4);
+		
+		screenList.add(apart);
+		screenList.add(apart1);
+		screenList.add(apart2);
+		screenList.add(apart3);
 		/*
 		screenList.add(apart);//can only be accessed statically for now
 
@@ -358,9 +363,9 @@ public class ScreenFactory {
 		if(s.equalsIgnoreCase("Apartment 3")){
 			return apart3;
 		}
-		if(s.equalsIgnoreCase("Apartment 4")){
-			return apart4;
-		}
+//		if(s.equalsIgnoreCase("Apartment 4")){
+//			return apart4;
+//		}
 
 		return null;
 	}
