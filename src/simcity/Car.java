@@ -1,6 +1,9 @@
 package simcity;
 
 import java.awt.Graphics;
+import java.util.ConcurrentModificationException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 
@@ -16,12 +19,26 @@ public class Car extends RoleGui{
 	public String command = "";
 	private PersonGui owner;
 	
+	int currentDestinationX;
+	int currentDestinationY;
+
+	int finalX, finalY;
+	
+	Character[][] grid;
+	char prevTile = 'I';
+	Timer moveTimer = new Timer();
+	
 	public Car(int x, int y, int destX, int destY){
 		xPos = x;
 		yPos = y;
-		xDestination = destX;
-		yDestination = destY;
+		grid = TheCity.getGrid();
+		//xDestination = destX;
+		//yDestination = destY;
+		finalX = destX/20;
+		finalY = destY/20;
 		currentImage = carDown;
+		command = "moving";
+		guiMoveFromCurrentPositionTo(xPos/20, yPos/20);
 	}
 	@Override
 	public void updatePosition(){
@@ -43,10 +60,10 @@ public class Car extends RoleGui{
 			currentImage = carUp;
 		}
 		
-		if (xPos == xDestination && yPos == yDestination && command == "moving"){ 
+		if (xPos/20 == finalX && yPos/20 == finalY && command == "moving"){ 
 			command = "";
 			ScreenFactory.main.removeGui(this);
-			owner.arrived(xDestination, yDestination);
+			owner.arrived(finalX*20, finalY*20);
 		}
 	}
 	
@@ -57,5 +74,114 @@ public class Car extends RoleGui{
 	@Override
 	public void draw(Graphics g){
 		g.drawImage(currentImage.getImage(), xPos, yPos, null);
+	}
+	
+	void guiMoveFromCurrentPositionTo(final int x, final int y){ // Brice - Method for traveling along the grid within the City Screen
+	 	if(Math.abs(finalX - x) < 1 && Math.abs(finalY - y) < 1) {
+	 		//reachedDest = true;
+	 		grid[x][y] = prevTile;
+	 		return;
+	 	}
+	 	
+	 	//Move RIGHT
+	 	if(finalX - (x + 1)  >= 0 /*<= deltaX*/ && (grid[x+1][y] == 'R' || grid[x+1][y] == 'I')) {
+	 		try {
+	 			char temp = grid[x+1][y];
+	 			grid[x+1][y] = 'B';
+	 			grid[x][y] = prevTile;
+	 			prevTile = temp;
+	 			DoGoToLocation(new Location((x+1)*20, y*20)); //Temporary timer or semaphore?
+	 			moveTimer.schedule(new TimerTask() {
+	 				Object cookie = 1;
+	 				public void run() {
+	 					guiMoveFromCurrentPositionTo(x+1, y);
+	 				}
+	 			},
+	 			240);
+	 			
+	 		}
+	 		catch(ConcurrentModificationException e) {
+	 			System.err.println("Concurrent Modification Exception");
+	 		}
+	 	}
+	 	
+	 	//Move LEFT
+	 	else if((x - 1) - finalX >= 0 && (grid[x-1][y] == 'R' || grid[x-1][y] == 'I')) {
+	 		try {
+	 			char temp = grid[x-1][y];
+	 			grid[x-1][y] = 'B';
+	 			grid[x][y] = prevTile;
+	 			prevTile = temp;
+	 			DoGoToLocation(new Location((x-1)*20, y*20)); //Temporary timer or semaphore?
+	 			moveTimer.schedule(new TimerTask() {
+	 				Object cookie = 1;
+	 				public void run() {
+	 					guiMoveFromCurrentPositionTo(x-1, y);
+	 				}
+	 			},
+	 			240);
+	 		}
+	 		catch(ConcurrentModificationException e) {
+	 			System.err.println("Concurrent Modification Exception");
+	 		}
+	 	}
+	 	
+	 	//Move UP
+	 	else if((y - 1) - finalY  >= 0 && (grid[x][y-1] == 'R' || grid[x][y-1] == 'I')) {
+	 		try {
+	 			char temp = grid[x][y-1];
+	 			grid[x][y-1] = 'B';
+	 			grid[x][y] = prevTile;
+	 			prevTile = temp;
+	 			DoGoToLocation(new Location(x*20, (y-1)*20)); //Temporary timer or semaphore?
+	 			moveTimer.schedule(new TimerTask() {
+	 				Object cookie = 1;
+	 				public void run() {
+	 					guiMoveFromCurrentPositionTo(x, y-1);
+	 				}
+	 			},
+	 			240);
+	 		}
+	 		catch(ConcurrentModificationException e) {
+	 			System.err.println("Concurrent Modification Exception");
+	 		}
+	 	}
+	 	
+	 	//Move DOWN
+	 	else if(finalY - (y + 1) >= 0 && (grid[x][y+1] == 'R' || grid[x][y+1] == 'I')) {
+	 		try {
+	 			char temp = grid[x][y+1];
+	 			grid[x][y+1] = 'B';
+	 			grid[x][y] = prevTile;
+	 			prevTile = temp;
+	 			DoGoToLocation(new Location(x*20, (y+1)*20)); //Temporary timer or semaphore?
+	 			moveTimer.schedule(new TimerTask() {
+	 				Object cookie = 1;
+	 				public void run() {
+	 					guiMoveFromCurrentPositionTo(x, y+1);
+	 				}
+	 			},
+	 			240);
+	 			
+	 		}
+	 		catch(ConcurrentModificationException e) {
+	 			System.err.println("Concurrent Modification Exception");
+	 		}
+	 	}
+	 	
+	 	else {
+	 		moveTimer.schedule(new TimerTask() {
+ 				Object cookie = 1;
+ 				public void run() {
+ 					guiMoveFromCurrentPositionTo(x, y);
+ 				}
+ 			},
+ 			500);
+	 	}
+    }
+	
+	public void DoGoToLocation(Location destination) {
+		xDestination = destination.getX();
+		yDestination = destination.getY();
 	}
 }

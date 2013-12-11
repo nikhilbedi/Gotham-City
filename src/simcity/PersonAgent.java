@@ -670,7 +670,7 @@ public class PersonAgent extends Agent implements Person {
 			if(currentBuilding != getMyHome()) {
 				goToHome();
 				//TODO I think we can just remove "return true" here. It's currently causing problems since not everyone has a home
-				return true;
+				//return true;
 			}
 		}
 

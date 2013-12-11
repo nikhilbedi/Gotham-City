@@ -148,7 +148,6 @@ public class SimCityRun extends JFrame implements ActionListener
 		XMLHelper.createPeople("DedicatedWorkers.xml");
 
 
-
 		//THE BIG BANG
 		CityClock.startTime();
 
