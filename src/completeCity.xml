@@ -510,96 +510,159 @@
 		<!-- Beginning amount of money -->
 		<money>1000</money>
 
+		<!-- The specific home Person resides -->
+		<residency>
+			<home>Home</home>
+		</residency>
+
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+
+	</person>
+	<person name="Sim2">
+
+		<!-- Beginning amount of money -->
+		<money>1000</money>
+		<!-- The specific home Person resides -->
+		<residency>
+			<home>Home1</home>
+		</residency>
+
 		<!-- Transportation preference -->
 		<transportation>walk</transportation>
 	</person>
-		<person name="Sim2">
+
+	<person name="Sim3">
 
 		<!-- Beginning amount of money -->
 		<money>1000</money>
 
+		<!-- The specific home Person resides -->
+		<residency>
+			<home>Home2</home>
+		</residency>
+
 		<!-- Transportation preference -->
 		<transportation>walk</transportation>
 	</person>
-		<person name="Sim3">
+
+	<person name="Sim4">
 
 		<!-- Beginning amount of money -->
 		<money>1000</money>
 
+		<!-- The specific home Person resides -->
+		<residency>
+			<home>Home3</home>
+		</residency>
+
 		<!-- Transportation preference -->
 		<transportation>walk</transportation>
 	</person>
-		<person name="Sim4">
+	<person name="Sim5">
 
 		<!-- Beginning amount of money -->
 		<money>1000</money>
 
+		<!-- The specific home Person resides -->
+		<residency>
+			<home>Home4</home>
+		</residency>
+
 		<!-- Transportation preference -->
 		<transportation>walk</transportation>
 	</person>
-		<person name="Sim5">
+	<person name="Sim6">
 
 		<!-- Beginning amount of money -->
 		<money>1000</money>
 
+		<!-- The specific home Person resides -->
+		<residency>
+			<home>Home12</home>
+		</residency>
+
 		<!-- Transportation preference -->
 		<transportation>walk</transportation>
 	</person>
-		<person name="Sim6">
+	<person name="Sim7">
 
 		<!-- Beginning amount of money -->
 		<money>1000</money>
 
+		<!-- The specific home Person resides -->
+		<residency>
+			<home>Home13</home>
+		</residency>
+
 		<!-- Transportation preference -->
 		<transportation>walk</transportation>
 	</person>
-		<person name="Sim7">
+	<person name="Sim8">
 
 		<!-- Beginning amount of money -->
 		<money>1000</money>
 
+		<!-- The specific home Person resides -->
+		<residency>
+			<home>Home7</home>
+		</residency>
+
 		<!-- Transportation preference -->
 		<transportation>walk</transportation>
 	</person>
-		<person name="Sim8">
+	<person name="Sim9">
 
 		<!-- Beginning amount of money -->
 		<money>1000</money>
 
+		<!-- The specific home Person resides -->
+		<residency>
+			<home>Home8</home>
+		</residency>
+
 		<!-- Transportation preference -->
 		<transportation>walk</transportation>
 	</person>
-		<person name="Sim9">
+	<person name="Sim10">
 
 		<!-- Beginning amount of money -->
 		<money>1000</money>
 
+		<!-- The specific home Person resides -->
+		<residency>
+			<home>Home9</home>
+		</residency>
+
 		<!-- Transportation preference -->
 		<transportation>walk</transportation>
 	</person>
-		<person name="Sim10">
+	<person name="Sim11">
 
 		<!-- Beginning amount of money -->
 		<money>1000</money>
 
+		<!-- The specific home Person resides -->
+		<residency>
+			<home>Home10</home>
+		</residency>
+
 		<!-- Transportation preference -->
 		<transportation>walk</transportation>
 	</person>
-		<person name="Sim11">
+	<person name="Sim12">
 
 		<!-- Beginning amount of money -->
 		<money>1000</money>
 
-		<!-- Transportation preference -->
-		<transportation>walk</transportation>
-	</person>
-		<person name="Sim12">
-
-		<!-- Beginning amount of money -->
-		<money>1000</money>
+		<!-- The specific home Person resides -->
+		<residency>
+			<home>Home11</home>
+		</residency>
 
 		<!-- Transportation preference -->
 		<transportation>walk</transportation>
 	</person>
-	
+
 </simcity>
