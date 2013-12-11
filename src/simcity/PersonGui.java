@@ -56,13 +56,8 @@ public class PersonGui extends RoleGui {
 		super.setColor(Color.yellow);
 		agent = c;
 		
-		xPos = 200; //Possibly remove this
-		xDestination = 200;
-		yPos = 220;
-		yDestination = 220;
-		
-		xPos = 140; //Possibly remove this
-		xDestination = 140;
+		xPos = 160; //Possibly remove this
+		xDestination = 160;
 		yPos = 180;
 		yDestination = 180;
 		/*
@@ -76,11 +71,12 @@ public class PersonGui extends RoleGui {
 		//super();
 		super.setColor(Color.yellow);
 		
+
 		xPos = 200; //Possibly remove this
 		xDestination = 200;
 		yPos = 220;
 		yDestination = 220;
-		
+
 		xPos = 160; //Possibly remove this
 		xDestination = 160;
 		yPos = 180;
