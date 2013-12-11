@@ -27,7 +27,7 @@ public class RevolvingStand {
 	public static boolean checkStand() {
 		//AlertLog.getInstance().logInfo(AlertTag.RESIDENT_ROLE, this.getName(),
 			//	"checking stand...");
-		System.out.println("Checking stand...");
+		//System.out.println("Checking stand...");
 		if (!data.isEmpty()){
 			return true;
 		}

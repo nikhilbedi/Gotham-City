@@ -76,21 +76,21 @@ public class Truck extends RoleGui{
 	}
 	
 	public boolean checkIfOpen(){
-		boolean open = true; // change it to false later !!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		boolean open = false; // change it to false later !!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		if (restaurant== r1){
-			//open =  r1.isOpen();
+			open =  r1.isOpen();
 		}
 		else if (restaurant == r2){
-			//open = r2.isOpen();
+			open = r2.isOpen();
 		}
 		else if (restaurant == r3){
-			//open = r3.isOpen();
+			open = r3.isOpen();
 		}
 		else if (restaurant == r4){
-			//open = r4.isOpen();
+			open = r4.isOpen();
 		}
 		else if (restaurant == r5){
-		//	open = r5.isOpen()
+			open = r5.isOpen();
 		}
 		return open;
 	}
@@ -143,6 +143,7 @@ public class Truck extends RoleGui{
 				}
 			}
 			else{
+				System.err.println("Restaurant is closed " + restaurant.getName());
 				worker.RestaurantIsClosed(restaurant);
 			}
 			goBackToMarket();

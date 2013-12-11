@@ -142,7 +142,7 @@ public class ResidentRole extends Role implements Resident {
 		event = HomeEvent.none;
 		if(this.myPerson.getMyHome().getName().contains("Apartment")){
 			//System.err.println("INSIDE IF STATEMENT**************");
-			((ApartmentResidentGui) residentGui).DoGoToRoomEntrance();
+		//	((ApartmentResidentGui) residentGui).DoGoToRoomEntrance();
 			event = HomeEvent.goingToEntrance;
 		}
 		else if(!(this.myPerson.getMyHome().getName().contains("Apartment"))){
@@ -264,11 +264,13 @@ public class ResidentRole extends Role implements Resident {
 //		}
 
 		//mailbox scheduling events
-//		if (myPerson.myJob.state == JobState.GoToWorkSoon ) {
-//			state = HomeState.LeavingHome;
-//			dropEverything();
-//			return true;
-//		}
+		if(myPerson.myJob != null){
+			if (myPerson.myJob.state == JobState.GoToWorkSoon ) {
+				state = HomeState.LeavingHome;
+				dropEverything();
+				return true;
+			}
+		}
 		
 		if (state == HomeState.DoingNothing && event == HomeEvent.checkMailbox) {
 			state = HomeState.GoingToMailbox;
@@ -904,6 +906,7 @@ public class ResidentRole extends Role implements Resident {
 	public void setGui(RoleGui g) {
 		super.setGui(g);
 		residentGui = (ResidentGui)g;
+		//apartmentResidentGui = (ApartmentResidentGui)g;
 	}
 
 	public ResidentGui getGui() {
