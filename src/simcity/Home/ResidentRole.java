@@ -142,7 +142,7 @@ public class ResidentRole extends Role implements Resident {
 		event = HomeEvent.none;
 		if(this.myPerson.getMyHome().getName().contains("Apartment")){
 			//System.err.println("INSIDE IF STATEMENT**************");
-			((ApartmentResidentGui) residentGui).DoGoToRoomEntrance();
+		//	((ApartmentResidentGui) residentGui).DoGoToRoomEntrance();
 			event = HomeEvent.goingToEntrance;
 		}
 		else if(!(this.myPerson.getMyHome().getName().contains("Apartment"))){
@@ -906,6 +906,7 @@ public class ResidentRole extends Role implements Resident {
 	public void setGui(RoleGui g) {
 		super.setGui(g);
 		residentGui = (ResidentGui)g;
+		//apartmentResidentGui = (ApartmentResidentGui)g;
 	}
 
 	public ResidentGui getGui() {
