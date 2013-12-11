@@ -76,17 +76,46 @@ public class Car extends RoleGui{
 		g.drawImage(currentImage.getImage(), xPos, yPos, null);
 	}
 	
+	char direction = ' ';
+	
 	void guiMoveFromCurrentPositionTo(final int x, final int y){ // Brice - Method for traveling along the grid within the City Screen
 	 	if(Math.abs(finalX - x) < 1 && Math.abs(finalY - y) < 1) {
+	 		direction = ' ';
 	 		grid[x][y] = prevTile;
+	 		
+	 		command = "";
+			ScreenFactory.main.removeGui(this);
+			owner.arrived(finalX*20, finalY*20);
 	 		//reachedDest = true;
 	 		return;
 	 	}
 	 	
+	 	if(direction == 'u') {
+	 		direction = ' ';
+	 		moveUp(x, y);
+	 		return;
+	 	}
+	 	else if(direction == 'd') {
+	 		direction = ' ';
+	 		moveDown(x, y);
+	 		return;
+	 	}
+	 	else if(direction == 'r') {
+	 		direction = ' ';
+	 		moveRight(x, y);
+	 		return;
+	 	}
+	 	else if(direction == 'l') {
+	 		direction = ' ';
+	 		moveLeft(x, y);
+	 		return;
+	 	}
+	 		
 	 	//Move RIGHT
 	 	if(finalX - (x + 1)  >= 0 /*<= deltaX*/) {
 	 		if((grid[x+1][y] == 'R' || grid[x+1][y] == 'I')) {
 	 			try {
+	 				direction = ' ';
 	 				moveRight(x, y);
 	 				return;
 	 			}
@@ -95,11 +124,13 @@ public class Car extends RoleGui{
 	 			}
 	 		}
 	 		else {
-	 			if((grid[x][y-1] == 'R' || grid[x][y-1] == 'I')) { //Move Up to dodge obstacle
+	 			if((grid[x][y-1] == 'R' || grid[x][y-1] == 'I')  && (y - 1) - finalY  >= 0) { //Move Up to dodge obstacle
+	 				direction = 'r';
 	 				moveUp(x, y);
 	 				return;
 	 			}
-	 			else if((grid[x][y+1] == 'R' || grid[x][y+1] == 'I')) { //Move Down to dodge obstacle
+	 			else if((grid[x][y+1] == 'R' || grid[x][y+1] == 'I')  && finalY - (y + 1) >= 0) { //Move Down to dodge obstacle
+	 				direction = 'r';
 	 				moveDown(x, y);
 	 				return;
 	 			}/*
@@ -120,6 +151,7 @@ public class Car extends RoleGui{
 	 		if((grid[x-1][y] == 'R' || grid[x-1][y] == 'I')) {
 	 			try {
 	 				//canMoveHorizontally = true;
+	 				direction = ' ';
 	 				moveLeft(x, y); //Move left if clear
 	 				return;
 	 			}
@@ -128,11 +160,13 @@ public class Car extends RoleGui{
 	 			}
 	 		}
 	 		else {
-	 			if((grid[x][y-1] == 'R' || grid[x][y-1] == 'I')) { //Move Up to dodge obstacle
+	 			if((grid[x][y-1] == 'R' || grid[x][y-1] == 'I') && (y - 1) - finalY  >= 0) { //Move Up to dodge obstacle
+	 				direction = 'l';
 	 				moveUp(x, y);
 	 				return;
 	 			}
-	 			else if((grid[x][y+1] == 'R' || grid[x][y+1] == 'I')) { //Move Down to dodge obstacle
+	 			else if((grid[x][y+1] == 'R' || grid[x][y+1] == 'I') && finalY - (y + 1) >= 0) { //Move Down to dodge obstacle
+	 				direction = 'l';
 	 				moveDown(x, y);
 	 				return;
 	 			}/*
@@ -152,6 +186,7 @@ public class Car extends RoleGui{
 	 	else if((y - 1) - finalY  >= 0) {
 	 		if((grid[x][y-1] == 'R' || grid[x][y-1] == 'I')) {
 	 			try {
+	 				direction = ' ';
 	 				moveUp(x, y);
 	 				return;
 	 			}
@@ -161,10 +196,12 @@ public class Car extends RoleGui{
 	 		}
 	 		else {
 	 			if((grid[x+1][y] == 'R' || grid[x+1][y] == 'I')) { //Move Right to dodge obstacle
+	 				direction = 'u';
 	 				moveRight(x, y);
 	 				return;
 	 			}
 	 			else if((grid[x-1][y] == 'R' || grid[x-1][y] == 'I')) { //Move Left to dodge obstacle
+	 				direction = 'u';
 	 				moveLeft(x, y);
 	 				return;
 	 			}
@@ -184,6 +221,7 @@ public class Car extends RoleGui{
 	 	else if(finalY - (y + 1) >= 0) {
 	 		if((grid[x][y+1] == 'R' || grid[x][y+1] == 'I')) {
 	 			try {
+	 				direction = ' ';
 	 				moveDown(x, y);
 	 				return;
 	 			}
@@ -193,10 +231,12 @@ public class Car extends RoleGui{
 	 		}
 	 		else {
 	 			if((grid[x+1][y] == 'R' || grid[x+1][y] == 'I')) { //Move Right to dodge obstacle
+	 				direction = 'd';
 	 				moveRight(x, y);
 	 				return;
 	 			}
 	 			else if((grid[x-1][y] == 'R' || grid[x-1][y] == 'I')) { //Move Left to dodge obstacle
+	 				direction = 'd';
 	 				moveLeft(x, y);
 	 				return;
 	 			}
@@ -211,8 +251,9 @@ public class Car extends RoleGui{
 	 			 			500);*/
 	 		}
 	 	}
-	 		
+	 	
 	 		else {
+	 			direction = ' ';
 	 			moveTimer.schedule(new TimerTask() {
 	 		Object cookie = 1;
 	 				public void run() {

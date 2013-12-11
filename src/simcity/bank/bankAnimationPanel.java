@@ -27,7 +27,7 @@ public class bankAnimationPanel extends Screen{
 	}
 	
 	public void populate() {
-		PersonAgent person = new Robot("customer"), 
+		/*PersonAgent person = new Robot("customer"), 
 				person2 = new Robot("greeter"), 
 				person3 = new Robot("teller"), 
 				person4 = new Robot("customer2");
@@ -57,8 +57,8 @@ public class bankAnimationPanel extends Screen{
 		bankCustomerGui customerGui2 = new bankCustomerGui(bankCustomer2);
 		BankTellerGui tellerGui = new BankTellerGui(bankTeller);
 		
-		/*bankCustomer.setGui(customerGui, 50, 50);
-		bankCustomer2.setGui(customerGui2, 10, 10);*/
+		//bankCustomer.setGui(customerGui, 50, 50);
+		//bankCustomer2.setGui(customerGui2, 10, 10);
 		bankGreeter.setGui(greeterGui);
 		bankTeller.setGui(tellerGui);
 		
@@ -76,10 +76,10 @@ public class bankAnimationPanel extends Screen{
 		person4.addRole(bankCustomer2);
 		person4.startThread();
 		
-		/*addGui(customerGui);
+		addGui(customerGui);
 		addGui(customerGui2);*/
-		addGui(greeterGui);
-		addGui(tellerGui);
+		//addGui(greeterGui);
+		//addGui(tellerGui);
 		//bankCustomer.msgGoToTeller(bankTeller);
 	}
 }

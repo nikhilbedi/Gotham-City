@@ -83,7 +83,7 @@ public class MainScreen extends Screen{
  					}
  					else if(grid[x][y] == 'B') {
  						g.setColor(Color.cyan);
- 						g.fillRect(x*20, y*20, 20, 20);
+ 						//g.fillRect(x*20, y*20, 20, 20);
  					}
 
  					
