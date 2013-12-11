@@ -122,7 +122,8 @@ public class WaiterRole extends Role implements Waiter {
 	public void pleaseSeatCustomer(Customer cust, int table, int x, int y) {
 		myCustomers.add(new MyCustomer(cust, table, CustomerState.waiting, x, y));
 		print("Received message to seat customer " + ((Role) cust).getPersonAgent().getName() + " at table number " + table + ".");
-		stateChanged();
+		if(myPerson != null)
+			stateChanged();
 	}
 
 	public void customerLeft(Customer cust) {

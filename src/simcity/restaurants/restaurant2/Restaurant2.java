@@ -46,12 +46,12 @@ public class Restaurant2 extends Restaurant {
 		//set opening and closing hours
 		setWeekdayHours(12, 24);
 		//setWeekendHours(12, 22);
-		setWeekendHours(1, 12);
+		setWeekendHours(1, 24);
 		
 		//set guis
-		cook.setGui((RoleGui)cookGui);
-		waiter1.setGui((RoleGui)waiterGui1);
-		waiter2.setGui((RoleGui)waiterGui2);
+		cook.setGui(cookGui);
+		waiter1.setGui(waiterGui1);
+		waiter2.setGui(waiterGui2);
 		waiter3.setGui(waiterGui3);
 		waiter4.setGui(waiterGui4);
 		host.setGui(hostGui);
@@ -91,12 +91,12 @@ public class Restaurant2 extends Restaurant {
 		
 		//set opening and closing hours
 		setWeekdayHours(12, 24);
-		setWeekendHours(2, 10);
+		setWeekendHours(2, 24);
 		
 		//set guis
-		cook.setGui((RoleGui)cookGui);
-		waiter1.setGui((RoleGui)waiterGui1);
-		waiter2.setGui((RoleGui)waiterGui2);
+		cook.setGui(cookGui);
+		waiter1.setGui(waiterGui1);
+		waiter2.setGui(waiterGui2);
 		waiter3.setGui(waiterGui3);
 		waiter4.setGui(waiterGui4);
 		host.setGui(hostGui);

@@ -138,25 +138,49 @@ public class MarketWorkerGui extends RoleGui{
 		command = Command.truck;
 		
 		Market m1  = (Market) TheCity.getBuildingFromString("Market");
-		Truck truck = new Truck(m1.getEntranceLocation().getX(),m1.getEntranceLocation().getY(), loc.getX(), loc.getY());
-		truck.setReturnCoordinates(m1.getEntranceLocation().getX(), m1.getEntranceLocation().getY());
-		truck.command = "delivering";
-		if (r == r1){
-			truck.setData(worker,  r1, delivery);
+		Market m2  = (Market) TheCity.getBuildingFromString("Market1");
+		if (m1.getWorker()==worker){
+			Truck truck = new Truck(m1.getEntranceLocation().getX(),m1.getEntranceLocation().getY(), loc.getX(), loc.getY());
+			truck.setReturnCoordinates(m1.getEntranceLocation().getX(), m1.getEntranceLocation().getY());
+			truck.command = "delivering";
+			if (r == r1){
+				truck.setData(worker,  r1, delivery);
+			}
+			else if (r == r2){
+				truck.setData(worker, r2, delivery);
+			}
+			else if (r == r3){
+				truck.setData(worker, r3, delivery);
+			}
+			else if (r == r4){
+				truck.setData(worker, r4, delivery);
+			}
+			else if (r == r5){
+				truck.setData(worker, r5, delivery);
+			}
+			ScreenFactory.main.addGui(truck);
 		}
-		else if (r == r2){
-			truck.setData(worker, r2, delivery);
-		}
-		else if (r == r3){
-			truck.setData(worker, r3, delivery);
-		}
-		else if (r == r4){
-			truck.setData(worker, r4, delivery);
-		}
-		else if (r == r5){
-			truck.setData(worker, r5, delivery);
-		}
-		ScreenFactory.main.addGui(truck);
+		else if (m2.getWorker() == worker){
+			Truck truck = new Truck(m2.getEntranceLocation().getX(),m2.getEntranceLocation().getY(), loc.getX(), loc.getY());
+			truck.setReturnCoordinates(m2.getEntranceLocation().getX(), m2.getEntranceLocation().getY());
+			truck.command = "delivering";
+			if (r == r1){
+				truck.setData(worker,  r1, delivery);
+			}
+			else if (r == r2){
+				truck.setData(worker, r2, delivery);
+			}
+			else if (r == r3){
+				truck.setData(worker, r3, delivery);
+			}
+			else if (r == r4){
+				truck.setData(worker, r4, delivery);
+			}
+			else if (r == r5){
+				truck.setData(worker, r5, delivery);
+			}
+			ScreenFactory.main.addGui(truck);
+			}
 		
 	}
 	public void drawOrder(Graphics g){

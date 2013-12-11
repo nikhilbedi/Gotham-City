@@ -199,7 +199,7 @@ public class HostRole extends Role implements Host {
 			leaveWork();
 			return true;
 		}
-		
+
 		//Checks if a waiter wants to go on break
 		for(MyWaiter w : myWaiters) {
 			if(w.askedToGoOnBreak) {
@@ -227,7 +227,7 @@ public class HostRole extends Role implements Host {
 			if (!table.isOccupied()) {
 				//	print(table + " is free");
 				for (Customer customer : waitingCustomers) {
-					
+
 					//We need to find the waiter with the least customers to hand this customer off to him/her
 					/**
 			       this is a mechanism to help load the balance of waiters
@@ -237,16 +237,18 @@ public class HostRole extends Role implements Host {
 						MyWaiter leastCustomersHeld;
 						for(MyWaiter w : myWaiters) {
 							//NOTICE. IN SIMCITY, IM NOW CHECKING THE WORK STATUS
-							if(!w.onBreak && ((Role)w.waiter).checkWorkStatus()) {
-								leastCustomersHeld = w;
-								for(MyWaiter mw : myWaiters) {
-									if(mw.amtOfCustomers < leastCustomersHeld.amtOfCustomers && !mw.onBreak) {
-										leastCustomersHeld = mw;
+							if(!w.onBreak) {
+								if(((Role)w.waiter).checkWorkStatus()) {
+									leastCustomersHeld = w;
+									for(MyWaiter mw : myWaiters) {
+										if(mw.amtOfCustomers < leastCustomersHeld.amtOfCustomers && !mw.onBreak) {
+											leastCustomersHeld = mw;
+										}
 									}
+									//increment the amount of customers this waiter has now
+									leastCustomersHeld.amtOfCustomers++;
+									seatCustomer(waitingCustomers.get(0), table, leastCustomersHeld.waiter);//the action
 								}
-								//increment the amount of customers this waiter has now
-								leastCustomersHeld.amtOfCustomers++;
-								seatCustomer(waitingCustomers.get(0), table, leastCustomersHeld.waiter);//the action
 								return true;//return true to the abstract agent to reinvoke the scheduler
 							}
 						}
@@ -264,7 +266,7 @@ public class HostRole extends Role implements Host {
 	}
 
 	// Actions
-	
+
 	private void waiterWantsBreak(MyWaiter mw) {
 		//compare how many waiters to customers there are. 
 		//if waiters >= customers, then let him go on break after he's finished with his customer
