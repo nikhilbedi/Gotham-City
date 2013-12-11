@@ -399,6 +399,7 @@ public class WaiterRole extends Role implements Waiter{
 		System.out.println(getName() + ": Picking up check.");
 		waiterGui.DoGoToCashier();
 		currentCheckTableNumber = table;
+		atCashier.release();
 		try {
 			atCashier.acquire();
 		} catch (InterruptedException e) {
