@@ -97,7 +97,7 @@ public class Restaurant4WaiterGui extends RoleGui {
         	command = Command.none;
         	agent.arrivedToCook(customer);
         }
-        if (xPos == 4 && yPos == 280 && command == Command.pickUpOrder){
+        if (xPos == 6 && yPos == 280 && command == Command.pickUpOrder){
         	command = Command.none;
         	agent.GotFood(food);
         	DeliverFood(table);
@@ -116,7 +116,7 @@ public class Restaurant4WaiterGui extends RoleGui {
         	agent.arrivedAtCashier(customer);
         }
         
-        if(xPos == 120 && yPos == 54 && command == Command.goToCustomer){
+        if(xPos == 120 && yPos == 56 && command == Command.goToCustomer){
         	command = Command.none;
         	bringToTable();
         }
@@ -198,7 +198,7 @@ public class Restaurant4WaiterGui extends RoleGui {
     	/*xDestination = getXTable(table) + rect;
         yDestination = yTable - rect;*/
     	xDestination = 120;
-    	yDestination = 55;
+    	yDestination = 56;
     	
 //        customer.getCustomerGui().setTable(getXTable(table), yTable);
 //        customer.getCustomerGui().DoGoToSeat();
@@ -255,7 +255,7 @@ public class Restaurant4WaiterGui extends RoleGui {
     
     public void PickUpOrder(int table){
     	this.table = table;
-    	xDestination = 5;
+    	xDestination = 6;
     	yDestination = 280;
     	command = Command.pickUpOrder;
     	

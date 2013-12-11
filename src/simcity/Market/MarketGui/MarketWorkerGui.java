@@ -136,6 +136,7 @@ public class MarketWorkerGui extends RoleGui{
 		xDestination = 100;
 		yDestination = 250;
 		command = Command.truck;
+		
 		Market m1  = (Market) TheCity.getBuildingFromString("Market");
 		Truck truck = new Truck(m1.getEntranceLocation().getX(),m1.getEntranceLocation().getY(), loc.getX(), loc.getY());
 		truck.setReturnCoordinates(m1.getEntranceLocation().getX(), m1.getEntranceLocation().getY());
