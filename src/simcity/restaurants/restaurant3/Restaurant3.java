@@ -147,9 +147,8 @@ public class Restaurant3 extends Restaurant {
 		this.name = type;
 		cashState = CashierState.idle;
 
-		setWeekdayHours(6,24);
-		setWeekendHours(0, 0);
-
+		setWeekdayHours(1,24);
+		setWeekendHours(2, 24);
 
 		((HostRole) host).setGui((RoleGui)hostGui);
 		((Restaurant3CashierRole) cashier).setGui((RoleGui)cashierGui);
@@ -159,6 +158,32 @@ public class Restaurant3 extends Restaurant {
 		((WaiterSharedData) waiter4).setGui((RoleGui)waiterGui4);
 		((Restaurant3CookRole) cook).setGui((RoleGui)cookGui);
 
+		//Nikhil is setting these for you
+		((HostRole) host).setWaiter(waiter1);
+		((HostRole) host).setWaiter(waiter2);
+		((HostRole) host).setWaiter(waiter3);
+		((HostRole) host).setWaiter(waiter4);
+		((WaiterRole) waiter1).setHost((HostRole) host);
+		((WaiterSharedData) waiter2).setHost((HostRole) host);
+		((WaiterRole) waiter3).setHost((HostRole) host);
+		((WaiterSharedData) waiter4).setHost((HostRole) host);
+		((WaiterRole) waiter1).setCashier((Restaurant3CashierRole) cashier);
+		((WaiterSharedData) waiter2).setCashier((Restaurant3CashierRole) cashier);
+		((WaiterRole) waiter3).setCashier((Restaurant3CashierRole) cashier);
+		((WaiterSharedData) waiter4).setCashier((Restaurant3CashierRole) cashier);
+		((WaiterRole) waiter1).setCook((Restaurant3CookRole) cook);
+		((WaiterSharedData) waiter2).setCook((Restaurant3CookRole) cook);
+		((WaiterRole) waiter3).setCook((Restaurant3CookRole) cook);
+		((WaiterSharedData) waiter4).setCook((Restaurant3CookRole) cook);
+
+		/*((HostRole) host).setGui((RoleGui)hostGui);
+		((Restaurant3CashierRole) cashier).setGui((RoleGui)cashierGui);
+		((WaiterRole) waiter1).setGui((RoleGui)waiterGui1);
+		((WaiterSharedData) waiter2).setGui((RoleGui)waiterGui2);
+		((WaiterRole) waiter3).setGui((RoleGui)waiterGui3);
+		((WaiterSharedData) waiter4).setGui((RoleGui)waiterGui4);
+		((Restaurant3CookRole) cook).setGui((RoleGui)cookGui);
+*/
 		jobRoles.put("Host", (HostRole)host);
 
 		//jobRoles.put("Host Late",  (Role)host);

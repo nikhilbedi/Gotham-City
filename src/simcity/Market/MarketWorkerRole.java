@@ -62,7 +62,7 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	public void Bring(List<Order> o){ //for customers
 		System.out.println(myPerson.name+ " " +"Got new order from " + o.get(0).customer.getName());
 		deliveries.add(new CustomerDelivery(o));
-		waitingCustomers.add(o.get(0).customer); //hope will work, not tested
+		//waitingCustomers.add(o.get(0).customer); //hope will work, not tested
 		stateChanged();
 	}
 
@@ -215,10 +215,10 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 			f.put(d.orders.get(i).getChoice(), d.orders.get(i).getQuantity());
 		}
 		d.customer.HereIsYourStuff(f);
-		waitingCustomers.remove(d.customer); 
+		/*waitingCustomers.remove(d.customer); 
 		if (!waitingCustomers.isEmpty()){
 			updateCustomerPositions(); //hope will work
-		}
+		}*/
 		deliveries.remove(d);
 		stateChanged();
 	}
