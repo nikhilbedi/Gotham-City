@@ -23,7 +23,7 @@ public interface Person {
 	public abstract void setRestaurants(List<Restaurant> r);
 	public abstract void setMarkets(List<Market> m);
 
-	public abstract void setBank(Bank b);
+	public abstract void setBank(List<Bank> b);
 
 	public abstract double checkMoney();
 	/**

@@ -204,14 +204,15 @@ public class PersonAgent extends Agent implements Person {
 	public void setMarkets(List<Market> m) {
 		markets = m;
 		marketPreference = markets.get(marketCounter);
+	//	marketPreference = markets.get(1);
 	}
 
 	public List<Market> getMarkets(){
 		return markets;
 	}
 
-	public void setBank(Bank b) {
-		bank = b;
+	public void setBank(List<Bank> banks) {
+		bank = banks.get((int)(Math.random()*2));
 	}
 
 	/**
@@ -605,6 +606,14 @@ public class PersonAgent extends Agent implements Person {
 					return true;
 				}
 			}
+			
+			// Let me even see if I got money..
+			if (moneyState == MoneyState.Low || moneyState == MoneyState.High) {
+				if (currentBuilding != bank) {
+					goToBank();
+					return true;
+				}
+			}
 
 			if (marketState == MarketState.TakeGroceriesHome) {
 				marketState = MarketState.TakingGroceriesHome;
@@ -665,13 +674,7 @@ public class PersonAgent extends Agent implements Person {
 				return true;
 			}
 
-			// Let me even see if I got money..
-			if (moneyState == MoneyState.Low || moneyState == MoneyState.High) {
-				if (currentBuilding != bank) {
-					goToBank();
-					return true;
-				}
-			}
+		
 			if(currentBuilding != getMyHome()) {
 				goToHome();
 				//TODO I think we can just remove "return true" here. It's currently causing problems since not everyone has a home
