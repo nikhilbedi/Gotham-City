@@ -251,12 +251,7 @@ public class PersonGui extends RoleGui {
 	public void DoGoToLocation(Location destination) {
 		if (agent.transportationState == TransportationState.Bus){
 			this.destination = destination;
-			System.out.println("going to bus stop");
 			Location loc = findNearestBusStop();
-			System.out.println("X BUS: " + loc.getX());
-			System.out.println("Y BUS: " + loc.getY());
-			System.out.println("X: " + xPos);
-			System.out.println("Y: " + yPos);
 			tempStill = true;
 			finalX = loc.getX()/20;
 			finalY = (loc.getY())/20;
@@ -313,8 +308,10 @@ public class PersonGui extends RoleGui {
 	public int getY() { return yPos;}
 
 	public void reachedBuilding() {
-		//if(xDestination == xPos && yDestination == yPos)
-		agent.reachedBuilding();
+		//if(finalX == xPos/20 && finalY == yPos/20 &&
+		//	!(xPos == findNearestBusStop().getX() &&
+		//	yPos == findNearestBusStop().getY()))
+				agent.reachedBuilding();
 		tempStill = false;
 	}
 	
