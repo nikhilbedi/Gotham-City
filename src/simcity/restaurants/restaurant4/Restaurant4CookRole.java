@@ -219,7 +219,7 @@ public class Restaurant4CookRole extends Role implements Restaurant4Cook{
 	public void orderFoodThatIsLow(){
 		//order = false;
 		myPerson.Do("Ordering food from market");
-		Market m = (Market) TheCity.getBuildingFromString("Market"); // add one more market later
+		Market m = (Market) TheCity.getBuildingFromString("Market1"); // add one more market later
     	cashier = m.getCashier();
     	r4 = (Restaurant4) TheCity.getBuildingFromString("Restaurant 4");
 		cashier.INeedFood(neededFood, r4);
