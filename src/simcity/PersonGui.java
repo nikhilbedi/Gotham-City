@@ -269,7 +269,7 @@ public class PersonGui extends RoleGui {
 			guiMoveFromCurrentPositionTo(xPos/20, yPos/20);
 		}
 		else if (agent.transportationState == TransportationState.Walking){
-			System.out.println("Walking");
+			//System.out.println("Walking");
 			tempStill = true;
 			this.destination = destination;
 			finalX = destination.getX()/20;
@@ -313,7 +313,6 @@ public class PersonGui extends RoleGui {
 	public int getY() { return yPos;}
 
 	public void reachedBuilding() {
-		System.out.println("REACHED BUILDING");
 		agent.reachedBuilding();
 		tempStill = false;
 	}

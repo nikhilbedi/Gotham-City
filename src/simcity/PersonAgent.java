@@ -347,11 +347,12 @@ public class PersonAgent extends Agent implements Person {
 			else
 				landlord.setActive(false);
 		}
-
+		//print("hungerState: " + hungerState.name());
 
 		// Next Day
 		if (currentTime == 1) {
 			//I would just get rid of the day variable, but I already use it in so many places, so I'll just set it.
+		
 			day = CityClock.getDay();
 			dayState = DayOfTheWeek.values()[day];
 			print("The day of the week is " + dayState.name());
@@ -360,11 +361,11 @@ public class PersonAgent extends Agent implements Person {
 		/*	if (hungerCount > 15 && hungerState != HungerState.Starving
 				&& hungerState != HungerState.FeedingHunger) {
 			hungerState = HungerState.Starving;
-		} else if (hungerCount > 10 && hungerState != HungerState.Hungry
+		} else*/ if (hungerCount > 10 && hungerState != HungerState.Hungry
 				&& hungerState != HungerState.FeedingHunger
 				&& hungerState != HungerState.Starving) {
 			hungerState = HungerState.Hungry;
-		} else */if (hungerCount > 5 && hungerState != HungerState.Famished
+		} else if (hungerCount > 5 && hungerState != HungerState.Famished
 				&& hungerState != HungerState.FeedingHunger
 				&& hungerState != HungerState.Starving
 				&& hungerState != HungerState.Hungry) {
@@ -388,7 +389,6 @@ public class PersonAgent extends Agent implements Person {
 			else {
 				if (currentTime == myJob.weekEndOnWork &&
 						myJob.state == JobState.OffWork) {
-					print("Got to go to work manggg");
 					myJob.state = JobState.GoToWorkSoon;
 				}
 				// Maybe, also check if our current state is atWork
@@ -661,7 +661,6 @@ public class PersonAgent extends Agent implements Person {
 			}
 
 			// Let me even see if I got money..
-			//TODO uncomment this when ready
 			if (moneyState == MoneyState.Low || moneyState == MoneyState.High) {
 				if (currentBuilding != bank) {
 					goToBank();
@@ -783,16 +782,14 @@ public class PersonAgent extends Agent implements Person {
 			enteringBuilding(myHome.getResident());
 			checkPersonScheduler = false;
 		} else {
-			//gui.DoGoToLocation(new Location(100, 120, "Default"));
+			gui.DoGoToLocation(new Location(360, 500, "Default"));
 			//gui.DoGoToLocation(bank.getEntranceLocation());
-			/*try {
-				// print("Available permits: " +
-				// busyWithTask.availablePermits());
+			try {
 				busyWithTask.acquire();
 				// busyWithTask.acquire();
 			} catch (InterruptedException e) {
 				e.printStackTrace();
-			}*/
+			}/**/
 		}
 	}
 
@@ -883,6 +880,7 @@ public class PersonAgent extends Agent implements Person {
 		}
 		else {
 			hungerState = HungerState.Famished;
+			print(currentPreference.getName() + "is not open");
 		}
 		restaurantCounter++;
 		if (restaurantCounter > 4)
