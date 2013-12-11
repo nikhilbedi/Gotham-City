@@ -962,6 +962,7 @@ public class PersonAgent extends Agent implements Person {
 			checkPersonScheduler = false;
 		}
 		else {
+			print("BANK IS NOT OPEN");
 			goToHome();
 		}
 	}

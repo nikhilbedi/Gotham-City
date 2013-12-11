@@ -62,9 +62,9 @@ public class Bank extends Building {
 			int guiY) {
 		super(type, entranceX, entranceY, guiX, guiY);
 		//this is the hours for Bank1
-		setWeekdayHours(9, 17);
+		setWeekdayHours(1, 25);
 		//setWeekendHours(0,0);
-		setWeekendHours(2, 10);
+		setWeekendHours(1, 25);
 		greeterGui = new BankGreeterGui(greeter, ScreenFactory.getMeScreen("Bank"));
 		tellerGui = new BankTellerGui(teller, ScreenFactory.getMeScreen("Bank"));
 		//this is the hours for Bank1
@@ -98,9 +98,9 @@ public class Bank extends Building {
 		 * 
 		 */
 		//this is the hours for Bank1
-		setWeekdayHours(9, 17);
+		setWeekdayHours(1, 25);
 		//setWeekendHours(0,0);
-		setWeekendHours(2, 10);
+		setWeekendHours(1, 25);
 		greeterGui = new BankGreeterGui(greeter, ScreenFactory.getMeScreen("Bank"));
 		tellerGui = new BankTellerGui(teller, ScreenFactory.getMeScreen("Bank"));
 		//this is the hours for Bank1
@@ -117,10 +117,10 @@ public class Bank extends Building {
 		teller.setGreeter(greeter);
 		teller.setBankDatabase(db);
 		
-		jobRoles.put("BankGreeter", (Role)greeter);
+		jobRoles.put("BankGreeter", (BankGreeterRole)greeter);
 		//	jobRoles.put("BankGreeter Late",  (Role)greeter);
 
-		jobRoles.put("BankTeller",(Role)teller);
+		jobRoles.put("BankTeller",(BankTellerRole)teller);
 
 		/**
 		 * 4.
@@ -138,13 +138,13 @@ public class Bank extends Building {
 	public boolean isOpen() {
 		if(CityClock.getDay() != 0 && CityClock.getDay() !=6) {
 			if(CityClock.getTime() > weekdayOpen && CityClock.getTime() < weekdayClose) {
-				if(((Role) greeter).checkWorkStatus() && ((Role) teller).checkWorkStatus())
+				if(((BankGreeterRole) greeter).checkWorkStatus() && ((BankTellerRole) teller).checkWorkStatus())
 					return true;
 			}
 		}
 		else {
-			if(CityClock.getTime() > weekendOpen && CityClock.getTime() < weekendClose)
-				if(((Role) greeter).checkWorkStatus() && ((Role) teller).checkWorkStatus())
+			if(CityClock.getTime() >= weekendOpen && CityClock.getTime() < weekendClose)
+				if(((BankGreeterRole) greeter).checkWorkStatus() && ((BankTellerRole) teller).checkWorkStatus())
 					return true;
 		}
 		return false;

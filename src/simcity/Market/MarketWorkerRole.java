@@ -91,7 +91,8 @@ public class MarketWorkerRole extends Role implements MarketWorker{
 	public void SendFood(Map<String, Integer> things, Restaurant r){
 		//myPerson.Do("Got new order from restaurant");
 		restDeliveries.add(new RestaurantDelivery(things, r));
-		stateChanged();
+		if(myPerson != null)
+			stateChanged();
 	}
 
 	public void Brought(MarketCustomer c){
