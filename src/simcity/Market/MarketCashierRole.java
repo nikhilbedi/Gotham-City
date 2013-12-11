@@ -201,7 +201,7 @@ public class MarketCashierRole extends Role implements MarketCashier{
 			}
 		}
 		if (currentCustomer != null){
-			System.out.println("there is a customer" + currentCustomer.getName());
+			//System.out.println("there is a customer" + currentCustomer.getName());
 			Ask(currentCustomer);
 			return true;
 		}

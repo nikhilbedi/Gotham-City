@@ -58,8 +58,10 @@ public class PersonGui extends RoleGui {
 		
 		xPos = 160; //Possibly remove this
 		xDestination = 160;
+		finalX = xDestination;
 		yPos = 180;
 		yDestination = 180;
+		finalY = yDestination;
 		/*
 		xPos = agent.getLocation().getX();
 		yPos = agent.getLocation().getY();
@@ -79,8 +81,10 @@ public class PersonGui extends RoleGui {
 
 		xPos = 160; //Possibly remove this
 		xDestination = 160;
+		finalX = xDestination;
 		yPos = 180;
 		yDestination = 180;
+		finalY = yDestination;
 		/*
 		xPos = agent.getLocation().getX();
 		yPos = agent.getLocation().getY();
@@ -309,6 +313,7 @@ public class PersonGui extends RoleGui {
 	public int getY() { return yPos;}
 
 	public void reachedBuilding() {
+		//if(xDestination == xPos && yDestination == yPos)
 		agent.reachedBuilding();
 		tempStill = false;
 	}
@@ -322,7 +327,7 @@ public class PersonGui extends RoleGui {
 	 	if(finalX == x && finalY == y) {
 	 		grid[x][y] = prevTile;
 	 		//if(finalX == xDestination && finalY == yDestination)
-	 			reachedBuilding();
+	 		reachedBuilding();
 	 		return;
 	 	}
 	 	

@@ -76,7 +76,8 @@ public class BankGreeterRole extends Role implements BankGreeter{
 		System.out.println("Greeter: Asked for a teller by customer " + cust.getName());
 		waitingCustomers.add(new MyCustomer(cust));
 		//cust.msgWaitHere(waitingCustomers.size() - 1);
-		stateChanged();
+		if(myPerson != null)
+			stateChanged();
 	}
 	
 	public void msgReadyForCustomer(BankTeller teller) { //Message from BankTeller; send a customer to that teller
