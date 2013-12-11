@@ -504,6 +504,49 @@
 	</person>
 
 
+
+
+
+
+	<!--Market 2 -->
+	<person name="BatmanMarket2Cashier">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Market1</building>
+			<position>marketCashier</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+	<person name="BatmanMarket2Worker">
+
+		<!-- Beginning amount of money -->
+		<money>100000</money>
+
+		<!-- The Person's job -->
+		<job>
+			<building>Market1</building>
+			<position>marketWorker</position>
+			<shift>1</shift>
+		</job>
+
+		<!-- Transportation preference -->
+		<transportation>walk</transportation>
+	</person>
+
+
+
+
+
+
+
 	<!-- Extra People -->
 	<person name="Sim1">
 

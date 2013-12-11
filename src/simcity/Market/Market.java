@@ -78,7 +78,7 @@ public class Market extends Building {
 		setWeekdayHours(8, 24);
 		//setWeekendHours(0, 0);
 		//Testing market
-		setWeekendHours(2, 10);
+		setWeekendHours(2, 24);
 		marketCashier.setGui(cashierGui);
 		marketWorker.setGui(workerGui);
 		// TODO Auto-generated constructor stub
