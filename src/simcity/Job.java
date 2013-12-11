@@ -27,6 +27,10 @@ public class Job {
 		int endOpen = workplace.getWeekendOpen();
 		int endClose = workplace.getWeekendClose();
 
+		weekDayOnWork = 2; // 8am
+		weekDayOffWork = 25; // military hours - 17 == 5pm
+		weekEndOnWork = 2;
+		weekEndOffWork = 25;
 		
 		if(shift == 1) {
 			weekDayOnWork = 2; // 8am
