@@ -49,9 +49,9 @@ public class Restaurant2 extends Restaurant {
 		setWeekendHours(1, 12);
 		
 		//set guis
-		cook.setGui((RoleGui)cookGui);
-		waiter1.setGui((RoleGui)waiterGui1);
-		waiter2.setGui((RoleGui)waiterGui2);
+		cook.setGui(cookGui);
+		waiter1.setGui(waiterGui1);
+		waiter2.setGui(waiterGui2);
 		waiter3.setGui(waiterGui3);
 		waiter4.setGui(waiterGui4);
 		host.setGui(hostGui);
@@ -90,13 +90,13 @@ public class Restaurant2 extends Restaurant {
 		super(type, entranceX, entranceY, guiX, guiY, exitX, exitY);
 		
 		//set opening and closing hours
-		setWeekdayHours(12, 24);
-		setWeekendHours(2, 10);
+		setWeekdayHours(1, 24);
+		setWeekendHours(1, 24);
 		
 		//set guis
-		cook.setGui((RoleGui)cookGui);
-		waiter1.setGui((RoleGui)waiterGui1);
-		waiter2.setGui((RoleGui)waiterGui2);
+		cook.setGui(cookGui);
+		waiter1.setGui(waiterGui1);
+		waiter2.setGui(waiterGui2);
 		waiter3.setGui(waiterGui3);
 		waiter4.setGui(waiterGui4);
 		host.setGui(hostGui);
@@ -123,8 +123,10 @@ public class Restaurant2 extends Restaurant {
 		jobs.put("cook", cook);
 		jobs.put("host", host);
 		jobs.put("cashier", cashier);
-		jobs.put("waiter1",(Role)waiter1);
-		jobs.put("waiter2", (Role)waiter2);
+		jobs.put("waiter1",waiter1);
+		jobs.put("waiter2",waiter2);
+		jobs.put("waiter3",waiter3);
+		jobs.put("waiter4",waiter4);
 		setJobRoles(jobs);
 	}
 	

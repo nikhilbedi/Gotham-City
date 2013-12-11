@@ -1,6 +1,8 @@
 package simcity.restaurants.restaurant2;
 
+import Gui.RoleGui;
 import simcity.PersonAgent;
+import simcity.restaurants.restaurant2.gui.WaiterGui;
 
 
 
@@ -11,6 +13,11 @@ public class StandWaiter extends WaiterRole{
 	
 	public StandWaiter() {
 		super();
+	}
+	
+	public void setGui(RoleGui gui) {
+		super.setGui(gui);
+		waiterGui = (WaiterGui)gui;
 	}
 	
 	@Override

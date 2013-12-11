@@ -44,8 +44,9 @@ public class CookGui extends RoleGui {
         strs.add("");
     }
     
-    public CookGui(Cook cook, Screen meScreen) {
+    public CookGui(CookRole cook, Screen meScreen) {
 		super((Role) cook, meScreen);
+		this.agent = cook;
 		
 		strs.add("");
         strs.add("");

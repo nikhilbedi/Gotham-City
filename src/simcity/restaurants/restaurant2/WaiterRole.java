@@ -348,7 +348,7 @@ public class WaiterRole extends Role implements Waiter{
 		currentOrderTableNumber = table;
 		waiterGui.DoGoToCook();
 		
-		atCook.release();
+		//atCook.release();
 		try {
 			atCook.acquire();
 		} catch (InterruptedException e) {

@@ -1,24 +1,21 @@
 package simcity.restaurants.restaurant2;
 
+import Gui.RoleGui;
 import agent.Agent;
 //import restaurant.WaiterAgent;
 import agent.Role;
-
 import simcity.Market.Market;
 import simcity.Market.MarketWorkerRole;
 import simcity.restaurants.Restaurant;
-
 import simcity.restaurants.restaurant2.Order;
 import simcity.restaurants.restaurant2.Order.CookingState;
-
 import simcity.restaurants.restaurant2.Restaurant2CustomerRole.AgentEvent;
 import simcity.restaurants.restaurant2.gui.CookGui;
 import simcity.restaurants.restaurant2.gui.HostGui;
+import simcity.restaurants.restaurant2.gui.WaiterGui;
 import simcity.restaurants.restaurant2.interfaces.Cook;
 import simcity.restaurants.restaurant2.interfaces.Waiter;
-
 import simcity.Item;
-
 import simcity.PersonAgent;
 import simcity.TheCity;
 
@@ -310,8 +307,13 @@ public class CookRole extends Role implements Cook{
 	
 	//utilities
 	
-	public void setGui(CookGui c) {
+	/*public void setGui(CookGui c) {
 		cookGui = c;
+	}*/
+	
+	public void setGui(RoleGui g) {
+		super.setGui(g);
+		cookGui = (CookGui)gui;
 	}
 	
 	public Vector<Item> getInventory() {
