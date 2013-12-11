@@ -87,8 +87,8 @@ public class Market extends Building {
 		items.add(rice);
 		items.add(potato);
 		Map<String, Role> jobs = Collections.synchronizedMap(new HashMap<String, Role>());
-		jobs.put("Market Cashier", marketCashier);
-		jobs.put("Market Worker", marketWorker);
+		jobs.put("marketCashier", marketCashier);
+		jobs.put("marketWorker", marketWorker);
 		setJobRoles(jobs);
 		Item beef = new Item("Beef", 10.99, 100);
 		Item chicken = new Item("Chicken", 8.99, 100);
