@@ -53,7 +53,7 @@ public class TheCity {
 
 		//These are just added to make Evan happy
 		//For reference, not putting them in anymore
-			
+
 
 		home = new Home("Home", 100, 540, 60, 540);
 		home.setImagePath("/resources/Buildings/HouseDark2_small.png");
@@ -306,14 +306,18 @@ public class TheCity {
 	}
 
 	private static void setupIntersectionFromPosition(int i, int j) {
+		grid[i][j] = 'I';
 		grid[i+1][j+3] = 'I';
 		grid[i+2][j+3] = 'I';
 		grid[i][j+1] = 'I';
 		grid[i][j+2] = 'I';
 		grid[i+1][j] = 'I';
 		grid[i+2][j] = 'I';
+		grid[i][j+3] = 'I';
+		grid[i+3][j] = 'I';
 		grid[i+3][j+1] = 'I';
 		grid[i+3][j+2] = 'I';
+		grid[i+3][j+3] = 'I';
 	}
 
 	

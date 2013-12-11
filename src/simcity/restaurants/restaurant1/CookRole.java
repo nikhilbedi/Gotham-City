@@ -52,9 +52,9 @@ public class CookRole extends Role implements Cook {
 	private Map<String, Integer> neededFood = new HashMap<String, Integer>();
 	private Map<String,Food> foods = new HashMap<String, Food>() {{
 		//the parameters for each food are (String type, int time [in seconds], int amount, int capacity) 
-		put("Pizza", new Food("Pizza", 5, 2, 4));
-		put("Steak", new Food("Steak", 7, 2, 4));
-		put("Salad", new Food("Salad", 3, 2, 4));
+		put("Pizza", new Food("Pizza", 5, 2, 20));
+		put("Steak", new Food("Steak", 7, 2, 20));
+		put("Salad", new Food("Salad", 3, 2, 20));
 	}};
 	Restaurant r1;
 	//creating states outside the Order class
@@ -155,15 +155,17 @@ public class CookRole extends Role implements Cook {
 		needFood = false;
 		order = false;
 		myPerson.Do("Sending market worker message that I got food");
-		worker.Delivered(r1);
-		neededFood.clear();
 		for (Map.Entry<String, Integer> entry: m.entrySet()){
 			Food f = foods.get(entry.getKey());
-			f.amount = f.amount + entry.getValue();
+			//f.pendingAmt = f.pendingAmt+ entry.getValue();
+			f.amount = f.amount +entry.getValue();
 			foods.put(entry.getKey(), f);
-			System.err.println("Got order from market, now I have " + f.type + " " + f.amount);
+			System.out.println("Restaurant 1Got order from market, now I have " + f.type + " " + f.amount);
 		}
+		worker.Delivered(r1);
 		
+		
+		neededFood.clear();
 	}
 	
 	
@@ -176,21 +178,20 @@ public class CookRole extends Role implements Cook {
 			return true;
 		}
 		
+		if (order == false){
 		for(Food f : foods.values()) {
 			/* if(f.state == FoodState.needToOrderMore) {
 			orderFoodThatIsLow(f.type);
 			}*/
-			if(f.pendingAmt <= f.low && f.state == FoodState.needToOrderMore) {
+			if(f.amount <= f.low ) {
 				neededFood.put(f.type, f.capacity-f.amount);
 				needFood = true;
-				System.err.println("Restaurant 1 Ordering food " + f.type);
 				//orderFoodThatIsLow(f.type);
 			}
 		}
-		
+		}
 		if (needFood == true && order == false){
 			order = true;
-			System.err.println("Restaurant 1  about to order food !!!!!!!!!!!!!!!!!!!!!!!!1");
 			orderFoodThatIsLow();
 			return true;
 		}
@@ -388,7 +389,7 @@ public class CookRole extends Role implements Cook {
 			type = t;
 			cookingTime = time;
 			amount = amt;
-			pendingAmt = amt;
+			//pendingAmt = amt;
 			capacity = fill;
 		}
 

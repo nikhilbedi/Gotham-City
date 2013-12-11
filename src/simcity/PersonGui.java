@@ -61,8 +61,8 @@ public class PersonGui extends RoleGui {
 		yPos = 220;
 		yDestination = 220;
 		
-		xPos = 160; //Possibly remove this
-		xDestination = 160;
+		xPos = 140; //Possibly remove this
+		xDestination = 140;
 		yPos = 180;
 		yDestination = 180;
 		/*
@@ -81,8 +81,8 @@ public class PersonGui extends RoleGui {
 		yPos = 220;
 		yDestination = 220;
 		
-		xPos = 160; //Possibly remove this
-		xDestination = 160;
+		xPos = 140; //Possibly remove this
+		xDestination = 140;
 		yPos = 180;
 		yDestination = 180;
 		/*
@@ -269,7 +269,7 @@ public class PersonGui extends RoleGui {
 			guiMoveFromCurrentPositionTo(xPos/20, yPos/20);
 		}
 		else if (agent.transportationState == TransportationState.Walking){
-			System.out.println("Walking");
+			//System.out.println("Walking");
 			tempStill = true;
 			this.destination = destination;
 			finalX = destination.getX()/20;
@@ -313,7 +313,6 @@ public class PersonGui extends RoleGui {
 	public int getY() { return yPos;}
 
 	public void reachedBuilding() {
-		System.out.println("REACHED BUILDING");
 		agent.reachedBuilding();
 		tempStill = false;
 	}

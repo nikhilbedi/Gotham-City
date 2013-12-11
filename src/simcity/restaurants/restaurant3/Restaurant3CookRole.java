@@ -145,6 +145,7 @@ public class Restaurant3CookRole extends Role implements Cook{
 
 	public void HereIsYourFood(Map<String, Integer> m, MarketWorkerRole worker){ 	 //from market
 		needFood = false;
+		order = false;
 		worker.Delivered(restaurant3);
 		for (Map.Entry<String, Integer> entry: m.entrySet()){
 			Food f = foods.get(entry.getKey());
@@ -165,6 +166,7 @@ public class Restaurant3CookRole extends Role implements Cook{
 		}
 		
 		try {
+			if (order == false){
 			for (Map.Entry<String, Food> entry: foods.entrySet()){
 				if (entry.getValue().amount <= 2){
 					myPerson.Do("Need " + entry.getKey());
@@ -172,6 +174,7 @@ public class Restaurant3CookRole extends Role implements Cook{
 					neededFood.put(entry.getKey(), needed);
 					needFood = true;
 				}
+			}
 			}
 			if((needFood == true) && (order == false)){
 				order = true;
