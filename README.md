@@ -220,6 +220,9 @@ If a restaurant becomes closed while the truck is delivering. The truck turns ar
 #####Apartments
 Apartment buildings house 6 different people
 
+#####Banks
+a single person has their particular bank of choice. They will only go to their respective personal bank when needed.
+
 #####Running Scenarios
 We included a File drop down menu on the top left of our gui.  This contains a list of XML files to load people into the city so you can run and test certain scenarios.
   + To run scenario A, use this XML:
